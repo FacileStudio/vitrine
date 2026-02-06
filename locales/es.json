@@ -13,6 +13,8 @@
       "madeBy": "_ Hecho por Facile. Studio @ 2025"
     },
     "contactModal": {
+      "title": "Contrátanos",
+      "description": "¿Tienes un proyecto en mente o simplemente quieres charlar? Completa el formulario a continuación y nos pondremos en contacto contigo lo antes posible.",
       "name": "Nombre",
       "email": "Email",
       "phone": "Teléfono",

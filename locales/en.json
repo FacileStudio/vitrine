@@ -13,6 +13,8 @@
       "madeBy": "_ Made by Facile. Studio @ 2025"
     },
     "contactModal": {
+      "title": "Hire us",
+        "description": "Have a project in mind or just want to chat? Fill out the form below and we'll get back to you as soon as possible.",
       "name": "Name",
       "email": "Email",
       "phone": "Phone",

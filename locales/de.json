@@ -13,6 +13,8 @@
       "madeBy": "_ Erstellt von Facile. Studio @ 2025"
     },
     "contactModal": {
+      "title": "Beauftragen Sie uns",
+      "description": "Haben Sie ein Projekt im Sinn oder möchten Sie einfach nur plaudern? Füllen Sie das untenstehende Formular aus und wir werden uns so schnell wie möglich bei Ihnen melden.",
       "name": "Name",
       "email": "Email",
       "phone": "Telefon",

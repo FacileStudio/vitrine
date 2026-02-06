@@ -13,6 +13,8 @@
       "madeBy": "_ Créé par Facile. Studio @ 2025"
     },
     "contactModal": {
+      "title": "Contactez-nous",
+      "description": "Vous avez un projet en tête ou souhaitez simplement discuter ? Remplissez le formulaire ci-dessous et nous vous contacterons dès que possible.",
       "name": "Nom",
       "email": "Email",
       "phone": "Téléphone",
