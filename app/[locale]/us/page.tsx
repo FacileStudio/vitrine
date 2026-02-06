@@ -1,10 +1,7 @@
 'use client'
 
 import Image from "next/image";
-import Footer from "@/app/components/footer";
-import ContactModal from "@/app/components/contactModal";
 import React from "react";
-import Header from "@/app/components/header";
 import {RideauxIn} from "@/app/components/rideaux";
 import {useTranslations} from 'next-intl';
 
@@ -17,7 +14,6 @@ const Box = ({children}: {children: React.ReactNode}) => {
 }
 
 export default function AboutPage() {
-    const [open, setOpen] = React.useState(false);
     const t = useTranslations('about');
 
     React.useEffect(() => {
@@ -25,9 +21,7 @@ export default function AboutPage() {
     }, [])
 
     return (
-        <div className="relative bg-[#CAE6D8] p-4 w-screen h-screen overflow-hidden tracking-tight text-[#1E1E1E] flex whitespace-pre-line flex-col gap-3">
-            <div className={"rideaux absolute rounded-b-[64px] top-0 left-0 w-screen h-screen bg-[#CAE6D8]"} />
-            <Header setOpen={setOpen} />
+        <>
 
             <div
                 style={{
@@ -257,8 +251,6 @@ export default function AboutPage() {
 
             </div>
 
-            <Footer setOpen={setOpen}/>
-            <ContactModal open={open} setOpen={setOpen} />
-        </div>
+        </>
     );
 }

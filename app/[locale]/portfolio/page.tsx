@@ -3,15 +3,11 @@
 import data from "./projects.json"
 import gsap from "gsap"
 import React, { useRef } from "react"
-import Footer from "@/app/components/footer";
-import ContactModal from "@/app/components/contactModal";
-import Header from "@/app/components/header";
 import {RideauxIn} from "@/app/components/rideaux";
 import { useTranslations } from 'next-intl';
 
 export default function Portfolio() {
     const t = useTranslations('portfolio');
-    const [open, setOpen] = React.useState(false);
     const [selectedWorkId, setSelectedWorkId] = React.useState<number | null>(null);
     const title = useRef<HTMLDivElement>(null);
     const bandsRightRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -238,9 +234,7 @@ export default function Portfolio() {
     }
 
     return (
-        <div className="relative bg-[#CAE6D8] p-3 xl:p-4  w-screen h-screen overflow-hidden tracking-tight text-[#1E1E1E] text-lg flex flex-col gap-3">
-            <div className={"rideaux absolute rounded-b-[64px] top-0 left-0 w-screen h-screen z-10 bg-[#CAE6D8]"} />
-            <Header setOpen={setOpen} />
+        <>
             <div className="w-full overflow-hidden h-full relative rounded-4xl">
                 {data.map((item, id) => {
                     if (item.name === "Brain.h")
@@ -315,8 +309,6 @@ export default function Portfolio() {
                 </div>
             </div>
 
-            <Footer setOpen={setOpen}/>
-            <ContactModal open={open} setOpen={setOpen} />
-        </div>
+        </>
     )
 }

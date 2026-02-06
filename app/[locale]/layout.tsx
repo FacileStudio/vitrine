@@ -5,6 +5,7 @@ import { ReactNode } from "react";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { setRequestLocale } from 'next-intl/server';
+import LayoutWrapper from "@/app/components/layoutWrapper";
 
 const manrope = Manrope({
     subsets: ["latin"],
@@ -100,7 +101,9 @@ export default async function RootLayout({
         </head>
         <body className={manrope.variable}>
         <NextIntlClientProvider messages={messages} locale={locale}>
-            {children}
+            <LayoutWrapper>
+                {children}
+            </LayoutWrapper>
         </NextIntlClientProvider>
         </body>
         </html>

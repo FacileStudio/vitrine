@@ -3,6 +3,8 @@ import React from "react";
 import { TransitionButton, LogoButton } from "@/app/components/button"
 import { useTranslations } from 'next-intl';
 import { useParams, usePathname, useRouter } from 'next/navigation';
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import clsx from "clsx";
 
 type ContactModalProps = {
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -41,29 +43,33 @@ const Header = ({setOpen}: ContactModalProps) => {
                     <LogoButton />
                     {/* Language Selector */}
                     <div className="relative">
-                        <button
-                            onClick={() => setOpenLangDropdown(!openLangDropdown)}
-                            className="border-2 border-transparent hover:border-[#1E1E1E]/50 rounded-full lg:px-3 lg:py-2 duration-150 transition-colors flex gap-2 items-center cursor-pointer"
-                        >
-                            <span>{currentLang.flag}</span>
-                        </button>
-
-                        {openLangDropdown && (
-                            <div className="absolute top-full mt-2 bg-[#CAE6D8] rounded-2xl border-2 border-[#1E1E1E]/20 overflow-hidden min-w-30">
+                        <DropdownMenu.Root>
+                            <DropdownMenu.Trigger asChild>
+                                <button
+                                    className="border-2 border-transparent hover:border-[#1E1E1E]/50 rounded-full lg:px-3 lg:py-2 duration-150 transition-colors flex gap-2 items-center cursor-pointer"
+                                >
+                                    <span>{currentLang.flag}</span>
+                                </button>
+                            </DropdownMenu.Trigger>
+                            <DropdownMenu.Content
+                                sideOffset={8}
+                                className="bg-[#CAE6D8] rounded-2xl border-2 border-[#1E1E1E]/20 overflow-hidden min-w-30 shadow-lg"
+                            >
                                 {languages.map((lang) => (
-                                    <button
+                                    <DropdownMenu.Item
                                         key={lang.code}
-                                        onClick={() => switchLanguage(lang.code)}
-                                        className={`w-full px-4 py-2 flex gap-2 items-center hover:bg-[#1E1E1E]/10 transition-colors ${
-                                            lang.code === locale ? 'bg-[#1E1E1E]/10 font-semibold' : ''
-                                        }`}
+                                        onSelect={() => switchLanguage(lang.code)}
+                                        className={clsx(
+                                            "w-full px-4 py-2 flex gap-2 items-center hover:bg-[#1E1E1E]/10 transition-colors cursor-pointer",
+                                            lang.code === locale && "bg-[#1E1E1E]/10 font-semibold"
+                                        )}
                                     >
                                         <span>{lang.flag}</span>
                                         <span>{lang.label}</span>
-                                    </button>
+                                    </DropdownMenu.Item>
                                 ))}
-                            </div>
-                        )}
+                            </DropdownMenu.Content>
+                        </DropdownMenu.Root>
                     </div>
                     <TransitionButton text={t('portfolio')} icon={"projects"} href={`/${locale}/portfolio`} />
                     <TransitionButton text={t('aboutUs')} icon={"us"} href={`/${locale}/us`} />

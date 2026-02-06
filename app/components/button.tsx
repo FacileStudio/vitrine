@@ -11,7 +11,7 @@ type ButtonProps = {
 
 export const Button = ({ text, icon, func }: ButtonProps) => {
     return (
-        <div
+        <button
             onClick={func}
             className="
                 bg-[#CAE6D8] hover:bg-[#1E1E1E]
@@ -36,7 +36,7 @@ export const Button = ({ text, icon, func }: ButtonProps) => {
                 }}
             />
             <span>{text}</span>
-        </div>
+        </button>
     );
 };
 

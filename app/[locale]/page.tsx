@@ -1,9 +1,6 @@
 'use client'
 
-import Footer from "@/app/components/footer";
-import Header from "@/app/components/header";
 import React from "react";
-import ContactModal from "@/app/components/contactModal";
 import gsap from "gsap";
 import { RideauxIn } from "@/app/components/rideaux";
 import { useTranslations } from 'next-intl';
@@ -11,7 +8,6 @@ import { useTranslations } from 'next-intl';
 export default function Home() {
     const t = useTranslations('home');
     const [start, setStart] = React.useState(false);
-    const [open, setOpen] = React.useState(false);
     const [percent, setPercent] = React.useState(0);
     const [isDesktop, setIsDesktop] = React.useState(false);
     const stack = React.useRef<HTMLDivElement>(null);
@@ -126,11 +122,7 @@ export default function Home() {
     }, [isDesktop]);
 
     return (
-        <div className="bg-[#CAE6D8] p-3 xl:p-4 w-screen h-screen relative tracking-tight overflow-hidden text-[#1E1E1E] flex flex-col gap-3">
-
-            <Header setOpen={setOpen} />
-
-            <div className={"rideaux absolute rounded-b-[64px] top-0 left-0 w-screen overflow-hidden h-screen z-60 bg-[#CAE6D8]"} />
+        <>
             <div ref={stack} className={"absolute rounded-b-[64px] top-0 left-0 w-screen overflow-hidden h-screen z-999 flex flex-col gap-8 items-center justify-center"}>
                 <div className={"overflow-hidden"}>
                     <img src={"/icons/F..svg"} alt="" className={"w-24 disappear"} />
@@ -189,9 +181,6 @@ export default function Home() {
                     </div>
                 </div>
             </div>
-
-            <Footer setOpen={setOpen} />
-            <ContactModal open={open} setOpen={setOpen} />
-        </div>
+        </>
     );
 }

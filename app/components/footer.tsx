@@ -18,6 +18,7 @@ const Footer = ({setOpen}: ContactModalProps) => {
                 <a
                     href={"tel:+33768884818"}
                     className="
+                        group
                         bg-[#CAE6D8] hover:bg-[#1E1E1E]
                         text-[#1E1E1E] hover:text-[#CAE6D8]
                         border-2 border-[#1E1E1E]/50 rounded-full

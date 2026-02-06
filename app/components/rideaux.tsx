@@ -2,8 +2,6 @@
 
 import gsap from "gsap";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { usePathname, useRouter } from "next/navigation";
-import React from "react";
 
 export const RideauxIn = (delayValue: number) => {
     gsap.to(".rideaux", {
