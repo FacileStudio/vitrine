@@ -37,7 +37,7 @@ export default function AboutPage() {
                     {t('title')}
                 </h1>
                 <div className={"pb-2 shrink-0 min-w-[300px]"}>
-                    <img src={"/icons/FACILE Text.svg"} className={"w-[310px]"} alt={"logo"} />
+                    <Image src="/icons/FACILE Text.svg" className="w-[310px]" alt="Facile Studio logo" width={310} height={80} />
                 </div>
             </div>
             <p className="max-w-2xl text-[#CAE6D8]/66">
@@ -149,10 +149,10 @@ export default function AboutPage() {
                     </p>
                     <div className={"flex items-center justify-start gap-6"}>
                         <a href={"https://linkedin.com/in/thevyann"} target="_blank" rel="noopener noreferrer" aria-label="Yann's LinkedIn profile">
-                            <img src={"/icons/linkedIn.svg"} alt={"linkedIn"} className={"hover:scale-130 duration-200 transition-all"} width={20} height={20} />
+                            <Image src="/icons/linkedIn.svg" alt="LinkedIn" className="hover:scale-130 duration-200 transition-all" width={20} height={20} />
                         </a>
                         <a href={"https://www.github.com/saravenpi"} target="_blank" rel="noopener noreferrer" aria-label="Yann's GitHub profile">
-                            <img src={"/icons/githubWhite.svg"} alt={"github"} className={"hover:scale-130 duration-200 transition-all"} width={20} height={20} />
+                            <Image src="/icons/githubWhite.svg" alt="GitHub" className="hover:scale-130 duration-200 transition-all" width={20} height={20} />
                         </a>
                     </div>
                 </Box>
@@ -170,13 +170,13 @@ export default function AboutPage() {
                     </p>
                     <div className={"flex items-center justify-start gap-6 mt-3"}>
                         <a href={"https://www.dribbble.com/webbygian"} target="_blank" rel="noopener noreferrer" aria-label="Noah's Dribbble profile">
-                            <img src={"/icons/dribbbleWhite.svg"} alt={"dribbble"} className={"hover:scale-130 duration-200 transition-all"} width={20} height={20} />
+                            <Image src="/icons/dribbbleWhite.svg" alt="Dribbble" className="hover:scale-130 duration-200 transition-all" width={20} height={20} />
                         </a>
                         <a href={"https://www.github.com/G1anC"} target="_blank" rel="noopener noreferrer" aria-label="Noah's GitHub profile">
-                            <img src={"/icons/githubWhite.svg"} alt={"github"} className={"hover:scale-130 duration-200 transition-all"} width={20} height={20} />
+                            <Image src="/icons/githubWhite.svg" alt="GitHub" className="hover:scale-130 duration-200 transition-all" width={20} height={20} />
                         </a>
                         <a href={"https://www.instagram.com/webbygian"} target="_blank" rel="noopener noreferrer" aria-label="Noah's Instagram profile">
-                            <img src={"/icons/instagramWhite.svg"} alt={"instagram"} className={"hover:scale-130 duration-200 transition-all"} width={20} height={20} />
+                            <Image src="/icons/instagramWhite.svg" alt="Instagram" className="hover:scale-130 duration-200 transition-all" width={20} height={20} />
                         </a>
                     </div>
                 </Box>
@@ -194,7 +194,7 @@ export default function AboutPage() {
                     </p>
                     <div className={"flex items-center justify-start gap-6 mt-3"}>
                         <a href={"https://www.github.com/MezzLMC"} target="_blank" rel="noopener noreferrer" aria-label="Mezz's GitHub profile">
-                            <img src={"/icons/githubWhite.svg"} alt={"github"} className={"hover:scale-130 duration-200 transition-all"} width={20} height={20} />
+                            <Image src="/icons/githubWhite.svg" alt="GitHub" className="hover:scale-130 duration-200 transition-all" width={20} height={20} />
                         </a>
                     </div>
                 </Box>
@@ -212,7 +212,7 @@ export default function AboutPage() {
                     </p>
                     <div className={"flex items-center justify-start gap-6 mt-3"}>
                         <a href={"https://www.instagram.com/camg_raphic/"} target="_blank" rel="noopener noreferrer" aria-label="Cami's Instagram profile">
-                            <img src={"/icons/instagramWhite.svg"} alt={"instagram"} className={"hover:scale-130 duration-200 transition-all"} width={20} height={20} />
+                            <Image src="/icons/instagramWhite.svg" alt="Instagram" className="hover:scale-130 duration-200 transition-all" width={20} height={20} />
                         </a>
                     </div>
                 </Box>

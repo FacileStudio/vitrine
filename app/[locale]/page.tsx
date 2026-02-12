@@ -1,6 +1,7 @@
 'use client'
 
 import React from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { RideauxIn } from "@/components/facile/rideaux";
 import { useTranslations } from 'next-intl';
@@ -10,50 +11,39 @@ export default function Home() {
     const [start, setStart] = React.useState(false);
     const [percent, setPercent] = React.useState(0);
     const [isDesktop, setIsDesktop] = React.useState(false);
+    const [loadedAssets, setLoadedAssets] = React.useState(0);
+    const totalAssets = 3; // background, F..svg, FACILE.svg
     
     const stack = React.useRef<HTMLDivElement>(null);
     const background = React.useRef<HTMLImageElement>(null);
     const title = React.useRef<HTMLDivElement>(null);
 
-    // Preload assets
-    React.useEffect(() => {
-        const assetsToLoad = [
-            "/Backgrounds/background.webp",
-            "/icons/F..svg",
-            "/icons/FACILE.svg"
-        ];
-
-        let loadedCount = 0;
-        const totalAssets = assetsToLoad.length;
-
-        const updateProgress = () => {
-            loadedCount++;
-            const progressPercent = Math.floor((loadedCount / totalAssets) * 100);
+    const handleAssetLoad = React.useCallback(() => {
+        setLoadedAssets(prev => {
+            const newCount = prev + 1;
+            const progressPercent = Math.floor((newCount / totalAssets) * 100);
             setPercent(progressPercent);
-
-            if (loadedCount === totalAssets) {
+            
+            if (newCount === totalAssets) {
                 setTimeout(() => {
                     setStart(true);
                 }, 300);
             }
-        };
-
-        assetsToLoad.forEach((src) => {
-            const img = new Image();
-            img.onload = updateProgress;
-            img.onerror = updateProgress;
-            img.src = src;
+            return newCount;
         });
+    }, []);
 
+    // Fallback timeout
+    React.useEffect(() => {
         const fallbackTimeout = setTimeout(() => {
             if (!start) {
                 setPercent(100);
                 setStart(true);
             }
-        }, 1000);
+        }, 3000);
 
         return () => clearTimeout(fallbackTimeout);
-    }, []);
+    }, [start]);
 
     React.useEffect(() => {
         const tl = gsap.timeline({}); 
@@ -136,7 +126,15 @@ export default function Home() {
         <>
             <div ref={stack} className={"absolute rounded-b-[64px] top-0 left-0 w-screen overflow-hidden h-screen z-[999] flex flex-col gap-8 items-center justify-center bg-background"}>
                 <div className={"overflow-hidden"}>
-                    <img src={"/icons/F..svg"} alt="" className={"w-24 disappear"} />
+                    <Image 
+                        src="/icons/F..svg" 
+                        alt="Facile logo" 
+                        width={96} 
+                        height={96} 
+                        className="w-24 disappear"
+                        onLoad={handleAssetLoad}
+                        priority
+                    />
                 </div>
 
                 <div className={"overflow-hidden"}>
@@ -162,20 +160,26 @@ export default function Home() {
 
             <div className={"w-full overflow-hidden bg-[#1E1E1E] h-full relative rounded-[32px]"}>
 
-                <img 
+                <Image 
                     ref={background}
                     alt="background"
                     src="/Backgrounds/background.webp"
-                    // On garde juste la taille et le positionnement absolu de base
-                    className="absolute top-0 left-0 w-full h-full object-cover blur-3xl will-change-transform"
+                    fill
+                    className="object-cover blur-3xl will-change-transform"
+                    onLoad={handleAssetLoad}
+                    priority
                 />
 
                 <div ref={title} className="absolute -bottom-1 left-0 lg:w-full w-[200%] flex items-start justify-start">
                     <div className="flex shrink-0 gap-12 xl:w-full relative">
-                        <img
+                        <Image
                             alt="Facile"
                             src="/icons/FACILE.svg"
+                            width={1920}
+                            height={400}
                             className="min-h-[400px] xl:min-h-0 object-cover w-full"
+                            onLoad={handleAssetLoad}
+                            priority
                         />
                         {isDesktop ? (
                             <div className={"top-0 right-0 mr-[7%] fixed text-[#CAE6D8] font-extrabold text-5xl"}>
@@ -183,10 +187,12 @@ export default function Home() {
                             </div>
                         ) : (
                             Array.from({ length: 20 }).map((_, i) => (
-                                <img
+                                <Image
                                     key={i}
                                     alt="Facile"
                                     src="/icons/FACILE.svg"
+                                    width={800}
+                                    height={400}
                                     className="min-h-[400px] object-cover"
                                 />
                             ))
