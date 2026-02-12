@@ -138,7 +138,7 @@ export default function AboutPage() {
             <div className="grid md:grid-cols-2 gap-6 mt-8">
                 <Box>
                     <div>
-                        <Image src={"/icons/yann.png"} alt={"logo"} width={64} height={64} />
+                        <Image src={"/icons/yann.png"} alt={"logo"} width={64} height={64}  className="rounded-full"/>
                         <h3 className="text-3xl font-extrabold leading-[110%] text-[#CAE6D8] mt-3">{t('team.yann.name')}</h3>
                         <p className=" mt-3">
                             {t('team.yann.role')}
