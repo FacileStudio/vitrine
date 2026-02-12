@@ -3,12 +3,16 @@
 import React from "react";
 import Header from "@/components/facile/header";
 import Footer from "@/components/facile/footer";
-import ContactModal from "@/components/facile/contactModal";
 import { usePathname } from "next/navigation";
+import dynamic from "next/dynamic";
 
 type LayoutWrapperProps = {
     children: React.ReactNode;
 };
+
+const ContactModal = dynamic(() => import("@/components/facile/contactModal"), {
+    ssr: false,
+});
 
 export default function LayoutWrapper({ children }: LayoutWrapperProps) {
     const [open, setOpen] = React.useState(false);

@@ -1,8 +1,9 @@
 'use client'
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import gsap from "gsap";
-import { CustomBounce, CustomEase } from "gsap/all";
+import { CustomBounce } from "gsap/CustomBounce";
+import { CustomEase } from "gsap/CustomEase";
 import { Button } from "@/components/facile/button";
 import { useTranslations } from 'next-intl';
 import { useGSAP } from "@gsap/react";
