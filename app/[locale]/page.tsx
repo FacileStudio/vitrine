@@ -167,6 +167,7 @@ export default function Home() {
                     fill
                     className="object-cover blur-3xl will-change-transform"
                     onLoad={handleAssetLoad}
+                    fetchPriority="high"
                     priority
                 />
 
