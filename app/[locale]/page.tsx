@@ -18,7 +18,7 @@ export default function Home() {
     // Preload assets
     React.useEffect(() => {
         const assetsToLoad = [
-            "/Backgrounds/background.png",
+            "/Backgrounds/background.webp",
             "/icons/F..svg",
             "/icons/FACILE.svg"
         ];
@@ -165,7 +165,7 @@ export default function Home() {
                 <img 
                     ref={background}
                     alt="background"
-                    src="/Backgrounds/background.png"
+                    src="/Backgrounds/background.webp"
                     // On garde juste la taille et le positionnement absolu de base
                     className="absolute top-0 left-0 w-full h-full object-cover blur-3xl will-change-transform"
                 />

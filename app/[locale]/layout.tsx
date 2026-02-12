@@ -80,14 +80,11 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  // Je te conseille de matcher la couleur de fond de ta page (noir ou vert sombre)
-  // pour que la barre de statut se fonde dans l'image.
   themeColor: '#CAE6D8', 
   width: 'device-width',
   height: 'device-height',
   initialScale: 1,
   maximumScale: 1,
-  userScalable: false,
   viewportFit: 'cover',
 }
 
