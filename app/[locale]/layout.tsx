@@ -87,6 +87,14 @@ export const viewport: Viewport = {
   viewportFit: 'cover',
 }
 
+const languages = [
+    { code: 'en', label: 'English', flag: '🇬🇧' },
+    { code: 'fr', label: 'Français', flag: '🇫🇷' },
+    { code: 'es', label: 'Español', flag: '🇪🇸' },
+    { code: 'de', label: 'Deutsch', flag: '🇩🇪' }
+];
+
+
 export default async function RootLayout({
                                              children,
                                              params
@@ -106,6 +114,11 @@ export default async function RootLayout({
             <meta  />
             <script defer src="https://stats.facile.studio/script.js" data-website-id="34bb792f-b7ac-444a-b1e3-0a521383629d"></script>
             <link rel="canonical" href={`https://facile.studio/${locale}`} />
+            {
+                languages.map(lang => (
+                    <link key={lang.code} rel="alternate" hrefLang={lang.code} href={`https://facile.studio/${lang.code}`} />
+                ))
+            }
         </head>
         <body className={manrope.variable}>
         <NextIntlClientProvider messages={messages} locale={locale}>
