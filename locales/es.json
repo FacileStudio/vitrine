@@ -1,6 +1,8 @@
 {
   "common": {
     "header": {
+      "navigation": "Navegación",
+      "navigationDescription": "Menú de navegación principal",
       "home": "Inicio",
       "portfolio": "Portfolio",
       "aboutUs": "Nosotros",
@@ -35,7 +37,7 @@
     "headers": {
       "name": "NOMBRE",
       "type": "TIPO",
-      "time": "TIEMPO (SEMANAS)"
+      "time": "TIEMPO DEDICADO (SEMANAS)"
     },
     "projects": [
       {

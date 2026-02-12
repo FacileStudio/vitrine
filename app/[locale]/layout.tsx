@@ -1,11 +1,11 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Manrope } from "next/font/google";
 import "../globals.css";
 import { ReactNode } from "react";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { setRequestLocale } from 'next-intl/server';
-import LayoutWrapper from "@/app/components/layoutWrapper";
+import LayoutWrapper from "@/components/facile/layoutWrapper";
 
 const manrope = Manrope({
     subsets: ["latin"],
@@ -79,6 +79,18 @@ export const metadata: Metadata = {
     // },
 };
 
+export const viewport: Viewport = {
+  // Je te conseille de matcher la couleur de fond de ta page (noir ou vert sombre)
+  // pour que la barre de statut se fonde dans l'image.
+  themeColor: '#CAE6D8', 
+  width: 'device-width',
+  height: 'device-height',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: 'cover',
+}
+
 export default async function RootLayout({
                                              children,
                                              params
@@ -88,14 +100,14 @@ export default async function RootLayout({
 }) {
     const { locale } = await params;
 
-    // Enable static rendering
     setRequestLocale(locale);
 
     const messages = await getMessages({ locale });
 
     return (
-        <html lang={locale}>
+        <html lang={locale} className="bg-background">
         <head>
+            <meta  />
             <script defer src="https://stats.facile.studio/script.js" data-website-id="34bb792f-b7ac-444a-b1e3-0a521383629d"></script>
             <link rel="canonical" href={`https://facile.studio/${locale}`} />
         </head>

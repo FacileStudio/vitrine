@@ -2,7 +2,7 @@
 
 import React from "react";
 import gsap from "gsap";
-import { RideauxIn } from "@/app/components/rideaux";
+import { RideauxIn } from "@/components/facile/rideaux";
 import { useTranslations } from 'next-intl';
 
 export default function Home() {
@@ -10,10 +10,10 @@ export default function Home() {
     const [start, setStart] = React.useState(false);
     const [percent, setPercent] = React.useState(0);
     const [isDesktop, setIsDesktop] = React.useState(false);
+    
     const stack = React.useRef<HTMLDivElement>(null);
     const background = React.useRef<HTMLImageElement>(null);
     const title = React.useRef<HTMLDivElement>(null);
-    const tl = gsap.timeline({})
 
     // Preload assets
     React.useEffect(() => {
@@ -32,22 +32,19 @@ export default function Home() {
             setPercent(progressPercent);
 
             if (loadedCount === totalAssets) {
-                // Small delay after all assets loaded
                 setTimeout(() => {
                     setStart(true);
                 }, 300);
             }
         };
 
-        // Preload images
         assetsToLoad.forEach((src) => {
             const img = new Image();
             img.onload = updateProgress;
-            img.onerror = updateProgress; // Continue even if an asset fails
+            img.onerror = updateProgress;
             img.src = src;
         });
 
-        // Fallback: if assets take too long (>5s), start anyway
         const fallbackTimeout = setTimeout(() => {
             if (!start) {
                 setPercent(100);
@@ -59,9 +56,13 @@ export default function Home() {
     }, []);
 
     React.useEffect(() => {
-        RideauxIn(2)
+        const tl = gsap.timeline({}); 
+
+        RideauxIn(2);
+
         if (start) {
             tl
+                // 1. Disparition du loader
                 .to(".disappear", {
                     delay: 1,
                     stagger: 0.1,
@@ -69,25 +70,35 @@ export default function Home() {
                     duration: 1,
                     ease: "power2.inOut",
                 })
+                // 2. Réduction du volet noir
                 .to(stack.current, {
-                    height:0,
+                    height: 0,
                     duration: 1.5,
                     ease: "power4.inOut",
                 }, "<")
+                // 3. Apparition du Background (Intro)
                 .to(background.current, {
                     delay: 1,
                     duration: 3,
                     ease: "power4.inOut",
-                    scale: 1,
+                    // IMPORTANT : On atterrit à 1.1 (110%) et pas 1.
+                    // Cela laisse de la marge ("bleed") pour le mouvement gauche/droite
+                    scale: 1.1, 
                     filter: "blur(0px)"
                 }, "<")
+                // 4. Nettoyage du loader
                 .set(stack.current, {
                     display: "none"
-                });
+                })
+
+        }
+        
+        // Nettoyage propre si le composant est démonté
+        return () => {
+            tl.kill();
         };
     }, [start]);
 
-    // Gérer le responsive
     React.useEffect(() => {
         const handleResize = () => {
             setIsDesktop(window.innerWidth >= 1024);
@@ -123,26 +134,26 @@ export default function Home() {
 
     return (
         <>
-            <div ref={stack} className={"absolute rounded-b-[64px] top-0 left-0 w-screen overflow-hidden h-screen z-999 flex flex-col gap-8 items-center justify-center"}>
+            <div ref={stack} className={"absolute rounded-b-[64px] top-0 left-0 w-screen overflow-hidden h-screen z-[999] flex flex-col gap-8 items-center justify-center bg-background"}>
                 <div className={"overflow-hidden"}>
                     <img src={"/icons/F..svg"} alt="" className={"w-24 disappear"} />
                 </div>
 
                 <div className={"overflow-hidden"}>
-                    <div className="font-extrabold disappear">
+                    <div className="font-extrabold disappear text-black">
                         {percent}%
                     </div>
                 </div>
 
                 <div className={"gap-0"}>
                     <div className="overflow-hidden">
-                        <div className={"opacity-66 text-center disappear"}>
+                        <div className={"opacity-66 text-center disappear text-black"}>
                             {t('loading.line1')}
                         </div>
                     </div>
 
                     <div className="overflow-hidden">
-                        <div className={"opacity-66 text-center disappear"}>
+                        <div className={"opacity-66 text-center disappear text-black"}>
                             {t('loading.line2')}
                         </div>
                     </div>
@@ -150,11 +161,13 @@ export default function Home() {
             </div>
 
             <div className={"w-full overflow-hidden bg-[#1E1E1E] h-full relative rounded-[32px]"}>
-                <img ref={background}
-                     alt="background"
-                     src="/Backgrounds/background.png"
-                     className="absolute top-1/2 left-1/2 -translate-1/2
-                       w-full h-auto min-h-full object-cover scale-150 blur-3xl"
+
+                <img 
+                    ref={background}
+                    alt="background"
+                    src="/Backgrounds/background.png"
+                    // On garde juste la taille et le positionnement absolu de base
+                    className="absolute top-0 left-0 w-full h-full object-cover blur-3xl will-change-transform"
                 />
 
                 <div ref={title} className="absolute -bottom-1 left-0 lg:w-full w-[200%] flex items-start justify-start">
