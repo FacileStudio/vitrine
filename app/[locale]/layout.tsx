@@ -13,7 +13,7 @@ const manrope = Manrope({
     variable: "--font-manrope",
 });
 
-export const metadata: Metadata = {
+export const baseMetadata: Metadata = {
     title: {
         default: "Facile. Studio",
         template: "%s | Facile. Studio"
@@ -94,6 +94,26 @@ const languages = [
     { code: 'de', label: 'Deutsch', flag: '🇩🇪' }
 ];
 
+export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
+    const { locale } = params;
+    return {
+        ...baseMetadata,
+        alternates: {
+            canonical: `/${locale}`,
+            languages: {
+                'en': '/en',
+                'fr': '/fr',
+                'es': '/es',
+                'de': '/de'
+            },
+        },
+         openGraph: {
+            ...baseMetadata.openGraph,
+            locale: locale === 'en' ? 'en_US' : `${locale}_${locale.toUpperCase()}`,
+            url: `https://facile.studio/${locale}`
+        }
+    }
+}
 
 export default async function RootLayout({
                                              children,
@@ -111,14 +131,7 @@ export default async function RootLayout({
     return (
         <html lang={locale} className="bg-background">
         <head>
-            <meta  />
             <script defer src="https://stats.facile.studio/script.js" data-website-id="34bb792f-b7ac-444a-b1e3-0a521383629d"></script>
-            <link rel="canonical" href={`https://facile.studio/${locale}`} />
-            {
-                languages.map(lang => (
-                    <link key={lang.code} rel="alternate" hrefLang={lang.code} href={`https://facile.studio/${lang.code}`} />
-                ))
-            }
         </head>
         <body className={manrope.variable}>
         <NextIntlClientProvider messages={messages} locale={locale}>
