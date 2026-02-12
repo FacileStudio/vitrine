@@ -94,8 +94,10 @@ const languages = [
     { code: 'de', label: 'Deutsch', flag: '🇩🇪' }
 ];
 
-export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
-    const { locale } = params;
+export async function generateMetadata({ params } : { 
+    params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+    const { locale } = await params;
     return {
         ...baseMetadata,
         alternates: {
