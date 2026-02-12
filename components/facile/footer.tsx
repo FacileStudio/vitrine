@@ -76,13 +76,13 @@ const Footer = ({setOpen}: ContactModalProps) => {
             </div>
             <div className={"flex gap-6 items-center"}>
                 <p className={"lg:flex hidden"}>{t('footer.madeBy')}</p>
-                <a href={"https://www.dribbble.com/webbygian"}>
+                <a href={"https://www.dribbble.com/webbygian"} target="_blank" rel="noopener noreferrer" aria-label="Dribbble">
                     <DribbbleIcon className={"hover:scale-130 duration-200 transition-all"} size={30}  />
                 </a>
-                <a href={"https://www.github.com/saravenpi"}>
+                <a href={"https://www.github.com/saravenpi"} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                     <GithubIcon className={"hover:scale-130 duration-200 transition-all"} size={30} />
                 </a>
-                <a href={"https://www.instagram.com/webbygian"}>
+                <a href={"https://www.instagram.com/webbygian"} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                     <InstagramIcon className={"hover:scale-130 duration-200 transition-all"} size={30} />
                 </a>
             </div>

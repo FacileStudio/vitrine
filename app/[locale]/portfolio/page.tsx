@@ -23,6 +23,7 @@ export default function Portfolio() {
         <a
             href={item.link}
             key={id}
+            aria-label={`View project ${t(`projects.${id}.name`)}`}
             target="_blank"
             rel="noopener noreferrer"
             className={`${id === selectedWorkId && "uppercase font-extrabold"} flex justify-between items-center shrink-0

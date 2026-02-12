@@ -7,6 +7,7 @@ import { languages } from "./languages";
 import { LanguageDropdown } from "./langage-dropdown";
 import * as Dialog from '@radix-ui/react-dialog';
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import Link from "next/link";
 
 type ContactModalProps = {
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -68,9 +69,9 @@ const Header = ({setOpen}: ContactModalProps) => {
                                 <img src={"/icons/arrow.svg"} alt="close" width={20} height={20} />
                             </Dialog.Close>
 
-                            <a href={`/${locale}`} onClick={() => setOpenHeader(false)}>{t('home')}</a>
-                            <a href={`/${locale}/portfolio`} onClick={() => setOpenHeader(false)}>{t('portfolio')}</a>
-                            <a href={`/${locale}/us`} onClick={() => setOpenHeader(false)}>{t('aboutUs')}</a>
+                            <Link aria-label="Get back to home" href={`/${locale}`} onClick={() => setOpenHeader(false)}>{t('home')}</Link>
+                            <Link aria-label="Go to portfolio" href={`/${locale}/portfolio`} onClick={() => setOpenHeader(false)}>{t('portfolio')}</Link>
+                            <Link aria-label="Learn more about us" href={`/${locale}/us`} onClick={() => setOpenHeader(false)}>{t('aboutUs')}</Link>
                             <button
                                 onClick={() => {
                                     setOpen(true);
