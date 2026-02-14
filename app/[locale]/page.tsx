@@ -162,13 +162,16 @@ export default function Home() {
 
                 <Image 
                     ref={background}
+                    src="/Backgrounds/landing/background.webp"
                     alt="background"
-                    src="/Backgrounds/background.webp"
                     fill
-                    className="object-cover blur-3xl will-change-transform"
+                    sizes="(max-width: 640px) 640px, (max-width: 1024px) 1024px, (max-width: 1536px) 1536px, 100vw"
+                    quality={80}
+                    className="object-cover object-left blur-3xl will-change-transform"
                     onLoad={handleAssetLoad}
                     fetchPriority="high"
                     priority
+
                 />
 
                 <div ref={title} className="absolute -bottom-1 left-0 lg:w-full w-[200%] flex items-start justify-start">

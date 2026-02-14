@@ -84,7 +84,7 @@ export default function Portfolio() {
                     className="absolute top-1/2 left-1/2 -translate-1/2 z-0 w-full h-auto min-h-full object-cover"
                 />
 
-                <div className="flex flex-col relative w-full my-auto text-[#CAE6D8] absolute top-1/2 -translate-y-1/2 lg:mt-0 px-8 md:px-32 gap-6 lg:gap-16 z-40">
+                <div className="flex flex-col justify-between relative w-full my-auto text-[#CAE6D8] absolute top-1/2 -translate-y-1/2 lg:mt-0 px-8 md:px-32 gap-6 lg:gap-16 z-40 max-w-[1920px] mx-auto">
                     <div className="flex justify-between px-4 font-extrabold">
                         {t('headers.name')}
                         <div className="flex items-between justify-between md:w-100 xl:w-150 w-auto">

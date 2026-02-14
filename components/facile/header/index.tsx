@@ -32,11 +32,12 @@ const Header = ({setOpen}: ContactModalProps) => {
             <div className={"absolute navbar-desktop  top-0 left-1/2 -translate-x-1/2 z-50 items-start hidden lg:flex"}>
                 <img src={"/icons/Exclude.svg"} alt={""} className={"lg:mt-4 md:mt-2 mt-2 mr-[-1px]"} width={32} height={32} />
 
-                <div className={"lg:px-8 px-6 lg:py-4 py-3 bg-[#CAE6D8] flex items-center lg:space-x-6 space-x-4 shrink-0 rounded-b-4xl"}>
-                    <LogoButton />
-                    <LanguageDropdown locale={locale} switchLocale={switchLocale} />
-                    <TransitionButton text={t('portfolio')} icon={"projects"} href={`/${locale}/portfolio`} />
-                    <TransitionButton text={t('aboutUs')} icon={"us"} href={`/${locale}/us`} />
+                <div className={"lg:px-8 px-6 lg:py-6 py-3 bg-[#CAE6D8] flex items-center lg:space-x-6 space-x-4 shrink-0 rounded-b-4xl gap-6"}>
+                    <LogoButton className="mr-12" />
+                    {/* <LanguageDropdown locale={locale} switchLocale={switchLocale} /> */}
+                    <TransitionButton text={"Projets"} icon={"projects"} href={`/${locale}/portfolio`} />
+                    <TransitionButton text={"Studio"} icon={"us"} href={`/${locale}/us`} />
+                    <TransitionButton text={"Forfaits"} icon={"us"} href={`/${locale}/us`} />
 
                 </div>
 
@@ -71,7 +72,7 @@ const Header = ({setOpen}: ContactModalProps) => {
 
                             <Link aria-label="Get back to home" href={`/${locale}`} onClick={() => setOpenHeader(false)}>{t('home')}</Link>
                             <Link aria-label="Go to portfolio" href={`/${locale}/portfolio`} onClick={() => setOpenHeader(false)}>{t('portfolio')}</Link>
-                            <Link aria-label="Learn more about us" href={`/${locale}/us`} onClick={() => setOpenHeader(false)}>{t('aboutUs')}</Link>
+                            <Link aria-label="Learn more about us" href={`/${locale}/us`} onClick={(e) => {e.stopPropagation();setOpenHeader(false)}}>{t('aboutUs')}</Link>
                             <button
                                 onClick={() => {
                                     setOpen(true);

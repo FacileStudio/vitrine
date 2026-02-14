@@ -28,7 +28,7 @@ export default function AboutPage() {
             backgroundPosition: "center center",
             backgroundRepeat: "no-repeat",
         }}
-        className="w-full h-full flex flex-col items-center justify-start text-[#CAE6D8] leading-[110%] text-sm md:text-lg tracking-tight overflow-x-hidden overflow-y-auto relative rounded-[32px]">
+        className="w-full h-full flex flex-col items-center justify-start text-[#CAE6D8] leading-[110%] text-sm md:text-lg tracking-tight overflow-x-hidden overflow-y-auto relative rounded-[32px] outline-none">
 
         {/* ABOUT FACILE */}
         <section className="w-full max-w-3xl z-10 py-20 mt-64 pb-16 flex flex-col gap-5 items-center text-center">
