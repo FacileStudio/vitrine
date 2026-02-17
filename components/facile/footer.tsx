@@ -80,10 +80,10 @@ const Footer = ({setOpen}: ContactModalProps) => {
                 <a href={"https://www.dribbble.com/webbygian"} target="_blank" rel="noopener noreferrer" aria-label="Dribbble">
                     <DribbbleIcon className={"hover:scale-130 duration-200 transition-all"} size={30}  />
                 </a>
-                <a href={"https://www.github.com/saravenpi"} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                <a href={"https://www.github.com/FacileStudio"} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                     <GithubIcon className={"hover:scale-130 duration-200 transition-all"} size={30} />
                 </a>
-                <a href={"https://www.instagram.com/webbygian"} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <a href={"https://www.instagram.com/facile._studio"} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                     <InstagramIcon className={"hover:scale-130 duration-200 transition-all"} size={30} />
                 </a>
             </div>
