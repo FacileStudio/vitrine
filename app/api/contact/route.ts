@@ -1,4 +1,9 @@
 import { NextResponse } from "next/server";
+import { transporter } from "./transporter";
+
+if (!process.env.WEBHOOK_URL) {
+  throw new Error("WEBHOOK_URL is not defined in environment variables");
+}
 
 export async function POST(req: Request) {
     try {
@@ -13,8 +18,8 @@ export async function POST(req: Request) {
             );
         }
 
-        await resend.emails.send({
-            from: "Facile. Studio <onboarding@resend.dev>",
+        transporter.sendMail({
+            from: "Facile. Studio <contact@facile.studio>",
             to: "contact@facile.studio",
             subject: "New email from Facile.",
             html: `
@@ -26,6 +31,17 @@ export async function POST(req: Request) {
                 <p>${message}</p>
             `,
         });
+
+        fetch(process.env.WEBHOOK_URL!, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                content: `@everyone\nNew contact form submission:\nName: ${name}\nEmail: ${email}\nPhone: ${phone || "N/A"}\nMessage: ${message}`,
+            }),
+        });
+
         console.log("YES");
         return NextResponse.json({ success: true });
     } catch (error) {

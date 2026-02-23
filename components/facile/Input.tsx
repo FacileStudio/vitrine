@@ -22,7 +22,7 @@ export const Input = forwardRef<HTMLInputElement,InputProps>(({ className, ...pr
         <input
                 ref={ref}
                 className={clsx(
-                    "p-4 text-center w-full rounded-full border border-[#1E1E1E]/20 focus:outline-none",
+                    "p-4 text-center w-full rounded-full overflow-hidden border border-[#1E1E1E]/20 focus:outline-none",
                     className)}
                 {...props}
             /> 
@@ -60,7 +60,7 @@ export const FloatingInput = ({ label, name, type = "text", required = false, va
                     onChange={onChange}
                     onFocus={() => setFocused(true)}
                     onBlur={() => setFocused(false)}
-                    className="absolute top-[-10px] z-10 w-full bg-transparent px-4 h-full border text-[#1E1E1E] outline-none"
+                    className="absolute top-[-10px] z-10 w-full bg-transparent px-4 h-full text-[#1E1E1E] outline-none"
                 />
             )}
         </fieldset>
