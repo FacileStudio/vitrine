@@ -1,5 +1,5 @@
 import React from "react";
-import data from "@/app/[locale]/portfolio/projects.json";
+import data from "@/app/[locale]/projects/projects.json";
 
 interface MobileButtonsProps {
     selectedWorkId: number | null;

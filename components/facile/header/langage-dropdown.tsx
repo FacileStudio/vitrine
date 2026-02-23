@@ -1,43 +1,38 @@
-import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { languages } from "./languages";
 import clsx from "clsx";
 
-export const LanguageDropdown = ({locale, switchLocale} : {
+export const LanguageDropdown = ({locale, switchLocale, className} : {
     locale: string;
     switchLocale: (newLocale: string) => void;
+    className?: string;
 }) => {
 
     const currentLang = languages.find(lang => lang.code === locale) || languages[0];
 
     return (
-        <div className="relative">
-            <DropdownMenu.Root>
-                <DropdownMenu.Trigger asChild>
-                    <button
-                        className="border-2 border-transparent hover:border-[#1E1E1E]/50 rounded-full lg:px-3 lg:py-2 duration-150 transition-colors flex gap-2 items-center cursor-pointer"
-                    >
-                        <span>{currentLang.flag}</span>
-                    </button>
-                </DropdownMenu.Trigger>
-                <DropdownMenu.Content
-                    sideOffset={8}
-                    className="bg-[#CAE6D8] rounded-2xl border-2 border-[#1E1E1E]/20 overflow-hidden min-w-30 shadow-lg"
-                >
-                    {languages.map((lang) => (
-                        <DropdownMenu.Item
-                            key={lang.code}
-                            onSelect={() => switchLocale(lang.code)}
-                            className={clsx(
-                                "w-full px-4 py-2 flex gap-2 items-center hover:bg-[#1E1E1E]/10 transition-colors cursor-pointer",
-                                lang.code === locale && "bg-[#1E1E1E]/10 font-semibold"
-                            )}
-                        >
-                            <span>{lang.flag}</span>
-                            <span>{lang.label}</span>
-                        </DropdownMenu.Item>
-                    ))}
-                </DropdownMenu.Content>
-            </DropdownMenu.Root>
+        <div className={clsx("group relative", className)}>
+            <div className="flex items-center bg-[#CAE6D8] overflow-hidden transition-all duration-500 ease-in-out w-[3.5rem] group-hover:w-[13.5rem]">
+                {/* Current language trigger */}
+                <div className="text-xl px-4 py-1 cursor-pointer flex items-center gap-2 whitespace-nowrap">
+                    <span className="uppercase">{currentLang.code}</span>
+                </div>
+                
+                {/* Expanded language list - hidden by default, visible on hover */}
+                <div className="flex opacity-0 group-hover:opacity-100 transition-opacity duration-500 overflow-hidden">
+                    {languages
+                        .filter(lang => lang.code !== locale)
+                        .map((lang) => (
+                            <button
+                                key={lang.code}
+                                onClick={() => switchLocale(lang.code)}
+                                className="px-4 py-1 flex gap-2 items-center hover:bg-[#1E1E1E]/10 transition-colors cursor-pointer whitespace-nowrap border-l-2 border-[#1E1E1E]/20"
+                            >
+                                <span className="uppercase">{lang.code}</span>
+                            </button>
+                        ))
+                    }
+                </div>
+            </div>
         </div>
     )
 };

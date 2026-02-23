@@ -4,7 +4,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const locales = ['en', 'fr', 'es', 'de']
   const baseUrl = 'https://facile.studio'
   
-  const routes = ['', '/portfolio', '/us']
+  const routes = ['', '/projects', '/studio', '/offres']
   
   return locales.flatMap(locale =>
     routes.map(route => ({

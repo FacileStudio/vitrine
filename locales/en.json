@@ -4,9 +4,10 @@
       "navigation": "Navigation",
       "navigationDescription": "Main navigation menu",
       "home": "Home",
-      "portfolio": "Portfolio",
+      "portfolio": "Projects",
       "aboutUs": "Studio",
-      "contactUs": "Contact us"
+      "contactUs": "Contact us",
+      "packages": "Packages"
     },
     "footer": {
       "hireUs": "Hire us",
@@ -25,6 +26,11 @@
       "sending": "Sending...",
       "success": "Message sent!",
       "error": "Server error. Try again later."
+    },
+    "notFound": {
+      "title": "404",
+      "message": "Page not found",
+      "goHome": "Go Home"
     }
   },
   "home": {

@@ -73,7 +73,7 @@ export const LogoButton = forwardRef<HTMLButtonElement, Omit<ButtonProps, 'text'
 );
 
 
-export const TransitionButton = ({href, text, icon}: ButtonProps & {href: string} ) => {
+export const TransitionButton = ({href, text}: Omit<ButtonProps, 'icon'> & {href: string} ) => {
     const router = useRouter();
     const pathName = usePathname();
     if (!href)
