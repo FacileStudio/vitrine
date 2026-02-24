@@ -66,20 +66,20 @@ export default function Home() {
                     duration: 1.5,
                     ease: "power4.inOut",
                 }, "<")
-                // 3. Apparition du Background (Intro)
-                .to(background.current, {
-                    delay: 1,
-                    duration: 3,
-                    ease: "power4.inOut",
-                    // IMPORTANT : On atterrit à 1.1 (110%) et pas 1.
-                    // Cela laisse de la marge ("bleed") pour le mouvement gauche/droite
-                    scale: 1.1, 
-                    filter: "blur(0px)"
-                }, "<")
-                // 4. Nettoyage du loader
-                .set(stack.current, {
-                    display: "none"
-                })
+                // // 3. Apparition du Background (Intro)
+                // .to(background.current, {
+                //     delay: 1,
+                //     duration: 3,
+                //     ease: "power4.inOut",
+                //     // IMPORTANT : On atterrit à 1.1 (110%) et pas 1.
+                //     // Cela laisse de la marge ("bleed") pour le mouvement gauche/droite
+                //     scale: 1.1, 
+                //     filter: "blur(0px)"
+                // }, "<")
+                // // 4. Nettoyage du loader
+                // .set(stack.current, {
+                //     display: "none"
+                // })
 
         }
         
@@ -162,12 +162,12 @@ export default function Home() {
 
                 <Image 
                     ref={background}
-                    src="/Backgrounds/landing/background.webp"
+                    src="/image00001.jpeg"
                     alt="background"
                     fill
                     sizes="(max-width: 640px) 640px, (max-width: 1024px) 1024px, (max-width: 1536px) 1536px, 100vw"
                     quality={80}
-                    className="object-cover object-left blur-3xl will-change-transform"
+                    className="object-cover object-left blur-lg will-change-transform"
                     onLoad={handleAssetLoad}
                     fetchPriority="high"
                     priority

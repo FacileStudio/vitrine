@@ -67,9 +67,9 @@ app/
 ├── [locale]/
 │   ├── layout.tsx             # Root layout with i18n setup, SEO, analytics
 │   ├── page.tsx               # Home page for each locale
-│   ├── portfolio/
+│   ├── projects/
 │   │   └── page.tsx           # Portfolio page
-│   └── us/                     # "About Us" route (about us, not a URL typo)
+│   └── studio/                     # "About Us" route
 │       └── page.tsx
 ├── components/
 │   ├── button.tsx             # Button components (Button, LogoButton, TransitionButton)
