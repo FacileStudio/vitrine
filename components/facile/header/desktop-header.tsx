@@ -19,7 +19,7 @@ export const DesktopHeader = ({ locale }: DesktopHeaderProps) => {
                 {/* <LanguageDropdown locale={locale} switchLocale={switchLocale} /> */}
                 <TransitionButton text={t('portfolio')} href={`/${locale}/projects`} />
                 <TransitionButton text={t('aboutUs')} href={`/${locale}/studio`} />
-                <TransitionButton text={t('packages')} href={`/${locale}/offres`} />
+                {/* <TransitionButton text={t('packages')} href={`/${locale}/offres`} /> */}
             </div>
 
             <img src={"/icons/Exclude.svg"} alt={""} className={"scale-x-[-1] ml-[-1px] lg:mt-4 md:mt-2 mt-2"} width={32} height={32} />
