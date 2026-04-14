@@ -12,9 +12,6 @@ RUN npm install
 # Copy application files
 COPY . .
 
-ARG RESEND_API_KEY
-ENV RESEND_API_KEY=$RESEND_API_KEY
-
 ARG SMTP_HOST
 ENV SMTP_HOST=$SMTP_HOST
 
