@@ -1,6 +1,6 @@
 # Facile. Studio
 
-Showcase website for **Facile. Studio** — a creative studio portfolio built with Next.js 16, featuring smooth GSAP animations, internationalization (EN, FR, ES, DE), and a contact form with SMTP email + Discord webhook integration.
+Showcase website for **Facile. Studio** — a creative studio portfolio built with Next.js 16, featuring smooth GSAP animations, internationalization (EN, FR, ES, DE), and a contact form with SMTP email delivery.
 
 ## Tech Stack
 
@@ -27,7 +27,7 @@ Open [http://localhost:3000](http://localhost:3000).
 See [`.env.example`](.env.example) for required variables:
 
 - `SMTP_HOST` / `SMTP_PORT` / `SMTP_USER` / `SMTP_PASS` — SMTP config for the contact form
-- `WEBHOOK_URL` — Discord webhook for form submissions
+- `SMTP_FROM` / `CONTACT_TO` — optional sender and recipient overrides for the contact form
 
 ## Docker
 
@@ -46,6 +46,6 @@ app/
 │   ├── page.tsx       # Home / landing
 │   ├── studio/        # About the studio
 │   └── projects/      # Projects showcase
-├── api/contact/       # Contact form API (email + webhook)
+├── api/contact/       # Contact form API (SMTP email)
 └── page.tsx           # Root redirect
 ```

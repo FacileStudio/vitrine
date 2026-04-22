@@ -45,8 +45,14 @@ export async function POST(req: Request) {
         return NextResponse.json({ success: true });
     } catch (error) {
         console.error("Error:", error);
+
+        const message =
+            error instanceof Error && /SMTP_|Greeting never received|Connection timeout|Timeout|Invalid login|auth/i.test(error.message)
+                ? error.message
+                : "Server error";
+
         return NextResponse.json(
-            { error: "Server error" },
+            { error: message },
             { status: 500 }
         );
     }

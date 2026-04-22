@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslations } from 'next-intl';
 import * as Dialog from '@radix-ui/react-dialog';
 
@@ -22,6 +22,14 @@ const ContactModal = ({ open, setOpen }: ContactModalProps) => {
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
 
+    useEffect(() => {
+        if (!open) {
+            setLoading(false);
+            setError("");
+            setSuccess("");
+        }
+    }, [open]);
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
     };
@@ -33,13 +41,18 @@ const ContactModal = ({ open, setOpen }: ContactModalProps) => {
         setSuccess("");
 
         try {
+            const controller = new AbortController();
+            const timeoutId = window.setTimeout(() => controller.abort(), 15000);
+
             const res = await fetch("/api/contact", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(formData),
+                signal: controller.signal,
             });
+            window.clearTimeout(timeoutId);
 
             const data = await res.json();
 
@@ -53,7 +66,11 @@ const ContactModal = ({ open, setOpen }: ContactModalProps) => {
 
             setTimeout(() => setOpen(false), 800);
         } catch (err) {
-            setError(t('error'));
+            if (err instanceof DOMException && err.name === "AbortError") {
+                setError("Request timed out. Please try again.");
+            } else {
+                setError(t('error'));
+            }
         } finally {
             setLoading(false);
         }
@@ -134,8 +151,11 @@ const ContactModal = ({ open, setOpen }: ContactModalProps) => {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="bg-[#1E1E1E] text-[#CAE6D8] py-3 rounded-full hover:bg-[#333] transition disabled:opacity-50"
+                            className="bg-[#1E1E1E] text-[#CAE6D8] py-3 rounded-full hover:bg-[#333] transition disabled:opacity-50 flex items-center justify-center gap-3"
                         >
+                            {loading && (
+                                <span className="h-4 w-4 rounded-full border-2 border-[#CAE6D8]/30 border-t-[#CAE6D8] animate-spin" />
+                            )}
                             {loading ? t('sending') : t('send')}
                         </button>
                     </form>
