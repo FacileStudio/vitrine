@@ -205,18 +205,21 @@ export default function AboutPage() {
                 </section>
 
                 <section className="mx-auto w-full max-w-5xl py-6">
-                    <div className="flex flex-col items-center gap-8 text-center">
-                        <Reveal className="w-full flex justify-center">
-                            <div className="flex flex-col items-center justify-start">
-                                <h2 className="mb-5 text-3xl font-extrabold text-center">
+                    <Reveal>
+                        <div className="rounded-[32px] border border-[#CAE6D8]/25 bg-[#CAE6D8] px-6 py-10 text-[#1E1E1E] shadow-[0_24px_80px_rgba(0,0,0,0.18)] md:px-10 md:py-12">
+                            <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
+                                <div className="mb-4 text-[11px] uppercase tracking-[0.28em] text-[#1E1E1E]/45">
+                                    Studio
+                                </div>
+                                <h2 className="mb-5 text-3xl font-extrabold text-center md:text-4xl">
                                     {t('mission.title')}
                                 </h2>
-                                <p className="max-w-3xl whitespace-pre-line text-base leading-relaxed text-[#CAE6D8]/72">
+                                <p className="max-w-3xl whitespace-pre-line text-base leading-relaxed text-[#1E1E1E]/72 md:text-lg">
                                     {t('mission.text')}
                                 </p>
                             </div>
-                        </Reveal>
-                    </div>
+                        </div>
+                    </Reveal>
                 </section>
 
                 <section className="space-y-8">
