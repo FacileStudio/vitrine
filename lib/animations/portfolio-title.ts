@@ -1,4 +1,5 @@
 import { useIsMobile } from "@/hooks/use-mobile";
+import gsap from "gsap";
 import React from "react";
 
 const usePortfolioTitleAnimation = (title: React.RefObject<HTMLDivElement | null>) => {
