@@ -295,7 +295,9 @@ export default function AboutPage() {
                                     <div className="flex flex-col items-center">
                                         <Image src="/images/team/yann.webp" alt="Yann" width={64} height={64} className="rounded-full" />
                                         <h3 className="mt-3 whitespace-pre-line text-3xl font-extrabold leading-[110%] text-[#CAE6D8]">{t('team.yann.name')}</h3>
-                                        <p className="mt-3 text-[#CAE6D8]/72">{t('team.yann.role')}</p>
+                                        <p className="mt-3 rounded-full border border-[#CAE6D8]/18 bg-[#CAE6D8]/8 px-4 py-2 text-sm text-[#CAE6D8]/78">
+                                            {t('team.yann.role')}
+                                        </p>
                                     </div>
                                     <p className="mt-6 text-[#CAE6D8]/72">{t('team.yann.description')}</p>
                                     <div className="flex items-center justify-center gap-6">
@@ -316,7 +318,9 @@ export default function AboutPage() {
                                     <div className="flex flex-col items-center">
                                         <Image src="/icons/noah.svg" alt="Noah" width={64} height={64} />
                                         <h3 className="mt-3 whitespace-pre-line text-3xl font-extrabold leading-[110%] text-[#CAE6D8]">{t('team.noah.name')}</h3>
-                                        <p className="mt-3 text-[#CAE6D8]/72">{t('team.noah.role')}</p>
+                                        <p className="mt-3 rounded-full border border-[#CAE6D8]/18 bg-[#CAE6D8]/8 px-4 py-2 text-sm text-[#CAE6D8]/78">
+                                            {t('team.noah.role')}
+                                        </p>
                                     </div>
                                     <p className="mt-6 text-[#CAE6D8]/72">{t('team.noah.description')}</p>
                                     <div className="mt-3 flex items-center justify-center gap-6">
@@ -338,9 +342,11 @@ export default function AboutPage() {
                             <Panel className="h-full p-8 text-center">
                                 <div className="flex flex-col gap-6">
                                     <div className="flex flex-col items-center">
-                                        <Image src="/images/team/mezz.webp" alt="Mezz" width={64} height={64} className="rounded-full border border-white/50" />
+                                        <Image src="/images/team/mezz.webp" alt="Mezz" width={64} height={64} className="rounded-full" />
                                         <h3 className="mt-3 whitespace-pre-line text-3xl font-extrabold leading-[110%] text-[#CAE6D8]">{t('team.mezz.name')}</h3>
-                                        <p className="mt-3 text-[#CAE6D8]/72">{t('team.mezz.role')}</p>
+                                        <p className="mt-3 rounded-full border border-[#CAE6D8]/18 bg-[#CAE6D8]/8 px-4 py-2 text-sm text-[#CAE6D8]/78">
+                                            {t('team.mezz.role')}
+                                        </p>
                                     </div>
                                     <p className="mt-6 text-[#CAE6D8]/72">{t('team.mezz.description')}</p>
                                     <div className="mt-3 flex items-center justify-center gap-6">
@@ -356,9 +362,11 @@ export default function AboutPage() {
                             <Panel className="h-full p-8 text-center">
                                 <div className="flex flex-col gap-6">
                                     <div className="flex flex-col items-center">
-                                        <Image src="/images/team/cami.webp" alt="Cami" width={64} height={64} className="rounded-full border border-white/50" />
+                                        <Image src="/images/team/cami.webp" alt="Cami" width={64} height={64} className="rounded-full" />
                                         <h3 className="mt-3 whitespace-pre-line text-3xl font-extrabold leading-[110%] text-[#CAE6D8]">{t('team.cami.name')}</h3>
-                                        <p className="mt-3 text-[#CAE6D8]/72">{t('team.cami.role')}</p>
+                                        <p className="mt-3 rounded-full border border-[#CAE6D8]/18 bg-[#CAE6D8]/8 px-4 py-2 text-sm text-[#CAE6D8]/78">
+                                            {t('team.cami.role')}
+                                        </p>
                                     </div>
                                     <p className="mt-6 text-[#CAE6D8]/72">{t('team.cami.description')}</p>
                                     <div className="mt-3 flex items-center justify-center gap-6">
@@ -376,9 +384,6 @@ export default function AboutPage() {
                     <Reveal>
                         <Panel className="px-6 py-10 text-center md:px-10 md:py-14">
                             <div className="mx-auto flex max-w-3xl flex-col items-center gap-6">
-                                <div className="text-[11px] uppercase tracking-[0.28em] text-[#CAE6D8]/45">
-                                    Contact
-                                </div>
                                 <h2 className="text-3xl font-extrabold md:text-4xl">
                                     {common('contactModal.title')}
                                 </h2>
