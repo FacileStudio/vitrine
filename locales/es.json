@@ -80,11 +80,11 @@
       },
       {
         "name": "Black & White",
-        "description": "Compilation de photographies"
+        "description": "Recopilación fotográfica"
       },
       {
         "name": "Retro Festival",
-        "description": "DA complète d'un festival fictif"
+        "description": "Dirección artística completa de un festival ficticio"
       }
     ]
   },
@@ -140,17 +140,17 @@
       "subtitle": "Las mentes creativas detrás de Facile.",
       "yann": {
         "name": "YANN\nTHEVENIN",
-        "role": "Lead Developer & Co-Fundador",
+        "role": "Desarrollador principal y cofundador",
         "description": "Desarrollador Fullstack con experiencia en IA, apasionado por crear experiencias digitales excepcionales con tecnologías modernas, arquitectura de código limpia y un enfoque ecológico del desarrollo."
       },
       "noah": {
         "name": "NOAH\nSTEINIGER",
-        "role": "UI / Web Designer & Co-fundador",
+        "role": "Diseñador UI/Web y cofundador",
         "description": "Diseñador creativo apasionado de UI, web y gráfico, especializado en crear diseños hermosos y centrados en el usuario, así como darles vida con tecnologías web modernas usando sus habilidades de desarrollo."
       },
       "mezz": {
         "name": "MOHAMED\nMAZOUZ",
-        "role": "Web Developer",
+        "role": "Desarrollador web",
         "description": "Desarrollador Fullstack versátil con sólida experiencia en múltiples proyectos y stacks diferentes. Experto en resolución de problemas, capaz de llevar a cabo cualquier misión, sin importar su complejidad."
       },
       "cami": {

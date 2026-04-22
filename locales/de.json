@@ -77,6 +77,14 @@
       {
         "name": "AREA",
         "description": "Anwendung"
+      },
+      {
+        "name": "Black & White",
+        "description": "Fotografie-Sammlung"
+      },
+      {
+        "name": "Retro Festival",
+        "description": "Komplettes Art-Direction-Konzept für ein fiktives Festival"
       }
     ]
   },
@@ -132,17 +140,17 @@
       "subtitle": "Die kreativen Köpfe hinter Facile.",
       "yann": {
         "name": "YANN\nTHEVENIN",
-        "role": "Lead Developer & Mitgründer",
+        "role": "Lead-Entwickler & Mitgründer",
         "description": "Fullstack-Entwickler mit KI-Hintergrund, leidenschaftlich daran interessiert, außergewöhnliche digitale Erlebnisse mit modernen Technologien, sauberer Code-Architektur und einem ökologischen Entwicklungsansatz zu schaffen."
       },
       "noah": {
         "name": "NOAH\nSTEINIGER",
-        "role": "UI / Web Designer & Mitgründer",
+        "role": "UI-/Webdesigner & Mitgründer",
         "description": "Leidenschaftlicher kreativer UI-, Web- und Grafikdesigner, spezialisiert auf die Gestaltung schöner, benutzerzentrierter Designs sowie deren Umsetzung mit modernen Webtechnologien unter Verwendung seiner Entwicklungsfähigkeiten."
       },
       "mezz": {
         "name": "MOHAMED\nMAZOUZ",
-        "role": "Web Developer",
+        "role": "Webentwickler",
         "description": "Vielseitiger Fullstack-Entwickler mit fundierter Erfahrung in zahlreichen Projekten und unterschiedlichen Stacks. Experte in Problemlösung, fähig jede Aufgabe erfolgreich abzuschließen, unabhängig von ihrer Komplexität."
       },
       "cami": {

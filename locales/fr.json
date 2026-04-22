@@ -96,7 +96,7 @@
       "text": "Nous sommes une équipe dédiée spécialisée dans le design, le branding et le développement web. Nous créons des sites web fonctionnels et professionnels avec un fort accent sur le design UI/UX qui captive et convertit.\n\nNotre approche combine un design visuel époustouflant avec une mise en œuvre technique robuste. De l'identité de marque aux interfaces pixel-perfect, nous créons des expériences digitales qui non seulement sont magnifiques mais fonctionnent parfaitement.\n\nNous accordons une grande importance à l'excellence du design, au souci du détail et à la création d'expériences utilisateurs significatives. Que vous construisiez une marque à partir de zéro ou ayez besoin d'un site web qui se démarque, nous apportons créativité et professionnalisme à chaque projet."
     },
     "whatSetsUsApart": {
-      "title": "CE QUI NOUS\nDIFFÉRENTCIE",
+      "title": "CE QUI NOUS\nDIFFÉRENCIE",
       "items": [
         "Développement écologique",
         "Code propre et élégant",
@@ -140,23 +140,23 @@
       "subtitle": "Les esprits créatifs derrière Facile.",
       "yann": {
         "name": "YANN\nTHEVENIN",
-        "role": "Developpeur FullStack & Co-Fondateur",
+        "role": "Développeur Fullstack & Cofondateur",
         "description": "Développeur Fullstack avec un background en IA, passionné par la création d'expériences digitales exceptionnelles avec des technologies modernes, une architecture de code propre et une approche écologique du développement."
       },
       "noah": {
         "name": "NOAH\nSTEINIGER",
-        "role": "Designer UI/Web  & Co-fondateur",
+        "role": "Designer UI/Web & Cofondateur",
         "description": "Designer UI, web et graphique passionné, spécialisé dans la création de designs magnifiques et centrés utilisateur ainsi que leur réalisation avec des technologies web modernes grâce à ses compétences en développement."
       },
       "mezz": {
         "name": "MOHAMED\nMAZOUZ",
-        "role": "Developpeur FullStack",
+        "role": "Développeur Fullstack",
         "description": "Développeur Fullstack polyvalent avec une solide expérience sur de multiples projets et stacks différents. Expert en résolution de problèmes, capable de mener à bien n'importe quelle mission, quelle que soit sa complexité."
       },
       "cami": {
         "name": "CAMILLE\nBONNET-CREVEL",
-        "role": "Graphic Designeuse & Photographe",
-        "description": "Designeuse créative au regard affûté, elle met en lumière vos projets comme elle compose ses photos : avec cette capacité unique à déceler le beau en toute chose (mëme là où on ne s'y attend pas)."
+        "role": "Graphiste & Photographe",
+        "description": "Créative au regard affûté, elle met en lumière vos projets comme elle compose ses photos : avec cette capacité unique à déceler le beau en toute chose (même là où on ne s'y attend pas)."
       }
     },
     "technologies": {

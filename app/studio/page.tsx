@@ -2,21 +2,18 @@
 
 import Image from "next/image";
 import React from "react";
-import {RideauxIn} from "@/components/facile/rideaux";
-import {useTranslations} from 'next-intl';
-
-const Box = ({children}: {children: React.ReactNode}) => {
-    return (
-        <div className={"p-8 bg-[#CAE6D8]/10 rounded-[20px] hover:shadow-[inset_0_0_40px_0_#CAE6D815] border text-[#CAE6D8]/66 border-[#CAE6D8]/33 flex flex-col gap-6 duration-300 transition-all hover:text-[#CAE6D8]"}>
-            {children}
-        </div>
-    )
-}
+import { RideauxIn } from "@/components/facile/rideaux";
+import { useTranslations } from 'next-intl';
 
 type RevealProps = {
     children: React.ReactNode;
     className?: string;
     delay?: number;
+};
+
+type PanelProps = {
+    children: React.ReactNode;
+    className?: string;
 };
 
 const Reveal = ({children, className = "", delay = 0}: RevealProps) => {
@@ -69,238 +66,377 @@ const Reveal = ({children, className = "", delay = 0}: RevealProps) => {
     );
 };
 
+const Panel = ({children, className = ""}: PanelProps) => (
+    <div className={`rounded-[28px] border border-[#CAE6D8]/18 bg-[#0D1310]/55 backdrop-blur-md text-[#CAE6D8] shadow-[0_24px_80px_rgba(0,0,0,0.25)] ${className}`}>
+        {children}
+    </div>
+);
+
 export default function AboutPage() {
     const t = useTranslations('about');
 
     React.useEffect(() => {
         RideauxIn(0);
-    }, [])
+    }, []);
+
+    const differentiators = [
+        t('whatSetsUsApart.items.0'),
+        t('whatSetsUsApart.items.1'),
+        t('whatSetsUsApart.items.2'),
+        t('whatSetsUsApart.items.3'),
+    ];
+
+    const services = [
+        {
+            key: 'design',
+            icon: '/icons/style.svg',
+            title: t('services.design.title'),
+            description: t('services.design.description'),
+            items: [
+                t('services.design.items.0'),
+                t('services.design.items.1'),
+                t('services.design.items.2'),
+            ],
+            className: 'md:col-span-5',
+        },
+        {
+            key: 'uiux',
+            icon: '/icons/web.svg',
+            title: t('services.uiux.title'),
+            description: t('services.uiux.description'),
+            items: [
+                t('services.uiux.items.0'),
+                t('services.uiux.items.1'),
+                t('services.uiux.items.2'),
+            ],
+            className: 'md:col-span-7',
+        },
+        {
+            key: 'webapp',
+            icon: '/icons/code.svg',
+            title: t('services.webapp.title'),
+            description: t('services.webapp.description'),
+            items: [
+                t('services.webapp.items.0'),
+                t('services.webapp.items.1'),
+                t('services.webapp.items.2'),
+            ],
+            className: 'md:col-span-12',
+        },
+    ];
+
+    const team = [
+        {
+            key: 'yann',
+            image: '/images/team/yann.webp',
+            rounded: true,
+            links: [
+                {
+                    href: 'https://linkedin.com/in/thevyann',
+                    icon: '/icons/linkedIn.svg',
+                    label: "Yann's LinkedIn profile",
+                },
+                {
+                    href: 'https://www.github.com/saravenpi',
+                    icon: '/icons/githubWhite.svg',
+                    label: "Yann's GitHub profile",
+                },
+            ],
+        },
+        {
+            key: 'noah',
+            image: '/icons/noah.svg',
+            rounded: false,
+            links: [
+                {
+                    href: 'https://www.dribbble.com/webbygian',
+                    icon: '/icons/dribbbleWhite.svg',
+                    label: "Noah's Dribbble profile",
+                },
+                {
+                    href: 'https://www.github.com/G1anC',
+                    icon: '/icons/githubWhite.svg',
+                    label: "Noah's GitHub profile",
+                },
+                {
+                    href: 'https://www.instagram.com/webbygian',
+                    icon: '/icons/instagramWhite.svg',
+                    label: "Noah's Instagram profile",
+                },
+            ],
+        },
+        {
+            key: 'mezz',
+            image: '/images/team/mezz.webp',
+            rounded: true,
+            links: [
+                {
+                    href: 'https://www.github.com/MezzLMC',
+                    icon: '/icons/githubWhite.svg',
+                    label: "Mezz's GitHub profile",
+                },
+            ],
+        },
+        {
+            key: 'cami',
+            image: '/images/team/cami.webp',
+            rounded: true,
+            links: [
+                {
+                    href: 'https://www.instagram.com/camg_raphic/',
+                    icon: '/icons/instagramWhite.svg',
+                    label: "Cami's Instagram profile",
+                },
+            ],
+        },
+    ];
 
     return (
-    <div
-        style={{
-            backgroundImage: 'url("/images/bg-blur.webp")',
-            backgroundSize: "cover", 
-            backgroundPosition: "center center",
-            backgroundRepeat: "no-repeat",
-        }}
-        className="w-full h-full flex flex-col items-center justify-start text-[#CAE6D8] leading-[110%] text-sm md:text-lg tracking-tight overflow-x-hidden overflow-y-auto relative rounded-[32px] outline-none">
+        <div
+            style={{
+                backgroundImage: 'url("/images/bg-blur.webp")',
+                backgroundSize: "cover",
+                backgroundPosition: "center center",
+                backgroundRepeat: "no-repeat",
+            }}
+            className="relative h-full w-full overflow-x-hidden overflow-y-auto rounded-[32px] outline-none text-[#CAE6D8]"
+        >
+            <div className="pointer-events-none absolute inset-0 overflow-hidden">
+                <div className="absolute left-[-10%] top-24 h-72 w-72 rounded-full bg-[#CAE6D8]/10 blur-3xl" />
+                <div className="absolute right-[-5%] top-[32rem] h-80 w-80 rounded-full bg-[#CAE6D8]/8 blur-3xl" />
+                <div className="absolute bottom-24 left-1/3 h-64 w-64 rounded-full bg-[#CAE6D8]/8 blur-3xl" />
+                <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(9,15,12,0.2),rgba(9,15,12,0.88)_30%,rgba(9,15,12,0.98))]" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(202,230,216,0.12),transparent_45%)]" />
+            </div>
 
-        {/* ABOUT FACILE */}
-        <section className="w-full max-w-3xl z-10 py-20 mt-64 pb-16 flex flex-col gap-5 items-center text-center">
-            <Reveal className="w-full flex justify-center">
-                <div className={"flex lg:flex-row flex-col items-center justify-center lg:gap-8 overflow-visible"}>
-                    <h1 className="text-[90px] leading-[100%] font-extrabold shrink-0">
-                        {t('title')}
-                    </h1>
-                    <div className={"pb-2 shrink-0 min-w-[300px]"}>
-                        <Image src="/icons/FACILE Text.svg" className="w-[310px]" alt="Facile Studio logo" width={310} height={80} />
-                    </div>
-                </div>
-            </Reveal>
-            <Reveal delay={100}>
-                <p className="max-w-2xl text-[#CAE6D8]/66">
-                    {t('subtitle')}
-                </p>
-            </Reveal>
+            <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-10 px-5 pb-24 pt-36 md:px-8 md:pt-44 lg:gap-20 lg:px-12">
+                <section className="grid items-end gap-6 lg:grid-cols-[1.45fr_0.9fr]">
+                    <Reveal delay={40}>
+                        <div className="space-y-8">
+                            <div className="inline-flex items-center gap-3 rounded-full border border-[#CAE6D8]/18 bg-[#CAE6D8]/8 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#CAE6D8]/70">
+                                <span className="h-2 w-2 rounded-full bg-[#CAE6D8]" />
+                                Facile. Studio
+                            </div>
 
-            {/* OUR MISSION */}
-            <div className={"flex flex-col md:flex-row gap-8 py-20 items-center justify-between w-full "}>
-                <Reveal className="w-full md:w-auto">
-                    <div className={"flex flex-col items-start justify-start"}>
-                        <h1 className="text-3xl font-extrabold mb-5 px-3 lg:px-0 text-start">
-                            {t('mission.title')}
-                        </h1>
-                        <p className="max-w-sm text-justify px-3 lg:px-0 text-normal">
-                            {t('mission.text')}
-                        </p>
-                    </div>
-                </Reveal>
+                            <div className="space-y-4">
+                                <h1 className="max-w-4xl text-[clamp(4rem,13vw,9rem)] font-black leading-[0.9] tracking-[-0.06em]">
+                                    {t('title')}
+                                </h1>
+                                <div className="max-w-[320px] md:max-w-[420px]">
+                                    <Image
+                                        src="/icons/FACILE Text.svg"
+                                        className="w-full"
+                                        alt="Facile Studio logo"
+                                        width={420}
+                                        height={90}
+                                    />
+                                </div>
+                            </div>
 
-                <Reveal className="w-full md:w-auto" delay={120}>
-                    <Box>
-                        <>
-                            <div className={"text-xl font-extrabold leading-[110%] text-[#CAE6D8] text-start"}>
+                            <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
+                                <p className="max-w-2xl text-base leading-relaxed text-[#CAE6D8]/72 md:text-xl">
+                                    {t('subtitle')}
+                                </p>
+                                <div className="grid gap-2 sm:grid-cols-2">
+                                    {differentiators.map((item, index) => (
+                                        <div
+                                            key={item}
+                                            className="rounded-2xl border border-[#CAE6D8]/12 bg-[#CAE6D8]/7 px-4 py-4 text-sm uppercase tracking-[0.16em] text-[#CAE6D8]/82"
+                                        >
+                                            <div className="mb-3 text-[10px] text-[#CAE6D8]/45">0{index + 1}</div>
+                                            <div className="leading-snug">{item}</div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </Reveal>
+
+                    <Reveal delay={140} className="h-full">
+                        <Panel className="flex h-full flex-col justify-between p-6 md:p-8">
+                            <div className="space-y-6">
+                                <div className="text-[11px] uppercase tracking-[0.28em] text-[#CAE6D8]/48">
+                                    {t('whatSetsUsApart.title').replace('\n', ' ')}
+                                </div>
+                                <div className="space-y-4">
+                                    {differentiators.map((item) => (
+                                        <div key={item} className="flex items-center justify-between gap-4 border-b border-[#CAE6D8]/10 pb-4 last:border-b-0 last:pb-0">
+                                            <span className="text-lg leading-tight text-[#CAE6D8]/92">{item}</span>
+                                            <span className="text-[#CAE6D8]/35">+</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="mt-8 rounded-[24px] border border-[#CAE6D8]/10 bg-black/20 p-5">
+                                <div className="text-[11px] uppercase tracking-[0.28em] text-[#CAE6D8]/45">
+                                    Studio note
+                                </div>
+                                <p className="mt-3 text-sm leading-relaxed text-[#CAE6D8]/72">
+                                    Design-first, build-ready, and allergic to dead interfaces.
+                                </p>
+                            </div>
+                        </Panel>
+                    </Reveal>
+                </section>
+
+                <section className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
+                    <Reveal>
+                        <div className="space-y-4">
+                            <div className="text-[11px] uppercase tracking-[0.28em] text-[#CAE6D8]/45">
+                                {t('mission.title')}
+                            </div>
+                            <div className="max-w-sm text-3xl font-black leading-[0.95] tracking-[-0.05em] md:text-5xl">
                                 {t('whatSetsUsApart.title')}
                             </div>
-                            <ul className="list-disc pl-2 text-start">
-                                <li className={"mt-1"}>{t('whatSetsUsApart.items.0')}</li>
-                                <li className={"mt-1"}>{t('whatSetsUsApart.items.1')}</li>
-                                <li className={"mt-1"}>{t('whatSetsUsApart.items.2')}</li>
-                                <li className={"mt-1"}>{t('whatSetsUsApart.items.3')}</li>
-                            </ul>
-                        </>
-                    </Box>
-                </Reveal>
+                        </div>
+                    </Reveal>
+
+                    <Reveal delay={100}>
+                        <Panel className="overflow-hidden">
+                            <div className="grid gap-0 md:grid-cols-[0.85fr_1.15fr]">
+                                <div className="border-b border-[#CAE6D8]/10 p-6 md:border-b-0 md:border-r md:p-8">
+                                    <div className="text-[11px] uppercase tracking-[0.28em] text-[#CAE6D8]/45">
+                                        Mission
+                                    </div>
+                                    <div className="mt-6 space-y-3 text-sm uppercase tracking-[0.18em] text-[#CAE6D8]/70">
+                                        <div>Brand systems</div>
+                                        <div>Web craft</div>
+                                        <div>Conversion clarity</div>
+                                    </div>
+                                </div>
+                                <div className="p-6 md:p-8">
+                                    <p className="whitespace-pre-line text-base leading-relaxed text-[#CAE6D8]/78 md:text-lg">
+                                        {t('mission.text')}
+                                    </p>
+                                </div>
+                            </div>
+                        </Panel>
+                    </Reveal>
+                </section>
+
+                <section className="space-y-8">
+                    <Reveal>
+                        <div className="grid gap-4 md:grid-cols-[0.8fr_1.2fr] md:items-end">
+                            <div className="text-[11px] uppercase tracking-[0.28em] text-[#CAE6D8]/45">
+                                {t('services.title')}
+                            </div>
+                            <div className="max-w-3xl text-lg leading-relaxed text-[#CAE6D8]/72 md:text-2xl">
+                                {t('services.subtitle')}
+                            </div>
+                        </div>
+                    </Reveal>
+
+                    <div className="grid gap-6 md:grid-cols-12">
+                        {services.map((service, index) => (
+                            <Reveal key={service.key} delay={80 + index * 90} className={service.className}>
+                                <Panel className="group h-full p-6 transition-colors duration-300 hover:bg-[#111A15]/72 md:p-8">
+                                    <div className="flex h-full flex-col gap-8">
+                                        <div className="flex items-start justify-between gap-4">
+                                            <div className="flex items-center gap-4">
+                                                <div className="rounded-2xl border border-[#CAE6D8]/12 bg-[#CAE6D8]/8 p-3">
+                                                    <Image src={service.icon} alt="" width={20} height={20} />
+                                                </div>
+                                                <div className="text-[11px] uppercase tracking-[0.28em] text-[#CAE6D8]/42">
+                                                    0{index + 1}
+                                                </div>
+                                            </div>
+                                            <div className="h-px w-16 bg-[#CAE6D8]/12 transition-all duration-300 group-hover:w-24" />
+                                        </div>
+
+                                        <div className="space-y-4">
+                                            <h2 className="whitespace-pre-line text-3xl font-black leading-[0.92] tracking-[-0.05em] md:text-4xl">
+                                                {service.title}
+                                            </h2>
+                                            <p className="max-w-2xl text-base leading-relaxed text-[#CAE6D8]/72">
+                                                {service.description}
+                                            </p>
+                                        </div>
+
+                                        <div className="mt-auto flex flex-wrap gap-3">
+                                            {service.items.map((item) => (
+                                                <span
+                                                    key={item}
+                                                    className="rounded-full border border-[#CAE6D8]/14 bg-black/20 px-4 py-2 text-sm text-[#CAE6D8]/84"
+                                                >
+                                                    {item}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </Panel>
+                            </Reveal>
+                        ))}
+                    </div>
+                </section>
+
+                <section className="space-y-8">
+                    <Reveal>
+                        <div className="grid gap-4 md:grid-cols-[0.8fr_1.2fr] md:items-end">
+                            <div className="text-[11px] uppercase tracking-[0.28em] text-[#CAE6D8]/45">
+                                {t('team.title')}
+                            </div>
+                            <div className="max-w-3xl text-lg leading-relaxed text-[#CAE6D8]/72 md:text-2xl">
+                                {t('team.subtitle')}
+                            </div>
+                        </div>
+                    </Reveal>
+
+                    <div className="grid gap-6 md:grid-cols-2">
+                        {team.map((member, index) => (
+                            <Reveal key={member.key} delay={90 + index * 90}>
+                                <Panel className="group h-full overflow-hidden p-6 transition-colors duration-300 hover:bg-[#111A15]/70 md:p-8">
+                                    <div className="flex h-full flex-col gap-8">
+                                        <div className="flex items-start justify-between gap-4">
+                                            <div className="flex items-center gap-4">
+                                                <div className="overflow-hidden rounded-2xl border border-[#CAE6D8]/15 bg-[#CAE6D8]/7 p-1">
+                                                    <Image
+                                                        src={member.image}
+                                                        alt=""
+                                                        width={72}
+                                                        height={72}
+                                                        className={member.rounded ? "h-[72px] w-[72px] rounded-[18px] object-cover" : "h-[72px] w-[72px] object-contain"}
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <div className="text-[11px] uppercase tracking-[0.28em] text-[#CAE6D8]/42">
+                                                        0{index + 1}
+                                                    </div>
+                                                    <h3 className="mt-2 whitespace-pre-line text-2xl font-black leading-[0.95] tracking-[-0.05em]">
+                                                        {t(`team.${member.key}.name`)}
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                            <div className="flex items-center gap-4">
+                                                {member.links.map((link) => (
+                                                    <a
+                                                        key={link.href}
+                                                        href={link.href}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        aria-label={link.label}
+                                                        className="opacity-72 transition-transform duration-200 hover:scale-110 hover:opacity-100"
+                                                    >
+                                                        <Image src={link.icon} alt="" width={20} height={20} />
+                                                    </a>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        <div className="rounded-[22px] border border-[#CAE6D8]/10 bg-black/20 px-4 py-3 text-sm uppercase tracking-[0.18em] text-[#CAE6D8]/68">
+                                            {t(`team.${member.key}.role`)}
+                                        </div>
+
+                                        <p className="text-base leading-relaxed text-[#CAE6D8]/74">
+                                            {t(`team.${member.key}.description`)}
+                                        </p>
+                                    </div>
+                                </Panel>
+                            </Reveal>
+                        ))}
+                    </div>
+                </section>
             </div>
-        </section>
-
-        {/* SERVICES */}
-        <section className="w-full max-w-5xl px-6 py-20 z-10 flex flex-col items-center justify-center gap-6">
-            <Reveal className="text-center">
-                <div className={"text-center"}>
-                    <h1 className="text-3xl font-extrabold">
-                        {t('services.title')}
-                    </h1>
-                    <p className="text-[#CAE6D8]/66 mt-5 text-center">
-                        {t('services.subtitle')}
-                    </p>
-                </div>
-            </Reveal>
-
-            <div className="grid md:grid-cols-3 gap-6 mt-8">
-                <Reveal delay={50}>
-                    <Box>
-                        <Image src={"/icons/style.svg"} alt={"logo"} width={20} height={20} />
-                        <h3 className="text-xl font-extrabold leading-[110%] text-[#CAE6D8]">{t('services.design.title')}</h3>
-                        <p className="">
-                            {t('services.design.description')}
-                        </p>
-                        <ul className="list-disc pl-2 text-start">
-                            <li className={"mt-1"}>{t('services.design.items.0')}</li>
-                            <li className={"mt-1"}>{t('services.design.items.1')}</li>
-                            <li className={"mt-1"}>{t('services.design.items.2')}</li>
-                        </ul>
-                    </Box>
-                </Reveal>
-
-                <Reveal delay={140}>
-                    <Box>
-                        <Image src={"/icons/web.svg"} alt={"logo"} width={20} height={20} />
-                        <h3 className="text-xl font-extrabold leading-[110%] text-[#CAE6D8]">{t('services.uiux.title')}</h3>
-                        <p className="">
-                            {t('services.uiux.description')}
-                        </p>
-                        <ul className="list-disc pl-2 text-start">
-                            <li className={"mt-1"}>{t('services.uiux.items.0')}</li>
-                            <li className={"mt-1"}>{t('services.uiux.items.1')}</li>
-                            <li className={"mt-1"}>{t('services.uiux.items.2')}</li>
-                        </ul>
-                    </Box>
-                </Reveal>
-
-                <Reveal delay={230}>
-                    <Box>
-                        <Image src={"/icons/code.svg"} alt={"logo"} width={20} height={20} />
-                        <h3 className="text-xl font-extrabold leading-[110%] text-[#CAE6D8]">{t('services.webapp.title')}</h3>
-                        <p className="">
-                            {t('services.webapp.description')}
-                        </p>
-                        <ul className="list-disc pl-2 text-start">
-                            <li className={"mt-1"}>{t('services.webapp.items.0')}</li>
-                            <li className={"mt-1"}>{t('services.webapp.items.1')}</li>
-                            <li className={"mt-1"}>{t('services.webapp.items.2')}</li>
-                        </ul>
-                    </Box>
-                </Reveal>
-            </div>
-        </section>
-
-        {/* TEAM */}
-        <section className="w-full max-w-4xl px-6 py-20 z-10 flex flex-col items-center justify-center gap-6">
-            <Reveal className="text-center">
-                <div className={"text-center"}>
-                    <h1 className="text-3xl font-extrabold">
-                        {t('team.title')}
-                    </h1>
-                    <p className="text-[#CAE6D8]/66 mt-5 text-center">
-                        {t('team.subtitle')}
-                    </p>
-                </div>
-            </Reveal>
-
-            <div className="grid md:grid-cols-2 gap-6 mt-8">
-                <Reveal delay={50}>
-                    <Box>
-                        <div>
-                            <Image src={"/images/team/yann.webp"} alt={"logo"} width={64} height={64}  className="rounded-full"/>
-                            <h3 className="text-3xl font-extrabold leading-[110%] text-[#CAE6D8] mt-3">{t('team.yann.name')}</h3>
-                            <p className=" mt-3">
-                                {t('team.yann.role')}
-                            </p>
-                        </div>
-                        <p className="mt-6">
-                            {t('team.yann.description')}
-                        </p>
-                        <div className={"flex items-center justify-start gap-6"}>
-                            <a href={"https://linkedin.com/in/thevyann"} target="_blank" rel="noopener noreferrer" aria-label="Yann's LinkedIn profile">
-                                <Image src="/icons/linkedIn.svg" alt="LinkedIn" className="hover:scale-130 duration-200 transition-all" width={20} height={20} />
-                            </a>
-                            <a href={"https://www.github.com/saravenpi"} target="_blank" rel="noopener noreferrer" aria-label="Yann's GitHub profile">
-                                <Image src="/icons/githubWhite.svg" alt="GitHub" className="hover:scale-130 duration-200 transition-all" width={20} height={20} />
-                            </a>
-                        </div>
-                    </Box>
-                </Reveal>
-
-                <Reveal delay={140}>
-                    <Box>
-                        <div className={""}>
-                            <Image src={"/icons/noah.svg"} alt={"logo"} width={64} height={64} />
-                            <h3 className="text-3xl font-extrabold leading-[110%] text-[#CAE6D8] mt-3">{t('team.noah.name')}</h3>
-                            <p className="text-start mt-3">
-                                {t('team.noah.role')}
-                            </p>
-                        </div>
-                        <p className="mt-6">
-                            {t('team.noah.description')}
-                        </p>
-                        <div className={"flex items-center justify-start gap-6 mt-3"}>
-                            <a href={"https://www.dribbble.com/webbygian"} target="_blank" rel="noopener noreferrer" aria-label="Noah's Dribbble profile">
-                                <Image src="/icons/dribbbleWhite.svg" alt="Dribbble" className="hover:scale-130 duration-200 transition-all" width={20} height={20} />
-                            </a>
-                            <a href={"https://www.github.com/G1anC"} target="_blank" rel="noopener noreferrer" aria-label="Noah's GitHub profile">
-                                <Image src="/icons/githubWhite.svg" alt="GitHub" className="hover:scale-130 duration-200 transition-all" width={20} height={20} />
-                            </a>
-                            <a href={"https://www.instagram.com/webbygian"} target="_blank" rel="noopener noreferrer" aria-label="Noah's Instagram profile">
-                                <Image src="/icons/instagramWhite.svg" alt="Instagram" className="hover:scale-130 duration-200 transition-all" width={20} height={20} />
-                            </a>
-                        </div>
-                    </Box>
-                </Reveal>
-
-                <Reveal delay={230}>
-                    <Box>
-                        <div className={""}>
-                            <Image src={"/images/team/mezz.webp"} alt={"logo"} width={64} height={64} className="rounded-full border border-white/50" />
-                            <h3 className="text-3xl font-extrabold leading-[110%] text-[#CAE6D8] mt-3">{t('team.mezz.name')}</h3>
-                            <p className="text-start mt-3">
-                                {t('team.mezz.role')}
-                            </p>
-                        </div>
-                        <p className="mt-6">
-                            {t('team.mezz.description')}
-                        </p>
-                        <div className={"flex items-center justify-start gap-6 mt-3"}>
-                            <a href={"https://www.github.com/MezzLMC"} target="_blank" rel="noopener noreferrer" aria-label="Mezz's GitHub profile">
-                                <Image src="/icons/githubWhite.svg" alt="GitHub" className="hover:scale-130 duration-200 transition-all" width={20} height={20} />
-                            </a>
-                        </div>
-                    </Box>
-                </Reveal>
-
-                <Reveal delay={320}>
-                    <Box>
-                        <div className={""}>
-                            <Image src={"/images/team/cami.webp"} alt={"logo"} width={64} height={64} className="rounded-full border border-white/50" />
-                            <h3 className="text-3xl font-extrabold leading-[110%] text-[#CAE6D8] mt-3">{t('team.cami.name')}</h3>
-                            <p className="text-start mt-3">
-                                {t('team.cami.role')}
-                            </p>
-                        </div>
-                        <p className="mt-6">
-                            {t('team.cami.description')}
-                        </p>
-                        <div className={"flex items-center justify-start gap-6 mt-3"}>
-                            <a href={"https://www.instagram.com/camg_raphic/"} target="_blank" rel="noopener noreferrer" aria-label="Cami's Instagram profile">
-                                <Image src="/icons/instagramWhite.svg" alt="Instagram" className="hover:scale-130 duration-200 transition-all" width={20} height={20} />
-                            </a>
-                        </div>
-                    </Box>
-                </Reveal>
-            </div>
-        </section>
-
-    </div>
+        </div>
     );
 }
