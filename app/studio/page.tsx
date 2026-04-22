@@ -154,9 +154,9 @@ export default function AboutPage() {
             </div>
 
             <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-10 px-5 pb-24 pt-36 md:px-8 md:pt-44 lg:gap-20 lg:px-12">
-                <section className="flex justify-center">
+                <section className="grid items-end gap-6 lg:grid-cols-[1.45fr_0.9fr]">
                     <Reveal delay={40}>
-                        <div className="space-y-8 text-center">
+                        <div className="space-y-8">
                             <div className="inline-flex items-center gap-3 rounded-full border border-[#CAE6D8]/18 bg-[#CAE6D8]/8 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#CAE6D8]/70">
                                 <span className="h-2 w-2 rounded-full bg-[#CAE6D8]" />
                                 Facile. Studio
@@ -166,7 +166,7 @@ export default function AboutPage() {
                                 <h1 className="max-w-4xl text-[clamp(4rem,13vw,9rem)] font-black leading-[0.9] tracking-[-0.06em]">
                                     {t('title')}
                                 </h1>
-                                <div className="mx-auto max-w-[320px] md:max-w-[420px]">
+                                <div className="max-w-[320px] md:max-w-[420px]">
                                     <Image
                                         src="/icons/FACILE Text.svg"
                                         className="w-full"
@@ -177,12 +177,30 @@ export default function AboutPage() {
                                 </div>
                             </div>
 
-                            <div className="mx-auto max-w-2xl">
+                            <div className="max-w-2xl">
                                 <p className="text-base leading-relaxed text-[#CAE6D8]/72 md:text-xl">
                                     {t('subtitle')}
                                 </p>
                             </div>
                         </div>
+                    </Reveal>
+
+                    <Reveal delay={140} className="h-full">
+                        <Panel className="p-6 md:p-8">
+                            <div className="space-y-6">
+                                <div className="text-[11px] uppercase tracking-[0.28em] text-[#CAE6D8]/48">
+                                    {t('whatSetsUsApart.title').replace('\n', ' ')}
+                                </div>
+                                <div className="space-y-4">
+                                    {differentiators.map((item) => (
+                                        <div key={item} className="flex items-center justify-between gap-4 border-b border-[#CAE6D8]/10 pb-4 last:border-b-0 last:pb-0">
+                                            <span className="text-lg leading-tight text-[#CAE6D8]/92">{item}</span>
+                                            <span className="text-[#CAE6D8]/35">+</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </Panel>
                     </Reveal>
                 </section>
 
@@ -197,21 +215,6 @@ export default function AboutPage() {
                                     {t('mission.text')}
                                 </p>
                             </div>
-                        </Reveal>
-
-                        <Reveal className="w-full max-w-xl" delay={120}>
-                            <Box>
-                                <div className="text-xl font-extrabold leading-[110%] text-[#CAE6D8] text-start">
-                                    {t('whatSetsUsApart.title')}
-                                </div>
-                                <ul className="list-disc pl-4 text-start">
-                                    {differentiators.map((item) => (
-                                        <li key={item} className="mt-1">
-                                            {item}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </Box>
                         </Reveal>
                     </div>
                 </section>
