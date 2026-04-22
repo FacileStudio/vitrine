@@ -29,7 +29,7 @@ export const baseMetadata: Metadata = {
         siteName: "Facile. Studio",
         images: [
             {
-                url: "/og-image.png",
+                url: "/images/og.webp",
                 width: 1200,
                 height: 630,
                 alt: "Facile. Studio",
@@ -40,7 +40,7 @@ export const baseMetadata: Metadata = {
         card: "summary_large_image",
         title: "Facile. Studio",
         description: "Facile. Studio - Agence digitale créative spécialisée dans le design et le développement web",
-        images: ["/og-image.png"],
+        images: ["/images/og.webp"],
         creator: "@facilestudio",
     },
     robots: {

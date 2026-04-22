@@ -17,7 +17,7 @@ export default function NotFound() {
     <div className="relative flex flex-col items-center justify-center h-full bg-[#1E1E1E] text-white">
         <Image 
             className="z-0 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-20 w-full h-full object-cover"
-            src="/Backgrounds/blurBackground.png"
+            src="/images/bg-blur.webp"
             alt="404 Not Found" 
             width={1920}
             height={1080}

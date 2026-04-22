@@ -53,7 +53,7 @@ export default function Portfolio() {
             <div className="w-full overflow-hidden h-full relative border rounded-4xl">
                 {data.map((item, id) => {
                     if (item.name === "Brain.h")
-                        return <div style={{ backgroundImage: `url(/Backgrounds/${item.name}.webp)`, backgroundSize: "cover", backgroundPosition: "center center", backgroundRepeat: "no-repeat", }}
+                        return <div style={{ backgroundImage: `url(/images/projects/${item.name}.webp)`, backgroundSize: "cover", backgroundPosition: "center center", backgroundRepeat: "no-repeat", }}
                                     ref={el => { backgroundRef.current[id] = el; }} key={id}
                                     className="absolute top-0 left-0 opacity-0 w-full h-full object-cover"
                         />
@@ -61,7 +61,7 @@ export default function Portfolio() {
                     return (
                         <div
                             style={{
-                                backgroundImage: `url(/Backgrounds/${item.name}.png)`,
+                                backgroundImage: `url(/images/projects/${item.name}.webp)`,
                                 backgroundSize: "cover",
                                 backgroundPosition: "center center",
                                 backgroundRepeat: "no-repeat",
@@ -76,7 +76,7 @@ export default function Portfolio() {
                 })}
                 <div
                     style={{
-                        backgroundImage: 'url("/Backgrounds/blurBackground.png")',
+                        backgroundImage: 'url("/images/bg-blur.webp")',
                         backgroundSize: "cover",
                         backgroundPosition: "center center",
                         backgroundRepeat: "no-repeat",

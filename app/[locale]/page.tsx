@@ -162,7 +162,7 @@ export default function Home() {
 
                 <Image 
                     ref={background}
-                    src="/image00001.jpeg"
+                    src="/images/hero.webp"
                     alt="background"
                     fill
                     sizes="(max-width: 640px) 640px, (max-width: 1024px) 1024px, (max-width: 1536px) 1536px, 100vw"
