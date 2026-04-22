@@ -107,10 +107,17 @@ export default function Portfolio() {
                                     {common('portfolio')}
                                 </div>
 
-                                <div className="space-y-4">
-                                    <h1 ref={titleRef} className="max-w-4xl whitespace-nowrap text-[clamp(3.5rem,11vw,8rem)] font-black leading-[0.9] tracking-[-0.06em]">
-                                        {common('portfolio')}
-                                    </h1>
+                            <div className="space-y-4">
+                                    <div ref={titleRef} className="max-w-4xl whitespace-nowrap">
+                                        <h1 className="flex items-end gap-2 text-[clamp(3.5rem,11vw,8rem)] leading-[0.9] tracking-[-0.06em]">
+                                            <span className="font-dirtyline capitalize leading-[0.82]">
+                                                {common('portfolio')[0]}
+                                            </span>
+                                            <span className="font-black uppercase">
+                                                {common('portfolio').slice(1)}
+                                            </span>
+                                        </h1>
+                                    </div>
                                     <p className="max-w-2xl text-base leading-relaxed text-[#CAE6D8]/72 md:text-xl">
                                         {t('hero.subtitle')}
                                     </p>
