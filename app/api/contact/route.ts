@@ -1,15 +1,12 @@
 import { NextResponse } from "next/server";
-import { getTransporter } from "./transporter";
+import { getContactMailConfig, getTransporter } from "./transporter";
 
 export async function POST(req: Request) {
     try {
-        if (!process.env.WEBHOOK_URL) {
-            throw new Error("WEBHOOK_URL is not defined in environment variables");
-        }
-
         const data = await req.json();
 
         const { name, email, phone, message } = data;
+        const { from, to } = getContactMailConfig();
 
         if (!name || !email || !message) {
             return NextResponse.json(
@@ -18,9 +15,10 @@ export async function POST(req: Request) {
             );
         }
 
-        getTransporter().sendMail({
-            from: "Facile. Studio <contact@facile.studio>",
-            to: "contact@facile.studio",
+        await getTransporter().sendMail({
+            from: `Facile. Studio <${from}>`,
+            to,
+            replyTo: email,
             subject: "New email from Facile.",
             html: `
                 <h2>New Email sent</h2>
@@ -32,15 +30,17 @@ export async function POST(req: Request) {
             `,
         });
 
-        fetch(process.env.WEBHOOK_URL, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                content: `@everyone\nNew contact form submission:\nName: ${name}\nEmail: ${email}\nPhone: ${phone || "N/A"}\nMessage: ${message}`,
-            }),
-        });
+        if (process.env.WEBHOOK_URL) {
+            await fetch(process.env.WEBHOOK_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    content: `@everyone\nNew contact form submission:\nName: ${name}\nEmail: ${email}\nPhone: ${phone || "N/A"}\nMessage: ${message}`,
+                }),
+            });
+        }
 
         return NextResponse.json({ success: true });
     } catch (error) {

@@ -14,7 +14,7 @@ export function getTransporter() {
   _transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT, 10) : 587,
-    secure: false,
+    secure: process.env.SMTP_PORT === "465",
     auth: {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASS,
@@ -25,4 +25,15 @@ export function getTransporter() {
   });
 
   return _transporter;
+}
+
+export function getContactMailConfig() {
+  if (!process.env.SMTP_USER) {
+    throw new Error("SMTP_USER is not defined in environment variables");
+  }
+
+  return {
+    from: process.env.SMTP_FROM || process.env.SMTP_USER,
+    to: process.env.CONTACT_TO || "contact@facile.studio",
+  };
 }

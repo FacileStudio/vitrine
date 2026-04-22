@@ -123,7 +123,7 @@ const ContactModal = ({ open, setOpen }: ContactModalProps) => {
                                 placeholder={t('message')}
                                 value={formData.message}
                                 onChange={handleChange}
-                                className="p-4 w-full text-center rounded-3xl border border-[#1E1E1E]/20 h-48 resize-none focus:outline-none"
+                                className="p-4 w-full text-left rounded-3xl border border-[#1E1E1E]/20 h-48 resize-none focus:outline-none"
                                 required
                             />
                         </div>
