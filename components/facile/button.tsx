@@ -1,4 +1,4 @@
-import {useParams, usePathname, useRouter} from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 import { RideauxOut} from "@/components/facile/rideaux";
 import React, { forwardRef, ButtonHTMLAttributes } from "react";
 import clsx from "clsx";
@@ -49,9 +49,7 @@ export const LogoButton = forwardRef<HTMLButtonElement, Omit<ButtonProps, 'text'
     ({ className = "", ...props }, ref) => {
         const router = useRouter();
         const pathName = usePathname();
-        const params = useParams();
-        const locale = params.locale as string;
-        const href = `/${locale}`;
+        const href = "/";
 
         return (
         <button

@@ -219,34 +219,6 @@ export default function AboutPage() {
             </div>
         </section>
 
-        {/* TECHNOLOGIES */}
-        <section className="w-full max-w-4xl px-6 py-20 z-10 flex flex-col items-center justify-center gap-6">
-            <div className={"text-center"}>
-                <h1 className="text-3xl font-extrabold">
-                    {t('technologies.title')}
-                </h1>
-                <p className="text-[#CAE6D8]/66 mt-5 text-center">
-                    {t('technologies.subtitle')}
-                </p>
-            </div>
-
-            <div className="grid md:grid-cols-6 gap-3 mt-8 w-full text-center">
-                {['gsap', 'typescript', 'vue', 'react', 'go', 'sveltekit'].map((tech) => (
-                    <Box key={tech}>
-                        <div className={"w-full h-16 flex flex-col justify-between items-center"}>
-                            <Image
-                                src={`/icons/${tech}.svg`}
-                                alt={tech}
-                                width={tech === 'gsap' ? 38 : tech === 'go' ? 32 : tech === 'sveltekit' ? 16 : 20}
-                                height={20}
-                            />
-                            <p>{t(`technologies.items.${tech}`)}</p>
-                        </div>
-                    </Box>
-                ))}
-            </div>
-        </section>
-
     </div>
     );
 }

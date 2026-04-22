@@ -10,9 +10,9 @@ import { useGSAP } from "@gsap/react";
 import { DribbbleIcon } from "../ui/dribbble";
 import { GithubIcon } from "../ui/github";
 import { InstagramIcon } from "../ui/instagram";
-import { useParams } from "next/navigation";
+import { useLocale } from "next-intl";
 import { LanguageDropdown } from "./header/langage-dropdown";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 type ContactModalProps = {
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -21,10 +21,7 @@ type ContactModalProps = {
 const Footer = ({setOpen}: ContactModalProps) => {
     const t = useTranslations('common');
     const hireUsRef = useRef<HTMLDivElement>(null);
-    const params = useParams();
-    const locale = params.locale as string;
-
-    const pathname = usePathname();
+    const locale = useLocale();
     const router = useRouter();
 
     useGSAP(() => {
@@ -34,8 +31,8 @@ const Footer = ({setOpen}: ContactModalProps) => {
     }, []);
 
     const switchLocale = (newLocale: string) => {
-        const newPath = pathname.replace(`/${locale}`, `/${newLocale}`);
-        router.push(newPath);
+        document.cookie = `NEXT_LOCALE=${newLocale};path=/;max-age=31536000`;
+        router.refresh();
     };
 
 

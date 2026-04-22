@@ -43,9 +43,9 @@ export const MobileHeader = ({ locale, switchLocale, setOpen }: MobileHeaderProp
                             <img src={"/icons/arrow.svg"} alt="close" width={20} height={20} />
                         </Dialog.Close>
 
-                        <Link aria-label="Get back to home" href={`/${locale}`} onClick={() => setOpenHeader(false)}>{t('home')}</Link>
-                        <Link aria-label="Go to portfolio" href={`/${locale}/projects`} onClick={() => setOpenHeader(false)}>{t('portfolio')}</Link>
-                        <Link aria-label="Learn more about us" href={`/${locale}/studio`} onClick={(e) => {e.stopPropagation();setOpenHeader(false)}}>{t('aboutUs')}</Link>
+                        <Link aria-label="Get back to home" href="/" onClick={() => setOpenHeader(false)}>{t('home')}</Link>
+                        <Link aria-label="Go to portfolio" href="/projects" onClick={() => setOpenHeader(false)}>{t('portfolio')}</Link>
+                        <Link aria-label="Learn more about us" href="/studio" onClick={(e) => {e.stopPropagation();setOpenHeader(false)}}>{t('aboutUs')}</Link>
                         <button
                             onClick={() => {
                                 setOpen(true);
@@ -56,7 +56,6 @@ export const MobileHeader = ({ locale, switchLocale, setOpen }: MobileHeaderProp
                             {t('contactUs')}
                         </button>
 
-                        {/* Language Selector Mobile */}
                         <div className="flex gap-2 pt-4 border-t border-[#1E1E1E]/20">
                             {languages.map((lang) => (
                                 <button

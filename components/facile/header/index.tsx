@@ -1,6 +1,7 @@
 'use client'
 import React from "react";
-import { useParams, usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import { useLocale } from 'next-intl';
 import { DesktopHeader } from "./desktop-header";
 import { MobileHeader } from "./mobile-header";
 
@@ -9,19 +10,17 @@ type ContactModalProps = {
 };
 
 const Header = ({ setOpen }: ContactModalProps) => {
-    const params = useParams();
-    const pathname = usePathname();
+    const locale = useLocale();
     const router = useRouter();
-    const locale = params.locale as string;
 
     const switchLocale = (newLocale: string) => {
-        const newPath = pathname.replace(`/${locale}`, `/${newLocale}`);
-        router.push(newPath);
+        document.cookie = `NEXT_LOCALE=${newLocale};path=/;max-age=31536000`;
+        router.refresh();
     };
 
     return (
         <div className={"z-50 absolute w-full top-0"}>
-            <DesktopHeader locale={locale} />
+            <DesktopHeader />
             <MobileHeader locale={locale} switchLocale={switchLocale} setOpen={setOpen} />
         </div>
     );

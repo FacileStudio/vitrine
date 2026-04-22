@@ -23,7 +23,7 @@ export default function LayoutWrapper({ children }: LayoutWrapperProps) {
 
     return (
         <div className="bg-background p-3 xl:p-4 w-screen h-screen relative tracking-tight overflow-hidden text-[#1E1E1E] flex flex-col gap-3">
-        { pathname.substring(1).split("/").length != 1 && 
+        { pathname !== "/" &&
             <div className={"rideaux absolute rounded-b-[64px] top-0 left-0 w-screen overflow-hidden h-screen z-60 bg-[#CAE6D8]"}/>
         }
             <Header setOpen={setOpen} />

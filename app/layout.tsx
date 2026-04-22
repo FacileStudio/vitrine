@@ -1,9 +1,8 @@
 import { Manrope } from "next/font/google";
-import "../globals.css";
+import "./globals.css";
 import { ReactNode } from "react";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
-import { setRequestLocale } from 'next-intl/server';
+import { getLocale, getMessages } from "next-intl/server";
 import LayoutWrapper from "@/components/facile/layoutWrapper";
 import { baseMetadata } from "@/lib/seo/metadata";
 import { Metadata } from "next";
@@ -14,53 +13,24 @@ const manrope = Manrope({
     variable: "--font-manrope",
 });
 
-const languages = [
-    { code: 'en', label: 'English', flag: '🇬🇧' },
-    { code: 'fr', label: 'Français', flag: '🇫🇷' },
-    { code: 'es', label: 'Español', flag: '🇪🇸' },
-    { code: 'de', label: 'Deutsch', flag: '🇩🇪' }
-];
-
-export function generateStaticParams() {
-  return languages.map(lang => ({ locale: lang.code }));
-}
-
-export async function generateMetadata({ params } : { 
-    params: Promise<{ locale: string }>
-}): Promise<Metadata> {
-    const { locale } = await params;
+export async function generateMetadata(): Promise<Metadata> {
+    const locale = await getLocale();
 
     return {
         ...baseMetadata,
         alternates: {
-            canonical: `/${locale}`,
-            languages: {
-                'en': '/en',
-                'fr': '/fr',
-                'es': '/es',
-                'de': '/de'
-            },
+            canonical: `/`,
         },
-         openGraph: {
+        openGraph: {
             ...baseMetadata.openGraph,
             locale: locale === 'en' ? 'en_US' : `${locale}_${locale.toUpperCase()}`,
-            url: `https://facile.studio/${locale}`
+            url: `https://facile.studio`
         }
     }
 };
 
-
-export default async function RootLayout({
-                                             children,
-                                             params
-                                         }: {
-    children: ReactNode;
-    params: Promise<{ locale: string }>;
-}) {
-    const { locale } = await params;
-
-    setRequestLocale(locale);
-
+export default async function RootLayout({ children }: { children: ReactNode }) {
+    const locale = await getLocale();
     const messages = await getMessages({ locale });
 
     return (

@@ -3,11 +3,7 @@ import React from "react";
 import { TransitionButton, LogoButton } from "@/components/facile/button"
 import { useTranslations } from 'next-intl';
 
-type DesktopHeaderProps = {
-    locale: string;
-};
-
-export const DesktopHeader = ({ locale }: DesktopHeaderProps) => {
+export const DesktopHeader = () => {
     const t = useTranslations('common.header');
 
     return (
@@ -16,10 +12,8 @@ export const DesktopHeader = ({ locale }: DesktopHeaderProps) => {
 
             <div className={"lg:px-8 px-6 lg:py-6 py-3 bg-[#CAE6D8] flex items-center lg:space-x-6 space-x-4 shrink-0 rounded-b-4xl gap-6"}>
                 <LogoButton className="mr-12" />
-                {/* <LanguageDropdown locale={locale} switchLocale={switchLocale} /> */}
-                <TransitionButton text={t('portfolio')} href={`/${locale}/projects`} />
-                <TransitionButton text={t('aboutUs')} href={`/${locale}/studio`} />
-                {/* <TransitionButton text={t('packages')} href={`/${locale}/offres`} /> */}
+                <TransitionButton text={t('portfolio')} href="/projects" />
+                <TransitionButton text={t('aboutUs')} href="/studio" />
             </div>
 
             <img src={"/icons/Exclude.svg"} alt={""} className={"scale-x-[-1] ml-[-1px] lg:mt-4 md:mt-2 mt-2"} width={32} height={32} />
