@@ -154,9 +154,9 @@ export default function AboutPage() {
             </div>
 
             <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-10 px-5 pb-24 pt-36 md:px-8 md:pt-44 lg:gap-20 lg:px-12">
-                <section className="grid items-end gap-6 lg:grid-cols-[1.45fr_0.9fr]">
+                <section className="flex justify-center">
                     <Reveal delay={40}>
-                        <div className="space-y-8">
+                        <div className="space-y-8 text-center">
                             <div className="inline-flex items-center gap-3 rounded-full border border-[#CAE6D8]/18 bg-[#CAE6D8]/8 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#CAE6D8]/70">
                                 <span className="h-2 w-2 rounded-full bg-[#CAE6D8]" />
                                 Facile. Studio
@@ -166,7 +166,7 @@ export default function AboutPage() {
                                 <h1 className="max-w-4xl text-[clamp(4rem,13vw,9rem)] font-black leading-[0.9] tracking-[-0.06em]">
                                     {t('title')}
                                 </h1>
-                                <div className="max-w-[320px] md:max-w-[420px]">
+                                <div className="mx-auto max-w-[320px] md:max-w-[420px]">
                                     <Image
                                         src="/icons/FACILE Text.svg"
                                         className="w-full"
@@ -177,67 +177,29 @@ export default function AboutPage() {
                                 </div>
                             </div>
 
-                            <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
-                                <p className="max-w-2xl text-base leading-relaxed text-[#CAE6D8]/72 md:text-xl">
+                            <div className="mx-auto max-w-2xl">
+                                <p className="text-base leading-relaxed text-[#CAE6D8]/72 md:text-xl">
                                     {t('subtitle')}
                                 </p>
-                                <div className="grid gap-2 sm:grid-cols-2">
-                                    {differentiators.map((item, index) => (
-                                        <div
-                                            key={item}
-                                            className="rounded-2xl border border-[#CAE6D8]/12 bg-[#CAE6D8]/7 px-4 py-4 text-sm uppercase tracking-[0.16em] text-[#CAE6D8]/82"
-                                        >
-                                            <div className="mb-3 text-[10px] text-[#CAE6D8]/45">0{index + 1}</div>
-                                            <div className="leading-snug">{item}</div>
-                                        </div>
-                                    ))}
-                                </div>
                             </div>
                         </div>
                     </Reveal>
-
-                    <Reveal delay={140} className="h-full">
-                        <Panel className="flex h-full flex-col justify-between p-6 md:p-8">
-                            <div className="space-y-6">
-                                <div className="text-[11px] uppercase tracking-[0.28em] text-[#CAE6D8]/48">
-                                    {t('whatSetsUsApart.title').replace('\n', ' ')}
-                                </div>
-                                <div className="space-y-4">
-                                    {differentiators.map((item) => (
-                                        <div key={item} className="flex items-center justify-between gap-4 border-b border-[#CAE6D8]/10 pb-4 last:border-b-0 last:pb-0">
-                                            <span className="text-lg leading-tight text-[#CAE6D8]/92">{item}</span>
-                                            <span className="text-[#CAE6D8]/35">+</span>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-
-                            <div className="mt-8 rounded-[24px] border border-[#CAE6D8]/10 bg-black/20 p-5">
-                                <div className="text-[11px] uppercase tracking-[0.28em] text-[#CAE6D8]/45">
-                                    Studio note
-                                </div>
-                                <p className="mt-3 text-sm leading-relaxed text-[#CAE6D8]/72">
-                                    Design-first, build-ready, and allergic to dead interfaces.
-                                </p>
-                            </div>
-                        </Panel>
-                    </Reveal>
                 </section>
 
-                <section className="w-full max-w-3xl py-6">
-                    <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
-                        <Reveal className="w-full md:w-auto">
-                            <div className="flex flex-col items-start justify-start">
-                                <h2 className="mb-5 text-3xl font-extrabold text-start">
+                <section className="mx-auto w-full max-w-5xl py-6">
+                    <div className="flex flex-col items-center gap-8 text-center">
+                        <Reveal className="w-full flex justify-center">
+                            <div className="flex flex-col items-center justify-start">
+                                <h2 className="mb-5 text-3xl font-extrabold text-center">
                                     {t('mission.title')}
                                 </h2>
-                                <p className="max-w-sm whitespace-pre-line text-base leading-relaxed text-[#CAE6D8]/72">
+                                <p className="max-w-3xl whitespace-pre-line text-base leading-relaxed text-[#CAE6D8]/72">
                                     {t('mission.text')}
                                 </p>
                             </div>
                         </Reveal>
 
-                        <Reveal className="w-full md:w-auto" delay={120}>
+                        <Reveal className="w-full max-w-xl" delay={120}>
                             <Box>
                                 <div className="text-xl font-extrabold leading-[110%] text-[#CAE6D8] text-start">
                                     {t('whatSetsUsApart.title')}
@@ -309,7 +271,7 @@ export default function AboutPage() {
                     </div>
                 </section>
 
-                <section className="w-full max-w-4xl py-6">
+                <section className="mx-auto w-full max-w-5xl py-6">
                     <Reveal className="text-center">
                         <div className="text-center">
                             <h2 className="text-3xl font-extrabold">
@@ -323,76 +285,84 @@ export default function AboutPage() {
 
                     <div className="mt-8 grid gap-6 md:grid-cols-2">
                         <Reveal delay={50}>
-                            <Box>
-                                <div>
-                                    <Image src="/images/team/yann.webp" alt="Yann" width={64} height={64} className="rounded-full" />
-                                    <h3 className="mt-3 text-3xl font-extrabold leading-[110%] text-[#CAE6D8]">{t('team.yann.name')}</h3>
-                                    <p className="mt-3">{t('team.yann.role')}</p>
+                            <Panel className="h-full p-8 text-center">
+                                <div className="flex flex-col gap-6">
+                                    <div className="flex flex-col items-center">
+                                        <Image src="/images/team/yann.webp" alt="Yann" width={64} height={64} className="rounded-full" />
+                                        <h3 className="mt-3 whitespace-pre-line text-3xl font-extrabold leading-[110%] text-[#CAE6D8]">{t('team.yann.name')}</h3>
+                                        <p className="mt-3 text-[#CAE6D8]/72">{t('team.yann.role')}</p>
+                                    </div>
+                                    <p className="mt-6 text-[#CAE6D8]/72">{t('team.yann.description')}</p>
+                                    <div className="flex items-center justify-center gap-6">
+                                        <a href="https://linkedin.com/in/thevyann" target="_blank" rel="noopener noreferrer" aria-label="Yann's LinkedIn profile">
+                                            <Image src="/icons/linkedIn.svg" alt="LinkedIn" className="transition-all duration-200 hover:scale-130" width={20} height={20} />
+                                        </a>
+                                        <a href="https://www.github.com/saravenpi" target="_blank" rel="noopener noreferrer" aria-label="Yann's GitHub profile">
+                                            <Image src="/icons/githubWhite.svg" alt="GitHub" className="transition-all duration-200 hover:scale-130" width={20} height={20} />
+                                        </a>
+                                    </div>
                                 </div>
-                                <p className="mt-6">{t('team.yann.description')}</p>
-                                <div className="flex items-center justify-start gap-6">
-                                    <a href="https://linkedin.com/in/thevyann" target="_blank" rel="noopener noreferrer" aria-label="Yann's LinkedIn profile">
-                                        <Image src="/icons/linkedIn.svg" alt="LinkedIn" className="transition-all duration-200 hover:scale-130" width={20} height={20} />
-                                    </a>
-                                    <a href="https://www.github.com/saravenpi" target="_blank" rel="noopener noreferrer" aria-label="Yann's GitHub profile">
-                                        <Image src="/icons/githubWhite.svg" alt="GitHub" className="transition-all duration-200 hover:scale-130" width={20} height={20} />
-                                    </a>
-                                </div>
-                            </Box>
+                            </Panel>
                         </Reveal>
 
                         <Reveal delay={140}>
-                            <Box>
-                                <div>
-                                    <Image src="/icons/noah.svg" alt="Noah" width={64} height={64} />
-                                    <h3 className="mt-3 text-3xl font-extrabold leading-[110%] text-[#CAE6D8]">{t('team.noah.name')}</h3>
-                                    <p className="mt-3 text-start">{t('team.noah.role')}</p>
+                            <Panel className="h-full p-8 text-center">
+                                <div className="flex flex-col gap-6">
+                                    <div className="flex flex-col items-center">
+                                        <Image src="/icons/noah.svg" alt="Noah" width={64} height={64} />
+                                        <h3 className="mt-3 whitespace-pre-line text-3xl font-extrabold leading-[110%] text-[#CAE6D8]">{t('team.noah.name')}</h3>
+                                        <p className="mt-3 text-[#CAE6D8]/72">{t('team.noah.role')}</p>
+                                    </div>
+                                    <p className="mt-6 text-[#CAE6D8]/72">{t('team.noah.description')}</p>
+                                    <div className="mt-3 flex items-center justify-center gap-6">
+                                        <a href="https://www.dribbble.com/webbygian" target="_blank" rel="noopener noreferrer" aria-label="Noah's Dribbble profile">
+                                            <Image src="/icons/dribbbleWhite.svg" alt="Dribbble" className="transition-all duration-200 hover:scale-130" width={20} height={20} />
+                                        </a>
+                                        <a href="https://www.github.com/G1anC" target="_blank" rel="noopener noreferrer" aria-label="Noah's GitHub profile">
+                                            <Image src="/icons/githubWhite.svg" alt="GitHub" className="transition-all duration-200 hover:scale-130" width={20} height={20} />
+                                        </a>
+                                        <a href="https://www.instagram.com/webbygian" target="_blank" rel="noopener noreferrer" aria-label="Noah's Instagram profile">
+                                            <Image src="/icons/instagramWhite.svg" alt="Instagram" className="transition-all duration-200 hover:scale-130" width={20} height={20} />
+                                        </a>
+                                    </div>
                                 </div>
-                                <p className="mt-6">{t('team.noah.description')}</p>
-                                <div className="mt-3 flex items-center justify-start gap-6">
-                                    <a href="https://www.dribbble.com/webbygian" target="_blank" rel="noopener noreferrer" aria-label="Noah's Dribbble profile">
-                                        <Image src="/icons/dribbbleWhite.svg" alt="Dribbble" className="transition-all duration-200 hover:scale-130" width={20} height={20} />
-                                    </a>
-                                    <a href="https://www.github.com/G1anC" target="_blank" rel="noopener noreferrer" aria-label="Noah's GitHub profile">
-                                        <Image src="/icons/githubWhite.svg" alt="GitHub" className="transition-all duration-200 hover:scale-130" width={20} height={20} />
-                                    </a>
-                                    <a href="https://www.instagram.com/webbygian" target="_blank" rel="noopener noreferrer" aria-label="Noah's Instagram profile">
-                                        <Image src="/icons/instagramWhite.svg" alt="Instagram" className="transition-all duration-200 hover:scale-130" width={20} height={20} />
-                                    </a>
-                                </div>
-                            </Box>
+                            </Panel>
                         </Reveal>
 
                         <Reveal delay={230}>
-                            <Box>
-                                <div>
-                                    <Image src="/images/team/mezz.webp" alt="Mezz" width={64} height={64} className="rounded-full border border-white/50" />
-                                    <h3 className="mt-3 text-3xl font-extrabold leading-[110%] text-[#CAE6D8]">{t('team.mezz.name')}</h3>
-                                    <p className="mt-3 text-start">{t('team.mezz.role')}</p>
+                            <Panel className="h-full p-8 text-center">
+                                <div className="flex flex-col gap-6">
+                                    <div className="flex flex-col items-center">
+                                        <Image src="/images/team/mezz.webp" alt="Mezz" width={64} height={64} className="rounded-full border border-white/50" />
+                                        <h3 className="mt-3 whitespace-pre-line text-3xl font-extrabold leading-[110%] text-[#CAE6D8]">{t('team.mezz.name')}</h3>
+                                        <p className="mt-3 text-[#CAE6D8]/72">{t('team.mezz.role')}</p>
+                                    </div>
+                                    <p className="mt-6 text-[#CAE6D8]/72">{t('team.mezz.description')}</p>
+                                    <div className="mt-3 flex items-center justify-center gap-6">
+                                        <a href="https://www.github.com/MezzLMC" target="_blank" rel="noopener noreferrer" aria-label="Mezz's GitHub profile">
+                                            <Image src="/icons/githubWhite.svg" alt="GitHub" className="transition-all duration-200 hover:scale-130" width={20} height={20} />
+                                        </a>
+                                    </div>
                                 </div>
-                                <p className="mt-6">{t('team.mezz.description')}</p>
-                                <div className="mt-3 flex items-center justify-start gap-6">
-                                    <a href="https://www.github.com/MezzLMC" target="_blank" rel="noopener noreferrer" aria-label="Mezz's GitHub profile">
-                                        <Image src="/icons/githubWhite.svg" alt="GitHub" className="transition-all duration-200 hover:scale-130" width={20} height={20} />
-                                    </a>
-                                </div>
-                            </Box>
+                            </Panel>
                         </Reveal>
 
                         <Reveal delay={320}>
-                            <Box>
-                                <div>
-                                    <Image src="/images/team/cami.webp" alt="Cami" width={64} height={64} className="rounded-full border border-white/50" />
-                                    <h3 className="mt-3 text-3xl font-extrabold leading-[110%] text-[#CAE6D8]">{t('team.cami.name')}</h3>
-                                    <p className="mt-3 text-start">{t('team.cami.role')}</p>
+                            <Panel className="h-full p-8 text-center">
+                                <div className="flex flex-col gap-6">
+                                    <div className="flex flex-col items-center">
+                                        <Image src="/images/team/cami.webp" alt="Cami" width={64} height={64} className="rounded-full border border-white/50" />
+                                        <h3 className="mt-3 whitespace-pre-line text-3xl font-extrabold leading-[110%] text-[#CAE6D8]">{t('team.cami.name')}</h3>
+                                        <p className="mt-3 text-[#CAE6D8]/72">{t('team.cami.role')}</p>
+                                    </div>
+                                    <p className="mt-6 text-[#CAE6D8]/72">{t('team.cami.description')}</p>
+                                    <div className="mt-3 flex items-center justify-center gap-6">
+                                        <a href="https://www.instagram.com/camg_raphic/" target="_blank" rel="noopener noreferrer" aria-label="Cami's Instagram profile">
+                                            <Image src="/icons/instagramWhite.svg" alt="Instagram" className="transition-all duration-200 hover:scale-130" width={20} height={20} />
+                                        </a>
+                                    </div>
                                 </div>
-                                <p className="mt-6">{t('team.cami.description')}</p>
-                                <div className="mt-3 flex items-center justify-start gap-6">
-                                    <a href="https://www.instagram.com/camg_raphic/" target="_blank" rel="noopener noreferrer" aria-label="Cami's Instagram profile">
-                                        <Image src="/icons/instagramWhite.svg" alt="Instagram" className="transition-all duration-200 hover:scale-130" width={20} height={20} />
-                                    </a>
-                                </div>
-                            </Box>
+                            </Panel>
                         </Reveal>
                     </div>
                 </section>
