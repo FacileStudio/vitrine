@@ -20,12 +20,7 @@ export default function Portfolio() {
     React.useEffect(() => RideauxIn(0), []);
 
     const ProjectButton = ({item, id}: {item: typeof data[0], id: number}) => (
-        <a
-            href={item.link}
-            key={id}
-            aria-label={`View project ${t(`projects.${id}.name`)}`}
-            target="_blank"
-            rel="noopener noreferrer"
+        <div
             className={`${id === selectedWorkId && "uppercase font-extrabold"} flex justify-between items-center shrink-0
                 cursor-pointer hover:font-extrabold hover:uppercase duration-100 transition-all px-4 py-1.5 sm:py-3`}
             onMouseEnter={() => animateIn(id)}
@@ -36,7 +31,7 @@ export default function Portfolio() {
                     <div className="bg-[#CAE6D8] h-4 rounded-full w-full"></div>
                 </div>
 
-            <div className="flex shrink-0 justify-between items-center md:w-60 xl:w-150 w-auto">
+            <div className="flex shrink-0 justify-between items-center md:w-60 xl:w-150 w-auto gap-4">
                 <div className="shrink-0 md:inline hidden">{t(`projects.${id}.description`)}</div>
 
                 <div ref={el => void (bandsLeftRef.current[id] = el)} className="hidden sm:block w-full h-4 lg:px-16 px-4 opacity-0">
@@ -44,8 +39,28 @@ export default function Portfolio() {
                 </div>
 
                 <div className="shrink-0">{item.weeks}</div>
+
+                <a
+                    href={item.link}
+                    aria-label={`View project ${t(`projects.${id}.name`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#CAE6D8]/25 bg-[#CAE6D8]/10 transition-colors duration-150 hover:bg-[#CAE6D8] hover:text-[#1E1E1E]"
+                >
+                    <span
+                        className="h-4 w-4 rotate-180 bg-[#CAE6D8] transition-colors duration-150 group-hover:bg-[#1E1E1E]"
+                        style={{
+                            WebkitMaskImage: "url(/icons/arrow.svg)",
+                            maskImage: "url(/icons/arrow.svg)",
+                            WebkitMaskSize: "contain",
+                            maskSize: "contain",
+                            WebkitMaskRepeat: "no-repeat",
+                            maskRepeat: "no-repeat",
+                        }}
+                    />
+                </a>
             </div>
-        </a>
+        </div>
     );
 
     return (

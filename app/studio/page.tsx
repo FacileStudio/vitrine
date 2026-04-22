@@ -393,8 +393,19 @@ export default function AboutPage() {
                                 <button
                                     type="button"
                                     onClick={openContactModal}
-                                    className="rounded-full border border-[#CAE6D8]/18 bg-[#CAE6D8] px-6 py-3 text-[#1E1E1E] transition-colors duration-150 hover:bg-[#1E1E1E] hover:text-[#CAE6D8]"
+                                    className="group flex items-center gap-3 rounded-full border border-[#CAE6D8]/18 bg-[#CAE6D8] px-6 py-3 text-[#1E1E1E] transition-colors duration-150 hover:bg-[#1E1E1E] hover:text-[#CAE6D8]"
                                 >
+                                    <span
+                                        className="h-5 w-5 bg-[#1E1E1E] transition-colors duration-150 group-hover:bg-[#CAE6D8]"
+                                        style={{
+                                            WebkitMaskImage: "url(/icons/mail.svg)",
+                                            maskImage: "url(/icons/mail.svg)",
+                                            WebkitMaskSize: "contain",
+                                            maskSize: "contain",
+                                            WebkitMaskRepeat: "no-repeat",
+                                            maskRepeat: "no-repeat",
+                                        }}
+                                    />
                                     {common('header.contactUs')}
                                 </button>
                             </div>
