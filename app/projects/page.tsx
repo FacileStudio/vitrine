@@ -11,6 +11,7 @@ import { MobileNavigationButtons } from "./mobile-navigation-buttons";
 
 export default function Portfolio() {
     const t = useTranslations('portfolio');
+    const common = useTranslations('common.header');
     const titleRef = useRef<HTMLDivElement>(null);
     const {setSelectedWorkId, selectedWorkId, handleNext, handlePrevious} = usePortfolioNavigation();
     const { bandsRightRef, bandsLeftRef, backgroundRef, animateIn, animateOut } = usePortfolioContentAnimations(selectedWorkId);
@@ -37,8 +38,6 @@ export default function Portfolio() {
                 <div ref={el => void (bandsLeftRef.current[id] = el)} className="hidden sm:block w-full h-4 lg:px-16 px-4 opacity-0">
                     <div className="bg-[#CAE6D8] h-4 rounded-full w-full"></div>
                 </div>
-
-                <div className="shrink-0">{item.weeks}</div>
 
                 <a
                     href={item.link}
@@ -99,21 +98,55 @@ export default function Portfolio() {
                     className="absolute top-1/2 left-1/2 -translate-1/2 z-0 w-full h-auto min-h-full object-cover"
                 />
 
-                <div className="flex flex-col justify-between relative w-full my-auto text-[#CAE6D8] absolute top-1/2 -translate-y-1/2 lg:mt-0 px-8 md:px-32 gap-6 lg:gap-16 z-40 max-w-[1920px] mx-auto">
-                    <div className="flex justify-between px-4 font-extrabold">
-                        {t('headers.name')}
-                        <div className="flex items-between justify-between md:w-100 xl:w-150 w-auto">
-                            <div className={"md:inline hidden"}>{t('headers.type')}</div>
-                            <div>{t('headers.time')}</div>
-                        </div>  
-                    </div>
+                <div className="absolute inset-0 z-40 overflow-y-auto">
+                    <div className="mx-auto flex min-h-full w-full max-w-[1920px] flex-col px-8 pb-24 pt-32 text-[#CAE6D8] md:px-20 lg:px-32 lg:pt-36">
+                        <div className="mb-12 flex flex-col gap-8 lg:mb-16 lg:grid lg:grid-cols-[1.35fr_0.9fr] lg:items-end">
+                            <div className="space-y-6">
+                                <div className="inline-flex items-center gap-3 rounded-full border border-[#CAE6D8]/18 bg-[#CAE6D8]/8 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#CAE6D8]/70">
+                                    <span className="h-2 w-2 rounded-full bg-[#CAE6D8]" />
+                                    {common('portfolio')}
+                                </div>
 
-                    <div className="flex flex-col w-full z-50 shrink-0">
-                        {data.map((item, id) => <ProjectButton key={id} item={item} id={id} />)}
-                    </div>
+                                <div className="space-y-4">
+                                    <h1 ref={titleRef} className="max-w-4xl whitespace-nowrap text-[clamp(3.5rem,11vw,8rem)] font-black leading-[0.9] tracking-[-0.06em]">
+                                        {common('portfolio')}
+                                    </h1>
+                                    <p className="max-w-2xl text-base leading-relaxed text-[#CAE6D8]/72 md:text-xl">
+                                        {t('hero.subtitle')}
+                                    </p>
+                                </div>
+                            </div>
 
-                    <MobileNavigationButtons handleNext={handleNext} handlePrevious={handlePrevious} selectedWorkId={selectedWorkId} setSelectedWorkId={setSelectedWorkId} />
-                    
+                            <div className="rounded-[28px] border border-[#CAE6D8]/18 bg-[#0D1310]/55 p-6 text-[#CAE6D8] shadow-[0_24px_80px_rgba(0,0,0,0.25)] backdrop-blur-md md:p-8">
+                                <div className="text-[11px] uppercase tracking-[0.28em] text-[#CAE6D8]/48">
+                                    {t('hero.panelTitle')}
+                                </div>
+                                <div className="mt-6 space-y-4">
+                                    {t.raw('hero.points').map((item: string) => (
+                                        <div key={item} className="flex items-center justify-between gap-4 border-b border-[#CAE6D8]/10 pb-4 last:border-b-0 last:pb-0">
+                                            <span className="text-lg leading-tight text-[#CAE6D8]/92">{item}</span>
+                                            <span className="text-[#CAE6D8]/35">+</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="mb-6 flex justify-between px-4 font-extrabold">
+                            {t('headers.name')}
+                            <div className="flex items-between justify-between md:w-60 xl:w-150 w-auto">
+                                <div className={"md:inline hidden"}>{t('headers.type')}</div>
+                            </div>
+                        </div>
+
+                        <div className="flex flex-col w-full z-50 shrink-0">
+                            {data.map((item, id) => <ProjectButton key={id} item={item} id={id} />)}
+                        </div>
+
+                        <div className="mt-auto pt-8">
+                            <MobileNavigationButtons handleNext={handleNext} handlePrevious={handlePrevious} selectedWorkId={selectedWorkId} setSelectedWorkId={setSelectedWorkId} />
+                        </div>
+                    </div>
                 </div>
             </div>
 

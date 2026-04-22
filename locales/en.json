@@ -40,6 +40,16 @@
     }
   },
   "portfolio": {
+    "hero": {
+      "subtitle": "A selection of projects made to be previewed, explored, and opened. Hover to reveal, click to dive in.",
+      "panelTitle": "IN THIS SELECTION",
+      "points": [
+        "Visual identities",
+        "Web experiences",
+        "Product interfaces",
+        "Creative systems"
+      ]
+    },
     "headers": {
       "name": "NAME",
       "type": "TYPE",

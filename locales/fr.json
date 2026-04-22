@@ -40,6 +40,16 @@
     }
   },
   "portfolio": {
+    "hero": {
+      "subtitle": "Une sélection de projets conçus pour être vus, explorés et ouverts. Survolez pour prévisualiser, cliquez pour entrer.",
+      "panelTitle": "DANS CETTE SÉLECTION",
+      "points": [
+        "Identités visuelles",
+        "Expériences web",
+        "Interfaces produits",
+        "Systèmes créatifs"
+      ]
+    },
     "headers": {
       "name": "NOM",
       "type": "TYPE",

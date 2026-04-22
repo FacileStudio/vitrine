@@ -40,6 +40,16 @@
     }
   },
   "portfolio": {
+    "hero": {
+      "subtitle": "Una selección de proyectos pensados para verse, explorarse y abrirse. Pasa el cursor para previsualizar, haz clic para entrar.",
+      "panelTitle": "EN ESTA SELECCIÓN",
+      "points": [
+        "Identidades visuales",
+        "Experiencias web",
+        "Interfaces de producto",
+        "Sistemas creativos"
+      ]
+    },
     "headers": {
       "name": "NOMBRE",
       "type": "TIPO",
