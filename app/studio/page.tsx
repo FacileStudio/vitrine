@@ -16,6 +16,22 @@ type PanelProps = {
     className?: string;
 };
 
+const Box = ({children}: {children: React.ReactNode}) => {
+    return (
+        <div className="rounded-[20px] border border-[#CAE6D8]/33 bg-[#CAE6D8]/10 p-8 text-[#CAE6D8]/66 transition-all duration-300 hover:text-[#CAE6D8] hover:shadow-[inset_0_0_40px_0_#CAE6D815]">
+            <div className="flex flex-col gap-6">
+                {children}
+            </div>
+        </div>
+    );
+};
+
+const Panel = ({children, className = ""}: PanelProps) => (
+    <div className={`rounded-[28px] border border-[#CAE6D8]/18 bg-[#0D1310]/55 text-[#CAE6D8] shadow-[0_24px_80px_rgba(0,0,0,0.25)] backdrop-blur-md ${className}`}>
+        {children}
+    </div>
+);
+
 const Reveal = ({children, className = "", delay = 0}: RevealProps) => {
     const ref = React.useRef<HTMLDivElement | null>(null);
     const [isVisible, setIsVisible] = React.useState(false);
@@ -65,12 +81,6 @@ const Reveal = ({children, className = "", delay = 0}: RevealProps) => {
         </div>
     );
 };
-
-const Panel = ({children, className = ""}: PanelProps) => (
-    <div className={`rounded-[28px] border border-[#CAE6D8]/18 bg-[#0D1310]/55 backdrop-blur-md text-[#CAE6D8] shadow-[0_24px_80px_rgba(0,0,0,0.25)] ${className}`}>
-        {children}
-    </div>
-);
 
 export default function AboutPage() {
     const t = useTranslations('about');
@@ -122,72 +132,6 @@ export default function AboutPage() {
                 t('services.webapp.items.2'),
             ],
             className: 'md:col-span-12',
-        },
-    ];
-
-    const team = [
-        {
-            key: 'yann',
-            image: '/images/team/yann.webp',
-            rounded: true,
-            links: [
-                {
-                    href: 'https://linkedin.com/in/thevyann',
-                    icon: '/icons/linkedIn.svg',
-                    label: "Yann's LinkedIn profile",
-                },
-                {
-                    href: 'https://www.github.com/saravenpi',
-                    icon: '/icons/githubWhite.svg',
-                    label: "Yann's GitHub profile",
-                },
-            ],
-        },
-        {
-            key: 'noah',
-            image: '/icons/noah.svg',
-            rounded: false,
-            links: [
-                {
-                    href: 'https://www.dribbble.com/webbygian',
-                    icon: '/icons/dribbbleWhite.svg',
-                    label: "Noah's Dribbble profile",
-                },
-                {
-                    href: 'https://www.github.com/G1anC',
-                    icon: '/icons/githubWhite.svg',
-                    label: "Noah's GitHub profile",
-                },
-                {
-                    href: 'https://www.instagram.com/webbygian',
-                    icon: '/icons/instagramWhite.svg',
-                    label: "Noah's Instagram profile",
-                },
-            ],
-        },
-        {
-            key: 'mezz',
-            image: '/images/team/mezz.webp',
-            rounded: true,
-            links: [
-                {
-                    href: 'https://www.github.com/MezzLMC',
-                    icon: '/icons/githubWhite.svg',
-                    label: "Mezz's GitHub profile",
-                },
-            ],
-        },
-        {
-            key: 'cami',
-            image: '/images/team/cami.webp',
-            rounded: true,
-            links: [
-                {
-                    href: 'https://www.instagram.com/camg_raphic/',
-                    icon: '/icons/instagramWhite.svg',
-                    label: "Cami's Instagram profile",
-                },
-            ],
         },
     ];
 
@@ -280,39 +224,34 @@ export default function AboutPage() {
                     </Reveal>
                 </section>
 
-                <section className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
-                    <Reveal>
-                        <div className="space-y-4">
-                            <div className="text-[11px] uppercase tracking-[0.28em] text-[#CAE6D8]/45">
-                                {t('mission.title')}
+                <section className="w-full max-w-3xl py-6">
+                    <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
+                        <Reveal className="w-full md:w-auto">
+                            <div className="flex flex-col items-start justify-start">
+                                <h2 className="mb-5 text-3xl font-extrabold text-start">
+                                    {t('mission.title')}
+                                </h2>
+                                <p className="max-w-sm whitespace-pre-line text-base leading-relaxed text-[#CAE6D8]/72">
+                                    {t('mission.text')}
+                                </p>
                             </div>
-                            <div className="max-w-sm text-3xl font-black leading-[0.95] tracking-[-0.05em] md:text-5xl">
-                                {t('whatSetsUsApart.title')}
-                            </div>
-                        </div>
-                    </Reveal>
+                        </Reveal>
 
-                    <Reveal delay={100}>
-                        <Panel className="overflow-hidden">
-                            <div className="grid gap-0 md:grid-cols-[0.85fr_1.15fr]">
-                                <div className="border-b border-[#CAE6D8]/10 p-6 md:border-b-0 md:border-r md:p-8">
-                                    <div className="text-[11px] uppercase tracking-[0.28em] text-[#CAE6D8]/45">
-                                        Mission
-                                    </div>
-                                    <div className="mt-6 space-y-3 text-sm uppercase tracking-[0.18em] text-[#CAE6D8]/70">
-                                        <div>Brand systems</div>
-                                        <div>Web craft</div>
-                                        <div>Conversion clarity</div>
-                                    </div>
+                        <Reveal className="w-full md:w-auto" delay={120}>
+                            <Box>
+                                <div className="text-xl font-extrabold leading-[110%] text-[#CAE6D8] text-start">
+                                    {t('whatSetsUsApart.title')}
                                 </div>
-                                <div className="p-6 md:p-8">
-                                    <p className="whitespace-pre-line text-base leading-relaxed text-[#CAE6D8]/78 md:text-lg">
-                                        {t('mission.text')}
-                                    </p>
-                                </div>
-                            </div>
-                        </Panel>
-                    </Reveal>
+                                <ul className="list-disc pl-4 text-start">
+                                    {differentiators.map((item) => (
+                                        <li key={item} className="mt-1">
+                                            {item}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </Box>
+                        </Reveal>
+                    </div>
                 </section>
 
                 <section className="space-y-8">
@@ -370,70 +309,91 @@ export default function AboutPage() {
                     </div>
                 </section>
 
-                <section className="space-y-8">
-                    <Reveal>
-                        <div className="grid gap-4 md:grid-cols-[0.8fr_1.2fr] md:items-end">
-                            <div className="text-[11px] uppercase tracking-[0.28em] text-[#CAE6D8]/45">
+                <section className="w-full max-w-4xl py-6">
+                    <Reveal className="text-center">
+                        <div className="text-center">
+                            <h2 className="text-3xl font-extrabold">
                                 {t('team.title')}
-                            </div>
-                            <div className="max-w-3xl text-lg leading-relaxed text-[#CAE6D8]/72 md:text-2xl">
+                            </h2>
+                            <p className="mt-5 text-center text-[#CAE6D8]/66">
                                 {t('team.subtitle')}
-                            </div>
+                            </p>
                         </div>
                     </Reveal>
 
-                    <div className="grid gap-6 md:grid-cols-2">
-                        {team.map((member, index) => (
-                            <Reveal key={member.key} delay={90 + index * 90}>
-                                <Panel className="group h-full overflow-hidden p-6 transition-colors duration-300 hover:bg-[#111A15]/70 md:p-8">
-                                    <div className="flex h-full flex-col gap-8">
-                                        <div className="flex items-start justify-between gap-4">
-                                            <div className="flex items-center gap-4">
-                                                <div className="overflow-hidden rounded-2xl border border-[#CAE6D8]/15 bg-[#CAE6D8]/7 p-1">
-                                                    <Image
-                                                        src={member.image}
-                                                        alt=""
-                                                        width={72}
-                                                        height={72}
-                                                        className={member.rounded ? "h-[72px] w-[72px] rounded-[18px] object-cover" : "h-[72px] w-[72px] object-contain"}
-                                                    />
-                                                </div>
-                                                <div>
-                                                    <div className="text-[11px] uppercase tracking-[0.28em] text-[#CAE6D8]/42">
-                                                        0{index + 1}
-                                                    </div>
-                                                    <h3 className="mt-2 whitespace-pre-line text-2xl font-black leading-[0.95] tracking-[-0.05em]">
-                                                        {t(`team.${member.key}.name`)}
-                                                    </h3>
-                                                </div>
-                                            </div>
-                                            <div className="flex items-center gap-4">
-                                                {member.links.map((link) => (
-                                                    <a
-                                                        key={link.href}
-                                                        href={link.href}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        aria-label={link.label}
-                                                        className="opacity-72 transition-transform duration-200 hover:scale-110 hover:opacity-100"
-                                                    >
-                                                        <Image src={link.icon} alt="" width={20} height={20} />
-                                                    </a>
-                                                ))}
-                                            </div>
-                                        </div>
+                    <div className="mt-8 grid gap-6 md:grid-cols-2">
+                        <Reveal delay={50}>
+                            <Box>
+                                <div>
+                                    <Image src="/images/team/yann.webp" alt="Yann" width={64} height={64} className="rounded-full" />
+                                    <h3 className="mt-3 text-3xl font-extrabold leading-[110%] text-[#CAE6D8]">{t('team.yann.name')}</h3>
+                                    <p className="mt-3">{t('team.yann.role')}</p>
+                                </div>
+                                <p className="mt-6">{t('team.yann.description')}</p>
+                                <div className="flex items-center justify-start gap-6">
+                                    <a href="https://linkedin.com/in/thevyann" target="_blank" rel="noopener noreferrer" aria-label="Yann's LinkedIn profile">
+                                        <Image src="/icons/linkedIn.svg" alt="LinkedIn" className="transition-all duration-200 hover:scale-130" width={20} height={20} />
+                                    </a>
+                                    <a href="https://www.github.com/saravenpi" target="_blank" rel="noopener noreferrer" aria-label="Yann's GitHub profile">
+                                        <Image src="/icons/githubWhite.svg" alt="GitHub" className="transition-all duration-200 hover:scale-130" width={20} height={20} />
+                                    </a>
+                                </div>
+                            </Box>
+                        </Reveal>
 
-                                        <div className="rounded-[22px] border border-[#CAE6D8]/10 bg-black/20 px-4 py-3 text-sm uppercase tracking-[0.18em] text-[#CAE6D8]/68">
-                                            {t(`team.${member.key}.role`)}
-                                        </div>
+                        <Reveal delay={140}>
+                            <Box>
+                                <div>
+                                    <Image src="/icons/noah.svg" alt="Noah" width={64} height={64} />
+                                    <h3 className="mt-3 text-3xl font-extrabold leading-[110%] text-[#CAE6D8]">{t('team.noah.name')}</h3>
+                                    <p className="mt-3 text-start">{t('team.noah.role')}</p>
+                                </div>
+                                <p className="mt-6">{t('team.noah.description')}</p>
+                                <div className="mt-3 flex items-center justify-start gap-6">
+                                    <a href="https://www.dribbble.com/webbygian" target="_blank" rel="noopener noreferrer" aria-label="Noah's Dribbble profile">
+                                        <Image src="/icons/dribbbleWhite.svg" alt="Dribbble" className="transition-all duration-200 hover:scale-130" width={20} height={20} />
+                                    </a>
+                                    <a href="https://www.github.com/G1anC" target="_blank" rel="noopener noreferrer" aria-label="Noah's GitHub profile">
+                                        <Image src="/icons/githubWhite.svg" alt="GitHub" className="transition-all duration-200 hover:scale-130" width={20} height={20} />
+                                    </a>
+                                    <a href="https://www.instagram.com/webbygian" target="_blank" rel="noopener noreferrer" aria-label="Noah's Instagram profile">
+                                        <Image src="/icons/instagramWhite.svg" alt="Instagram" className="transition-all duration-200 hover:scale-130" width={20} height={20} />
+                                    </a>
+                                </div>
+                            </Box>
+                        </Reveal>
 
-                                        <p className="text-base leading-relaxed text-[#CAE6D8]/74">
-                                            {t(`team.${member.key}.description`)}
-                                        </p>
-                                    </div>
-                                </Panel>
-                            </Reveal>
-                        ))}
+                        <Reveal delay={230}>
+                            <Box>
+                                <div>
+                                    <Image src="/images/team/mezz.webp" alt="Mezz" width={64} height={64} className="rounded-full border border-white/50" />
+                                    <h3 className="mt-3 text-3xl font-extrabold leading-[110%] text-[#CAE6D8]">{t('team.mezz.name')}</h3>
+                                    <p className="mt-3 text-start">{t('team.mezz.role')}</p>
+                                </div>
+                                <p className="mt-6">{t('team.mezz.description')}</p>
+                                <div className="mt-3 flex items-center justify-start gap-6">
+                                    <a href="https://www.github.com/MezzLMC" target="_blank" rel="noopener noreferrer" aria-label="Mezz's GitHub profile">
+                                        <Image src="/icons/githubWhite.svg" alt="GitHub" className="transition-all duration-200 hover:scale-130" width={20} height={20} />
+                                    </a>
+                                </div>
+                            </Box>
+                        </Reveal>
+
+                        <Reveal delay={320}>
+                            <Box>
+                                <div>
+                                    <Image src="/images/team/cami.webp" alt="Cami" width={64} height={64} className="rounded-full border border-white/50" />
+                                    <h3 className="mt-3 text-3xl font-extrabold leading-[110%] text-[#CAE6D8]">{t('team.cami.name')}</h3>
+                                    <p className="mt-3 text-start">{t('team.cami.role')}</p>
+                                </div>
+                                <p className="mt-6">{t('team.cami.description')}</p>
+                                <div className="mt-3 flex items-center justify-start gap-6">
+                                    <a href="https://www.instagram.com/camg_raphic/" target="_blank" rel="noopener noreferrer" aria-label="Cami's Instagram profile">
+                                        <Image src="/icons/instagramWhite.svg" alt="Instagram" className="transition-all duration-200 hover:scale-130" width={20} height={20} />
+                                    </a>
+                                </div>
+                            </Box>
+                        </Reveal>
                     </div>
                 </section>
             </div>
