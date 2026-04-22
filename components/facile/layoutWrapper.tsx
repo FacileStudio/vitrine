@@ -18,7 +18,15 @@ export default function LayoutWrapper({ children }: LayoutWrapperProps) {
     const [open, setOpen] = React.useState(false);
     const pathname = usePathname();
 
-    // disable rideaux on main page
+    React.useEffect(() => {
+        const handleOpenContactModal = () => setOpen(true);
+
+        window.addEventListener("facile:open-contact-modal", handleOpenContactModal);
+
+        return () => {
+            window.removeEventListener("facile:open-contact-modal", handleOpenContactModal);
+        };
+    }, []);
 
 
     return (

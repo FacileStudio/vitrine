@@ -84,9 +84,14 @@ const Reveal = ({children, className = "", delay = 0}: RevealProps) => {
 
 export default function AboutPage() {
     const t = useTranslations('about');
+    const common = useTranslations('common');
 
     React.useEffect(() => {
         RideauxIn(0);
+    }, []);
+
+    const openContactModal = React.useCallback(() => {
+        window.dispatchEvent(new Event("facile:open-contact-modal"));
     }, []);
 
     const differentiators = [
@@ -159,7 +164,7 @@ export default function AboutPage() {
                         <div className="space-y-8">
                             <div className="inline-flex items-center gap-3 rounded-full border border-[#CAE6D8]/18 bg-[#CAE6D8]/8 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#CAE6D8]/70">
                                 <span className="h-2 w-2 rounded-full bg-[#CAE6D8]" />
-                                Facile. Studio
+                                Facile Studio
                             </div>
 
                             <div className="space-y-4">
@@ -206,15 +211,12 @@ export default function AboutPage() {
 
                 <section className="mx-auto w-full max-w-5xl py-6">
                     <Reveal>
-                        <div className="rounded-[32px] border border-[#CAE6D8]/25 bg-[#CAE6D8] px-6 py-10 text-[#1E1E1E] shadow-[0_24px_80px_rgba(0,0,0,0.18)] md:px-10 md:py-12">
+                        <div className="rounded-[32px] border border-[#CAE6D8]/18 bg-[#CAE6D8]/8 px-6 py-10 text-[#CAE6D8] shadow-[0_24px_80px_rgba(0,0,0,0.18)] backdrop-blur-sm md:px-10 md:py-12">
                             <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
-                                <div className="mb-4 text-[11px] uppercase tracking-[0.28em] text-[#1E1E1E]/45">
-                                    Studio
-                                </div>
                                 <h2 className="mb-5 text-3xl font-extrabold text-center md:text-4xl">
                                     {t('mission.title')}
                                 </h2>
-                                <p className="max-w-3xl whitespace-pre-line text-base leading-relaxed text-[#1E1E1E]/72 md:text-lg">
+                                <p className="max-w-3xl whitespace-pre-line text-base leading-relaxed text-[#CAE6D8]/72 md:text-lg">
                                     {t('mission.text')}
                                 </p>
                             </div>
@@ -243,9 +245,6 @@ export default function AboutPage() {
                                             <div className="flex items-center gap-4">
                                                 <div className="rounded-2xl border border-[#CAE6D8]/12 bg-[#CAE6D8]/8 p-3">
                                                     <Image src={service.icon} alt="" width={20} height={20} />
-                                                </div>
-                                                <div className="text-[11px] uppercase tracking-[0.28em] text-[#CAE6D8]/42">
-                                                    0{index + 1}
                                                 </div>
                                             </div>
                                             <div className="h-px w-16 bg-[#CAE6D8]/12 transition-all duration-300 group-hover:w-24" />
@@ -371,6 +370,31 @@ export default function AboutPage() {
                             </Panel>
                         </Reveal>
                     </div>
+                </section>
+
+                <section className="mx-auto w-full max-w-5xl py-10">
+                    <Reveal>
+                        <Panel className="px-6 py-10 text-center md:px-10 md:py-14">
+                            <div className="mx-auto flex max-w-3xl flex-col items-center gap-6">
+                                <div className="text-[11px] uppercase tracking-[0.28em] text-[#CAE6D8]/45">
+                                    Contact
+                                </div>
+                                <h2 className="text-3xl font-extrabold md:text-4xl">
+                                    {common('contactModal.title')}
+                                </h2>
+                                <p className="max-w-2xl text-base leading-relaxed text-[#CAE6D8]/72 md:text-lg">
+                                    {common('contactModal.description')}
+                                </p>
+                                <button
+                                    type="button"
+                                    onClick={openContactModal}
+                                    className="rounded-full border border-[#CAE6D8]/18 bg-[#CAE6D8] px-6 py-3 text-[#1E1E1E] transition-colors duration-150 hover:bg-[#1E1E1E] hover:text-[#CAE6D8]"
+                                >
+                                    {common('header.contactUs')}
+                                </button>
+                            </div>
+                        </Panel>
+                    </Reveal>
                 </section>
             </div>
         </div>
