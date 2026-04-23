@@ -11,6 +11,7 @@ import { MobileNavigationButtons } from "./mobile-navigation-buttons";
 
 export default function Portfolio() {
     const t = useTranslations('portfolio');
+    const common = useTranslations('common.header');
     const titleRef = useRef<HTMLDivElement>(null);
     const {setSelectedWorkId, selectedWorkId, handleNext, handlePrevious} = usePortfolioNavigation();
     const { bandsRightRef, bandsLeftRef, backgroundRef, animateIn, animateOut } = usePortfolioContentAnimations(selectedWorkId);
@@ -105,10 +106,10 @@ export default function Portfolio() {
                                     <div ref={titleRef} className="max-w-4xl whitespace-nowrap">
                                         <h1 className="flex items-end gap-2 text-[clamp(3.5rem,11vw,8rem)] leading-[0.9] tracking-[-0.06em]">
                                             <span className="font-dirtyline capitalize leading-[0.82]">
-                                                {t('headers.name')[0]}
+                                                {common('portfolio')[0]}
                                             </span>
                                             <span className="font-black uppercase">
-                                                {t('headers.name').slice(1)}
+                                                {common('portfolio').slice(1)}
                                             </span>
                                         </h1>
                                     </div>
