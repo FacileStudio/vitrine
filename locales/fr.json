@@ -18,10 +18,20 @@
     "contactModal": {
       "title": "Contactez-nous",
       "description": "Vous avez un projet en tête ou souhaitez simplement discuter ? Remplissez le formulaire ci-dessous et nous vous contacterons dès que possible.",
+      "close": "Fermer",
       "name": "Nom",
       "email": "Email",
       "phone": "Téléphone",
       "message": "Message",
+      "next": "Suivant",
+      "back": "Retour",
+      "optional": "Optionnel",
+      "stepLabel": "Étape",
+      "steps": {
+        "aboutYou": "Vous",
+        "contact": "Coordonnées",
+        "message": "Votre projet"
+      },
       "send": "Envoyer",
       "sending": "Envoi...",
       "success": "Message envoyé !",

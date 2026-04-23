@@ -17,11 +17,21 @@
     },
     "contactModal": {
       "title": "Hire us",
-        "description": "Have a project in mind or just want to chat? Fill out the form below and we'll get back to you as soon as possible.",
+      "description": "Have a project in mind or just want to chat? Fill out the form below and we'll get back to you as soon as possible.",
+      "close": "Close",
       "name": "Name",
       "email": "Email",
       "phone": "Phone",
       "message": "Message",
+      "next": "Next",
+      "back": "Back",
+      "optional": "Optional",
+      "stepLabel": "Step",
+      "steps": {
+        "aboutYou": "About you",
+        "contact": "Contact details",
+        "message": "Project message"
+      },
       "send": "Send",
       "sending": "Sending...",
       "success": "Message sent!",
