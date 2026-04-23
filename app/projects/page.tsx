@@ -100,7 +100,7 @@ export default function Portfolio() {
 
                 <div className="absolute inset-0 z-40 overflow-y-auto">
                     <div className="mx-auto flex min-h-full w-full max-w-[1920px] flex-col px-8 pb-24 pt-32 text-[#CAE6D8] md:px-20 lg:px-32 lg:pt-36">
-                        <div className="mb-12 flex flex-col gap-8 lg:mb-16 lg:grid lg:grid-cols-[1.35fr_0.9fr] lg:items-end">
+                        <div className="mb-12 flex flex-col gap-8 lg:mb-16 lg:grid lg:grid-cols-[1.35fr_0.9fr] lg:items-start">
                             <div className="space-y-6">
                                 <div className="space-y-4">
                                     <div ref={titleRef} className="max-w-4xl whitespace-nowrap">
