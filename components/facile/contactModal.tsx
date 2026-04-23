@@ -168,6 +168,19 @@ export default function ContactModal({ open, setOpen }: ContactModalProps) {
         handleNext();
     };
 
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        if (e.key !== "Enter" || loading) {
+            return;
+        }
+
+        if (currentStep.type === 'textarea' && e.shiftKey) {
+            return;
+        }
+
+        e.preventDefault();
+        handleContinue();
+    };
+
     return (
         <Dialog.Root open={open} onOpenChange={setOpen}>
             <Dialog.Portal>
@@ -208,7 +221,7 @@ export default function ContactModal({ open, setOpen }: ContactModalProps) {
                                     {t('close')}
                                 </Dialog.Close>
 
-                                <div className="text-[11px] uppercase tracking-[0.28em] text-[#CAE6D8]/35">
+                                <div className="text-lg font-semibold tracking-[-0.04em] text-[#CAE6D8]/55 md:text-2xl">
                                     {step + 1}/{steps.length}
                                 </div>
                             </div>
@@ -225,9 +238,6 @@ export default function ContactModal({ open, setOpen }: ContactModalProps) {
 
                                 <div className="space-y-6 md:space-y-8">
                                     <div className="space-y-4">
-                                        <div className="text-[11px] uppercase tracking-[0.28em] text-[#CAE6D8]/38">
-                                            {currentStep.title}
-                                        </div>
                                         <h2 className="max-w-3xl text-[clamp(2.6rem,7vw,5.75rem)] font-black leading-[0.95] tracking-[-0.06em]">
                                             {currentStep.label}
                                         </h2>
@@ -244,6 +254,7 @@ export default function ContactModal({ open, setOpen }: ContactModalProps) {
                                                 name={currentStep.key}
                                                 value={currentValue}
                                                 onChange={(e) => handleChange(e.target.value)}
+                                                onKeyDown={handleKeyDown}
                                                 placeholder={currentStep.placeholder}
                                                 className="min-h-[180px] w-full resize-none border-0 border-b border-[#CAE6D8]/22 bg-transparent px-0 py-4 text-xl leading-relaxed text-[#CAE6D8] outline-none transition-colors duration-200 placeholder:text-[#CAE6D8]/20 focus:border-[#CAE6D8] md:min-h-[220px] md:text-3xl"
                                             />
@@ -253,6 +264,7 @@ export default function ContactModal({ open, setOpen }: ContactModalProps) {
                                                 name={currentStep.key}
                                                 value={currentValue}
                                                 onChange={(e) => handleChange(e.target.value)}
+                                                onKeyDown={handleKeyDown}
                                                 placeholder={currentStep.placeholder}
                                                 className="w-full border-0 border-b border-[#CAE6D8]/22 bg-transparent px-0 py-4 text-xl text-[#CAE6D8] outline-none transition-colors duration-200 placeholder:text-[#CAE6D8]/20 focus:border-[#CAE6D8] md:text-3xl"
                                             />
@@ -272,8 +284,19 @@ export default function ContactModal({ open, setOpen }: ContactModalProps) {
                                     type="button"
                                     onClick={handleBack}
                                     disabled={step === 0 || loading}
-                                    className="text-sm text-[#CAE6D8]/45 transition-colors duration-200 hover:text-[#CAE6D8] disabled:opacity-20"
+                                    className="group flex items-center gap-3 rounded-full border border-[#CAE6D8]/16 px-4 py-2 text-sm text-[#CAE6D8]/68 transition-colors duration-200 hover:border-[#CAE6D8]/30 hover:bg-[#CAE6D8]/8 hover:text-[#CAE6D8] disabled:opacity-20"
                                 >
+                                    <span
+                                        className="h-4 w-4 bg-[#CAE6D8]/68 transition-colors duration-200 group-hover:bg-[#CAE6D8]"
+                                        style={{
+                                            WebkitMaskImage: "url(/icons/arrow.svg)",
+                                            maskImage: "url(/icons/arrow.svg)",
+                                            WebkitMaskSize: "contain",
+                                            maskSize: "contain",
+                                            WebkitMaskRepeat: "no-repeat",
+                                            maskRepeat: "no-repeat",
+                                        }}
+                                    />
                                     {t('back')}
                                 </button>
 
