@@ -36,7 +36,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
     return (
         <html lang={locale} className="bg-background">
         <head>
-            <script defer src="https://stats.facile.studio/script.js" data-website-id="34bb792f-b7ac-444a-b1e3-0a521383629d"></script>
+            <script defer src="https://stats.facile.studio/script.js" data-website-id="dfa0de4f-ad5c-48b8-9b00-347913c54b15"></script>
         </head>
         <body className={manrope.variable}>
         <NextIntlClientProvider messages={messages} locale={locale}>
