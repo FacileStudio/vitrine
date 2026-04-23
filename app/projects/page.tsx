@@ -11,7 +11,6 @@ import { MobileNavigationButtons } from "./mobile-navigation-buttons";
 
 export default function Portfolio() {
     const t = useTranslations('portfolio');
-    const common = useTranslations('common.header');
     const titleRef = useRef<HTMLDivElement>(null);
     const {setSelectedWorkId, selectedWorkId, handleNext, handlePrevious} = usePortfolioNavigation();
     const { bandsRightRef, bandsLeftRef, backgroundRef, animateIn, animateOut } = usePortfolioContentAnimations(selectedWorkId);
@@ -44,10 +43,10 @@ export default function Portfolio() {
                     aria-label={`View project ${t(`projects.${id}.name`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#CAE6D8]/25 bg-[#CAE6D8]/10 transition-colors duration-150 hover:bg-[#CAE6D8] hover:text-[#1E1E1E]"
+                    className="group flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#CAE6D8]/25 bg-[#CAE6D8]/10 transition-all duration-300 ease-out hover:scale-105 hover:bg-[#CAE6D8]"
                 >
                     <span
-                        className="h-4 w-4 rotate-180 bg-[#CAE6D8] transition-colors duration-150 group-hover:bg-[#1E1E1E]"
+                        className="h-4 w-4 rotate-180 bg-[#CAE6D8] transition-all duration-300 ease-out group-hover:bg-[#1E1E1E]"
                         style={{
                             WebkitMaskImage: "url(/icons/arrow.svg)",
                             maskImage: "url(/icons/arrow.svg)",
@@ -102,19 +101,14 @@ export default function Portfolio() {
                     <div className="mx-auto flex min-h-full w-full max-w-[1920px] flex-col px-8 pb-24 pt-32 text-[#CAE6D8] md:px-20 lg:px-32 lg:pt-36">
                         <div className="mb-12 flex flex-col gap-8 lg:mb-16 lg:grid lg:grid-cols-[1.35fr_0.9fr] lg:items-end">
                             <div className="space-y-6">
-                                <div className="inline-flex items-center gap-3 rounded-full border border-[#CAE6D8]/18 bg-[#CAE6D8]/8 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#CAE6D8]/70">
-                                    <span className="h-2 w-2 rounded-full bg-[#CAE6D8]" />
-                                    {common('portfolio')}
-                                </div>
-
-                            <div className="space-y-4">
+                                <div className="space-y-4">
                                     <div ref={titleRef} className="max-w-4xl whitespace-nowrap">
                                         <h1 className="flex items-end gap-2 text-[clamp(3.5rem,11vw,8rem)] leading-[0.9] tracking-[-0.06em]">
                                             <span className="font-dirtyline capitalize leading-[0.82]">
-                                                {common('portfolio')[0]}
+                                                {t('headers.name')[0]}
                                             </span>
                                             <span className="font-black uppercase">
-                                                {common('portfolio').slice(1)}
+                                                {t('headers.name').slice(1)}
                                             </span>
                                         </h1>
                                     </div>

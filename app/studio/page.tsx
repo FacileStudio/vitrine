@@ -162,11 +162,6 @@ export default function AboutPage() {
                 <section className="grid items-end gap-6 lg:grid-cols-[1.45fr_0.9fr]">
                     <Reveal delay={40}>
                         <div className="space-y-8">
-                            <div className="inline-flex items-center gap-3 rounded-full border border-[#CAE6D8]/18 bg-[#CAE6D8]/8 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#CAE6D8]/70">
-                                <span className="h-2 w-2 rounded-full bg-[#CAE6D8]" />
-                                Facile Studio
-                            </div>
-
                             <div className="space-y-4">
                                 <h1 className="max-w-4xl text-[clamp(4rem,13vw,9rem)] font-black leading-[0.9] tracking-[-0.06em]">
                                     {t('title')}
