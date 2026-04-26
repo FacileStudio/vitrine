@@ -3,17 +3,13 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Copy package files
-COPY package*.json ./
+# Copy package files and install dependencies
+COPY package.json package-lock.json ./
+RUN npm ci
 
-# Install dependencies
-RUN npm install
-
-# Copy application files
+# Copy application files and build
 COPY . .
-
-# Build the application
-RUN ./node_modules/.bin/next build
+RUN npm run build
 
 # Production stage
 FROM node:20-alpine
@@ -25,10 +21,8 @@ COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
 
-# Expose the port
 EXPOSE 3000
 
 ENV NODE_ENV=production
 
-# Start the application
 CMD ["node", "server.js"]
