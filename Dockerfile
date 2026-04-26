@@ -1,16 +1,16 @@
 # Build stage
-FROM node:20-slim AS builder
+FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
-RUN npm install --ignore-scripts
+COPY .npmrc package.json package-lock.json ./
+RUN npm ci --ignore-scripts
 
 COPY . .
 RUN npm run build
 
 # Production stage
-FROM node:20-slim
+FROM node:20-alpine
 
 WORKDIR /app
 
