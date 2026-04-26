@@ -1,13 +1,13 @@
 # Build stage
-FROM node:20-alpine AS builder
+FROM oven/bun:1.3.11-alpine AS builder
 
 WORKDIR /app
 
-COPY .npmrc package.json package-lock.json ./
-RUN npm ci --ignore-scripts
+COPY .npmrc package.json bun.lock ./
+RUN bun install --frozen-lockfile --linker hoisted
 
 COPY . .
-RUN npm run build
+RUN bun run build
 
 # Production stage
 FROM node:20-alpine
@@ -21,5 +21,7 @@ COPY --from=builder /app/public ./public
 EXPOSE 3000
 
 ENV NODE_ENV=production
+ENV HOSTNAME=0.0.0.0
+ENV PORT=3000
 
 CMD ["node", "server.js"]
