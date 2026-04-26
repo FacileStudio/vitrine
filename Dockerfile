@@ -1,15 +1,13 @@
 # Build stage
-FROM oven/bun:1-alpine AS builder
-
-RUN apk add --no-cache nodejs
+FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-COPY package.json bun.lock ./
-RUN bun install --ignore-scripts
+COPY package.json package-lock.json ./
+RUN npm install --ignore-scripts
 
 COPY . .
-RUN bunx --bun next build
+RUN npm run build
 
 # Production stage
 FROM node:20-alpine
