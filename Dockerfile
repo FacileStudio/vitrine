@@ -13,7 +13,7 @@ RUN npm install
 COPY . .
 
 # Build the application
-RUN npx next build
+RUN ./node_modules/.bin/next build
 
 # Production stage
 FROM node:20-alpine
