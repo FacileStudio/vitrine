@@ -36,7 +36,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
     return (
         <html lang={locale} className="bg-background">
         <head>
-            <script defer data-api="/v/event/pageview" src="https://vision.facile.studio/t.js"></script>
+            <script defer data-api="/v/event/pageview" src="/t.js"></script>
         </head>
         <body className={manrope.variable}>
         <NextIntlClientProvider messages={messages} locale={locale}>
