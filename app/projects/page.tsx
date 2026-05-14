@@ -104,7 +104,7 @@ export default function Portfolio() {
                             <div className="space-y-6">
                                 <div className="space-y-4">
                                     <div ref={titleRef} className="max-w-4xl whitespace-nowrap">
-                                        <h1 className="flex items-end gap-2 text-[clamp(3.5rem,11vw,8rem)] leading-[0.9] tracking-[-0.06em]">
+                                        <h1 className="flex items-end gap-2 font-sans text-[clamp(3.5rem,11vw,8rem)] leading-[0.9] tracking-[-0.06em]">
                                             <span className="font-dirtyline capitalize leading-[0.82]">
                                                 {common('portfolio')[0]}
                                             </span>
@@ -119,8 +119,8 @@ export default function Portfolio() {
                                 </div>
                             </div>
 
-                            <div className="rounded-[28px] border border-[#CAE6D8]/18 bg-[#0D1310]/55 p-6 text-[#CAE6D8] shadow-[0_24px_80px_rgba(0,0,0,0.25)] backdrop-blur-md md:p-8">
-                                <div className="text-[11px] uppercase tracking-[0.28em] text-[#CAE6D8]/48">
+                            <div className="rounded-[28px]  bg-[#0D1310]/55 p-6 text-[#CAE6D8] shadow-[0_24px_80px_rgba(0,0,0,0.25)] backdrop-blur-md md:p-8">
+                                <div className="text-[11px] tracking-[0.28em] text-[#CAE6D8]/48">
                                     {t('hero.panelTitle')}
                                 </div>
                                 <div className="mt-6 space-y-4">

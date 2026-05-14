@@ -16,23 +16,13 @@ type PanelProps = {
     className?: string;
 };
 
-const Box = ({children}: {children: React.ReactNode}) => {
-    return (
-        <div className="rounded-[20px] border border-[#CAE6D8]/33 bg-[#CAE6D8]/10 p-8 text-[#CAE6D8]/66 transition-all duration-300 hover:text-[#CAE6D8] hover:shadow-[inset_0_0_40px_0_#CAE6D815]">
-            <div className="flex flex-col gap-6">
-                {children}
-            </div>
-        </div>
-    );
-};
-
-const Panel = ({children, className = ""}: PanelProps) => (
-    <div className={`rounded-[28px] border border-[#CAE6D8]/18 bg-[#0D1310]/55 text-[#CAE6D8] shadow-[0_24px_80px_rgba(0,0,0,0.25)] backdrop-blur-md ${className}`}>
+const Panel = ({ children, className = "" }: PanelProps) => (
+    <div className={`rounded-[28px]  bg-[#0D1310]/55 text-[#CAE6D8] shadow-[0_24px_80px_rgba(0,0,0,0.25)] backdrop-blur-md ${className}`}>
         {children}
     </div>
 );
 
-const Reveal = ({children, className = "", delay = 0}: RevealProps) => {
+const Reveal = ({ children, className = "", delay = 0 }: RevealProps) => {
     const ref = React.useRef<HTMLDivElement | null>(null);
     const [isVisible, setIsVisible] = React.useState(false);
 
@@ -150,74 +140,78 @@ export default function AboutPage() {
             }}
             className="relative h-full w-full overflow-x-hidden overflow-y-auto rounded-[32px] outline-none text-[#CAE6D8]"
         >
-            <div className="pointer-events-none absolute inset-0 overflow-hidden">
-                <div className="absolute left-[-10%] top-24 h-72 w-72 rounded-full bg-[#CAE6D8]/10 blur-3xl" />
-                <div className="absolute right-[-5%] top-[32rem] h-80 w-80 rounded-full bg-[#CAE6D8]/8 blur-3xl" />
-                <div className="absolute bottom-24 left-1/3 h-64 w-64 rounded-full bg-[#CAE6D8]/8 blur-3xl" />
-                <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(9,15,12,0.2),rgba(9,15,12,0.88)_30%,rgba(9,15,12,0.98))]" />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(202,230,216,0.12),transparent_45%)]" />
-            </div>
+            <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-10 px-5 pb-24 md:px-8 lg:gap-20 lg:px-12">
+                <div className="relative isolate -mx-5 px-5 pb-10 pt-36 md:-mx-8 md:px-8 md:pt-44 lg:-mx-12 lg:px-12">
+                    <div className="pointer-events-none absolute left-1/2 top-0 bottom-0 z-0 w-screen -translate-x-1/2 overflow-hidden rounded-b-[44px]">
+                        <div className="absolute left-[-10%] top-24 h-72 w-72 rounded-full bg-[#CAE6D8]/10 blur-3xl" />
+                        <div className="absolute right-[-5%] top-[32rem] h-80 w-80 rounded-full bg-[#CAE6D8]/8 blur-3xl" />
+                        <div className="absolute bottom-0 left-1/3 h-64 w-64 rounded-full bg-[#CAE6D8]/8 blur-3xl" />
+                        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(9,15,12,0.2),rgba(9,15,12,0.88)_30%,rgba(9,15,12,0.98))]" />
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(202,230,216,0.12),transparent_45%)]" />
+                    </div>
 
-            <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-10 px-5 pb-24 pt-36 md:px-8 md:pt-44 lg:gap-20 lg:px-12">
-                <section className="grid items-end gap-6 lg:grid-cols-[1.45fr_0.9fr]">
-                    <Reveal delay={40}>
-                        <div className="space-y-8">
-                            <div className="space-y-4">
-                                <h1 className="max-w-4xl text-[clamp(4rem,13vw,9rem)] font-black leading-[0.9] tracking-[-0.06em]">
-                                    {t('title')}
-                                </h1>
-                                <div className="max-w-[320px] md:max-w-[420px]">
-                                    <Image
-                                        src="/icons/FACILE Text.svg"
-                                        className="w-full"
-                                        alt="Facile Studio logo"
-                                        width={420}
-                                        height={90}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="max-w-2xl">
-                                <p className="text-base leading-relaxed text-[#CAE6D8]/72 md:text-xl">
-                                    {t('subtitle')}
-                                </p>
-                            </div>
-                        </div>
-                    </Reveal>
-
-                    <Reveal delay={140} className="h-full">
-                        <Panel className="p-6 md:p-8">
-                            <div className="space-y-6">
-                                <div className="text-[11px] uppercase tracking-[0.28em] text-[#CAE6D8]/48">
-                                    {t('whatSetsUsApart.title').replace('\n', ' ')}
-                                </div>
-                                <div className="space-y-4">
-                                    {differentiators.map((item) => (
-                                        <div key={item} className="flex items-center justify-between gap-4 border-b border-[#CAE6D8]/10 pb-4 last:border-b-0 last:pb-0">
-                                            <span className="text-lg leading-tight text-[#CAE6D8]/92">{item}</span>
-                                            <span className="text-[#CAE6D8]/35">+</span>
+                    <div className="relative z-10 flex flex-col gap-10 lg:gap-20">
+                        <section className="grid items-end gap-6 lg:grid-cols-[1.45fr_0.9fr]">
+                            <Reveal delay={40}>
+                                <div className="space-y-8">
+                                    <div className="space-y-4">
+                                        <h1 className="max-w-4xl font-sans text-[clamp(4rem,13vw,9rem)] font-black leading-[0.9] tracking-[-0.06em]">
+                                            {t('title')}
+                                        </h1>
+                                        <div className="max-w-[320px] md:max-w-[420px]">
+                                            <Image
+                                                src="/icons/FACILE Text.svg"
+                                                className="w-full"
+                                                alt="Facile Studio logo"
+                                                width={420}
+                                                height={90}
+                                            />
                                         </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </Panel>
-                    </Reveal>
-                </section>
+                                    </div>
 
-                <section className="mx-auto w-full max-w-5xl py-6">
-                    <Reveal>
-                        <div className="rounded-[32px] border border-[#CAE6D8]/18 bg-[#CAE6D8]/8 px-6 py-10 text-[#CAE6D8] shadow-[0_24px_80px_rgba(0,0,0,0.18)] backdrop-blur-sm md:px-10 md:py-12">
-                            <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
-                                <h2 className="mb-5 text-3xl font-extrabold text-center md:text-4xl">
-                                    {t('mission.title')}
-                                </h2>
-                                <p className="max-w-3xl whitespace-pre-line text-base leading-relaxed text-[#CAE6D8]/72 md:text-lg">
-                                    {t('mission.text')}
-                                </p>
-                            </div>
-                        </div>
-                    </Reveal>
-                </section>
+                                    <div className="max-w-2xl">
+                                        <p className="text-base leading-relaxed text-[#CAE6D8]/72 md:text-xl">
+                                            {t('subtitle')}
+                                        </p>
+                                    </div>
+                                </div>
+                            </Reveal>
+
+                            <Reveal delay={140} className="h-full">
+                                <Panel className="p-6 md:p-8">
+                                    <div className="space-y-6">
+                                        <div className="text-[11px] uppercase tracking-[0.28em] text-[#CAE6D8]/48">
+                                            {t('whatSetsUsApart.title').replace('\n', ' ')}
+                                        </div>
+                                        <div className="space-y-4">
+                                            {differentiators.map((item) => (
+                                                <div key={item} className="flex items-center justify-between gap-4 border-b border-[#CAE6D8]/10 pb-4 last:border-b-0 last:pb-0">
+                                                    <span className="text-lg leading-tight text-[#CAE6D8]/92">{item}</span>
+                                                    <span className="text-[#CAE6D8]/35">+</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </Panel>
+                            </Reveal>
+                        </section>
+
+                        <section className="mx-auto w-full max-w-5xl py-6">
+                            <Reveal>
+                                <div className="rounded-[32px]  bg-[#CAE6D8]/8 p-10 text-[#CAE6D8] shadow-[0_24px_80px_rgba(0,0,0,0.18)] backdrop-blur-sm md:p-12">
+                                    <div className="w-full flex-col ">
+                                        <h2 className="mb-5 text-3xl font-extrabold  md:text-4xl">
+                                            {t('mission.title')}
+                                        </h2>
+                                        <p className="w-full whitespace-pre-line text-base leading-relaxed text-[#CAE6D8]/72 md:text-lg">
+                                            {t('mission.text')}
+                                        </p>
+                                    </div>
+                                </div>
+                            </Reveal>
+                        </section>
+                    </div>
+                </div>
 
                 <section className="space-y-8">
                     <Reveal>
@@ -238,7 +232,7 @@ export default function AboutPage() {
                                     <div className="flex h-full flex-col gap-8">
                                         <div className="flex items-start justify-between gap-4">
                                             <div className="flex items-center gap-4">
-                                                <div className="rounded-2xl border border-[#CAE6D8]/12 bg-[#CAE6D8]/8 p-3">
+                                                <div className="rounded-2xl  bg-[#CAE6D8]/8 p-3">
                                                     <Image src={service.icon} alt="" width={20} height={20} />
                                                 </div>
                                             </div>
@@ -258,7 +252,7 @@ export default function AboutPage() {
                                             {service.items.map((item) => (
                                                 <span
                                                     key={item}
-                                                    className="rounded-full border border-[#CAE6D8]/14 bg-black/20 px-4 py-2 text-sm text-[#CAE6D8]/84"
+                                                    className="rounded-full bg-black/20 px-4 py-2 text-sm text-[#CAE6D8]/84"
                                                 >
                                                     {item}
                                                 </span>
@@ -290,7 +284,7 @@ export default function AboutPage() {
                                     <div className="flex flex-col items-center">
                                         <Image src="/images/team/yann.webp" alt="Yann" width={64} height={64} className="rounded-full" />
                                         <h3 className="mt-3 whitespace-pre-line text-3xl font-extrabold leading-[110%] text-[#CAE6D8]">{t('team.yann.name')}</h3>
-                                        <p className="mt-3 rounded-full border border-[#CAE6D8]/18 bg-[#CAE6D8]/8 px-4 py-2 text-sm text-[#CAE6D8]/78">
+                                        <p className="mt-3 rounded-full bg-[#CAE6D8]/8 px-4 py-2 text-sm text-[#CAE6D8]/78">
                                             {t('team.yann.role')}
                                         </p>
                                     </div>
@@ -313,7 +307,7 @@ export default function AboutPage() {
                                     <div className="flex flex-col items-center">
                                         <Image src="/icons/noah.svg" alt="Noah" width={64} height={64} />
                                         <h3 className="mt-3 whitespace-pre-line text-3xl font-extrabold leading-[110%] text-[#CAE6D8]">{t('team.noah.name')}</h3>
-                                        <p className="mt-3 rounded-full border border-[#CAE6D8]/18 bg-[#CAE6D8]/8 px-4 py-2 text-sm text-[#CAE6D8]/78">
+                                        <p className="mt-3 rounded-full bg-[#CAE6D8]/8 px-4 py-2 text-sm text-[#CAE6D8]/78">
                                             {t('team.noah.role')}
                                         </p>
                                     </div>
@@ -339,7 +333,7 @@ export default function AboutPage() {
                                     <div className="flex flex-col items-center">
                                         <Image src="/images/team/mezz.webp" alt="Mezz" width={64} height={64} className="rounded-full" />
                                         <h3 className="mt-3 whitespace-pre-line text-3xl font-extrabold leading-[110%] text-[#CAE6D8]">{t('team.mezz.name')}</h3>
-                                        <p className="mt-3 rounded-full border border-[#CAE6D8]/18 bg-[#CAE6D8]/8 px-4 py-2 text-sm text-[#CAE6D8]/78">
+                                        <p className="mt-3 rounded-full bg-[#CAE6D8]/8 px-4 py-2 text-sm text-[#CAE6D8]/78">
                                             {t('team.mezz.role')}
                                         </p>
                                     </div>
@@ -359,7 +353,7 @@ export default function AboutPage() {
                                     <div className="flex flex-col items-center">
                                         <Image src="/images/team/cami.webp" alt="Cami" width={64} height={64} className="rounded-full" />
                                         <h3 className="mt-3 whitespace-pre-line text-3xl font-extrabold leading-[110%] text-[#CAE6D8]">{t('team.cami.name')}</h3>
-                                        <p className="mt-3 rounded-full border border-[#CAE6D8]/18 bg-[#CAE6D8]/8 px-4 py-2 text-sm text-[#CAE6D8]/78">
+                                        <p className="mt-3 rounded-full bg-[#CAE6D8]/8 px-4 py-2 text-sm text-[#CAE6D8]/78">
                                             {t('team.cami.role')}
                                         </p>
                                     </div>
@@ -388,7 +382,7 @@ export default function AboutPage() {
                                 <button
                                     type="button"
                                     onClick={openContactModal}
-                                    className="group flex items-center gap-3 rounded-full border border-[#CAE6D8]/18 bg-[#CAE6D8] px-6 py-3 text-[#1E1E1E] transition-colors duration-150 hover:bg-[#1E1E1E] hover:text-[#CAE6D8]"
+                                    className="group flex items-center gap-3 rounded-full bg-[#CAE6D8] px-6 py-3 text-[#1E1E1E] transition-colors duration-150 hover:bg-[#1E1E1E] hover:text-[#CAE6D8]"
                                 >
                                     <span
                                         className="h-5 w-5 bg-[#1E1E1E] transition-colors duration-150 group-hover:bg-[#CAE6D8]"
