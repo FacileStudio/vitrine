@@ -133,7 +133,6 @@ export default function Home() {
                         height={96} 
                         className="w-24 disappear"
                         onLoad={handleAssetLoad}
-                        priority
                     />
                 </div>
 
@@ -183,7 +182,6 @@ export default function Home() {
                             height={400}
                             className="min-h-[400px] xl:min-h-0 object-cover w-full"
                             onLoad={handleAssetLoad}
-                            priority
                         />
                         {isDesktop ? (
                             <div className={"top-0 right-0 mr-[7%] fixed text-[#CAE6D8] font-extrabold text-5xl"}>

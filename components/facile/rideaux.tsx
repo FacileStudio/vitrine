@@ -4,6 +4,7 @@ import gsap from "gsap";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 export const RideauxIn = (delayValue: number) => {
+    if (!document.querySelector(".rideaux")) return;
     gsap.to(".rideaux", {
         height: 0,
 
@@ -14,6 +15,7 @@ export const RideauxIn = (delayValue: number) => {
 }
 
 export const RideauxOut = ({href, router}: {href: string, router: AppRouterInstance}) => {
+    if (!document.querySelector(".rideaux")) return;
     gsap.fromTo(".rideaux", {
         height: 0,
         top: "100%",
