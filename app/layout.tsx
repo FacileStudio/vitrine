@@ -3,7 +3,7 @@ import "./globals.css";
 import { ReactNode } from "react";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
-import LayoutWrapper from "@/components/facile/layoutWrapper";
+import AppShell from "@/components/facile/appShell";
 import { baseMetadata } from "@/lib/seo/metadata";
 import { Metadata } from "next";
 
@@ -41,9 +41,9 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         </head>
         <body className={manrope.variable}>
         <NextIntlClientProvider messages={messages} locale={locale}>
-            <LayoutWrapper>
+            <AppShell>
                 {children}
-            </LayoutWrapper>
+            </AppShell>
         </NextIntlClientProvider>
         </body>
         </html>

@@ -1,5 +1,5 @@
 import {usePathname, useRouter} from "next/navigation";
-import { RideauxOut} from "@/components/facile/rideaux";
+import { TransitionOut } from "@/components/facile/pageTransition";
 import React, { forwardRef, ButtonHTMLAttributes } from "react";
 import clsx from "clsx";
 import Image from "next/image";
@@ -59,7 +59,7 @@ export const LogoButton = forwardRef<HTMLButtonElement, Omit<ButtonProps, 'text'
             )}
             onClick={() => {
                 if (pathName !== href)
-                    RideauxOut({href, router})
+                    TransitionOut({href, router})
             }}
             ref={ref}
             {...props}
@@ -80,7 +80,7 @@ export const TransitionButton = ({href, text}: Omit<ButtonProps, 'icon'> & {href
         <div
             onClick={() => {
                 if (pathName !== href)
-                    RideauxOut({href, router})
+                    TransitionOut({href, router})
             }}
             className="
                 relative

@@ -3,9 +3,9 @@
 import gsap from "gsap";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
-export const RideauxIn = (delayValue: number) => {
-    if (!document.querySelector(".rideaux")) return;
-    gsap.to(".rideaux", {
+export const TransitionIn = (delayValue: number) => {
+    if (!document.querySelector(".page-transition")) return;
+    gsap.to(".page-transition", {
         height: 0,
 
         duration: 2,
@@ -14,9 +14,9 @@ export const RideauxIn = (delayValue: number) => {
     })
 }
 
-export const RideauxOut = ({href, router}: {href: string, router: AppRouterInstance}) => {
-    if (!document.querySelector(".rideaux")) return;
-    gsap.fromTo(".rideaux", {
+export const TransitionOut = ({href, router}: {href: string, router: AppRouterInstance}) => {
+    if (!document.querySelector(".page-transition")) return;
+    gsap.fromTo(".page-transition", {
         height: 0,
         top: "100%",
     }, {

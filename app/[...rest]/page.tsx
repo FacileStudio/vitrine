@@ -1,6 +1,6 @@
 'use client';
 
-import { RideauxIn } from "@/components/facile/rideaux";
+import { TransitionIn } from "@/components/facile/pageTransition";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import React from "react";
@@ -8,7 +8,7 @@ import React from "react";
 export default function NotFound() {
     const t = useTranslations("common.notFound");
 
-    React.useEffect(() => RideauxIn(0), []);
+    React.useEffect(() => TransitionIn(0), []);
 
     return (
     <div className="relative flex flex-col items-center justify-center h-full bg-[#1E1E1E] text-white">

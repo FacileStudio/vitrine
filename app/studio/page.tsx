@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import React from "react";
-import { RideauxIn } from "@/components/facile/rideaux";
+import { TransitionIn } from "@/components/facile/pageTransition";
 import { useTranslations } from 'next-intl';
 
 type RevealProps = {
@@ -87,7 +87,7 @@ export default function AboutPage() {
     const common = useTranslations('common');
 
     React.useEffect(() => {
-        RideauxIn(0);
+        TransitionIn(0);
     }, []);
 
     const openContactModal = React.useCallback(() => {

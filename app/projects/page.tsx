@@ -2,7 +2,7 @@
 
 import data from "./projects.json"
 import React, { useRef } from "react"
-import {RideauxIn} from "@/components/facile/rideaux";
+import {TransitionIn} from "@/components/facile/pageTransition";
 import { useTranslations } from 'next-intl';
 import { usePortfolioTitleAnimation } from "@/lib/animations/portfolio-title";
 import { usePortfolioNavigation } from "./navigation";
@@ -18,7 +18,7 @@ export default function Portfolio() {
 
     usePortfolioTitleAnimation(titleRef);
 
-    React.useEffect(() => RideauxIn(0), []);
+    React.useEffect(() => TransitionIn(0), []);
 
     const ProjectButton = ({item, id}: {item: typeof data[0], id: number}) => (
         <div

@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import gsap from "gsap";
-import { RideauxIn } from "@/components/facile/rideaux";
+import { TransitionIn } from "@/components/facile/pageTransition";
 import { useTranslations } from 'next-intl';
 
 export default function Home() {
@@ -48,7 +48,7 @@ export default function Home() {
     React.useEffect(() => {
         const tl = gsap.timeline({}); 
 
-        RideauxIn(2);
+        TransitionIn(2);
 
         if (start) {
             tl
