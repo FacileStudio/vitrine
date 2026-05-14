@@ -12,6 +12,14 @@ const nextConfig: NextConfig = {
         qualities: [75, 85, 95],
     },
     devIndicators: false,
+    async rewrites() {
+        return [
+            {
+                source: '/v/event/:path*',
+                destination: 'https://vision.facile.studio/api/event/:path*',
+            },
+        ];
+    },
 };
 
 export default withNextIntl(nextConfig);
