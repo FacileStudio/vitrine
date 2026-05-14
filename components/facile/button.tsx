@@ -3,6 +3,7 @@ import { TransitionOut } from "@/components/facile/pageTransition";
 import React, { forwardRef, ButtonHTMLAttributes } from "react";
 import clsx from "clsx";
 import Image from "next/image";
+import Link from "next/link";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
     text: string;
@@ -45,44 +46,64 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
 Button.displayName = "Button";
 
-export const LogoButton = forwardRef<HTMLButtonElement, Omit<ButtonProps, 'text' | 'icon'>>(
+type LogoButtonProps = Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href">;
+
+export const LogoButton = forwardRef<HTMLAnchorElement, LogoButtonProps>(
     ({ className = "", ...props }, ref) => {
         const router = useRouter();
         const pathName = usePathname();
         const href = "/";
 
         return (
-        <button
+        <Link
+            href={href}
             className={clsx(
                 'cursor-pointer',
                 className
             )}
-            onClick={() => {
-                if (pathName !== href)
-                    TransitionOut({href, router})
+            onClick={(event) => {
+                if (pathName === href) {
+                    event.preventDefault();
+                    return;
+                }
+
+                event.preventDefault();
+                TransitionOut({href, router});
             }}
             ref={ref}
             {...props}
         >
             <Image src={"/icons/F..svg"} alt={"Home logo"} width={28} height={28} />
-        </button>
+        </Link>
         );
     }
 );
 
+LogoButton.displayName = "LogoButton";
 
-export const TransitionButton = ({href, text}: Omit<ButtonProps, 'icon'> & {href: string} ) => {
+type TransitionButtonProps = Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href"> & {
+    href: string;
+    text: string;
+};
+
+export const TransitionButton = ({href, text, className = "", ...props}: TransitionButtonProps) => {
     const router = useRouter();
     const pathName = usePathname();
     if (!href)
         return null;
     return (
-        <div
-            onClick={() => {
-                if (pathName !== href)
-                    TransitionOut({href, router})
+        <Link
+            href={href}
+            onClick={(event) => {
+                if (pathName === href) {
+                    event.preventDefault();
+                    return;
+                }
+
+                event.preventDefault();
+                TransitionOut({href, router});
             }}
-            className="
+            className={clsx(`
                 relative
                 bg-[#CAE6D8]
                 py-0.5 px-2
@@ -94,7 +115,8 @@ export const TransitionButton = ({href, text}: Omit<ButtonProps, 'icon'> & {href
                 group
                 text-lg
                 gap-0
-            "
+            `, className)}
+            {...props}
         >
             <div
                 className="relative m-0 p-0 flex items-end gap font-manrope text-2xl"
@@ -108,6 +130,6 @@ export const TransitionButton = ({href, text}: Omit<ButtonProps, 'icon'> & {href
                 </div>
             </div>
             <span className="m-0 absolute bottom-0 left-0 h-[2.5px] w-0 bg-[#1E1E1E]/80 group-hover:w-full transition-all duration-300 ease-out" />
-        </div>
+        </Link>
     );
 }

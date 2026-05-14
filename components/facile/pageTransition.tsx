@@ -15,7 +15,11 @@ export const TransitionIn = (delayValue: number) => {
 }
 
 export const TransitionOut = ({href, router}: {href: string, router: AppRouterInstance}) => {
-    if (!document.querySelector(".page-transition")) return;
+    if (!document.querySelector(".page-transition")) {
+        router.push(href);
+        return;
+    }
+
     gsap.fromTo(".page-transition", {
         height: 0,
         top: "100%",
