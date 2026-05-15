@@ -12,7 +12,7 @@ import { GithubIcon } from "../ui/github";
 import { InstagramIcon } from "../ui/instagram";
 import { useLocale } from "next-intl";
 import { LanguageDropdown } from "./header/langage-dropdown";
-import { useRouter } from "next/navigation";
+import { useLocaleSwitcher } from "@/hooks/use-locale-switcher";
 
 type ContactModalProps = {
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -22,19 +22,13 @@ const Footer = ({setOpen}: ContactModalProps) => {
     const t = useTranslations('common');
     const hireUsRef = useRef<HTMLDivElement>(null);
     const locale = useLocale();
-    const router = useRouter();
+    const switchLocale = useLocaleSwitcher();
 
     useGSAP(() => {
         gsap.registerPlugin(CustomEase);
         gsap.registerPlugin(CustomBounce);
         CustomBounce.create("myBounce", { strength: 0.7, squash: 2 });
     }, []);
-
-    const switchLocale = (newLocale: string) => {
-        document.cookie = `NEXT_LOCALE=${newLocale};path=/;max-age=31536000`;
-        router.refresh();
-    };
-
 
     const triggerBounce = () => {
         if (hireUsRef.current && !gsap.isTweening(hireUsRef.current)) {

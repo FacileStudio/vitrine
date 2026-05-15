@@ -1,8 +1,7 @@
 import { Metadata } from "next";
-import { locales, type Locale } from "@/i18n";
+import { defaultLocale, isLocale, locales, type Locale } from "@/lib/i18n/locales";
 
 export const siteUrl = "https://facile.studio";
-export const defaultLocale: Locale = "en";
 
 export const routePaths = ["", "/projects", "/studio"] as const;
 export type RoutePath = (typeof routePaths)[number];
@@ -33,7 +32,7 @@ export function getOpenGraphLocale(locale: string) {
         de: "de_DE",
     };
 
-    return localesMap[locale] ?? "en_US";
+    return isLocale(locale) ? localesMap[locale] : "en_US";
 }
 
 export const baseMetadata: Metadata = {

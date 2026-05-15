@@ -1,6 +1,6 @@
 import ProjectsPage from "../../projects/page";
 import { Metadata } from "next";
-import { locales, type Locale } from "@/i18n";
+import { locales, type Locale } from "@/lib/i18n/locales";
 import { baseMetadata, getAlternates, getOpenGraphLocale, getLocalizedPath, siteUrl } from "@/lib/seo/metadata";
 
 type PageProps = {

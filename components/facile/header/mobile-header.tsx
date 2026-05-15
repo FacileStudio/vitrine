@@ -5,10 +5,11 @@ import { languages } from "./languages";
 import * as Dialog from '@radix-ui/react-dialog';
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import Link from "next/link";
+import type { Locale } from "@/lib/i18n/locales";
 
 type MobileHeaderProps = {
     locale: string;
-    switchLocale: (newLocale: string) => void;
+    switchLocale: (newLocale: Locale) => void;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 

@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next'
-import { locales, type Locale } from "@/i18n"
+import { locales, type Locale } from "@/lib/i18n/locales"
 import { getLocalizedPath, routePaths, siteUrl, type RoutePath } from "@/lib/seo/metadata"
 
 export default function sitemap(): MetadataRoute.Sitemap {

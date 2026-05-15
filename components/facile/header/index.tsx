@@ -1,9 +1,9 @@
 'use client'
 import React from "react";
-import { useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
 import { DesktopHeader } from "./desktop-header";
 import { MobileHeader } from "./mobile-header";
+import { useLocaleSwitcher } from "@/hooks/use-locale-switcher";
 
 type ContactModalProps = {
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -11,12 +11,7 @@ type ContactModalProps = {
 
 const Header = ({ setOpen }: ContactModalProps) => {
     const locale = useLocale();
-    const router = useRouter();
-
-    const switchLocale = (newLocale: string) => {
-        document.cookie = `NEXT_LOCALE=${newLocale};path=/;max-age=31536000`;
-        router.refresh();
-    };
+    const switchLocale = useLocaleSwitcher();
 
     return (
         <div className={"z-50 absolute w-full top-0"}>

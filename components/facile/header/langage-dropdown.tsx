@@ -1,9 +1,10 @@
 import { languages } from "./languages";
 import clsx from "clsx";
+import type { Locale } from "@/lib/i18n/locales";
 
 export const LanguageDropdown = ({locale, switchLocale, className} : {
     locale: string;
-    switchLocale: (newLocale: string) => void;
+    switchLocale: (newLocale: Locale) => void;
     className?: string;
 }) => {
 
