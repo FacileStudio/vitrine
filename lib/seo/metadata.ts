@@ -1,30 +1,58 @@
 import { Metadata } from "next";
+import { locales, type Locale } from "@/i18n";
+
+export const siteUrl = "https://facile.studio";
+export const defaultLocale: Locale = "en";
+
+export const routePaths = ["", "/projects", "/studio"] as const;
+export type RoutePath = (typeof routePaths)[number];
+
+export function getLocalizedPath(locale: Locale, route: RoutePath = "") {
+    return route ? `/${locale}${route}` : `/${locale}`;
+}
+
+export function getAlternates(route: RoutePath = "", canonicalLocale: Locale = defaultLocale) {
+    const languages = Object.fromEntries(
+        locales.map((locale) => [locale, getLocalizedPath(locale, route)])
+    ) as Record<Locale, string>;
+
+    return {
+        canonical: getLocalizedPath(canonicalLocale, route),
+        languages: {
+            ...languages,
+            "x-default": getLocalizedPath(defaultLocale, route),
+        },
+    };
+}
+
+export function getOpenGraphLocale(locale: string) {
+    const localesMap: Record<string, string> = {
+        en: "en_US",
+        fr: "fr_FR",
+        es: "es_ES",
+        de: "de_DE",
+    };
+
+    return localesMap[locale] ?? "en_US";
+}
 
 export const baseMetadata: Metadata = {
     title: {
-        default: "Facile. Studio",
-        template: "%s | Facile. Studio"
+        default: "Facile Studio - Design, branding et développement web",
+        template: "%s | Facile Studio"
     },
     description: "Facile. Studio - Agence digitale créative spécialisée dans le design et le développement web",
     keywords: ["design", "développement web", "studio créatif", "agence digitale", "UX/UI"],
     authors: [{ name: "Facile. Studio" }],
     creator: "Facile. Studio",
     publisher: "Facile. Studio",
-    metadataBase: new URL('https://facile.studio'),
-    alternates: {
-        canonical: '/',
-        languages: {
-            'en': '/en',
-            'fr': '/fr',
-            'es': '/es',
-            'de': '/de'
-        },
-    },
+    metadataBase: new URL(siteUrl),
+    alternates: getAlternates(),
     openGraph: {
         type: "website",
         locale: "fr_FR",
-        url: "https://facile.studio",
-        title: "Facile. Studio",
+        url: siteUrl,
+        title: "Facile Studio - Design, branding et développement web",
         description: "Facile. Studio - Agence digitale créative spécialisée dans le design et le développement web",
         siteName: "Facile. Studio",
         images: [
@@ -38,7 +66,7 @@ export const baseMetadata: Metadata = {
     },
     twitter: {
         card: "summary_large_image",
-        title: "Facile. Studio",
+        title: "Facile Studio - Design, branding et développement web",
         description: "Facile. Studio - Agence digitale créative spécialisée dans le design et le développement web",
         images: ["/images/og.webp"],
         creator: "@facilestudio",

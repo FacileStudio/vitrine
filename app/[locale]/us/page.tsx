@@ -1,5 +1,11 @@
-import StudioPage from "../../studio/page";
+import { redirect } from "next/navigation";
 
-export default function LocaleUsPage() {
-    return <StudioPage />;
+type PageProps = {
+    params: Promise<{ locale: string }>;
+};
+
+export default async function LocaleUsPage({ params }: PageProps) {
+    const { locale } = await params;
+
+    redirect(`/${locale}/studio`);
 }

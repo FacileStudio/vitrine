@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import AppShell from "@/components/facile/appShell";
-import { baseMetadata } from "@/lib/seo/metadata";
+import { baseMetadata, getAlternates, getOpenGraphLocale, siteUrl } from "@/lib/seo/metadata";
 import { Metadata } from "next";
 
 const manrope = Manrope({
@@ -19,13 +19,11 @@ export async function generateMetadata(): Promise<Metadata> {
 
     return {
         ...baseMetadata,
-        alternates: {
-            canonical: `/`,
-        },
+        alternates: getAlternates(),
         openGraph: {
             ...baseMetadata.openGraph,
-            locale: locale === 'en' ? 'en_US' : `${locale}_${locale.toUpperCase()}`,
-            url: `https://facile.studio`
+            locale: getOpenGraphLocale(locale),
+            url: siteUrl,
         }
     }
 };

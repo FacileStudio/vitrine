@@ -1,14 +1,26 @@
 import type { MetadataRoute } from 'next'
+import { locales, type Locale } from "@/i18n"
+import { getLocalizedPath, routePaths, siteUrl, type RoutePath } from "@/lib/seo/metadata"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://facile.studio'
+  const lastModified = new Date()
 
-  const routes = ['', '/projects', '/studio']
+  return routePaths.flatMap((route) => {
+    const languages = Object.fromEntries(
+      locales.map((locale) => [locale, `${siteUrl}${getLocalizedPath(locale, route as RoutePath)}`])
+    ) as Record<Locale, string>
 
-  return routes.map(route => ({
-    url: `${baseUrl}${route}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: route === '' ? 1 : 0.8,
-  }))
+    return locales.map((locale) => ({
+      url: `${siteUrl}${getLocalizedPath(locale, route as RoutePath)}`,
+      lastModified,
+      changeFrequency: 'monthly' as const,
+      priority: route === '' ? 1 : 0.8,
+      alternates: {
+        languages: {
+          ...languages,
+          "x-default": `${siteUrl}${getLocalizedPath("en", route as RoutePath)}`,
+        },
+      },
+    }))
+  })
 }

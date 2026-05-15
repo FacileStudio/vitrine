@@ -7,8 +7,9 @@ export type Locale = (typeof locales)[number];
 export const routing = defineRouting({
     locales,
     defaultLocale: 'en',
-    localePrefix: 'never',
+    localePrefix: 'always',
     localeDetection: true,
+    alternateLinks: false,
 });
 
 export default getRequestConfig(async ({ requestLocale }) => {

@@ -158,6 +158,7 @@ export default function Home() {
             </div>
 
             <div className={"w-full overflow-hidden bg-[#1E1E1E] h-full relative rounded-[32px]"}>
+                <h1 className="sr-only">Facile Studio - Design, branding et développement web</h1>
 
                 <Image 
                     ref={background}
