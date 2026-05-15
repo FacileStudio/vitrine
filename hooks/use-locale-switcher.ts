@@ -2,12 +2,11 @@
 
 import { getLocalizedPathname } from "@/lib/i18n/pathname";
 import type { Locale } from "@/lib/i18n/locales";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import React from "react";
 
 export function useLocaleSwitcher() {
     const pathname = usePathname();
-    const router = useRouter();
     const searchParams = useSearchParams();
 
     return React.useCallback((newLocale: Locale) => {
@@ -16,6 +15,6 @@ export function useLocaleSwitcher() {
         const target = queryString ? `${targetPathname}?${queryString}` : targetPathname;
 
         document.cookie = `NEXT_LOCALE=${newLocale};path=/;max-age=31536000`;
-        router.push(target);
-    }, [pathname, router, searchParams]);
+        window.location.assign(target);
+    }, [pathname, searchParams]);
 }
