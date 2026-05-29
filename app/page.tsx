@@ -83,10 +83,6 @@ const ProjectCard = ({ project, index, tagline, onNavigate }: {
             onClick={() => onNavigate(`/projects/${project.slug}`)}
             className="group relative cursor-pointer overflow-hidden rounded-[28px] border border-[#CAE6D8]/10 p-8 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-[#CAE6D8]/20 md:p-10"
         >
-            <div
-                className="absolute inset-0 bg-cover bg-center opacity-15 transition-opacity duration-500 group-hover:opacity-25"
-                style={{ backgroundImage: `url(/images/projects/${project.name}.webp)` }}
-            />
             <div className="relative z-10 flex min-h-[180px] flex-col gap-4 md:min-h-[200px]">
                 <h3 className="text-2xl font-semibold text-[#CAE6D8] md:text-3xl">
                     {project.name}
