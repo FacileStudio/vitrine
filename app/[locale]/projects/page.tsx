@@ -11,13 +11,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const { locale } = await params;
     const validLocale = locales.includes(locale as Locale) ? locale as Locale : "en";
 
+    const description = "Explore our portfolio of design, branding, and web development projects. From encrypted sharing tools to wellness apps — each project tells a story.";
+
     return {
         ...baseMetadata,
         title: "Projets",
+        description,
         alternates: getAlternates("/projects", validLocale),
         openGraph: {
             ...baseMetadata.openGraph,
             title: "Projets | Facile Studio",
+            description,
             locale: getOpenGraphLocale(validLocale),
             url: `${siteUrl}${getLocalizedPath(validLocale, "/projects")}`,
         },

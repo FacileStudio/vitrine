@@ -5,6 +5,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import AppShell from "@/components/facile/appShell";
 import { baseMetadata, getAlternates, getOpenGraphLocale, siteUrl } from "@/lib/seo/metadata";
+import { getOrganizationJsonLd, getWebSiteJsonLd } from "@/lib/seo/jsonld";
 import { Metadata } from "next";
 
 const manrope = Manrope({
@@ -36,6 +37,14 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <html lang={locale} className="bg-background">
         <head>
             <script defer src="https://vision.facile.studio/s.js"></script>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(getOrganizationJsonLd()) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(getWebSiteJsonLd()) }}
+            />
         </head>
         <body className={manrope.variable}>
         <NextIntlClientProvider messages={messages} locale={locale}>

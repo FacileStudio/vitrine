@@ -2,7 +2,8 @@
 
 import data from "./projects.json"
 import React, { useRef } from "react"
-import {TransitionIn} from "@/components/facile/pageTransition";
+import { useRouter } from "next/navigation"
+import {TransitionIn, TransitionOut} from "@/components/facile/pageTransition";
 import { useTranslations } from 'next-intl';
 import { usePortfolioTitleAnimation } from "@/lib/animations/portfolio-title";
 import { usePortfolioNavigation } from "./navigation";
@@ -12,6 +13,7 @@ import { MobileNavigationButtons } from "./mobile-navigation-buttons";
 export default function Portfolio() {
     const t = useTranslations('portfolio');
     const common = useTranslations('common.header');
+    const router = useRouter();
     const titleRef = useRef<HTMLDivElement>(null);
     const {setSelectedWorkId, selectedWorkId, handleNext, handlePrevious} = usePortfolioNavigation();
     const { bandsRightRef, bandsLeftRef, backgroundRef, animateIn, animateOut } = usePortfolioContentAnimations(selectedWorkId);
@@ -22,10 +24,17 @@ export default function Portfolio() {
 
     const ProjectButton = ({item, id}: {item: typeof data[0], id: number}) => (
         <div
-            className={`${id === selectedWorkId && "uppercase font-extrabold"} flex justify-between items-center shrink-0
+            className={`${id === selectedWorkId && "uppercase font-extrabold"} group flex justify-between items-center shrink-0
                 cursor-pointer hover:font-extrabold hover:uppercase duration-100 transition-all px-4 py-1.5 sm:py-3`}
             onMouseEnter={() => animateIn(id)}
             onMouseLeave={() => animateOut(id)}
+            onClick={() => {
+                if (item.tier < 3) {
+                    TransitionOut({ href: `/projects/${item.slug}`, router });
+                } else {
+                    window.open(item.link, "_blank", "noopener,noreferrer");
+                }
+            }}
         >
             <div className="shrink-0">{t(`projects.${id}.name`)}</div>
                 <div ref={el => void (bandsRightRef.current[id] = el)} className={`hidden sm:block w-full h-4 lg:px-16 px-4 opacity-0`}>
@@ -39,12 +48,8 @@ export default function Portfolio() {
                     <div className="bg-[#CAE6D8] h-4 rounded-full w-full"></div>
                 </div>
 
-                <a
-                    href={item.link}
-                    aria-label={`View project ${t(`projects.${id}.name`)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#CAE6D8]/25 bg-[#CAE6D8]/10 transition-all duration-300 ease-out hover:scale-105 hover:bg-[#CAE6D8]"
+                <div
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#CAE6D8]/25 bg-[#CAE6D8]/10 transition-all duration-300 ease-out group-hover:scale-105 group-hover:bg-[#CAE6D8]"
                 >
                     <span
                         className="h-4 w-4 rotate-180 bg-[#CAE6D8] transition-all duration-300 ease-out group-hover:bg-[#1E1E1E]"
@@ -57,7 +62,7 @@ export default function Portfolio() {
                             maskRepeat: "no-repeat",
                         }}
                     />
-                </a>
+                </div>
             </div>
         </div>
     );
@@ -100,37 +105,21 @@ export default function Portfolio() {
 
                 <div className="absolute inset-0 z-40 overflow-y-auto">
                     <div className="mx-auto flex min-h-full w-full max-w-[1920px] flex-col px-8 pb-24 pt-32 text-[#CAE6D8] md:px-20 lg:px-32 lg:pt-36">
-                        <div className="mb-12 flex flex-col gap-8 lg:mb-16 lg:grid lg:grid-cols-[1.35fr_0.9fr] lg:items-start">
-                            <div className="space-y-6">
-                                <div className="space-y-4">
-                                    <div ref={titleRef} className="max-w-4xl whitespace-nowrap">
-                                        <h1 className="flex items-end gap-2 font-sans text-[clamp(3.5rem,11vw,8rem)] leading-[0.9] tracking-[-0.06em]">
-                                            <span className="font-dirtyline capitalize leading-[0.82]">
-                                                {common('portfolio')[0]}
-                                            </span>
-                                            <span className="font-black uppercase">
-                                                {common('portfolio').slice(1)}
-                                            </span>
-                                        </h1>
-                                    </div>
-                                    <p className="max-w-2xl text-base leading-relaxed text-[#CAE6D8]/72 md:text-xl">
-                                        {t('hero.subtitle')}
-                                    </p>
+                        <div className="mb-12 lg:mb-16">
+                            <div className="space-y-4">
+                                <div ref={titleRef} className="max-w-4xl whitespace-nowrap">
+                                    <h1 className="flex items-end gap-2 font-sans text-[clamp(3.5rem,11vw,8rem)] leading-[0.9] tracking-[-0.06em]">
+                                        <span className="font-dirtyline capitalize leading-[0.82]">
+                                            {common('portfolio')[0]}
+                                        </span>
+                                        <span className="font-black uppercase">
+                                            {common('portfolio').slice(1)}
+                                        </span>
+                                    </h1>
                                 </div>
-                            </div>
-
-                            <div className="rounded-[28px]  bg-[#0D1310]/55 p-6 text-[#CAE6D8] shadow-[0_24px_80px_rgba(0,0,0,0.25)] backdrop-blur-md md:p-8">
-                                <div className="text-[11px] tracking-[0.28em] text-[#CAE6D8]/48">
-                                    {t('hero.panelTitle')}
-                                </div>
-                                <div className="mt-6 space-y-4">
-                                    {t.raw('hero.points').map((item: string) => (
-                                        <div key={item} className="flex items-center justify-between gap-4 border-b border-[#CAE6D8]/10 pb-4 last:border-b-0 last:pb-0">
-                                            <span className="text-lg leading-tight text-[#CAE6D8]/92">{item}</span>
-                                            <span className="text-[#CAE6D8]/35">+</span>
-                                        </div>
-                                    ))}
-                                </div>
+                                <p className="max-w-2xl text-base leading-relaxed text-[#CAE6D8]/72 md:text-xl">
+                                    {t('hero.subtitle')}
+                                </p>
                             </div>
                         </div>
 

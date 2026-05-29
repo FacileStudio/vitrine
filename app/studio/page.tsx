@@ -141,17 +141,9 @@ export default function AboutPage() {
             className="relative h-full w-full overflow-x-hidden overflow-y-auto rounded-[32px] outline-none text-[#CAE6D8]"
         >
             <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-10 px-5 pb-24 md:px-8 lg:gap-20 lg:px-12">
-                <div className="relative isolate -mx-5 px-5 pb-10 pt-36 md:-mx-8 md:px-8 md:pt-44 lg:-mx-12 lg:px-12">
-                    <div className="pointer-events-none absolute left-1/2 top-0 bottom-0 z-0 w-screen -translate-x-1/2 overflow-hidden rounded-b-[44px]">
-                        <div className="absolute left-[-10%] top-24 h-72 w-72 rounded-full bg-[#CAE6D8]/10 blur-3xl" />
-                        <div className="absolute right-[-5%] top-[32rem] h-80 w-80 rounded-full bg-[#CAE6D8]/8 blur-3xl" />
-                        <div className="absolute bottom-0 left-1/3 h-64 w-64 rounded-full bg-[#CAE6D8]/8 blur-3xl" />
-                        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(9,15,12,0.2),rgba(9,15,12,0.88)_30%,rgba(9,15,12,0.98))]" />
-                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(202,230,216,0.12),transparent_45%)]" />
-                    </div>
-
-                    <div className="relative z-10 flex flex-col gap-10 lg:gap-20">
-                        <section className="grid items-end gap-6 lg:grid-cols-[1.45fr_0.9fr]">
+                <div className="pb-10 pt-36 md:pt-44">
+                    <div className="flex flex-col gap-10 lg:gap-20">
+                        <section>
                             <Reveal delay={40}>
                                 <div className="space-y-8">
                                     <div className="space-y-4">
@@ -175,24 +167,6 @@ export default function AboutPage() {
                                         </p>
                                     </div>
                                 </div>
-                            </Reveal>
-
-                            <Reveal delay={140} className="h-full">
-                                <Panel className="p-6 md:p-8">
-                                    <div className="space-y-6">
-                                        <div className="text-[11px] uppercase tracking-[0.28em] text-[#CAE6D8]/48">
-                                            {t('whatSetsUsApart.title').replace('\n', ' ')}
-                                        </div>
-                                        <div className="space-y-4">
-                                            {differentiators.map((item) => (
-                                                <div key={item} className="flex items-center justify-between gap-4 border-b border-[#CAE6D8]/10 pb-4 last:border-b-0 last:pb-0">
-                                                    <span className="text-lg leading-tight text-[#CAE6D8]/92">{item}</span>
-                                                    <span className="text-[#CAE6D8]/35">+</span>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </Panel>
                             </Reveal>
                         </section>
 
