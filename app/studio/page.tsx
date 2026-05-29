@@ -140,7 +140,7 @@ export default function AboutPage() {
             }}
             className="relative h-full w-full overflow-x-hidden overflow-y-auto rounded-[32px] outline-none text-[#CAE6D8]"
         >
-            <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-10 px-5 pb-24 md:px-8 lg:gap-20 lg:px-12">
+            <div className="relative z-10 mx-auto flex w-full max-w-[1920px] flex-col gap-10 px-8 pb-24 md:px-20 lg:gap-20 lg:px-32">
                 <div className="pb-10 pt-36 md:pt-44">
                     <div className="flex flex-col gap-10 lg:gap-20">
                         <section>
