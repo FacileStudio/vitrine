@@ -105,6 +105,27 @@ const ProjectCard = ({ project, index, tagline, onNavigate }: {
     </Reveal>
 );
 
+const SolarIcon = ({ src, className }: { src: string; className?: string }) => (
+    <span
+        className={className}
+        style={{
+            WebkitMaskImage: `url(${src})`,
+            maskImage: `url(${src})`,
+            WebkitMaskSize: "contain",
+            maskSize: "contain",
+            WebkitMaskRepeat: "no-repeat",
+            maskRepeat: "no-repeat",
+        }}
+    />
+);
+
+const processIcons = [
+    "/icons/solar/chat.svg",
+    "/icons/solar/pen.svg",
+    "/icons/solar/code.svg",
+    "/icons/solar/flag.svg",
+];
+
 const FeaturedProjects = ({ projects, t, caseStudyT, onNavigate }: {
     projects: (typeof data)[number][];
     t: TranslationFn;
@@ -113,7 +134,8 @@ const FeaturedProjects = ({ projects, t, caseStudyT, onNavigate }: {
 }) => (
     <div className="relative z-10 mx-auto max-w-[1920px] px-8 py-20 text-[#CAE6D8] md:px-20 md:py-32 lg:px-32">
         <Reveal>
-            <div className="mb-10 text-[11px] tracking-[0.28em] text-[#CAE6D8]/48 uppercase">
+            <div className="mb-10 flex items-center gap-3 text-[11px] tracking-[0.28em] text-[#CAE6D8]/48 uppercase">
+                <SolarIcon src="/icons/solar/star.svg" className="inline-block h-4 w-4 bg-[#CAE6D8]/48" />
                 {t('featured.title')}
             </div>
         </Reveal>
@@ -160,6 +182,9 @@ const Process = ({ t }: { t: TranslationFn }) => {
                     {steps.map((step, i) => (
                         <Reveal key={step.name} delay={60 + i * 100}>
                             <div>
+                                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-[#1E1E1E]/8">
+                                    <SolarIcon src={processIcons[i]} className="inline-block h-5 w-5 bg-[#1E1E1E]/70" />
+                                </div>
                                 <div className="mb-3 text-sm font-semibold text-[#1E1E1E]/25">
                                     0{i + 1}
                                 </div>
@@ -187,6 +212,9 @@ const Closing = ({ t }: { t: TranslationFn }) => {
         <div className="relative z-10 mx-auto max-w-[1920px] px-8 py-20 text-[#CAE6D8] md:px-20 md:py-28 lg:px-32">
             <Reveal>
                 <div className="mx-auto max-w-2xl text-center">
+                    <div className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#CAE6D8]/10">
+                        <SolarIcon src="/icons/solar/users.svg" className="inline-block h-6 w-6 bg-[#CAE6D8]/60" />
+                    </div>
                     <p className="text-2xl font-semibold leading-snug text-[#CAE6D8] md:text-3xl">
                         {t('closing.headline')}
                     </p>
