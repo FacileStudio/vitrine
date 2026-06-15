@@ -363,21 +363,25 @@ export default function Home() {
             </div>
 
             <div className="w-full overflow-y-auto overflow-x-hidden bg-[#1E1E1E] h-full relative rounded-[32px]">
-                <div className="relative h-full min-h-[500px]">
-                    <h1 className="sr-only">Facile Studio - Design, branding et développement web</h1>
+                <div className="sticky top-0 h-0 z-0">
+                    <div className="relative h-[100dvh] w-full">
+                        <Image
+                            ref={background}
+                            src="/images/bg-blur.webp"
+                            alt="background"
+                            fill
+                            sizes="(max-width: 640px) 640px, (max-width: 1024px) 1024px, (max-width: 1536px) 1536px, 100vw"
+                            quality={80}
+                            className="object-cover object-left will-change-transform"
+                            onLoad={handleAssetLoad}
+                            fetchPriority="high"
+                            priority
+                        />
+                    </div>
+                </div>
 
-                    <Image
-                        ref={background}
-                        src="/images/hero.webp"
-                        alt="background"
-                        fill
-                        sizes="(max-width: 640px) 640px, (max-width: 1024px) 1024px, (max-width: 1536px) 1536px, 100vw"
-                        quality={80}
-                        className="object-cover object-left blur-lg will-change-transform"
-                        onLoad={handleAssetLoad}
-                        fetchPriority="high"
-                        priority
-                    />
+                <div className="relative h-full min-h-[500px] z-10">
+                    <h1 className="sr-only">Facile Studio - Design, branding et développement web</h1>
 
                     <div ref={title} className="absolute -bottom-1 left-0 lg:w-full w-[200%] flex items-start justify-start">
                         <div className="flex shrink-0 gap-12 xl:w-full relative">
@@ -389,11 +393,7 @@ export default function Home() {
                                 className="min-h-[400px] xl:min-h-0 object-cover w-full"
                                 onLoad={handleAssetLoad}
                             />
-                            {isDesktop ? (
-                                <div className="top-0 right-0 mr-[7%] fixed text-[#CAE6D8] font-extrabold text-5xl">
-                                    STUDIO
-                                </div>
-                            ) : (
+                            {!isDesktop &&
                                 Array.from({ length: 20 }).map((_, i) => (
                                     <Image
                                         key={i}
@@ -403,8 +403,7 @@ export default function Home() {
                                         height={400}
                                         className="min-h-[400px] object-cover"
                                     />
-                                ))
-                            )}
+                                ))}
                         </div>
                     </div>
                 </div>
