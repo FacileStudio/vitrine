@@ -67,13 +67,13 @@ app/
 ├── [locale]/
 │   ├── layout.tsx             # Root layout with i18n setup, SEO, analytics
 │   ├── page.tsx               # Home page for each locale
-│   ├── portfolio/
+│   ├── projects/
 │   │   └── page.tsx           # Portfolio page
-│   └── us/                     # "About Us" route (about us, not a URL typo)
+│   └── studio/                     # "About Us" route
 │       └── page.tsx
 ├── components/
 │   ├── button.tsx             # Button components (Button, LogoButton, TransitionButton)
-│   ├── rideaux.tsx            # GSAP-based page transition animations
+│   ├── pageTransition.tsx     # GSAP-based page transition animations
 │   ├── header.tsx             # Navigation header
 │   ├── footer.tsx             # Footer component
 │   ├── contactModal.tsx       # Contact form modal
@@ -144,9 +144,9 @@ export const Button = ({ text, icon, href }: ButtonProps) => {
   - Transparency: `/33` suffix for 33% opacity (e.g., `border-[#1E1E1E]/33`)
 
 ### Animations
-- **Page Transitions**: Use GSAP via `rideaux.tsx` utilities
-  - `RideauxOut({href, router})` - Animate out before navigation
-  - `RideauxIn(delayValue)` - Animate in after navigation
+- **Page Transitions**: Use GSAP via `pageTransition.tsx` utilities
+  - `TransitionOut({href, router})` - Animate out before navigation
+  - `TransitionIn(delayValue)` - Animate in after navigation
 - **Hover Effects**: Use Tailwind transitions (duration-150, transition-colors)
 - **Icon Masking**: SVGs rendered via CSS mask/WebkitMask (see button.tsx for pattern)
 
@@ -158,7 +158,7 @@ export const Button = ({ text, icon, href }: ButtonProps) => {
   ```typescript
   const router = useRouter();
   const pathName = usePathname();
-  if (pathName !== href) RideauxOut({href, router});
+  if (pathName !== href) TransitionOut({href, router});
   ```
 
 ### API Routes
@@ -197,10 +197,10 @@ Next.js 16 requires `params` to be awaited:
 const { locale } = await params;  // Don't forget await!
 ```
 
-### 2. **Page Transitions with Rideaux**
-- CSS selector `.rideaux` must exist in DOM for GSAP animations to work
+### 2. **Page Transitions**
+- CSS selector `.page-transition` must exist in DOM for GSAP animations to work
 - Always check `pathName !== href` before triggering transition (avoid unnecessary animations on current page)
-- Animations delay navigation via `onComplete` callback in RideauxOut
+- Animations delay navigation via `onComplete` callback in TransitionOut
 
 ### 3. **SVG Icon Masking**
 Icons are rendered as colored divs with SVG mask backgrounds:
@@ -244,7 +244,7 @@ SEO metadata (title, description, openGraph, etc.) is defined in `app/[locale]/l
 1. Create `app/[locale]/new-page/page.tsx`
 2. Export metadata for SEO (title, description, etc.)
 3. Make sure it's a Server Component by default
-4. Use `useRouter()` + `RideauxOut()` for navigation from other pages
+4. Use `useRouter()` + `TransitionOut()` for navigation from other pages
 
 ### Adding a New Translation
 1. Update JSON files in `locales/` (en.json, fr.json, es.json, de.json) with same keys
@@ -314,7 +314,7 @@ ESLint is configured via `eslint-config-next` (Next.js recommended rules).
 | Portfolio | `app/[locale]/portfolio/page.tsx` |
 | About Us | `app/[locale]/us/page.tsx` |
 | Buttons, Icons, Animations | `app/components/button.tsx` |
-| Page Transitions (GSAP) | `app/components/rideaux.tsx` |
+| Page Transitions (GSAP) | `app/components/pageTransition.tsx` |
 | Contact Form | `app/components/contactModal.tsx` |
 | Email API | `app/api/contact/route.ts` |
 | Translations | `locales/{en,fr,es,de}.json` |
@@ -338,7 +338,7 @@ ESLint is configured via `eslint-config-next` (Next.js recommended rules).
 ## Quick Debugging Tips
 
 1. **i18n Issues**: Check `middleware.ts` for locale matching and `i18n.ts` for message loading
-2. **Animation Issues**: Check `.rideaux` CSS class exists; verify GSAP duration/delay values
+2. **Animation Issues**: Check `.page-transition` CSS class exists; verify GSAP duration/delay values
 3. **API Errors**: Check `RESEND_API_KEY` env var is set; look at contact/route.ts error logs
 4. **TypeScript Errors**: Verify `params` is awaited in layouts; check type definitions match imports
 5. **Build Issues**: Clear `.next` folder and rebuild; check Node version is 20.x

@@ -1,0 +1,101 @@
+[
+  {
+    "slug": "capsule",
+    "name": "Capsule",
+    "tier": 1,
+    "weeks": 6,
+    "link": "https://github.com/FacileStudio/Capsule",
+    "techStack": ["Go", "SvelteKit", "PostgreSQL", "AES-256-GCM"]
+  },
+  {
+    "slug": "opus",
+    "name": "Opus",
+    "tier": 1,
+    "weeks": 10,
+    "link": "https://github.com/FacileStudio/Opus",
+    "techStack": ["TypeScript", "SvelteKit", "Go", "PostgreSQL"]
+  },
+  {
+    "slug": "waves",
+    "name": "Waves",
+    "tier": 1,
+    "weeks": 1,
+    "link": "https://github.com/saravenpi/waves",
+    "techStack": ["Rust", "Tauri", "egui", "FFT"]
+  },
+  {
+    "slug": "glouton",
+    "name": "Glouton",
+    "tier": 1,
+    "weeks": 8,
+    "link": "https://github.com/FacileStudio/Glouton",
+    "techStack": ["TypeScript", "SvelteKit", "Hono", "tRPC", "BullMQ", "PostgreSQL"]
+  },
+  {
+    "slug": "marcel",
+    "name": "Marcel",
+    "tier": 1,
+    "weeks": 12,
+    "link": "https://marcel.my/",
+    "techStack": ["Svelte", "Go", "PostgreSQL"]
+  },
+  {
+    "slug": "solais-intra",
+    "name": "SolaïsIntra",
+    "tier": 2,
+    "weeks": 8,
+    "link": "https://solais.fr/",
+    "techStack": ["TypeScript", "Vue.js"]
+  },
+  {
+    "slug": "laura-herve",
+    "name": "LauraHerve",
+    "tier": 2,
+    "weeks": 4,
+    "link": "https://lauraherve.com",
+    "techStack": ["TypeScript"]
+  },
+  {
+    "slug": "evelynecrea",
+    "name": "EvelyneCrea",
+    "tier": 2,
+    "weeks": 8,
+    "link": "https://www.evelynecrea.com",
+    "techStack": ["TypeScript"]
+  },
+  {
+    "slug": "gian",
+    "name": "Gian",
+    "tier": 3,
+    "weeks": 3,
+    "link": "https://dribbble.com/shots/26755861-PORTFOLIO"
+  },
+  {
+    "slug": "mont-k",
+    "name": "Mont-k",
+    "tier": 3,
+    "weeks": 1,
+    "link": "https://dribbble.com/shots/26711277-MONT-K-UI-UX-DESIGN"
+  },
+  {
+    "slug": "area",
+    "name": "AREA",
+    "tier": 3,
+    "weeks": 6,
+    "link": "https://www.evelynecrea.com"
+  },
+  {
+    "slug": "black-and-white",
+    "name": "Black&White",
+    "tier": 3,
+    "weeks": 1,
+    "link": "https://www.instagram.com/p/DL5Fr7dol_5/?img_index=1"
+  },
+  {
+    "slug": "retro-festival",
+    "name": "RetroFestival",
+    "tier": 3,
+    "weeks": 4,
+    "link": "https://www.instagram.com/p/DL5LYZoIPB0/?img_index=1"
+  }
+]

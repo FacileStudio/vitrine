@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Facile. Studio
+
+Showcase website for **Facile. Studio** — a creative studio portfolio built with Next.js 16, featuring smooth GSAP animations, internationalization (EN, FR, ES, DE), and a contact form with SMTP email delivery.
+
+## Tech Stack
+
+- **Framework**: Next.js 16 (App Router, Turbopack)
+- **Styling**: Tailwind CSS 4
+- **Animations**: GSAP + Motion
+- **i18n**: next-intl (EN, FR, ES, DE)
+- **UI**: Radix UI primitives
+- **Email**: Nodemailer (SMTP)
+- **Deployment**: Docker (standalone output)
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
+cp .env.example .env
+bun install
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+See [`.env.example`](.env.example) for required variables:
 
-## Learn More
+- `SMTP_HOST` / `SMTP_PORT` / `SMTP_USER` / `SMTP_PASS` — SMTP config for the contact form
+- `SMTP_FROM` / `CONTACT_TO` — optional sender and recipient overrides for the contact form
 
-To learn more about Next.js, take a look at the following resources:
+## Docker
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+docker build -t vitrine-facile .
+docker run -p 3000:3000 --env-file .env vitrine-facile
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Environment variables are read at runtime — no build args needed.
 
-## Deploy on Vercel
+## Project Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+app/
+├── [locale]/          # i18n routes (en, fr, es, de)
+│   ├── page.tsx       # Home / landing
+│   ├── studio/        # About the studio
+│   └── projects/      # Projects showcase
+├── api/contact/       # Contact form API (SMTP email)
+└── page.tsx           # Root redirect
+```

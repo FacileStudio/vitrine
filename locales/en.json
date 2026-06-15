@@ -1,10 +1,13 @@
 {
   "common": {
     "header": {
+      "navigation": "Navigation",
+      "navigationDescription": "Main navigation menu",
       "home": "Home",
-      "portfolio": "Portfolio",
-      "aboutUs": "About us",
-      "contactUs": "Contact us"
+      "portfolio": "Projects",
+      "aboutUs": "Studio",
+      "contactUs": "Contact us",
+      "packages": "Packages"
     },
     "footer": {
       "hireUs": "Hire us",
@@ -13,70 +16,149 @@
       "madeBy": "_ Made by Facile. Studio @ 2025"
     },
     "contactModal": {
-      "name": "Name",
-      "email": "Email",
-      "phone": "Phone",
-      "message": "Message",
+      "title": "Hire us",
+      "description": "Have a project in mind or just want to chat? Fill out the form below and we'll get back to you as soon as possible.",
+      "close": "Close",
+      "name": "Your name",
+      "email": "Your email",
+      "phone": "Your phone",
+      "message": "Your message",
+      "next": "Next",
+      "back": "Back",
+      "optional": "Optional",
+      "stepLabel": "Step",
+      "steps": {
+        "aboutYou": "About you",
+        "contact": "Contact details",
+        "message": "Project message"
+      },
       "send": "Send",
       "sending": "Sending...",
       "success": "Message sent!",
       "error": "Server error. Try again later."
+    },
+    "notFound": {
+      "title": "404",
+      "message": "Page not found",
+      "goHome": "Go Home"
     }
   },
   "home": {
     "loading": {
-      "line1": "Where exceptional design meets",
-      "line2": "technical excellence"
+      "line1": "Design that works.",
+      "line2": "Code that ships."
+    },
+    "featured": {
+      "title": "SELECTED WORK",
+      "viewAll": "View all projects"
+    },
+    "process": {
+      "title": "HOW WE WORK",
+      "steps": [
+        { "name": "Brief", "text": "We listen before we design. Tell us the problem — we'll figure out the right solution." },
+        { "name": "Design", "text": "Every pixel earns its place. Interfaces that feel right, not just look right." },
+        { "name": "Build", "text": "Clean code, smooth animations, production-ready. No shortcuts, no technical debt." },
+        { "name": "Ship", "text": "Goes live. Fast, tested, no loose ends." }
+      ]
+    },
+    "closing": {
+      "headline": "Two developers. Two designers.",
+      "text": "The people who design your project are the ones who build it. No layers, no handoffs, no lost-in-translation moments.",
+      "cta": "Start a project"
     }
   },
   "portfolio": {
+    "hero": {
+      "subtitle": "A selection of projects made to be previewed, explored, and opened. Hover to reveal, click to dive in.",
+      "panelTitle": "IN THIS SELECTION",
+      "points": [
+        "Visual identities",
+        "Web experiences",
+        "Product interfaces",
+        "Creative systems"
+      ]
+    },
     "headers": {
       "name": "NAME",
       "type": "TYPE",
-      "time": "TIME (WEEKS)"
+      "time": "TIME SPENT (WEEKS)"
     },
     "projects": [
-      {
-        "name": "Gian",
-        "description": "Portfolio"
+      { "name": "Capsule", "description": "Encrypted sharing" },
+      { "name": "Opus", "description": "Project management" },
+      { "name": "Waves", "description": "Music software" },
+      { "name": "Glouton", "description": "Lead generation" },
+      { "name": "Marcel", "description": "WellBeing application" },
+      { "name": "Solaïs Intra", "description": "Intra application" },
+      { "name": "Laura Herve", "description": "Artist portfolio" },
+      { "name": "EvelyneCrea", "description": "Artist portfolio" },
+      { "name": "Gian", "description": "Portfolio" },
+      { "name": "Mont-k", "description": "E-Commerce design concept" },
+      { "name": "AREA", "description": "Application" },
+      { "name": "Black & White", "description": "Photography compilation" },
+      { "name": "Retro Festival", "description": "Design for a fictional festival" }
+    ],
+    "caseStudy": {
+      "backToProjects": "Back to projects",
+      "challengeTitle": "The Challenge",
+      "approachTitle": "Our Approach",
+      "resultTitle": "The Result",
+      "techStack": "Tech Stack",
+      "duration": "Duration",
+      "weeks": "weeks",
+      "viewLive": "View live",
+      "viewSource": "View source",
+      "nextProject": "Next project",
+      "scopeTitle": "The Scope",
+      "featuresTitle": "Key Features",
+      "capsule": {
+        "tagline": "Zero-knowledge encrypted sharing. Secrets that self-destruct.",
+        "challenge": "Teams need to share sensitive information — API keys, passwords, credentials — but most sharing tools store data in plaintext on their servers. One breach exposes everything. We needed a tool where even we, as the operators, couldn't read what users share.",
+        "approach": "We built Capsule with client-side encryption using AES-256-GCM. The encryption key never leaves the user's browser — it lives in the URL fragment, which browsers don't send to servers. Pastes auto-delete after being read, leaving zero trace. The backend is a Go API with PostgreSQL, and the frontend is SvelteKit. We also built a CLI tool for terminal-native sharing.",
+        "result": "Encrypted sharing that's actually easy to use. Zero-knowledge by design, pastes self-destruct after reading, and the whole thing is simple enough to hand to a non-technical teammate.",
+        "features": ["Client-side AES-256-GCM encryption", "Zero-knowledge architecture", "Self-destructing pastes", "CLI companion tool", "Self-hostable"]
       },
-      {
-        "name": "Solaï  s Intra",
-        "description": "Intra application"
+      "opus": {
+        "tagline": "All you need. Nothing you don't.",
+        "challenge": "Project management tools are bloated. They start simple, then add features until they're unusable. We wanted to build the opposite — a tool that stays simple by design, where saying no to features is the feature.",
+        "approach": "We built Opus as a full-stack platform with a SvelteKit frontend and Go API. The architecture prioritizes speed and simplicity — PostgreSQL for data, OIDC SSO for enterprise auth, webhooks for integrations. We also built a Rust-based TUI client for developers who live in the terminal. Every feature has to earn its place.",
+        "result": "Fast, opinionated project management. Projects, tasks, timers — that's it. Self-hostable or cloud. Teams actually use it because it doesn't get in the way.",
+        "features": ["Minimalist project management", "Real-time updates", "OIDC SSO", "Webhooks", "Rust TUI client", "Self-hostable"]
       },
-      {
-        "name": "Brain.h",
-        "description": "Neural network library"
+      "waves": {
+        "tagline": "A cross-platform music player built from the ground up in Rust.",
+        "challenge": "Modern music players are either Electron-based resource hogs or native apps locked to one platform. We wanted a music player that's fast, lightweight, and runs everywhere — with real-time audio visualization that doesn't kill your CPU.",
+        "approach": "We chose Rust with Tauri and egui for a truly native cross-platform experience. The audio engine uses FFT-based spectrum analysis for real-time 64-band frequency visualization. The UI features a Miller Column browser for intuitive library navigation, and we added vim keybindings for keyboard-first users. The entire app ships as a tiny binary.",
+        "result": "Loads instantly, visualizes your music in real time, and barely touches your CPU. Runs on macOS, Linux, and Windows — all from the same Rust codebase.",
+        "features": ["Real-time 64-band FFT spectrum analyzer", "Miller Column library browser", "Vim keybindings", "MP3, WAV, FLAC, OGG, M4A support", "Metadata editing", "Cross-platform"]
       },
-      {
-        "name": "Mont-k",
-        "description": "E-Commerce design concept"
+      "glouton": {
+        "tagline": "Lead generation with automated web scraping.",
+        "challenge": "Finding qualified leads is tedious and manual. Sales teams spend hours browsing websites, copy-pasting contact info, and guessing which leads are worth pursuing. We needed to automate the entire pipeline — from discovery to scoring — while keeping it ethical and secure.",
+        "approach": "Full-stack TypeScript: SvelteKit dashboard, Hono API, tRPC for type safety, BullMQ for async jobs. The scraper detects tech stacks, pulls contact info, and scores leads HOT/WARM/COLD based on configurable rules. We hardened it early — SSRF protection, input validation, rate limiting — because a scraping tool without guardrails is a liability.",
+        "result": "A lead gen platform that replaces hours of manual research with automated hunt sessions. Real-time progress, configurable scoring, and actual results.",
+        "features": ["Smart lead scoring", "Tech stack detection", "Async job queue", "Real-time progress tracking", "SSRF protection", "End-to-end type safety"]
       },
-      {
-        "name": "Waves",
-        "description": "Music software"
+      "marcel": {
+        "tagline": "A wellbeing app that makes self-care a habit.",
+        "challenge": "Every wellness app is either a feature dump or a glorified todo list. We wanted one app for tasks, habits, and calendar — with just enough gamification to make self-care feel like progress instead of homework.",
+        "approach": "Svelte frontend, Go backend, PostgreSQL. The gamification layer gives you streaks and achievements — enough to keep you coming back, not enough to stress you out. We deliberately made the interface calm. Most productivity apps give you anxiety. This one shouldn't. 12 weeks of building, testing with real users, and rethinking things that didn't stick.",
+        "result": "Live at marcel.my. Our longest project at 12 weeks — lots of user testing, lots of iteration. Turns out designing for habits is mostly designing for forgiveness when people break their streaks.",
+        "features": ["Gamified habit tracking", "Task management", "Calendar integration", "Streak system", "Gentle notifications"]
       },
-      {
-        "name": "Marcel",
-        "description": "WellBeing application"
+      "solais-intra": {
+        "tagline": "A modern intranet for a growing team.",
+        "scope": "Solaïs had tools everywhere — Slack for this, Google Drive for that, spreadsheets for the rest. We replaced the mess with a single Vue.js + TypeScript intranet. Team comms, shared docs, daily ops, all in one place. Role-based access so people only see what matters to them. Clean and fast, not enterprise-bloated."
       },
-      {
-        "name": "EvelyneCrea",
-        "description": "Artist portfolio"
+      "laura-herve": {
+        "tagline": "A portfolio that lets the art speak.",
+        "scope": "The brief was simple: don't compete with the art. We went typography-first — big images, lots of white space, quiet transitions. The responsive layout adapts to the work, not just the screen: landscapes go full-width, portraits sit next to text. We cut everything that didn't serve the art. No decorative animations, no clever nav tricks. Just a clean path through the portfolio."
       },
-      {
-        "name": "AREA",
-        "description": "Application"
-      },
-      {
-        "name": "Black & White",
-        "description": "Photography compilation"
-      },
-      {
-        "name": "Retro Festival",
-        "description": "Design for a fictional festival"
+      "evelynecrea": {
+        "tagline": "A portfolio redesign that actually shows the work.",
+        "scope": "Evelyne's old site undersold her work. We scrapped it and started fresh — new visual identity, custom animations, and a layout that walks you through projects instead of dumping them on a grid. Each project flows into the next. The navigation has a rhythm to it, like flipping through a book someone actually designed."
       }
-    ]
+    }
   },
   "about": {
     "title": "ABOUT",

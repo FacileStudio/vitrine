@@ -1,10 +1,13 @@
 {
   "common": {
     "header": {
+      "navigation": "Navegación",
+      "navigationDescription": "Menú de navegación principal",
       "home": "Inicio",
-      "portfolio": "Portfolio",
-      "aboutUs": "Nosotros",
-      "contactUs": "Contáctanos"
+      "portfolio": "Proyectos",
+      "aboutUs": "Studio",
+      "contactUs": "Contáctanos",
+      "packages": "Ofertas"
     },
     "footer": {
       "hireUs": "Contrátanos",
@@ -13,70 +16,149 @@
       "madeBy": "_ Hecho por Facile. Studio @ 2025"
     },
     "contactModal": {
-      "name": "Nombre",
-      "email": "Email",
-      "phone": "Teléfono",
-      "message": "Mensaje",
+      "title": "Contrátanos",
+      "description": "¿Tienes un proyecto en mente o simplemente quieres charlar? Completa el formulario a continuación y nos pondremos en contacto contigo lo antes posible.",
+      "close": "Cerrar",
+      "name": "Tu nombre",
+      "email": "Tu email",
+      "phone": "Tu teléfono",
+      "message": "Tu mensaje",
+      "next": "Siguiente",
+      "back": "Atrás",
+      "optional": "Opcional",
+      "stepLabel": "Paso",
+      "steps": {
+        "aboutYou": "Sobre ti",
+        "contact": "Contacto",
+        "message": "Tu proyecto"
+      },
       "send": "Enviar",
       "sending": "Enviando...",
       "success": "¡Mensaje enviado!",
       "error": "Error del servidor. Inténtalo más tarde."
+    },
+    "notFound": {
+      "title": "404",
+      "message": "Página no encontrada",
+      "goHome": "Volver al inicio"
     }
   },
   "home": {
     "loading": {
-      "line1": "Donde el diseño excepcional se encuentra",
-      "line2": "con la excelencia técnica"
+      "line1": "Cuando el buen diseño se cruza",
+      "line2": "con la técnica de verdad"
+    },
+    "featured": {
+      "title": "TRABAJOS SELECCIONADOS",
+      "viewAll": "Ver todos los proyectos"
+    },
+    "process": {
+      "title": "CÓMO TRABAJAMOS",
+      "steps": [
+        { "name": "Brief", "text": "Escuchamos antes de diseñar. Tu visión guía cada decisión que sigue." },
+        { "name": "Design", "text": "Cada píxel se gana su lugar. Interfaces que se sienten bien, no solo se ven bien." },
+        { "name": "Build", "text": "Código limpio, animaciones fluidas, listo para producción. Sin atajos, sin deuda técnica." },
+        { "name": "Ship", "text": "Tu proyecto en línea — rápido, testeado y construido para durar." }
+      ]
+    },
+    "closing": {
+      "headline": "Dos desarrolladores. Dos diseñadores.",
+      "text": "Las personas que diseñan tu proyecto son las que lo construyen. Sin capas, sin intermediarios, sin malentendidos.",
+      "cta": "Iniciar un proyecto"
     }
   },
   "portfolio": {
+    "hero": {
+      "subtitle": "Una selección de proyectos pensados para verse, explorarse y abrirse. Pasa el cursor para previsualizar, haz clic para entrar.",
+      "panelTitle": "EN ESTA SELECCIÓN",
+      "points": [
+        "Identidades visuales",
+        "Experiencias web",
+        "Interfaces de producto",
+        "Sistemas creativos"
+      ]
+    },
     "headers": {
       "name": "NOMBRE",
       "type": "TIPO",
-      "time": "TIEMPO (SEMANAS)"
+      "time": "TIEMPO DEDICADO (SEMANAS)"
     },
     "projects": [
-      {
-        "name": "Gian",
-        "description": "Portfolio"
+      { "name": "Capsule", "description": "Intercambio cifrado" },
+      { "name": "Opus", "description": "Gestión de proyectos" },
+      { "name": "Waves", "description": "Software musical" },
+      { "name": "Glouton", "description": "Generación de leads" },
+      { "name": "Marcel", "description": "Aplicación de bienestar" },
+      { "name": "Solaïs Intra", "description": "Aplicación intranet" },
+      { "name": "Laura Hervé", "description": "Portfolio de artista" },
+      { "name": "EvelyneCrea", "description": "Portfolio de artista" },
+      { "name": "Gian", "description": "Portfolio" },
+      { "name": "Mont-k", "description": "Concepto de diseño e-commerce" },
+      { "name": "AREA", "description": "Aplicación" },
+      { "name": "Black & White", "description": "Recopilación fotográfica" },
+      { "name": "Retro Festival", "description": "Dirección artística completa de un festival ficticio" }
+    ],
+    "caseStudy": {
+      "backToProjects": "Volver a proyectos",
+      "challengeTitle": "El Desafío",
+      "approachTitle": "Nuestro Enfoque",
+      "resultTitle": "El Resultado",
+      "techStack": "Tech Stack",
+      "duration": "Duración",
+      "weeks": "semanas",
+      "viewLive": "Ver en vivo",
+      "viewSource": "Ver código fuente",
+      "nextProject": "Siguiente proyecto",
+      "scopeTitle": "El Alcance",
+      "featuresTitle": "Características Clave",
+      "capsule": {
+        "tagline": "Intercambio cifrado de conocimiento cero. Secretos que se autodestruyen.",
+        "challenge": "Los equipos necesitan compartir información sensible — claves API, contraseñas, credenciales — pero la mayoría de herramientas de intercambio almacenan datos en texto plano en sus servidores. Una sola brecha lo expone todo. Necesitábamos una herramienta donde ni siquiera nosotros, como operadores, pudiéramos leer lo que los usuarios comparten.",
+        "approach": "Construimos Capsule con cifrado del lado del cliente usando AES-256-GCM. La clave de cifrado nunca sale del navegador del usuario — vive en el fragmento de la URL, que los navegadores no envían a los servidores. Las entradas se eliminan automáticamente después de ser leídas, sin dejar rastro. El backend es una API en Go con PostgreSQL, y el frontend es SvelteKit. También construimos una herramienta CLI para compartir desde la terminal.",
+        "result": "Una herramienta de intercambio cifrado lista para producción que demuestra que no hace falta sacrificar la usabilidad por la seguridad. Conocimiento cero por diseño, autodestructivo por defecto, y lo suficientemente simple para que cualquiera pueda usarla.",
+        "features": ["Cifrado AES-256-GCM del lado del cliente", "Arquitectura de conocimiento cero", "Entradas autodestructivas", "Herramienta CLI complementaria", "Auto-alojable"]
       },
-      {
-        "name": "Solaïs Intra",
-        "description": "Aplicación intranet"
+      "opus": {
+        "tagline": "Todo lo que necesitas. Nada que no.",
+        "challenge": "Las herramientas de gestión de proyectos están sobrecargadas. Empiezan simples, luego acumulan funciones hasta volverse inutilizables. Queríamos construir lo opuesto — una herramienta que se mantiene simple por diseño, donde decir no a las funciones es la función.",
+        "approach": "Construimos Opus como una plataforma full-stack con un frontend en SvelteKit y una API en Go. La arquitectura prioriza velocidad y simplicidad — PostgreSQL para datos, OIDC SSO para autenticación empresarial, webhooks para integraciones. También construimos un cliente TUI en Rust para desarrolladores que viven en la terminal. Cada función tiene que ganarse su lugar.",
+        "result": "Una plataforma de gestión de proyectos limpia y rápida que los equipos realmente quieren usar. Auto-alojable con opción cloud, con proyectos, tareas y temporizadores — y nada más que no pertenezca.",
+        "features": ["Gestión de proyectos minimalista", "Actualizaciones en tiempo real", "OIDC SSO", "Webhooks", "Cliente TUI en Rust", "Auto-alojable"]
       },
-      {
-        "name": "Brain.h",
-        "description": "Biblioteca de redes neuronales"
+      "waves": {
+        "tagline": "Un reproductor de música multiplataforma construido desde cero en Rust.",
+        "challenge": "Los reproductores de música modernos son o bien monstruos de recursos basados en Electron o aplicaciones nativas atadas a una sola plataforma. Queríamos un reproductor que fuera rápido, ligero y funcionara en todas partes — con visualización de audio en tiempo real sin saturar la CPU.",
+        "approach": "Elegimos Rust con Tauri y egui para una experiencia multiplataforma verdaderamente nativa. El motor de audio usa análisis espectral basado en FFT para visualización de frecuencia en tiempo real de 64 bandas. La interfaz incluye un navegador de columnas Miller para una navegación intuitiva de la biblioteca, y añadimos atajos de teclado vim para usuarios que priorizan el teclado. Toda la app se distribuye como un binario diminuto.",
+        "result": "Un reproductor de música de escritorio que carga al instante, visualiza tu música en tiempo real y usa una fracción de los recursos de las alternativas Electron. Disponible en macOS, Linux y Windows.",
+        "features": ["Analizador de espectro FFT de 64 bandas en tiempo real", "Navegador de biblioteca con columnas Miller", "Atajos de teclado vim", "Soporte MP3, WAV, FLAC, OGG, M4A", "Edición de metadatos", "Multiplataforma"]
       },
-      {
-        "name": "Mont-k",
-        "description": "Concepto de diseño e-commerce"
+      "glouton": {
+        "tagline": "Generación de leads empresarial con web scraping inteligente.",
+        "challenge": "Encontrar leads cualificados es tedioso y manual. Los equipos de ventas pasan horas navegando sitios web, copiando información de contacto y adivinando qué leads vale la pena perseguir. Necesitábamos automatizar todo el pipeline — desde el descubrimiento hasta la puntuación — manteniéndolo ético y seguro.",
+        "approach": "Construimos Glouton como una aplicación full-stack en TypeScript: SvelteKit para el dashboard, Hono para la API, tRPC para seguridad de tipos de extremo a extremo, y BullMQ para procesamiento asíncrono de trabajos. El motor de scraping detecta tech stacks, extrae información de contacto y puntúa leads como HOT, WARM o COLD según criterios configurables. Con la seguridad no negociamos — protección SSRF, validación de entradas y limitación de velocidad están integrados desde el primer día.",
+        "result": "Una plataforma de generación de leads lista para producción que convierte horas de investigación manual en sesiones de búsqueda automatizadas con seguimiento de progreso en tiempo real y puntuación inteligente.",
+        "features": ["Puntuación inteligente de leads", "Detección de tech stack", "Cola de trabajos asíncrona", "Seguimiento de progreso en tiempo real", "Protección SSRF", "Seguridad de tipos de extremo a extremo"]
       },
-      {
-        "name": "Waves",
-        "description": "Software musical"
+      "marcel": {
+        "tagline": "Una app de bienestar que convierte el autocuidado en hábito.",
+        "challenge": "Las apps de bienestar te abruman con funciones o se sienten como otra lista de tareas. Queríamos construir algo que combine gestión de tareas, seguimiento de hábitos y eventos de calendario en una experiencia única y gamificada — haciendo que el autocuidado se sienta como progreso, no como una obligación.",
+        "approach": "Marcel está construido con Svelte en el frontend y Go en el backend, respaldado por PostgreSQL. La capa de gamificación convierte los hábitos diarios en rachas y logros. Nos enfocamos en hacer la interfaz tranquila e intuitiva — lo opuesto a la ansiedad de las apps de productividad. Con 12 semanas, fue nuestro proyecto más largo, con extensas pruebas de usuario y ciclos de iteración.",
+        "result": "Un producto en vivo en marcel.my que ayuda a los usuarios a construir mejores hábitos a través de una gamificación sutil. El proyecto más largo de nuestro portfolio, y el que más nos enseñó sobre diseñar para personas reales.",
+        "features": ["Seguimiento de hábitos gamificado", "Gestión de tareas", "Integración de calendario", "Sistema de rachas", "Notificaciones sutiles"]
       },
-      {
-        "name": "Marcel",
-        "description": "Aplicación de bienestar"
+      "solais-intra": {
+        "tagline": "Una intranet moderna para un equipo en crecimiento.",
+        "scope": "Solaïs necesitaba una plataforma interna para reemplazar herramientas dispersas y flujos de trabajo desconectados. Construimos una intranet personalizada con Vue.js y TypeScript — una interfaz única para la comunicación del equipo, documentos compartidos y operaciones diarias. El diseño prioriza la claridad sobre las funcionalidades: navegación limpia, búsqueda rápida y acceso basado en roles para que cada miembro del equipo vea exactamente lo que necesita. Diseñada para escalar con la empresa, sin la sobrecarga de soluciones empresariales que intentan hacerlo todo."
       },
-      {
-        "name": "EvelyneCrea",
-        "description": "Portfolio de artista"
+      "laura-herve": {
+        "tagline": "Un portfolio que deja hablar al arte.",
+        "scope": "Laura necesitaba un portfolio que mostrara su trabajo sin competir con él. Diseñamos un layout centrado en la tipografía donde el arte es el protagonista — imágenes grandes, espacios en blanco generosos y transiciones suaves entre las obras. El diseño responsive se adapta no solo a los tamaños de pantalla sino a la obra misma: las piezas horizontales reciben un tratamiento a ancho completo, las verticales flotan junto al texto. Cada interacción es intencional — sin animaciones innecesarias, sin navegación desordenada, solo un camino claro a través del trabajo."
       },
-      {
-        "name": "AREA",
-        "description": "Aplicación"
-      },
-      {
-        "name": "Black & White",
-        "description": "Compilation de photographies"
-      },
-      {
-        "name": "Retro Festival",
-        "description": "DA complète d'un festival fictif"
+      "evelynecrea": {
+        "tagline": "Creatividad que se siente igual en pantalla.",
+        "scope": "El sitio anterior de Evelyne no reflejaba la calidad de su trabajo. Rediseñamos todo el portfolio desde cero — nueva identidad visual, animaciones personalizadas y un layout que guía a los visitantes a través de los proyectos de forma orgánica en lugar de amontonarlo todo en una cuadrícula. La navegación se siente como hojear un libro curado: cada proyecto fluye hacia el siguiente, con transiciones suaves y un ritmo deliberado. El resultado es una presencia digital a la altura del oficio detrás del trabajo que muestra."
       }
-    ]
+    }
   },
   "about": {
     "title": "ACERCA DE",
@@ -130,17 +212,17 @@
       "subtitle": "Las mentes creativas detrás de Facile.",
       "yann": {
         "name": "YANN\nTHEVENIN",
-        "role": "Lead Developer & Co-Fundador",
+        "role": "Desarrollador principal y cofundador",
         "description": "Desarrollador Fullstack con experiencia en IA, apasionado por crear experiencias digitales excepcionales con tecnologías modernas, arquitectura de código limpia y un enfoque ecológico del desarrollo."
       },
       "noah": {
         "name": "NOAH\nSTEINIGER",
-        "role": "UI / Web Designer & Co-fundador",
+        "role": "Diseñador UI/Web y cofundador",
         "description": "Diseñador creativo apasionado de UI, web y gráfico, especializado en crear diseños hermosos y centrados en el usuario, así como darles vida con tecnologías web modernas usando sus habilidades de desarrollo."
       },
       "mezz": {
         "name": "MOHAMED\nMAZOUZ",
-        "role": "Web Developer",
+        "role": "Desarrollador web",
         "description": "Desarrollador Fullstack versátil con sólida experiencia en múltiples proyectos y stacks diferentes. Experto en resolución de problemas, capaz de llevar a cabo cualquier misión, sin importar su complejidad."
       },
       "cami": {

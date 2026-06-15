@@ -1,14 +1,12 @@
-// app/api/contact/route.ts
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+import { getContactMailConfig, getTransporter } from "./transporter";
 
 export async function POST(req: Request) {
     try {
         const data = await req.json();
 
         const { name, email, phone, message } = data;
+        const { from, to } = getContactMailConfig();
 
         if (!name || !email || !message) {
             return NextResponse.json(
@@ -17,9 +15,10 @@ export async function POST(req: Request) {
             );
         }
 
-        await resend.emails.send({
-            from: "Facile. Studio <onboarding@resend.dev>",
-            to: "contact@facile.studio",
+        await getTransporter().sendMail({
+            from: `Facile. Studio <${from}>`,
+            to,
+            replyTo: email,
             subject: "New email from Facile.",
             html: `
                 <h2>New Email sent</h2>
@@ -30,12 +29,30 @@ export async function POST(req: Request) {
                 <p>${message}</p>
             `,
         });
-        console.log("YES");
+
+        if (process.env.WEBHOOK_URL) {
+            await fetch(process.env.WEBHOOK_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    content: `@everyone\nNew contact form submission:\nName: ${name}\nEmail: ${email}\nPhone: ${phone || "N/A"}\nMessage: ${message}`,
+                }),
+            });
+        }
+
         return NextResponse.json({ success: true });
     } catch (error) {
         console.error("Error:", error);
+
+        const message =
+            error instanceof Error && /SMTP_|Greeting never received|Connection timeout|Timeout|Invalid login|auth/i.test(error.message)
+                ? error.message
+                : "Server error";
+
         return NextResponse.json(
-            { error: "Server error" },
+            { error: message },
             { status: 500 }
         );
     }

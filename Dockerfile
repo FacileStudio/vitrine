@@ -1,37 +1,27 @@
 # Build stage
-FROM node:20-alpine AS builder
+FROM oven/bun:1.3.11-alpine AS builder
 
 WORKDIR /app
 
-# Copy package files
-COPY package*.json ./
+COPY .npmrc package.json bun.lock ./
+RUN bun install --frozen-lockfile --linker hoisted
 
-# Install dependencies
-RUN npm install
-
-# Copy application files
 COPY . .
-
-ARG RESEND_API_KEY
-ENV RESEND_API_KEY=$RESEND_API_KEY
-
-# Build the application
-RUN npm run build
+RUN bun run build
 
 # Production stage
 FROM node:20-alpine
 
 WORKDIR /app
 
-# Copy standalone output
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
 
-# Expose the port
 EXPOSE 3000
 
 ENV NODE_ENV=production
+ENV HOSTNAME=0.0.0.0
+ENV PORT=3000
 
-# Start the application
 CMD ["node", "server.js"]
