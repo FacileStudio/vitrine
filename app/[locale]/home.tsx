@@ -8,6 +8,8 @@ import data from "./projects/projects.json";
 import SideBar from "@/components/facile/sidebar";
 import Header from "@/components/facile/header";
 import ShadowFilter from "@/components/facile/shadowFilter";
+import Hero from "./homeSections/hero";
+import Manifesto from "./homeSections/manifesto";
 
 const featuredSlugs = ["capsule", "opus", "glouton", "marcel"];
 
@@ -74,19 +76,15 @@ const Process = ({ t }: { t: TranslationFn }) => {
 };
 
 export default function Home() {
-    const t = useTranslations('home');
-    const caseStudyT = useTranslations('portfolio.caseStudy');
-    const router = useRouter();
-
     const [sideBarOpen, setSidebarOpen] = React.useState<boolean>(false);
-
-    const featuredProjects = featuredSlugs
-        .map(slug => data.find(p => p.slug === slug))
-        .filter((p): p is NonNullable<typeof p> => p !== undefined);
-
-    React.useEffect(() => TransitionIn(2), []);
+    const t = useTranslations('home');
+    const router = useRouter();
+    // const caseStudyT = useTranslations('portfolio.caseStudy');
+    // const featuredProjects = featuredSlugs.map(slug => data.find(p => p.slug === slug)).filter((p): p is NonNullable<typeof p> => p !== undefined);
 
 
+
+    // React.useEffect(() => TransitionIn(2), []);
 
     // sideBar opening effect and slide of main content
     React.useEffect(() => {
@@ -100,31 +98,25 @@ export default function Home() {
 
             <ShadowFilter />
 
-            <main className="min-h-screen w-screen space-y-20">
+            <main className="min-h-screen w-screen">
                 <Header sideBarOpen={sideBarOpen} setSidebarOpen={setSidebarOpen} />
 
-                <section className="h-screen w-screen relative">
-                    <div className="absolute top-1/2 w-full -translate-y-1/2 text-center flex items-center px-15">
-                        <div>
-                            <><span className="italic text-lg">[fasil]</span><span className="opacity-50 font-medium text-xs ml-4">Qui ne représente aucune difficulté.</span></>
-                        </div>
-                    </div>
+                <Hero />
 
-                    <div className="absolute bottom-0 flex items-end justify-between w-full px-15 pb-12">
-                        <img src="/Facile.svg" alt="Facile Logo" className="h-1/4 aspect-auto" />
-                        <span className="font-medium text-4xl">Studio</span>
-                    </div>
-                </section>
+                <Manifesto />
+
+                <Manifesto />
+
             </main>
             
-            <FeaturedProjects
+            {/* <FeaturedProjects
                 projects={featuredProjects}
                 t={t}
                 caseStudyT={caseStudyT}
                 onNavigate={(href: string) => TransitionOut({ href, router })}
             />
 
-            <Process t={t} />
+            <Process t={t} /> */}
 
         </div>
     );
