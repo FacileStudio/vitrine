@@ -1,8 +1,8 @@
-import CaseStudyPage from "../../../projects/[slug]/page";
+import CaseStudyPage from "./case-study";
 import { Metadata } from "next";
 import { locales, type Locale } from "@/lib/i18n/locales";
 import { baseMetadata, getOpenGraphLocale, siteUrl } from "@/lib/seo/metadata";
-import data from "@/app/projects/projects.json";
+import data from "../projects.json";
 
 type PageProps = {
     params: Promise<{ locale: string; slug: string }>;

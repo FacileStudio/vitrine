@@ -6,6 +6,7 @@
       "home": "Accueil",
       "portfolio": "Projets",
       "aboutUs": "Studio",
+      "suite": "Suite",
       "contactUs": "Contactez-nous",
       "packages": "Offres"
     },
@@ -242,6 +243,33 @@
         "go": "Golang",
         "sveltekit": "Sveltekit"
       }
+    }
+  },
+  "suite": {
+    "title": "NOTRE SUITE",
+    "subtitle": "Des produits que nous concevons, développons et exploitons en interne.",
+    "visit": "Visiter",
+    "products": {
+      "capsule": {
+        "tagline": "Partage chiffré à divulgation nulle.",
+        "description": "Des secrets chiffrés côté client qui s'autodétruisent après lecture."
+      },
+      "opus": {
+        "tagline": "La gestion de projet, sans le superflu.",
+        "description": "Un suivi de projet rapide et assumé. Tout le nécessaire, rien de trop."
+      },
+      "glouton": {
+        "tagline": "La génération de leads en pilote automatique.",
+        "description": "Scraping web automatisé et éthique avec scoring intelligent des leads."
+      },
+      "marcel": {
+        "tagline": "Le bien-être qui tient dans la durée.",
+        "description": "Habitudes gamifiées, tâches et calendrier dans une app apaisante."
+      }
+    },
+    "cta": {
+      "headline": "Besoin d'un produit comme ceux-ci ?",
+      "text": "Nous construisons des produits de bout en bout. Dites-nous ce que vous avez en tête."
     }
   }
 }

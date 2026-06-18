@@ -1,5 +1,5 @@
-import NotFoundPage from "../../[...rest]/page";
+import NotFound from "@/components/facile/notFound";
 
 export default function LocaleRestPage() {
-    return <NotFoundPage />;
+    return <NotFound />;
 }

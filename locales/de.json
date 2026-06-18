@@ -6,6 +6,7 @@
       "home": "Startseite",
       "portfolio": "Projekte",
       "aboutUs": "Studio",
+      "suite": "Suite",
       "contactUs": "Kontaktieren Sie uns",
       "packages": "Angebote"
     },
@@ -242,6 +243,33 @@
         "go": "Golang",
         "sveltekit": "Sveltekit"
       }
+    }
+  },
+  "suite": {
+    "title": "UNSERE SUITE",
+    "subtitle": "Produkte, die wir intern entwerfen, bauen und betreiben.",
+    "visit": "Besuchen",
+    "products": {
+      "capsule": {
+        "tagline": "Zero-Knowledge-verschlüsseltes Teilen.",
+        "description": "Clientseitig verschlüsselte Geheimnisse, die sich nach dem Lesen selbst zerstören."
+      },
+      "opus": {
+        "tagline": "Projektmanagement ohne Ballast.",
+        "description": "Schnelles, klares Projekt-Tracking. Alles Nötige, nichts Überflüssiges."
+      },
+      "glouton": {
+        "tagline": "Lead-Generierung auf Autopilot.",
+        "description": "Automatisiertes, ethisches Web-Scraping mit intelligentem Lead-Scoring."
+      },
+      "marcel": {
+        "tagline": "Selbstfürsorge, die bleibt.",
+        "description": "Gamifizierte Gewohnheiten, Aufgaben und Kalender in einer ruhigen App."
+      }
+    },
+    "cta": {
+      "headline": "Brauchst du so etwas?",
+      "text": "Wir bauen Produkte von A bis Z. Sag uns, was dir vorschwebt."
     }
   }
 }

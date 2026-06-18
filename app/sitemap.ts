@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { locales, type Locale } from "@/lib/i18n/locales"
 import { getLocalizedPath, routePaths, siteUrl, type RoutePath } from "@/lib/seo/metadata"
-import projects from "@/app/projects/projects.json"
+import projects from "@/app/[locale]/projects/projects.json"
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date()

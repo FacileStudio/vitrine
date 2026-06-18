@@ -3,7 +3,7 @@ import { defaultLocale, isLocale, locales, type Locale } from "@/lib/i18n/locale
 
 export const siteUrl = "https://facile.studio";
 
-export const routePaths = ["", "/projects", "/studio"] as const;
+export const routePaths = ["", "/projects", "/studio", "/suite"] as const;
 export type RoutePath = (typeof routePaths)[number];
 
 export function getLocalizedPath(locale: Locale, route: RoutePath = "") {

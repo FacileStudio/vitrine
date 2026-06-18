@@ -6,6 +6,7 @@
       "home": "Inicio",
       "portfolio": "Proyectos",
       "aboutUs": "Studio",
+      "suite": "Suite",
       "contactUs": "Contáctanos",
       "packages": "Ofertas"
     },
@@ -242,6 +243,33 @@
         "go": "Golang",
         "sveltekit": "Sveltekit"
       }
+    }
+  },
+  "suite": {
+    "title": "NUESTRA SUITE",
+    "subtitle": "Productos que diseñamos, desarrollamos y operamos internamente.",
+    "visit": "Visitar",
+    "products": {
+      "capsule": {
+        "tagline": "Compartición cifrada de conocimiento cero.",
+        "description": "Secretos cifrados en el cliente que se autodestruyen tras leerse."
+      },
+      "opus": {
+        "tagline": "Gestión de proyectos, sin lo superfluo.",
+        "description": "Seguimiento de proyectos rápido y con criterio. Lo que necesitas, nada más."
+      },
+      "glouton": {
+        "tagline": "Generación de leads en piloto automático.",
+        "description": "Scraping web automatizado y ético con puntuación inteligente de leads."
+      },
+      "marcel": {
+        "tagline": "Bienestar que perdura.",
+        "description": "Hábitos gamificados, tareas y calendario en una app tranquila."
+      }
+    },
+    "cta": {
+      "headline": "¿Necesitas algo así?",
+      "text": "Construimos productos de principio a fin. Cuéntanos qué tienes en mente."
     }
   }
 }

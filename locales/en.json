@@ -6,6 +6,7 @@
       "home": "Home",
       "portfolio": "Projects",
       "aboutUs": "Studio",
+      "suite": "Suite",
       "contactUs": "Contact us",
       "packages": "Packages"
     },
@@ -242,6 +243,33 @@
         "go": "Golang",
         "sveltekit": "Sveltekit"
       }
+    }
+  },
+  "suite": {
+    "title": "OUR SUITE",
+    "subtitle": "Products we design, build, and run in-house.",
+    "visit": "Visit",
+    "products": {
+      "capsule": {
+        "tagline": "Zero-knowledge encrypted sharing.",
+        "description": "Client-side encrypted secrets that self-destruct after reading."
+      },
+      "opus": {
+        "tagline": "Project management, minus the bloat.",
+        "description": "Fast, opinionated project tracking. All you need, nothing you don't."
+      },
+      "glouton": {
+        "tagline": "Lead generation on autopilot.",
+        "description": "Automated, ethical web scraping with smart lead scoring."
+      },
+      "marcel": {
+        "tagline": "Self-care that sticks.",
+        "description": "Gamified habits, tasks, and calendar in one calm app."
+      }
+    },
+    "cta": {
+      "headline": "Need something like these?",
+      "text": "We build products end to end. Tell us what you have in mind."
     }
   }
 }

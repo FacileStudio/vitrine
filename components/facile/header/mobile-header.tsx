@@ -13,7 +13,7 @@ type MobileHeaderProps = {
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const MobileHeader = ({ locale, switchLocale, setOpen }: MobileHeaderProps) => {
+export const MobileHeader = ({ locale, switchLocale, sideBarOpen, setSidebarOpen }: MobileHeaderProps & { sideBarOpen: boolean; setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
     const t = useTranslations('common.header');
     const [openHeader, setOpenHeader] = React.useState(false);
 
@@ -27,7 +27,6 @@ export const MobileHeader = ({ locale, switchLocale, setOpen }: MobileHeaderProp
                         </button>
                     </Dialog.Trigger>
                 </div>
-                <img src={"/icons/Exclude.svg"} alt={""} className={"mr-2"} width={28} height={28} />
             </div>
 
             <Dialog.Portal>
@@ -49,7 +48,7 @@ export const MobileHeader = ({ locale, switchLocale, setOpen }: MobileHeaderProp
                         <Link aria-label="Learn more about us" href="/studio" onClick={(e) => {e.stopPropagation();setOpenHeader(false)}}>{t('aboutUs')}</Link>
                         <button
                             onClick={() => {
-                                setOpen(true);
+                                setSidebarOpen(true);
                                 setOpenHeader(false);
                             }}
                             className={"w-auto"}

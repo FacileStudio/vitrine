@@ -1,38 +1,11 @@
 @import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
-
-@font-face {
-    font-family: "Dirtyline";
-    src: url("/fonts/dirtyline.OTF") format("opentype");
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Goga";
-    src: url("/fonts/goga/GogaTest-Thin-BF6646d5d8040a9.otf") format("opentype");
-    font-weight: 100;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Goga";
-    src: url("/fonts/goga/GogaTest-Extralight-BF6646d5d82fb83.otf") format("opentype");
-    font-weight: 200;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Goga";
-    src: url("/fonts/goga/GogaTest-Light-BF6646d5d84c8a2.otf") format("opentype");
-    font-weight: 300;
-    font-display: swap;
-}
+@import "lenis/dist/lenis.css";
 
 @font-face {
     font-family: "Goga";
     src: url("/fonts/goga/GogaTest-Regular-BF6646d5d84f69b.otf") format("opentype");
     font-weight: 400;
+    font-style: normal;
     font-display: swap;
 }
 
@@ -40,13 +13,7 @@
     font-family: "Goga";
     src: url("/fonts/goga/GogaTest-Medium-BF6646d5d84754e.otf") format("opentype");
     font-weight: 500;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Goga";
-    src: url("/fonts/goga/GogaTest-Semibold-BF6646d5d8544cf.otf") format("opentype");
-    font-weight: 600;
+    font-style: normal;
     font-display: swap;
 }
 
@@ -54,95 +21,24 @@
     font-family: "Goga";
     src: url("/fonts/goga/GogaTest-Bold-BF6646d5d83c978.otf") format("opentype");
     font-weight: 700;
+    font-style: normal;
     font-display: swap;
 }
 
-@font-face {
-    font-family: "Goga";
-    src: url("/fonts/goga/GogaTest-Extrabold-BF6646d5d7d0a2b.otf") format("opentype");
-    font-weight: 800;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Goga";
-    src: url("/fonts/goga/GogaTest-Black-BF6646d5d78e551.otf") format("opentype");
-    font-weight: 900;
-    font-display: swap;
+:root {
+    --background: #E4EEE8;
+    --foreground: #242424;
 }
 
 @theme inline {
     --color-background: var(--background);
     --color-foreground: var(--foreground);
-    --font-sans: var(--font-manrope);
-    --font-dirtyline: "Dirtyline", sans-serif;
+    --font-goga: "Goga", sans-serif;
 }
 
 body {
-    --font-manrope: "Manrope", sans-serif;
-    font-family: Goga, Manrope, Helvetica, sans-serif;
-}
-
-:root {
-    --background: oklch(90.056% 0.03508 164.238);
-    --foreground: oklch(0.145 0 0);
-}
-
-@layer base {
-    html, body {
-        @apply bg-background text-foreground;
-        max-width: 100vw;
-        max-height: 100vh;
-        overflow: hidden;
-    }
-
-    input:-webkit-autofill,
-    input:-webkit-autofill:hover,
-    input:-webkit-autofill:focus,
-    input:-webkit-autofill:active,
-    textarea:-webkit-autofill,
-    textarea:-webkit-autofill:focus {
-        -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
-        background-color: #74BE99 !important;
-    }
-
-    *:focus:not(:focus-visible) {
-        outline: none;
-    }
-
-    *::-webkit-scrollbar {
-        width: 8px; 
-    }
-
-    *::-webkit-scrollbar-track {
-        background-color: transparent;
-        margin-top: 32px;
-        margin-bottom: 32px;
-    }
-
-
-    *::-webkit-scrollbar-thumb {
-        background: var(--foreground);
-        border-radius: 8px;
-    }
-
-    *::-webkit-scrollbar-thumb:hover {
-        background: calc(var(--foreground) / 0.8);
-        border-radius: 10px;
-    }
-
-    *::-webkit-scrollbar-thumb:active {
-        background: calc(var(--foreground) / 0.6);
-        border-radius: 10px;
-    }
-  
-}
-
-@media (max-width: 1023px) {
-    *::-webkit-scrollbar-track {
-        background-color: var(--background);
-        margin-top: 80px;
-    }
-  
-  
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-goga);
+    letter-spacing: -3%;
 }

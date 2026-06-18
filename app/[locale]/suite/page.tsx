@@ -1,4 +1,4 @@
-import ProjectsPage from "./portfolio";
+import SuitePage from "./suite";
 import { Metadata } from "next";
 import { locales, type Locale } from "@/lib/i18n/locales";
 import { baseMetadata, getAlternates, getOpenGraphLocale, getLocalizedPath, siteUrl } from "@/lib/seo/metadata";
@@ -11,23 +11,23 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const { locale } = await params;
     const validLocale = locales.includes(locale as Locale) ? locale as Locale : "en";
 
-    const description = "Explore our portfolio of design, branding, and web development projects. From encrypted sharing tools to wellness apps — each project tells a story.";
+    const description = "The Facile Studio product suite — Capsule, Opus, Glouton and Marcel. Tools we design, build, and run in-house.";
 
     return {
         ...baseMetadata,
-        title: "Projets",
+        title: "Suite",
         description,
-        alternates: getAlternates("/projects", validLocale),
+        alternates: getAlternates("/suite", validLocale),
         openGraph: {
             ...baseMetadata.openGraph,
-            title: "Projets | Facile Studio",
+            title: "Suite | Facile Studio",
             description,
             locale: getOpenGraphLocale(validLocale),
-            url: `${siteUrl}${getLocalizedPath(validLocale, "/projects")}`,
+            url: `${siteUrl}${getLocalizedPath(validLocale, "/suite")}`,
         },
     };
 }
 
-export default function LocaleProjectsPage() {
-    return <ProjectsPage />;
+export default function LocaleSuitePage() {
+    return <SuitePage />;
 }
