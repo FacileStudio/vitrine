@@ -10,6 +10,9 @@ import Header from "@/components/facile/header";
 import ShadowFilter from "@/components/facile/shadowFilter";
 import Hero from "./homeSections/hero";
 import Manifesto from "./homeSections/manifesto";
+import Suite from "./homeSections/suite";
+import Avis from "./homeSections/avis";
+import Projects from "./homeSections/projects";
 
 const featuredSlugs = ["capsule", "opus", "glouton", "marcel"];
 
@@ -105,8 +108,11 @@ export default function Home() {
 
                 <Manifesto />
 
-                <Manifesto />
+                <Projects />
+                
+                <Suite />
 
+                <Avis />
             </main>
             
             {/* <FeaturedProjects

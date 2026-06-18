@@ -1,12 +1,12 @@
 'use client'
 
 import { useEffect, useRef, useState } from "react";
-import type { CSSProperties, RefObject } from "react";
+import type { RefObject } from "react";
 import gsap from "gsap";
+import Stripes from "@/components/facile/stripes";
 
 const orientation = 0;
 const strips = 4;
-const coverTransition = "transform 0.8s cubic-bezier(0.7, 0, 0.3, 1)";
 const triggerLine = 0.5;
 
 const plus = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Cpath d='M5 2h2v3h3v2H7v3H5V7H2V5h3z' fill='%239FB0A8'/%3E%3C/svg%3E";
@@ -14,37 +14,6 @@ const cornerFade =
     "radial-gradient(60% 60% at 0% 0%, #000 0%, transparent 60%), radial-gradient(55% 55% at 100% 100%, #000 0%, transparent 60%)";
 
 const lines = ["We are creators building", "stunning and memorable", "experiences."];
-
-// covers that slide off toward `orientation` (deg) when open; split into columns/rows by the dominant axis
-function Stripes({ orientation, count, open }: { orientation: number; count: number; open: boolean }) {
-    const rad = (orientation * Math.PI) / 180;
-    const dx = -Math.sin(rad);
-    const dy = -Math.cos(rad);
-    const away = `translate(${(dx * 110).toFixed(2)}%, ${(dy * 110).toFixed(2)}%)`;
-    const vertical = Math.abs(Math.cos(rad)) >= Math.abs(Math.sin(rad));
-
-    const stripStyle = (i: number): CSSProperties =>
-        vertical
-            ? { left: `${(i * 100) / count}%`, width: `${100 / count}%`, top: 0, height: "100%" }
-            : { top: `${(i * 100) / count}%`, height: `${100 / count}%`, left: 0, width: "100%" };
-
-    return (
-        <>
-            {Array.from({ length: count }, (_, i) => (
-                <div
-                    key={i}
-                    className="absolute z-40 bg-background pointer-events-none"
-                    style={{
-                        ...stripStyle(i),
-                        transform: open ? away : "translate(0%, 0%)",
-                        transition: coverTransition,
-                        transitionDelay: `${i * 0.1}s`,
-                    }}
-                />
-            ))}
-        </>
-    );
-}
 
 export default function Manifesto() {
     const sectionRef = useRef<HTMLElement>(null);
@@ -59,6 +28,8 @@ export default function Manifesto() {
     const [showText, setShowText] = useState(false);
     const [showCta, setShowCta] = useState(false);
     const [leaving, setLeaving] = useState(false);
+
+
 
     // anchors: derive every flag from scroll position; reveal replays when the section re-pins
     useEffect(() => {
@@ -81,6 +52,8 @@ export default function Manifesto() {
         return () => window.removeEventListener("scroll", update);
     }, []);
 
+
+
     // drift: nudge the model on pointer move for a touch of depth
     useEffect(() => {
         const onMove = (e: PointerEvent) => {
@@ -93,6 +66,8 @@ export default function Manifesto() {
         return () => window.removeEventListener("pointermove", onMove);
     }, []);
 
+
+    
     return (
         <section ref={sectionRef} id="manifesto" className="relative w-full mt-32 min-h-[250vh]">
             <div className="sticky top-0 h-screen w-full overflow-hidden">
