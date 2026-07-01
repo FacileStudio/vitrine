@@ -1,23 +1,21 @@
 'use client'
 
 import { useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import gsap from "gsap";
 import Stripes from "@/components/facile/stripes";
 import { past } from "@/lib/utils";
+
+const DitherView = dynamic(() => import("@/webgl/DitherView").then((m) => m.DitherView), { ssr: false });
 
 const orientation = 0;
 const strips = 4;
 const triggerLine = 0.5;
 
-const plus = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Cpath d='M5 2h2v3h3v2H7v3H5V7H2V5h3z' fill='%239FB0A8'/%3E%3C/svg%3E";
-const cornerFade =
-    "radial-gradient(60% 60% at 0% 0%, #000 0%, transparent 60%), radial-gradient(55% 55% at 100% 100%, #000 0%, transparent 60%)";
-
 const lines = ["We are creators building", "stunning and memorable", "experiences."];
 
 export default function Manifesto() {
     const sectionRef = useRef<HTMLElement>(null);
-    const modelRef = useRef<HTMLDivElement>(null);
     const colsSentinel = useRef<HTMLDivElement>(null);
     const paraSentinel = useRef<HTMLDivElement>(null);
     const textExitSentinel = useRef<HTMLDivElement>(null);
@@ -68,41 +66,35 @@ export default function Manifesto() {
 
 
 
-    // drift: nudge the model on pointer move for a touch of depth
-    useEffect(() => {
-        const onMove = (e: PointerEvent) => {
-            const x = (e.clientX / window.innerWidth - 0.5) * 24;
-            const y = (e.clientY / window.innerHeight - 0.5) * 24;
-            gsap.to(modelRef.current, { x, y, duration: 1.2, ease: "power2.out" });
-        };
-
-        window.addEventListener("pointermove", onMove);
-        return () => window.removeEventListener("pointermove", onMove);
-    }, []);
-
-
-
     return (
         <section ref={sectionRef} id="manifesto" className="relative w-full mt-32 min-h-[400vh]">
-            <div className="sticky top-0 h-screen w-full overflow-hidden">
+            <div className="sticky top-0 h-screen w-full overflow-hidden bg-white">
 
-                <div className="absolute inset-0 bg-white">
-                    <div
-                        ref={modelRef}
-                        className="absolute inset-0"
-                        style={{
-                            backgroundImage: `url("${plus}")`,
-                            backgroundSize: "12px 12px",
-                            WebkitMaskImage: cornerFade,
-                            maskImage: cornerFade,
-                            opacity: 0.85,
-                        }}
-                    />
-                </div>
+                <DitherView
+                    file="/models/manifesto.glb"
+                    className="absolute top-0 left-0 w-1/2 h-full z-0"
+                    background="#ffffff"
+                    highlight="#B4E5CB"
+                    grayscaleOnly={false}
+                    intensity={1.8}
+                    gridSize={showText ? 4 : 9}
+                    position={[-0.5, 1, 0.5]}
+                />
 
-                <Stripes orientation={orientation} count={strips} openWhen={() => past(colsSentinel)} />
+                <DitherView
+                    file="/models/manifesto.glb"
+                    className="absolute top-0 left-1/2 w-1/2 h-full z-0"
+                    background="#ffffff"
+                    highlight="#B4E5CB"
+                    grayscaleOnly={false}
+                    intensity={1.8}
+                    gridSize={showText ? 4 : 9}
+                    position={[1, -2, 0.5]}
+                />
 
-                <Stripes orientation={orientation + 180} count={strips} openWhen={() => !past(exitSentinel)} />
+                <Stripes orientation={orientation} count={strips} className="bg-background" openWhen={() => past(colsSentinel)} />
+
+                <Stripes orientation={orientation + 180} count={strips} className="bg-background" openWhen={() => !past(exitSentinel)} />
 
                 <div className="absolute inset-0 z-50 flex flex-col items-center justify-center px-6 text-center pointer-events-none">
                     <h2 className="max-w-3xl text-4xl md:text-5xl font-medium leading-tight text-foreground/80">

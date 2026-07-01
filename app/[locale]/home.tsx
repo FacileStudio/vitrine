@@ -1,6 +1,7 @@
 'use client'
 
 import React from "react";
+import { ReactLenis } from "lenis/react";
 import { TransitionIn, TransitionOut } from "@/components/facile/pageTransition";
 import { useTranslations } from 'next-intl';
 import { useRouter } from "next/navigation";
@@ -97,6 +98,8 @@ export default function Home() {
 
     return (
         <div>
+            <ReactLenis root options={{ lerp: 0.1, smoothWheel: true }} />
+
             <SideBar sideBarOpen={sideBarOpen} setSidebarOpen={setSidebarOpen} />
 
             <ShadowFilter />
