@@ -1,21 +1,43 @@
+'use client'
+
+import { useEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 
 const coverTransition = "transform 0.8s cubic-bezier(0.7, 0, 0.3, 1)";
 
-// covers that slide off toward `orientation` (deg) when open; split into columns/rows by the dominant axis
+// covers that slide off toward `orientation` (deg) when open; split into columns/rows by the dominant axis.
+// pass a static `open`, or `openWhen` to derive it from scroll (listener lives here, not the parent).
 export default function Stripes({
     orientation,
     count,
-    open,
+    open: openProp,
+    openWhen,
     className = "bg-background",
     transition = coverTransition,
+    children,
 }: {
     orientation: number;
     count: number;
-    open: boolean;
+    open?: boolean;
+    openWhen?: () => boolean;
     className?: string;
     transition?: string;
+    children?: React.ReactNode;
 }) {
+    const [openState, setOpenState] = useState(false);
+    const openWhenRef = useRef(openWhen);
+    openWhenRef.current = openWhen;
+
+    useEffect(() => {
+        if (!openWhenRef.current) return;
+        const update = () => setOpenState(openWhenRef.current!());
+        window.addEventListener("scroll", update, { passive: true });
+        update();
+        return () => window.removeEventListener("scroll", update);
+    }, []);
+
+    const open = openWhen ? openState : !!openProp;
+
     const rad = (orientation * Math.PI) / 180;
     const dx = -Math.sin(rad);
     const dy = -Math.cos(rad);
@@ -39,7 +61,9 @@ export default function Stripes({
                         transition,
                         transitionDelay: `${i * 0.1}s`,
                     }}
-                />
+                >
+                    {children}
+                </div>
             ))}
         </>
     );
