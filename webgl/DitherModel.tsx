@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Center, Float, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
@@ -26,6 +26,17 @@ export function DitherModel({
 }: DitherModelProps) {
     const { scene } = useGLTF(file);
     const group = useRef<THREE.Group>(null);
+    const pointer = useRef({ x: 0, y: 0 });
+
+    useEffect(() => {
+        if (!parallax) return;
+        const onMove = (e: PointerEvent) => {
+            pointer.current.x = (e.clientX / window.innerWidth) * 2 - 1;
+            pointer.current.y = -((e.clientY / window.innerHeight) * 2 - 1);
+        };
+        window.addEventListener("pointermove", onMove);
+        return () => window.removeEventListener("pointermove", onMove);
+    }, [parallax]);
 
     const model = useMemo(() => {
         const cloned = scene.clone(true);
@@ -40,9 +51,9 @@ export function DitherModel({
         return cloned;
     }, [scene, roughness]);
 
-    useFrame((state) => {
+    useFrame(() => {
         if (!group.current || !parallax) return;
-        const { x, y } = state.pointer;
+        const { x, y } = pointer.current;
         group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, x * parallax, 0.05);
         group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, -y * parallax, 0.05);
     });

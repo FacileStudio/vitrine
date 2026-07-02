@@ -1,3 +1,3 @@
-const ShadowFilter: React.FC = () => <div className="w-screen h-screen fixed top-0 left-0 z-10 bg-[radial-gradient(ellipse_at_center,transparent_50%,#B4E5CB90_100%)] pointer-events-none transform-gpu will-change-transform" />
+const ShadowFilter: React.FC = () => <div className="w-screen h-screen fixed top-0 left-0 z-10 bg-[radial-gradient(ellipse_at_center,transparent_50%,#B4FED490_100%)] pointer-events-none transform-gpu will-change-transform" />
 
 export default ShadowFilter;

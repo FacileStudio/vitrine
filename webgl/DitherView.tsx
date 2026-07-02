@@ -20,6 +20,7 @@ export interface DitherViewProps extends DitherModelProps {
     bloomIntensity?: number;
     gridTween?: number;
     background?: string | null;
+    ditherAngle?: number;
 }
 
 export function DitherView({
@@ -29,13 +30,14 @@ export function DitherView({
     grayscaleOnly = false,
     intensity = 1.8,
     highlight = "#4ADE8E",
-    fov = 50,
+    fov = 60,
     cameraPosition = [0, -1, 4],
     bloom = true,
     bloomIntensity = 0.5,
     gridTween = 0.8,
-    background = "#ffffff",
+    background = "#000000",
     position = [0, -0.5, 0],
+    ditherAngle = 45,
     ...model
 }: DitherViewProps) {
     return (
@@ -46,9 +48,15 @@ export function DitherView({
                 shadows
                 gl={{ alpha: background === null, antialias: true }}
                 camera={{ position: cameraPosition, fov }}
-                onCreated={({ gl }) => {
+                onCreated={({ gl, invalidate }) => {
                     if (background === null) gl.setClearColor(0x000000, 0);
                     else gl.setClearColor(new THREE.Color(background), 1);
+
+                    const canvas = gl.domElement;
+                    const onLost = (e: Event) => e.preventDefault();
+                    const onRestored = () => invalidate();
+                    canvas.addEventListener("webglcontextlost", onLost, false);
+                    canvas.addEventListener("webglcontextrestored", onRestored, false);
                 }}
             >
                 <Suspense fallback={null}>
@@ -61,6 +69,7 @@ export function DitherView({
                     gridSize={gridSize}
                     pixelSizeRatio={pixelSizeRatio}
                     grayscaleOnly={grayscaleOnly}
+                    rotation={(ditherAngle * Math.PI) / 180}
                     bloom={bloom}
                     bloomIntensity={bloomIntensity}
                     gridTween={gridTween}

@@ -15,6 +15,7 @@ uniform float luminanceMethod;
 uniform float invertColor;
 uniform float pixelSizeRatio;
 uniform float grayscaleOnly;
+uniform float rotation;
 
 bool getValue(float brightness, vec2 pos) {
   if (brightness > 16.0 / 17.0) return false;
@@ -51,12 +52,25 @@ bool getValue(float brightness, vec2 pos) {
 }
 
 void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor) {
+  vec2 center = resolution * 0.5;
+  float ca = cos(rotation);
+  float sa = sin(rotation);
+  mat2 rot = mat2(ca, sa, -sa, ca);
+  mat2 rotInv = mat2(ca, -sa, sa, ca);
+
   vec2 fragCoord = uv * resolution;
-  vec3 baseColor;
+  vec2 rc = rot * (fragCoord - center);
 
   float pixelSize = gridSize * pixelSizeRatio;
-  vec2 pixelatedUV = floor(fragCoord / pixelSize) * pixelSize / resolution;
-  baseColor = texture2D(inputBuffer, pixelatedUV).rgb;
+  vec2 cell = (floor(rc / pixelSize) + 0.5) * pixelSize;
+  vec2 sampleCoord = rotInv * cell + center;
+  vec4 sampled = texture2D(inputBuffer, sampleCoord / resolution);
+  vec3 baseColor = sampled.rgb;
+
+  if (sampled.a < 0.001) {
+    outputColor = vec4(0.0);
+    return;
+  }
 
   float luminance = dot(baseColor, vec3(1., 1., 1.));
 
@@ -64,20 +78,14 @@ void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor)
     baseColor = vec3(luminance);
   }
 
-  bool dithered = getValue(luminance, fragCoord);
-
-  vec3 ditherColor = dithered ? vec3(0.0) : baseColor;
-
-  vec2 currentPixel = floor(fragCoord / pixelSize);
-  vec2 originalPixel = floor(uv * resolution / pixelSize);
-
-  baseColor = (currentPixel == originalPixel) ? ditherColor : baseColor;
+  bool dithered = getValue(luminance, rc);
+  baseColor = dithered ? vec3(0.0) : baseColor;
 
   if (invertColor > 0.0) {
     baseColor = 1.0 - baseColor;
   }
 
-  outputColor = vec4(baseColor, inputColor.a);
+  outputColor = vec4(baseColor, sampled.a);
 }`;
 
 export default ditheringShader;

@@ -72,18 +72,18 @@ export default function Manifesto() {
 
                 <DitherView
                     file="/models/manifesto.glb"
-                    className="absolute top-0 left-0 w-1/2 h-full z-0"
+                    className="absolute top-0 left-0 w-1/2 h-full z-0 opacity-75"
                     background="#ffffff"
                     highlight="#B4E5CB"
                     grayscaleOnly={false}
                     intensity={1.8}
                     gridSize={showText ? 4 : 9}
-                    position={[-0.5, 1, 0.5]}
+                    position={[-1, 0.5, 0.5]}
                 />
 
                 <DitherView
                     file="/models/manifesto.glb"
-                    className="absolute top-0 left-1/2 w-1/2 h-full z-0"
+                    className="absolute top-0 left-1/2 w-1/2 h-full z-0 opacity-75"
                     background="#ffffff"
                     highlight="#B4E5CB"
                     grayscaleOnly={false}

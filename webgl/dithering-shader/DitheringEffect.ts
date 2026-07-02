@@ -10,6 +10,7 @@ export interface DitheringEffectOptions {
     invertColor?: boolean;
     pixelSizeRatio?: number;
     grayscaleOnly?: boolean;
+    rotation?: number;
 }
 
 export class DitheringEffect extends Effect {
@@ -23,6 +24,7 @@ export class DitheringEffect extends Effect {
         invertColor = false,
         pixelSizeRatio = 2,
         grayscaleOnly = false,
+        rotation = 0,
     }: DitheringEffectOptions = {}) {
         const uniforms = new Map<string, THREE.Uniform<number | THREE.Vector2>>([
             ["time", new THREE.Uniform(time)],
@@ -33,6 +35,7 @@ export class DitheringEffect extends Effect {
             ["ditheringEnabled", new THREE.Uniform(1)],
             ["pixelSizeRatio", new THREE.Uniform(pixelSizeRatio)],
             ["grayscaleOnly", new THREE.Uniform(grayscaleOnly ? 1 : 0)],
+            ["rotation", new THREE.Uniform(rotation)],
         ]);
 
         super("DitheringEffect", ditheringShader, { uniforms });

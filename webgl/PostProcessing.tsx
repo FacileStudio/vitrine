@@ -11,6 +11,7 @@ export interface PostProcessingProps {
     gridSize?: number;
     pixelSizeRatio?: number;
     grayscaleOnly?: boolean;
+    rotation?: number;
     bloom?: boolean;
     bloomIntensity?: number;
     gridTween?: number;
@@ -20,6 +21,7 @@ export function PostProcessing({
     gridSize = 4,
     pixelSizeRatio = 1,
     grayscaleOnly = false,
+    rotation = 0,
     bloom = true,
     bloomIntensity = 0.5,
     gridTween = 0.8,
@@ -52,7 +54,7 @@ export function PostProcessing({
             );
         }
 
-        const dither = new DitheringEffect({ gridSize: gridValue.current, pixelSizeRatio, grayscaleOnly });
+        const dither = new DitheringEffect({ gridSize: gridValue.current, pixelSizeRatio, grayscaleOnly, rotation });
         ditherRef.current = dither;
         composer.addPass(new EffectPass(camera, dither));
 
@@ -70,7 +72,7 @@ export function PostProcessing({
                 ),
             );
         }
-    }, [scene, camera, pixelSizeRatio, grayscaleOnly, bloom, bloomIntensity]);
+    }, [scene, camera, pixelSizeRatio, grayscaleOnly, rotation, bloom, bloomIntensity]);
 
     // animate the dithering grid toward the target
     useEffect(() => {
