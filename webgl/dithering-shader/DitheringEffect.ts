@@ -69,4 +69,9 @@ export class DitheringEffect extends Effect {
         const u = this.uniforms.get("grayscaleOnly");
         if (u !== undefined) u.value = grayscaleOnly ? 1 : 0;
     }
+
+    setRotation(rotation: number): void {
+        const u = this.uniforms.get("rotation");
+        if (u !== undefined) u.value = rotation;
+    }
 }

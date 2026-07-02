@@ -1,5 +1,6 @@
 import React from 'react';
 import gsap from 'gsap';
+import { EASE } from '@/app/utils/animations';
 
 
 
@@ -7,11 +8,11 @@ export const SideBar = ({ sideBarOpen, setSidebarOpen }: { sideBarOpen: boolean;
     const sidebarRef = React.useRef<HTMLDivElement>(null);
     
     React.useEffect(() => {
-        if (sideBarOpen) {
-            gsap.to(sidebarRef.current, { right: 0, duration: 1, ease: 'power3.out' });
-        } else {
-            gsap.to(sidebarRef.current, { right: '-320px', duration: 1, ease: 'power3.in' });
-        }
+        gsap.to(sidebarRef.current, {
+            right: sideBarOpen ? 0 : '-320px',
+            duration: 1,
+            ease: sideBarOpen ? EASE.out : EASE.in,
+        });
     }, [sideBarOpen]);
     
     return (

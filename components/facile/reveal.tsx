@@ -1,8 +1,10 @@
 'use client'
 
 import { createContext, useCallback, useContext, useEffect, useId, useMemo, useRef, useState } from "react";
-import type { CSSProperties, ReactNode, RefObject } from "react";
-import gsap from "gsap";
+import type { CSSProperties, ReactNode } from "react";
+import { past } from "@/app/utils";
+import { pointerDrift } from "@/app/utils/animations";
+import { useScroll } from "@/hooks/use-scroll";
 
 const coverTransition = "transform 0.8s cubic-bezier(0.7, 0, 0.3, 1)";
 
@@ -60,16 +62,7 @@ export function RevealModel() {
     const modelRef = useRef<HTMLDivElement>(null);
 
     // drift: pointer parallax for a touch of depth
-    useEffect(() => {
-        const onMove = (e: PointerEvent) => {
-            const x = (e.clientX / window.innerWidth - 0.5) * 24;
-            const y = (e.clientY / window.innerHeight - 0.5) * 24;
-            gsap.to(modelRef.current, { x, y, duration: 1.2, ease: "power2.out" });
-        };
-
-        window.addEventListener("pointermove", onMove);
-        return () => window.removeEventListener("pointermove", onMove);
-    }, []);
+    useEffect(() => pointerDrift(modelRef.current), []);
 
     return (
         <div
@@ -119,35 +112,26 @@ export function StripReveal({ orientation = 0, strips = 4, heightVh = 250, child
     const [leaving, setLeaving] = useState(false);
 
     // anchors: drive the model + every flag from scroll position; text leaves before the panels
-    useEffect(() => {
-        const past = (ref: RefObject<HTMLDivElement | null>) =>
-            ref.current ? ref.current.getBoundingClientRect().top < 0 : false;
+    useScroll(() => {
+        const rect = sectionRef.current?.getBoundingClientRect();
+        const pinned = !!rect && rect.top <= 0 && rect.bottom >= window.innerHeight;
 
-        const update = () => {
-            const rect = sectionRef.current?.getBoundingClientRect();
-            const pinned = !!rect && rect.top <= 0 && rect.bottom >= window.innerHeight;
+        if (pinned !== pinnedRef.current) {
+            pinnedRef.current = pinned;
+            setActive(id, pinned);
+        }
+        if (pinned)
+            setRevealed(true);
 
-            if (pinned !== pinnedRef.current) {
-                pinnedRef.current = pinned;
-                setActive(id, pinned);
-            }
-            if (pinned)
-                setRevealed(true);
+        const textOut = past(textExitSentinel, 0);
+        setShowText(past(paraSentinel, 0) && !textOut);
+        setShowCta(past(ctaSentinel, 0) && !textOut);
+        setLeaving(textOut);
+        setGone(past(exitSentinel, 0));
+    });
 
-            const textOut = past(textExitSentinel);
-            setShowText(past(paraSentinel) && !textOut);
-            setShowCta(past(ctaSentinel) && !textOut);
-            setLeaving(textOut);
-            setGone(past(exitSentinel));
-        };
-
-        window.addEventListener("scroll", update, { passive: true });
-        update();
-        return () => {
-            window.removeEventListener("scroll", update);
-            setActive(id, false);
-        };
-    }, [id, setActive]);
+    // release this section's hold on the shared model when it unmounts
+    useEffect(() => () => setActive(id, false), [id, setActive]);
 
     // orientation: covers slide along (-sin, -cos); strips split on the dominant axis
     const rad = (orientation * Math.PI) / 180;

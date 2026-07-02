@@ -9,6 +9,7 @@ import data from "./projects/projects.json";
 import SideBar from "@/components/facile/sidebar";
 import Header from "@/components/facile/header";
 import ShadowFilter from "@/components/facile/shadowFilter";
+import Rideau from "@/components/facile/rideau";
 import Hero from "./homeSections/hero";
 import Manifesto from "./homeSections/manifesto";
 import Suite from "./homeSections/suite";
@@ -97,7 +98,9 @@ export default function Home() {
     }, [sideBarOpen]);
 
     return (
-        <div>
+        <div className="relative">
+            <Rideau />
+
             <ReactLenis root options={{ lerp: 0.1, smoothWheel: true }} />
 
             <SideBar sideBarOpen={sideBarOpen} setSidebarOpen={setSidebarOpen} />

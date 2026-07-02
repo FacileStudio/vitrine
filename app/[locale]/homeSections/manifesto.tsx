@@ -2,17 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
-import gsap from "gsap";
 import Stripes from "@/components/facile/stripes";
-import { past } from "@/lib/utils";
+import { past } from "@/app/utils";
+import { run, slide, hideReveal } from "@/app/utils/animations";
+import { useScroll } from "@/hooks/use-scroll";
 
 const DitherView = dynamic(() => import("@/webgl/DitherView").then((m) => m.DitherView), { ssr: false });
 
-const orientation = 0;
-const strips = 4;
 const triggerLine = 0.5;
-
-const lines = ["We are creators building", "stunning and memorable", "experiences."];
 
 export default function Manifesto() {
     const sectionRef = useRef<HTMLElement>(null);
@@ -30,38 +27,24 @@ export default function Manifesto() {
     const [leaving, setLeaving] = useState(false);
 
     // anchors: derive text flags from scroll position; reveal replays when the section re-pins
-    useEffect(() => {
-        const update = () => {
-            const textOut = past(textExitSentinel, triggerLine);
-            const textIn = past(paraSentinel, triggerLine) && !textOut;
-            setShowText(textIn);
-            setShowCta(textIn);
-            setLeaving(textOut);
-        };
-
-        window.addEventListener("scroll", update, { passive: true });
-        update();
-        return () => window.removeEventListener("scroll", update);
-    }, []);
+    useScroll(() => {
+        const textOut = past(textExitSentinel, triggerLine);
+        const textIn = past(paraSentinel, triggerLine) && !textOut;
+        setShowText(textIn);
+        setShowCta(textIn);
+        setLeaving(textOut);
+    });
 
     // hide everything before first reveal to avoid a flash
     useEffect(() => {
-        gsap.set([...lineRefs.current, ...entryRefs.current, ctaRef.current], { yPercent: 110 });
+        hideReveal([...lineRefs.current, ...entryRefs.current, ctaRef.current]);
     }, []);
 
-    // gsap: drive title lines, entries, and CTA off the scroll-derived flags
+    // drive title lines, entries, and CTA off the scroll-derived flags
     useEffect(() => {
-        const y = (show: boolean) => (show ? 0 : leaving ? -110 : 110);
-
-        const run = (els: (HTMLElement | null)[], show: boolean) =>
-            els.forEach((el, i) => {
-                if (!el) return;
-                gsap.to(el, { yPercent: y(show), duration: 0.5, ease: "power2.out", delay: i * 0.2 });
-            });
-
-        run(lineRefs.current, showText);
-        run(entryRefs.current, showText);
-        gsap.to(ctaRef.current, { yPercent: y(showCta), duration: 0.7, ease: "power2.out" });
+        run(lineRefs.current, slide(showText, leaving));
+        run(entryRefs.current, slide(showText, leaving));
+        run([ctaRef.current], slide(showCta, leaving, { duration: 0.7 }));
     }, [showText, showCta, leaving]);
 
 
@@ -85,13 +68,13 @@ export default function Manifesto() {
                     ]}
                 />
 
-                <Stripes orientation={orientation} count={strips} className="bg-background" openWhen={() => past(colsSentinel)} />
+                <Stripes orientation={0} count={4} className="bg-background" openWhen={() => past(colsSentinel)} />
 
-                <Stripes orientation={orientation + 180} count={strips} className="bg-background" openWhen={() => !past(exitSentinel)} />
+                <Stripes orientation={180} count={4} className="bg-background" openWhen={() => !past(exitSentinel)} />
 
                 <div className="absolute inset-0 z-50 flex flex-col items-center justify-center px-6 text-center pointer-events-none">
                     <h2 className="max-w-3xl text-4xl md:text-5xl font-medium leading-tight text-foreground/80">
-                        {lines.map((line, i) => (
+                        {["We are creators building", "stunning and memorable", "experiences."].map((line, i) => (
                             <span key={i} className="block overflow-hidden">
                                 <span ref={(el) => { lineRefs.current[i] = el; }} className="block">
                                     {line}

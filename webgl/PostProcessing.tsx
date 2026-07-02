@@ -31,11 +31,25 @@ export function PostProcessing({
     const gridValue = useRef(gridSize);
     const [scene, setScene] = useState<THREE.Scene | null>(null);
     const [camera, setCamera] = useState<THREE.Camera | null>(null);
-    const { size } = useThree();
+    const { size, gl } = useThree();
 
     useEffect(() => {
         composerRef.current?.setSize(size.width, size.height);
     }, [size]);
+
+    // on GPU context restore the cached composer is dead — drop it so useFrame
+    // rebuilds a fresh one, and clear scene/camera to force the pass chain to rebuild
+    useEffect(() => {
+        const canvas = gl.domElement;
+        const onRestored = () => {
+            composerRef.current?.dispose();
+            composerRef.current = null;
+            setScene(null);
+            setCamera(null);
+        };
+        canvas.addEventListener("webglcontextrestored", onRestored, false);
+        return () => canvas.removeEventListener("webglcontextrestored", onRestored);
+    }, [gl]);
 
     // (re)build the pass chain: render -> bloom -> dithering -> bloom
     useEffect(() => {

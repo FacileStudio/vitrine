@@ -2,6 +2,7 @@
 
 import gsap from "gsap";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { EASE } from "@/app/utils/animations";
 
 export const TransitionIn = (delayValue: number) => {
     if (!document.querySelector(".page-transition")) return;
@@ -10,7 +11,7 @@ export const TransitionIn = (delayValue: number) => {
 
         duration: 2,
         delay: delayValue,
-        ease: "power4.inOut",
+        ease: EASE.inOut,
     })
 }
 
@@ -28,7 +29,7 @@ export const TransitionOut = ({href, router}: {href: string, router: AppRouterIn
         top: 0,
 
         duration: 1,
-        ease: "power3.inOut",
+        ease: EASE.glide,
         onComplete: () => {
             router.push(href)
         }
