@@ -6,6 +6,7 @@ import Stripes from "@/components/facile/stripes";
 import { past } from "@/app/utils";
 import { run, slideY, hideRevealY } from "@/app/utils/animations";
 import { useScroll } from "@/hooks/use-scroll";
+import ParallaxCarousel from "@/components/facile/ParallaxCarousel";
 
 const DitherView = dynamic(() => import("@/webgl/DitherView").then((m) => m.DitherView), { ssr: false });
 
@@ -78,15 +79,14 @@ export default function Suite() {
                     </span>
                 </div>
 
-                <div className="absolute bottom-0 left-0 flex w-full items-end justify-between px-48 pb-12 pointer-events-none text-md font-medium">
-                    {["Branding", "Web - UI/UX design", "Showcase Websites", "Applications", "DevOps", "Self hosting"].map((entry, i) => (
-                        <span key={i} className="block overflow-hidden">
-                            <span ref={(el) => { entryRefs.current[i] = el; }} className="block">
-                                {entry}
-                            </span>
-                        </span>
-                    ))}
-                </div>
+                <ParallaxCarousel
+                    images={[
+                        "/images/projects/bubbles.webp",
+                        "/images/projects/EvelyneCrea.webp",
+                        "/images/projects/Gian.webp",
+                        "/images/projects/LauraHerve.webp",
+                    ]}
+                />
             </div>
 
             <div ref={colsSentinel}     className="absolute top-[4%]  w-full h-px" aria-hidden="true" />
