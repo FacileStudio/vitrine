@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import * as THREE from "three";
 import { EnvironmentWrapper } from "./environment";
@@ -21,6 +21,7 @@ export interface DitherViewProps extends DitherModelProps {
     gridTween?: number;
     background?: string | null;
     ditherAngle?: number;
+    models?: DitherModelProps[];
 }
 
 export function DitherView({
@@ -38,14 +39,32 @@ export function DitherView({
     background = "#000000",
     position = [0, -0.5, 0],
     ditherAngle = 45,
+    models,
     ...model
 }: DitherViewProps) {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [active, setActive] = useState(true);
+
+    useEffect(() => {
+        const el = containerRef.current;
+        if (!el) return;
+        const io = new IntersectionObserver(
+            ([entry]) => setActive(entry.isIntersecting),
+            { rootMargin: "200px" },
+        );
+        io.observe(el);
+        return () => io.disconnect();
+    }, []);
+
+    const items: DitherModelProps[] = models ?? [model];
+
     return (
-        <div className={className}>
+        <div ref={containerRef} className={className}>
             <Canvas
                 className=""
                 dpr={[1, 2]}
                 shadows
+                frameloop={active ? "always" : "never"}
                 gl={{ alpha: background === null, antialias: true }}
                 camera={{ position: cameraPosition, fov }}
                 onCreated={({ gl, invalidate }) => {
@@ -60,9 +79,11 @@ export function DitherView({
                 }}
             >
                 <Suspense fallback={null}>
-                    <group position={position}>
-                        <DitherModel {...model} />
-                    </group>
+                    {items.map(({ position: itemPosition = position, ...m }, i) => (
+                        <group key={i} position={itemPosition}>
+                            <DitherModel {...m} />
+                        </group>
+                    ))}
                     <EnvironmentWrapper intensity={intensity} highlight={highlight} />
                 </Suspense>
                 <PostProcessing

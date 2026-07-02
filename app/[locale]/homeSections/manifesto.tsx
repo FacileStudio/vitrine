@@ -71,25 +71,17 @@ export default function Manifesto() {
             <div className="sticky top-0 h-screen w-full overflow-hidden bg-white">
 
                 <DitherView
-                    file="/models/manifesto.glb"
-                    className="absolute top-0 left-0 w-1/2 h-full z-0 opacity-75"
+                    className="absolute top-0 left-0 w-full h-full z-0 opacity-75"
                     background="#ffffff"
                     highlight="#B4E5CB"
                     grayscaleOnly={false}
                     intensity={1.8}
                     gridSize={showText ? 4 : 9}
-                    position={[-1, 0.5, 0.5]}
-                />
-
-                <DitherView
                     file="/models/manifesto.glb"
-                    className="absolute top-0 left-1/2 w-1/2 h-full z-0 opacity-75"
-                    background="#ffffff"
-                    highlight="#B4E5CB"
-                    grayscaleOnly={false}
-                    intensity={1.8}
-                    gridSize={showText ? 4 : 9}
-                    position={[1, -2, 0.5]}
+                    models={[
+                        { file: "/models/manifesto.glb", position: [-3, 0.5, 0.5] },
+                        { file: "/models/manifesto.glb", position: [3, -2, 0.5] },
+                    ]}
                 />
 
                 <Stripes orientation={orientation} count={strips} className="bg-background" openWhen={() => past(colsSentinel)} />
