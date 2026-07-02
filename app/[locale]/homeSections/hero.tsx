@@ -10,15 +10,23 @@ const DitherView = dynamic(() => import("@/webgl/DitherView").then((m) => m.Dith
 
 const triggerLine = 0.5;
 
-export default function Hero() {
+export default function Hero({ charged }: { charged: boolean }) {
     const paraSentinel = useRef<HTMLDivElement>(null);
     const textExitSentinel = useRef<HTMLDivElement>(null);
-
     const lineRefs = useRef<(HTMLElement | null)[]>([]);
     const ctaRef = useRef<HTMLButtonElement>(null);
-
     const [showText, setShowText] = useState(false);
     const [leaving, setLeaving] = useState(false);
+    const [resolved, setResolved] = useState(false);
+
+    // let the curtain start lifting before the dither grid resolves
+    useEffect(() => {
+        if (!charged) return;
+        const t = setTimeout(() => setResolved(true), 800);
+        return () => clearTimeout(t);
+    }, [charged]);
+
+
 
     useScroll(() => {
         const textOut = past(textExitSentinel, triggerLine);
@@ -26,15 +34,22 @@ export default function Hero() {
         setLeaving(textOut);
     });
 
+
+
     useEffect(() => {
         hideReveal(lineRefs.current);
         hideFade([ctaRef.current]);
     }, []);
 
+
+    
     useEffect(() => {
-        run(lineRefs.current, slide(showText, leaving, { stagger: 0.1, delay: 2 }));
-        run([ctaRef.current], fade(showText, { delay: 2 }));
-    }, [showText, leaving]);
+        if (!charged)
+            return;
+        
+        run(lineRefs.current, slide(showText, leaving, { stagger: 0.1, delay: 1 }));
+        run([ctaRef.current], fade(showText, { delay: 1 }));
+    }, [showText, leaving, charged]);
 
     return (
         <section id="hero" className="h-screen w-screen relative">
@@ -46,7 +61,7 @@ export default function Hero() {
                     highlight="#24E27A"
                     grayscaleOnly={false}
                     intensity={1.8}
-                    gridSize={2}
+                    gridSize={resolved ? 2 : 16}
                     position={[-1, -0.5, -0.5]}
                     fov={50}
                     scale={35}

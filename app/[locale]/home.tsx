@@ -1,7 +1,7 @@
 'use client'
 
 import React from "react";
-import { ReactLenis } from "lenis/react";
+import { ReactLenis, type LenisRef } from "lenis/react";
 import { TransitionIn, TransitionOut } from "@/components/facile/pageTransition";
 import { useTranslations } from 'next-intl';
 import { useRouter } from "next/navigation";
@@ -84,6 +84,18 @@ export default function Home() {
     const [sideBarOpen, setSidebarOpen] = React.useState<boolean>(false);
     const t = useTranslations('home');
     const router = useRouter();
+
+    const [charged, setCharged] = React.useState(false);
+    const lenisRef = React.useRef<LenisRef>(null);
+
+    // lock scrolling to the hero until everything is loaded
+    React.useEffect(() => {
+        const lenis = lenisRef.current?.lenis;
+        if (!lenis) return;
+        if (charged) lenis.start();
+        else lenis.stop();
+    }, [charged]);
+
     // const caseStudyT = useTranslations('portfolio.caseStudy');
     // const featuredProjects = featuredSlugs.map(slug => data.find(p => p.slug === slug)).filter((p): p is NonNullable<typeof p> => p !== undefined);
 
@@ -99,9 +111,9 @@ export default function Home() {
 
     return (
         <div className="relative">
-            <Rideau />
+            <Rideau setCharged={setCharged} />
 
-            <ReactLenis root options={{ lerp: 0.1, smoothWheel: true }} />
+            <ReactLenis ref={lenisRef} root options={{ lerp: 0.1, smoothWheel: true }} />
 
             <SideBar sideBarOpen={sideBarOpen} setSidebarOpen={setSidebarOpen} />
 
@@ -110,7 +122,7 @@ export default function Home() {
             <main className="min-h-screen w-screen">
                 <Header sideBarOpen={sideBarOpen} setSidebarOpen={setSidebarOpen} />
 
-                <Hero />
+                <Hero charged={charged} />
 
                 <Manifesto />
 

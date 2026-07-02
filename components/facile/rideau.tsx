@@ -47,7 +47,7 @@ function DualRing({ value }: { value: number }) {
 }
 
 // white curtain over the whole viewport; its stripes slide up to reveal the home once loading is done
-const Rideau = () => {
+const Rideau = ({ setCharged }: { setCharged: (charged: boolean) => void }) => {
     const firstBarRef = useRef<HTMLDivElement | null>(null);
     const secondBarRef = useRef<HTMLDivElement | null>(null);
     const thirdBarRef = useRef<HTMLDivElement | null>(null);
@@ -91,10 +91,15 @@ const Rideau = () => {
             const diff = target.current - shown.current;
             const step = Math.max(-maxStep, Math.min(maxStep, diff * 0.08));
             shown.current += step;
+
             const rounded = Math.round(shown.current);
             setPourcentage((prev) => (prev !== rounded ? rounded : prev));
+
             const done = total > 0 && target.current >= 100 && !active;
-            if (done && rounded >= 100) setOpen(true);
+            if (done && rounded >= 100) {
+                setOpen(true);
+                setCharged(true);
+            }
         };
         gsap.ticker.add(tick);
         return () => gsap.ticker.remove(tick);
@@ -112,7 +117,7 @@ const Rideau = () => {
 
             <div className="absolute z-50 top-1/2 left-1/2 -translate-1/2">
                     <div
-                        className="w-auto aspect-square rounded-full flex items-center justify-center bg-red-500/4"
+                        className="w-auto aspect-square rounded-full flex items-center justify-center"
                         style={{
                             transition: "opacity 0.6s ease, transform 0.8s cubic-bezier(0.7, 0, 0.3, 1)",
                             opacity: open ? 0 : 1,
