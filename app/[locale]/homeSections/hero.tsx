@@ -32,8 +32,8 @@ export default function Hero() {
     }, []);
 
     useEffect(() => {
-        run(lineRefs.current, slide(showText, leaving, { stagger: 0.1, delay: 1.2 }));
-        run([ctaRef.current], fade(showText, { delay: 1.2 }));
+        run(lineRefs.current, slide(showText, leaving, { stagger: 0.1, delay: 2 }));
+        run([ctaRef.current], fade(showText, { delay: 2 }));
     }, [showText, leaving]);
 
     return (
