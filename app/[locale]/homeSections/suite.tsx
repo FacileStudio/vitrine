@@ -51,22 +51,7 @@ export default function Suite() {
 
     return (
         <section ref={sectionRef} id="suite" className="relative w-full mt-32 min-h-[400vh]">
-            <div className="sticky top-0 h-screen w-full z-100 overflow-hidden bg-[#242424] text-white">
-
-                <DitherView
-                    className="absolute top-0 left-0 w-full h-full z-0 opacity-75"
-                    background="#ffffff"
-                    highlight="#B4E5CB"
-                    grayscaleOnly={false}
-                    intensity={1.8}
-                    parallax={0.7}
-                    gridSize={showText ? 2 : 9}
-                    file="/models/manifesto.glb"
-                    models={[
-                        { file: "/models/manifesto.glb", position: [-3, 0.5, 0.5] },
-                        { file: "/models/manifesto.glb", position: [3, -2, 0.5] },
-                    ]}
-                />
+            <div data-no-shadow className="sticky top-0 h-screen w-full overflow-hidden bg-[#242424] text-white">
 
                 <Stripes orientation={0} count={4} className="bg-background" openWhen={() => past(colsSentinel)} />
 
