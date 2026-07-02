@@ -50,7 +50,7 @@ export default function Suite() {
 
 
     return (
-        <section ref={sectionRef} id="manifesto" className="relative w-full mt-32 min-h-[400vh]">
+        <section ref={sectionRef} id="suite" className="relative w-full mt-32 min-h-[400vh]">
             <div className="sticky top-0 h-screen w-full z-100 overflow-hidden bg-[#242424] text-white">
 
                 <DitherView
