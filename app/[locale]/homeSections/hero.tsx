@@ -9,17 +9,17 @@ export default function Hero() {
             <div className="relative w-screen h-screen">
                 <DitherView
                     file="/models/fff.glb"
-                    className="absolute top-0 left-0 w-full h-full -z-10 opacity-100"
+                    className="absolute top-0 left-0 w-full h-full -z-10 opacity-75"
                     background="#9DBAAD"
                     highlight="#24E27A"
                     grayscaleOnly={false}
                     intensity={1.8}
-                    gridSize={1}
+                    gridSize={2}
                     position={[-1, -0.5, -0.5]}
                     fov={50}
                     scale={35}
                     float={false}
-                    parallax={0.4}
+                    parallax={0.55}
                     rotation={[0, 0.35, 0]}
                 />
                 <div className="absolute bottom-0 left-0 w-full h-1/5 bg-linear-to-t from-[#E4EEE8] to-transparent" />

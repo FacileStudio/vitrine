@@ -54,8 +54,8 @@ export function DitherModel({
     useFrame(() => {
         if (!group.current || !parallax) return;
         const { x, y } = pointer.current;
-        group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, x * parallax, 0.05);
-        group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, -y * parallax, 0.05);
+        group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, x * parallax, 0.025);
+        group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, -y * parallax, 0.025);
     });
 
     const centered = (

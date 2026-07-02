@@ -76,7 +76,8 @@ export default function Manifesto() {
                     highlight="#B4E5CB"
                     grayscaleOnly={false}
                     intensity={1.8}
-                    gridSize={showText ? 4 : 9}
+                    parallax={0.7}
+                    gridSize={showText ? 2 : 9}
                     file="/models/manifesto.glb"
                     models={[
                         { file: "/models/manifesto.glb", position: [-3, 0.5, 0.5] },
@@ -109,7 +110,7 @@ export default function Manifesto() {
                     </span>
                 </div>
 
-                <div className="absolute bottom-0 left-0 z-50 flex w-full items-end justify-between px-15 pb-12 pointer-events-none text-sm font-bold">
+                <div className="absolute bottom-0 left-0 flex w-full items-end justify-between px-48 pb-12 pointer-events-none text-md font-medium">
                     {["Branding", "Web - UI/UX design", "Showcase Websites", "Applications", "DevOps", "Self hosting"].map((entry, i) => (
                         <span key={i} className="block overflow-hidden">
                             <span ref={(el) => { entryRefs.current[i] = el; }} className="block">
