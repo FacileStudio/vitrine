@@ -3,17 +3,21 @@
 import { useEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 
-const coverTransition = "transform 0.8s cubic-bezier(0.7, 0, 0.3, 1)";
+const defaultEase = "cubic-bezier(0.7, 0, 0.3, 1)";
 
 // covers that slide off toward `orientation` (deg) when open; split into columns/rows by the dominant axis.
 // pass a static `open`, or `openWhen` to derive it from scroll (listener lives here, not the parent).
+// tune the slide feel via `ease` (any CSS timing function, e.g. "ease-out") and `duration` (seconds).
 export default function Stripes({
     orientation,
     count,
     open: openProp,
     openWhen,
     className = "bg-background",
-    transition = coverTransition,
+    ease = defaultEase,
+    duration = 0.8,
+    stagger = 0.1,
+    transition,
     children,
 }: {
     orientation: number;
@@ -21,9 +25,13 @@ export default function Stripes({
     open?: boolean;
     openWhen?: () => boolean;
     className?: string;
+    ease?: string;
+    duration?: number;
+    stagger?: number;
     transition?: string;
     children?: React.ReactNode;
 }) {
+    const coverTransition = transition ?? `transform ${duration}s ${ease}`;
     const [openState, setOpenState] = useState(false);
     const openWhenRef = useRef(openWhen);
     openWhenRef.current = openWhen;
@@ -36,7 +44,16 @@ export default function Stripes({
         return () => window.removeEventListener("scroll", update);
     }, []);
 
-    const open = openWhen ? openState : !!openProp;
+    // paint the closed state for one frame before allowing open, so the browser
+    // always has a starting frame to transition from (otherwise it skips the
+    // animation and every strip jumps at once with no stagger)
+    const [ready, setReady] = useState(false);
+    useEffect(() => {
+        const id = requestAnimationFrame(() => setReady(true));
+        return () => cancelAnimationFrame(id);
+    }, []);
+
+    const open = ready && (openWhen ? openState : !!openProp);
 
     const rad = (orientation * Math.PI) / 180;
     const dx = -Math.sin(rad);
@@ -58,8 +75,8 @@ export default function Stripes({
                     style={{
                         ...stripStyle(i),
                         transform: open ? away : "translate(0%, 0%)",
-                        transition,
-                        transitionDelay: `${i * 0.1}s`,
+                        transition: coverTransition,
+                        transitionDelay: `${i * stagger}s`,
                     }}
                 >
                     {children}

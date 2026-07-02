@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import Stripes from "@/components/facile/stripes";
 import { past } from "@/app/utils";
-import { run, slide, hideReveal } from "@/app/utils/animations";
+import { run, slideY, hideRevealY } from "@/app/utils/animations";
 import { useScroll } from "@/hooks/use-scroll";
 
 const DitherView = dynamic(() => import("@/webgl/DitherView").then((m) => m.DitherView), { ssr: false });
@@ -37,14 +37,14 @@ export default function Manifesto() {
 
     // hide everything before first reveal to avoid a flash
     useEffect(() => {
-        hideReveal([...lineRefs.current, ...entryRefs.current, ctaRef.current]);
+        hideRevealY([...lineRefs.current, ...entryRefs.current, ctaRef.current]);
     }, []);
 
     // drive title lines, entries, and CTA off the scroll-derived flags
     useEffect(() => {
-        run(lineRefs.current, slide(showText, leaving));
-        run(entryRefs.current, slide(showText, leaving));
-        run([ctaRef.current], slide(showCta, leaving, { duration: 0.7 }));
+        run(lineRefs.current, slideY(showText, leaving));
+        run(entryRefs.current, slideY(showText, leaving));
+        run([ctaRef.current], slideY(showCta, leaving, { duration: 0.7 }));
     }, [showText, showCta, leaving]);
 
 
@@ -105,9 +105,9 @@ export default function Manifesto() {
             </div>
 
             <div ref={colsSentinel}     className="absolute top-[4%]  w-full h-px" aria-hidden="true" />
-            <div ref={paraSentinel}     className="absolute top-[22%] w-full h-px" aria-hidden="true" />
-            <div ref={textExitSentinel} className="absolute top-[55%] w-full h-px" aria-hidden="true" />
-            <div ref={exitSentinel}     className="absolute top-[65%] w-full h-px" aria-hidden="true" />
+            <div ref={paraSentinel}     className="absolute top-[20%] w-full h-px" aria-hidden="true" />
+            <div ref={textExitSentinel} className="absolute top-[60%] w-full h-px" aria-hidden="true" />
+            <div ref={exitSentinel}     className="absolute top-[80%] w-full h-px" aria-hidden="true" />
         </section>
     );
 }

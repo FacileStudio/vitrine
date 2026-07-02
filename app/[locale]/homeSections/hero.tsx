@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import { past } from "@/app/utils";
-import { run, slide, fade, hideReveal, hideFade } from "@/app/utils/animations";
+import { run, slideY, fade, hideRevealY, hideFade } from "@/app/utils/animations";
 import { useScroll } from "@/hooks/use-scroll";
 
 const DitherView = dynamic(() => import("@/webgl/DitherView").then((m) => m.DitherView), { ssr: false });
@@ -37,7 +37,7 @@ export default function Hero({ charged }: { charged: boolean }) {
 
 
     useEffect(() => {
-        hideReveal(lineRefs.current);
+        hideRevealY(lineRefs.current);
         hideFade([ctaRef.current]);
     }, []);
 
@@ -47,7 +47,7 @@ export default function Hero({ charged }: { charged: boolean }) {
         if (!charged)
             return;
         
-        run(lineRefs.current, slide(showText, leaving, { stagger: 0.1, delay: 1 }));
+        run(lineRefs.current, slideY(showText, leaving, { stagger: 0.1, delay: 1 }));
         run([ctaRef.current], fade(showText, { delay: 1 }));
     }, [showText, leaving, charged]);
 

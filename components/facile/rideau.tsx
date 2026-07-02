@@ -124,13 +124,10 @@ const Rideau = ({ setCharged }: { setCharged: (charged: boolean) => void }) => {
                             transform: open ? "translateY(-30vh)" : "translateY(0)",
                         }}
                     >
-                        <div ref={firstBarRef}  className="h-2 w-[2px] bg-[#242424]/20 absolute -top-2 rounded-full -translate-x-1/2" />
-
-                        <div ref={secondBarRef} className="w-2 h-[2px] bg-[#242424]/20 absolute -right-2 rounded-full -translate-y-1/2" />
-
-                        <div ref={thirdBarRef}  className="h-2 w-[2px] bg-[#242424]/20 absolute -bottom-2 rounded-full -translate-x-1/2" />
-
-                        <div ref={lastBarRef}   className="w-2 h-[2px] bg-[#242424]/20 absolute -left-2 rounded-full -translate-y-1/2" />
+                        <div ref={firstBarRef}  className="h-2 w-[2px] bg-[#242424]/10 absolute -top-2 rounded-full -translate-x-1/2" />
+                        <div ref={secondBarRef} className="w-2 h-[2px] bg-[#242424]/10 absolute -right-2 rounded-full -translate-y-1/2" />
+                        <div ref={thirdBarRef}  className="h-2 w-[2px] bg-[#242424]/10 absolute -bottom-2 rounded-full -translate-x-1/2" />
+                        <div ref={lastBarRef}   className="w-2 h-[2px] bg-[#242424]/10 absolute -left-2 rounded-full -translate-y-1/2" />
 
                         <DualRing value={pourcentage} />
 

@@ -1,11 +1,54 @@
 [
   {
-    "slug": "capsule",
-    "name": "Capsule",
+    "slug": "marcel",
+    "name": "Marcel",
     "tier": 1,
-    "weeks": 6,
-    "link": "https://github.com/FacileStudio/Capsule",
-    "techStack": ["Go", "SvelteKit", "PostgreSQL", "AES-256-GCM"]
+    "weeks": 12,
+    "link": "https://marcel.my/",
+    "image": "/images/projects/Marcel.webp",
+    "techStack": [
+      "Svelte",
+      "Go",
+      "PostgreSQL"
+    ]
+  },
+  {
+    "slug": "black-and-white",
+    "name": "Black&White",
+    "tier": 3,
+    "weeks": 1,
+    "image": "/images/projects/Black&White.webp",
+    "link": "https://www.instagram.com/p/DL5Fr7dol_5/?img_index=1"
+  },
+  {
+    "slug": "laura-herve",
+    "name": "LauraHerve",
+    "tier": 2,
+    "weeks": 4,
+    "image": "/images/projects/LauraHerve.webp",
+    "link": "https://lauraherve.com",
+    "techStack": [
+      "TypeScript"
+    ]
+  },
+  {
+    "slug": "evelynecrea",
+    "name": "EvelyneCrea",
+    "tier": 2,
+    "weeks": 8,
+    "image": "/images/projects/EvelyneCrea.webp",
+    "link": "https://www.evelynecrea.com",
+    "techStack": [
+      "TypeScript"
+    ]
+  },
+  {
+    "slug": "mont-k",
+    "name": "Mont-k",
+    "tier": 3,
+    "weeks": 1,
+    "image": "/images/projects/Mont-k.webp",
+    "link": "https://dribbble.com/shots/26711277-MONT-K-UI-UX-DESIGN"
   },
   {
     "slug": "opus",
@@ -13,7 +56,12 @@
     "tier": 1,
     "weeks": 10,
     "link": "https://github.com/FacileStudio/Opus",
-    "techStack": ["TypeScript", "SvelteKit", "Go", "PostgreSQL"]
+    "techStack": [
+      "TypeScript",
+      "SvelteKit",
+      "Go",
+      "PostgreSQL"
+    ]
   },
   {
     "slug": "waves",
@@ -21,7 +69,13 @@
     "tier": 1,
     "weeks": 1,
     "link": "https://github.com/saravenpi/waves",
-    "techStack": ["Rust", "Tauri", "egui", "FFT"]
+    "techStack": [
+      "Rust",
+      "Tauri",
+      "egui",
+      "FFT"
+    ],
+    "image": "/images/projects/Waves.webp"
   },
   {
     "slug": "glouton",
@@ -29,15 +83,14 @@
     "tier": 1,
     "weeks": 8,
     "link": "https://github.com/FacileStudio/Glouton",
-    "techStack": ["TypeScript", "SvelteKit", "Hono", "tRPC", "BullMQ", "PostgreSQL"]
-  },
-  {
-    "slug": "marcel",
-    "name": "Marcel",
-    "tier": 1,
-    "weeks": 12,
-    "link": "https://marcel.my/",
-    "techStack": ["Svelte", "Go", "PostgreSQL"]
+    "techStack": [
+      "TypeScript",
+      "SvelteKit",
+      "Hono",
+      "tRPC",
+      "BullMQ",
+      "PostgreSQL"
+    ]
   },
   {
     "slug": "solais-intra",
@@ -45,57 +98,39 @@
     "tier": 2,
     "weeks": 8,
     "link": "https://solais.fr/",
-    "techStack": ["TypeScript", "Vue.js"]
+    "image": "/images/projects/SolaïsIntra.webp",
+    "techStack": [
+      "TypeScript",
+      "Vue.js"
+    ]
   },
   {
-    "slug": "laura-herve",
-    "name": "LauraHerve",
-    "tier": 2,
-    "weeks": 4,
-    "link": "https://lauraherve.com",
-    "techStack": ["TypeScript"]
-  },
-  {
-    "slug": "evelynecrea",
-    "name": "EvelyneCrea",
-    "tier": 2,
-    "weeks": 8,
-    "link": "https://www.evelynecrea.com",
-    "techStack": ["TypeScript"]
+    "slug": "capsule",
+    "name": "Capsule",
+    "tier": 1,
+    "weeks": 6,
+    "link": "https://github.com/FacileStudio/Capsule",
+    "techStack": [
+      "Go",
+      "SvelteKit",
+      "PostgreSQL",
+      "AES-256-GCM"
+    ]
   },
   {
     "slug": "gian",
     "name": "Gian",
     "tier": 3,
     "weeks": 3,
+    "image": "/images/projects/Gian.webp",
     "link": "https://dribbble.com/shots/26755861-PORTFOLIO"
-  },
-  {
-    "slug": "mont-k",
-    "name": "Mont-k",
-    "tier": 3,
-    "weeks": 1,
-    "link": "https://dribbble.com/shots/26711277-MONT-K-UI-UX-DESIGN"
-  },
-  {
-    "slug": "area",
-    "name": "AREA",
-    "tier": 3,
-    "weeks": 6,
-    "link": "https://www.evelynecrea.com"
-  },
-  {
-    "slug": "black-and-white",
-    "name": "Black&White",
-    "tier": 3,
-    "weeks": 1,
-    "link": "https://www.instagram.com/p/DL5Fr7dol_5/?img_index=1"
   },
   {
     "slug": "retro-festival",
     "name": "RetroFestival",
     "tier": 3,
     "weeks": 4,
+    "image": "/images/projects/RetroFestival.webp",
     "link": "https://www.instagram.com/p/DL5LYZoIPB0/?img_index=1"
   }
 ]
