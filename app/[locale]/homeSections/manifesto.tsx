@@ -51,12 +51,13 @@ export default function Manifesto() {
 
     return (
         <section ref={sectionRef} id="manifesto" className="relative w-full mt-32 min-h-[400vh]">
-            <div className="sticky top-0 h-screen w-full overflow-hidden bg-white">
+            <div className="absolute inset-0 bg-white -z-10" aria-hidden="true" />
+            <div className="sticky top-0 z-20 h-screen w-full overflow-hidden">
 
                 <DitherView
                     className="absolute top-0 left-0 w-full h-full z-0 opacity-75"
                     background="#ffffff"
-                    highlight="#B4E5CB"
+                    highlight="#24E27A"
                     grayscaleOnly={false}
                     intensity={1.8}
                     parallax={0.7}

@@ -2,11 +2,12 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { run, slideY, hideRevealY } from "@/app/utils/animations";
 
 export default function Avis() {
     const icons = [
-        { src: "LH", name: "Laura Hervé" },
-        { src: "Lpb", name: "LEs P'tits Bonheurs" },
+        { src: "LH", name: "Laura Herve" },
+        { src: "Lpb", name: "Les P'tits Bonheurs" },
         { src: "Marcel", name: "Marcel" },
         { src: "Zero", name: "Projet Zero" },
         { src: "Heranova", name: "Heranova" },
@@ -14,14 +15,19 @@ export default function Avis() {
         { src: "Solais", name: "Solaïs" },
     ]
 
+    const sectionRef = useRef<HTMLElement>(null);
     const trackRef = useRef<HTMLDivElement>(null);
+    const trackRef2 = useRef<HTMLDivElement>(null);
     const offset = useRef(0);
+    const offset2 = useRef(0);
     const boost = useRef(0);
     const lastScroll = useRef(0);
+    const revealed = useRef(false);
 
-    // seamless marquee: drift left every frame, add vertical scroll velocity on top
+    // two seamless marquees drifting opposite ways; vertical scroll velocity adds to both
     useEffect(() => {
         const track = trackRef.current;
+        const track2 = trackRef2.current;
         if (!track) return;
         lastScroll.current = window.scrollY;
 
@@ -32,15 +38,36 @@ export default function Avis() {
         };
         window.addEventListener("scroll", onScroll, { passive: true });
 
-        const base = 0.3;
+        // hide every icon (revealY: parked below its slot) until the trigger line
+        const items = [
+            ...track.children,
+            ...(track2 ? track2.children : []),
+        ] as HTMLElement[];
+        hideRevealY(items);
+
+        const base = 0.6;
         const tick = () => {
-            const half = track.scrollWidth / 5;
-            offset.current -= base + boost.current * 0.3;
-            boost.current *= 0.2;
-            if (half > 0) {
-                while (offset.current <= -half) offset.current += half;
+            const speed = base + boost.current * 0.2;
+            boost.current *= 0.4;
+
+            // section top crosses 66% of the viewport -> stagger the icons in, once
+            const section = sectionRef.current;
+            if (!revealed.current && section && section.getBoundingClientRect().top <= window.innerHeight * 0.66) {
+                revealed.current = true;
+                run(items, slideY(true, false, { stagger: 0.03, duration: 0.6 }));
             }
+
+            const half = track.scrollWidth / 2;
+            offset.current -= speed;
+            if (half > 0) while (offset.current <= -half) offset.current += half;
             gsap.set(track, { x: offset.current });
+
+            if (track2) {
+                const half2 = track2.scrollWidth / 2;
+                offset2.current += speed;
+                if (half2 > 0) while (offset2.current >= 0) offset2.current -= half2;
+                gsap.set(track2, { x: offset2.current });
+            }
         };
         gsap.ticker.add(tick);
 
@@ -51,18 +78,18 @@ export default function Avis() {
     }, []);
 
     return (
-        <section id="projects" className="w-screen min-h-[33vh] py-24">
+        <section ref={sectionRef} id="friends" className="relative w-screen py-24 overflow-hidden">
             <div className="px-60">
                 <h2 className="text-5xl font-bold">They trusted us</h2>
                 <div className="text-lg opacity-66 mt-4 max-w-[40ch]">Our clients let us the lead on projects they held close to their hearts</div>
             </div>
 
             <div className="mt-32 w-full overflow-hidden">
-                <div ref={trackRef} className="flex w-max gap-24 will-change-transform">
-                    {[...icons, ...icons].map((icon, i) => (
-                        <div key={i} className="shrink-0 w-48 flex flex-col items-center justify-center bg-background/50 rounded-lg">
-                            <img src={`/images/icons/${icon.src}.png`} alt={icon.name} className="h-24 font-medium" />
-                            <span className="text-sm opacity-66 font-medium mt-8 text-center">{icon.name}</span>
+                <div ref={trackRef} className="flex w-max items-center gap-32 will-change-transform">
+                    {[...icons, ...icons, ...icons, ...icons].map((icon, i) => (
+                        <div key={i} className="shrink-0 flex flex-col items-center gap-12">
+                            <img src={`/images/icons/${icon.src}.png`} alt={icon.name} className="h-20 opacity-80" />
+                            <span className="text-sm font-medium opacity-60 whitespace-nowrap">{icon.name}</span>
                         </div>
                     ))}
                 </div>

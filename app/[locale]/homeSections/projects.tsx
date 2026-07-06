@@ -71,70 +71,15 @@ export default function Projects() {
             id="projects"
             className="w-screen relative min-h-[500vh]"
         >
-            {/* <div className="w-screen h-screen sticky top-0 overflow-hidden flex">
-
-                <div className="w-1/2 px-20 h-screen flex flex-col items-start justify-center">
-                    <h2 className="text-[7vw] font-bold text-start">Projects</h2>
-                    <p className="text-md font-medium -mt-2 text-black/50">Explore our portfolio of design, branding,<br/> and web development projects.</p>
-                    <button className="px-6 mt-5 py-4 border-2 border-black/10 text-xs font-medium rounded-full">Voir nos projets</button>
-                </div>
-
-                <div className="w-1/2 h-screen relative overflow-hidden bg-white">
-                    <DitherView
-                        className="absolute inset-0 w-full h-full z-0 opacity-75"
-                        background="#ffffff"
-                        highlight="#B4E5CB"
-                        grayscaleOnly={false}
-                        intensity={1.8}
-                        parallax={0.7}
-                        gridSize={2}
-                        file="/models/manifesto.glb"
-                        models={[{ file: "/models/manifesto.glb", position: [1, 0.5, 1.5] }]}
-                    />
-
-                    <div className="absolute top-0 left-0 w-full h-screen flex flex-col z-50">
-                        {newest.map((p, i) => (
-                            <a
-                                ref={(el) => { if (el) projectsRef.current[i] = el; }}
-                                key={p.slug}
-                                href={p.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="group relative w-full h-full flex flex-col justify-start pt-8 gap-1 px-10 overflow-hidden"
-                            >
-                                {p.image && (
-                                    <img
-                                        src={p.image}
-                                        alt={p.name}
-                                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                                    />
-                                )}
-                                <span className="relative z-10 text-2xl font-bold text-white">{p.name}</span>
-                                <span className="relative z-10 text-xs text-white/50">{p.techStack?.join(" · ")}</span>
-                            </a>
-                        ))}
-                    </div>
-
-                    <Stripes orientation={90} count={4} className="bg-background" openWhen={() => past(enterSentinel)} />
-                    <Stripes orientation={90} count={4} className="bg-background" openWhen={() => !past(exitSentinel)} />
-                </div>
-            </div>
-
-
-
-            <div ref={enterSentinel} className="absolute top-[6%]  w-full h-px" aria-hidden="true" />
-            <div ref={showProjectsSentinel} className="absolute top-[30%]  w-full h-px" aria-hidden="true" />
-            <div ref={leaveProjectsSentinel} className="absolute top-[70%]  w-full h-px" aria-hidden="true" />
-            <div ref={exitSentinel} className="absolute top-[80%]  w-full h-px" aria-hidden="true" /> */}
-
+            <div className="absolute inset-0 bg-[#242424] -z-10" aria-hidden="true" />
             <div
                 data-no-shadow
-                className="sticky top-0 h-screen w-full overflow-hidden bg-[#242424] text-white"
+                className="sticky top-0 h-screen w-full overflow-hidden text-white"
             >
                 <DitherView
                     className="absolute inset-0 w-full h-full z-0 opacity-20"
-                    background="#242424"
-                    highlight="#B4E5CB"
+                    background={null}
+                    highlight="#24E27A"
                     grayscaleOnly={false}
                     intensity={1.8}
                     parallax={0.7}
@@ -182,7 +127,7 @@ export default function Projects() {
 
             <div className="w-screen h-full flex flex-col justify-start items-center gap-3 pt-240 px-6">
                 {newest.map((p, i) => (
-                    <div className="w-[70vw] flex items-start justify-between">
+                    <div className="w-[80vw] shrink-0 flex items-start justify-between">
                         <a
                             ref={(el) => {
                                 if (el) entryRefs.current[i] = el;
@@ -191,7 +136,7 @@ export default function Projects() {
                             href={p.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="group relative w-6xl aspect-16/10 flex flex-col justify-start gap-1 overflow-hidden rounded-md"
+                            className="group relative w-5xl aspect-16/10 shrink-0 flex flex-col justify-start gap-1 overflow-hidden rounded-md"
                         >
                             {p.image && (
                                 <div

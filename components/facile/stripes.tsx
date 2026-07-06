@@ -63,13 +63,13 @@ export default function Stripes({
         vertical
             ? {
                   left: `${(i * 100) / count}%`,
-                  width: `${100 / count}%`,
+                  width: `calc(${100 / count}% + 1px)`,
                   top: 0,
                   height: "100%",
               }
             : {
                   top: `${(i * 100) / count}%`,
-                  height: `${100 / count}%`,
+                  height: `calc(${100 / count}% + 1px)`,
                   left: 0,
                   width: "100%",
               };
