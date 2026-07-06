@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { useEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
@@ -34,6 +34,8 @@ export default function Stripes({
     const coverTransition = transition ?? `transform ${duration}s ${ease}`;
     const [openState, setOpenState] = useState(false);
     const openWhenRef = useRef(openWhen);
+    const [ready, setReady] = useState(false);
+
     openWhenRef.current = openWhen;
 
     useEffect(() => {
@@ -44,10 +46,6 @@ export default function Stripes({
         return () => window.removeEventListener("scroll", update);
     }, []);
 
-    // paint the closed state for one frame before allowing open, so the browser
-    // always has a starting frame to transition from (otherwise it skips the
-    // animation and every strip jumps at once with no stagger)
-    const [ready, setReady] = useState(false);
     useEffect(() => {
         const id = requestAnimationFrame(() => setReady(true));
         return () => cancelAnimationFrame(id);
@@ -63,8 +61,18 @@ export default function Stripes({
 
     const stripStyle = (i: number): CSSProperties =>
         vertical
-            ? { left: `${(i * 100) / count}%`, width: `${100 / count}%`, top: 0, height: "100%" }
-            : { top: `${(i * 100) / count}%`, height: `${100 / count}%`, left: 0, width: "100%" };
+            ? {
+                  left: `${(i * 100) / count}%`,
+                  width: `${100 / count}%`,
+                  top: 0,
+                  height: "100%",
+              }
+            : {
+                  top: `${(i * 100) / count}%`,
+                  height: `${100 / count}%`,
+                  left: 0,
+                  width: "100%",
+              };
 
     return (
         <>

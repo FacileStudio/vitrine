@@ -15,6 +15,7 @@ import Manifesto from "./homeSections/manifesto";
 import Suite from "./homeSections/suite";
 import Avis from "./homeSections/avis";
 import Projects from "./homeSections/projects";
+import Friends from "./homeSections/friends";
 
 const featuredSlugs = ["capsule", "opus", "glouton", "marcel"];
 
@@ -125,6 +126,8 @@ export default function Home() {
                 <Hero charged={charged} />
 
                 <Manifesto />
+
+                <Friends />
 
                 <Projects />
                 

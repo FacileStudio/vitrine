@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
@@ -8,7 +8,10 @@ import { run, slideY, hideRevealY } from "@/app/utils/animations";
 import { useScroll } from "@/hooks/use-scroll";
 import ParallaxCarousel from "@/components/facile/ParallaxCarousel";
 
-const DitherView = dynamic(() => import("@/webgl/DitherView").then((m) => m.DitherView), { ssr: false });
+const DitherView = dynamic(
+    () => import("@/webgl/DitherView").then((m) => m.DitherView),
+    { ssr: false },
+);
 
 const triggerLine = 0.5;
 
@@ -38,7 +41,11 @@ export default function Suite() {
 
     // hide everything before first reveal to avoid a flash
     useEffect(() => {
-        hideRevealY([...lineRefs.current, ...entryRefs.current, ctaRef.current]);
+        hideRevealY([
+            ...lineRefs.current,
+            ...entryRefs.current,
+            ctaRef.current,
+        ]);
     }, []);
 
     // drive title lines, entries, and CTA off the scroll-derived flags
@@ -48,21 +55,44 @@ export default function Suite() {
         run([ctaRef.current], slideY(showCta, leaving, { duration: 0.7 }));
     }, [showText, showCta, leaving]);
 
-
-
     return (
-        <section ref={sectionRef} id="suite" className="relative w-full mt-32 min-h-[400vh]">
-            <div data-no-shadow className="sticky top-0 h-screen w-full overflow-hidden bg-[#242424] text-white">
+        <section
+            ref={sectionRef}
+            id="suite"
+            className="relative w-full mt-32 min-h-[400vh]"
+        >
+            <div
+                data-no-shadow
+                className="sticky top-0 h-screen w-full overflow-hidden bg-[#242424] text-white"
+            >
+                <Stripes
+                    orientation={0}
+                    count={4}
+                    className="bg-background"
+                    openWhen={() => past(colsSentinel)}
+                />
 
-                <Stripes orientation={0} count={4} className="bg-background" openWhen={() => past(colsSentinel)} />
-
-                <Stripes orientation={180} count={4} className="bg-background" openWhen={() => !past(exitSentinel)} />
+                <Stripes
+                    orientation={180}
+                    count={4}
+                    className="bg-background"
+                    openWhen={() => !past(exitSentinel)}
+                />
 
                 <div className="absolute inset-0 z-50 flex flex-col items-center justify-center px-6 text-center pointer-events-none">
                     <h2 className="max-w-3xl text-4xl md:text-5xl font-medium leading-tight">
-                        {["We are creators building", "stunning and memorable", "experiences."].map((line, i) => (
+                        {[
+                            "We are creators building",
+                            "stunning and memorable",
+                            "experiences.",
+                        ].map((line, i) => (
                             <span key={i} className="block overflow-hidden">
-                                <span ref={(el) => { lineRefs.current[i] = el; }} className="block">
+                                <span
+                                    ref={(el) => {
+                                        lineRefs.current[i] = el;
+                                    }}
+                                    className="block"
+                                >
                                     {line}
                                 </span>
                             </span>
@@ -89,10 +119,26 @@ export default function Suite() {
                 />
             </div>
 
-            <div ref={colsSentinel}     className="absolute top-[4%]  w-full h-px" aria-hidden="true" />
-            <div ref={paraSentinel}     className="absolute top-[20%] w-full h-px" aria-hidden="true" />
-            <div ref={textExitSentinel} className="absolute top-[60%] w-full h-px" aria-hidden="true" />
-            <div ref={exitSentinel}     className="absolute top-[100%] w-full h-px" aria-hidden="true" />
+            <div
+                ref={colsSentinel}
+                className="absolute top-[4%]  w-full h-px"
+                aria-hidden="true"
+            />
+            <div
+                ref={paraSentinel}
+                className="absolute top-[20%] w-full h-px"
+                aria-hidden="true"
+            />
+            <div
+                ref={textExitSentinel}
+                className="absolute top-[60%] w-full h-px"
+                aria-hidden="true"
+            />
+            <div
+                ref={exitSentinel}
+                className="absolute top-[100%] w-full h-px"
+                aria-hidden="true"
+            />
         </section>
     );
 }

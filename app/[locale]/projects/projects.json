@@ -5,7 +5,7 @@
     "tier": 1,
     "weeks": 12,
     "link": "https://marcel.my/",
-    "image": "/images/projects/Marcel.webp",
+    "image": "/images/projects/Marcel.png",
     "techStack": [
       "Svelte",
       "Go",
@@ -13,30 +13,30 @@
     ]
   },
   {
-    "slug": "black-and-white",
-    "name": "Black&White",
-    "tier": 3,
-    "weeks": 1,
-    "image": "/images/projects/Black&White.webp",
-    "link": "https://www.instagram.com/p/DL5Fr7dol_5/?img_index=1"
-  },
-  {
     "slug": "laura-herve",
     "name": "LauraHerve",
     "tier": 2,
     "weeks": 4,
-    "image": "/images/projects/LauraHerve.webp",
+    "image": "/images/projects/Laura.png",
     "link": "https://lauraherve.com",
     "techStack": [
       "TypeScript"
     ]
   },
   {
+    "slug": "hottake",
+    "name": "Hottake",
+    "tier": 3,
+    "weeks": 1,
+    "image": "/images/projects/Hottake.png",
+    "link": "https://www.instagram.com/p/DL5Fr7dol_5/?img_index=1"
+  },
+  {
     "slug": "evelynecrea",
     "name": "EvelyneCrea",
     "tier": 2,
     "weeks": 8,
-    "image": "/images/projects/EvelyneCrea.webp",
+    "image": "/images/projects/Green.png",
     "link": "https://www.evelynecrea.com",
     "techStack": [
       "TypeScript"

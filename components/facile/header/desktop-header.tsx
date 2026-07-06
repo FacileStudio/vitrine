@@ -1,15 +1,15 @@
 
 export const DesktopHeader =({ sideBarOpen, setSidebarOpen }: { sideBarOpen: boolean; setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
-    
+
     const toggleSidebar = () => {
         setSidebarOpen(prev => !prev);
     };
-    
+
     return (
-        <header className="fixed top-0 left-0 w-full pt-4 px-12 z-20 flex justify-between items-center">
+        <header className="fixed top-0 left-0 w-full pt-4 px-12 z-20 flex justify-between items-center text-white mix-blend-difference">
             <div className="flex items-center space-x-24">
                 <a href="/">
-                    <img src="/F.svg" alt="Facile Logo" className="h-6 aspect-auto" />
+                    <img src="/F.svg" alt="Facile Logo" className="h-6 aspect-auto brightness-0 invert" />
                 </a>
                 <div className="flex items-center">
                     <span className="italic text-lg">[fasil]</span>

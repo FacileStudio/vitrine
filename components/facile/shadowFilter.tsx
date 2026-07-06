@@ -9,9 +9,10 @@ const ShadowFilter: React.FC = () => {
     const [hidden, setHidden] = useState(false);
 
     useScroll(() => {
+        const margin = window.innerHeight * 0.45;
         const covered = Array.from(document.querySelectorAll<HTMLElement>("[data-no-shadow]")).some((el) => {
             const r = el.getBoundingClientRect();
-            return r.top <= 0 && r.bottom >= window.innerHeight;
+            return r.top <= margin && r.bottom >= window.innerHeight - margin;
         });
         setHidden(covered);
     });

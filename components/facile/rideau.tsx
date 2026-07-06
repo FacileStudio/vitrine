@@ -13,9 +13,9 @@ function DualRing({ value }: { value: number }) {
     const arcA = (value / 100) * 360 - gapDeg;
     const arcB = ((100 - value) / 100) * 360 - gapDeg;
 
-    const polar = (deg: number) => {
+    const polar = (deg: number, radius = r) => {
         const a = (deg * Math.PI) / 180;
-        return [50 + r * Math.cos(a), 50 + r * Math.sin(a)];
+        return [50 + radius * Math.cos(a), 50 + radius * Math.sin(a)];
     };
     const arcPath = (start: number, end: number) => {
         const [x0, y0] = polar(start);
@@ -31,10 +31,24 @@ function DualRing({ value }: { value: number }) {
 
     return (
         <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
+            {[1, 2, 4, 5, 7, 8, 10, 11].map((i, k, arr) => {
+                const start = (k / arr.length) * 100;
+                const len = Math.max(0, Math.min(2, ((value - start) / 12) * 2));
+                const [x0, y0] = polar(i * 30, 52);
+                const [x1, y1] = polar(i * 30, 52 + len);
+                return (
+                    <line
+                        key={i}
+                        x1={x0} y1={y0} x2={x1} y2={y1}
+                        stroke="currentColor" strokeWidth="0.4" strokeLinecap="round"
+                        className="text-[#242424]/33"
+                    />
+                );
+            })}
             <path
                 d={arcPath(aStart, aEnd)} fill="none"
                 stroke="currentColor" strokeWidth="0.5" strokeLinecap="round"
-                className="text-[#242424]/75"
+                className="text-[#242424]/50"
             />
             <path
                 d={arcPath(bStart, bEnd)} fill="none"
@@ -132,7 +146,7 @@ const Rideau = ({ setCharged }: { setCharged: (charged: boolean) => void }) => {
                         <DualRing value={pourcentage} />
 
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-xs font-medium text-[#242424]/75">
-                            <img src="/F.svg" alt="Facile" className="w-6 h-6 md:w-8 md:h-8" />
+                            <img src="/F.svg" alt="Facile" className="w-6 h-6 md:w-9 md:h-9" />
                             <div className="mt-4 text-center">
                                 {pourcentage}
                             </div>
