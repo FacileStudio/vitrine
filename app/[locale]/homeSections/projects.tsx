@@ -33,21 +33,39 @@ export default function Projects() {
     const [showCta, setShowCta] = useState(false);
     const [leaving, setLeaving] = useState(false);
 
-    // anchors: derive text flags from scroll position; reveal replays when the section re-pins
+
+
+    useEffect(() => {
+        hideRevealY([...lineRefs.current, ctaRef.current]);
+    }, []);
+
+
+
+    useEffect(() => {
+        run(lineRefs.current, slideY(showText, leaving));
+        run([ctaRef.current], slideY(showCta, leaving, { duration: 0.7 }));
+    }, [showText, showCta, leaving]);
+
+
+
     useScroll(() => {
+        // anchors
         const textOut = past(textExitSentinel, triggerLine);
         const textIn = past(paraSentinel, triggerLine) && !textOut;
         setShowText(textIn);
         setShowCta(textIn);
         setLeaving(textOut);
 
-        // manifesto-style parallax: the scaled image drifts slower than its card
+        // parallax
         const vh = window.innerHeight;
         imgRefs.current.forEach((el) => {
             const card = el?.parentElement;
-            if (!el || !card) return;
+            if (!el || !card)
+                return;
+
             const r = card.getBoundingClientRect();
             const progress = gsap.utils.clamp(0, 1, (vh - r.top) / (vh + r.height));
+
             gsap.set(el, {
                 yPercent: gsap.utils.mapRange(0, 1, -25, 25, progress),
                 scale: 1.30,
@@ -55,35 +73,37 @@ export default function Projects() {
         });
     });
 
-    // hide everything before first reveal to avoid a flash
-    useEffect(() => {
-        hideRevealY([...lineRefs.current, ctaRef.current]);
-    }, []);
-
-
 
     // hover: wipe the centered video open from the bottom up, then close it back down
     const onEnter = (e: MouseEvent<HTMLAnchorElement>) => {
         const v = e.currentTarget.querySelector("video");
-        if (!v) return;
+        if (!v)
+            return;
+
         v.currentTime = 0;
         v.play().catch(() => {});
-        gsap.to(v, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.55, ease: "power3.out", overwrite: "auto" });
+        gsap.to(v, {
+            clipPath: "inset(0% 0% 0% 0%)",
+            duration: 0.55,
+            ease: "power3.out",
+            overwrite: "auto"
+        });
     };
 
     const onLeave = (e: MouseEvent<HTMLAnchorElement>) => {
         const v = e.currentTarget.querySelector("video");
-        if (!v) return;
-        gsap.to(v, { clipPath: "inset(100% 0% 0% 0%)", duration: 0.4, ease: "power3.in", overwrite: "auto", onComplete: () => v.pause() });
+        if (!v)
+            return;
+
+        gsap.to(v, {
+            clipPath: "inset(100% 0% 0% 0%)",
+            duration: 0.4,
+            ease: "power3.in",
+            overwrite: "auto",
+            onComplete: () => v.pause()
+        });
     };
 
-
-
-    // drive title lines, entries, and CTA off the scroll-derived flags
-    useEffect(() => {
-        run(lineRefs.current, slideY(showText, leaving));
-        run([ctaRef.current], slideY(showCta, leaving, { duration: 0.7 }));
-    }, [showText, showCta, leaving]);
 
     return (
         <section
@@ -92,10 +112,7 @@ export default function Projects() {
             className="w-screen relative min-h-[500vh]"
         >
             <div className="absolute inset-0 bg-[#242424] -z-10" aria-hidden="true" />
-            <div
-                data-no-shadow
-                className="sticky top-0 h-screen w-full overflow-hidden text-white"
-            >
+            <div data-no-shadow className="sticky top-0 h-screen w-full overflow-hidden text-white">
                 <DitherView
                     className="absolute inset-0 w-full h-full z-0 opacity-20"
                     background={null}
@@ -111,35 +128,17 @@ export default function Projects() {
                     ]}
                 />
 
-                <Stripes
-                    orientation={0}
-                    count={4}
-                    className="bg-background"
-                    openWhen={() => past(colsSentinel)}
-                />
-
-                <Stripes
-                    orientation={180}
-                    count={4}
-                    className="bg-background"
-                    openWhen={() => !past(exitSentinel)}
-                />
+                <Stripes orientation={0}   count={4} className="bg-background" openWhen={() =>  past(colsSentinel)} />
+                <Stripes orientation={180} count={4} className="bg-background" openWhen={() => !past(exitSentinel)} />
 
                 <div className="absolute inset-0 z-50 flex flex-col items-center justify-start pt-24 px-6 text-center pointer-events-none">
                     <h2 className="max-w-3xl text-4xl md:text-5xl font-medium leading-tight">
-                        {["Take a look at", "our latest projects."].map(
-                            (line, i) => (
-                                <span key={i} className="block overflow-hidden">
-                                    <span
-                                        ref={(el) => {
-                                            lineRefs.current[i] = el;
-                                        }}
-                                        className="block"
-                                    >
-                                        {line}
-                                    </span>
+                        {["Take a look at", "our latest projects."].map((line, i) => 
+                            <span key={i} className="block overflow-hidden">
+                                <span ref={(el) => { lineRefs.current[i] = el; }} className="block">
+                                    {line}
                                 </span>
-                            ),
+                            </span>
                         )}
                     </h2>
                 </div>
@@ -149,9 +148,7 @@ export default function Projects() {
                 {newest.map((p, i) => (
                     <div className="w-[80vw] shrink-0 flex items-start justify-between">
                         <a
-                            ref={(el) => {
-                                if (el) entryRefs.current[i] = el;
-                            }}
+                            ref={(el) => { if (el) entryRefs.current[i] = el; }}
                             key={p.slug}
                             href={p.link}
                             target="_blank"
@@ -160,33 +157,28 @@ export default function Projects() {
                             onMouseLeave={onLeave}
                             className="group relative w-5xl aspect-16/10 shrink-0 flex flex-col group-hover:bg-black/50 justify-start gap-1 overflow-hidden rounded-md"
                         >
-                            {p.image && (
+                            {p.image &&
                                 <>
-                                    <div
-                                        ref={(el) => {
-                                            imgRefs.current[i] = el;
-                                        }}
-                                        className="absolute inset-0 will-change-transform"
-                                    >
+                                    <div ref={(el) => { imgRefs.current[i] = el; }} className="absolute inset-0 will-change-transform">
                                         <img
                                             src={p.image}
                                             alt={p.name}
                                             className="w-full h-full object-cover transition-all brightness-100 group-hover:brightness-[0.25] duration-300 ease-out group-hover:scale-110 grayscale-0 group-hover:grayscale-100"
                                         />
                                     </div>
+
                                     {p.video && (
                                         <video
-                                            ref={(el) => {
-                                                videoRefs.current[i] = el;
-                                            }}
+                                            ref={(el) => { videoRefs.current[i] = el; }}
                                             src={p.video}
                                             loop muted playsInline preload="none"
                                             className={`pointer-events-none absolute rounded will-change-[clip-path] [clip-path:inset(100%_0_0_0)] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4/5`}
                                         />
                                     )}
                                 </>
-                            )}
+                            }
                         </a>
+
                         <div className="flex flex-col items-end gap-1">
                             <span className="relative z-10 text-5xl font-medium text-white">
                                 {p.name}
@@ -199,26 +191,10 @@ export default function Projects() {
                 ))}
             </div>
 
-            <div
-                ref={colsSentinel}
-                className="absolute top-[4%]  w-full h-px"
-                aria-hidden="true"
-            />
-            <div
-                ref={paraSentinel}
-                className="absolute top-[12%] w-full h-px"
-                aria-hidden="true"
-            />
-            <div
-                ref={textExitSentinel}
-                className="absolute top-[33%] w-full h-px"
-                aria-hidden="true"
-            />
-            <div
-                ref={exitSentinel}
-                className="absolute top-[90%] w-full h-px"
-                aria-hidden="true"
-            />
+            <div ref={colsSentinel}     className="absolute top-[4%]  w-full h-px" aria-hidden="true" />
+            <div ref={paraSentinel}     className="absolute top-[12%] w-full h-px" aria-hidden="true" />
+            <div ref={textExitSentinel} className="absolute top-[33%] w-full h-px" aria-hidden="true" />
+            <div ref={exitSentinel}     className="absolute top-[90%] w-full h-px" aria-hidden="true" />
         </section>
     );
 }
