@@ -78,12 +78,15 @@ export default function Projects() {
     });
 
 
-    // marcel: eyes follow the cursor (spheres track its horizontal gaze); clamped
-    // to these ranges so neither overflows the room they've been given
+
+    // marcel eyes
     const startEyes = (card: HTMLElement) => {
         const eyes = marcelEyesRef.current;
-        if (!eyes || !card.contains(eyes)) return;
-        if (eyesMove.current) window.removeEventListener("pointermove", eyesMove.current);
+        if (!eyes || !card.contains(eyes))
+            return;
+
+        if (eyesMove.current)
+            window.removeEventListener("pointermove", eyesMove.current);
 
         // measure the eyes' rest centre (offsets are relative to it)
         gsap.set(eyes, { x: 0, y: 0 });
@@ -91,12 +94,12 @@ export default function Projects() {
         const cx = r.left + r.width / 2;
         const cy = r.top + r.height / 2;
 
-        const clampX = gsap.utils.clamp(-150, 150);
-        const clampY = gsap.utils.clamp(-20, 20);
-        const setX = gsap.quickTo(eyes, "x", { duration: 1.4, ease: "power2.out" });
-        const setY = gsap.quickTo(eyes, "y", { duration: 1.4, ease: "power2.out" });
-        const spheres = marcelSpheresRef.current;
-        const setSphX = spheres ? gsap.quickTo(spheres, "x", { duration: 1.6, ease: "power2.out" }) : null;
+        const clampX = gsap.utils.clamp(-150, 150),
+              clampY = gsap.utils.clamp(-20, 20),
+              setX = gsap.quickTo(eyes, "x", { duration: 1.4, ease: "power2.out" }), 
+              setY = gsap.quickTo(eyes, "y", { duration: 1.4, ease: "power2.out" }), 
+              spheres = marcelSpheresRef.current, 
+              setSphX = spheres ? gsap.quickTo(spheres, "x", { duration: 1.6, ease: "power2.out", delay: 0.2 }) : null;
 
         const move = (e: PointerEvent) => {
             const tx = clampX(e.clientX - cx);
@@ -107,15 +110,18 @@ export default function Projects() {
         eyesMove.current = move;
         window.addEventListener("pointermove", move, { passive: true });
     };
+
     const stopEyes = (card: HTMLElement) => {
         const eyes = marcelEyesRef.current;
         if (!eyes || !card.contains(eyes)) return;
         if (eyesMove.current) window.removeEventListener("pointermove", eyesMove.current);
         eyesMove.current = null;
         // overwrite:true kills the lingering quickTo tweens so they can't snap back to the cursor
-        gsap.to(eyes, { x: 0, y: 0, duration: 0.35, ease: "power2.out", overwrite: true });
-        gsap.to(marcelSpheresRef.current, { x: 0, duration: 0.35, ease: "power2.out", overwrite: true });
+        gsap.to(eyes, { x: 0, y: 0, duration: 0.6, ease: "power2.out", overwrite: true });
+        gsap.to(marcelSpheresRef.current, { x: 0, duration: 0.6, ease: "power2.out", overwrite: true });
     };
+
+
 
     // hover: wipe the centered video open from the bottom up, then close it back down
     const onEnter = (e: MouseEvent<HTMLAnchorElement>) => {

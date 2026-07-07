@@ -16,7 +16,7 @@ const links = [
 const COUNT = 4;
 const coverEase = 'cubic-bezier(0.7, 0, 0.3, 1)';
 
-const Stripes = (open: boolean, color: string, lead: number) =>
+const Stripes = (open: boolean, color: string, leadOpen: number, leadClose: number) =>
     Array.from({ length: COUNT }, (_, i) => (
         <div
             key={i}
@@ -27,7 +27,7 @@ const Stripes = (open: boolean, color: string, lead: number) =>
                 background: color,
                 transform: open ? 'translateX(0%)' : 'translateX(110%)',
                 transition: `transform 0.8s ${coverEase}`,
-                transitionDelay: `${(open ? lead + i * 0.1 : (COUNT - 1 - i) * 0.1)}s`,
+                transitionDelay: `${(open ? leadOpen + i * 0.1 : leadClose + (COUNT - 1 - i) * 0.1)}s`,
             }}
         />
     ));
@@ -66,8 +66,8 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
             className={`fixed inset-0 z-100 ${menuOpen ? '' : 'pointer-events-none'}`}
         >
             {/* white curtain leads, dark curtain trails: two waves racing down the screen */}
-            <div className="absolute inset-0 z-30">{Stripes(menuOpen, '#ffffff', 0)}</div>
-            <div className="absolute inset-0 z-40">{Stripes(menuOpen, '#1E1E1E', 0.14)}</div>
+            <div className="absolute inset-0 z-30">{Stripes(menuOpen, '#ffffff', 0, 0.14)}</div>
+            <div className="absolute inset-0 z-40">{Stripes(menuOpen, '#1E1E1E', 0.14, 0)}</div>
 
             {/* dither backdrop, revealed top-to-bottom by a clip wipe once the covers land */}
             {mountDither && (
