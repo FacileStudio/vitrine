@@ -16,6 +16,11 @@ const triggerLine = 0.5;
 
 const newest = projects.slice(0, 4);
 
+// the hover media can be a real video or just an image (e.g. a static webp) — a
+// <video> can't render an image, so pick the element by extension
+const isVideoFile = (src: string) => /\.(mp4|webm|ogg|mov)$/i.test(src);
+const mediaClass = "pointer-events-none absolute rounded object-cover will-change-[clip-path] [clip-path:inset(100%_0_0_0)] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4/5";
+
 export default function Projects() {
     const sectionRef = useRef<HTMLElement>(null);
     const colsSentinel = useRef<HTMLDivElement>(null);
@@ -26,7 +31,6 @@ export default function Projects() {
     const lineRefs = useRef<(HTMLSpanElement | null)[]>([]);
     const entryRefs = useRef<(HTMLSpanElement | null)[]>([]);
     const imgRefs = useRef<(HTMLDivElement | null)[]>([]);
-    const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
     const ctaRef = useRef<HTMLButtonElement>(null);
     const marcelEyesRef = useRef<HTMLDivElement>(null);
     const marcelSpheresRef = useRef<HTMLDivElement>(null);
@@ -123,17 +127,19 @@ export default function Projects() {
 
 
 
-    // hover: wipe the centered video open from the bottom up, then close it back down
+    // hover: wipe the centered media (video or image) open from the bottom up, then close it back down
     const onEnter = (e: MouseEvent<HTMLAnchorElement>) => {
         startEyes(e.currentTarget);
 
-        const v = e.currentTarget.querySelector("video");
-        if (!v)
+        const m = e.currentTarget.querySelector<HTMLElement>("[data-media]");
+        if (!m)
             return;
 
-        v.currentTime = 0;
-        v.play().catch(() => {});
-        gsap.to(v, {
+        if (m instanceof HTMLVideoElement) {
+            m.currentTime = 0;
+            m.play().catch(() => {});
+        }
+        gsap.to(m, {
             clipPath: "inset(0% 0% 0% 0%)",
             duration: 0.55,
             ease: "power3.out",
@@ -144,16 +150,16 @@ export default function Projects() {
     const onLeave = (e: MouseEvent<HTMLAnchorElement>) => {
         stopEyes(e.currentTarget);
 
-        const v = e.currentTarget.querySelector("video");
-        if (!v)
+        const m = e.currentTarget.querySelector<HTMLElement>("[data-media]");
+        if (!m)
             return;
 
-        gsap.to(v, {
+        gsap.to(m, {
             clipPath: "inset(100% 0% 0% 0%)",
             duration: 0.4,
             ease: "power3.in",
             overwrite: "auto",
-            onComplete: () => v.pause()
+            onComplete: () => { if (m instanceof HTMLVideoElement) m.pause(); }
         });
     };
 
@@ -199,7 +205,7 @@ export default function Projects() {
 
             <div className="w-screen h-full flex flex-col justify-start items-center gap-[2px] pt-240 px-6">
                 {newest.map((p, i) => (
-                    <div className="w-[80vw] shrink-0 flex items-start justify-between">
+                    <div className="w-[70vw] shrink-0 flex items-start justify-between">
                       <div className="relative shrink-0">
                         {p.name === "Marcel" && (
                             <div ref={marcelSpheresRef} className="pointer-events-none absolute bottom-6 z-20 left-1/2 flex -translate-x-1/2 translate-y-1/2 gap-16 will-change-transform">
@@ -245,25 +251,39 @@ export default function Projects() {
                                     </div>
 
                                     {p.video && (
-                                        <video
-                                            ref={(el) => { videoRefs.current[i] = el; }}
-                                            src={p.video}
-                                            loop muted playsInline preload="none"
-                                            className={`pointer-events-none absolute rounded will-change-[clip-path] [clip-path:inset(100%_0_0_0)] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4/5`}
-                                        />
+                                        isVideoFile(p.video) ? (
+                                            <video
+                                                data-media
+                                                src={p.video}
+                                                loop muted playsInline preload="none"
+                                                className={mediaClass}
+                                            />
+                                        ) : (
+                                            <img
+                                                data-media
+                                                src={p.video}
+                                                alt={p.name}
+                                                className={mediaClass}
+                                            />
+                                        )
                                     )}
                                 </>
                             }
                         </a>
                       </div>
 
-                        <div className="flex flex-col items-end gap-1">
+                        <div className="flex flex-col items-end gap-1 max-w-sm text-right">
                             <span className="relative z-10 text-5xl font-medium text-white">
                                 {p.name}
                             </span>
                             <span className="relative z-10 text-xs text-white/50">
                                 {p.techStack?.join(" · ")}
                             </span>
+                            {p.description && (
+                                <p className="relative z-10 mt-8 text-lg font-medium leading-relaxed text-white/70">
+                                    {p.description}
+                                </p>
+                            )}
                         </div>
                     </div>
                 ))}

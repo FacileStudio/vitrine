@@ -6,6 +6,7 @@
     "weeks": 12,
     "link": "https://marcel.my/",
     "image": "/images/projects/Marcel.png",
+    "description": "A full-stack platform built from the ground up — fast, reliable, and shaped around how the team actually works day to day.",
     "techStack": [
       "Svelte",
       "Go",
@@ -20,8 +21,9 @@
     "image": "/images/projects/Laura.png",
     "video": "/videos/LauraHerve.mp4",
     "link": "https://lauraherve.com",
+    "description": "A showcase site for the artist, driven by smooth motion and a bold editorial layout that lets the work breathe.",
     "techStack": [
-      "TypeScript"
+      "TypeScript", "SvelteKit", "GSAP"
     ]
   },
   {
@@ -30,7 +32,12 @@
     "tier": 3,
     "weeks": 1,
     "image": "/images/projects/Hottake.png",
-    "link": "https://www.instagram.com/p/DL5Fr7dol_5/?img_index=1"
+    "video": "/videos/Hottake.webp",
+    "link": "https://www.instagram.com/p/DL5Fr7dol_5/?img_index=1",
+    "description": "A punchy social concept — bold type, sharp motion, and just enough attitude to stop the scroll.",
+    "techStack": [
+      "TypeScript", "Next.js", "React", "GSAP"
+    ]
   },
   {
     "slug": "evelynecrea",
@@ -40,8 +47,9 @@
     "image": "/images/projects/Green.png",
     "video": "/videos/EvelyneCrea.mp4",
     "link": "https://www.evelynecrea.com",
+    "description": "A warm, handcrafted portfolio site that puts the creations centre stage and keeps everything else out of the way.",
     "techStack": [
-      "TypeScript"
+      "TypeScript", "Next.js", "React", "GSAP"
     ]
   },
   {
@@ -50,7 +58,11 @@
     "tier": 3,
     "weeks": 1,
     "image": "/images/projects/Mont-k.webp",
-    "link": "https://dribbble.com/shots/26711277-MONT-K-UI-UX-DESIGN"
+    "link": "https://dribbble.com/shots/26711277-MONT-K-UI-UX-DESIGN",
+    "description": "A UI/UX design exploration — clean, considered, and built to be handed straight to development.",
+    "techStack": [
+      "Figma"
+    ]
   },
   {
     "slug": "opus",
@@ -58,6 +70,7 @@
     "tier": 1,
     "weeks": 10,
     "link": "https://github.com/FacileStudio/Opus",
+    "description": "An in-house tool from the Facile suite, engineered for speed and built to scale with the studio.",
     "techStack": [
       "TypeScript",
       "SvelteKit",
@@ -71,6 +84,7 @@
     "tier": 1,
     "weeks": 1,
     "link": "https://github.com/saravenpi/waves",
+    "description": "A native desktop audio visualiser that turns sound into real-time waveforms with an FFT engine at its core.",
     "techStack": [
       "Rust",
       "Tauri",
@@ -85,6 +99,7 @@
     "tier": 1,
     "weeks": 8,
     "link": "https://github.com/FacileStudio/Glouton",
+    "description": "A job-heavy service wired with tRPC and BullMQ for pipelines that stay fast and reliable under load.",
     "techStack": [
       "TypeScript",
       "SvelteKit",
@@ -101,6 +116,7 @@
     "weeks": 8,
     "link": "https://solais.fr/",
     "image": "/images/projects/SolaïsIntra.webp",
+    "description": "An internal tool that streamlines the day-to-day for the Solaïs team, from tracking to reporting.",
     "techStack": [
       "TypeScript",
       "Vue.js"
@@ -112,6 +128,7 @@
     "tier": 1,
     "weeks": 6,
     "link": "https://github.com/FacileStudio/Capsule",
+    "description": "A secure secrets vault with end-to-end AES-256 encryption baked in from the first commit.",
     "techStack": [
       "Go",
       "SvelteKit",
@@ -125,6 +142,7 @@
     "tier": 3,
     "weeks": 3,
     "image": "/images/projects/Gian.webp",
+    "description": "A personal portfolio concept — minimal, expressive, and led by motion from top to bottom.",
     "link": "https://dribbble.com/shots/26755861-PORTFOLIO"
   },
   {
@@ -133,6 +151,7 @@
     "tier": 3,
     "weeks": 4,
     "image": "/images/projects/RetroFestival.webp",
+    "description": "A retro-flavoured festival identity — all warm grain, vintage type, and a poster-first attitude.",
     "link": "https://www.instagram.com/p/DL5LYZoIPB0/?img_index=1"
   }
 ]
