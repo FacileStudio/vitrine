@@ -1,10 +1,14 @@
 'use client'
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import { past } from "@/app/utils";
 import { run, slideY, hideRevealY } from "@/app/utils/animations";
+import { useScroll } from "@/hooks/use-scroll";
 
-export default function Avis() {
+const triggerLine = 0.8;
+
+export default function Friends() {
     const icons = [
         { src: "LH", name: "Laura Herve" },
         { src: "Lpb", name: "Les P'tits Bonheurs" },
@@ -18,18 +22,43 @@ export default function Avis() {
     const sectionRef = useRef<HTMLElement>(null);
     const trackRef = useRef<HTMLDivElement>(null);
     const trackRef2 = useRef<HTMLDivElement>(null);
+    const revealSentinel = useRef<HTMLDivElement>(null);
     const offset = useRef(0);
     const offset2 = useRef(0);
     const boost = useRef(0);
     const lastScroll = useRef(0);
-    const revealed = useRef(false);
+    const base = 0.6;
 
-    // two seamless marquees drifting opposite ways; vertical scroll velocity adds to both
+    const bothTracks = () => [
+        ...(trackRef.current?.children ?? []),
+        ...(trackRef2.current?.children ?? []),
+    ] as HTMLElement[];
+
+    const [showIcons, setShowIcons] = useState(false);
+
+    // anchor: derive the reveal flag from the sentinel crossing the trigger line
+    useScroll(() => {
+        setShowIcons(past(revealSentinel, triggerLine));
+    });
+
+    // hide every icon (revealY: parked below its slot) before the first reveal
+    useEffect(() => {
+        hideRevealY(bothTracks());
+    }, []);
+
+    // stagger the icons in when the sentinel is reached
+    useEffect(() => {
+        run(bothTracks(), slideY(showIcons, false, { stagger: 0.03, duration: 0.35 }));
+    }, [showIcons]);
+
+    // two seamless marquees drifting opposite ways; vertical scroll velocity boosts both
     useEffect(() => {
         const track = trackRef.current;
         const track2 = trackRef2.current;
-        if (!track) return;
+        if (!track)
+            return;
         lastScroll.current = window.scrollY;
+
 
         const onScroll = () => {
             const y = window.scrollY;
@@ -38,24 +67,10 @@ export default function Avis() {
         };
         window.addEventListener("scroll", onScroll, { passive: true });
 
-        // hide every icon (revealY: parked below its slot) until the trigger line
-        const items = [
-            ...track.children,
-            ...(track2 ? track2.children : []),
-        ] as HTMLElement[];
-        hideRevealY(items);
 
-        const base = 0.6;
         const tick = () => {
             const speed = base + boost.current * 0.2;
             boost.current *= 0.4;
-
-            // section top crosses 66% of the viewport -> stagger the icons in, once
-            const section = sectionRef.current;
-            if (!revealed.current && section && section.getBoundingClientRect().top <= window.innerHeight * 0.66) {
-                revealed.current = true;
-                run(items, slideY(true, false, { stagger: 0.03, duration: 0.6 }));
-            }
 
             const half = track.scrollWidth / 2;
             offset.current -= speed;
@@ -71,6 +86,7 @@ export default function Avis() {
         };
         gsap.ticker.add(tick);
 
+
         return () => {
             gsap.ticker.remove(tick);
             window.removeEventListener("scroll", onScroll);
@@ -78,22 +94,37 @@ export default function Avis() {
     }, []);
 
     return (
-        <section ref={sectionRef} id="friends" className="relative w-screen py-24 overflow-hidden">
+        <section ref={sectionRef} id="friends" className="relative w-screen py-24 overflow-visible">
             <div className="px-60">
                 <h2 className="text-5xl font-bold">They trusted us</h2>
                 <div className="text-lg opacity-66 mt-4 max-w-[40ch]">Our clients let us the lead on projects they held close to their hearts</div>
             </div>
 
-            <div className="mt-32 w-full overflow-hidden">
-                <div ref={trackRef} className="flex w-max items-center gap-32 will-change-transform">
-                    {[...icons, ...icons, ...icons, ...icons].map((icon, i) => (
-                        <div key={i} className="shrink-0 flex flex-col items-center gap-12">
+            {/* <div className="absolute top-0 left-0 -translate-y-1/2 -translate-x-1/2 w-100 h-100 blur-[400px] opacity-20 bg-[#24E27A] -z-10 pointer-events-none" aria-hidden="true" /> */}
+
+            <div className="mt-16 w-full overflow-hidden">
+                <div ref={trackRef} className="flex w-max items-center gap-[2px] will-change-transform">
+                    {[...icons, ...icons].map((icon, i) => (
+                        <div key={i} className="shrink-0 flex w-70 h-70 bg-white/33 flex-col justify-center rounded-lg items-center gap-12">
                             <img src={`/images/icons/${icon.src}.png`} alt={icon.name} className="h-20 opacity-80" />
                             <span className="text-sm font-medium opacity-60 whitespace-nowrap">{icon.name}</span>
                         </div>
                     ))}
                 </div>
             </div>
+
+            <div className="mt-[2px] w-full overflow-hidden">
+                <div ref={trackRef2} className="flex w-max items-center gap-[2px] will-change-transform">
+                    {[...icons, ...icons].reverse().map((icon, i) => (
+                        <div key={i} className="shrink-0 flex w-70 h-70 bg-white/33 flex-col justify-center rounded-xl items-center gap-12">
+                            <img src={`/images/icons/${icon.src}.png`} alt={icon.name} className="h-20 opacity-80" />
+                            <span className="text-sm font-medium opacity-60 whitespace-nowrap">{icon.name}</span>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            <div ref={revealSentinel} className="absolute top-[45%] w-full h-px" aria-hidden="true" />
         </section>
     );
 }

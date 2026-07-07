@@ -1,6 +1,6 @@
 import gsap from "gsap";
 import Stripes from "@/components/facile/stripes";
-import { useRef, useState, useEffect, useLayoutEffect } from "react";
+import { useRef, useState, useEffect, useLayoutEffect, type MouseEvent } from "react";
 import { useScroll } from "@/hooks/use-scroll";
 import { past } from "@/app/utils";
 import dynamic from "next/dynamic";
@@ -26,6 +26,7 @@ export default function Projects() {
     const lineRefs = useRef<(HTMLSpanElement | null)[]>([]);
     const entryRefs = useRef<(HTMLSpanElement | null)[]>([]);
     const imgRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
     const ctaRef = useRef<HTMLButtonElement>(null);
 
     const [showText, setShowText] = useState(false);
@@ -59,6 +60,25 @@ export default function Projects() {
         hideRevealY([...lineRefs.current, ctaRef.current]);
     }, []);
 
+
+
+    // hover: wipe the centered video open from the bottom up, then close it back down
+    const onEnter = (e: MouseEvent<HTMLAnchorElement>) => {
+        const v = e.currentTarget.querySelector("video");
+        if (!v) return;
+        v.currentTime = 0;
+        v.play().catch(() => {});
+        gsap.to(v, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.55, ease: "power3.out", overwrite: "auto" });
+    };
+
+    const onLeave = (e: MouseEvent<HTMLAnchorElement>) => {
+        const v = e.currentTarget.querySelector("video");
+        if (!v) return;
+        gsap.to(v, { clipPath: "inset(100% 0% 0% 0%)", duration: 0.4, ease: "power3.in", overwrite: "auto", onComplete: () => v.pause() });
+    };
+
+
+
     // drive title lines, entries, and CTA off the scroll-derived flags
     useEffect(() => {
         run(lineRefs.current, slideY(showText, leaving));
@@ -86,8 +106,8 @@ export default function Projects() {
                     gridSize={2}
                     file="/models/manifesto.glb"
                     models={[
-                        { file: "/models/manifesto.glb", position: [3, -3, 0] },
-                        { file: "/models/manifesto.glb", position: [-2, -0.5, 0] },
+                        { file: "/models/manifesto.glb", position: [3, 1, 0] },
+                        { file: "/models/manifesto.glb", position: [-3, -2, 0] },
                     ]}
                 />
 
@@ -136,21 +156,35 @@ export default function Projects() {
                             href={p.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="group relative w-5xl aspect-16/10 shrink-0 flex flex-col justify-start gap-1 overflow-hidden rounded-md"
+                            onMouseEnter={onEnter}
+                            onMouseLeave={onLeave}
+                            className="group relative w-5xl aspect-16/10 shrink-0 flex flex-col group-hover:bg-black/50 justify-start gap-1 overflow-hidden rounded-md"
                         >
                             {p.image && (
-                                <div
-                                    ref={(el) => {
-                                        imgRefs.current[i] = el;
-                                    }}
-                                    className="absolute inset-0 will-change-transform"
-                                >
-                                    <img
-                                        src={p.image}
-                                        alt={p.name}
-                                        className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                                    />
-                                </div>
+                                <>
+                                    <div
+                                        ref={(el) => {
+                                            imgRefs.current[i] = el;
+                                        }}
+                                        className="absolute inset-0 will-change-transform"
+                                    >
+                                        <img
+                                            src={p.image}
+                                            alt={p.name}
+                                            className="w-full h-full object-cover transition-all brightness-100 group-hover:brightness-[0.25] duration-300 ease-out group-hover:scale-110 grayscale-0 group-hover:grayscale-100"
+                                        />
+                                    </div>
+                                    {p.video && (
+                                        <video
+                                            ref={(el) => {
+                                                videoRefs.current[i] = el;
+                                            }}
+                                            src={p.video}
+                                            loop muted playsInline preload="none"
+                                            className={`pointer-events-none absolute rounded will-change-[clip-path] [clip-path:inset(100%_0_0_0)] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4/5`}
+                                        />
+                                    )}
+                                </>
                             )}
                         </a>
                         <div className="flex flex-col items-end gap-1">

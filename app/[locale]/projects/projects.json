@@ -18,6 +18,7 @@
     "tier": 2,
     "weeks": 4,
     "image": "/images/projects/Laura.png",
+    "video": "/videos/LauraHerve.mp4",
     "link": "https://lauraherve.com",
     "techStack": [
       "TypeScript"
@@ -37,6 +38,7 @@
     "tier": 2,
     "weeks": 8,
     "image": "/images/projects/Green.png",
+    "video": "/videos/EvelyneCrea.mp4",
     "link": "https://www.evelynecrea.com",
     "techStack": [
       "TypeScript"
