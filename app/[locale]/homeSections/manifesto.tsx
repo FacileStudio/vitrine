@@ -20,7 +20,7 @@ export default function Manifesto() {
 
     const lineRefs = useRef<(HTMLSpanElement | null)[]>([]);
     const entryRefs = useRef<(HTMLSpanElement | null)[]>([]);
-    const ctaRef = useRef<HTMLButtonElement>(null);
+    const ctaRef = useRef<HTMLAnchorElement>(null);
 
     const [showText, setShowText] = useState(false);
     const [showCta, setShowCta] = useState(false);
@@ -44,7 +44,7 @@ export default function Manifesto() {
     useEffect(() => {
         run(lineRefs.current, slideY(showText, leaving));
         run(entryRefs.current, slideY(showText, leaving));
-        run([ctaRef.current], slideY(showCta, leaving, { duration: 0.7 }));
+        run([ctaRef.current], slideY(showCta, leaving, { duration: 0.7, delay: 0.5 }));
     }, [showText, showCta, leaving]);
 
 
@@ -83,15 +83,15 @@ export default function Manifesto() {
                             </span>
                         ))}
                     </h2>
-
-                    <span className="mt-10 block overflow-hidden">
-                        <button
+                    <div className="overflow-hidden w-fit mt-10">
+                        <a
                             ref={ctaRef}
-                            className="block text-3xl font-bold text-foreground pointer-events-auto"
+                            href="/projects"
+                            className="inline-block px-8 py-5  text-md font-medium rounded-full bg-background/50"
                         >
-                            CTA
-                        </button>
-                    </span>
+                            Voir nos projets
+                        </a>
+                    </div>
                 </div>
 
                 <div className="absolute bottom-0 left-0 flex w-full items-end justify-between px-48 pb-12 pointer-events-none text-md font-medium">

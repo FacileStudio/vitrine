@@ -19,7 +19,7 @@ const newest = projects.slice(0, 4);
 // the hover media can be a real video or just an image (e.g. a static webp) — a
 // <video> can't render an image, so pick the element by extension
 const isVideoFile = (src: string) => /\.(mp4|webm|ogg|mov)$/i.test(src);
-const mediaClass = "pointer-events-none absolute rounded object-cover will-change-[clip-path] [clip-path:inset(100%_0_0_0)] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4/5";
+const mediaClass = "pointer-events-none absolute rounded object-cover will-change-[clip-path] [clip-path:inset(100%_0_0_0)] rounded-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4/5";
 
 export default function Projects() {
     const sectionRef = useRef<HTMLElement>(null);
@@ -31,6 +31,7 @@ export default function Projects() {
     const lineRefs = useRef<(HTMLSpanElement | null)[]>([]);
     const entryRefs = useRef<(HTMLSpanElement | null)[]>([]);
     const imgRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
     const ctaRef = useRef<HTMLButtonElement>(null);
     const marcelEyesRef = useRef<HTMLDivElement>(null);
     const marcelSpheresRef = useRef<HTMLDivElement>(null);
@@ -45,6 +46,26 @@ export default function Projects() {
     useEffect(() => {
         hideRevealY([...lineRefs.current, ctaRef.current]);
         return () => { if (eyesMove.current) window.removeEventListener("pointermove", eyesMove.current); };
+    }, []);
+
+
+
+    // reveal each project's text + logos as its card scrolls into view (media excluded)
+    useLayoutEffect(() => {
+        const targets = (el: Element) => Array.from(el.querySelectorAll<HTMLElement>("[data-reveal]"));
+        contentRefs.current.forEach((el) => el && hideRevealY(targets(el)));
+
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach((e) => {
+                if (!e.isIntersecting)
+                    return;
+                run(targets(e.target), slideY(true, false, { stagger: 0.08, duration: 0.6 }));
+                io.unobserve(e.target);
+            });
+        }, { threshold: 0, rootMargin: "0px 0px -40% 0px" });
+
+        contentRefs.current.forEach((el) => el && io.observe(el));
+        return () => io.disconnect();
     }, []);
 
 
@@ -173,7 +194,7 @@ export default function Projects() {
             <div className="absolute inset-0 bg-[#242424] -z-10" aria-hidden="true" />
             <div data-no-shadow className="sticky top-0 h-screen w-full overflow-hidden text-white">
                 <DitherView
-                    className="absolute inset-0 w-full h-full z-0 opacity-33"
+                    className="absolute inset-0 w-full h-full z-0 opacity-20"
                     background={null}
                     highlight="#24E27A"
                     grayscaleOnly={false}
@@ -203,7 +224,7 @@ export default function Projects() {
                 </div>
             </div>
 
-            <div className="w-screen h-full flex flex-col justify-start items-center gap-[2px] pt-240 px-6">
+            <div className="w-screen h-full flex flex-col justify-start items-center gap-1 pt-160 px-6">
                 {newest.map((p, i) => (
                     <div className="w-[70vw] shrink-0 flex items-start justify-between">
                       <div className="relative shrink-0">
@@ -246,7 +267,7 @@ export default function Projects() {
                                         <img
                                             src={p.image}
                                             alt={p.name}
-                                            className="w-full h-full object-cover transition-all brightness-100 group-hover:brightness-[0.25] duration-300 ease-out group-hover:scale-110"
+                                            className="w-full h-full object-cover transition-all  brightness-100 group-hover:brightness-[0.6] duration-300 ease-out group-hover:scale-110"
                                         />
                                     </div>
 
@@ -272,17 +293,29 @@ export default function Projects() {
                         </a>
                       </div>
 
-                        <div className="flex flex-col items-end gap-1 max-w-sm text-right">
-                            <span className="relative z-10 text-5xl font-medium text-white">
-                                {p.name}
+                        <div ref={(el) => { contentRefs.current[i] = el; }} className="flex flex-col items-end gap-12 max-w-sm text-right py-12">
+                            <span className="relative z-10 block overflow-hidden">
+                                <span data-reveal className="block text-5xl font-medium text-white">
+                                    {p.name}
+                                </span>
                             </span>
-                            <span className="relative z-10 text-xs text-white/50">
-                                {p.techStack?.join(" · ")}
+                            <span className="relative z-10 block overflow-hidden">
+                                <span data-reveal className="flex flex-wrap justify-end gap-6">
+                                    {p.techStack?.map((name) => (
+                                        <img key={name} src={`/images/logo/${name}.png`} alt={name} className="h-5" />
+                                    ))}
+                                </span>
                             </span>
                             {p.description && (
-                                <p className="relative z-10 mt-8 text-lg font-medium leading-relaxed text-white/70">
-                                    {p.description}
-                                </p>
+                                <ul className="relative z-10 flex flex-col gap-4">
+                                    {p.description.match(/[^.!?]+[.!?]+|\S+$/g)?.map((sentence, i) => (
+                                        <li key={i} className="overflow-hidden">
+                                            <span data-reveal className="block text-md font-medium text-white/50">
+                                                {sentence.trim()}
+                                            </span>
+                                        </li>
+                                    ))}
+                                </ul>
                             )}
                         </div>
                     </div>

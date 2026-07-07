@@ -96,7 +96,7 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
                 </div>
             )}
 
-            <nav className="absolute -translate-y-1/2 top-1/2 -translate-x-1/2 right-60 z-50 flex flex-col items-center justify-center gap-2">
+            <nav className="absolute -translate-y-1/2 top-1/2 -translate-x-1/2 right-60 z-50 flex flex-col items-end justify-center gap-8">
                 {links.map((link, i) => (
                     <span key={link.href} className="block overflow-hidden">
                         <a

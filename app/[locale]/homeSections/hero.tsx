@@ -67,7 +67,7 @@ export default function Hero({ charged }: { charged: boolean }) {
                     intensity={1.8}
                     float={false}
                     scale={35}
-                    fov={50}
+                    fov={45}
                 />
                 <div className="absolute bottom-0 left-0 w-full h-1/5 bg-linear-to-t from-[#E4EEE8] to-transparent" />
             </div>
@@ -79,22 +79,22 @@ export default function Hero({ charged }: { charged: boolean }) {
                     <span className="block overflow-hidden"><div ref={(el) => { lineRefs.current[2] = el; }} className="opacity-50">difficulté. Simple, aise, etc...</div></span>
                 </div>
 
-                <div className="w-full text-left xl:text-2xl lg:text-xl text-lg">
+                <div className="w-full flex flex-col text-left xl:text-2xl lg:text-xl text-lg">
                     <span className="block overflow-hidden"><div ref={(el) => { lineRefs.current[3] = el; }} className="font-medium">Quand 2 bons designers rencontrent</div></span>
                     <span className="block overflow-hidden"><div ref={(el) => { lineRefs.current[4] = el; }} className="font-medium">2 bons developpeurs</div></span>
-                    <a ref={ctaRef} href="/projects" className="mt-6 px-6 py-4 border-2 border-black/10 text-xs font-medium rounded-full bg-background/50">Voir nos projets</a>
+                    <a ref={ctaRef} href="/projects" className="mt-6 w-fit px-6 py-4 border-2 border-black/10 text-sm font-medium rounded-full bg-background/50">Voir nos projets</a>
                 </div>
             </div>
 
-            <div className="absolute bottom-0 flex flex-col-reverse lg:flex-row items-end justify-between w-full p-4 lg:px-15 lg:b-12">
-                <span className="block overflow-hidden lg:w-1/2 w-full">
+            <div className="absolute bottom-0 flex flex-col-reverse lg:flex-row items-end justify-between w-full p-4 lg:px-15 lg:pb-12">
+                <span className="block overflow-hidden lg:w-2/3 w-full">
                     <img
                         ref={(el) => {
                             lineRefs.current[5] = el;
                         }}
                         src="/Facile.svg"
                         alt="Facile Logo"
-                        className="w-full aspect-auto max-h-[33vh]"
+                        className="w-full aspect-auto max-h-[50vh]"
                     />
                 </span>
 
@@ -103,7 +103,7 @@ export default function Hero({ charged }: { charged: boolean }) {
                         ref={(el) => {
                             lineRefs.current[6] = el;
                         }}
-                        className="block font-medium text-2xl mt-4 lg:text-4xl"
+                        className="block font-medium text-3xl mt-4 lg:text-6xl"
                     >
                         Studio
                     </span>

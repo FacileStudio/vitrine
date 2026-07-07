@@ -23,6 +23,7 @@ export default function Friends() {
     const trackRef = useRef<HTMLDivElement>(null);
     const trackRef2 = useRef<HTMLDivElement>(null);
     const revealSentinel = useRef<HTMLDivElement>(null);
+    const disappearSentinel = useRef<HTMLDivElement>(null);
     const offset = useRef(0);
     const offset2 = useRef(0);
     const boost = useRef(0);
@@ -35,10 +36,13 @@ export default function Friends() {
     ] as HTMLElement[];
 
     const [showIcons, setShowIcons] = useState(false);
+    const [leaving, setLeaving] = useState(false);
 
-    // anchor: derive the reveal flag from the sentinel crossing the trigger line
+    // anchor: reveal when reveal sentinel crosses the line; leave when disappear sentinel crosses the top
     useScroll(() => {
-        setShowIcons(past(revealSentinel, triggerLine));
+        const gone = past(disappearSentinel, 0);
+        setLeaving(gone);
+        setShowIcons(past(revealSentinel, triggerLine) && !gone);
     });
 
     // hide every icon (revealY: parked below its slot) before the first reveal
@@ -48,8 +52,8 @@ export default function Friends() {
 
     // stagger the icons in when the sentinel is reached
     useEffect(() => {
-        run(bothTracks(), slideY(showIcons, false, { stagger: 0.03, duration: 0.35 }));
-    }, [showIcons]);
+        run(bothTracks(), slideY(showIcons, leaving, { stagger: 0.03, duration: 0.35 }));
+    }, [showIcons, leaving]);
 
     // two seamless marquees drifting opposite ways; vertical scroll velocity boosts both
     useEffect(() => {
@@ -124,7 +128,8 @@ export default function Friends() {
                 </div>
             </div>
 
-            <div ref={revealSentinel} className="absolute top-[45%] w-full h-px" aria-hidden="true" />
+            <div ref={revealSentinel} className="absolute top-[30%] w-full h-px" aria-hidden="true" />
+            <div ref={disappearSentinel} className="absolute top-[80%] w-full h-px" aria-hidden="true" />
         </section>
     );
 }
