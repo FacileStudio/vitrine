@@ -4,7 +4,7 @@ import React from "react";
 
 // sections with a dark background — the header goes light (white) over these,
 // and stays dark over everything else (hero, manifesto, friends, …)
-const DARK_SECTIONS = ["projects", "suite"];
+const DARK_SECTIONS = ["projects"];
 
 export const DesktopHeader =({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
     const [onDark, setOnDark] = React.useState(false);

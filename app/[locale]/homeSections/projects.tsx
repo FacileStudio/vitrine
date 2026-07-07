@@ -200,7 +200,7 @@ export default function Projects() {
                     grayscaleOnly={false}
                     intensity={1.8}
                     parallax={0.7}
-                    gridSize={2}
+                    gridSize={showText ? 2 : 9}
                     file="/models/manifesto.glb"
                     models={[
                         { file: "/models/manifesto.glb", position: [3, 1, 0] },
@@ -226,7 +226,7 @@ export default function Projects() {
 
             <div className="w-screen h-full flex flex-col justify-start items-center gap-1 pt-160 px-6">
                 {newest.map((p, i) => (
-                    <div className="w-[70vw] shrink-0 flex items-start justify-between">
+                    <div key={i} className="w-[70vw] shrink-0 flex items-start justify-between">
                       <div className="relative shrink-0">
                         {p.name === "Marcel" && (
                             <div ref={marcelSpheresRef} className="pointer-events-none absolute bottom-6 z-20 left-1/2 flex -translate-x-1/2 translate-y-1/2 gap-16 will-change-transform">

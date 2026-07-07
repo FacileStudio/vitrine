@@ -55,7 +55,7 @@ export default function Hero({ charged }: { charged: boolean }) {
         <section id="hero" className="h-screen w-screen relative">
             <div className="relative w-screen h-screen">
                 <DitherView
-                    file="/models/fff.glb"
+                    file="/models/F.glb"
                     className="absolute top-0 left-0 w-full h-full -z-10 lg:opacity-75 opacity-25"
                     gridSize={resolved ? 2 : 16}
                     position={[-1, -0.5, -0.5]}

@@ -10,7 +10,6 @@ import type { Locale } from "@/lib/i18n/locales";
 type MobileHeaderProps = {
     locale: string;
     switchLocale: (newLocale: Locale) => void;
-    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const MobileHeader = ({ locale, switchLocale, menuOpen, setMenuOpen }: MobileHeaderProps & { menuOpen: boolean; setMenuOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {

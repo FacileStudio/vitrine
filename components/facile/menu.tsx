@@ -79,7 +79,7 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
                     }}
                 >
                     <DitherView
-                        file="/models/fff.glb"
+                        file="/models/F.glb"
                         className="absolute top-0 left-0 w-full h-full opacity-33"
                         gridSize={2}
                         position={[-1, -0.5, -0.5]}

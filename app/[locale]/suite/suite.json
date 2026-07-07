@@ -1,0 +1,32 @@
+[
+    {
+        "name": "Opus",
+        "description": "The studio's command centre — projects, clients and deadlines in one fast, focused workspace.",
+        "image": "/images/projects/Gian.webp"
+    },
+    {
+        "name": "Sablier",
+        "description": "Time tracking that stays out of the way, turning hours into invoices without the busywork.",
+        "image": "/images/projects/Waves.webp"
+    },
+    {
+        "name": "Echo",
+        "description": "A feedback loop for creative work — collect, thread and resolve client notes in context.",
+        "image": "/images/projects/EvelyneCrea.webp"
+    },
+    {
+        "name": "Prisme",
+        "description": "Design tokens and brand systems, kept in sync from Figma to production in a single source.",
+        "image": "/images/projects/LauraHerve.webp"
+    },
+    {
+        "name": "Relai",
+        "description": "Deploys and handoffs made calm — pipelines, previews and rollbacks the whole team can read.",
+        "image": "/images/projects/RetroFestival.webp"
+    },
+    {
+        "name": "Atlas",
+        "description": "The knowledge base that remembers so you don't have to — decisions, specs and playbooks, searchable.",
+        "image": "/images/projects/Mont-k.webp"
+    }
+]

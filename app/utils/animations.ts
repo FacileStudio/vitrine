@@ -26,8 +26,9 @@ export const run = (els: (HTMLElement | null)[], animate: (el: HTMLElement, i: n
 
 export const revealY = (show: boolean, leaving: boolean) => show ? 0 : leaving ? -110 : 110;
 
-export const hideRevealY = (els: (HTMLElement | null)[]) => gsap.set(els, { yPercent: 110 });
-export const hideRevealX = (els: (HTMLElement | null)[]) => gsap.set(els, { xPercent: 110 });
+const present = (els: (HTMLElement | null)[]) => els.filter((el): el is HTMLElement => el != null);
+export const hideRevealY = (els: (HTMLElement | null)[]) => gsap.set(present(els), { yPercent: 110 });
+export const hideRevealX = (els: (HTMLElement | null)[]) => gsap.set(present(els), { xPercent: 110 });
 
 export const slideY = (show: boolean, leaving: boolean, { stagger = 0.2, duration = 0.5, delay = 0 } = {}) =>
     (el: HTMLElement, i: number) =>
