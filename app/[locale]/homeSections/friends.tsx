@@ -105,7 +105,7 @@ export default function Friends() {
             <div className="mt-16 w-full overflow-hidden">
                 <div ref={trackRef} className="flex w-max items-center gap-[2px] will-change-transform">
                     {[...icons, ...icons].map((icon, i) => (
-                        <div key={i} className="shrink-0 flex w-70 h-70 bg-white/33 flex-col justify-center rounded-lg items-center gap-12">
+                        <div key={i} className="shrink-0 flex w-70 h-70 bg-white/33 flex-col justify-center rounded-2xl items-center gap-12">
                             <img src={`/images/icons/${icon.src}.png`} alt={icon.name} className="h-20 opacity-80" />
                             <span className="text-sm font-medium opacity-60 whitespace-nowrap">{icon.name}</span>
                         </div>
@@ -116,7 +116,7 @@ export default function Friends() {
             <div className="mt-[2px] w-full overflow-hidden">
                 <div ref={trackRef2} className="flex w-max items-center gap-[2px] will-change-transform">
                     {[...icons, ...icons].reverse().map((icon, i) => (
-                        <div key={i} className="shrink-0 flex w-70 h-70 bg-white/33 flex-col justify-center rounded-xl items-center gap-12">
+                        <div key={i} className="shrink-0 flex w-70 h-70 bg-white/33 flex-col justify-center rounded-2xl items-center gap-12">
                             <img src={`/images/icons/${icon.src}.png`} alt={icon.name} className="h-20 opacity-80" />
                             <span className="text-sm font-medium opacity-60 whitespace-nowrap">{icon.name}</span>
                         </div>

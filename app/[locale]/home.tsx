@@ -6,7 +6,7 @@ import { TransitionIn, TransitionOut } from "@/components/facile/pageTransition"
 import { useTranslations } from 'next-intl';
 import { useRouter } from "next/navigation";
 import data from "./projects/projects.json";
-import SideBar from "@/components/facile/sidebar";
+import Menu from "@/components/facile/menu";
 import Header from "@/components/facile/header";
 import ShadowFilter from "@/components/facile/shadowFilter";
 import Rideau from "@/components/facile/rideau";
@@ -82,20 +82,20 @@ const Process = ({ t }: { t: TranslationFn }) => {
 };
 
 export default function Home() {
-    const [sideBarOpen, setSidebarOpen] = React.useState<boolean>(false);
+    const [menuOpen, setMenuOpen] = React.useState<boolean>(false);
     const t = useTranslations('home');
     const router = useRouter();
 
     const [charged, setCharged] = React.useState(false);
     const lenisRef = React.useRef<LenisRef>(null);
 
-    // lock scrolling to the hero until everything is loaded
+    // lock scrolling until loaded, and while the menu is open
     React.useEffect(() => {
         const lenis = lenisRef.current?.lenis;
         if (!lenis) return;
-        if (charged) lenis.start();
+        if (charged && !menuOpen) lenis.start();
         else lenis.stop();
-    }, [charged]);
+    }, [charged, menuOpen]);
 
     // const caseStudyT = useTranslations('portfolio.caseStudy');
     // const featuredProjects = featuredSlugs.map(slug => data.find(p => p.slug === slug)).filter((p): p is NonNullable<typeof p> => p !== undefined);
@@ -104,11 +104,6 @@ export default function Home() {
 
     // React.useEffect(() => TransitionIn(2), []);
 
-    // sideBar opening effect and slide of main content
-    React.useEffect(() => {
-        if (sideBarOpen) {}
-        else {}
-    }, [sideBarOpen]);
 
     return (
         <div className="relative">
@@ -116,12 +111,12 @@ export default function Home() {
 
             <ReactLenis ref={lenisRef} root options={{ lerp: 0.1, smoothWheel: true }} />
 
-            <SideBar sideBarOpen={sideBarOpen} setSidebarOpen={setSidebarOpen} />
+            <Menu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 
             <ShadowFilter />
 
             <main className="min-h-screen w-screen">
-                <Header sideBarOpen={sideBarOpen} setSidebarOpen={setSidebarOpen} />
+                <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 
                 <Hero charged={charged} />
 
