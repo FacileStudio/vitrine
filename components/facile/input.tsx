@@ -25,12 +25,13 @@ export const Input = forwardRef<HTMLInputElement,InputProps>(({ className, ...pr
                     "p-4 text-center w-full rounded-full overflow-hidden border border-[#1E1E1E]/20 focus:outline-none",
                     className)}
                 {...props}
-            /> 
+            />
     </div>));
 
+Input.displayName = "Input";
+
 export const FloatingInput = ({ label, name, type = "text", required = false, value, onChange, textarea = false }: FloatingInputProps) => {
-    const [focused, setFocused] = useState(false);
-    const isActive = focused || value.length > 0;
+    const [, setFocused] = useState(false);
 
     return (
         <fieldset

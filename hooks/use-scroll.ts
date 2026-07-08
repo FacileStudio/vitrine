@@ -4,7 +4,10 @@ import { useEffect, useRef } from "react";
 // latest handler without re-subscribing. Base for any scroll-driven animation.
 export function useScroll(handler: () => void) {
     const ref = useRef(handler);
-    ref.current = handler;
+
+    useEffect(() => {
+        ref.current = handler;
+    });
 
     useEffect(() => {
         const fn = () => ref.current();

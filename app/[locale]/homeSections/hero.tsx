@@ -1,18 +1,15 @@
 'use client'
 
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { past } from "@/app/utils";
 import { run, slideY, fade, hideRevealY, hideFade } from "@/app/utils/animations";
-import { useScroll } from "@/hooks/use-scroll";
+import { usePinProgress } from "@/hooks/use-pin-progress";
 
 const DitherView = dynamic(() => import("@/webgl/DitherView").then((m) => m.DitherView), { ssr: false });
 
-const triggerLine = 0.5;
-
 export default function Hero({ charged }: { charged: boolean }) {
-    const paraSentinel = useRef<HTMLDivElement>(null);
-    const textExitSentinel = useRef<HTMLDivElement>(null);
+    const sectionRef = useRef<HTMLElement>(null);
     const lineRefs = useRef<(HTMLElement | null)[]>([]);
     const ctaRef = useRef<HTMLAnchorElement>(null);
     const [showText, setShowText] = useState(false);
@@ -28,10 +25,10 @@ export default function Hero({ charged }: { charged: boolean }) {
 
 
 
-    useScroll(() => {
-        const textOut = past(textExitSentinel, triggerLine);
-        setShowText(past(paraSentinel, triggerLine) && !textOut);
-        setLeaving(textOut);
+    usePinProgress(sectionRef, (p) => {
+        const leaving = p > 0.4;
+        setLeaving(leaving);
+        setShowText(!leaving);
     });
 
 
@@ -52,8 +49,8 @@ export default function Hero({ charged }: { charged: boolean }) {
     }, [showText, leaving, charged]);
 
     return (
-        <section id="hero" className="h-screen w-screen relative">
-            <div className="relative w-screen h-screen">
+        <section id="hero" ref={sectionRef} className="h-screen w-full relative">
+            <div className="relative w-full h-screen">
                 <DitherView
                     file="/models/F.glb"
                     className="absolute top-0 left-0 w-full h-full -z-10 lg:opacity-75 opacity-25"
@@ -82,7 +79,7 @@ export default function Hero({ charged }: { charged: boolean }) {
                 <div className="w-full flex flex-col text-left xl:text-2xl lg:text-xl text-lg">
                     <span className="block overflow-hidden"><div ref={(el) => { lineRefs.current[3] = el; }} className="font-medium">Quand 2 bons designers rencontrent</div></span>
                     <span className="block overflow-hidden"><div ref={(el) => { lineRefs.current[4] = el; }} className="font-medium">2 bons developpeurs</div></span>
-                    <a ref={ctaRef} href="/projects" className="mt-6 w-fit px-6 py-4 border-2 border-black/10 text-sm font-medium rounded-full bg-background/50">Voir nos projets</a>
+                    <Link ref={ctaRef} href="/projects" className="mt-6 w-fit px-6 py-4 border-2 border-black/10 text-sm font-medium rounded-full bg-background/50">Voir nos projets</Link>
                 </div>
             </div>
 
@@ -109,9 +106,6 @@ export default function Hero({ charged }: { charged: boolean }) {
                     </span>
                 </span>
             </div>
-
-            <div ref={paraSentinel}     className="absolute top-[10%] w-full h-px" aria-hidden="true" />
-            <div ref={textExitSentinel} className="absolute top-[90%] w-full h-px" aria-hidden="true" />
         </section>
     )
 }

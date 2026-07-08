@@ -5,11 +5,7 @@ import { DesktopHeader } from "./desktop-header";
 import { MobileHeader } from "./mobile-header";
 import { useLocaleSwitcher } from "@/hooks/use-locale-switcher";
 
-type ContactModalProps = {
-    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-const Header = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
+const Header =({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
     const locale = useLocale();
     const switchLocale = useLocaleSwitcher();
 

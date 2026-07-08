@@ -53,6 +53,7 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
     // dither on open
     React.useEffect(() => {
         if (menuOpen) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setMountDither(true);
             const id = requestAnimationFrame(() => setShowDither(true));
             return () => cancelAnimationFrame(id);

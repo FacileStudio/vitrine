@@ -1,6 +1,7 @@
 'use client'
 
 import React from "react";
+import Link from "next/link";
 
 // sections with a dark background — the header goes light (white) over these,
 // and stays dark over everything else (hero, manifesto, friends, …)
@@ -35,9 +36,9 @@ export const DesktopHeader =({ menuOpen, setMenuOpen }: { menuOpen: boolean; set
     return (
         <header className={`fixed top-0 left-0 w-full pt-4 px-12 z-20 flex justify-between items-center transition-colors duration-300 ${light ? "text-white" : "text-[#1E1E1E]"}`}>
             <div className="flex items-center space-x-24">
-                <a href="/">
+                <Link href="/">
                     <img src="/F.svg" alt="Facile Logo" className={`h-6 aspect-auto brightness-0 ${light ? "invert" : ""}`} />
-                </a>
+                </Link>
                 <div className="flex items-center">
                     <span className="italic text-lg">[fasil]</span>
                     <span className="opacity-50 font-medium text-xs ml-4">Qui ne représente aucune difficulté.</span>

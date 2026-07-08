@@ -75,7 +75,9 @@ const Rideau = ({ setCharged }: { setCharged: (charged: boolean) => void }) => {
 
     // real load progress of everything three.js pulls in (glb models, textures, ...)
     const { progress, active, total } = useProgress()
-    target.current = progress
+    useEffect(() => {
+        target.current = progress
+    }, [progress])
 
 
 
@@ -117,7 +119,7 @@ const Rideau = ({ setCharged }: { setCharged: (charged: boolean) => void }) => {
         };
         gsap.ticker.add(tick);
         return () => gsap.ticker.remove(tick);
-    }, [active, total])
+    }, [active, total, setCharged])
 
 
 

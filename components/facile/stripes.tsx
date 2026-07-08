@@ -36,7 +36,9 @@ export default function Stripes({
     const openWhenRef = useRef(openWhen);
     const [ready, setReady] = useState(false);
 
-    openWhenRef.current = openWhen;
+    useEffect(() => {
+        openWhenRef.current = openWhen;
+    });
 
     useEffect(() => {
         if (!openWhenRef.current) return;

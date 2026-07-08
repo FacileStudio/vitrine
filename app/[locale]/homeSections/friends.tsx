@@ -2,11 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import { past } from "@/app/utils";
 import { run, slideY, hideRevealY } from "@/app/utils/animations";
 import { useScroll } from "@/hooks/use-scroll";
-
-const triggerLine = 0.8;
 
 export default function Friends() {
     const icons = [
@@ -22,8 +19,6 @@ export default function Friends() {
     const sectionRef = useRef<HTMLElement>(null);
     const trackRef = useRef<HTMLDivElement>(null);
     const trackRef2 = useRef<HTMLDivElement>(null);
-    const revealSentinel = useRef<HTMLDivElement>(null);
-    const disappearSentinel = useRef<HTMLDivElement>(null);
     const offset = useRef(0);
     const offset2 = useRef(0);
     const boost = useRef(0);
@@ -38,11 +33,16 @@ export default function Friends() {
     const [showIcons, setShowIcons] = useState(false);
     const [leaving, setLeaving] = useState(false);
 
-    // anchor: reveal when reveal sentinel crosses the line; leave when disappear sentinel crosses the top
+    // reveal as the section scrolls into view (entry-based, not pin progress):
+    // icons stagger in once the section is ~20% into view, and leave once it has mostly scrolled past
     useScroll(() => {
-        const gone = past(disappearSentinel, 0);
+        const el = sectionRef.current;
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const vh = window.innerHeight;
+        const gone = rect.top + rect.height * 0.8 < 0;
         setLeaving(gone);
-        setShowIcons(past(revealSentinel, triggerLine) && !gone);
+        setShowIcons(rect.top + rect.height * 0.3 < vh * 0.8 && !gone);
     });
 
     // hide every icon (revealY: parked below its slot) before the first reveal
@@ -52,7 +52,7 @@ export default function Friends() {
 
     // stagger the icons in when the sentinel is reached
     useEffect(() => {
-        run(bothTracks(), slideY(showIcons, leaving, { stagger: 0.03, duration: 0.35 }));
+        run(bothTracks(), slideY(showIcons, leaving, { stagger: 0.015, duration: 0.35 }));
     }, [showIcons, leaving]);
 
     // two seamless marquees drifting opposite ways; vertical scroll velocity boosts both
@@ -73,6 +73,9 @@ export default function Friends() {
 
 
         const tick = () => {
+            const s = sectionRef.current;
+            if (s) { const r = s.getBoundingClientRect(); if (r.bottom < 0 || r.top > window.innerHeight) return; }
+
             const speed = base + boost.current * 0.2;
             boost.current *= 0.4;
 
@@ -98,7 +101,7 @@ export default function Friends() {
     }, []);
 
     return (
-        <section ref={sectionRef} id="friends" className="relative w-screen py-24 overflow-visible">
+        <section ref={sectionRef} id="friends" className="relative w-full py-24 overflow-visible">
             <div className="px-60">
                 <h2 className="text-5xl font-bold">They trusted us</h2>
                 <div className="text-lg opacity-66 mt-4 max-w-[40ch]">Our clients let us the lead on projects they held close to their hearts</div>
@@ -108,9 +111,9 @@ export default function Friends() {
 
             <div className="mt-16 w-full overflow-hidden">
                 <div ref={trackRef} className="flex w-max items-center gap-[2px] will-change-transform">
-                    {[...icons, ...icons].map((icon, i) => (
+                    {[...icons, ...icons, ...icons, ...icons].map((icon, i) => (
                         <div key={i} className="shrink-0 flex w-70 h-70 bg-white/33 flex-col justify-center rounded-2xl items-center gap-12">
-                            <img src={`/images/icons/${icon.src}.png`} alt={icon.name} className="h-20 opacity-80" />
+                            <img src={`/images/icons/${icon.src}.png`} alt={icon.name} loading="lazy" decoding="async" className="h-20 opacity-80" />
                             <span className="text-sm font-medium opacity-60 whitespace-nowrap">{icon.name}</span>
                         </div>
                     ))}
@@ -119,17 +122,14 @@ export default function Friends() {
 
             <div className="mt-[2px] w-full overflow-hidden">
                 <div ref={trackRef2} className="flex w-max items-center gap-[2px] will-change-transform">
-                    {[...icons, ...icons].reverse().map((icon, i) => (
+                    {[...icons, ...icons, ...icons, ...icons].reverse().map((icon, i) => (
                         <div key={i} className="shrink-0 flex w-70 h-70 bg-white/33 flex-col justify-center rounded-2xl items-center gap-12">
-                            <img src={`/images/icons/${icon.src}.png`} alt={icon.name} className="h-20 opacity-80" />
+                            <img src={`/images/icons/${icon.src}.png`} alt={icon.name} loading="lazy" decoding="async" className="h-20 opacity-80" />
                             <span className="text-sm font-medium opacity-60 whitespace-nowrap">{icon.name}</span>
                         </div>
                     ))}
                 </div>
             </div>
-
-            <div ref={revealSentinel} className="absolute top-[30%] w-full h-px" aria-hidden="true" />
-            <div ref={disappearSentinel} className="absolute top-[80%] w-full h-px" aria-hidden="true" />
         </section>
     );
 }

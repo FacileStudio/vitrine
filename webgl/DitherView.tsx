@@ -1,5 +1,6 @@
 'use client';
 
+import "./silence-three-deprecations";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import * as THREE from "three";
@@ -50,7 +51,7 @@ export function DitherView({
         if (!el) return;
         const io = new IntersectionObserver(
             ([entry]) => setActive(entry.isIntersecting),
-            { rootMargin: "200px" },
+            { rootMargin: "200px 0px" },
         );
         io.observe(el);
         return () => io.disconnect();
@@ -63,7 +64,7 @@ export function DitherView({
             <Canvas
                 className=""
                 dpr={[1, 2]}
-                shadows
+                shadows={{ type: THREE.PCFShadowMap }}
                 frameloop={active ? "always" : "never"}
                 gl={{ alpha: background === null, antialias: true }}
                 camera={{ position: cameraPosition, fov }}

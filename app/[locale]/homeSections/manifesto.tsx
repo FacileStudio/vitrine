@@ -2,21 +2,16 @@
 
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import Stripes from "@/components/facile/stripes";
-import { past } from "@/app/utils";
 import { run, slideY, hideRevealY } from "@/app/utils/animations";
-import { useScroll } from "@/hooks/use-scroll";
+import { usePinProgress } from "@/hooks/use-pin-progress";
 
 const DitherView = dynamic(() => import("@/webgl/DitherView").then((m) => m.DitherView), { ssr: false });
 
-const triggerLine = 0.5;
-
 export default function Manifesto() {
     const sectionRef = useRef<HTMLElement>(null);
-    const colsSentinel = useRef<HTMLDivElement>(null);
-    const paraSentinel = useRef<HTMLDivElement>(null);
-    const textExitSentinel = useRef<HTMLDivElement>(null);
-    const exitSentinel = useRef<HTMLDivElement>(null);
+    const progressRef = useRef(0);
 
     const lineRefs = useRef<(HTMLSpanElement | null)[]>([]);
     const entryRefs = useRef<(HTMLSpanElement | null)[]>([]);
@@ -27,9 +22,10 @@ export default function Manifesto() {
     const [leaving, setLeaving] = useState(false);
 
     // anchors: derive text flags from scroll position; reveal replays when the section re-pins
-    useScroll(() => {
-        const textOut = past(textExitSentinel, triggerLine);
-        const textIn = past(paraSentinel, triggerLine) && !textOut;
+    usePinProgress(sectionRef, (p) => {
+        progressRef.current = p;
+        const textOut = p >= 0.47;
+        const textIn = p > 0.02 && !textOut;
         setShowText(textIn);
         setShowCta(textIn);
         setLeaving(textOut);
@@ -50,7 +46,7 @@ export default function Manifesto() {
 
 
     return (
-        <section ref={sectionRef} id="manifesto" className="relative w-full mt-32 min-h-[400vh]">
+        <section ref={sectionRef} id="manifesto" className="relative w-full mt-32 min-h-[240vh]">
             <div className="absolute inset-0 bg-white -z-10" aria-hidden="true" />
             <div className="sticky top-0 z-20 h-screen w-full overflow-hidden">
 
@@ -69,9 +65,9 @@ export default function Manifesto() {
                     ]}
                 />
 
-                <Stripes orientation={0} count={4} className="bg-background" openWhen={() => past(colsSentinel)} />
+                <Stripes orientation={0} count={4} className="bg-background" openWhen={() => progressRef.current > 0.02} />
 
-                <Stripes orientation={180} count={4} className="bg-background" openWhen={() => !past(exitSentinel)} />
+                <Stripes orientation={180} count={4} className="bg-background" openWhen={() => progressRef.current < 0.81} />
 
                 <div className="absolute inset-0 z-50 flex flex-col items-center justify-center px-6 text-center pointer-events-none">
                     <h2 className="max-w-3xl text-4xl md:text-5xl font-medium leading-tight text-foreground/80">
@@ -84,13 +80,13 @@ export default function Manifesto() {
                         ))}
                     </h2>
                     <div className="overflow-hidden w-fit mt-10">
-                        <a
+                        <Link
                             ref={ctaRef}
                             href="/projects"
                             className="inline-block px-8 py-5  text-md font-medium rounded-full bg-background/50"
                         >
                             Voir nos projets
-                        </a>
+                        </Link>
                     </div>
                 </div>
 
@@ -104,11 +100,6 @@ export default function Manifesto() {
                     ))}
                 </div>
             </div>
-
-            <div ref={colsSentinel}     className="absolute top-[4%]  w-full h-px" aria-hidden="true" />
-            <div ref={paraSentinel}     className="absolute top-[20%] w-full h-px" aria-hidden="true" />
-            <div ref={textExitSentinel} className="absolute top-[60%] w-full h-px" aria-hidden="true" />
-            <div ref={exitSentinel}     className="absolute top-[80%] w-full h-px" aria-hidden="true" />
         </section>
     );
 }

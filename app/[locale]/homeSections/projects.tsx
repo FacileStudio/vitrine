@@ -1,18 +1,15 @@
 import gsap from "gsap";
 import Stripes from "@/components/facile/stripes";
 import { useRef, useState, useEffect, useLayoutEffect, type MouseEvent } from "react";
-import { useScroll } from "@/hooks/use-scroll";
-import { past } from "@/app/utils";
+import { usePinProgress } from "@/hooks/use-pin-progress";
 import dynamic from "next/dynamic";
 import projects from "../projects/projects.json";
-import { run, slideY, slideX, hideRevealY } from "@/app/utils/animations";
+import { run, slideY, hideRevealY } from "@/app/utils/animations";
 
 const DitherView = dynamic(
     () => import("@/webgl/DitherView").then((m) => m.DitherView),
     { ssr: false },
 );
-
-const triggerLine = 0.5;
 
 const newest = projects.slice(0, 4);
 
@@ -23,10 +20,7 @@ const mediaClass = "pointer-events-none absolute rounded object-cover will-chang
 
 export default function Projects() {
     const sectionRef = useRef<HTMLElement>(null);
-    const colsSentinel = useRef<HTMLDivElement>(null);
-    const paraSentinel = useRef<HTMLDivElement>(null);
-    const textExitSentinel = useRef<HTMLDivElement>(null);
-    const exitSentinel = useRef<HTMLDivElement>(null);
+    const progressRef = useRef(0);
 
     const lineRefs = useRef<(HTMLSpanElement | null)[]>([]);
     const entryRefs = useRef<(HTMLSpanElement | null)[]>([]);
@@ -77,15 +71,17 @@ export default function Projects() {
 
 
 
-    useScroll(() => {
-        // anchors
-        const textOut = past(textExitSentinel, triggerLine);
-        const textIn = past(paraSentinel, triggerLine) && !textOut;
+    usePinProgress(sectionRef, (p, visible) => {
+        progressRef.current = p;
+        const textOut = p >= 0.28;
+        const textIn = p > 0.1 && !textOut;
         setShowText(textIn);
         setShowCta(textIn);
         setLeaving(textOut);
 
-        // parallax
+        if (!visible)
+            return;
+
         const vh = window.innerHeight;
         imgRefs.current.forEach((el) => {
             const card = el?.parentElement;
@@ -189,7 +185,7 @@ export default function Projects() {
         <section
             ref={sectionRef}
             id="projects"
-            className="w-screen relative min-h-[500vh]"
+            className="w-full relative min-h-[420vh]"
         >
             <div className="absolute inset-0 bg-[#242424] -z-10" aria-hidden="true" />
             <div data-no-shadow className="sticky top-0 h-screen w-full overflow-hidden text-white">
@@ -208,10 +204,10 @@ export default function Projects() {
                     ]}
                 />
 
-                <Stripes orientation={0}   count={4} className="bg-background" openWhen={() =>  past(colsSentinel)} />
-                <Stripes orientation={180} count={4} className="bg-background" openWhen={() => !past(exitSentinel)} />
+                <Stripes orientation={0}   count={4} className="bg-background" openWhen={() => progressRef.current > 0.02} />
+                <Stripes orientation={180} count={4} className="bg-background" openWhen={() => progressRef.current < 0.92} />
 
-                <div className="absolute inset-0 z-50 flex flex-col items-center justify-start pt-24 px-6 text-center pointer-events-none">
+                <div className="absolute inset-0 z-50 flex flex-col items-center justify-center px-6 text-center pointer-events-none">
                     <h2 className="max-w-3xl text-4xl md:text-5xl font-medium leading-tight">
                         {["Take a look at", "our latest projects."].map((line, i) => 
                             <span key={i} className="block overflow-hidden">
@@ -224,7 +220,7 @@ export default function Projects() {
                 </div>
             </div>
 
-            <div className="w-screen h-full flex flex-col justify-start items-center gap-1 pt-160 px-6">
+            <div className="w-full h-full flex flex-col justify-start items-center gap-1 pt-160 px-6">
                 {newest.map((p, i) => (
                     <div key={i} className="w-[70vw] shrink-0 flex items-start justify-between">
                       <div className="relative shrink-0">
@@ -251,6 +247,8 @@ export default function Projects() {
                                     <img
                                         src={p.image}
                                         alt={p.name}
+                                        loading="lazy"
+                                        decoding="async"
                                         className="w-full h-full object-cover transition-all brightness-100 duration-300 ease-out"
                                     />
                                     <div className="absolute bottom-12 left-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -267,6 +265,8 @@ export default function Projects() {
                                         <img
                                             src={p.image}
                                             alt={p.name}
+                                            loading="lazy"
+                                            decoding="async"
                                             className="w-full h-full object-cover transition-all  brightness-100 group-hover:brightness-[0.6] duration-300 ease-out group-hover:scale-110"
                                         />
                                     </div>
@@ -321,11 +321,6 @@ export default function Projects() {
                     </div>
                 ))}
             </div>
-
-            <div ref={colsSentinel}     className="absolute top-[4%]  w-full h-px" aria-hidden="true" />
-            <div ref={paraSentinel}     className="absolute top-[12%] w-full h-px" aria-hidden="true" />
-            <div ref={textExitSentinel} className="absolute top-[33%] w-full h-px" aria-hidden="true" />
-            <div ref={exitSentinel}     className="absolute top-[90%] w-full h-px" aria-hidden="true" />
         </section>
     );
 }

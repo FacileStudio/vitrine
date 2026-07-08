@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useTranslations } from 'next-intl';
 import * as Dialog from '@radix-ui/react-dialog';
 
@@ -68,14 +68,15 @@ export default function ContactModal({ open, setOpen }: ContactModalProps) {
 
     const currentStep = steps[step];
 
-    useEffect(() => {
-        if (!open) {
+    const handleOpenChange = (next: boolean) => {
+        if (!next) {
             setStep(0);
             setLoading(false);
             setError("");
             setSuccess("");
         }
-    }, [open]);
+        setOpen(next);
+    };
 
     const currentValue = formData[currentStep.key];
 
@@ -182,7 +183,7 @@ export default function ContactModal({ open, setOpen }: ContactModalProps) {
     };
 
     return (
-        <Dialog.Root open={open} onOpenChange={setOpen}>
+        <Dialog.Root open={open} onOpenChange={handleOpenChange}>
             <Dialog.Portal>
                 <Dialog.Overlay className="fixed inset-0 z-50 bg-[#060907]/88 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
                 <Dialog.Content className="fixed inset-0 z-50 text-[#CAE6D8] outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0">

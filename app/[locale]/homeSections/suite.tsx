@@ -4,9 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import dynamic from "next/dynamic";
 import Stripes from "@/components/facile/stripes";
-import { past } from "@/app/utils";
 import { run, slideY, hideRevealY } from "@/app/utils/animations";
-import { useScroll } from "@/hooks/use-scroll";
+import { usePinProgress } from "@/hooks/use-pin-progress";
 import suite from "../suite/suite.json";
 
 const DitherView = dynamic(
@@ -14,14 +13,9 @@ const DitherView = dynamic(
     { ssr: false },
 );
 
-const triggerLine = 0.5;
-
 export default function Suite() {
     const sectionRef = useRef<HTMLElement>(null);
-    const colsSentinel = useRef<HTMLDivElement>(null);
-    const paraSentinel = useRef<HTMLDivElement>(null);
-    const textExitSentinel = useRef<HTMLDivElement>(null);
-    const exitSentinel = useRef<HTMLDivElement>(null);
+    const progressRef = useRef(0);
 
     const lineRefs = useRef<(HTMLSpanElement | null)[]>([]);
     const entryRefs = useRef<(HTMLSpanElement | null)[]>([]);
@@ -50,23 +44,22 @@ export default function Suite() {
     }, []);
 
     // anchors
-    useScroll(() => {
-        const textOut = past(textExitSentinel, triggerLine);
-        const textIn = past(paraSentinel, triggerLine) && !textOut;
+    usePinProgress(sectionRef, (p, visible) => {
+        progressRef.current = p;
+        const textOut = p >= 0.66;
+        const textIn = p > 0.01 && !textOut;
         setShowText(textIn);
         setShowCta(textIn);
         setLeaving(textOut);
 
         // horizontal scroll
         const track = trackRef.current;
-        const sec = sectionRef.current;
-        if (track && sec) {
-            const rect = sec.getBoundingClientRect();
-            const total = rect.height - window.innerHeight;
+        if (track) {
             const dist = track.scrollWidth - window.innerWidth;
-            const progress = gsap.utils.clamp(0, 1, -rect.top / total);
-            gsap.set(track, { x: -progress * dist });
+            gsap.set(track, { x: -p * dist });
         }
+
+        if (!visible) return;
 
         // parallax + track which frame is crossing the screen centre
         const vw = window.innerWidth;
@@ -123,7 +116,7 @@ export default function Suite() {
         <section
             ref={sectionRef}
             id="suite"
-            className="relative w-full mt-32 min-h-[400vh]"
+            className="relative w-full mt-32 min-h-[260vh]"
         >
             <div
                 data-no-shadow
@@ -147,14 +140,14 @@ export default function Suite() {
                     orientation={0}
                     count={4}
                     className="bg-background"
-                    openWhen={() => past(colsSentinel)}
+                    openWhen={() => progressRef.current > 0.01}
                 />
 
                 <Stripes
                     orientation={180}
                     count={4}
                     className="bg-background"
-                    openWhen={() => !past(exitSentinel)}
+                    openWhen={() => progressRef.current < 0.99}
                 />
 
                 <div className="absolute inset-x-0 top-[28%] z-20 flex flex-col items-center px-6 text-center text-foreground pointer-events-none">
@@ -174,6 +167,8 @@ export default function Suite() {
                                     ref={(el) => { imgRefs.current[i] = el; }}
                                     src={p.image}
                                     alt={p.name}
+                                    loading="lazy"
+                                    decoding="async"
                                     className="w-[120%] max-w-none h-full object-cover"
                                 />
                             </div>
@@ -181,27 +176,6 @@ export default function Suite() {
                     </div>
                 </div>
             </div>
-
-            <div
-                ref={colsSentinel}
-                className="absolute top-[4%]  w-full h-px"
-                aria-hidden="true"
-            />
-            <div
-                ref={paraSentinel}
-                className="absolute top-[20%] w-full h-px"
-                aria-hidden="true"
-            />
-            <div
-                ref={textExitSentinel}
-                className="absolute top-[60%] w-full h-px"
-                aria-hidden="true"
-            />
-            <div
-                ref={exitSentinel}
-                className="absolute top-[100%] w-full h-px"
-                aria-hidden="true"
-            />
         </section>
     );
 }

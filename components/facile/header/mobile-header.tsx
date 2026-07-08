@@ -12,7 +12,7 @@ type MobileHeaderProps = {
     switchLocale: (newLocale: Locale) => void;
 };
 
-export const MobileHeader = ({ locale, switchLocale, menuOpen, setMenuOpen }: MobileHeaderProps & { menuOpen: boolean; setMenuOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
+export const MobileHeader = ({ locale, switchLocale, setMenuOpen }: MobileHeaderProps & { menuOpen: boolean; setMenuOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
     const t = useTranslations('common.header');
     const [openHeader, setOpenHeader] = React.useState(false);
 
