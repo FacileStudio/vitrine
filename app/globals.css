@@ -43,6 +43,11 @@ body {
     letter-spacing: -3%;
 }
 
+html,
+body {
+    overflow-x: clip;
+}
+
 html.lenis,
 html.lenis body {
     height: auto;
