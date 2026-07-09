@@ -1,32 +1,77 @@
 [
     {
-        "name": "Opus",
-        "description": "The studio's command centre — projects, clients and deadlines in one fast, focused workspace.",
-        "image": "/images/projects/Gian.webp"
+        "name": "Sablier",
+        "description": "Vos heures facturables, tracées sans friction. Un clic pour lancer, un clic pour arrêter. Ventilation par projet et sessions partagées.",
+        "icon": "solar:hourglass-bold-duotone"
     },
     {
-        "name": "Sablier",
-        "description": "Time tracking that stays out of the way, turning hours into invoices without the busywork.",
-        "image": "/images/projects/Waves.webp"
+        "name": "Opus",
+        "description": "La gestion de projet qui ne vous ralentit pas. Kanban, relations entre tâches, recherche instantanée — le minimum qui fait le maximum.",
+        "icon": "solar:box-minimalistic-bold-duotone"
+    },
+    {
+        "name": "Vision",
+        "description": "L'analytique web qui respecte vos visiteurs. Un script, zéro cookie, données en temps réel. Vous savez d'où vient votre trafic sans vendre l'âme de vos utilisateurs.",
+        "icon": "solar:chart-bold-duotone"
+    },
+    {
+        "name": "Glouton",
+        "description": "Vos prochains clients, trouvés pendant que vous dormez. Glouton crawle le web, détecte les stacks techniques, score les prospects et vous sert les meilleurs sur un plateau.",
+        "icon": "solar:magnifer-bold-duotone"
+    },
+    {
+        "name": "Nook",
+        "description": "Quand quelque chose tombe, vous le savez en premier. Nook centralise les alertes de toute votre infra et les pousse où vous voulez — Discord, Matrix, email, push.",
+        "icon": "solar:bell-bold-duotone"
+    },
+    {
+        "name": "Ardoise",
+        "description": "Facturez, encaissez, oubliez. Stripe intégré, emails automatiques, reçus téléchargeables. Vos clients paient, vous êtes notifié, point.",
+        "icon": "solar:bill-list-bold-duotone"
+    },
+    {
+        "name": "Plume",
+        "description": "La signature électronique sans usine à gaz. Déposez un PDF, placez les champs, envoyez le lien, recevez la preuve signée avec audit trail et webhooks.",
+        "icon": "solar:pen-new-square-bold-duotone"
+    },
+    {
+        "name": "Portail",
+        "description": "Un fichier YAML, et toute votre équipe a une page d'accueil vers chaque service du studio. Déploiements, docs, monitoring, mots de passe — tout en un clic.",
+        "icon": "solar:widget-5-bold-duotone"
+    },
+    {
+        "name": "Nuage",
+        "description": "Le stockage fichiers du studio. Upload, dossiers, recherche — un drive interne connecté à tous vos outils via API. Vos fichiers restent sur votre serveur, pas chez Google.",
+        "icon": "solar:cloud-bold-duotone"
     },
     {
         "name": "Echo",
-        "description": "A feedback loop for creative work — collect, thread and resolve client notes in context.",
-        "image": "/images/projects/EvelyneCrea.webp"
+        "description": "Visioconférence simple et sécurisée. Créez une salle, partagez le lien, c'est tout.",
+        "icon": "solar:videocamera-bold-duotone"
     },
     {
-        "name": "Prisme",
-        "description": "Design tokens and brand systems, kept in sync from Figma to production in a single source.",
-        "image": "/images/projects/LauraHerve.webp"
+        "name": "Capsule",
+        "description": "Partagez un secret qui s'autodétruit. Chiffrement de bout en bout dans le navigateur, zero-knowledge côté serveur. Un lien, une ouverture, puis rien.",
+        "icon": "solar:pills-bold-duotone"
     },
     {
-        "name": "Relai",
-        "description": "Deploys and handoffs made calm — pipelines, previews and rollbacks the whole team can read.",
-        "image": "/images/projects/RetroFestival.webp"
+        "name": "Courrier",
+        "description": "Votre email, chez vous. IMAP et SMTP natifs, multi-comptes, interface épurée. Toute la correspondance du studio sans passer par Gmail.",
+        "icon": "solar:letter-bold-duotone"
     },
     {
-        "name": "Atlas",
-        "description": "The knowledge base that remembers so you don't have to — decisions, specs and playbooks, searchable.",
-        "image": "/images/projects/Mont-k.webp"
+        "name": "Agenda",
+        "description": "Le calendrier partagé du studio. Rendez-vous, deadlines, dispos — tout le monde voit la même chose, sans Google Calendar.",
+        "icon": "solar:calendar-bold-duotone"
+    },
+    {
+        "name": "Scribe",
+        "description": "Transcription de réunions par IA. Capturez l'audio, obtenez le transcript en temps réel et des notes structurées — sujets, décisions, actions.",
+        "icon": "solar:microphone-bold-duotone"
+    },
+    {
+        "name": "Perception",
+        "description": "Perception connecte tous vos outils en un seul cerveau. Clients, contrats, projets, heures — tout est lié. Demandez n'importe quoi en langage naturel, obtenez une réponse sourcée en temps réel.",
+        "icon": "solar:cpu-bold-duotone"
     }
 ]

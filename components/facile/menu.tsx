@@ -38,6 +38,7 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
     const linkRefs = React.useRef<(HTMLAnchorElement | null)[]>([]);
     const [mountDither, setMountDither] = React.useState(false);
     const [showDither, setShowDither] = React.useState(false);
+    const [resolved, setResolved] = React.useState(false);
 
 
     React.useEffect(() => {
@@ -56,9 +57,15 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
             // eslint-disable-next-line react-hooks/set-state-in-effect
             setMountDither(true);
             const id = requestAnimationFrame(() => setShowDither(true));
-            return () => cancelAnimationFrame(id);
+            // let the clip wipe land before the dither grid resolves
+            const t = setTimeout(() => setResolved(true), 800);
+            return () => {
+                cancelAnimationFrame(id);
+                clearTimeout(t);
+            };
         }
         setShowDither(false);
+        setResolved(false);
     }, [menuOpen]);
 
     return (
@@ -82,7 +89,7 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
                     <DitherView
                         file="/models/F.glb"
                         className="absolute top-0 left-0 w-full h-full opacity-33"
-                        gridSize={2}
+                        gridSize={resolved ? 2 : 16}
                         position={[-1, -0.5, -0.5]}
                         rotation={[0, 0.35, 0]}
                         grayscaleOnly={false}

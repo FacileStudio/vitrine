@@ -44,19 +44,21 @@ export default function Projects() {
 
 
 
-    // reveal each project's text + logos as its card scrolls into view (media excluded)
+    // reveal each project's text + logos while its card sits in the centre band,
+    // then hide it again as the card crosses out (media excluded)
     useLayoutEffect(() => {
         const targets = (el: Element) => Array.from(el.querySelectorAll<HTMLElement>("[data-reveal]"));
         contentRefs.current.forEach((el) => el && hideRevealY(targets(el)));
 
         const io = new IntersectionObserver((entries) => {
             entries.forEach((e) => {
-                if (!e.isIntersecting)
-                    return;
-                run(targets(e.target), slideY(true, false, { stagger: 0.08, duration: 0.6 }));
-                io.unobserve(e.target);
+                if (e.isIntersecting) {
+                    run(targets(e.target), slideY(true, false, { stagger: 0.08, duration: 0.6 }));
+                } else {
+                    run(targets(e.target), slideY(false, true, { stagger: 0.04, duration: 0.4 }));
+                }
             });
-        }, { threshold: 0, rootMargin: "0px 0px -40% 0px" });
+        }, { threshold: 0, rootMargin: "-40% 0px -40% 0px" });
 
         contentRefs.current.forEach((el) => el && io.observe(el));
         return () => io.disconnect();
