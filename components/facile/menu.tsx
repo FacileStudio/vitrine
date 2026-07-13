@@ -2,6 +2,7 @@
 
 import React from 'react';
 import dynamic from 'next/dynamic';
+import { useLocale } from 'next-intl';
 import { run, slideY, hideRevealY } from '@/app/utils/animations';
 import { GithubIcon } from '../ui/github';
 import { InstagramIcon } from '../ui/instagram';
@@ -26,15 +27,15 @@ type NavLink = { href: string; label: string; secondary?: SubLink[] };
 // each main entry can carry `secondary` sub-links connected to it (project names,
 // Suite apps, process/service entries, contact channels). rendered under the main link.
 const links: NavLink[] = [
-    { href: '#home', label: 'Home' },
+    { href: '/', label: 'Home' },
     {
-        href: '#projects',
+        href: '/projects',
         label: 'Projects',
         secondary: [
             { href: '/projects/marcel', label: 'Marcel' },
             { href: '/projects/laura-herve', label: 'Laura Hervé' },
-            { href: '/projects/hottake', label: 'Hottake' },
             { href: '/projects/evelynecrea', label: 'Evelyne Créa' },
+            { href: '/projects/solais-intra', label: 'Solaïs' },
         ],
     },
     {
@@ -48,15 +49,13 @@ const links: NavLink[] = [
         ],
     },
     {
-        href: '#process',
+        href: '/process',
         label: 'Process',
         secondary: [
-            { href: '#process', label: 'Branding' },
-            { href: '#process', label: 'Web · UI/UX' },
-            { href: '#process', label: 'Showcase sites' },
-            { href: '#process', label: 'Applications' },
-            { href: '#process', label: 'DevOps' },
-            { href: '#process', label: 'Self-hosting' },
+            { href: '/process#discovery', label: 'Discovery' },
+            { href: '/process#design', label: 'Design' },
+            { href: '/process#development', label: 'Development' },
+            { href: '/process#launch', label: 'Launch & Care' },
         ],
     },
     {
@@ -101,6 +100,9 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
     const linkRefs = React.useRef<(HTMLAnchorElement | null)[]>([]);
     const subRefs = React.useRef<(HTMLAnchorElement | null)[]>([]);
     const contactRefs = React.useRef<(HTMLElement | null)[]>([]);
+    const locale = useLocale();
+    // internal routes need the always-on locale prefix; external URLs (http…) pass through
+    const withLocale = (href: string) => href.startsWith('/') ? `/${locale}${href === '/' ? '' : href}` : href;
     const [mountDither, setMountDither] = React.useState(false);
     const [showDither, setShowDither] = React.useState(false);
     const [resolved, setResolved] = React.useState(false);
@@ -178,7 +180,7 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
                         <div className="block overflow-hidden">
                             <a
                                 ref={(el) => { linkRefs.current[i] = el; }}
-                                href={link.href}
+                                href={withLocale(link.href)}
                                 onClick={() => setMenuOpen(false)}
                                 className="block text-3xl md:text-4xl 3xl:text-5xl font-medium text-white/80 transition-colors hover:text-white"
                             >
@@ -191,7 +193,7 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
                                     <li key={sub.label} className="overflow-hidden">
                                         <a
                                             ref={(el) => { subRefs.current[subBase[i] + j] = el; }}
-                                            href={sub.href}
+                                            href={sub.external ? sub.href : withLocale(sub.href)}
                                             onClick={() => setMenuOpen(false)}
                                             {...(sub.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                                             className="block text-sm md:text-md 3xl:text-lg text-white/45 transition-colors hover:text-white/90"
