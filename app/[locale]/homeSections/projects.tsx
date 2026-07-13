@@ -190,7 +190,7 @@ export default function Projects() {
         <section
             ref={sectionRef}
             id="projects"
-            className="w-full relative min-h-[420vh]"
+            className="w-full relative min-h-[550vh]"
         >
             <div className="absolute inset-0 bg-[#242424] -z-10" aria-hidden="true" />
             <div data-no-shadow className="sticky top-0 h-screen w-full overflow-hidden text-white">
@@ -227,75 +227,75 @@ export default function Projects() {
 
             <div className="w-full h-full flex flex-col justify-start items-center gap-1 pt-160 px-6">
                 {newest.map((p, i) => (
-                    <div key={i} className="w-[70vw] shrink-0 flex items-start justify-between">
-                      <div className="relative shrink-0">
-                        {p.name === "Marcel" && (
-                            <div ref={marcelSpheresRef} className="pointer-events-none absolute bottom-6 z-20 left-1/2 flex -translate-x-1/2 translate-y-1/2 gap-16 will-change-transform">
-                                <div className="w-28 h-28 rounded-full bg-[#95DFE9] shadow-3xl" />
-                                <div className="w-28 h-28 rounded-full bg-[#95DFE9] shadow-3xl" />
-                            </div>
-                        )}
-                        <a
-                            ref={(el) => { if (el) entryRefs.current[i] = el; }}
-                            key={p.slug}
-                            href={p.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onMouseEnter={onEnter}
-                            onMouseLeave={onLeave}
-                            className="group relative w-5xl aspect-16/10 shrink-0 flex flex-col group-hover:bg-black/50 justify-start gap-1 overflow-hidden rounded-md"
-                        >
-                            {p.image && p.name === "Marcel"
-                            ?
-                                <>
-                                    <div ref={(el) => { imgRefs.current[i] = el; }} className="absolute inset-0 will-change-transform">
-                                    <img
-                                        src={p.image}
-                                        alt={p.name}
-                                        loading="lazy"
-                                        decoding="async"
-                                        className="w-full h-full object-cover transition-all brightness-100 duration-300 ease-out"
-                                    />
-                                    <div className="absolute bottom-12 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                                        <div ref={marcelEyesRef} className="flex gap-8 z-30 will-change-transform">
-                                            <div className="w-12 h-60 bg-black rounded-full" />
-                                            <div className="w-12 h-60 bg-black rounded-full" />
-                                        </div>
-                                    </div>
+                    <div key={i} className="3xl:w-[70vw] w-[80vw] shrink-0 flex items-start justify-between">
+                        <div className="relative shrink-0">
+                            {p.name === "Marcel" && (
+                                <div ref={marcelSpheresRef} className="pointer-events-none absolute bottom-6 z-20 left-1/2 flex -translate-x-1/2 translate-y-1/2 gap-16 will-change-transform">
+                                    <div className="w-28 h-28 rounded-full bg-[#95DFE9] shadow-3xl" />
+                                    <div className="w-28 h-28 rounded-full bg-[#95DFE9] shadow-3xl" />
                                 </div>
-                                </>
-                            :
-                                <>
-                                    <div ref={(el) => { imgRefs.current[i] = el; }} className="absolute inset-0 will-change-transform">
+                            )}
+                            <a
+                                ref={(el) => { if (el) entryRefs.current[i] = el; }}
+                                key={p.slug}
+                                href={p.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onMouseEnter={onEnter}
+                                onMouseLeave={onLeave}
+                                className="group relative 3xl:w-5xl w-[50vw] aspect-16/10 shrink-0 flex flex-col group-hover:bg-black/50 justify-start gap-1 overflow-hidden rounded-md"
+                            >
+                                {p.image && p.name === "Marcel"
+                                ?
+                                    <>
+                                        <div ref={(el) => { imgRefs.current[i] = el; }} className="absolute inset-0 will-change-transform">
                                         <img
                                             src={p.image}
                                             alt={p.name}
                                             loading="lazy"
                                             decoding="async"
-                                            className="w-full h-full object-cover transition-all  brightness-100 group-hover:brightness-[0.6] duration-300 ease-out group-hover:scale-110"
+                                            className="w-full h-full object-cover transition-all brightness-100 duration-300 ease-out"
                                         />
+                                        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                                            <div ref={marcelEyesRef} className="flex gap-8 z-30 will-change-transform">
+                                                <div className="w-8 h-40 min-[2560px]:w-12 min-[2560px]:h-60 bg-black rounded-full" />
+                                                <div className="w-8 h-40 min-[2560px]:w-12 min-[2560px]:h-60 bg-black rounded-full" />
+                                            </div>
+                                        </div>
                                     </div>
-
-                                    {p.video && (
-                                        isVideoFile(p.video) ? (
-                                            <video
-                                                data-media
-                                                src={p.video}
-                                                loop muted playsInline preload="none"
-                                                className={mediaClass}
-                                            />
-                                        ) : (
+                                    </>
+                                :
+                                    <>
+                                        <div ref={(el) => { imgRefs.current[i] = el; }} className="absolute inset-0 will-change-transform">
                                             <img
-                                                data-media
-                                                src={p.video}
+                                                src={p.image}
                                                 alt={p.name}
-                                                className={mediaClass}
+                                                loading="lazy"
+                                                decoding="async"
+                                                className="w-full h-full object-cover transition-all  brightness-100 group-hover:brightness-[0.6] duration-300 ease-out group-hover:scale-110"
                                             />
-                                        )
-                                    )}
-                                </>
-                            }
-                        </a>
+                                        </div>
+
+                                        {p.video && (
+                                            isVideoFile(p.video) ? (
+                                                <video
+                                                    data-media
+                                                    src={p.video}
+                                                    loop muted playsInline preload="none"
+                                                    className={mediaClass}
+                                                />
+                                            ) : (
+                                                <img
+                                                    data-media
+                                                    src={p.video}
+                                                    alt={p.name}
+                                                    className={mediaClass}
+                                                />
+                                            )
+                                        )}
+                                    </>
+                                }
+                            </a>
                       </div>
 
                         <div ref={(el) => { contentRefs.current[i] = el; }} className="flex flex-col items-end gap-12 max-w-sm text-right py-12">
