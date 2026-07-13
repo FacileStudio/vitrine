@@ -118,7 +118,9 @@ export default function Projects() {
         const cx = r.left + r.width / 2;
         const cy = r.top + r.height / 2;
 
-        const clampX = gsap.utils.clamp(-150, 150),
+        // eyes travel less on laptop/smaller screens; big monitors (>=2560px) keep the full 150px range
+        const maxX = window.innerWidth >= 2560 ? 150 : 100;
+        const clampX = gsap.utils.clamp(-maxX, maxX),
               clampY = gsap.utils.clamp(-20, 20),
               setX = gsap.quickTo(eyes, "x", { duration: 1.4, ease: "power2.out" }), 
               setY = gsap.quickTo(eyes, "y", { duration: 1.4, ease: "power2.out" }), 
