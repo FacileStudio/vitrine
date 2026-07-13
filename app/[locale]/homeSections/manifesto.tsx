@@ -46,7 +46,7 @@ export default function Manifesto() {
 
 
     return (
-        <section ref={sectionRef} id="manifesto" className="relative w-full mt-32 min-h-[240vh]">
+        <section ref={sectionRef} id="manifesto" className="relative w-full mt-32 min-h-[350vh]">
             <div className="absolute inset-0 bg-white -z-10" aria-hidden="true" />
             <div className="sticky top-0 z-20 h-screen w-full overflow-hidden">
 
@@ -67,7 +67,7 @@ export default function Manifesto() {
 
                 <Stripes orientation={0} count={4} className="bg-background" openWhen={() => progressRef.current > 0.02} />
 
-                <Stripes orientation={180} count={4} className="bg-background" openWhen={() => progressRef.current < 0.81} />
+                <Stripes orientation={180} count={4} className="bg-background" openWhen={() => progressRef.current < 0.90} />
 
                 <div className="absolute inset-0 z-50 flex flex-col items-center justify-center px-6 text-center pointer-events-none">
                     <h2 className="max-w-3xl text-4xl md:text-5xl font-medium leading-tight text-foreground/80">
