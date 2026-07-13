@@ -75,7 +75,8 @@ export default function Projects() {
 
     usePinProgress(sectionRef, (p, visible) => {
         progressRef.current = p;
-        const textOut = p >= 0.28;
+        // heading leaves sooner on laptop/smaller screens; big monitors (>=2560px) keep the later exit
+        const textOut = p >= (window.innerWidth >= 2560 ? 0.28 : 0.20);
         const textIn = p > 0.1 && !textOut;
         setShowText(textIn);
         setShowCta(textIn);
