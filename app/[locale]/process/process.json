@@ -1,0 +1,26 @@
+[
+    {
+        "id": "discovery",
+        "title": "Discovery",
+        "text": "Placeholder copy — replace via the backoffice. We start by understanding your goals, audience and constraints before a single pixel is drawn.",
+        "image": "/images/process/discovery.png"
+    },
+    {
+        "id": "design",
+        "title": "Design",
+        "text": "Placeholder copy — replace via the backoffice. We craft the visual identity and interface, iterating on branding, layout and motion.",
+        "image": "/images/process/design.png"
+    },
+    {
+        "id": "development",
+        "title": "Development",
+        "text": "Placeholder copy — replace via the backoffice. We build fast, accessible and maintainable products with a design-first engineering approach.",
+        "image": "/images/process/development.png"
+    },
+    {
+        "id": "launch",
+        "title": "Launch & Care",
+        "text": "Placeholder copy — replace via the backoffice. We ship, host and keep improving — self-hosted, monitored and cared for over time.",
+        "image": "/images/process/launch.png"
+    }
+]
