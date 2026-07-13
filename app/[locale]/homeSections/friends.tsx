@@ -21,6 +21,8 @@ export default function Friends() {
     const trackRef2 = useRef<HTMLDivElement>(null);
     const offset = useRef(0);
     const offset2 = useRef(0);
+    const half = useRef(0);
+    const half2 = useRef(0);
     const boost = useRef(0);
     const lastScroll = useRef(0);
     const base = 0.6;
@@ -63,6 +65,15 @@ export default function Friends() {
             return;
         lastScroll.current = window.scrollY;
 
+        // scrollWidth never changes here (fixed count of fixed-width cards), so
+        // measure it once and on resize — reading it inside the ticker forces a
+        // synchronous layout flush every frame and thrashes during the reveal.
+        const measure = () => {
+            half.current = track.scrollWidth / 2;
+            if (track2) half2.current = track2.scrollWidth / 2;
+        };
+        measure();
+        window.addEventListener("resize", measure);
 
         const onScroll = () => {
             const y = window.scrollY;
@@ -79,15 +90,15 @@ export default function Friends() {
             const speed = base + boost.current * 0.2;
             boost.current *= 0.4;
 
-            const half = track.scrollWidth / 2;
+            const h = half.current;
             offset.current -= speed;
-            if (half > 0) while (offset.current <= -half) offset.current += half;
+            if (h > 0) while (offset.current <= -h) offset.current += h;
             gsap.set(track, { x: offset.current });
 
             if (track2) {
-                const half2 = track2.scrollWidth / 2;
+                const h2 = half2.current;
                 offset2.current += speed;
-                if (half2 > 0) while (offset2.current >= 0) offset2.current -= half2;
+                if (h2 > 0) while (offset2.current >= 0) offset2.current -= h2;
                 gsap.set(track2, { x: offset2.current });
             }
         };
@@ -97,6 +108,7 @@ export default function Friends() {
         return () => {
             gsap.ticker.remove(tick);
             window.removeEventListener("scroll", onScroll);
+            window.removeEventListener("resize", measure);
         };
     }, []);
 
