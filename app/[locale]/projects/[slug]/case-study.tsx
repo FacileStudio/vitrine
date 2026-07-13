@@ -1,10 +1,12 @@
 'use client'
 
 import data from "../projects.json"
-import React from "react"
+import React, { useState } from "react"
 import { notFound, useParams, useRouter } from "next/navigation"
-import { useTranslations } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
 import { TransitionIn, TransitionOut } from "@/components/facile/pageTransition"
+import Header from "@/components/facile/header"
+import Menu from "@/components/facile/menu"
 
 type Project = (typeof data)[number]
 
@@ -19,8 +21,10 @@ function findNextProject(currentSlug: string): Project {
 }
 
 export default function CaseStudyPage() {
+    const [menuOpen, setMenuOpen] = useState(false)
     const params = useParams<{ slug: string }>()
     const router = useRouter()
+    const locale = useLocale()
     const t = useTranslations("portfolio.caseStudy")
 
     React.useEffect(() => TransitionIn(0), [])
@@ -34,81 +38,104 @@ export default function CaseStudyPage() {
     const nextProject = findNextProject(project.slug)
     const isTier1 = project.tier === 1
 
-    const handleNavigation = (href: string) => {
-        TransitionOut({ href, router })
+    // routes live under /[locale]/ (no middleware), so navigation must carry the locale
+    const handleNavigation = (path: string) => {
+        TransitionOut({ href: `/${locale}${path}`, router })
     }
 
     return (
-        <article>
-            <button onClick={() => handleNavigation("/projects")}>
-                {t("backToProjects")}
-            </button>
+        <div className="relative min-h-screen w-full bg-[#111] text-white">
+            <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 
-            <header>
-                <h1>{project.name}</h1>
-                <p>{t(`${project.slug}.tagline`)}</p>
-                {project.link && (
-                    <a href={project.link} target="_blank" rel="noopener noreferrer">
-                        {project.link.includes("github.com") ? t("viewSource") : t("viewLive")}
-                    </a>
-                )}
-            </header>
+            <article className="mx-auto max-w-4xl px-6 pb-32 pt-32 md:px-10 3xl:max-w-6xl">
+                <button
+                    onClick={() => handleNavigation("/projects")}
+                    className="text-sm text-white/50 transition-colors hover:text-white"
+                >
+                    ← {t("backToProjects")}
+                </button>
 
-            <div>
-                <div>
-                    <span>{t("techStack")}</span>
+                <header className="mt-10 border-b border-white/10 pb-12">
+                    <h1 className="text-6xl font-medium leading-none 3xl:text-8xl">{project.name}</h1>
+                    <p className="mt-6 max-w-[55ch] text-lg text-white/60">{t(`${project.slug}.tagline`)}</p>
+                    {project.link && (
+                        <a
+                            href={project.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#24E27A] px-6 py-3 text-sm font-medium text-[#111] transition-transform hover:scale-105"
+                        >
+                            {project.link.includes("github.com") ? t("viewSource") : t("viewLive")}
+                            <span aria-hidden="true">↗</span>
+                        </a>
+                    )}
+                </header>
+
+                <div className="mt-12 flex flex-wrap items-start justify-between gap-8">
                     <div>
-                        {project.techStack?.map((tech) => (
-                            <span key={tech}>{tech}</span>
-                        ))}
+                        <span className="text-xs uppercase tracking-widest text-white/40">{t("techStack")}</span>
+                        <div className="mt-3 flex flex-wrap gap-2">
+                            {project.techStack?.map((tech) => (
+                                <span key={tech} className="rounded-full border border-white/15 px-3 py-1 text-sm text-white/70">
+                                    {tech}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+                    <div className="text-right">
+                        <span className="text-xs uppercase tracking-widest text-white/40">{t("duration")}</span>
+                        <div className="mt-3 text-lg">{project.weeks} {t("weeks")}</div>
                     </div>
                 </div>
-                <div>
-                    <span>{t("duration")}</span>
-                    <span>{project.weeks} {t("weeks")}</span>
+
+                <div className="mt-16 flex flex-col gap-14">
+                    {isTier1 ? (
+                        <>
+                            <Section title={t("challengeTitle")}>{t(`${project.slug}.challenge`)}</Section>
+                            <Section title={t("approachTitle")}>{t(`${project.slug}.approach`)}</Section>
+                            <Section title={t("resultTitle")}>{t(`${project.slug}.result`)}</Section>
+
+                            <section>
+                                <h2 className="text-sm uppercase tracking-widest text-[#24E27A]">{t("featuresTitle")}</h2>
+                                <ul className="mt-4 flex flex-col gap-2">
+                                    {(t.raw(`${project.slug}.features`) as string[]).map((feature) => (
+                                        <li key={feature} className="flex gap-3 text-white/70">
+                                            <span className="text-[#24E27A]" aria-hidden="true">—</span>
+                                            {feature}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </section>
+                        </>
+                    ) : (
+                        <Section title={t("scopeTitle")}>{t(`${project.slug}.scope`)}</Section>
+                    )}
                 </div>
-            </div>
 
-            <div>
-                {isTier1 ? (
-                    <>
-                        <section>
-                            <h2>{t("challengeTitle")}</h2>
-                            <p>{t(`${project.slug}.challenge`)}</p>
-                        </section>
+                <footer className="mt-24 border-t border-white/10 pt-10">
+                    <span className="text-xs uppercase tracking-widest text-white/40">{t("nextProject")}</span>
+                    <button
+                        onClick={() => handleNavigation(`/projects/${nextProject.slug}`)}
+                        className="group mt-3 flex w-full items-center justify-between text-left"
+                    >
+                        <span className="text-4xl font-medium transition-transform duration-300 group-hover:translate-x-2 3xl:text-5xl">
+                            {nextProject.name}
+                        </span>
+                        <span className="text-white/30 transition-all duration-300 group-hover:translate-x-1 group-hover:text-white">→</span>
+                    </button>
+                </footer>
+            </article>
 
-                        <section>
-                            <h2>{t("approachTitle")}</h2>
-                            <p>{t(`${project.slug}.approach`)}</p>
-                        </section>
+            <Menu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+        </div>
+    )
+}
 
-                        <section>
-                            <h2>{t("resultTitle")}</h2>
-                            <p>{t(`${project.slug}.result`)}</p>
-                        </section>
-
-                        <section>
-                            <h2>{t("featuresTitle")}</h2>
-                            <ul>
-                                {(t.raw(`${project.slug}.features`) as string[]).map((feature) => (
-                                    <li key={feature}>{feature}</li>
-                                ))}
-                            </ul>
-                        </section>
-                    </>
-                ) : (
-                    <section>
-                        <h2>{t("scopeTitle")}</h2>
-                        <p>{t(`${project.slug}.scope`)}</p>
-                    </section>
-                )}
-            </div>
-
-            <footer>
-                <button onClick={() => handleNavigation(`/projects/${nextProject.slug}`)}>
-                    {nextProject.name}
-                </button>
-            </footer>
-        </article>
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
+    return (
+        <section>
+            <h2 className="text-sm uppercase tracking-widest text-[#24E27A]">{title}</h2>
+            <p className="mt-4 max-w-[65ch] text-white/70">{children}</p>
+        </section>
     )
 }
