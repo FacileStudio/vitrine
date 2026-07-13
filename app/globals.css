@@ -37,6 +37,9 @@
     --color-background: var(--background);
     --color-foreground: var(--foreground);
     --font-goga: "Goga", sans-serif;
+    /* `3xl:` variant — applies from really big screens (2560px), matching the
+       min-[2560px] cutoff used elsewhere for big-monitor tuning */
+    --breakpoint-3xl: 160rem;
 }
 
 body {
