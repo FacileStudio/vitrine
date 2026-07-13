@@ -190,7 +190,7 @@ export default function Projects() {
         <section
             ref={sectionRef}
             id="projects"
-            className="w-full relative min-h-[550vh]"
+            className="w-full relative min-h-[600vh]"
         >
             <div className="absolute inset-0 bg-[#242424] -z-10" aria-hidden="true" />
             <div data-no-shadow className="sticky top-0 h-screen w-full overflow-hidden text-white">
@@ -210,7 +210,7 @@ export default function Projects() {
                 />
 
                 <Stripes orientation={0}   count={4} className="bg-background" openWhen={() => progressRef.current > 0.02} />
-                <Stripes orientation={180} count={4} className="bg-background" openWhen={() => progressRef.current < 0.92} />
+                <Stripes orientation={180} count={4} className="bg-background" openWhen={() => progressRef.current < 0.95} />
 
                 <div className="absolute inset-0 z-50 flex flex-col items-center justify-center px-6 text-center pointer-events-none">
                     <h2 className="max-w-3xl text-4xl md:text-5xl font-medium leading-tight">
