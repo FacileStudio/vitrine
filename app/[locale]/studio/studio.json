@@ -1,0 +1,49 @@
+[
+    {
+        "slug": "yann",
+        "name": "Yann",
+        "role": "Developer",
+        "description": "Placeholder bio for Yann — replace via the backoffice. Full-stack developer at Facile Studio.",
+        "model": "/models/F.glb",
+        "highlight": "#24E27A",
+        "socials": [
+            { "label": "LinkedIn", "href": "https://linkedin.com/in/thevyann" },
+            { "label": "GitHub", "href": "https://www.github.com/saravenpi" }
+        ]
+    },
+    {
+        "slug": "noah",
+        "name": "Noah",
+        "role": "Designer & Developer",
+        "description": "Placeholder bio for Noah — replace via the backoffice. Design-focused developer at Facile Studio.",
+        "model": "/models/F.glb",
+        "highlight": "#95DFE9",
+        "socials": [
+            { "label": "Dribbble", "href": "https://www.dribbble.com/webbygian" },
+            { "label": "GitHub", "href": "https://www.github.com/G1anC" },
+            { "label": "Instagram", "href": "https://www.instagram.com/webbygian" }
+        ]
+    },
+    {
+        "slug": "mazouz",
+        "name": "Mazouz",
+        "role": "Developer",
+        "description": "Placeholder bio for Mazouz — replace via the backoffice. Developer at Facile Studio.",
+        "model": "/models/F.glb",
+        "highlight": "#E9A895",
+        "socials": [
+            { "label": "GitHub", "href": "https://www.github.com/MezzLMC" }
+        ]
+    },
+    {
+        "slug": "camille",
+        "name": "Camille",
+        "role": "Designer",
+        "description": "Placeholder bio for Camille — replace via the backoffice. Designer at Facile Studio.",
+        "model": "/models/F.glb",
+        "highlight": "#C495E9",
+        "socials": [
+            { "label": "Instagram", "href": "https://www.instagram.com/camg_raphic/" }
+        ]
+    }
+]
