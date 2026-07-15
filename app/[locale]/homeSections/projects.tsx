@@ -1,6 +1,6 @@
 import gsap from "gsap";
 import Stripes from "@/components/facile/stripes";
-import { useRef, useState, useEffect, useLayoutEffect, type MouseEvent } from "react";
+import { useRef, useState, useEffect, useLayoutEffect, type RefObject, type MouseEvent } from "react";
 import { usePinProgress } from "@/hooks/use-pin-progress";
 import dynamic from "next/dynamic";
 import projects from "../projects/projects.json";
@@ -11,12 +11,179 @@ const DitherView = dynamic(
     { ssr: false },
 );
 
+type Project = (typeof projects)[number];
+
 const newest = projects.slice(0, 4);
 
 // the hover media can be a real video or just an image (e.g. a static webp) — a
 // <video> can't render an image, so pick the element by extension
 const isVideoFile = (src: string) => /\.(mp4|webm|ogg|mov)$/i.test(src);
 const mediaClass = "pointer-events-none absolute rounded object-cover will-change-[clip-path] [clip-path:inset(100%_0_0_0)] rounded-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4/5";
+
+
+
+interface ProjectsHeadingProps {
+    setLineRef: (i: number) => (el: HTMLSpanElement | null) => void;
+    progressRef: RefObject<number>;
+    showText: boolean;
+}
+
+// the pinned top of the section: dithered backdrop, the sliding stripes and the
+// "our latest projects" heading whose lines are animated by the parent
+function ProjectsHeading({ setLineRef, progressRef, showText }: ProjectsHeadingProps) {
+    return (
+        <div data-no-shadow className="sticky top-0 h-screen w-full overflow-hidden text-white">
+            <DitherView
+                className="absolute inset-0 w-full h-full z-0 opacity-20"
+                background={null}
+                highlight="#24E27A"
+                grayscaleOnly={false}
+                intensity={1.8}
+                parallax={0.7}
+                gridSize={showText ? 2 : 9}
+                file="/models/manifesto.glb"
+                models={[
+                    { file: "/models/manifesto.glb", position: [3, 1, 0] },
+                    { file: "/models/manifesto.glb", position: [-3, -2, 0] },
+                ]}
+            />
+
+            <Stripes orientation={0}   count={4} className="bg-background" openWhen={() => progressRef.current > 0.02} />
+            <Stripes orientation={180} count={4} className="bg-background" openWhen={() => progressRef.current < 0.95} />
+
+            <div className="absolute inset-0 z-50 flex flex-col items-center justify-center px-6 text-center pointer-events-none">
+                <h2 className="max-w-3xl text-4xl md:text-5xl font-medium leading-tight">
+                    {["Take a look at", "our latest projects."].map((line, i) =>
+                        <span key={i} className="block overflow-hidden">
+                            <span ref={setLineRef(i)} className="block">
+                                {line}
+                            </span>
+                        </span>
+                    )}
+                </h2>
+            </div>
+        </div>
+    );
+}
+
+
+
+interface ProjectCardProps {
+    p: Project;
+    index: number;
+    setEntryRef: (i: number) => (el: HTMLAnchorElement | null) => void;
+    setImgRef: (i: number) => (el: HTMLDivElement | null) => void;
+    setContentRef: (i: number) => (el: HTMLDivElement | null) => void;
+    marcelEyesRef: RefObject<HTMLDivElement | null>;
+    marcelSpheresRef: RefObject<HTMLDivElement | null>;
+    onEnter: (e: MouseEvent<HTMLAnchorElement>) => void;
+    onLeave: (e: MouseEvent<HTMLAnchorElement>) => void;
+}
+
+// one project row: parallaxed cover image on the left with the hover media wipe,
+// its name/tech/description on the right. Marcel gets the extra googly-eyes markup
+function ProjectCard({ p, index, setEntryRef, setImgRef, setContentRef, marcelEyesRef, marcelSpheresRef, onEnter, onLeave }: ProjectCardProps) {
+    return (
+        <div className="3xl:w-[70vw] w-[80vw] shrink-0 flex items-start justify-between">
+            <div className="relative shrink-0">
+                {p.name === "Marcel" && (
+                    <div ref={marcelSpheresRef} className="pointer-events-none absolute bottom-6 z-20 left-1/2 flex -translate-x-1/2 translate-y-1/2 gap-16 will-change-transform">
+                        <div className="w-28 h-28 rounded-full bg-[#95DFE9] shadow-3xl" />
+                        <div className="w-28 h-28 rounded-full bg-[#95DFE9] shadow-3xl" />
+                    </div>
+                )}
+                <a
+                    ref={setEntryRef(index)}
+                    href={p.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onMouseEnter={onEnter}
+                    onMouseLeave={onLeave}
+                    className="group relative 3xl:w-5xl w-[50vw] aspect-16/10 shrink-0 flex flex-col group-hover:bg-black/50 justify-start gap-1 overflow-hidden rounded-md"
+                >
+                    {p.image && p.name === "Marcel"
+                    ?
+                        <>
+                            <div ref={setImgRef(index)} className="absolute inset-0 will-change-transform">
+                            <img
+                                src={p.image}
+                                alt={p.name}
+                                loading="lazy"
+                                decoding="async"
+                                className="w-full h-full object-cover transition-all brightness-100 duration-300 ease-out"
+                            />
+                            <div className="absolute bottom-12 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                                <div ref={marcelEyesRef} className="flex gap-8 z-30 will-change-transform">
+                                    <div className="w-8 h-40 min-[2560px]:w-12 min-[2560px]:h-60 bg-black rounded-full" />
+                                    <div className="w-8 h-40 min-[2560px]:w-12 min-[2560px]:h-60 bg-black rounded-full" />
+                                </div>
+                            </div>
+                        </div>
+                        </>
+                    :
+                        <>
+                            <div ref={setImgRef(index)} className="absolute inset-0 will-change-transform">
+                                <img
+                                    src={p.image}
+                                    alt={p.name}
+                                    loading="lazy"
+                                    decoding="async"
+                                    className="w-full h-full object-cover transition-all  brightness-100 group-hover:brightness-[0.6] duration-300 ease-out group-hover:scale-110"
+                                />
+                            </div>
+
+                            {p.video && (
+                                isVideoFile(p.video) ? (
+                                    <video
+                                        data-media
+                                        src={p.video}
+                                        loop muted playsInline preload="none"
+                                        className={mediaClass}
+                                    />
+                                ) : (
+                                    <img
+                                        data-media
+                                        src={p.video}
+                                        alt={p.name}
+                                        className={mediaClass}
+                                    />
+                                )
+                            )}
+                        </>
+                    }
+                </a>
+          </div>
+
+            <div ref={setContentRef(index)} className="flex flex-col items-end gap-12 max-w-sm text-right py-12">
+                <span className="relative z-10 block overflow-hidden">
+                    <span data-reveal className="block text-5xl font-medium text-white">
+                        {p.name}
+                    </span>
+                </span>
+                <span className="relative z-10 block overflow-hidden">
+                    <span data-reveal className="flex flex-wrap justify-end gap-6">
+                        {p.techStack?.map((name) => (
+                            <img key={name} src={`/images/logo/${name}.png`} alt={name} className="h-5" />
+                        ))}
+                    </span>
+                </span>
+                {p.description && (
+                    <ul className="relative z-10 flex flex-col gap-4">
+                        {p.description.match(/[^.!?]+[.!?]+|\S+$/g)?.map((sentence, i) => (
+                            <li key={i} className="overflow-hidden">
+                                <span data-reveal className="block text-md font-medium text-white/50">
+                                    {sentence.trim()}
+                                </span>
+                            </li>
+                        ))}
+                    </ul>
+                )}
+            </div>
+        </div>
+    );
+}
+
+
 
 export default function Projects() {
     const sectionRef = useRef<HTMLElement>(null);
@@ -34,6 +201,13 @@ export default function Projects() {
     const [showText, setShowText] = useState(false);
     const [showCta, setShowCta] = useState(false);
     const [leaving, setLeaving] = useState(false);
+
+    // callback-ref setters: the refs are owned here, so the children just receive
+    // a per-index setter instead of writing into a ref object passed as a prop
+    const setLineRef = (i: number) => (el: HTMLSpanElement | null) => { lineRefs.current[i] = el; };
+    const setEntryRef = (i: number) => (el: HTMLAnchorElement | null) => { if (el) entryRefs.current[i] = el; };
+    const setImgRef = (i: number) => (el: HTMLDivElement | null) => { imgRefs.current[i] = el; };
+    const setContentRef = (i: number) => (el: HTMLDivElement | null) => { contentRefs.current[i] = el; };
 
 
 
@@ -76,8 +250,8 @@ export default function Projects() {
     usePinProgress(sectionRef, (p, visible) => {
         progressRef.current = p;
         // heading leaves sooner on laptop/smaller screens; big monitors (>=2560px) keep the later exit
-        const textOut = p >= (window.innerWidth >= 2560 ? 0.28 : 0.20);
-        const textIn = p > 0.1 && !textOut;
+        const textOut = p >= (window.innerWidth >= 2560 ? 0.28 : 0.24);
+        const textIn = p > 0.08 && !textOut;
         setShowText(textIn);
         setShowCta(textIn);
         setLeaving(textOut);
@@ -122,9 +296,9 @@ export default function Projects() {
         const maxX = window.innerWidth >= 2560 ? 150 : 100;
         const clampX = gsap.utils.clamp(-maxX, maxX),
               clampY = gsap.utils.clamp(-20, 20),
-              setX = gsap.quickTo(eyes, "x", { duration: 1.4, ease: "power2.out" }), 
-              setY = gsap.quickTo(eyes, "y", { duration: 1.4, ease: "power2.out" }), 
-              spheres = marcelSpheresRef.current, 
+              setX = gsap.quickTo(eyes, "x", { duration: 1.4, ease: "power2.out" }),
+              setY = gsap.quickTo(eyes, "y", { duration: 1.4, ease: "power2.out" }),
+              spheres = marcelSpheresRef.current,
               setSphX = spheres ? gsap.quickTo(spheres, "x", { duration: 1.6, ease: "power2.out", delay: 0.2 }) : null;
 
         const move = (e: PointerEvent) => {
@@ -190,140 +364,26 @@ export default function Projects() {
         <section
             ref={sectionRef}
             id="projects"
-            className="w-full relative min-h-[600vh]"
+            className="w-full relative min-h-[650vh]"
         >
             <div className="absolute inset-0 bg-[#242424] -z-10" aria-hidden="true" />
-            <div data-no-shadow className="sticky top-0 h-screen w-full overflow-hidden text-white">
-                <DitherView
-                    className="absolute inset-0 w-full h-full z-0 opacity-20"
-                    background={null}
-                    highlight="#24E27A"
-                    grayscaleOnly={false}
-                    intensity={1.8}
-                    parallax={0.7}
-                    gridSize={showText ? 2 : 9}
-                    file="/models/manifesto.glb"
-                    models={[
-                        { file: "/models/manifesto.glb", position: [3, 1, 0] },
-                        { file: "/models/manifesto.glb", position: [-3, -2, 0] },
-                    ]}
-                />
 
-                <Stripes orientation={0}   count={4} className="bg-background" openWhen={() => progressRef.current > 0.02} />
-                <Stripes orientation={180} count={4} className="bg-background" openWhen={() => progressRef.current < 0.95} />
+            <ProjectsHeading setLineRef={setLineRef} progressRef={progressRef} showText={showText} />
 
-                <div className="absolute inset-0 z-50 flex flex-col items-center justify-center px-6 text-center pointer-events-none">
-                    <h2 className="max-w-3xl text-4xl md:text-5xl font-medium leading-tight">
-                        {["Take a look at", "our latest projects."].map((line, i) => 
-                            <span key={i} className="block overflow-hidden">
-                                <span ref={(el) => { lineRefs.current[i] = el; }} className="block">
-                                    {line}
-                                </span>
-                            </span>
-                        )}
-                    </h2>
-                </div>
-            </div>
-
-            <div className="w-full h-full flex flex-col justify-start items-center gap-1 pt-160 px-6">
+            <div className="w-full h-full flex flex-col justify-start items-center gap-1 pt-240 px-6">
                 {newest.map((p, i) => (
-                    <div key={i} className="3xl:w-[70vw] w-[80vw] shrink-0 flex items-start justify-between">
-                        <div className="relative shrink-0">
-                            {p.name === "Marcel" && (
-                                <div ref={marcelSpheresRef} className="pointer-events-none absolute bottom-6 z-20 left-1/2 flex -translate-x-1/2 translate-y-1/2 gap-16 will-change-transform">
-                                    <div className="w-28 h-28 rounded-full bg-[#95DFE9] shadow-3xl" />
-                                    <div className="w-28 h-28 rounded-full bg-[#95DFE9] shadow-3xl" />
-                                </div>
-                            )}
-                            <a
-                                ref={(el) => { if (el) entryRefs.current[i] = el; }}
-                                key={p.slug}
-                                href={p.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onMouseEnter={onEnter}
-                                onMouseLeave={onLeave}
-                                className="group relative 3xl:w-5xl w-[50vw] aspect-16/10 shrink-0 flex flex-col group-hover:bg-black/50 justify-start gap-1 overflow-hidden rounded-md"
-                            >
-                                {p.image && p.name === "Marcel"
-                                ?
-                                    <>
-                                        <div ref={(el) => { imgRefs.current[i] = el; }} className="absolute inset-0 will-change-transform">
-                                        <img
-                                            src={p.image}
-                                            alt={p.name}
-                                            loading="lazy"
-                                            decoding="async"
-                                            className="w-full h-full object-cover transition-all brightness-100 duration-300 ease-out"
-                                        />
-                                        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                                            <div ref={marcelEyesRef} className="flex gap-8 z-30 will-change-transform">
-                                                <div className="w-8 h-40 min-[2560px]:w-12 min-[2560px]:h-60 bg-black rounded-full" />
-                                                <div className="w-8 h-40 min-[2560px]:w-12 min-[2560px]:h-60 bg-black rounded-full" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    </>
-                                :
-                                    <>
-                                        <div ref={(el) => { imgRefs.current[i] = el; }} className="absolute inset-0 will-change-transform">
-                                            <img
-                                                src={p.image}
-                                                alt={p.name}
-                                                loading="lazy"
-                                                decoding="async"
-                                                className="w-full h-full object-cover transition-all  brightness-100 group-hover:brightness-[0.6] duration-300 ease-out group-hover:scale-110"
-                                            />
-                                        </div>
-
-                                        {p.video && (
-                                            isVideoFile(p.video) ? (
-                                                <video
-                                                    data-media
-                                                    src={p.video}
-                                                    loop muted playsInline preload="none"
-                                                    className={mediaClass}
-                                                />
-                                            ) : (
-                                                <img
-                                                    data-media
-                                                    src={p.video}
-                                                    alt={p.name}
-                                                    className={mediaClass}
-                                                />
-                                            )
-                                        )}
-                                    </>
-                                }
-                            </a>
-                      </div>
-
-                        <div ref={(el) => { contentRefs.current[i] = el; }} className="flex flex-col items-end gap-12 max-w-sm text-right py-12">
-                            <span className="relative z-10 block overflow-hidden">
-                                <span data-reveal className="block text-5xl font-medium text-white">
-                                    {p.name}
-                                </span>
-                            </span>
-                            <span className="relative z-10 block overflow-hidden">
-                                <span data-reveal className="flex flex-wrap justify-end gap-6">
-                                    {p.techStack?.map((name) => (
-                                        <img key={name} src={`/images/logo/${name}.png`} alt={name} className="h-5" />
-                                    ))}
-                                </span>
-                            </span>
-                            {p.description && (
-                                <ul className="relative z-10 flex flex-col gap-4">
-                                    {p.description.match(/[^.!?]+[.!?]+|\S+$/g)?.map((sentence, i) => (
-                                        <li key={i} className="overflow-hidden">
-                                            <span data-reveal className="block text-md font-medium text-white/50">
-                                                {sentence.trim()}
-                                            </span>
-                                        </li>
-                                    ))}
-                                </ul>
-                            )}
-                        </div>
-                    </div>
+                    <ProjectCard
+                        key={i}
+                        p={p}
+                        index={i}
+                        setEntryRef={setEntryRef}
+                        setImgRef={setImgRef}
+                        setContentRef={setContentRef}
+                        marcelEyesRef={marcelEyesRef}
+                        marcelSpheresRef={marcelSpheresRef}
+                        onEnter={onEnter}
+                        onLeave={onLeave}
+                    />
                 ))}
             </div>
         </section>
