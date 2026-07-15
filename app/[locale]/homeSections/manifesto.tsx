@@ -24,8 +24,8 @@ export default function Manifesto() {
     // anchors: derive text flags from scroll position; reveal replays when the section re-pins
     usePinProgress(sectionRef, (p) => {
         progressRef.current = p;
-        const textOut = p >= 0.47;
-        const textIn = p > 0.02 && !textOut;
+        const textOut = p >= 0.7;
+        const textIn = p > 0.20 && !textOut;
         setShowText(textIn);
         setShowCta(textIn);
         setLeaving(textOut);
@@ -46,7 +46,7 @@ export default function Manifesto() {
 
 
     return (
-        <section ref={sectionRef} id="manifesto" className="relative w-full mt-32 min-h-[350vh]">
+        <section ref={sectionRef} id="manifesto" className="relative w-full mt-32 min-h-[400vh]">
             <div className="absolute inset-0 bg-white -z-10" aria-hidden="true" />
             <div className="sticky top-0 z-20 h-screen w-full overflow-hidden">
 
