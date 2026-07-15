@@ -36,6 +36,9 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env
 
+# local npm config (kept tracked for shared legacy-peer-deps; local edits skipped via skip-worktree)
+.npmrc
+
 # vercel
 .vercel
 
