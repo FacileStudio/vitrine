@@ -83,15 +83,15 @@ export default function Hero({ charged }: { charged: boolean }) {
                 </div>
             </div>
 
-            <div className="absolute bottom-0 flex flex-col-reverse lg:flex-row items-end justify-between w-full p-4 lg:px-15 lg:pb-12">
-                <span className="block overflow-hidden lg:w-2/3 w-full">
+            <div className="absolute bottom-0 left-0 flex flex-col-reverse lg:flex-row items-end justify-between w-full p-4 lg:px-15 lg:pb-12">
+                <span className="block overflow-hidden">
                     <img
                         ref={(el) => {
                             lineRefs.current[5] = el;
                         }}
                         src="/Facile.svg"
                         alt="Facile Logo"
-                        className="w-full aspect-auto max-h-[50vh]"
+                        className="w-full aspect-auto max-h-[33vh] h-full"
                     />
                 </span>
 
