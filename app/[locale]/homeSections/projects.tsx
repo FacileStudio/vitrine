@@ -115,8 +115,8 @@ function ProjectCard({ p, index, setEntryRef, setImgRef, setContentRef, marcelEy
                             />
                             <div className="absolute bottom-12 left-1/2 -translate-x-1/2 -translate-y-1/2">
                                 <div ref={marcelEyesRef} className="flex gap-8 z-30 will-change-transform">
-                                    <div className="w-8 h-40 min-[2560px]:w-12 min-[2560px]:h-60 bg-black rounded-full" />
-                                    <div className="w-8 h-40 min-[2560px]:w-12 min-[2560px]:h-60 bg-black rounded-full" />
+                                    <div className="w-10 h-48 min-[2560px]:w-12 min-[2560px]:h-60 bg-black rounded-full" />
+                                    <div className="w-10 h-48 min-[2560px]:w-12 min-[2560px]:h-60 bg-black rounded-full" />
                                 </div>
                             </div>
                         </div>
@@ -289,9 +289,9 @@ export default function Projects() {
         const cy = r.top + r.height / 2;
 
         // eyes travel less on laptop/smaller screens; big monitors (>=2560px) keep the full 150px range
-        const maxX = window.innerWidth >= 2560 ? 150 : 100;
+        const maxX = window.innerWidth >= 2560 ? 150 : 130;
         const clampX = gsap.utils.clamp(-maxX, maxX),
-              clampY = gsap.utils.clamp(-20, 20),
+              clampY = gsap.utils.clamp(-60, 20),
               setX = gsap.quickTo(eyes, "x", { duration: 1.4, ease: "power2.out" }),
               setY = gsap.quickTo(eyes, "y", { duration: 1.4, ease: "power2.out" }),
               spheres = marcelSpheresRef.current,
