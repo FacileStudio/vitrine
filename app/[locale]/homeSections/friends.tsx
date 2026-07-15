@@ -1,21 +1,21 @@
 'use client'
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { run, slideY, hideRevealY } from "@/app/utils/animations";
 import { useScroll } from "@/hooks/use-scroll";
 
-export default function Friends() {
-    const icons = [
-        { src: "LH", name: "Laura Herve" },
-        { src: "Lpb", name: "Les P'tits Bonheurs" },
-        { src: "Marcel", name: "Marcel" },
-        { src: "Zero", name: "Projet Zero" },
-        { src: "Heranova", name: "Heranova" },
-        { src: "Equinox", name: "Equinox Studio" },
-        { src: "Solais", name: "Solaïs" },
-    ]
+const icons = [
+    { src: "LH", name: "Laura Herve" },
+    { src: "Lpb", name: "Les P'tits Bonheurs" },
+    { src: "Marcel", name: "Marcel" },
+    { src: "Zero", name: "Projet Zero" },
+    { src: "Heranova", name: "Heranova" },
+    { src: "Equinox", name: "Equinox Studio" },
+    { src: "Solais", name: "Solaïs" },
+];
 
+export default function Friends() {
     const sectionRef = useRef<HTMLElement>(null);
     const trackRef = useRef<HTMLDivElement>(null);
     const trackRef2 = useRef<HTMLDivElement>(null);
@@ -27,10 +27,38 @@ export default function Friends() {
     const lastScroll = useRef(0);
     const base = 0.6;
 
-    const bothTracks = () => [
+    // one marquee track's worth of cards; both tracks render the same set (one
+    // reversed) so the loop drifts seamlessly in either direction
+    const cards = (list: typeof icons) =>
+        list.map((icon, i) => (
+            <div key={i} className="shrink-0 flex w-70 h-70 bg-white/33 flex-col justify-center rounded-2xl items-center gap-12">
+                <img src={`/images/icons/${icon.src}.png`} alt={icon.name} loading="lazy" decoding="async" className="h-20 opacity-80" />
+                <span className="text-sm font-medium opacity-60 whitespace-nowrap">{icon.name}</span>
+            </div>
+        ));
+
+    const allCards = useCallback(() => [
         ...(trackRef.current?.children ?? []),
         ...(trackRef2.current?.children ?? []),
-    ] as HTMLElement[];
+    ] as HTMLElement[], []);
+
+    // Each track duplicates the icons 3x for the marquee loop, so only ~10 of the
+    // 42 cards are ever on screen. Animating all 42 at reveal promotes a GPU layer
+    // per card and thrashes the huge track layers — that's the freeze. Instead we
+    // only slide the cards actually in the viewport; the rest are snapped straight
+    // to their resting position (off-screen, so unseen) and scroll in already set.
+    // split the full card set into on-screen / off-screen in one pass, so the
+    // reveal effect only measures the DOM once rather than per helper call
+    const partitionCards = useCallback(() => {
+        const vw = window.innerWidth;
+        const onScreen: HTMLElement[] = [];
+        const offScreen: HTMLElement[] = [];
+        for (const el of allCards()) {
+            const r = el.getBoundingClientRect();
+            (r.right > 0 && r.left < vw ? onScreen : offScreen).push(el);
+        }
+        return { onScreen, offScreen };
+    }, [allCards]);
 
     const [showIcons, setShowIcons] = useState(false);
     const [leaving, setLeaving] = useState(false);
@@ -47,15 +75,19 @@ export default function Friends() {
         setShowIcons(rect.top + rect.height * 0.3 < vh * 0.8 && !gone);
     });
 
-    // hide every icon (revealY: parked below its slot) before the first reveal
+    // park every card below its slot before the first reveal (a single static set —
+    // no tweens, no layer promotion, and the section is off-screen so nothing flashes)
     useEffect(() => {
-        hideRevealY(bothTracks());
-    }, []);
+        hideRevealY(allCards());
+    }, [allCards]);
 
-    // stagger the icons in when the sentinel is reached
+    // reveal: only stagger the on-screen cards; snap the off-screen duplicates to
+    // their resting spot so they never scroll in still parked (blank)
     useEffect(() => {
-        run(bothTracks(), slideY(showIcons, leaving, { stagger: 0.015, duration: 0.35 }));
-    }, [showIcons, leaving]);
+        const { onScreen, offScreen } = partitionCards();
+        if (showIcons && !leaving) gsap.set(offScreen, { yPercent: 0 });
+        run(onScreen, slideY(showIcons, leaving, { stagger: 0.02, duration: 0.35 }));
+    }, [showIcons, leaving, partitionCards]);
 
     // two seamless marquees drifting opposite ways; vertical scroll velocity boosts both
     useEffect(() => {
@@ -123,23 +155,13 @@ export default function Friends() {
 
             <div className="mt-16 w-full overflow-hidden">
                 <div ref={trackRef} className="flex w-max items-center gap-[2px] will-change-transform">
-                    {[...icons, ...icons, ...icons, ...icons].map((icon, i) => (
-                        <div key={i} className="shrink-0 flex w-70 h-70 bg-white/33 flex-col justify-center rounded-2xl items-center gap-12">
-                            <img src={`/images/icons/${icon.src}.png`} alt={icon.name} loading="lazy" decoding="async" className="h-20 opacity-80" />
-                            <span className="text-sm font-medium opacity-60 whitespace-nowrap">{icon.name}</span>
-                        </div>
-                    ))}
+                    {cards([...icons, ...icons, ...icons])}
                 </div>
             </div>
 
             <div className="mt-[2px] w-full overflow-hidden">
                 <div ref={trackRef2} className="flex w-max items-center gap-[2px] will-change-transform">
-                    {[...icons, ...icons, ...icons, ...icons].reverse().map((icon, i) => (
-                        <div key={i} className="shrink-0 flex w-70 h-70 bg-white/33 flex-col justify-center rounded-2xl items-center gap-12">
-                            <img src={`/images/icons/${icon.src}.png`} alt={icon.name} loading="lazy" decoding="async" className="h-20 opacity-80" />
-                            <span className="text-sm font-medium opacity-60 whitespace-nowrap">{icon.name}</span>
-                        </div>
-                    ))}
+                    {cards([...icons, ...icons, ...icons].reverse())}
                 </div>
             </div>
         </section>
