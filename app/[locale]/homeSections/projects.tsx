@@ -1,5 +1,6 @@
 import gsap from "gsap";
 import Stripes from "@/components/facile/stripes";
+import SplitLines from "@/components/facile/splitLines";
 import { useRef, useState, useEffect, useLayoutEffect, type RefObject, type MouseEvent } from "react";
 import { usePinProgress } from "@/hooks/use-pin-progress";
 import dynamic from "next/dynamic";
@@ -168,15 +169,10 @@ function ProjectCard({ p, index, setEntryRef, setImgRef, setContentRef, marcelEy
                     </span>
                 </span>
                 {p.description && (
-                    <ul className="relative z-10 flex flex-col gap-4">
-                        {p.description.match(/[^.!?]+[.!?]+|\S+$/g)?.map((sentence, i) => (
-                            <li key={i} className="overflow-hidden">
-                                <span data-reveal className="block text-md font-medium text-white/50">
-                                    {sentence.trim()}
-                                </span>
-                            </li>
-                        ))}
-                    </ul>
+                    <SplitLines
+                        text={p.description}
+                        className="relative z-10 text-md font-medium leading-relaxed text-white/50"
+                    />
                 )}
             </div>
         </div>
