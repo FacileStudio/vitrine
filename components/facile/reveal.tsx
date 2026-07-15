@@ -150,7 +150,7 @@ export function StripReveal({ orientation = 0, strips = 4, heightVh = 250, child
     const content = typeof children === "function" ? children({ revealed, gone, showText, showCta, leaving }) : children;
 
     return (
-        <section ref={sectionRef} className="relative w-full" style={{ minHeight: `${heightVh}vh` }}>
+        <section ref={sectionRef} className="relative z-99 w-full" style={{ minHeight: `${heightVh}vh` }}>
             <div className="sticky top-0 h-screen w-full overflow-hidden">
 
                 {cols.map((i) => (
