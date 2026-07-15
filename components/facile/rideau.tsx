@@ -129,7 +129,7 @@ const Rideau = ({ setCharged }: { setCharged: (charged: boolean) => void }) => {
     }, [])
 
     return (
-        <div className="fixed inset-0 z-100 pointer-events-none w-screen h-screen">
+        <div className="fixed inset-0 z-999 pointer-events-none w-screen h-screen">
 
             <div className="absolute z-50 top-1/2 left-1/2 -translate-1/2">
                     <div
