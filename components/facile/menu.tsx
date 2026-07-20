@@ -9,7 +9,7 @@ import { InstagramIcon } from '../ui/instagram';
 import { DribbbleIcon } from '../ui/dribbble';
 
 // TODO(gian): replace with the real studio contact details
-const CONTACT = {
+export const CONTACT = {
     email: 'contact@facile.studio',
     phone: '+33 7 68 88 88 18',
     socials: [
@@ -21,12 +21,12 @@ const CONTACT = {
 
 const DitherView = dynamic(() => import("@/webgl/DitherView").then((m) => m.DitherView), { ssr: false });
 
-type SubLink = { href: string; label: string; external?: boolean };
-type NavLink = { href: string; label: string; secondary?: SubLink[] };
+export type SubLink = { href: string; label: string; external?: boolean };
+export type NavLink = { href: string; label: string; secondary?: SubLink[] };
 
 // each main entry can carry `secondary` sub-links connected to it (project names,
 // Suite apps, process/service entries, contact channels). rendered under the main link.
-const links: NavLink[] = [
+export const links: NavLink[] = [
     { href: '/', label: 'Home' },
     {
         href: '/projects',
@@ -77,6 +77,9 @@ links.reduce((c, l, i) => { subBase[i] = c; return c + (l.secondary?.length ?? 0
 
 const COUNT = 4;
 const coverEase = 'cubic-bezier(0.7, 0, 0.3, 1)';
+// on close, the dither object fades out first; the stripes wait this long before
+// retreating so they only uncover the page once it's actually gone
+const exitDelay = 0.9;
 
 const Stripes = (open: boolean, color: string, leadOpen: number, leadClose: number) =>
     Array.from({ length: COUNT }, (_, i) => (
@@ -143,9 +146,10 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
             aria-hidden={!menuOpen}
             className={`fixed inset-0 z-100 ${menuOpen ? '' : 'pointer-events-none'}`}
         >
-            {/* white curtain leads, dark curtain trails: two waves racing down the screen */}
-            <div className="absolute inset-0 z-30">{Stripes(menuOpen, '#ffffff', 0, 0.14)}</div>
-            <div className="absolute inset-0 z-40">{Stripes(menuOpen, '#1E1E1E', 0.14, 0)}</div>
+            {/* white curtain leads, dark curtain trails: two waves racing down the screen.
+                on close they wait for the dither object to fade out before retreating */}
+            <div className="absolute inset-0 z-30">{Stripes(menuOpen, '#ffffff', 0, 0.14 + exitDelay)}</div>
+            <div className="absolute inset-0 z-40">{Stripes(menuOpen, '#1E1E1E', 0.14, 0 + exitDelay)}</div>
 
             {/* dither backdrop, revealed top-to-bottom by a clip wipe once the covers land */}
             {mountDither && (
@@ -153,7 +157,8 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
                     className="absolute inset-0 z-45 overflow-hidden"
                     style={{
                         clipPath: showDither ? 'inset(0% 0% 0% 0%)' : 'inset(0% 0% 0% 100%)',
-                        transition: `clip-path 0.6s ${coverEase} ${menuOpen ? '0.55s' : '0s'}`,
+                        opacity: showDither ? 1 : 0,
+                        transition: `clip-path 0.6s ${coverEase} ${menuOpen ? '0.55s' : `${exitDelay}s`}, opacity 0.9s ${coverEase} ${menuOpen ? '0.85s' : '0s'}`,
                     }}
                 >
                     <DitherView
