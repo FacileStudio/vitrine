@@ -46,8 +46,8 @@ export default function Suite() {
                     gridSize={showText ? 2 : 9}
                     file="/models/manifesto.glb"
                     models={[
-                        { file: "/models/manifesto.glb", position: [-3, 0.5, 0.5] },
-                        { file: "/models/manifesto.glb", position: [3, -2, 0.5] },
+                        { file: "/models/manifesto.glb", position: [-3, -2, 0.5] },
+                        { file: "/models/manifesto.glb", position: [3, 0.5, 0.5] },
                     ]}
                 />
 
