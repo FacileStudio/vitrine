@@ -12,12 +12,12 @@
     {
         "name": "Vision",
         "description": "L'analytique web qui respecte vos visiteurs. Un script, zéro cookie, données en temps réel. Vous savez d'où vient votre trafic sans vendre l'âme de vos utilisateurs.",
-        "icon": "solar:chart-bold-duotone"
+        "icon": "/icons/solar_panorama-bold-duotone.svg"
     },
     {
         "name": "Glouton",
         "description": "Vos prochains clients, trouvés pendant que vous dormez. Glouton crawle le web, détecte les stacks techniques, score les prospects et vous sert les meilleurs sur un plateau.",
-        "icon": "solar:magnifer-bold-duotone"
+        "icon": "/icons/solar_leaf-bold-duotone.svg"
     },
     {
         "name": "Nook",
@@ -27,47 +27,47 @@
     {
         "name": "Ardoise",
         "description": "Facturez, encaissez, oubliez. Stripe intégré, emails automatiques, reçus téléchargeables. Vos clients paient, vous êtes notifié, point.",
-        "icon": "solar:bill-list-bold-duotone"
+        "icon": "/icons/solar_bill-list-bold-duotone.svg"
     },
     {
         "name": "Plume",
         "description": "La signature électronique sans usine à gaz. Déposez un PDF, placez les champs, envoyez le lien, recevez la preuve signée avec audit trail et webhooks.",
-        "icon": "solar:pen-new-square-bold-duotone"
+        "icon": "/icons/solar_ruler-cross-pen-bold-duotone.svg"
     },
     {
         "name": "Portail",
         "description": "Un fichier YAML, et toute votre équipe a une page d'accueil vers chaque service du studio. Déploiements, docs, monitoring, mots de passe — tout en un clic.",
-        "icon": "solar:widget-5-bold-duotone"
+        "icon": "/icons/solar_widget-5-bold-duotone.svg"
     },
     {
         "name": "Nuage",
         "description": "Le stockage fichiers du studio. Upload, dossiers, recherche — un drive interne connecté à tous vos outils via API. Vos fichiers restent sur votre serveur, pas chez Google.",
-        "icon": "solar:cloud-bold-duotone"
+        "icon": "/icons/solar_cloud-bold-duotone.svg"
     },
     {
         "name": "Echo",
         "description": "Visioconférence simple et sécurisée. Créez une salle, partagez le lien, c'est tout.",
-        "icon": "solar:videocamera-bold-duotone"
+        "icon": "/icons/solar_monitor-camera-bold-duotone.svg"
     },
     {
         "name": "Capsule",
         "description": "Partagez un secret qui s'autodétruit. Chiffrement de bout en bout dans le navigateur, zero-knowledge côté serveur. Un lien, une ouverture, puis rien.",
-        "icon": "solar:pills-bold-duotone"
+        "icon": "/icons/solar_pills-bold-duotone.svg"
     },
     {
         "name": "Courrier",
         "description": "Votre email, chez vous. IMAP et SMTP natifs, multi-comptes, interface épurée. Toute la correspondance du studio sans passer par Gmail.",
-        "icon": "solar:letter-bold-duotone"
+        "icon": "/icons/solar_letter-opened-bold-duotone.svg"
     },
     {
         "name": "Agenda",
         "description": "Le calendrier partagé du studio. Rendez-vous, deadlines, dispos — tout le monde voit la même chose, sans Google Calendar.",
-        "icon": "solar:calendar-bold-duotone"
+        "icon": "/icons/solar_calendar-add-bold-duotone.svg"
     },
     {
         "name": "Scribe",
         "description": "Transcription de réunions par IA. Capturez l'audio, obtenez le transcript en temps réel et des notes structurées — sujets, décisions, actions.",
-        "icon": "solar:microphone-bold-duotone"
+        "icon": "/icons/solar_microphone-2-bold-duotone.svg"
     },
     {
         "name": "Perception",
