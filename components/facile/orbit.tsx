@@ -1,7 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
 import { Icon } from "@iconify/react";
+import gsap from "gsap";
+import { usePinProgress } from "@/hooks/use-pin-progress";
+import { EASE } from "@/app/utils/animations";
 
 export interface OrbitItem {
     subtitle: string;
@@ -11,125 +14,133 @@ export interface OrbitItem {
 
 interface OrbitProps {
     items: OrbitItem[];
+    // the tall pinned section the ring reads its scroll progress from
+    sectionRef: RefObject<HTMLElement | null>;
     // circle radius in px
     radius?: number;
-    // seconds for one full revolution
-    duration?: number;
 }
 
-// A ring of nodes spaced evenly around a circle's border, turning slowly. Hovering
-// a node reveals its content (icon + title + description) at the fixed centre.
-export default function Orbit({ items, radius = 400, duration = 160 }: OrbitProps) {
-    // sticky selection: set on hover, kept on leave so the centre always shows one
+// the node at the centre snaps up to ACTIVE, everything else drops back to REST
+const SCALE_ACTIVE = 1.3;
+const SCALE_REST = 0.88;
+
+// A ring centred on the left edge of the screen, so only its right half is visible.
+// Scroll turns it: whichever node reaches the 3 o'clock point sits at the viewport's
+// vertical centre, scales up, and drives the copy in the right-hand column.
+export default function Orbit({ items, sectionRef, radius = 440 }: OrbitProps) {
     const [active, setActive] = useState(0);
+
+    const nodeRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const copyRef = useRef<HTMLDivElement>(null);
+    const progressRef = useRef(0);
+    const activeRef = useRef(0);
+
     const current = items[active];
 
-    // node coordinates on the ring, in the SVG's local space (origin = centre)
-    const point = (i: number) => {
-        const a = (i / items.length) * 2 * Math.PI;
-        return { x: radius + Math.sin(a) * radius, y: radius - Math.cos(a) * radius };
-    };
-    const hub = items.findIndex((it) => it.subtitle === "Perception");
-    const hubPt = point(hub < 0 ? 0 : hub);
+    // place every node on the ring for a given progress: item 0 holds the 3 o'clock
+    // point at p = 0, the last item at p = 1. Only position and opacity are driven
+    // per frame — scale is left to the tween below so it pops instead of easing in.
+    const layout = useCallback((p: number) => {
+        const step = (2 * Math.PI) / items.length;
+        const head = p * (items.length - 1);
+        const vh = window.innerHeight;
 
-    // spoke as a gently bowed curve instead of a straight line: push a quadratic
-    // control point off the midpoint along the perpendicular, always toward the
-    // ring's centre. So the two arcs either side of the hub (Nuage→Scribe vs
-    // Plume→Sablier) lean opposite ways while both skewing inward. Round caps.
-    const spokePath = (i: number) => {
-        const a = hubPt;
-        const b = point(i);
-        const mx = (a.x + b.x) / 2;
-        const my = (a.y + b.y) / 2;
-        const dx = b.x - a.x;
-        const dy = b.y - a.y;
-        const len = Math.hypot(dx, dy) || 1;
-        // perpendicular unit vector, flipped to point at the centre (radius, radius)
-        let nx = -dy / len;
-        let ny = dx / len;
-        if (nx * (radius - mx) + ny * (radius - my) < 0) { nx = -nx; ny = -ny; }
-        // taper the bow as spokes get longer: the fraction eases from 0.16 down
-        // toward 0 as len approaches the ring's diameter, so long spokes stay
-        // nearly straight while short ones keep their curve.
-        const t = Math.min(len / (2 * radius), 1);
-        const k = 1 - t;
-        const bow = len * 0.9 * Math.pow(k, 8);
-        const cx = mx + nx * bow;
-        const cy = my + ny * bow;
-        return `M ${a.x} ${a.y} Q ${cx} ${cy} ${b.x} ${b.y}`;
-    };
+        nodeRefs.current.forEach((el, i) => {
+            if (!el)
+                return;
+
+            const a = (i - head) * step;
+            const y = Math.sin(a) * radius;
+            const near = gsap.utils.clamp(0, 1, Math.abs(y) / (vh * 0.5));
+
+            gsap.set(el, {
+                x: Math.cos(a) * radius,
+                y,
+                yPercent: -50,
+                transformOrigin: "0% 50%",
+                opacity: gsap.utils.mapRange(0, 1, 1, 0.35, near),
+            });
+        });
+
+        const next = Math.round(gsap.utils.clamp(0, items.length - 1, head));
+        if (next !== activeRef.current) {
+            activeRef.current = next;
+            setActive(next);
+        }
+    }, [items.length, radius]);
+
+    usePinProgress(sectionRef, (p, visible) => {
+        progressRef.current = p;
+        if (visible)
+            layout(p);
+    });
+
+    // the scroll handler only fires on scroll, so lay the ring out once on mount or
+    // the nodes stay stacked on the origin until the user moves
+    useEffect(() => {
+        layout(progressRef.current);
+    }, [layout]);
+
+    // the jump: whichever node just took the centre overshoots up to size while the
+    // one it replaced drops straight back down
+    useEffect(() => {
+        nodeRefs.current.forEach((el, i) => {
+            if (!el)
+                return;
+
+            const on = i === active;
+            gsap.to(el, {
+                scale: on ? SCALE_ACTIVE : SCALE_REST,
+                duration: on ? 0.3 : 0.2,
+                ease: on ? "back.out(2.6)" : EASE.out,
+                overwrite: "auto",
+            });
+        });
+    }, [active]);
+
+    useEffect(() => {
+        gsap.fromTo(
+            copyRef.current,
+            { opacity: 0, y: 12 },
+            { opacity: 1, y: 0, duration: 0.28, ease: EASE.out, overwrite: "auto" },
+        );
+    }, [active]);
 
     return (
         <div className="pointer-events-none absolute inset-0 z-20">
-            {/* rotating ring */}
-            <div className="absolute inset-0 flex items-center justify-center">
+            <div className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 scale-110">
                 <div
-                    className="relative animate-[orbit-spin_linear_infinite]"
-                    style={{ width: radius * 2, height: radius * 2, animationDuration: `${duration}s` }}
-                >
-                    {/* spokes: everything links back to Perception, the hub */}
-                    <svg
-                        className="absolute inset-0 text-foreground/15"
-                        width={radius * 2}
-                        height={radius * 2}
-                        fill="none"
+                    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-foreground/[0.07]"
+                    style={{ width: radius * 1.72, height: radius * 1.72 }}
+                />
+            </div>
+
+            <div className="absolute left-0 top-1/2">
+                {items.map((it, i) => (
+                    <div
+                        key={i}
+                        ref={(el) => { nodeRefs.current[i] = el; }}
+                        className="absolute left-0 top-0 flex flex-row items-center gap-3 whitespace-nowrap rounded-full px-5 py-3 will-change-transform"
                     >
-                        {items.map((_, i) =>
-                            i === hub ? null : (
-                                <path
-                                    key={i}
-                                    d={spokePath(i)}
-                                    stroke="currentColor"
-                                    strokeWidth={1}
-                                    strokeLinecap="round"
-                                    fill="none"
-                                />
-                            ),
-                        )}
-                    </svg>
-
-                    {items.map((it, i) => {
-                        const angle = (i / items.length) * 2 * Math.PI;
-                        const x = Math.sin(angle) * radius;
-                        const y = -Math.cos(angle) * radius;
-                        return (
-                            <div
-                                key={i}
-                                className="absolute left-1/2 top-1/2"
-                                style={{ transform: `translate(-50%, -50%) translate(${x}px, ${y}px)` }}
-                            >
-                                {/* counter-spin so each label stays upright while it orbits */}
-                                <button
-                                    type="button"
-                                    onMouseEnter={() => setActive(i)}
-                                    className={`pointer-events-auto block whitespace-nowrap text-base font-medium bg-white rounded-3xl p-6 transition-colors animate-[orbit-spin-reverse_linear_infinite] ${i === active ? "text-foreground" : "text-foreground/50 hover:text-foreground"}`}
-                                    style={{ animationDuration: `${duration}s` }}
-                                >
-                                    {it.subtitle}
-                                </button>
-                            </div>
-                        );
-                    })}
-                </div>
-            </div>
-
-            {/* fixed centre panel — always shows the last hovered node's content */}
-            <div className="absolute inset-0 z-10 flex items-center justify-center">
-                <div className="relative flex items-center justify-center">
-                    {/* white disc masks the spokes so they never cross the text/icon */}
-                    <div className="absolute h-[24rem] w-[24rem] rounded-full bg-white/50" />
-                    <div className="relative w-[24rem] max-w-[80vw] text-center">
-                        <Icon icon={current.icon} className="mx-auto mb-6 text-7xl text-foreground" />
-                        <p className="text-4xl font-medium text-foreground">{current.subtitle}</p>
-                        <p className="mt-4 text-lg text-foreground/60">{current.description}</p>
+                        {it.icon.startsWith("/")
+                            ? <img src={it.icon} alt="" className="h-9 w-9" />
+                            : <Icon icon={it.icon} className="text-3xl text-foreground font-bold" />}
+                        <span className="text-lg font-medium text-foreground">{it.subtitle}</span>
                     </div>
-                </div>
+                ))}
             </div>
 
-            <style>{`
-                @keyframes orbit-spin { to { transform: rotate(360deg); } }
-                @keyframes orbit-spin-reverse { to { transform: rotate(-360deg); } }
-            `}</style>
+            {/* the copy the ring used to carry at its centre, now its own column */}
+            <div
+                ref={copyRef}
+                className="absolute right-[20vw] top-1/2 z-18 w-[28vw] max-w-lg -translate-y-1/2 text-left"
+            >
+                {current.icon.startsWith("/")
+                    ? <img src={current.icon} alt="" className="mx-auto mb-6 opacity-80 h-20 w-20" />
+                    : <Icon icon={current.icon} className="mx-auto mb-6 block text-7xl text-foreground" />}
+                <p className="text-5xl font-bold text-center text-foreground">{current.subtitle}</p>
+                <p className="mt-5 text-xl font-medium leading-relaxed text-center text-foreground/60">{current.description}</p>
+            </div>
         </div>
     );
 }
