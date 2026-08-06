@@ -1,10 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import Stripes from "@/components/facile/stripes";
 import Orbit from "@/components/facile/orbit";
-import { run, slideY, hideRevealY } from "@/app/utils/animations";
 import { usePinProgress } from "@/hooks/use-pin-progress";
 import suite from "../suite/suite.json";
 
@@ -19,45 +18,19 @@ export default function Suite() {
     const sectionRef = useRef<HTMLElement>(null);
     const progressRef = useRef(0);
 
-    const lineRefs = useRef<(HTMLSpanElement | null)[]>([]);
-    const entryRefs = useRef<(HTMLSpanElement | null)[]>([]);
-    const ctaRef = useRef<HTMLButtonElement>(null);
-
     const [showText, setShowText] = useState(false);
-    const [showCta, setShowCta] = useState(false);
-    const [leaving, setLeaving] = useState(false);
 
-    // anchors
+    // the section is long enough for every orbit node to travel through the centre
     usePinProgress(sectionRef, (p) => {
         progressRef.current = p;
-        const textOut = p >= 0.66;
-        const textIn = p > 0.01 && !textOut;
-        setShowText(textIn);
-        setShowCta(textIn);
-        setLeaving(textOut);
+        setShowText(p > 0.01 && p < 0.99);
     });
-
-    // hide everything before first reveal to avoid a flash
-    useEffect(() => {
-        hideRevealY([
-            ...lineRefs.current,
-            ...entryRefs.current,
-            ctaRef.current,
-        ]);
-    }, []);
-
-    // drive title lines, entries, and CTA off the scroll-derived flags
-    useEffect(() => {
-        run(lineRefs.current, slideY(showText, leaving));
-        run(entryRefs.current, slideY(showText, leaving));
-        run([ctaRef.current], slideY(showCta, leaving, { duration: 0.7 }));
-    }, [showText, showCta, leaving]);
 
     return (
         <section
             ref={sectionRef}
             id="suite"
-            className="relative w-full mt-32 min-h-[260vh]"
+            className="relative w-full mt-32 min-h-[700vh]"
         >
             <div
                 data-no-shadow
@@ -92,7 +65,7 @@ export default function Suite() {
                     openWhen={() => progressRef.current < 0.99}
                 />
 
-                <Orbit items={orbitItems} />
+                <Orbit items={orbitItems} sectionRef={sectionRef} />
             </div>
         </section>
     );
