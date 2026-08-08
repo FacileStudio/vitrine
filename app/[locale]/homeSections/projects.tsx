@@ -360,7 +360,7 @@ export default function Projects() {
         <section
             ref={sectionRef}
             id="projects"
-            className="w-full relative min-h-[650vh]"
+            className="w-full relative min-h-[600vh]"
         >
             <div className="absolute inset-0 bg-[#242424] -z-10" aria-hidden="true" />
 

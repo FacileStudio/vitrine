@@ -4,7 +4,8 @@ import { useCallback, useEffect, useRef, useState, type RefObject } from "react"
 import { Icon } from "@iconify/react";
 import gsap from "gsap";
 import { usePinProgress } from "@/hooks/use-pin-progress";
-import { EASE } from "@/app/utils/animations";
+import { EASE, run, slideY } from "@/app/utils/animations";
+import SplitLines from "@/components/facile/splitLines";
 
 export interface OrbitItem {
     subtitle: string;
@@ -27,11 +28,12 @@ const SCALE_REST = 0.88;
 // A ring centred on the left edge of the screen, so only its right half is visible.
 // Scroll turns it: whichever node reaches the 3 o'clock point sits at the viewport's
 // vertical centre, scales up, and drives the copy in the right-hand column.
-export default function Orbit({ items, sectionRef, radius = 440 }: OrbitProps) {
+export default function Orbit({ items, sectionRef, radius = 620 }: OrbitProps) {
     const [active, setActive] = useState(0);
 
     const nodeRefs = useRef<(HTMLDivElement | null)[]>([]);
     const copyRef = useRef<HTMLDivElement>(null);
+    const iconRef = useRef<HTMLDivElement>(null);
     const progressRef = useRef(0);
     const activeRef = useRef(0);
 
@@ -98,12 +100,18 @@ export default function Orbit({ items, sectionRef, radius = 440 }: OrbitProps) {
         });
     }, [active]);
 
+    // the logo fades across, the copy underneath it slides up line by line out of
+    // its crop. SplitLines rebuilt and pre-hid those lines in its layout effect,
+    // so by the time this runs they are already waiting below the fold.
     useEffect(() => {
         gsap.fromTo(
-            copyRef.current,
+            iconRef.current,
             { opacity: 0, y: 12 },
             { opacity: 1, y: 0, duration: 0.28, ease: EASE.out, overwrite: "auto" },
         );
+
+        const lines = copyRef.current?.querySelectorAll<HTMLElement>("[data-reveal]");
+        run(Array.from(lines ?? []), slideY(true, false, { stagger: 0.07, duration: 0.55 }));
     }, [active]);
 
     return (
@@ -123,7 +131,7 @@ export default function Orbit({ items, sectionRef, radius = 440 }: OrbitProps) {
                         className="absolute left-0 top-0 flex flex-row items-center gap-3 whitespace-nowrap rounded-full px-5 py-3 will-change-transform"
                     >
                         {it.icon.startsWith("/")
-                            ? <img src={it.icon} alt="" className="h-9 w-9" />
+                            ? <img src={it.icon} alt="" className="h-8 opacity-80 w-8" />
                             : <Icon icon={it.icon} className="text-3xl text-foreground font-bold" />}
                         <span className="text-lg font-medium text-foreground">{it.subtitle}</span>
                     </div>
@@ -135,11 +143,23 @@ export default function Orbit({ items, sectionRef, radius = 440 }: OrbitProps) {
                 ref={copyRef}
                 className="absolute right-[20vw] top-1/2 z-18 w-[28vw] max-w-lg -translate-y-1/2 text-left"
             >
-                {current.icon.startsWith("/")
-                    ? <img src={current.icon} alt="" className="mx-auto mb-6 opacity-80 h-20 w-20" />
-                    : <Icon icon={current.icon} className="mx-auto mb-6 block text-7xl text-foreground" />}
-                <p className="text-5xl font-bold text-center text-foreground">{current.subtitle}</p>
-                <p className="mt-5 text-xl font-medium leading-relaxed text-center text-foreground/60">{current.description}</p>
+                <div ref={iconRef}>
+                    {current.icon.startsWith("/")
+                        ? <img src={current.icon} alt="" className="mx-auto mb-6 opacity-80 h-20 w-20" />
+                        : <Icon icon={current.icon} className="mx-auto mb-6 block text-7xl text-foreground" />}
+                </div>
+                <SplitLines
+                    key={`title-${active}`}
+                    text={current.subtitle}
+                    className="text-5xl font-bold text-center text-foreground"
+                    gap="mb-1"
+                />
+                <SplitLines
+                    key={`description-${active}`}
+                    text={current.description}
+                    className="mt-5 text-xl font-medium leading-relaxed text-center text-foreground/60"
+                    gap="mb-1"
+                />
             </div>
         </div>
     );
