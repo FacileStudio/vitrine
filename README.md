@@ -2,6 +2,13 @@
 
 Showcase website for **Facile. Studio** — a creative studio portfolio built with Next.js 16, featuring smooth GSAP animations, internationalization (EN, FR, ES, DE), and a contact form with SMTP email delivery.
 
+<br>
+<br>
+
+## **V2 COMING SOON**
+<br>
+<br>
+
 ## Tech Stack
 
 - **Framework**: Next.js 16 (App Router, Turbopack)
