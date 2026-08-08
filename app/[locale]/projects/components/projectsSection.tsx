@@ -1,39 +1,27 @@
 import gsap from "gsap";
-import Stripes from "@/components/facile/stripes";
 import SplitLines from "@/components/facile/splitLines";
 import { useRef, useState, useEffect, useLayoutEffect, type RefObject, type MouseEvent } from "react";
+import { useLenis } from "lenis/react";
 import { usePinProgress } from "@/hooks/use-pin-progress";
 import dynamic from "next/dynamic";
-import projects from "../projects/projects.json";
-import { run, slideY, hideRevealY } from "@/app/utils/animations";
+import projects from "../projects.json";
+import { EASE, run, slideY, hideRevealY } from "@/app/utils/animations";
+import { isVideoFile, type Project } from "../lib/story";
+import ProjectDetail from "./projectDetail";
 
 const DitherView = dynamic(
     () => import("@/webgl/DitherView").then((m) => m.DitherView),
     { ssr: false },
 );
 
-type Project = (typeof projects)[number];
-
-const newest = projects.slice(0, 4);
-
-// the hover media can be a real video or just an image (e.g. a static webp) — a
-// <video> can't render an image, so pick the element by extension
-const isVideoFile = (src: string) => /\.(mp4|webm|ogg|mov)$/i.test(src);
 const mediaClass = "pointer-events-none absolute rounded object-cover will-change-[clip-path] [clip-path:inset(100%_0_0_0)] rounded-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4/5";
 
 
 
-interface ProjectsHeadingProps {
-    setLineRef: (i: number) => (el: HTMLSpanElement | null) => void;
-    progressRef: RefObject<number>;
-    showText: boolean;
-}
-
-// the pinned top of the section: dithered backdrop, the sliding stripes and the
-// "our latest projects" heading whose lines are animated by the parent
-function ProjectsHeading({ setLineRef, progressRef, showText }: ProjectsHeadingProps) {
+// the pinned dithered backdrop the cards scroll over
+function ProjectsBackdrop() {
     return (
-        <div data-no-shadow className="sticky top-0 h-screen w-full overflow-hidden text-white">
+        <div data-no-shadow className="fixed top-0 h-screen w-full overflow-hidden text-white">
             <DitherView
                 className="absolute inset-0 w-full h-full z-0 opacity-20"
                 background={null}
@@ -41,30 +29,13 @@ function ProjectsHeading({ setLineRef, progressRef, showText }: ProjectsHeadingP
                 grayscaleOnly={false}
                 intensity={1.8}
                 parallax={0.7}
-                gridSize={showText ? 2 : 9}
+                gridSize={2}
                 file="/models/manifesto.glb"
                 models={[
                     { file: "/models/manifesto.glb", position: [3, 1, 0] },
                     { file: "/models/manifesto.glb", position: [-3, -2, 0] },
                 ]}
             />
-
-            <Stripes orientation={0}   count={4} className="bg-background" openWhen={() => progressRef.current > 0.00} />
-            <Stripes orientation={180} count={4} className="bg-background" openWhen={() => progressRef.current < 0.95} />
-
-            {/* sits below the Stripes (z-40 default) so the heading is covered/revealed together
-                with the DitherView instead of always popping in above the wipe */}
-            <div className="absolute inset-0 z-30 flex flex-col items-center justify-start px-6 pt-60 text-center pointer-events-none">
-                <h2 className="max-w-3xl text-4xl md:text-5xl font-medium leading-tight">
-                    {["Take a look at", "our latest projects."].map((line, i) =>
-                        <span key={i} className="block overflow-hidden">
-                            <span ref={setLineRef(i)} className="block">
-                                {line}
-                            </span>
-                        </span>
-                    )}
-                </h2>
-            </div>
         </div>
     );
 }
@@ -74,20 +45,22 @@ function ProjectsHeading({ setLineRef, progressRef, showText }: ProjectsHeadingP
 interface ProjectCardProps {
     p: Project;
     index: number;
-    setEntryRef: (i: number) => (el: HTMLAnchorElement | null) => void;
+    setCardRef: (i: number) => (el: HTMLDivElement | null) => void;
+    setEntryRef: (i: number) => (el: HTMLButtonElement | null) => void;
     setImgRef: (i: number) => (el: HTMLDivElement | null) => void;
     setContentRef: (i: number) => (el: HTMLDivElement | null) => void;
     marcelEyesRef: RefObject<HTMLDivElement | null>;
     marcelSpheresRef: RefObject<HTMLDivElement | null>;
-    onEnter: (e: MouseEvent<HTMLAnchorElement>) => void;
-    onLeave: (e: MouseEvent<HTMLAnchorElement>) => void;
+    onOpen: (i: number) => void;
+    onEnter: (e: MouseEvent<HTMLButtonElement>) => void;
+    onLeave: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
 // one project row: parallaxed cover image on the left with the hover media wipe,
 // its name/tech/description on the right. Marcel gets the extra googly-eyes markup
-function ProjectCard({ p, index, setEntryRef, setImgRef, setContentRef, marcelEyesRef, marcelSpheresRef, onEnter, onLeave }: ProjectCardProps) {
+function ProjectCard({ p, index, setCardRef, setEntryRef, setImgRef, setContentRef, marcelEyesRef, marcelSpheresRef, onOpen, onEnter, onLeave }: ProjectCardProps) {
     return (
-        <div className="3xl:w-[70vw] w-[80vw] shrink-0 flex items-start justify-between">
+        <div ref={setCardRef(index)} className="3xl:w-[70vw] w-[80vw] shrink-0 flex items-start justify-between">
             <div className="relative shrink-0">
                 {p.name === "Marcel" && (
                     <div ref={marcelSpheresRef} className="pointer-events-none absolute bottom-6 xl:bottom-0 z-20 left-1/2 flex -translate-x-1/2 translate-y-1/2 gap-16 will-change-transform">
@@ -95,11 +68,11 @@ function ProjectCard({ p, index, setEntryRef, setImgRef, setContentRef, marcelEy
                         <div className="w-28 h-28 xl:w-40 xl:h-40 rounded-full bg-[#95DFE9] shadow-3xl" />
                     </div>
                 )}
-                <a
+                <button
                     ref={setEntryRef(index)}
-                    href={p.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    type="button"
+                    aria-label={p.name}
+                    onClick={() => onOpen(index)}
                     onMouseEnter={onEnter}
                     onMouseLeave={onLeave}
                     className="group relative 3xl:w-5xl w-[50vw] aspect-16/10 shrink-0 flex flex-col group-hover:bg-black/50 justify-start gap-1 overflow-hidden rounded-md"
@@ -154,7 +127,7 @@ function ProjectCard({ p, index, setEntryRef, setImgRef, setContentRef, marcelEy
                             )}
                         </>
                     }
-                </a>
+                </button>
           </div>
 
             <div ref={setContentRef(index)} className="flex flex-col items-end gap-12 max-w-sm text-right py-12">
@@ -174,7 +147,7 @@ function ProjectCard({ p, index, setEntryRef, setImgRef, setContentRef, marcelEy
                     <SplitLines
                         text={p.description}
                         justify
-                        className="relative z-10 text-md font-medium leading-relaxed text-white/66"
+                        className="relative z-10 text-md font-medium leading-relaxed text-white/50"
                     />
                 )}
             </div>
@@ -184,34 +157,40 @@ function ProjectCard({ p, index, setEntryRef, setImgRef, setContentRef, marcelEy
 
 
 
-export default function Projects() {
+export default function ProjectsSection() {
     const sectionRef = useRef<HTMLElement>(null);
-    const progressRef = useRef(0);
 
-    const lineRefs = useRef<(HTMLSpanElement | null)[]>([]);
-    const entryRefs = useRef<(HTMLSpanElement | null)[]>([]);
+    const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const entryRefs = useRef<(HTMLButtonElement | null)[]>([]);
     const imgRefs = useRef<(HTMLDivElement | null)[]>([]);
     const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
-    const ctaRef = useRef<HTMLButtonElement>(null);
     const marcelEyesRef = useRef<HTMLDivElement>(null);
     const marcelSpheresRef = useRef<HTMLDivElement>(null);
     const eyesMove = useRef<((e: PointerEvent) => void) | null>(null);
 
-    const [showText, setShowText] = useState(false);
-    const [showCta, setShowCta] = useState(false);
-    const [leaving, setLeaving] = useState(false);
+    const [active, setActive] = useState<number | null>(null);
+
+    // the detail overlay runs its own horizontal Lenis, so the page's vertical one
+    // has to let go or a wheel gesture drives both at once
+    const pageLenis = useLenis();
+    useEffect(() => {
+        if (!pageLenis) return;
+        if (active !== null) pageLenis.stop();
+        else pageLenis.start();
+    }, [pageLenis, active]);
 
     // callback-ref setters: the refs are owned here, so the children just receive
     // a per-index setter instead of writing into a ref object passed as a prop
-    const setLineRef = (i: number) => (el: HTMLSpanElement | null) => { lineRefs.current[i] = el; };
-    const setEntryRef = (i: number) => (el: HTMLAnchorElement | null) => { if (el) entryRefs.current[i] = el; };
+    const setCardRef = (i: number) => (el: HTMLDivElement | null) => { cardRefs.current[i] = el; };
+    const setEntryRef = (i: number) => (el: HTMLButtonElement | null) => { if (el) entryRefs.current[i] = el; };
     const setImgRef = (i: number) => (el: HTMLDivElement | null) => { imgRefs.current[i] = el; };
     const setContentRef = (i: number) => (el: HTMLDivElement | null) => { contentRefs.current[i] = el; };
+
+    const cards = () => cardRefs.current.filter((el): el is HTMLDivElement => el != null);
 
 
 
     useEffect(() => {
-        hideRevealY([...lineRefs.current, ctaRef.current]);
         return () => { if (eyesMove.current) window.removeEventListener("pointermove", eyesMove.current); };
     }, []);
 
@@ -239,22 +218,7 @@ export default function Projects() {
 
 
 
-    useEffect(() => {
-        run(lineRefs.current, slideY(showText, leaving));
-        run([ctaRef.current], slideY(showCta, leaving, { duration: 0.7 }));
-    }, [showText, showCta, leaving]);
-
-
-
-    usePinProgress(sectionRef, (p, visible) => {
-        progressRef.current = p;
-        // heading leaves sooner on laptop/smaller screens; big monitors (>=2560px) keep the later exit
-        const textOut = p >= (window.innerWidth >= 2560 ? 0.28 : 0.24);
-        const textIn = p > 0.08 && !textOut;
-        setShowText(textIn);
-        setShowCta(textIn);
-        setLeaving(textOut);
-
+    usePinProgress(sectionRef, (_p, visible) => {
         if (!visible)
             return;
 
@@ -323,7 +287,7 @@ export default function Projects() {
 
 
     // hover: wipe the centered media (video or image) open from the bottom up, then close it back down
-    const onEnter = (e: MouseEvent<HTMLAnchorElement>) => {
+    const onEnter = (e: MouseEvent<HTMLButtonElement>) => {
         startEyes(e.currentTarget);
 
         const m = e.currentTarget.querySelector<HTMLElement>("[data-media]");
@@ -342,7 +306,7 @@ export default function Projects() {
         });
     };
 
-    const onLeave = (e: MouseEvent<HTMLAnchorElement>) => {
+    const onLeave = (e: MouseEvent<HTMLButtonElement>) => {
         stopEyes(e.currentTarget);
 
         const m = e.currentTarget.querySelector<HTMLElement>("[data-media]");
@@ -359,32 +323,78 @@ export default function Projects() {
     };
 
 
+
+    // the clicked cover hands its box over to the detail view, so it is dropped
+    // instantly while the rest of the list fades away behind the overlay
+    const openProject = (i: number) => {
+        const card = entryRefs.current[i];
+        if (active !== null || !card)
+            return;
+
+        stopEyes(card);
+
+        const m = card.querySelector<HTMLElement>("[data-media]");
+        if (m) {
+            gsap.set(m, { clipPath: "inset(100% 0% 0% 0%)" });
+            if (m instanceof HTMLVideoElement) m.pause();
+        }
+
+        gsap.set(card, { opacity: 0 });
+        gsap.to(cards(), { opacity: 0, duration: 0.45, ease: EASE.in });
+        setActive(i);
+    };
+
+    const restoreList = () => {
+        gsap.to(cards(), { opacity: 1, duration: 0.6, ease: EASE.out });
+    };
+
+    const closeProject = () => {
+        if (active !== null)
+            gsap.set(entryRefs.current[active], { opacity: 1 });
+
+        setActive(null);
+    };
+
+
     return (
         <section
             ref={sectionRef}
             id="projects"
-            className="w-full relative min-h-[600vh]"
+            className="w-full relative h-full"
         >
             <div className="absolute inset-0 bg-[#242424] -z-10" aria-hidden="true" />
 
-            <ProjectsHeading setLineRef={setLineRef} progressRef={progressRef} showText={showText} />
+            <ProjectsBackdrop />
 
-            <div className="w-full h-full flex flex-col justify-start items-center gap-1 pt-240 pb-[100vh] px-6">
-                {newest.map((p, i) => (
+            <div className="w-full h-full pt-[20vh] flex flex-col justify-start items-center gap-1 px-6">
+                {projects.map((p, i) => (
                     <ProjectCard
                         key={i}
                         p={p}
                         index={i}
+                        setCardRef={setCardRef}
                         setEntryRef={setEntryRef}
                         setImgRef={setImgRef}
                         setContentRef={setContentRef}
                         marcelEyesRef={marcelEyesRef}
                         marcelSpheresRef={marcelSpheresRef}
+                        onOpen={openProject}
                         onEnter={onEnter}
                         onLeave={onLeave}
                     />
                 ))}
             </div>
+
+            {active !== null && (
+                <ProjectDetail
+                    project={projects[active]}
+                    index={active}
+                    total={projects.length}
+                    origin={() => ({ box: entryRefs.current[active], img: imgRefs.current[active] })}
+                    onExit={restoreList}
+                    onClosed={closeProject}
+                />
+            )}
         </section>
     );
 }

@@ -1,4 +1,4 @@
-import ProjectsPage from "./portfolio";
+import Portfolio from "./components/portfolio";
 import { Metadata } from "next";
 import { locales, type Locale } from "@/lib/i18n/locales";
 import { baseMetadata, getAlternates, getOpenGraphLocale, getLocalizedPath, siteUrl } from "@/lib/seo/metadata";
@@ -29,5 +29,5 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default function LocaleProjectsPage() {
-    return <ProjectsPage />;
+    return <Portfolio />;
 }

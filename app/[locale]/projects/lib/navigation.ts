@@ -1,5 +1,5 @@
 import React from "react";
-import data from "./projects.json"
+import data from "../projects.json"
 
 const usePortfolioNavigation = () => {
     const [selectedWorkId, setSelectedWorkId] = React.useState<number | null>(null);

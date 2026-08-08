@@ -12,6 +12,7 @@ import Suite from "./homeSections/suite";
 import Avis from "./homeSections/avis";
 import Projects from "./homeSections/projects";
 import Friends from "./homeSections/friends";
+import Footer from "./homeSections/footer";
 
 export default function Home() {
     const [menuOpen, setMenuOpen] = React.useState<boolean>(false);
@@ -43,7 +44,7 @@ export default function Home() {
 
             <Menu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 
-            <ShadowFilter />
+            {/* <ShadowFilter /> */}
 
             <main className="min-h-screen w-full">
                 <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
@@ -55,11 +56,15 @@ export default function Home() {
                 <Friends />
 
                 <Projects />
-                
+
+                <Friends id="friends-2" />
+
                 <Suite />
 
                 <Avis />
             </main>
+
+            <Footer />
             
             {/* <FeaturedProjects
                 projects={featuredProjects}
