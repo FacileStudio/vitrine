@@ -7,9 +7,16 @@
         "model": "/models/F.glb",
         "highlight": "#24E27A",
         "socials": [
-            { "label": "LinkedIn", "href": "https://linkedin.com/in/thevyann" },
-            { "label": "GitHub", "href": "https://www.github.com/saravenpi" }
-        ]
+            {
+                "label": "LinkedIn",
+                "href": "https://linkedin.com/in/thevyann"
+            },
+            {
+                "label": "GitHub",
+                "href": "https://www.github.com/saravenpi"
+            }
+        ],
+        "avatar": "https://i.pravatar.cc/240?u=facile-yann"
     },
     {
         "slug": "noah",
@@ -19,10 +26,20 @@
         "model": "/models/F.glb",
         "highlight": "#95DFE9",
         "socials": [
-            { "label": "Dribbble", "href": "https://www.dribbble.com/webbygian" },
-            { "label": "GitHub", "href": "https://www.github.com/G1anC" },
-            { "label": "Instagram", "href": "https://www.instagram.com/webbygian" }
-        ]
+            {
+                "label": "Dribbble",
+                "href": "https://www.dribbble.com/webbygian"
+            },
+            {
+                "label": "GitHub",
+                "href": "https://www.github.com/G1anC"
+            },
+            {
+                "label": "Instagram",
+                "href": "https://www.instagram.com/webbygian"
+            }
+        ],
+        "avatar": "https://i.pravatar.cc/240?u=facile-noah"
     },
     {
         "slug": "mazouz",
@@ -32,8 +49,12 @@
         "model": "/models/F.glb",
         "highlight": "#E9A895",
         "socials": [
-            { "label": "GitHub", "href": "https://www.github.com/MezzLMC" }
-        ]
+            {
+                "label": "GitHub",
+                "href": "https://www.github.com/MezzLMC"
+            }
+        ],
+        "avatar": "https://i.pravatar.cc/240?u=facile-mazouz"
     },
     {
         "slug": "camille",
@@ -43,7 +64,11 @@
         "model": "/models/F.glb",
         "highlight": "#C495E9",
         "socials": [
-            { "label": "Instagram", "href": "https://www.instagram.com/camg_raphic/" }
-        ]
+            {
+                "label": "Instagram",
+                "href": "https://www.instagram.com/camg_raphic/"
+            }
+        ],
+        "avatar": "https://i.pravatar.cc/240?u=facile-camille"
     }
 ]

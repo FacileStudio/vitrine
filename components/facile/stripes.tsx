@@ -8,12 +8,20 @@ const defaultEase = "cubic-bezier(0.7, 0, 0.3, 1)";
 // covers that slide off toward `orientation` (deg) when open; split into columns/rows by the dominant axis.
 // pass a static `open`, or `openWhen` to derive it from scroll (listener lives here, not the parent).
 // tune the slide feel via `ease` (any CSS timing function, e.g. "ease-out") and `duration` (seconds).
+// stack two colours (different `zIndex`, `leadOpen`/`leadClose`) to race one another across, same
+// trick as the Menu curtain — one layer's smaller lead value arrives/leaves first. `reverseOnClose`
+// flips the per-index stagger on the close transition, so the wave that arrived low-to-high leaves
+// high-to-low instead of snapping back the same way, exactly like Menu's own curtain does.
 export default function Stripes({
     orientation,
     count,
     open: openProp,
     openWhen,
     className = "bg-background",
+    zIndex = 40,
+    leadOpen = 0,
+    leadClose = 0,
+    reverseOnClose = false,
     ease = defaultEase,
     duration = 0.8,
     stagger = 0.1,
@@ -25,6 +33,10 @@ export default function Stripes({
     open?: boolean;
     openWhen?: () => boolean;
     className?: string;
+    zIndex?: number;
+    leadOpen?: number;
+    leadClose?: number;
+    reverseOnClose?: boolean;
     ease?: string;
     duration?: number;
     stagger?: number;
@@ -78,20 +90,26 @@ export default function Stripes({
 
     return (
         <>
-            {Array.from({ length: count }, (_, i) => (
-                <div
-                    key={i}
-                    className={`absolute z-40 pointer-events-none ${className}`}
-                    style={{
-                        ...stripStyle(i),
-                        transform: open ? away : "translate(0%, 0%)",
-                        transition: coverTransition,
-                        transitionDelay: `${i * stagger}s`,
-                    }}
-                >
-                    {children}
-                </div>
-            ))}
+            {Array.from({ length: count }, (_, i) => {
+                const delay = open
+                    ? leadOpen + i * stagger
+                    : leadClose + (reverseOnClose ? count - 1 - i : i) * stagger;
+                return (
+                    <div
+                        key={i}
+                        className={`absolute pointer-events-none ${className}`}
+                        style={{
+                            ...stripStyle(i),
+                            zIndex,
+                            transform: open ? away : "translate(0%, 0%)",
+                            transition: coverTransition,
+                            transitionDelay: `${delay}s`,
+                        }}
+                    >
+                        {children}
+                    </div>
+                );
+            })}
         </>
     );
 }

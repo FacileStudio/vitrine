@@ -1,4 +1,4 @@
-import CaseStudyPage from "./case-study";
+import CaseStudyPage from "../components/caseStudy";
 import { Metadata } from "next";
 import { locales, type Locale } from "@/lib/i18n/locales";
 import { baseMetadata, getOpenGraphLocale, siteUrl } from "@/lib/seo/metadata";

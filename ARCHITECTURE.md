@@ -71,6 +71,8 @@ SEO helpers live in `lib/seo/` (`metadata.ts`, `jsonld.ts`, `viewport.ts`). `app
 
 ### Data (content that is not translated copy) — backoffice-editable JSON
 - `app/[locale]/projects/projects.json` — all projects (slug, name, image, video, link, tier…).
+  `gallery: string[]` is optional and feeds the horizontal project detail view on `/projects`
+  (see `projects/story.ts` — image or video is picked by file extension).
 - `app/[locale]/suite/suite.json` — product suite entries.
 - `app/[locale]/studio/studio.json` — team members (`slug, name, role, description, model, highlight, socials[]`). Drives the `/studio` grid and `/studio/[slug]` pages.
 - `app/[locale]/process/process.json` — process steps (`id, title, text, image`). Drives the `/process` sections; the `id` of each is the anchor the menu links to.
