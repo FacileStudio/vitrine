@@ -10,13 +10,17 @@
             "/images/projects/Marcel%202x2%20logo.png",
             "/images/projects/Marcel%202x3%20rebranding.png",
             "/images/projects/Marcel%203x3%20dashboard.png",
-            "/images/projects/Marcel%20small%20blue.png",
-            "/images/projects/Marcel%20small%20purple.png",
-            "/images/projects/Marcel%20small%20red.png",
             "/images/projects/Marcel_1x2_phone.png",
             "/images/projects/Marcel_2x1_onboarding.png",
             "/images/projects/Marcel_1x1_calendar_dark.png",
-            "/images/projects/Marcel_2x2_calendar.png"
+            "/images/projects/Marcel_2x2_calendar.png",
+            "/images/projects/Marcel_1x1_red.png",
+            "/images/projects/Marcel_1x1_orange.png",
+            "/images/projects/Marcel_1x1_yellow.png",
+            "/images/projects/Marcel_1x1_green.png",
+            "/images/projects/Marcel_1x1_blue.png",
+            "/images/projects/Marcel_1x1_purple.png",
+            "/images/projects/Marcel_2x2_dev.png"
         ],
         "description": "Marcel is an application that lets you turn your life into a game by transforming tasks and habits into adventures. You can gain gold experience and rewards by achieving your tasks, being productive and accomplishing your overdue habits you didn’t do for weeks.",
         "techStack": [
@@ -112,18 +116,12 @@
                         ]
                     },
                     {
-                        "type": "col",
-                        "media": [3, 4, 5]
-                    },
-
-                    {
                         "type": "collage",
                         "media": [
-                            7,
-                            8,
-                            6,
-                            9,
-                            9
+                            4,
+                            5,
+                            3,
+                            6
                         ]
                     }
                 ]
@@ -134,10 +132,18 @@
                     {
                         "type": "note",
                         "title": "Web development",
-                        "text": "The Svelte front end talks to a Go service that settles every reward before the animation plays — a streak is never a lie the interface tells you.",
+                        "text": "Now we just have to find the time to actually give Marcel it's newly created identity. It will take a moment but we will eventually get there! ;)",
                         "media": [
-                            7
+                            13
                         ]
+                    },
+                    {
+                        "type": "col",
+                        "media": [7, 8, 9]
+                    },
+                    {
+                        "type": "col",
+                        "media": [10, 11, 12]
                     }
                 ]
             },
@@ -146,6 +152,7 @@
                     {
                         "type": "end"
                     }
+                    
                 ]
             }
         ]

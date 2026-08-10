@@ -289,6 +289,11 @@ export default function ProjectDetail({ project, index, total, origin, onExit, o
         if (!el)
             return;
 
+        // the band is cropped in from both edges before anything counts as arrived,
+        // so a block plays once it is properly on screen rather than the instant a
+        // sliver of it clears the right edge
+        const arrival = { root: el, rootMargin: "0px -18% 0px -18%", threshold: 0.2 };
+
         const media = new IntersectionObserver((entries) => {
             entries.forEach((e) => {
                 const v = e.target as HTMLVideoElement;
@@ -298,33 +303,47 @@ export default function ProjectDetail({ project, index, total, origin, onExit, o
         }, { root: el, threshold: 0.2 });
         el.querySelectorAll("video").forEach((v) => media.observe(v));
 
-        // the media pops as it slides into the band and drops back out behind it,
-        // so a long track never shows a wall of stills at once. The flip cover is
-        // left out — it is already mid-tween when it arrives
+        // media waits in the wings zoomed in and drained of colour, then settles
+        // into its natural framing as the band reaches it. Nothing is faded out —
+        // a block half off screen still has to read. The parts that are not media
+        // (palette chips) have no crop to hide an overflow and are colour
+        // themselves, so those just grow in
         const stills = Array.from(el.querySelectorAll<HTMLElement>("[data-pop]"));
-        gsap.set(stills, { opacity: 0, scale: 0.88 });
+        const zoom = (m: HTMLElement) => m.dataset.pop === "zoom";
+        const asleep = (m: HTMLElement) => zoom(m)
+            ? { scale: 1.1, filter: "grayscale(1)" }
+            : { scale: 0.88 };
+        const awake = (m: HTMLElement) => zoom(m)
+            ? { scale: 1, filter: "grayscale(0)" }
+            : { scale: 1 };
+
+        stills.forEach((m) => gsap.set(m, asleep(m)));
 
         const pop = new IntersectionObserver((entries) => {
             entries.forEach((e) => {
                 const inView = e.isIntersecting;
+                const m = e.target as HTMLElement;
 
-                gsap.to(e.target, {
-                    opacity: inView ? 1 : 0,
-                    scale: inView ? 1 : 0.88,
-                    duration: inView ? 0.8 : 0.45,
+                gsap.to(m, {
+                    ...(inView ? awake(m) : asleep(m)),
+                    duration: inView ? 1.1 : 0.45,
                     ease: inView ? EASE.out : EASE.in,
                     overwrite: true,
                 });
             });
-        }, { root: el, threshold: 0.15 });
+        }, arrival);
         stills.forEach((m) => pop.observe(m));
+
+        // the copy rides up out of its own crop, so it has to start under it —
+        // SplitLines pre-hides the lines it builds, the hand-written ones need it here
+        const lines = (b: Element) => Array.from(b.querySelectorAll<HTMLElement>("[data-reveal]"));
+        blockRefs.current.forEach((b) => b && hideRevealY(lines(b)));
 
         const copy = new IntersectionObserver((entries) => {
             entries.forEach((e) => {
-                const targets = Array.from(e.target.querySelectorAll<HTMLElement>("[data-reveal]"));
-                run(targets, slideY(e.isIntersecting, false, { stagger: 0.06, duration: 0.6 }));
+                run(lines(e.target), slideY(e.isIntersecting, false, { stagger: 0.06, duration: 0.6 }));
             });
-        }, { root: el, threshold: 0.15 });
+        }, arrival);
         blockRefs.current.forEach((b) => b && copy.observe(b));
 
         return () => { media.disconnect(); pop.disconnect(); copy.disconnect(); };
@@ -338,7 +357,7 @@ export default function ProjectDetail({ project, index, total, origin, onExit, o
             role="dialog"
             aria-modal="true"
             aria-label={project.name}
-            className="fixed inset-0 z-[120] text-white opacity-0"
+            className="fixed inset-0 z-120 text-white opacity-0"
         >
             <div ref={bgRef} className="absolute inset-0 bg-[#111]">
                 <DitherView
