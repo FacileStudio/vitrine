@@ -127,11 +127,11 @@
                 ]
             },
             {
-                "title": "Web development",
+                "title": "Implementation",
                 "blocks": [
                     {
                         "type": "note",
-                        "title": "Web development",
+                        "title": "Implementation",
                         "text": "Now we just have to find the time to actually give Marcel it's newly created identity. It will take a moment but we will eventually get there! ;)",
                         "media": [
                             13

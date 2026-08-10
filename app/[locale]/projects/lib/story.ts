@@ -91,6 +91,7 @@ export interface PartProps {
     project: Project;
     imgRef?: Ref<HTMLDivElement>;
     ref?: Ref<HTMLDivElement>;
+    onClose?: () => void;
 }
 
 export const isVideoFile = (src: string) => /\.(mp4|webm|ogg|mov)$/i.test(src);

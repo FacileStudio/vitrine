@@ -17,7 +17,7 @@ function Line({ className = "", children }: { className?: string; children: Reac
 function Meta({ label, children }: { label: string; children: ReactNode }) {
     return (
         <div className="flex flex-col gap-3">
-            <Line className="text-sm text-white/35">{label}</Line>
+            <Line className="text-[clamp(0.65rem,1.4vh,0.9rem)] text-white/35">{label}</Line>
             {children}
         </div>
     );
@@ -29,19 +29,19 @@ export default function Intro({ block, project, ref }: PartProps) {
     return (
         <Block ref={ref} cols={block.cols}>
             <Cell col="1 / -1" row="1 / -1" className="">
-                <div className="flex h-full w-full flex-col justify-between p-20">
+                <div className="flex h-full w-full flex-col justify-between gap-[3vh] p-[5vh]">
                     <div className="flex flex-col gap-6">
-                        <Line className="text-sm uppercase text-white/70">
+                        <Line className="text-[clamp(0.65rem,1.4vh,0.9rem)] uppercase text-white/70">
                             {project.date}  —  {project.weeks} weeks
                         </Line>
 
-                        <Line className="text-6xl font-medium 3xl:text-8xl">
+                        <Line className="text-[clamp(1.75rem,5.2vh,5rem)] font-medium leading-[1.05]">
                             {project.name}
                         </Line>
 
                         <SplitLines
                             text={block.text ?? project.challenge ?? project.description}
-                            className="max-w-[50ch] text-xl text-white/70"
+                            className="max-w-[50ch] text-[clamp(0.8rem,1.9vh,1.35rem)] text-white/70"
                         />
 
                         {project.services?.length ? (
@@ -49,7 +49,7 @@ export default function Intro({ block, project, ref }: PartProps) {
                                 {project.services.map((s) => (
                                     <span
                                         key={s}
-                                        className="rounded-md px-4 py-2 text-sm bg-white/5 text-white"
+                                        className="rounded-md px-[1.4vh] py-[0.7vh] text-[clamp(0.65rem,1.4vh,0.9rem)] bg-white/5 text-white"
                                     >
                                         {s}
                                     </span>
@@ -62,11 +62,11 @@ export default function Intro({ block, project, ref }: PartProps) {
 
                         {project.techStack?.length ? (
                             <Meta label="Created with">
-                                <Line className="flex flex-wrap items-center gap-x-6 gap-y-3 text-white/70">
+                                <Line className="flex flex-wrap items-center gap-x-[2vh] gap-y-[1vh] text-[clamp(0.8rem,1.9vh,1.35rem)] text-white/70">
                                     {project.techStack.map((t) => (
                                         <span key={t} className="flex items-center gap-3">
-                                            <img src={`/images/logo/${t}.png`} alt="" className="h-8 w-auto" />
-                                            <span className="text-white/70">{t}</span>
+                                            <img src={`/images/logo/${t}.png`} alt="" className="h-[2.6vh] max-h-8 w-auto" />
+                                            {/* <span className="text-white/70">{t}</span> */}
                                         </span>
                                     ))}
                                 </Line>
@@ -82,11 +82,11 @@ export default function Intro({ block, project, ref }: PartProps) {
                                                 src={m.avatar}
                                                 alt={m.name}
                                                 style={{ borderColor: m.highlight }}
-                                                className="h-9 w-9 shrink-0 rounded-full border-2 object-cover"
+                                                className="h-[3.2vh] w-[3.2vh] max-h-9 max-w-9 shrink-0 rounded-full border-2 object-cover"
                                             />
                                             <span className="flex items-center gap-3 leading-tight">
-                                                <span className="text-white text-lg font-medium">{m.name}</span>
-                                                <span className="text-sm mt-0.5 text-white/40">{m.role}</span>
+                                                <span className="text-white text-[clamp(0.8rem,1.9vh,1.35rem)] font-medium">{m.name}</span>
+                                                <span className="text-[clamp(0.65rem,1.4vh,0.9rem)] mt-0.5 text-white/40">{m.role}</span>
                                             </span>
                                         </Line>
                                     ))}
@@ -96,7 +96,7 @@ export default function Intro({ block, project, ref }: PartProps) {
 
                         {project.link ? (
                             <Meta label="Live">
-                                <Line className="text-white/70">
+                                <Line className="text-[clamp(0.8rem,1.9vh,1.35rem)] text-white/70">
                                     <a
                                         href={project.link}
                                         target="_blank"
