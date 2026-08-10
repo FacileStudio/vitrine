@@ -298,6 +298,28 @@ export default function ProjectDetail({ project, index, total, origin, onExit, o
         }, { root: el, threshold: 0.2 });
         el.querySelectorAll("video").forEach((v) => media.observe(v));
 
+        // the media pops as it slides into the band and drops back out behind it,
+        // so a long track never shows a wall of stills at once. The flip cover is
+        // left out — it is already mid-tween when it arrives
+        const stills = Array.from(el.querySelectorAll<HTMLElement>("[data-pop]"));
+        gsap.set(stills, { opacity: 0, scale: 0.72, yPercent: 8 });
+
+        const pop = new IntersectionObserver((entries) => {
+            entries.forEach((e) => {
+                const inView = e.isIntersecting;
+
+                gsap.to(e.target, {
+                    opacity: inView ? 1 : 0,
+                    scale: inView ? 1 : 0.72,
+                    yPercent: inView ? 0 : 8,
+                    duration: inView ? 0.9 : 0.45,
+                    ease: inView ? "back.out(1.6)" : EASE.in,
+                    overwrite: true,
+                });
+            });
+        }, { root: el, threshold: 0.15 });
+        stills.forEach((m) => pop.observe(m));
+
         const copy = new IntersectionObserver((entries) => {
             entries.forEach((e) => {
                 const targets = Array.from(e.target.querySelectorAll<HTMLElement>("[data-reveal]"));
@@ -306,7 +328,7 @@ export default function ProjectDetail({ project, index, total, origin, onExit, o
         }, { root: el, threshold: 0.15 });
         blockRefs.current.forEach((b) => b && copy.observe(b));
 
-        return () => { media.disconnect(); copy.disconnect(); };
+        return () => { media.disconnect(); pop.disconnect(); copy.disconnect(); };
     }, []);
 
 

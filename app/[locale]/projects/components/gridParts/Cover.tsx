@@ -19,7 +19,7 @@ export default function Cover({ block, project, imgRef, ref }: PartProps) {
                     onPointerEnter={marcel ? start : undefined}
                     onPointerLeave={marcel ? stop : undefined}
                 >
-                    <Media src={block.media[0]} />
+                    <Media src={block.media[0]} pop={!imgRef} />
 
                     {marcel ? <MarcelEyes variant="cover" frameRef={frame} ref={eyes} /> : null}
                 </div>
