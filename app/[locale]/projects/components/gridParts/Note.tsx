@@ -8,7 +8,10 @@ export default function Note({ block, ref }: PartProps) {
                 <div className="flex h-full w-full flex-col gap-6 p-20">
                     <h3 data-reveal className="text-5xl font-medium 3xl:text-6xl">
                         {block.index ? (
-                            <span className="tabular-nums font-medium text-3xl text-[#5dd995] mr-4">{String(block.index).padStart(2, "0")}. </span>
+                            <>
+                                <span className="tabular-nums font-medium text-3xl text-[#5dd995] mr-4">{String(block.index).padStart(2, "0")}</span>
+                                <span className="tabular-nums font-medium text-3xl text-[#5dd995] mr-4">.</span>
+                            </>
                         ) : null}
                         {block.title}
                     </h3>

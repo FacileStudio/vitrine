@@ -302,7 +302,7 @@ export default function ProjectDetail({ project, index, total, origin, onExit, o
         // so a long track never shows a wall of stills at once. The flip cover is
         // left out — it is already mid-tween when it arrives
         const stills = Array.from(el.querySelectorAll<HTMLElement>("[data-pop]"));
-        gsap.set(stills, { opacity: 0, scale: 0.72, yPercent: 8 });
+        gsap.set(stills, { opacity: 0, scale: 0.88 });
 
         const pop = new IntersectionObserver((entries) => {
             entries.forEach((e) => {
@@ -310,10 +310,9 @@ export default function ProjectDetail({ project, index, total, origin, onExit, o
 
                 gsap.to(e.target, {
                     opacity: inView ? 1 : 0,
-                    scale: inView ? 1 : 0.72,
-                    yPercent: inView ? 0 : 8,
-                    duration: inView ? 0.9 : 0.45,
-                    ease: inView ? "back.out(1.6)" : EASE.in,
+                    scale: inView ? 1 : 0.88,
+                    duration: inView ? 0.8 : 0.45,
+                    ease: inView ? EASE.out : EASE.in,
                     overwrite: true,
                 });
             });
