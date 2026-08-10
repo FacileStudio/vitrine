@@ -60,6 +60,6 @@ export function Media({ src, className = "", pop = true }: { src: string; classN
     const cls = `h-full w-full object-cover ${className}`;
 
     return isVideoFile(src)
-        ? <video data-pop={pop ? "zoom" : undefined} src={src} loop muted playsInline preload="metadata" className={cls} />
-        : <img data-pop={pop ? "zoom" : undefined} src={src} alt="" className={cls} />;
+        ? <video data-pop={pop || undefined} src={src} loop muted playsInline preload="metadata" className={cls} />
+        : <img data-pop={pop || undefined} src={src} alt="" className={cls} />;
 }

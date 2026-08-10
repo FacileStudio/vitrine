@@ -2,15 +2,8 @@ import type { ReactNode } from "react";
 import SplitLines from "@/components/facile/splitLines";
 import type { PartProps } from "../../lib/story";
 import { team } from "../../lib/story";
-import { Block, Cell } from "./bento";
-
-function Line({ className = "", children }: { className?: string; children: ReactNode }) {
-    return (
-        <div className="overflow-hidden">
-            <div data-reveal className={className}>{children}</div>
-        </div>
-    );
-}
+import { Block, Cell } from "./Bento";
+import Line from "./Line";
 
 // the label gets its own crop; the value brings as many as it wants, so a list
 // can rise a row at a time instead of as one slab
@@ -28,7 +21,7 @@ export default function Intro({ block, project, ref }: PartProps) {
 
     return (
         <Block ref={ref} cols={block.cols}>
-            <Cell col="1 / -1" row="1 / -1" className="">
+            <Cell col="1 / -1" row="1 / -1">
                 <div className="flex h-full w-full flex-col justify-between gap-[3vh] p-[5vh]">
                     <div className="flex flex-col gap-6">
                         <Line className="text-[clamp(0.65rem,1.4vh,0.9rem)] uppercase text-white/70">
@@ -44,7 +37,7 @@ export default function Intro({ block, project, ref }: PartProps) {
                             className="max-w-[50ch] text-[clamp(0.8rem,1.9vh,1.35rem)] text-white/70"
                         />
 
-                        {project.services?.length ? (
+                        {project.services.length ? (
                             <Line className="flex flex-wrap items-center gap-1">
                                 {project.services.map((s) => (
                                     <span
@@ -59,15 +52,11 @@ export default function Intro({ block, project, ref }: PartProps) {
                     </div>
 
                     <div className="flex flex-col gap-y-12">
-
                         {project.techStack?.length ? (
                             <Meta label="Created with">
                                 <Line className="flex flex-wrap items-center gap-x-[2vh] gap-y-[1vh] text-[clamp(0.8rem,1.9vh,1.35rem)] text-white/70">
                                     {project.techStack.map((t) => (
-                                        <span key={t} className="flex items-center gap-3">
-                                            <img src={`/images/logo/${t}.png`} alt="" className="h-[2.6vh] max-h-8 w-auto" />
-                                            {/* <span className="text-white/70">{t}</span> */}
-                                        </span>
+                                        <img key={t} src={`/images/logo/${t}.png`} alt="" className="h-[2.6vh] max-h-8 w-auto" />
                                     ))}
                                 </Line>
                             </Meta>

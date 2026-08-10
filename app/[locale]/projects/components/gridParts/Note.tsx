@@ -1,18 +1,20 @@
 import SplitLines from "@/components/facile/splitLines";
 import type { PartProps } from "../../lib/story";
-import { Block, Cell, Media } from "./bento";
+import { Block, Cell, Media } from "./Bento";
+
+const CHAPTER = "mr-6 font-medium text-[0.6em] text-[#24E27A]";
 
 export default function Note({ block, ref }: PartProps) {
     return (
         <Block ref={ref} cols={block.cols}>
-            <Cell col="1 / -1" row="1" className="">
+            <Cell col="1 / -1" row="1">
                 <div className="flex h-full w-full flex-col gap-[2vh] p-[5vh]">
                     <div className="overflow-hidden">
                         <h3 data-reveal className="text-[clamp(1.5rem,4.4vh,3.75rem)] font-medium leading-[1.05]">
                             {block.index ? (
                                 <>
-                                    <span className="tabular-nums font-medium text-[0.6em] text-[#24E27A] mr-6">{String(block.index).padStart(2, "0")}</span>
-                                    <span className="mr-6 font-medium text-[0.6em] text-[#24E27A]">.</span>
+                                    <span className={`tabular-nums ${CHAPTER}`}>{String(block.index).padStart(2, "0")}</span>
+                                    <span className={CHAPTER}>.</span>
                                 </>
                             ) : null}
                             {block.title}

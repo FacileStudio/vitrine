@@ -1,20 +1,12 @@
-import type { ReactNode } from "react";
 import type { PartProps } from "../../lib/story";
-import { Block, Cell } from "./bento";
+import { Block, Cell } from "./Bento";
+import Line from "./Line";
 
 const ROWS = ["ABCDEFGHIJKL", "MNOPQRSTUVW", "XYZ"].map((row) => row.split(""));
 
 const NUMBERS = "0123456789";
 
 const SPECIALS = "&@#$%€£()[]{}!?.,;:\"'/\\+−=×÷<>~^_|©®°*";
-
-function Line({ className = "", outer = "", children }: { className?: string; outer?: string; children: ReactNode }) {
-    return (
-        <div className={`overflow-hidden ${outer}`}>
-            <div data-reveal className={className}>{children}</div>
-        </div>
-    );
-}
 
 export default function Typography({ block, ref }: PartProps) {
     return (
