@@ -1,17 +1,11 @@
-import type { Ref } from "react";
+import type { PartProps } from "../../lib/story";
 import { Block, Cell, Media } from "./bento";
 
-type FullProps = {
-    src: string;
-    cols?: number;
-    ref?: Ref<HTMLDivElement>;
-};
-
-export default function Full({ src, cols = 2, ref }: FullProps) {
+export default function Full({ block, ref }: PartProps) {
     return (
-        <Block ref={ref} cols={cols}>
+        <Block ref={ref} cols={block.cols}>
             <Cell col="1 / -1" row="1 / -1">
-                <Media src={src} />
+                <Media src={block.media[0]} />
             </Cell>
         </Block>
     );

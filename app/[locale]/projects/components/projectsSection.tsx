@@ -1,12 +1,12 @@
 import gsap from "gsap";
 import SplitLines from "@/components/facile/splitLines";
-import { useRef, useState, useEffect, useLayoutEffect, type RefObject, type MouseEvent } from "react";
+import { useRef, useState, useEffect, useLayoutEffect, type MouseEvent } from "react";
 import { useLenis } from "lenis/react";
 import { usePinProgress } from "@/hooks/use-pin-progress";
 import dynamic from "next/dynamic";
-import projects from "../projects.json";
 import { EASE, run, slideY, hideRevealY } from "@/app/utils/animations";
-import { isVideoFile, type Project } from "../lib/story";
+import { allProjects as projects, isVideoFile, type Project } from "../lib/story";
+import { MarcelEyes, MarcelSpheres, useMarcelEyes } from "./marcelEyes";
 import ProjectDetail from "./projectDetail";
 
 const DitherView = dynamic(
@@ -49,8 +49,6 @@ interface ProjectCardProps {
     setEntryRef: (i: number) => (el: HTMLButtonElement | null) => void;
     setImgRef: (i: number) => (el: HTMLDivElement | null) => void;
     setContentRef: (i: number) => (el: HTMLDivElement | null) => void;
-    marcelEyesRef: RefObject<HTMLDivElement | null>;
-    marcelSpheresRef: RefObject<HTMLDivElement | null>;
     onOpen: (i: number) => void;
     onEnter: (e: MouseEvent<HTMLButtonElement>) => void;
     onLeave: (e: MouseEvent<HTMLButtonElement>) => void;
@@ -58,29 +56,26 @@ interface ProjectCardProps {
 
 // one project row: parallaxed cover image on the left with the hover media wipe,
 // its name/tech/description on the right. Marcel gets the extra googly-eyes markup
-function ProjectCard({ p, index, setCardRef, setEntryRef, setImgRef, setContentRef, marcelEyesRef, marcelSpheresRef, onOpen, onEnter, onLeave }: ProjectCardProps) {
+function ProjectCard({ p, index, setCardRef, setEntryRef, setImgRef, setContentRef, onOpen, onEnter, onLeave }: ProjectCardProps) {
+    const { frame, eyes, spheres, start, stop } = useMarcelEyes();
+    const marcel = p.name === "Marcel";
+
     return (
         <div ref={setCardRef(index)} className="3xl:w-[70vw] w-[80vw] shrink-0 flex items-start justify-between">
             <div className="relative shrink-0">
-                {p.name === "Marcel" && (
-                    <div ref={marcelSpheresRef} className="pointer-events-none absolute bottom-6 xl:bottom-0 z-20 left-1/2 flex -translate-x-1/2 translate-y-1/2 gap-16 will-change-transform">
-                        <div className="w-28 h-28 xl:w-40 xl:h-40 rounded-full bg-[#95DFE9] shadow-3xl" />
-                        <div className="w-28 h-28 xl:w-40 xl:h-40 rounded-full bg-[#95DFE9] shadow-3xl" />
-                    </div>
-                )}
+                {marcel && <MarcelSpheres ref={spheres} />}
                 <button
                     ref={setEntryRef(index)}
                     type="button"
                     aria-label={p.name}
-                    onClick={() => onOpen(index)}
-                    onMouseEnter={onEnter}
-                    onMouseLeave={onLeave}
+                    onClick={() => { stop(); onOpen(index); }}
+                    onMouseEnter={(e) => { onEnter(e); if (marcel) start(); }}
+                    onMouseLeave={(e) => { onLeave(e); stop(); }}
                     className="group relative 3xl:w-5xl w-[50vw] aspect-16/10 shrink-0 flex flex-col group-hover:bg-black/50 justify-start gap-1 overflow-hidden rounded-md"
                 >
-                    {p.image && p.name === "Marcel"
+                    {p.image && marcel
                     ?
-                        <>
-                            <div ref={setImgRef(index)} className="absolute inset-0 will-change-transform">
+                        <div ref={setImgRef(index)} className="absolute inset-0 will-change-transform">
                             <img
                                 src={p.image}
                                 alt={p.name}
@@ -88,14 +83,8 @@ function ProjectCard({ p, index, setCardRef, setEntryRef, setImgRef, setContentR
                                 decoding="async"
                                 className="w-full h-full object-cover transition-all brightness-100 duration-300 ease-out"
                             />
-                            <div className="absolute bottom-12 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                                <div ref={marcelEyesRef} className="flex gap-8 z-30 will-change-transform">
-                                    <div className="w-10 h-48 xl:w-16 xl:h-70 bg-black rounded-full" />
-                                    <div className="w-10 h-48 xl:w-16 xl:h-70 bg-black rounded-full" />
-                                </div>
-                            </div>
+                            <MarcelEyes frameRef={frame} ref={eyes} />
                         </div>
-                        </>
                     :
                         <>
                             <div ref={setImgRef(index)} className="absolute inset-0 will-change-transform">
@@ -164,9 +153,6 @@ export default function ProjectsSection() {
     const entryRefs = useRef<(HTMLButtonElement | null)[]>([]);
     const imgRefs = useRef<(HTMLDivElement | null)[]>([]);
     const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
-    const marcelEyesRef = useRef<HTMLDivElement>(null);
-    const marcelSpheresRef = useRef<HTMLDivElement>(null);
-    const eyesMove = useRef<((e: PointerEvent) => void) | null>(null);
 
     const [active, setActive] = useState<number | null>(null);
 
@@ -190,9 +176,6 @@ export default function ProjectsSection() {
 
 
 
-    useEffect(() => {
-        return () => { if (eyesMove.current) window.removeEventListener("pointermove", eyesMove.current); };
-    }, []);
 
 
 
@@ -240,56 +223,8 @@ export default function ProjectsSection() {
 
 
 
-    // marcel eyes
-    const startEyes = (card: HTMLElement) => {
-        const eyes = marcelEyesRef.current;
-        if (!eyes || !card.contains(eyes))
-            return;
-
-        if (eyesMove.current)
-            window.removeEventListener("pointermove", eyesMove.current);
-
-        // measure the eyes' rest centre (offsets are relative to it)
-        gsap.set(eyes, { x: 0, y: 0 });
-        const r = eyes.getBoundingClientRect();
-        const cx = r.left + r.width / 2;
-        const cy = r.top + r.height / 2;
-
-        // eyes travel less on laptop/smaller screens; big monitors (>=2560px) keep the full 150px range
-        const maxX = window.innerWidth >= 2000 ? 200 : 130;
-        const clampX = gsap.utils.clamp(-maxX, maxX),
-              clampY = gsap.utils.clamp(-60, 20),
-              setX = gsap.quickTo(eyes, "x", { duration: 1.4, ease: "power2.out" }),
-              setY = gsap.quickTo(eyes, "y", { duration: 1.4, ease: "power2.out" }),
-              spheres = marcelSpheresRef.current,
-              setSphX = spheres ? gsap.quickTo(spheres, "x", { duration: 1.6, ease: "power2.out", delay: 0.2 }) : null;
-
-        const move = (e: PointerEvent) => {
-            const tx = clampX(e.clientX - cx);
-            setX(tx);
-            setY(clampY(e.clientY - cy));
-            setSphX?.(tx);
-        };
-        eyesMove.current = move;
-        window.addEventListener("pointermove", move, { passive: true });
-    };
-
-    const stopEyes = (card: HTMLElement) => {
-        const eyes = marcelEyesRef.current;
-        if (!eyes || !card.contains(eyes)) return;
-        if (eyesMove.current) window.removeEventListener("pointermove", eyesMove.current);
-        eyesMove.current = null;
-        // overwrite:true kills the lingering quickTo tweens so they can't snap back to the cursor
-        gsap.to(eyes, { x: 0, y: 0, duration: 0.6, ease: "power2.out", overwrite: true });
-        gsap.to(marcelSpheresRef.current, { x: 0, duration: 0.6, ease: "power2.out", overwrite: true });
-    };
-
-
-
     // hover: wipe the centered media (video or image) open from the bottom up, then close it back down
     const onEnter = (e: MouseEvent<HTMLButtonElement>) => {
-        startEyes(e.currentTarget);
-
         const m = e.currentTarget.querySelector<HTMLElement>("[data-media]");
         if (!m)
             return;
@@ -307,8 +242,6 @@ export default function ProjectsSection() {
     };
 
     const onLeave = (e: MouseEvent<HTMLButtonElement>) => {
-        stopEyes(e.currentTarget);
-
         const m = e.currentTarget.querySelector<HTMLElement>("[data-media]");
         if (!m)
             return;
@@ -330,8 +263,6 @@ export default function ProjectsSection() {
         const card = entryRefs.current[i];
         if (active !== null || !card)
             return;
-
-        stopEyes(card);
 
         const m = card.querySelector<HTMLElement>("[data-media]");
         if (m) {
@@ -376,8 +307,6 @@ export default function ProjectsSection() {
                         setEntryRef={setEntryRef}
                         setImgRef={setImgRef}
                         setContentRef={setContentRef}
-                        marcelEyesRef={marcelEyesRef}
-                        marcelSpheresRef={marcelSpheresRef}
                         onOpen={openProject}
                         onEnter={onEnter}
                         onLeave={onLeave}

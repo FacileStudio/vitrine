@@ -7,14 +7,7 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useRef } from "react"
 import { EASE, hideRevealY, run, slideY } from "@/app/utils/animations";
 import { buildStory, type Block, type Project } from "../lib/story";
 import { Bento } from "./gridParts/bento";
-import Cover from "./gridParts/Cover";
-import Intro from "./gridParts/Intro";
-import Label from "./gridParts/Label";
-import Note from "./gridParts/Note";
-import Col from "./gridParts/Col";
-import Big from "./gridParts/Big";
-import Full from "./gridParts/Full";
-import End from "./gridParts/End";
+import { PARTS } from "./gridParts";
 
 const DitherView = dynamic(() => import("@/webgl/DitherView").then((m) => m.DitherView), { ssr: false });
 
@@ -58,7 +51,14 @@ export default function ProjectDetail({ project, index, total, origin, onExit, o
         onClosedRef.current = onClosed;
     });
 
-    const blocks = useMemo(() => buildStory(project), [project]);
+    const sections = useMemo(() => buildStory(project), [project]);
+
+    // the refs stay one flat list across chapters: the flip and the stagger only
+    // care about the order blocks appear in the track
+    const starts = useMemo(
+        () => sections.reduce<number[]>((acc, s) => [...acc, acc[acc.length - 1] + s.length], [0]),
+        [sections],
+    );
 
     // block 0 is the cover the list card flips into, so it doubles as the flip target
     const setBlockRef = (i: number) => (el: HTMLDivElement | null) => {
@@ -69,26 +69,9 @@ export default function ProjectDetail({ project, index, total, origin, onExit, o
     const rest = () => blockRefs.current.filter((el, i) => el && i > 0) as HTMLElement[];
 
     const renderBlock = (b: Block, i: number) => {
-        const ref = setBlockRef(i);
+        const Part = PARTS[b.type];
 
-        switch (b.kind) {
-            case "cover":
-                return <Cover key={i} ref={ref} imgRef={coverImgRef} src={b.src} cols={b.cols} />;
-            case "intro":
-                return <Intro key={i} ref={ref} project={project} />;
-            case "label":
-                return <Label key={i} ref={ref} text={b.text} index={b.index} />;
-            case "note":
-                return <Note key={i} ref={ref} title={b.title} text={b.text} media={b.media} />;
-            case "col":
-                return <Col key={i} ref={ref} media={b.media} />;
-            case "big":
-                return <Big key={i} ref={ref} src={b.src} media={b.media} smalls={b.smalls} />;
-            case "full":
-                return <Full key={i} ref={ref} src={b.src} />;
-            case "end":
-                return <End key={i} ref={ref} name={project.name} link={project.link} />;
-        }
+        return <Part key={i} ref={setBlockRef(i)} block={b} project={project} imgRef={i === 0 ? coverImgRef : undefined} />;
     };
 
     const chrome = () => Array.from(rootRef.current?.querySelectorAll<HTMLElement>("[data-chrome]") ?? []);
@@ -115,9 +98,11 @@ export default function ProjectDetail({ project, index, total, origin, onExit, o
 
         // measure the cover untransformed: React runs this effect twice in dev
         // and a killed timeline leaves the previous flip's transform behind,
-        // which would make the card and the cover measure the same box
-        if (cover) gsap.set(cover, { clearProps: "all" });
-        if (coverImg) gsap.set(coverImg, { clearProps: "all" });
+        // which would make the card and the cover measure the same box.
+        // only the transform goes — clearProps "all" wipes cssText, and with it
+        // the inline grid span React put on the block
+        if (cover) gsap.set(cover, { clearProps: "transform,opacity" });
+        if (coverImg) gsap.set(coverImg, { clearProps: "transform,opacity" });
 
         const tl = gsap.timeline();
         tl.set(rootRef.current, { autoAlpha: 1 })
@@ -355,8 +340,12 @@ export default function ProjectDetail({ project, index, total, origin, onExit, o
                 ref={scrollerRef}
                 className="absolute inset-0 cursor-grab overflow-x-auto overflow-y-hidden overscroll-contain active:cursor-grabbing [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             >
-                <div ref={trackRef} className="flex h-full w-max items-center px-[6vw]">
-                    <Bento>{blocks.map(renderBlock)}</Bento>
+                <div ref={trackRef} className="flex h-full w-max items-center gap-128 px-[6vw]">
+                    {sections.map((blocks, s) => (
+                        <Bento key={s}>
+                            {blocks.map((b, i) => renderBlock(b, starts[s] + i))}
+                        </Bento>
+                    ))}
                 </div>
             </div>
 

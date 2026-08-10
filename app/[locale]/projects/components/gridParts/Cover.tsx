@@ -1,19 +1,30 @@
-import type { Ref } from "react";
+import type { PartProps } from "../../lib/story";
+import { MarcelEyes, MarcelSpheres, useMarcelEyes } from "../marcelEyes";
 import { Block, Cell, Media } from "./bento";
 
-type CoverProps = {
-    src: string;
-    cols?: number;
-    imgRef?: Ref<HTMLDivElement>;
-    ref?: Ref<HTMLDivElement>;
-};
+export default function Cover({ block, project, imgRef, ref }: PartProps) {
+    const { frame, eyes, spheres, start, stop } = useMarcelEyes();
 
-export default function Cover({ src, cols = 3, imgRef, ref }: CoverProps) {
+    // only the opening cover wears the eyes — the mid-story ones are other frames
+    const marcel = project.slug === "marcel" && block.media[0] === project.image;
+
     return (
-        <Block ref={ref} cols={cols}>
+        <Block ref={ref} cols={block.cols}>
             <Cell col="1 / -1" row="1 / -1">
-                <div ref={imgRef} className="h-full w-full">
-                    <Media src={src} />
+                <div
+                    ref={imgRef}
+                    className="relative h-full w-full"
+                    onPointerEnter={marcel ? start : undefined}
+                    onPointerLeave={marcel ? stop : undefined}
+                >
+                    <Media src={block.media[0]} />
+
+                    {marcel ? (
+                        <>
+                            <MarcelSpheres ref={spheres} />
+                            <MarcelEyes frameRef={frame} ref={eyes} />
+                        </>
+                    ) : null}
                 </div>
             </Cell>
         </Block>
