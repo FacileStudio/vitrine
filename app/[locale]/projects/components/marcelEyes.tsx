@@ -72,22 +72,40 @@ export function useMarcelEyes() {
     return { frame, eyes, spheres, start, stop };
 }
 
-type PartRef = {
+// the card keeps the hand-picked pixel sizes it shipped with; the detail cover
+// states them as a share of the frame instead, so the gag grows with the image
+// the card flips into
+type Variant = "card" | "cover";
+
+const EYE = {
+    card: { anchor: "bottom-12", row: "gap-8", pill: "w-10 h-48 xl:w-16 xl:h-70" },
+    cover: { anchor: "bottom-[6cqw]", row: "gap-[4cqw]", pill: "w-[8cqw] h-[35cqw]" },
+};
+
+const SPHERE = {
+    card: { row: "gap-16", ball: "w-28 h-28 xl:w-40 xl:h-40" },
+    cover: { row: "gap-[8cqw]", ball: "w-[20cqw] aspect-square" },
+};
+
+type PartProps = {
+    variant?: Variant;
     frameRef?: Ref<HTMLDivElement>;
     ref?: Ref<HTMLDivElement>;
 };
 
 // the eyes ride the image, not the block: object-cover crops Marcel's frame in
 // the bento, so the layer mirrors the rendered image box (4379x2742) and the
-// cqw sizes below stay locked to the drawing rather than to the cell
-export function MarcelEyes({ frameRef, ref }: PartRef) {
+// cover's cqw sizes stay locked to the drawing rather than to the cell
+export function MarcelEyes({ variant = "card", frameRef, ref }: PartProps) {
+    const s = EYE[variant];
+
     return (
         <div className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center">
             <div ref={frameRef} className="relative h-full aspect-[1.597] [container-type:inline-size]">
-                <div className="absolute bottom-[6cqw] left-1/2 -translate-x-1/2 -translate-y-1/2">
-                    <div ref={ref} className="flex gap-[4cqw] will-change-transform">
-                        <div className="h-[35cqw] w-[8cqw] rounded-full bg-black" />
-                        <div className="h-[35cqw] w-[8cqw] rounded-full bg-black" />
+                <div className={`absolute left-1/2 -translate-x-1/2 -translate-y-1/2 ${s.anchor}`}>
+                    <div ref={ref} className={`flex will-change-transform ${s.row}`}>
+                        <div className={`rounded-full bg-black ${s.pill}`} />
+                        <div className={`rounded-full bg-black ${s.pill}`} />
                     </div>
                 </div>
             </div>
@@ -95,12 +113,14 @@ export function MarcelEyes({ frameRef, ref }: PartRef) {
     );
 }
 
-export function MarcelSpheres({ ref }: { ref?: Ref<HTMLDivElement> }) {
+export function MarcelSpheres({ variant = "card", ref }: { variant?: Variant; ref?: Ref<HTMLDivElement> }) {
+    const s = SPHERE[variant];
+
     return (
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex justify-center [container-type:inline-size]">
-            <div ref={ref} className="flex translate-y-1/2 gap-[8cqw] will-change-transform">
-                <div className="aspect-square w-[20cqw] rounded-full bg-[#95DFE9] shadow-3xl" />
-                <div className="aspect-square w-[20cqw] rounded-full bg-[#95DFE9] shadow-3xl" />
+            <div ref={ref} className={`flex translate-y-1/2 will-change-transform ${s.row}`}>
+                <div className={`rounded-full bg-[#95DFE9] shadow-3xl ${s.ball}`} />
+                <div className={`rounded-full bg-[#95DFE9] shadow-3xl ${s.ball}`} />
             </div>
         </div>
     );
