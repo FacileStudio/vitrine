@@ -37,6 +37,7 @@ export const BLOCK_SPECS = {
     palette: { media: 0, cols: 2 },
     big: { media: 3, cols: 2 },
     mosaic: { media: 5, cols: 3 },
+    collage: { media: 4, cols: 3 },
     full: { media: 1, cols: 2 },
     end: { media: 0, cols: 2 },
 } as const;

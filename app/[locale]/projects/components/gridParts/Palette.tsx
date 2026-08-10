@@ -63,6 +63,7 @@ function Chip({ swatch, span }: { swatch: Swatch; span: number }) {
 
     return (
         <div
+            data-pop
             style={{ background: swatch.hex, color: tone, gridColumn: `span ${span}` }}
             className="flex min-h-0 min-w-0 flex-col justify-between gap-4 rounded-md p-8"
         >

@@ -56,10 +56,10 @@ export function Cell({ col, row, className = "", children }: CellProps) {
     );
 }
 
-export function Media({ src, className = "" }: { src: string; className?: string }) {
+export function Media({ src, className = "", pop = true }: { src: string; className?: string; pop?: boolean }) {
     const cls = `h-full w-full object-cover ${className}`;
 
     return isVideoFile(src)
-        ? <video src={src} loop muted playsInline preload="metadata" className={cls} />
-        : <img src={src} alt="" className={cls} />;
+        ? <video data-pop={pop || undefined} src={src} loop muted playsInline preload="metadata" className={cls} />
+        : <img data-pop={pop || undefined} src={src} alt="" className={cls} />;
 }

@@ -8,6 +8,7 @@ import Typography from "./Typography";
 import Palette from "./Palette";
 import Big from "./Big";
 import Mosaic from "./Mosaic";
+import Collage from "./Collage";
 import Full from "./Full";
 import End from "./End";
 
@@ -22,6 +23,7 @@ export const PARTS: Record<BlockKind, (props: PartProps) => ReactNode> = {
     palette: Palette,
     big: Big,
     mosaic: Mosaic,
+    collage: Collage,
     full: Full,
     end: End,
 };
