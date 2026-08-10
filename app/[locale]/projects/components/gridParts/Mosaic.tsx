@@ -1,5 +1,5 @@
 import type { PartProps } from "../../lib/story";
-import { Block, Cell, Media } from "./bento";
+import { Block, Cell, Media } from "./Bento";
 
 export default function Mosaic({ block, ref }: PartProps) {
     const [wide, topRight, bottomLeftA, bottomLeftB, large] = block.media;

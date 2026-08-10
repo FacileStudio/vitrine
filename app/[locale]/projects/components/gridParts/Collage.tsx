@@ -1,5 +1,5 @@
 import type { PartProps } from "../../lib/story";
-import { Block, Cell, Media } from "./bento";
+import { Block, Cell, Media } from "./Bento";
 
 export default function Collage({ block, ref }: PartProps) {
     const [wide, topRight, tall, large] = block.media;

@@ -1,10 +1,12 @@
 import type { PartProps, Swatch } from "../../lib/story";
-import { Block, Cell } from "./bento";
+import { Block, Cell } from "./Bento";
 
+// shorthand is expanded and an alpha byte dropped, so a chart that authors
+// #abc or #rrggbbaa still reads the same three channels
 const channels = (hex: string) => {
-    const raw = hex.replace("#", "").trim();
-    const full = raw.length === 3 ? raw.split("").map((c) => c + c).join("") : raw;
-    const value = parseInt(full, 16);
+    const raw = hex.trim().replace("#", "");
+    const full = (raw.length < 6 ? raw.replace(/./g, (c) => c + c) : raw).slice(0, 6);
+    const value = Number.parseInt(full, 16) || 0;
 
     return [(value >> 16) & 255, (value >> 8) & 255, value & 255] as const;
 };
@@ -46,11 +48,11 @@ const cmykOf = ([r, g, b]: readonly number[]) => {
 const readable = ([r, g, b]: readonly number[]) =>
     (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255 > 0.6 ? "#0E0F10" : "#F9F1E7";
 
-function Value({ label, value, tone }: { label: string; value: string; tone: string }) {
+function Value({ label, value }: { label: string; value: string }) {
     return (
         <span className="flex gap-[0.4em]">
-            <span style={{ color: tone, opacity: 0.45 }}>{label}:</span>
-            <span style={{ color: tone, opacity: 0.75 }}>{value}</span>
+            <span style={{ opacity: 0.45 }}>{label}:</span>
+            <span style={{ opacity: 0.75 }}>{value}</span>
         </span>
     );
 }
@@ -63,7 +65,6 @@ function Chip({ swatch, span }: { swatch: Swatch; span: number }) {
 
     return (
         <div
-            data-pop
             style={{ background: swatch.hex, color: tone, gridColumn: `span ${span}` }}
             className="flex min-h-0 min-w-0 flex-col justify-between gap-[1.5vh] rounded-md p-[3vh]"
         >
@@ -75,9 +76,9 @@ function Chip({ swatch, span }: { swatch: Swatch; span: number }) {
             </div>
 
             <div className="flex flex-col gap-[0.3vh] text-[clamp(0.55rem,1.2vh,0.8rem)] font-medium leading-tight">
-                <Value label="RGB" value={swatch.rgb ?? `(${rgb.join(", ")})`} tone={tone} />
-                <Value label="HSV / HSB" value={swatch.hsv ?? hsvOf(rgb)} tone={tone} />
-                <Value label="CMYK" value={swatch.cmyk ?? cmykOf(rgb)} tone={tone} />
+                <Value label="RGB" value={swatch.rgb ?? `(${rgb.join(", ")})`} />
+                <Value label="HSV / HSB" value={swatch.hsv ?? hsvOf(rgb)} />
+                <Value label="CMYK" value={swatch.cmyk ?? cmykOf(rgb)} />
             </div>
         </div>
     );

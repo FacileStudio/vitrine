@@ -1,3 +1,5 @@
+'use client'
+
 import gsap from "gsap";
 import SplitLines from "@/components/facile/splitLines";
 import { useRef, useState, useEffect, useLayoutEffect, type MouseEvent } from "react";
@@ -14,7 +16,9 @@ const DitherView = dynamic(
     { ssr: false },
 );
 
-const mediaClass = "pointer-events-none absolute rounded object-cover will-change-[clip-path] [clip-path:inset(100%_0_0_0)] rounded-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4/5";
+const mediaClass = "pointer-events-none absolute top-1/2 left-1/2 w-4/5 -translate-x-1/2 -translate-y-1/2 rounded-md object-cover will-change-[clip-path] [clip-path:inset(100%_0_0_0)]";
+
+const coverClass = "w-full h-full object-cover brightness-100 transition-all duration-300 ease-out";
 
 
 
@@ -58,7 +62,7 @@ interface ProjectCardProps {
 // its name/tech/description on the right. Marcel gets the extra googly-eyes markup
 function ProjectCard({ p, index, setCardRef, setEntryRef, setImgRef, setContentRef, onOpen, onEnter, onLeave }: ProjectCardProps) {
     const { frame, eyes, spheres, start, stop } = useMarcelEyes();
-    const marcel = p.name === "Marcel";
+    const marcel = p.slug === "marcel";
 
     return (
         <div ref={setCardRef(index)} className="3xl:w-[70vw] w-[80vw] shrink-0 flex items-start justify-between">
@@ -71,53 +75,39 @@ function ProjectCard({ p, index, setCardRef, setEntryRef, setImgRef, setContentR
                     onClick={() => { stop(); onOpen(index); }}
                     onMouseEnter={(e) => { onEnter(e); if (marcel) start(); }}
                     onMouseLeave={(e) => { onLeave(e); stop(); }}
-                    className="group relative 3xl:w-5xl w-[50vw] aspect-16/10 shrink-0 flex flex-col group-hover:bg-black/50 justify-start gap-1 overflow-hidden rounded-md"
+                    className="group relative 3xl:w-5xl w-[50vw] aspect-16/10 shrink-0 overflow-hidden rounded-md"
                 >
-                    {p.image && marcel
-                    ?
-                        <div ref={setImgRef(index)} className="absolute inset-0 will-change-transform">
-                            <img
-                                src={p.image}
-                                alt={p.name}
-                                loading="lazy"
-                                decoding="async"
-                                className="w-full h-full object-cover transition-all brightness-100 duration-300 ease-out"
-                            />
-                            <MarcelEyes frameRef={frame} ref={eyes} />
-                        </div>
-                    :
-                        <>
-                            <div ref={setImgRef(index)} className="absolute inset-0 will-change-transform">
-                                <img
-                                    src={p.image}
-                                    alt={p.name}
-                                    loading="lazy"
-                                    decoding="async"
-                                    className="w-full h-full object-cover transition-all  brightness-100 group-hover:brightness-[0.6] duration-300 ease-out group-hover:scale-110"
-                                />
-                            </div>
+                    <div ref={setImgRef(index)} className="absolute inset-0 will-change-transform">
+                        <img
+                            src={p.image}
+                            alt={p.name}
+                            loading="lazy"
+                            decoding="async"
+                            className={marcel ? coverClass : `${coverClass} group-hover:brightness-[0.6] group-hover:scale-110`}
+                        />
 
-                            {p.video && (
-                                isVideoFile(p.video) ? (
-                                    <video
-                                        data-media
-                                        src={p.video}
-                                        loop muted playsInline preload="none"
-                                        className={mediaClass}
-                                    />
-                                ) : (
-                                    <img
-                                        data-media
-                                        src={p.video}
-                                        alt={p.name}
-                                        className={mediaClass}
-                                    />
-                                )
-                            )}
-                        </>
-                    }
+                        {marcel && <MarcelEyes frameRef={frame} ref={eyes} />}
+                    </div>
+
+                    {!marcel && p.video && (
+                        isVideoFile(p.video) ? (
+                            <video
+                                data-media
+                                src={p.video}
+                                loop muted playsInline preload="none"
+                                className={mediaClass}
+                            />
+                        ) : (
+                            <img
+                                data-media
+                                src={p.video}
+                                alt={p.name}
+                                className={mediaClass}
+                            />
+                        )
+                    )}
                 </button>
-          </div>
+            </div>
 
             <div ref={setContentRef(index)} className="flex flex-col items-end gap-12 max-w-sm text-right py-12">
                 <span className="relative z-10 block overflow-hidden">
@@ -168,15 +158,11 @@ export default function ProjectsSection() {
     // callback-ref setters: the refs are owned here, so the children just receive
     // a per-index setter instead of writing into a ref object passed as a prop
     const setCardRef = (i: number) => (el: HTMLDivElement | null) => { cardRefs.current[i] = el; };
-    const setEntryRef = (i: number) => (el: HTMLButtonElement | null) => { if (el) entryRefs.current[i] = el; };
+    const setEntryRef = (i: number) => (el: HTMLButtonElement | null) => { entryRefs.current[i] = el; };
     const setImgRef = (i: number) => (el: HTMLDivElement | null) => { imgRefs.current[i] = el; };
     const setContentRef = (i: number) => (el: HTMLDivElement | null) => { contentRefs.current[i] = el; };
 
     const cards = () => cardRefs.current.filter((el): el is HTMLDivElement => el != null);
-
-
-
-
 
 
     // reveal each project's text + logos while its card sits in the centre band,
@@ -300,7 +286,7 @@ export default function ProjectsSection() {
             <div className="w-full h-full pt-[20vh] flex flex-col justify-start items-center gap-1 px-6">
                 {projects.map((p, i) => (
                     <ProjectCard
-                        key={i}
+                        key={p.slug}
                         p={p}
                         index={i}
                         setCardRef={setCardRef}

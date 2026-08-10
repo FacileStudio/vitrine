@@ -1,6 +1,6 @@
 import type { PartProps } from "../../lib/story";
 import { MarcelEyes, MarcelSpheres, useMarcelEyes } from "../marcelEyes";
-import { Block, Cell, Media } from "./bento";
+import { Block, Cell, Media } from "./Bento";
 
 export default function Cover({ block, project, imgRef, ref }: PartProps) {
     const { frame, eyes, spheres, start, stop } = useMarcelEyes("cover");

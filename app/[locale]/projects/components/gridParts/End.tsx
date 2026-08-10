@@ -1,14 +1,6 @@
-import type { ReactNode } from "react";
 import type { PartProps } from "../../lib/story";
-import { Block, Cell } from "./bento";
-
-function Line({ className = "", children }: { className?: string; children: ReactNode }) {
-    return (
-        <div className="overflow-hidden">
-            <div data-reveal className={className}>{children}</div>
-        </div>
-    );
-}
+import { Block, Cell } from "./Bento";
+import Line from "./Line";
 
 export default function End({ block, project, onClose, ref }: PartProps) {
     return (

@@ -6,7 +6,7 @@ import dynamic from "next/dynamic";
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef } from "react";
 import { EASE, hideRevealY, run, slideY } from "@/app/utils/animations";
 import { buildStory, type Block, type Project } from "../lib/story";
-import { Bento } from "./gridParts/bento";
+import { Bento } from "./gridParts/Bento";
 import { PARTS } from "./gridParts";
 
 const DitherView = dynamic(() => import("@/webgl/DitherView").then((m) => m.DitherView), { ssr: false });
@@ -66,7 +66,7 @@ export default function ProjectDetail({ project, index, total, origin, onExit, o
         if (i === 0) coverRef.current = el;
     };
 
-    const rest = () => blockRefs.current.filter((el, i) => el && i > 0) as HTMLElement[];
+    const rest = () => blockRefs.current.slice(1).filter((el): el is HTMLDivElement => el != null);
 
     const renderBlock = (b: Block, i: number) => {
         const Part = PARTS[b.type];
@@ -303,29 +303,19 @@ export default function ProjectDetail({ project, index, total, origin, onExit, o
         }, { root: el, threshold: 0.2 });
         el.querySelectorAll("video").forEach((v) => media.observe(v));
 
-        // media waits in the wings zoomed in and drained of colour, then settles
-        // into its natural framing as the band reaches it. Nothing is faded out —
-        // a block half off screen still has to read. The parts that are not media
-        // (palette chips) have no crop to hide an overflow and are colour
-        // themselves, so those just grow in
+        // media waits in the wings zoomed in, then settles into its natural
+        // framing as the band reaches it, cropped by its own cell the whole way.
+        // Nothing is faded out — a block half off screen still has to read
         const stills = Array.from(el.querySelectorAll<HTMLElement>("[data-pop]"));
-        const zoom = (m: HTMLElement) => m.dataset.pop === "zoom";
-        const asleep = (m: HTMLElement) => zoom(m)
-            ? { scale: 1.1 }
-            : { scale: 0.88 };
-        const awake = (m: HTMLElement) => zoom(m)
-            ? { scale: 1 }
-            : { scale: 1 };
 
-        stills.forEach((m) => gsap.set(m, asleep(m)));
+        gsap.set(stills, { scale: 1.1 });
 
         const pop = new IntersectionObserver((entries) => {
             entries.forEach((e) => {
                 const inView = e.isIntersecting;
-                const m = e.target as HTMLElement;
 
-                gsap.to(m, {
-                    ...(inView ? awake(m) : asleep(m)),
+                gsap.to(e.target, {
+                    scale: inView ? 1 : 1.1,
                     duration: inView ? 1.1 : 0.45,
                     ease: inView ? EASE.out : EASE.in,
                     overwrite: true,
@@ -361,7 +351,7 @@ export default function ProjectDetail({ project, index, total, origin, onExit, o
         >
             <div ref={bgRef} className="absolute inset-0 bg-[#111]">
                 <DitherView
-                    className="absolute inset-0 h-full w-full opacity-50"
+                    className="absolute inset-0 h-full w-full opacity-20"
                     file="/models/manifesto.glb"
                     background={null}
                     highlight="#24E27A"

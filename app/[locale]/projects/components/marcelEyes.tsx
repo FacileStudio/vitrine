@@ -13,12 +13,12 @@ export function useMarcelEyes(variant: Variant = "card") {
     const spheres = useRef<HTMLDivElement>(null);
     const move = useRef<((e: PointerEvent) => void) | null>(null);
 
-    const release = () => {
+    const release = useCallback(() => {
         if (move.current)
             window.removeEventListener("pointermove", move.current);
 
         move.current = null;
-    };
+    }, []);
 
     const start = useCallback(() => {
         const el = eyes.current;
@@ -58,7 +58,7 @@ export function useMarcelEyes(variant: Variant = "card") {
 
         move.current = onMove;
         window.addEventListener("pointermove", onMove, { passive: true });
-    }, [variant]);
+    }, [variant, release]);
 
     const stop = useCallback(() => {
         release();
@@ -69,9 +69,9 @@ export function useMarcelEyes(variant: Variant = "card") {
             gsap.to(eyes.current, { x: 0, y: 0, duration: 0.6, ease: "power2.out", overwrite: true });
         if (spheres.current)
             gsap.to(spheres.current, { x: 0, duration: 0.6, ease: "power2.out", overwrite: true });
-    }, []);
+    }, [release]);
 
-    useEffect(() => release, []);
+    useEffect(() => release, [release]);
 
     return { frame, eyes, spheres, start, stop };
 }
@@ -96,7 +96,7 @@ const SPHERE = {
     cover: { row: "gap-[6.7cqw]", ball: "w-[16.7cqw] aspect-square" },
 };
 
-type PartProps = {
+type EyesProps = {
     variant?: Variant;
     frameRef?: Ref<HTMLDivElement>;
     ref?: Ref<HTMLDivElement>;
@@ -105,7 +105,7 @@ type PartProps = {
 // the eyes ride the image, not the block: object-cover crops Marcel's frame in
 // the bento, so the layer mirrors the rendered image box (4379x2742) and the
 // cover's cqw sizes stay locked to the drawing rather than to the cell
-export function MarcelEyes({ variant = "card", frameRef, ref }: PartProps) {
+export function MarcelEyes({ variant = "card", frameRef, ref }: EyesProps) {
     const s = EYE[variant];
 
     return (
@@ -122,7 +122,7 @@ export function MarcelEyes({ variant = "card", frameRef, ref }: PartProps) {
     );
 }
 
-export function MarcelSpheres({ variant = "card", ref }: { variant?: Variant; ref?: Ref<HTMLDivElement> }) {
+export function MarcelSpheres({ variant = "card", ref }: Omit<EyesProps, "frameRef">) {
     const s = SPHERE[variant];
 
     return (
