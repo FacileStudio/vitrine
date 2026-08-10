@@ -22,7 +22,7 @@ export function Bento({ children }: { children: ReactNode }) {
 type BlockProps = {
     cols: number;
     className?: string;
-    children: ReactNode;
+    children?: ReactNode;
     ref?: Ref<HTMLDivElement>;
 };
 

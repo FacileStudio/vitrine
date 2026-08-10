@@ -1,313 +1,778 @@
 [
-  {
-    "slug": "marcel",
-    "name": "Marcel",
-    "tier": 1,
-    "weeks": 12,
-    "link": "https://marcel.my/",
-    "image": "/images/projects/Marcel.png",
-    "gallery": [
-      "/images/projects/Marcel.webp",
-      "https://picsum.photos/seed/marcel-a/1800/1100",
-      "https://media.w3.org/2010/05/sintel/trailer.mp4",
-      "https://picsum.photos/seed/marcel-b/1200/1600",
-      "https://picsum.photos/seed/marcel-c/1800/1000",
-      "https://picsum.photos/seed/marcel-x0/1500/1000"
-    ],
-    "description": "Marcel is an application that lets you turn your life into a game by transforming tasks and habits into adventures. You can gain gold experience and rewards by achieving your tasks, being productive and accomplishing your overdue habits you didn’t do for weeks.",
-    "techStack": [
-      "Svelte",
-      "Go",
-      "Postgres",
-      "Figma"
-    ],
-    "date": "2025",
-    "challenge": "Turn a to-do list into something people actually want to open — habits, streaks and overdue tasks had to feel like a quest, not a chore.",
-    "services": [
-      "Product design",
-      "Brand identity",
-      "Web development"
-    ],
-    "team": [
-      "noah",
-      "yann"
-    ],
-    "notes": [
-      "The reward loop was the whole design problem: gold and experience had to land the moment a task is checked, or the game falls apart.",
-      "Everything was drawn in Figma before a single component was written, so the Svelte build stayed a translation job rather than a discovery one."
-    ]
-  },
-  {
-    "slug": "laura-herve",
-    "name": "LauraHerve",
-    "tier": 2,
-    "weeks": 4,
-    "image": "/images/projects/Laura.png",
-    "video": "/videos/LauraHerve.mp4",
-    "gallery": [
-      "/images/projects/LauraHerve.webp",
-      "https://picsum.photos/seed/laura-a/1800/1100",
-      "https://picsum.photos/seed/laura-b/1400/1500",
-      "https://media.w3.org/2010/05/bunny/trailer.mp4",
-      "https://picsum.photos/seed/laura-herve-x0/1500/1000"
-    ],
-    "link": "https://lauraherve.com",
-    "description": "A showcase site for the artist, driven by smooth motion and a bold editorial layout that lets the work breathe.",
-    "techStack": [
-      "TS",
-      "Svelte",
-      "GSAP"
-    ],
-    "date": "2024",
-    "challenge": "Give a body of work room to breathe on screen without the site ever pulling attention away from it.",
-    "services": [
-      "Art direction",
-      "Web development",
-      "Motion design"
-    ],
-    "team": [
-      "noah",
-      "camille"
-    ],
-    "notes": [
-      "Motion carries the whole editorial rhythm here — nothing moves unless it earns the reader's eye."
-    ]
-  },
-  {
-    "slug": "hottake",
-    "name": "Hottake",
-    "tier": 3,
-    "weeks": 1,
-    "image": "/images/projects/Hottake.png",
-    "video": "/videos/Hottake.webp",
-    "gallery": [
-      "/images/projects/HottakeShow.png",
-      "https://picsum.photos/seed/hottake-a/1700/1100",
-      "https://media.w3.org/2010/05/video/movie_300.mp4",
-      "https://picsum.photos/seed/hottake-b/1300/1600",
-      "https://picsum.photos/seed/hottake-x0/1500/1000"
-    ],
-    "link": "https://www.instagram.com/p/DL5Fr7dol_5/?img_index=1",
-    "description": "Hottake is a community driven platform to rank your music taste that is under developement. We came up with a straight forward, curated and modern look that would attract any kind of music enjoyer.",
-    "techStack": [
-      "TS",
-      "Next.js",
-      "React",
-      "GSAP"
-    ],
-    "date": "2025",
-    "challenge": "Make ranking your music taste feel curated and modern enough that any listener wants to argue about it publicly.",
-    "services": [
-      "Product design",
-      "Web development",
-      "Motion design"
-    ],
-    "team": [
-      "noah",
-      "mazouz"
-    ],
-    "notes": [
-      "The ranking interaction had to survive a thousand taps — every state was prototyped before it was styled.",
-      "Type and grain do the branding work, so the interface itself can stay almost invisible."
-    ]
-  },
-  {
-    "slug": "evelynecrea",
-    "name": "EvelyneCrea",
-    "tier": 2,
-    "weeks": 8,
-    "image": "/images/projects/Green.png",
-    "video": "/videos/EvelyneCrea.mp4",
-    "gallery": [
-      "/images/projects/EvelyneCrea.webp",
-      "https://picsum.photos/seed/evelyne-a/1800/1100",
-      "https://picsum.photos/seed/evelyne-b/1200/1500",
-      "https://media.w3.org/2010/05/bunny/movie.mp4",
-      "https://picsum.photos/seed/evelyne-c/1700/1000"
-    ],
-    "link": "https://www.evelynecrea.com",
-    "description": "A warm, handcrafted portfolio site that puts the creations centre stage and keeps everything else out of the way.",
-    "techStack": [
-      "TS",
-      "Next.js",
-      "React",
-      "GSAP"
-    ],
-    "date": "2024",
-    "challenge": "Put handmade creations centre stage and keep every piece of interface out of their way.",
-    "services": [
-      "Art direction",
-      "Web development",
-      "Motion design"
-    ],
-    "team": [
-      "noah",
-      "yann",
-      "camille"
-    ],
-    "notes": [
-      "Warmth came from the palette and the pacing, not from decoration — the layout stays almost bare on purpose."
-    ]
-  },
-  {
-    "slug": "mont-k",
-    "name": "Mont-k",
-    "tier": 3,
-    "weeks": 1,
-    "image": "/images/projects/Mont-k.webp",
-    "link": "https://dribbble.com/shots/26711277-MONT-K-UI-UX-DESIGN",
-    "description": "A UI/UX design exploration — clean, considered, and built to be handed straight to development.",
-    "techStack": [
-      "Figma"
-    ],
-    "date": "2025",
-    "challenge": "Design an interface complete enough to be handed straight to development, with no open questions left.",
-    "services": [
-      "UI/UX design",
-      "Design system"
-    ],
-    "team": [
-      "camille",
-      "noah"
-    ],
-    "notes": [
-      "Every component ships with its states, so the handoff is a file, not a conversation."
-    ],
-    "gallery": [
-      "https://picsum.photos/seed/montk-a/1700/1100",
-      "https://picsum.photos/seed/montk-b/1300/1600",
-      "https://picsum.photos/seed/montk-c/1800/1000",
-      "https://picsum.photos/seed/mont-k-x0/1500/1000",
-      "https://media.w3.org/2010/05/bunny/trailer.mp4",
-      "https://picsum.photos/seed/mont-k-x2/1500/1400"
-    ]
-  },
-  {
-    "slug": "waves",
-    "name": "Waves",
-    "tier": 1,
-    "weeks": 1,
-    "link": "https://github.com/saravenpi/waves",
-    "description": "A native desktop audio visualiser that turns sound into real-time waveforms with an FFT engine at its core.",
-    "techStack": [
-      "Rust",
-      "Tauri",
-      "egui",
-      "FFT"
-    ],
-    "image": "/images/projects/Waves.webp",
-    "date": "2025",
-    "challenge": "Render sound as it happens — an FFT engine fast enough that the waveform never lags behind what you hear.",
-    "services": [
-      "Product design",
-      "Desktop development"
-    ],
-    "team": [
-      "yann"
-    ],
-    "notes": [
-      "Native was the only honest answer: anything running in a browser would have cost the frames the visualiser lives on."
-    ],
-    "gallery": [
-      "https://picsum.photos/seed/waves-a/1800/1000",
-      "https://media.w3.org/2010/05/sintel/trailer.mp4",
-      "https://picsum.photos/seed/waves-b/1400/1500",
-      "https://picsum.photos/seed/waves-x0/1500/1000",
-      "https://media.w3.org/2010/05/video/movie_300.mp4",
-      "https://picsum.photos/seed/waves-x2/1500/1400"
-    ]
-  },
-  {
-    "slug": "solais-intra",
-    "name": "SolaïsIntra",
-    "tier": 2,
-    "weeks": 8,
-    "link": "https://solais.fr/",
-    "image": "/images/projects/SolaïsIntra.webp",
-    "description": "An internal tool that streamlines the day-to-day for the Solaïs team, from tracking to reporting.",
-    "techStack": [
-      "TS",
-      "Vue.js"
-    ],
-    "date": "2024",
-    "challenge": "Compress a team's daily tracking and reporting into a tool they open once and never fight.",
-    "services": [
-      "Product design",
-      "Web development"
-    ],
-    "team": [
-      "yann",
-      "mazouz"
-    ],
-    "notes": [
-      "Internal tools get judged on the tenth use, not the first — density and keyboard flow beat any onboarding screen."
-    ],
-    "gallery": [
-      "https://picsum.photos/seed/solais-a/1800/1100",
-      "https://picsum.photos/seed/solais-b/1300/1600",
-      "https://media.w3.org/2010/05/bunny/trailer.mp4",
-      "https://picsum.photos/seed/solais-intra-x0/1500/1000",
-      "https://media.w3.org/2010/05/bunny/trailer.mp4",
-      "https://picsum.photos/seed/solais-intra-x2/1500/1400"
-    ]
-  },
-  {
-    "slug": "retro-festival",
-    "name": "RetroFestival",
-    "tier": 3,
-    "weeks": 4,
-    "image": "/images/projects/RetroFestival.webp",
-    "description": "A retro-flavoured festival identity — all warm grain, vintage type, and a poster-first attitude.",
-    "link": "https://www.instagram.com/p/DL5LYZoIPB0/?img_index=1",
-    "date": "2023",
-    "challenge": "Build a festival identity that reads as vintage without becoming a pastiche of one.",
-    "services": [
-      "Brand identity",
-      "Art direction"
-    ],
-    "team": [
-      "camille"
-    ],
-    "notes": [
-      "Poster first, everything else after — the system was tested at A0 before it was tested on a phone."
-    ],
-    "gallery": [
-      "https://picsum.photos/seed/retro-a/1700/1100",
-      "https://picsum.photos/seed/retro-b/1200/1600",
-      "https://picsum.photos/seed/retro-c/1800/1000",
-      "https://picsum.photos/seed/retro-festival-x0/1500/1000",
-      "https://media.w3.org/2010/05/video/movie_300.mp4",
-      "https://picsum.photos/seed/retro-festival-x2/1500/1400"
-    ]
-  },
-  {
-    "slug": "Black&White",
-    "name": "Black&White",
-    "tier": 3,
-    "weeks": 4,
-    "image": "/images/projects/Black&White.webp",
-    "description": "A curated selection of black and white photography.",
-    "link": "https://www.instagram.com/p/DL5LYZoIPB0/?img_index=1",
-    "date": "2023",
-    "challenge": "Edit a series down to the frames that survive without colour to carry them.",
-    "services": [
-      "Art direction",
-      "Photography"
-    ],
-    "team": [
-      "camille",
-      "noah"
-    ],
-    "notes": [
-      "The selection was the work: sequencing decides what the series means far more than any single frame."
-    ],
-    "gallery": [
-      "https://picsum.photos/seed/bw-a/1800/1100",
-      "https://picsum.photos/seed/bw-b/1300/1600",
-      "https://picsum.photos/seed/bw-c/1700/1000",
-      "https://picsum.photos/seed/black&white-x0/1500/1000",
-      "https://media.w3.org/2010/05/bunny/trailer.mp4",
-      "https://picsum.photos/seed/black&white-x2/1500/1400"
-    ]
-  }
+    {
+        "slug": "marcel",
+        "name": "Marcel",
+        "tier": 1,
+        "weeks": 12,
+        "link": "https://marcel.my/",
+        "image": "/images/projects/Marcel.png",
+        "gallery": [
+            "/images/projects/Marcel.webp",
+            "https://media.w3.org/2010/05/sintel/trailer.mp4",
+            "https://picsum.photos/seed/marcel-b/1200/1600",
+            "https://picsum.photos/seed/marcel-c/1800/1000",
+            "https://picsum.photos/seed/marcel-x0/1500/1000",
+            "https://picsum.photos/seed/marcel-x1/1800/1100",
+            "https://picsum.photos/seed/marcel-x2/1200/1600",
+            "https://picsum.photos/seed/marcel-x4/1500/1000",
+            "https://picsum.photos/seed/marcel-x5/2000/1200",
+            "https://picsum.photos/seed/marcel-x6/1300/1600",
+            "https://picsum.photos/seed/marcel-x7/1800/1000",
+            "https://picsum.photos/seed/marcel-x9/1700/1100",
+            "https://picsum.photos/seed/marcel-x10/1200/1500",
+            "https://picsum.photos/seed/marcel-x11/1900/1100",
+            "https://picsum.photos/seed/marcel-x12/1400/1000",
+            "https://picsum.photos/seed/marcel-x13/1800/1200"
+        ],
+        "description": "Marcel is an application that lets you turn your life into a game by transforming tasks and habits into adventures. You can gain gold experience and rewards by achieving your tasks, being productive and accomplishing your overdue habits you didn’t do for weeks.",
+        "techStack": [
+            "Svelte",
+            "Go",
+            "Postgres",
+            "Figma"
+        ],
+        "date": "2025",
+        "challenge": "Turn a to-do list into something people actually want to open — habits, streaks and overdue tasks had to feel like a quest, not a chore.",
+        "services": [
+            "Product design",
+            "Brand identity",
+            "Web development"
+        ],
+        "team": [
+            "noah",
+            "yann"
+        ],
+        "notes": [
+            "The reward loop was the whole design problem: gold and experience had to land the moment a task is checked, or the game falls apart.",
+            "Everything was drawn in Figma before a single component was written, so the Svelte build stayed a translation job rather than a discovery one."
+        ],
+        "story": [
+            {
+                "blocks": [
+                    {
+                        "type": "cover"
+                    },
+                    {
+                        "type": "intro"
+                    }
+                ]
+            },
+            {
+                "title": "Product design",
+                "blocks": [
+                    {
+                        "type": "note",
+                        "title": "Product design",
+                        "text": "The reward loop was the whole design problem: gold and experience had to land the moment a task is checked, or the game falls apart.",
+                        "media": [
+                            0
+                        ]
+                    },
+                    {
+                        "type": "big",
+                        "media": [
+                            3,
+                            4,
+                            5
+                        ],
+                        "smalls": "bottom"
+                    }
+                ]
+            },
+            {
+                "title": "Brand identity",
+                "blocks": [
+                    {
+                        "type": "note",
+                        "title": "Brand identity",
+                        "text": "Everything was drawn in Figma before a single component was written, so the Svelte build stayed a translation job rather than a discovery one.",
+                        "media": [
+                            6
+                        ]
+                    },
+                    {
+                        "type": "col",
+                        "media": [
+                            2,
+                            7,
+                            8
+                        ]
+                    },
+                    {
+                        "type": "cover",
+                        "media": [
+                            9
+                        ]
+                    }
+                ]
+            },
+            {
+                "title": "Web development",
+                "blocks": [
+                    {
+                        "type": "note",
+                        "title": "Web development",
+                        "text": "The Svelte front end talks to a Go service that settles every reward before the animation plays — a streak is never a lie the interface tells you.",
+                        "media": [
+                            10
+                        ]
+                    },
+                    {
+                        "type": "mosaic",
+                        "media": [
+                            1,
+                            11,
+                            12,
+                            13,
+                            14
+                        ]
+                    },
+                    {
+                        "type": "full",
+                        "media": [
+                            15
+                        ]
+                    }
+                ]
+            },
+            {
+                "blocks": [
+                    {
+                        "type": "end"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "slug": "laura-herve",
+        "name": "LauraHerve",
+        "tier": 2,
+        "weeks": 4,
+        "image": "/images/projects/Laura.png",
+        "video": "/videos/LauraHerve.mp4",
+        "gallery": [
+            "/images/projects/LauraHerve.webp",
+            "https://picsum.photos/seed/laura-b/1400/1500",
+            "https://media.w3.org/2010/05/bunny/trailer.mp4",
+            "https://picsum.photos/seed/laura-herve-x0/1500/1000"
+        ],
+        "link": "https://lauraherve.com",
+        "description": "A showcase site for the artist, driven by smooth motion and a bold editorial layout that lets the work breathe.",
+        "techStack": [
+            "TS",
+            "Svelte",
+            "GSAP"
+        ],
+        "date": "2024",
+        "challenge": "Give a body of work room to breathe on screen without the site ever pulling attention away from it.",
+        "services": [
+            "Art direction",
+            "Web development",
+            "Motion design"
+        ],
+        "team": [
+            "noah",
+            "camille"
+        ],
+        "notes": [
+            "Motion carries the whole editorial rhythm here — nothing moves unless it earns the reader's eye."
+        ],
+        "story": [
+            {
+                "blocks": [
+                    {
+                        "type": "cover"
+                    },
+                    {
+                        "type": "intro"
+                    }
+                ]
+            },
+            {
+                "title": "Art direction",
+                "blocks": [
+                    {
+                        "type": "note",
+                        "title": "Art direction",
+                        "text": "Motion carries the whole editorial rhythm here — nothing moves unless it earns the reader's eye.",
+                        "media": [
+                            0
+                        ]
+                    },
+                    {
+                        "type": "big",
+                        "media": [
+                            1,
+                            2,
+                            3
+                        ],
+                        "smalls": "top"
+                    },
+                    {
+                        "type": "full",
+                        "media": [
+                            "/videos/LauraHerve.mp4"
+                        ]
+                    }
+                ]
+            },
+            {
+                "blocks": [
+                    {
+                        "type": "end"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "slug": "hottake",
+        "name": "Hottake",
+        "tier": 3,
+        "weeks": 1,
+        "image": "/images/projects/Hottake.png",
+        "video": "/videos/Hottake.webp",
+        "gallery": [
+            "/images/projects/HottakeShow.png",
+            "https://media.w3.org/2010/05/video/movie_300.mp4",
+            "https://picsum.photos/seed/hottake-b/1300/1600",
+            "https://picsum.photos/seed/hottake-x0/1500/1000"
+        ],
+        "link": "https://www.instagram.com/p/DL5Fr7dol_5/?img_index=1",
+        "description": "Hottake is a community driven platform to rank your music taste that is under developement. We came up with a straight forward, curated and modern look that would attract any kind of music enjoyer.",
+        "techStack": [
+            "TS",
+            "Next.js",
+            "React",
+            "GSAP"
+        ],
+        "date": "2025",
+        "challenge": "Make ranking your music taste feel curated and modern enough that any listener wants to argue about it publicly.",
+        "services": [
+            "Product design",
+            "Web development",
+            "Motion design"
+        ],
+        "team": [
+            "noah",
+            "mazouz"
+        ],
+        "notes": [
+            "The ranking interaction had to survive a thousand taps — every state was prototyped before it was styled.",
+            "Type and grain do the branding work, so the interface itself can stay almost invisible."
+        ],
+        "story": [
+            {
+                "blocks": [
+                    {
+                        "type": "cover"
+                    },
+                    {
+                        "type": "intro"
+                    }
+                ]
+            },
+            {
+                "title": "Product design",
+                "blocks": [
+                    {
+                        "type": "note",
+                        "title": "Product design",
+                        "text": "The ranking interaction had to survive a thousand taps — every state was prototyped before it was styled.",
+                        "media": [
+                            0
+                        ]
+                    },
+                    {
+                        "type": "big",
+                        "media": [
+                            1,
+                            2,
+                            3
+                        ],
+                        "smalls": "bottom"
+                    },
+                    {
+                        "type": "full",
+                        "media": [
+                            "/videos/Hottake.webp"
+                        ]
+                    }
+                ]
+            },
+            {
+                "blocks": [
+                    {
+                        "type": "end"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "slug": "evelynecrea",
+        "name": "EvelyneCrea",
+        "tier": 2,
+        "weeks": 8,
+        "image": "/images/projects/Green.png",
+        "video": "/videos/EvelyneCrea.mp4",
+        "gallery": [
+            "/images/projects/EvelyneCrea.webp",
+            "https://picsum.photos/seed/evelyne-b/1200/1500",
+            "https://media.w3.org/2010/05/bunny/movie.mp4",
+            "https://picsum.photos/seed/evelyne-c/1700/1000"
+        ],
+        "link": "https://www.evelynecrea.com",
+        "description": "A warm, handcrafted portfolio site that puts the creations centre stage and keeps everything else out of the way.",
+        "techStack": [
+            "TS",
+            "Next.js",
+            "React",
+            "GSAP"
+        ],
+        "date": "2024",
+        "challenge": "Put handmade creations centre stage and keep every piece of interface out of their way.",
+        "services": [
+            "Art direction",
+            "Web development",
+            "Motion design"
+        ],
+        "team": [
+            "noah",
+            "yann",
+            "camille"
+        ],
+        "notes": [
+            "Warmth came from the palette and the pacing, not from decoration — the layout stays almost bare on purpose."
+        ],
+        "story": [
+            {
+                "blocks": [
+                    {
+                        "type": "cover"
+                    },
+                    {
+                        "type": "intro"
+                    }
+                ]
+            },
+            {
+                "title": "Art direction",
+                "blocks": [
+                    {
+                        "type": "note",
+                        "title": "Art direction",
+                        "text": "Warmth came from the palette and the pacing, not from decoration — the layout stays almost bare on purpose.",
+                        "media": [
+                            0
+                        ]
+                    },
+                    {
+                        "type": "col",
+                        "media": [
+                            1,
+                            2,
+                            3
+                        ]
+                    },
+                    {
+                        "type": "full",
+                        "media": [
+                            "/videos/EvelyneCrea.mp4"
+                        ]
+                    }
+                ]
+            },
+            {
+                "blocks": [
+                    {
+                        "type": "end"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "slug": "mont-k",
+        "name": "Mont-k",
+        "tier": 3,
+        "weeks": 1,
+        "image": "/images/projects/Mont-k.webp",
+        "link": "https://dribbble.com/shots/26711277-MONT-K-UI-UX-DESIGN",
+        "description": "A UI/UX design exploration — clean, considered, and built to be handed straight to development.",
+        "techStack": [
+            "Figma"
+        ],
+        "date": "2025",
+        "challenge": "Design an interface complete enough to be handed straight to development, with no open questions left.",
+        "services": [
+            "UI/UX design",
+            "Design system"
+        ],
+        "team": [
+            "camille",
+            "noah"
+        ],
+        "notes": [
+            "Every component ships with its states, so the handoff is a file, not a conversation."
+        ],
+        "gallery": [
+            "https://picsum.photos/seed/montk-a/1700/1100",
+            "https://picsum.photos/seed/montk-c/1800/1000",
+            "https://picsum.photos/seed/mont-k-x0/1500/1000",
+            "https://media.w3.org/2010/05/bunny/trailer.mp4",
+            "https://picsum.photos/seed/mont-k-x2/1500/1400"
+        ],
+        "story": [
+            {
+                "blocks": [
+                    {
+                        "type": "cover"
+                    },
+                    {
+                        "type": "intro"
+                    }
+                ]
+            },
+            {
+                "title": "UI/UX design",
+                "blocks": [
+                    {
+                        "type": "note",
+                        "title": "UI/UX design",
+                        "text": "Every component ships with its states, so the handoff is a file, not a conversation.",
+                        "media": [
+                            0
+                        ]
+                    },
+                    {
+                        "type": "col",
+                        "media": [
+                            1,
+                            2,
+                            3
+                        ]
+                    },
+                    {
+                        "type": "full",
+                        "media": [
+                            4
+                        ]
+                    }
+                ]
+            },
+            {
+                "blocks": [
+                    {
+                        "type": "end"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "slug": "waves",
+        "name": "Waves",
+        "tier": 1,
+        "weeks": 1,
+        "link": "https://github.com/saravenpi/waves",
+        "description": "A native desktop audio visualiser that turns sound into real-time waveforms with an FFT engine at its core.",
+        "techStack": [
+            "Rust",
+            "Tauri",
+            "egui",
+            "FFT"
+        ],
+        "image": "/images/projects/Waves.webp",
+        "date": "2025",
+        "challenge": "Render sound as it happens — an FFT engine fast enough that the waveform never lags behind what you hear.",
+        "services": [
+            "Product design",
+            "Desktop development"
+        ],
+        "team": [
+            "yann"
+        ],
+        "notes": [
+            "Native was the only honest answer: anything running in a browser would have cost the frames the visualiser lives on."
+        ],
+        "gallery": [
+            "https://picsum.photos/seed/waves-a/1800/1000",
+            "https://picsum.photos/seed/waves-b/1400/1500",
+            "https://picsum.photos/seed/waves-x0/1500/1000",
+            "https://media.w3.org/2010/05/video/movie_300.mp4",
+            "https://picsum.photos/seed/waves-x2/1500/1400"
+        ],
+        "story": [
+            {
+                "blocks": [
+                    {
+                        "type": "cover"
+                    },
+                    {
+                        "type": "intro"
+                    }
+                ]
+            },
+            {
+                "title": "Product design",
+                "blocks": [
+                    {
+                        "type": "note",
+                        "title": "Product design",
+                        "text": "Native was the only honest answer: anything running in a browser would have cost the frames the visualiser lives on.",
+                        "media": [
+                            0
+                        ]
+                    },
+                    {
+                        "type": "big",
+                        "media": [
+                            1,
+                            2,
+                            3
+                        ],
+                        "smalls": "top"
+                    },
+                    {
+                        "type": "full",
+                        "media": [
+                            4
+                        ]
+                    }
+                ]
+            },
+            {
+                "blocks": [
+                    {
+                        "type": "end"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "slug": "solais-intra",
+        "name": "SolaïsIntra",
+        "tier": 2,
+        "weeks": 8,
+        "link": "https://solais.fr/",
+        "image": "/images/projects/SolaïsIntra.webp",
+        "description": "An internal tool that streamlines the day-to-day for the Solaïs team, from tracking to reporting.",
+        "techStack": [
+            "TS",
+            "Vue.js"
+        ],
+        "date": "2024",
+        "challenge": "Compress a team's daily tracking and reporting into a tool they open once and never fight.",
+        "services": [
+            "Product design",
+            "Web development"
+        ],
+        "team": [
+            "yann",
+            "mazouz"
+        ],
+        "notes": [
+            "Internal tools get judged on the tenth use, not the first — density and keyboard flow beat any onboarding screen."
+        ],
+        "gallery": [
+            "https://picsum.photos/seed/solais-a/1800/1100",
+            "https://media.w3.org/2010/05/bunny/trailer.mp4",
+            "https://picsum.photos/seed/solais-intra-x0/1500/1000",
+            "https://media.w3.org/2010/05/bunny/trailer.mp4",
+            "https://picsum.photos/seed/solais-intra-x2/1500/1400"
+        ],
+        "story": [
+            {
+                "blocks": [
+                    {
+                        "type": "cover"
+                    },
+                    {
+                        "type": "intro"
+                    }
+                ]
+            },
+            {
+                "title": "Product design",
+                "blocks": [
+                    {
+                        "type": "note",
+                        "title": "Product design",
+                        "text": "Internal tools get judged on the tenth use, not the first — density and keyboard flow beat any onboarding screen.",
+                        "media": [
+                            0
+                        ]
+                    },
+                    {
+                        "type": "big",
+                        "media": [
+                            1,
+                            2,
+                            3
+                        ],
+                        "smalls": "bottom"
+                    },
+                    {
+                        "type": "full",
+                        "media": [
+                            4
+                        ]
+                    }
+                ]
+            },
+            {
+                "blocks": [
+                    {
+                        "type": "end"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "slug": "retro-festival",
+        "name": "RetroFestival",
+        "tier": 3,
+        "weeks": 4,
+        "image": "/images/projects/RetroFestival.webp",
+        "description": "A retro-flavoured festival identity — all warm grain, vintage type, and a poster-first attitude.",
+        "link": "https://www.instagram.com/p/DL5LYZoIPB0/?img_index=1",
+        "date": "2023",
+        "challenge": "Build a festival identity that reads as vintage without becoming a pastiche of one.",
+        "services": [
+            "Brand identity",
+            "Art direction"
+        ],
+        "team": [
+            "camille"
+        ],
+        "notes": [
+            "Poster first, everything else after — the system was tested at A0 before it was tested on a phone."
+        ],
+        "gallery": [
+            "https://picsum.photos/seed/retro-a/1700/1100",
+            "https://picsum.photos/seed/retro-c/1800/1000",
+            "https://picsum.photos/seed/retro-festival-x0/1500/1000",
+            "https://media.w3.org/2010/05/video/movie_300.mp4",
+            "https://picsum.photos/seed/retro-festival-x2/1500/1400",
+            "https://picsum.photos/seed/retro-festival-x3/1500/1200"
+        ],
+        "story": [
+            {
+                "blocks": [
+                    {
+                        "type": "cover"
+                    },
+                    {
+                        "type": "intro"
+                    }
+                ]
+            },
+            {
+                "title": "Brand identity",
+                "blocks": [
+                    {
+                        "type": "note",
+                        "title": "Brand identity",
+                        "text": "Poster first, everything else after — the system was tested at A0 before it was tested on a phone.",
+                        "media": [
+                            0
+                        ]
+                    },
+                    {
+                        "type": "mosaic",
+                        "media": [
+                            1,
+                            2,
+                            3,
+                            4,
+                            5
+                        ]
+                    }
+                ]
+            },
+            {
+                "blocks": [
+                    {
+                        "type": "end"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "slug": "Black&White",
+        "name": "Black&White",
+        "tier": 3,
+        "weeks": 4,
+        "image": "/images/projects/Black&White.webp",
+        "description": "A curated selection of black and white photography.",
+        "link": "https://www.instagram.com/p/DL5LYZoIPB0/?img_index=1",
+        "date": "2023",
+        "challenge": "Edit a series down to the frames that survive without colour to carry them.",
+        "services": [
+            "Art direction",
+            "Photography"
+        ],
+        "team": [
+            "camille",
+            "noah"
+        ],
+        "notes": [
+            "The selection was the work: sequencing decides what the series means far more than any single frame."
+        ],
+        "gallery": [
+            "https://picsum.photos/seed/bw-a/1800/1100",
+            "https://picsum.photos/seed/bw-c/1700/1000",
+            "https://picsum.photos/seed/black&white-x0/1500/1000",
+            "https://media.w3.org/2010/05/bunny/trailer.mp4",
+            "https://picsum.photos/seed/black&white-x2/1500/1400",
+            "https://picsum.photos/seed/black&white-x3/1500/1200"
+        ],
+        "story": [
+            {
+                "blocks": [
+                    {
+                        "type": "cover"
+                    },
+                    {
+                        "type": "intro"
+                    }
+                ]
+            },
+            {
+                "title": "Art direction",
+                "blocks": [
+                    {
+                        "type": "note",
+                        "title": "Art direction",
+                        "text": "The selection was the work: sequencing decides what the series means far more than any single frame.",
+                        "media": [
+                            0
+                        ]
+                    },
+                    {
+                        "type": "mosaic",
+                        "media": [
+                            1,
+                            2,
+                            3,
+                            4,
+                            5
+                        ]
+                    }
+                ]
+            },
+            {
+                "blocks": [
+                    {
+                        "type": "end"
+                    }
+                ]
+            }
+        ]
+    }
 ]
