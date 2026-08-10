@@ -1,13 +1,24 @@
 import type { ReactNode } from "react";
+import SplitLines from "@/components/facile/splitLines";
 import type { PartProps } from "../../lib/story";
 import { team } from "../../lib/story";
 import { Block, Cell } from "./bento";
 
+function Line({ className = "", children }: { className?: string; children: ReactNode }) {
+    return (
+        <div className="overflow-hidden">
+            <div data-reveal className={className}>{children}</div>
+        </div>
+    );
+}
+
+// the label gets its own crop; the value brings as many as it wants, so a list
+// can rise a row at a time instead of as one slab
 function Meta({ label, children }: { label: string; children: ReactNode }) {
     return (
-        <div data-reveal className="flex flex-col gap-3">
-            <span className="text-sm text-white/35">{label}</span>
-            <span className="text-white/50">{children}</span>
+        <div className="flex flex-col gap-3">
+            <Line className="text-sm text-white/35">{label}</Line>
+            {children}
         </div>
     );
 }
@@ -20,26 +31,30 @@ export default function Intro({ block, project, ref }: PartProps) {
             <Cell col="1 / -1" row="1 / -1" className="">
                 <div className="flex h-full w-full flex-col justify-between p-20">
                     <div className="flex flex-col gap-6">
-                        <span data-reveal className="text-sm uppercase text-white/50">
+                        <Line className="text-sm uppercase text-white/70">
                             {project.date}  —  {project.weeks} weeks
-                        </span>
-                        <h2 data-reveal className="text-6xl font-medium 3xl:text-8xl">
+                        </Line>
+
+                        <Line className="text-6xl font-medium 3xl:text-8xl">
                             {project.name}
-                        </h2>
-                        <p data-reveal className="max-w-[50ch] text-xl text-white/50">
-                            {block.text ?? project.challenge ?? project.description}
-                        </p>
+                        </Line>
+
+                        <SplitLines
+                            text={block.text ?? project.challenge ?? project.description}
+                            className="max-w-[50ch] text-xl text-white/70"
+                        />
+
                         {project.services?.length ? (
-                                <span className="flex flex-wrap items-center gap-1">
-                                    {project.services.map((s) => (
-                                        <span
-                                            key={s}
-                                            className="rounded-md px-4 py-2 text-sm bg-white/5 text-white"
-                                        >
-                                            {s}
-                                        </span>
-                                    ))}
-                                </span>
+                            <Line className="flex flex-wrap items-center gap-1">
+                                {project.services.map((s) => (
+                                    <span
+                                        key={s}
+                                        className="rounded-md px-4 py-2 text-sm bg-white/5 text-white"
+                                    >
+                                        {s}
+                                    </span>
+                                ))}
+                            </Line>
                         ) : null}
                     </div>
 
@@ -47,22 +62,22 @@ export default function Intro({ block, project, ref }: PartProps) {
 
                         {project.techStack?.length ? (
                             <Meta label="Created with">
-                                <span className="flex flex-wrap items-center gap-x-6 gap-y-3">
+                                <Line className="flex flex-wrap items-center gap-x-6 gap-y-3 text-white/70">
                                     {project.techStack.map((t) => (
                                         <span key={t} className="flex items-center gap-3">
                                             <img src={`/images/logo/${t}.png`} alt="" className="h-8 w-auto" />
-                                            <span className="text-white/50">{t}</span>
+                                            <span className="text-white/70">{t}</span>
                                         </span>
                                     ))}
-                                </span>
+                                </Line>
                             </Meta>
                         ) : null}
 
                         {members.length ? (
                             <Meta label="Facile. members working">
-                                <span className="flex flex-col gap-3">
+                                <div className="grid grid-cols-2 gap-x-10 gap-y-3">
                                     {members.map((m) => (
-                                        <span key={m.slug} className="flex items-center gap-4">
+                                        <Line key={m.slug} className="flex items-center gap-4">
                                             <img
                                                 src={m.avatar}
                                                 alt={m.name}
@@ -71,25 +86,26 @@ export default function Intro({ block, project, ref }: PartProps) {
                                             />
                                             <span className="flex items-center gap-3 leading-tight">
                                                 <span className="text-white text-lg font-medium">{m.name}</span>
-              
                                                 <span className="text-sm mt-0.5 text-white/40">{m.role}</span>
                                             </span>
-                                        </span>
+                                        </Line>
                                     ))}
-                                </span>
+                                </div>
                             </Meta>
                         ) : null}
 
                         {project.link ? (
                             <Meta label="Live">
-                                <a
-                                    href={project.link}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className="underline-offset-4 transition-colors hover:text-[#24E27A] hover:underline"
-                                >
-                                    {project.link.replace(/^https?:\/\//, "")}
-                                </a>
+                                <Line className="text-white/70">
+                                    <a
+                                        href={project.link}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="underline-offset-4 transition-colors hover:text-[#24E27A] hover:underline"
+                                    >
+                                        {project.link.replace(/^https?:\/\//, "")}
+                                    </a>
+                                </Line>
                             </Meta>
                         ) : null}
                     </div>

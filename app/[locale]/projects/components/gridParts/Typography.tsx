@@ -1,11 +1,20 @@
+import type { ReactNode } from "react";
 import type { PartProps } from "../../lib/story";
 import { Block, Cell } from "./bento";
 
-const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+const ROWS = ["ABCDEFGHIJKL", "MNOPQRSTUVW", "XYZ"].map((row) => row.split(""));
 
 const NUMBERS = "0123456789";
 
 const SPECIALS = "&@#$%€£()[]{}!?.,;:\"'/\\+−=×÷<>~^_|©®°*";
+
+function Line({ className = "", outer = "", children }: { className?: string; outer?: string; children: ReactNode }) {
+    return (
+        <div className={`overflow-hidden ${outer}`}>
+            <div data-reveal className={className}>{children}</div>
+        </div>
+    );
+}
 
 export default function Typography({ block, ref }: PartProps) {
     return (
@@ -16,28 +25,32 @@ export default function Typography({ block, ref }: PartProps) {
                     className="flex h-full w-full flex-col gap-16 p-20"
                 >
                     <div className="flex flex-col gap-2">
-                        <span className="text-md text-white/50">Typography</span>
-                        <span className="text-7xl leading-none 3xl:text-8xl">
+                        <Line className="text-md text-white/50">Typography</Line>
+                        <Line className="text-7xl leading-none 3xl:text-8xl">
                             {block.font}
-                        </span>
+                        </Line>
                     </div>
 
-
-                    <div className="flex flex-1 flex-wrap content-start gap-x-6 gap-y-3 text-4xl leading-none text-white/75 3xl:text-5xl">
-                        {LETTERS.map((l) => (
-                            <span key={l}>{l}{l.toLowerCase()}</span>
+                    <div className="flex flex-1 flex-col gap-3">
+                        {ROWS.map((row) => (
+                            <Line
+                                key={row[0]}
+                                className="flex gap-x-6 text-4xl leading-none text-white/75 3xl:text-5xl"
+                            >
+                                {row.map((l) => (
+                                    <span key={l}>{l}{l.toLowerCase()}</span>
+                                ))}
+                            </Line>
                         ))}
                     </div>
-                        <span className="text-4xl 3xl:text-5xl tracking-wide leading-none text-white/50 ">
-                            {NUMBERS}
-                        </span>
 
-                    <div className="flex flex-col gap-4">
+                    <Line className="text-4xl 3xl:text-5xl tracking-wide leading-none text-white/50">
+                        {NUMBERS}
+                    </Line>
 
-                        <span className="text-lg tracking-wide text-white/40 3xl:text-lg">
-                            {SPECIALS}
-                        </span>
-                    </div>
+                    <Line className="text-lg tracking-wide text-white/40 3xl:text-lg">
+                        {SPECIALS}
+                    </Line>
                 </div>
             </Cell>
         </Block>
