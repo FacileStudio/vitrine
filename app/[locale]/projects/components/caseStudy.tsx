@@ -76,7 +76,7 @@ export default function CaseStudyPage() {
                         <span className="text-xs uppercase tracking-widest text-white/40">{t("techStack")}</span>
                         <div className="mt-3 flex flex-wrap gap-2">
                             {project.techStack?.map((tech) => (
-                                <span key={tech} className="rounded-full border border-white/15 px-3 py-1 text-sm text-white/70">
+                                <span key={tech} className="rounded-full border border-white/15 px-3 py-1 text-sm text-white/50">
                                     {tech}
                                 </span>
                             ))}
@@ -99,7 +99,7 @@ export default function CaseStudyPage() {
                                 <h2 className="text-sm uppercase tracking-widest text-[#24E27A]">{t("featuresTitle")}</h2>
                                 <ul className="mt-4 flex flex-col gap-2">
                                     {(t.raw(`${project.slug}.features`) as string[]).map((feature) => (
-                                        <li key={feature} className="flex gap-3 text-white/70">
+                                        <li key={feature} className="flex gap-3 text-white/50">
                                             <span className="text-[#24E27A]" aria-hidden="true">—</span>
                                             {feature}
                                         </li>
@@ -135,7 +135,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
     return (
         <section>
             <h2 className="text-sm uppercase tracking-widest text-[#24E27A]">{title}</h2>
-            <p className="mt-4 max-w-[65ch] text-white/70">{children}</p>
+            <p className="mt-4 max-w-[65ch] text-white/50">{children}</p>
         </section>
     )
 }

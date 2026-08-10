@@ -6,13 +6,13 @@ export default function Note({ block, ref }: PartProps) {
         <Block ref={ref} cols={block.cols}>
             <Cell col="1 / -1" row="1" className="">
                 <div className="flex h-full w-full flex-col gap-6 p-20">
-                    <h3 data-reveal className="text-5xl font-semibold 3xl:text-6xl">
+                    <h3 data-reveal className="text-5xl font-medium 3xl:text-6xl">
                         {block.index ? (
-                            <span className="tabular-nums font-medium text-3xl text-white/70 mr-4">{String(block.index).padStart(2, "0")}. </span>
+                            <span className="tabular-nums font-medium text-3xl text-[#5dd995] mr-4">{String(block.index).padStart(2, "0")}. </span>
                         ) : null}
                         {block.title}
                     </h3>
-                    <p data-reveal className="max-w-[50ch] text-xl text-white/70">{block.text}</p>
+                    <p data-reveal className="max-w-[50ch] text-xl text-white/50">{block.text}</p>
                 </div>
             </Cell>
 

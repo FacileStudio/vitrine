@@ -321,7 +321,7 @@ export default function ProjectDetail({ project, index, total, origin, onExit, o
         >
             <div ref={bgRef} className="absolute inset-0 bg-[#111]">
                 <DitherView
-                    className="absolute inset-0 h-full w-full opacity-70"
+                    className="absolute inset-0 h-full w-full opacity-50"
                     file="/models/manifesto.glb"
                     background={null}
                     highlight="#24E27A"

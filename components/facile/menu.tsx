@@ -215,7 +215,7 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
 
             {/* contact block, bottom-right: normal text for email/phone, logos for the socials,
                 a dot separating the two sections */}
-            <div className="absolute bottom-12 right-20 z-50 flex flex-row items-center gap-12 text-white/70">
+            <div className="absolute bottom-12 right-20 z-50 flex flex-row items-center gap-12 text-white/50">
                 <div className="overflow-hidden">
                     <a
                         ref={(el) => { contactRefs.current[0] = el; }}

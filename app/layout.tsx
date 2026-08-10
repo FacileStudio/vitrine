@@ -1,5 +1,6 @@
 import "./globals.css";
 import { ReactNode } from "react";
+import { Poppins } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import { baseMetadata, getAlternates, getOpenGraphLocale, siteUrl } from "@/lib/seo/metadata";
@@ -20,12 +21,19 @@ export async function generateMetadata(): Promise<Metadata> {
     }
 };
 
+const poppins = Poppins({
+    subsets: ["latin"],
+    weight: ["400", "500", "600"],
+    variable: "--font-poppins",
+    display: "swap",
+});
+
 export default async function RootLayout({ children }: { children: ReactNode }) {
     const locale = await getLocale();
     const messages = await getMessages({ locale });
 
     return (
-        <html lang={locale}>
+        <html lang={locale} className={poppins.variable}>
             <head>
                 <script
                     type="application/ld+json"

@@ -33,6 +33,8 @@ export const BLOCK_SPECS = {
     intro: { media: 0, cols: 2 },
     note: { media: 1, cols: 2 },
     col: { media: 3, cols: 1 },
+    typography: { media: 0, cols: 2 },
+    palette: { media: 0, cols: 2 },
     big: { media: 3, cols: 2 },
     mosaic: { media: 5, cols: 3 },
     full: { media: 1, cols: 2 },
@@ -40,6 +42,17 @@ export const BLOCK_SPECS = {
 } as const;
 
 export type BlockKind = keyof typeof BLOCK_SPECS;
+
+// a brand colour. Only the hex is authored: rgb, cmyk and hsv are derived from
+// it unless the chart states its own, so the three notations can never drift
+export interface Swatch {
+    label: string;
+    hex: string;
+    note?: string;
+    rgb?: string;
+    cmyk?: string;
+    hsv?: string;
+}
 
 // what projects.json (and later the backoffice) stores. Media entries are either
 // an index into the project gallery or a raw src, so reordering a story never
@@ -51,6 +64,9 @@ export interface StoryBlock {
     text?: string;
     smalls?: "top" | "bottom";
     cols?: number;
+    font?: string;
+    fontFamily?: string;
+    swatches?: Swatch[];
 }
 
 // a story is a list of chapters, each holding its own blocks. The track breathes
