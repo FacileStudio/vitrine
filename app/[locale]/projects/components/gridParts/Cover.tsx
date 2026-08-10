@@ -21,8 +21,8 @@ export default function Cover({ block, project, imgRef, ref }: PartProps) {
 
                     {marcel ? (
                         <>
-                            <MarcelSpheres ref={spheres} />
-                            <MarcelEyes frameRef={frame} ref={eyes} />
+                            <MarcelSpheres variant="cover" ref={spheres} />
+                            <MarcelEyes variant="cover" frameRef={frame} ref={eyes} />
                         </>
                     ) : null}
                 </div>
