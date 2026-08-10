@@ -22,11 +22,11 @@ export default function Typography({ block, ref }: PartProps) {
             <Cell col="1 / -1" row="1 / -1">
                 <div
                     style={{ fontFamily: block.fontFamily }}
-                    className="flex h-full w-full flex-col gap-16 p-20"
+                    className="flex h-full w-full flex-col gap-[3vh] p-[5vh]"
                 >
                     <div className="flex flex-col gap-2">
-                        <Line className="text-md text-white/50">Typography</Line>
-                        <Line className="text-7xl leading-none 3xl:text-8xl">
+                        <Line className="text-[clamp(0.65rem,1.4vh,0.9rem)] uppercase tracking-[0.2em] text-white/50">Typography</Line>
+                        <Line className="text-[clamp(1.75rem,5.2vh,5rem)] leading-none">
                             {block.font}
                         </Line>
                     </div>
@@ -35,7 +35,7 @@ export default function Typography({ block, ref }: PartProps) {
                         {ROWS.map((row) => (
                             <Line
                                 key={row[0]}
-                                className="flex gap-x-6 text-4xl leading-none text-white/75 3xl:text-5xl"
+                                className="flex gap-x-[1.6vh] text-[clamp(1.1rem,3.2vh,2.5rem)] leading-none text-white/75"
                             >
                                 {row.map((l) => (
                                     <span key={l}>{l}{l.toLowerCase()}</span>
@@ -44,11 +44,11 @@ export default function Typography({ block, ref }: PartProps) {
                         ))}
                     </div>
 
-                    <Line className="text-4xl 3xl:text-5xl tracking-wide leading-none text-white/50">
+                    <Line className="text-[clamp(1.1rem,3.2vh,2.5rem)] tracking-wide leading-none text-white/50">
                         {NUMBERS}
                     </Line>
 
-                    <Line className="text-lg tracking-wide text-white/40 3xl:text-lg">
+                    <Line className="text-[clamp(0.65rem,1.4vh,0.9rem)] tracking-wide text-white/40">
                         {SPECIALS}
                     </Line>
                 </div>

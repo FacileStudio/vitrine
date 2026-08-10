@@ -71,7 +71,7 @@ export default function ProjectDetail({ project, index, total, origin, onExit, o
     const renderBlock = (b: Block, i: number) => {
         const Part = PARTS[b.type];
 
-        return <Part key={i} ref={setBlockRef(i)} block={b} project={project} imgRef={i === 0 ? coverImgRef : undefined} />;
+        return <Part key={i} ref={setBlockRef(i)} block={b} project={project} imgRef={i === 0 ? coverImgRef : undefined} onClose={close} />;
     };
 
     const chrome = () => Array.from(rootRef.current?.querySelectorAll<HTMLElement>("[data-chrome]") ?? []);
@@ -311,10 +311,10 @@ export default function ProjectDetail({ project, index, total, origin, onExit, o
         const stills = Array.from(el.querySelectorAll<HTMLElement>("[data-pop]"));
         const zoom = (m: HTMLElement) => m.dataset.pop === "zoom";
         const asleep = (m: HTMLElement) => zoom(m)
-            ? { scale: 1.1, filter: "grayscale(1)" }
+            ? { scale: 1.1 }
             : { scale: 0.88 };
         const awake = (m: HTMLElement) => zoom(m)
-            ? { scale: 1, filter: "grayscale(0)" }
+            ? { scale: 1 }
             : { scale: 1 };
 
         stills.forEach((m) => gsap.set(m, asleep(m)));

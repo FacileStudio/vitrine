@@ -65,16 +65,16 @@ function Chip({ swatch, span }: { swatch: Swatch; span: number }) {
         <div
             data-pop
             style={{ background: swatch.hex, color: tone, gridColumn: `span ${span}` }}
-            className="flex min-h-0 min-w-0 flex-col justify-between gap-4 rounded-md p-8"
+            className="flex min-h-0 min-w-0 flex-col justify-between gap-[1.5vh] rounded-md p-[3vh]"
         >
             <div className="flex flex-col gap-1">
-                <span className="text-2xl font-semibold">{swatch.label}</span>
-                <span style={{ opacity: 0.6 }} className="text-lg font-medium">
+                <span className="text-[clamp(0.9rem,2.3vh,1.6rem)] font-semibold">{swatch.label}</span>
+                <span style={{ opacity: 0.6 }} className="text-[clamp(0.65rem,1.4vh,0.9rem)] font-medium">
                     {swatch.note ?? swatch.hex}
                 </span>
             </div>
 
-            <div className="flex flex-col gap-1 text-sm font-medium leading-tight">
+            <div className="flex flex-col gap-[0.3vh] text-[clamp(0.55rem,1.2vh,0.8rem)] font-medium leading-tight">
                 <Value label="RGB" value={swatch.rgb ?? `(${rgb.join(", ")})`} tone={tone} />
                 <Value label="HSV / HSB" value={swatch.hsv ?? hsvOf(rgb)} tone={tone} />
                 <Value label="CMYK" value={swatch.cmyk ?? cmykOf(rgb)} tone={tone} />
@@ -90,7 +90,7 @@ export default function Palette({ block, ref }: PartProps) {
         <Block ref={ref} cols={block.cols}>
             <Cell col="1 / -1" row="1 / -1">
                 <div className="flex h-full w-full flex-col">
-                    <span className="px-4 pt-20 pb-4 text-md text-white/50">Color palette</span>
+                    <span className="px-[1.5vh] pt-[6vh] pb-[1.5vh] text-[clamp(0.65rem,1.4vh,0.9rem)] uppercase tracking-[0.2em] text-white/50">Color palette</span>
 
                     <div className="grid min-h-0 flex-1 grid-cols-3 gap-[var(--gap)]">
                         {swatches.map((s, i) => (

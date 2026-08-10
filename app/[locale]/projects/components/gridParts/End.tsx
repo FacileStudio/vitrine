@@ -1,30 +1,56 @@
+import type { ReactNode } from "react";
 import type { PartProps } from "../../lib/story";
 import { Block, Cell } from "./bento";
 
-export default function End({ block, project, ref }: PartProps) {
+function Line({ className = "", children }: { className?: string; children: ReactNode }) {
+    return (
+        <div className="overflow-hidden">
+            <div data-reveal className={className}>{children}</div>
+        </div>
+    );
+}
+
+export default function End({ block, project, onClose, ref }: PartProps) {
     return (
         <Block ref={ref} cols={block.cols}>
             <Cell col="1 / -1" row="1 / -1">
-                <div className="flex h-full w-full flex-col justify-end gap-3 p-[calc(var(--gap)*2)]">
-                    <div className="overflow-hidden">
-                        <span data-reveal className="block text-[10px] uppercase tracking-[0.2em] text-white/35">
-                            {block.text ?? `End of ${project.name}`}
-                        </span>
-                    </div>
-
-                    {project.link ? (
-                        <div className="overflow-hidden">
-                            <a
-                                data-reveal
-                                href={project.link}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="block text-4xl uppercase leading-none transition-colors hover:text-[#24E27A] 3xl:text-6xl"
+                <div className="flex h-full w-full flex-col justify-between gap-[2.5vh] p-[5vh]">
+                    {onClose ? (
+                        <Line>
+                            <button
+                                type="button"
+                                onClick={onClose}
+                                className="group flex items-center gap-[1vh] text-[clamp(0.8rem,1.9vh,1.35rem)] text-white/50 transition-colors duration-200 hover:text-white"
                             >
-                                {block.title ?? "Visit site ↗"}
-                            </a>
-                        </div>
+                                <span className="transition-transform duration-200 group-hover:-translate-x-1">←</span>
+                                Back to projects
+                            </button>
+                        </Line>
                     ) : null}
+
+                    <div className="flex flex-col gap-[2.5vh]">
+                        <Line className="text-[clamp(0.65rem,1.4vh,0.9rem)] uppercase text-white/35">
+                            {block.text ?? `End of ${project.name}`}
+                        </Line>
+
+                        <Line className="text-[clamp(1.75rem,5.2vh,5rem)] font-medium leading-[0.95]">
+                            {block.title ?? "Thanks for scrolling."}
+                        </Line>
+
+                        {project.link ? (
+                            <Line>
+                                <a
+                                    href={project.link}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="group flex w-fit items-center gap-[1vh] text-[clamp(0.8rem,1.9vh,1.35rem)] text-white transition-colors duration-200 hover:text-[#24E27A]"
+                                >
+                                    Visit site
+                                    <span className="transition-transform duration-200 group-hover:-translate-y-1 group-hover:translate-x-1">↗</span>
+                                </a>
+                            </Line>
+                        ) : null}
+                    </div>
                 </div>
             </Cell>
         </Block>
