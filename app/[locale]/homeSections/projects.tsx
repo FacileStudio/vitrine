@@ -35,7 +35,7 @@ function ProjectsHeading({ setLineRef, progressRef, showText }: ProjectsHeadingP
     return (
         <div data-no-shadow className="sticky top-0 h-screen w-full overflow-hidden text-white">
             <DitherView
-                className="absolute inset-0 w-full h-full z-0 opacity-20"
+                className="absolute inset-0 w-full h-full z-0 opacity-70"
                 background={null}
                 highlight="#24E27A"
                 grayscaleOnly={false}

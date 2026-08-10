@@ -7,7 +7,7 @@ function Meta({ label, children }: { label: string; children: ReactNode }) {
     return (
         <div data-reveal className="flex flex-col gap-3">
             <span className="text-sm text-white/35">{label}</span>
-            <span className="text-white/70">{children}</span>
+            <span className="text-white/50">{children}</span>
         </div>
     );
 }
@@ -20,13 +20,13 @@ export default function Intro({ block, project, ref }: PartProps) {
             <Cell col="1 / -1" row="1 / -1" className="">
                 <div className="flex h-full w-full flex-col justify-between p-20">
                     <div className="flex flex-col gap-6">
-                        <span data-reveal className="text-sm uppercase text-white/70">
+                        <span data-reveal className="text-sm uppercase text-white/50">
                             {project.date}  —  {project.weeks} weeks
                         </span>
-                        <h2 data-reveal className="text-6xl font-semibold 3xl:text-8xl">
+                        <h2 data-reveal className="text-6xl font-medium 3xl:text-8xl">
                             {project.name}
                         </h2>
-                        <p data-reveal className="max-w-[50ch] text-xl text-white/70">
+                        <p data-reveal className="max-w-[50ch] text-xl text-white/50">
                             {block.text ?? project.challenge ?? project.description}
                         </p>
                         {project.services?.length ? (
@@ -51,7 +51,7 @@ export default function Intro({ block, project, ref }: PartProps) {
                                     {project.techStack.map((t) => (
                                         <span key={t} className="flex items-center gap-3">
                                             <img src={`/images/logo/${t}.png`} alt="" className="h-8 w-auto" />
-                                            <span className="text-white/70">{t}</span>
+                                            <span className="text-white/50">{t}</span>
                                         </span>
                                     ))}
                                 </span>

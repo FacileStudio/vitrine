@@ -7,22 +7,11 @@
         "link": "https://marcel.my/",
         "image": "/images/projects/Marcel.png",
         "gallery": [
-            "/images/projects/Marcel.webp",
-            "https://media.w3.org/2010/05/sintel/trailer.mp4",
-            "https://picsum.photos/seed/marcel-b/1200/1600",
-            "https://picsum.photos/seed/marcel-c/1800/1000",
-            "https://picsum.photos/seed/marcel-x0/1500/1000",
-            "https://picsum.photos/seed/marcel-x1/1800/1100",
-            "https://picsum.photos/seed/marcel-x2/1200/1600",
-            "https://picsum.photos/seed/marcel-x4/1500/1000",
-            "https://picsum.photos/seed/marcel-x5/2000/1200",
-            "https://picsum.photos/seed/marcel-x6/1300/1600",
-            "https://picsum.photos/seed/marcel-x7/1800/1000",
-            "https://picsum.photos/seed/marcel-x9/1700/1100",
-            "https://picsum.photos/seed/marcel-x10/1200/1500",
-            "https://picsum.photos/seed/marcel-x11/1900/1100",
-            "https://picsum.photos/seed/marcel-x12/1400/1000",
-            "https://picsum.photos/seed/marcel-x13/1800/1200"
+            "/images/projects/Marcel%202x2%20logo.png",
+            "/images/projects/Marcel%202x3%20rebranding.png",
+            "/images/projects/Marcel%203x3%20dashboard.png",
+            "/images/projects/Marcel%203x3%20showcase.png",
+            "/images/projects/Marcel%203x3.png"
         ],
         "description": "Marcel is an application that lets you turn your life into a game by transforming tasks and habits into adventures. You can gain gold experience and rewards by achieving your tasks, being productive and accomplishing your overdue habits you didn’t do for weeks.",
         "techStack": [
@@ -34,13 +23,15 @@
         "date": "2025",
         "challenge": "Turn a to-do list into something people actually want to open — habits, streaks and overdue tasks had to feel like a quest, not a chore.",
         "services": [
-            "Product design",
-            "Brand identity",
-            "Web development"
+            "Transformation",
+            "ReDesign",
+            "App development"
         ],
         "team": [
             "noah",
-            "yann"
+            "yann",
+            "camille",
+            "mazouz"
         ],
         "notes": [
             "The reward loop was the whole design problem: gold and experience had to land the moment a task is checked, or the game falls apart.",
@@ -58,50 +49,67 @@
                 ]
             },
             {
-                "title": "Product design",
+                "title": "New Face!",
                 "blocks": [
                     {
                         "type": "note",
-                        "title": "Product design",
-                        "text": "The reward loop was the whole design problem: gold and experience had to land the moment a task is checked, or the game falls apart.",
+                        "title": "New Face!",
+                        "text": "Marcel started to get a bit old. So he kindly asked us to revamp him and give him the face and shine he needed. The ideation of this rebranding was made by Camille.",
                         "media": [
                             0
                         ]
                     },
                     {
-                        "type": "big",
+                        "type": "full",
                         "media": [
-                            3,
-                            4,
-                            5
-                        ],
-                        "smalls": "bottom"
+                            1
+                        ]
+                    },
+                    {
+                        "type": "palette",
+                        "swatches": [
+                            {
+                                "label": "Background",
+                                "hex": "#F9F1E7"
+                            },
+                            {
+                                "label": "Component Bg",
+                                "hex": "#E2DAD2",
+                                "note": "#F9F1E7 + #0E0F10 (opacity 10%)"
+                            },
+                            {
+                                "label": "Sous-Text",
+                                "hex": "#494846",
+                                "note": "#0E0F10 (opacity 75%)"
+                            },
+                            {
+                                "label": "Text",
+                                "hex": "#0E0F10"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "typography",
+                        "font": "Poppins",
+                        "fontFamily": "var(--font-poppins), sans-serif"
                     }
                 ]
             },
             {
-                "title": "Brand identity",
+                "title": "Redesign",
                 "blocks": [
                     {
                         "type": "note",
-                        "title": "Brand identity",
-                        "text": "Everything was drawn in Figma before a single component was written, so the Svelte build stayed a translation job rather than a discovery one.",
+                        "title": "Redesign",
+                        "text": "Based on the graphical chart, Noah and Camille teamed up to redesign the entire Marcel app. By carefully crafting every components, we gave a new life to a tired website.",
                         "media": [
-                            6
-                        ]
-                    },
-                    {
-                        "type": "col",
-                        "media": [
-                            2,
-                            7,
-                            8
+                            2
                         ]
                     },
                     {
                         "type": "cover",
                         "media": [
-                            9
+                            3
                         ]
                     }
                 ]
@@ -114,23 +122,7 @@
                         "title": "Web development",
                         "text": "The Svelte front end talks to a Go service that settles every reward before the animation plays — a streak is never a lie the interface tells you.",
                         "media": [
-                            10
-                        ]
-                    },
-                    {
-                        "type": "mosaic",
-                        "media": [
-                            1,
-                            11,
-                            12,
-                            13,
-                            14
-                        ]
-                    },
-                    {
-                        "type": "full",
-                        "media": [
-                            15
+                            4
                         ]
                     }
                 ]

@@ -4,6 +4,8 @@ import Cover from "./Cover";
 import Intro from "./Intro";
 import Note from "./Note";
 import Col from "./Col";
+import Typography from "./Typography";
+import Palette from "./Palette";
 import Big from "./Big";
 import Mosaic from "./Mosaic";
 import Full from "./Full";
@@ -16,6 +18,8 @@ export const PARTS: Record<BlockKind, (props: PartProps) => ReactNode> = {
     intro: Intro,
     note: Note,
     col: Col,
+    typography: Typography,
+    palette: Palette,
     big: Big,
     mosaic: Mosaic,
     full: Full,

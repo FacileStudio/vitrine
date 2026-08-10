@@ -7,7 +7,7 @@ import { useCallback, useEffect, useRef, type Ref } from "react";
 // spheres trailing a beat behind. Every size is a share of the frame it sits in,
 // so the same markup fits the list card and the far bigger cover block the card
 // flips into — the gag keeps its proportions as the image grows.
-export function useMarcelEyes() {
+export function useMarcelEyes(variant: Variant = "card") {
     const frame = useRef<HTMLDivElement>(null);
     const eyes = useRef<HTMLDivElement>(null);
     const spheres = useRef<HTMLDivElement>(null);
@@ -35,9 +35,13 @@ export function useMarcelEyes() {
         const cy = r.top + r.height / 2;
 
         // the card's hand-tuned travel, kept as a share of the frame so a bigger
-        // frame gets a proportionally bigger range
-        const w = box.getBoundingClientRect().width;
-        const maxX = w * (window.innerWidth >= 2000 ? 0.2 : 0.18);
+        // frame gets a proportionally bigger range — but never wider than the box
+        // that actually shows, or the crop swallows the ends of the run
+        const w = Math.min(
+            box.getBoundingClientRect().width,
+            box.parentElement?.getBoundingClientRect().width ?? Infinity,
+        );
+        const maxX = w * TRAVEL[variant] * (window.innerWidth >= 2000 ? 1.11 : 1);
 
         const clampX = gsap.utils.clamp(-maxX, maxX),
               clampY = gsap.utils.clamp(-w * 0.06, w * 0.02),
@@ -54,7 +58,7 @@ export function useMarcelEyes() {
 
         move.current = onMove;
         window.addEventListener("pointermove", onMove, { passive: true });
-    }, []);
+    }, [variant]);
 
     const stop = useCallback(() => {
         release();
@@ -77,14 +81,19 @@ export function useMarcelEyes() {
 // the card flips into
 type Variant = "card" | "cover";
 
+const TRAVEL: Record<Variant, number> = {
+    card: 0.13,
+    cover: 0.18,
+};
+
 const EYE = {
-    card: { anchor: "bottom-12", row: "gap-8", pill: "w-10 h-48 xl:w-16 xl:h-70" },
-    cover: { anchor: "bottom-[6cqw]", row: "gap-[4cqw]", pill: "w-[8cqw] h-[35cqw]" },
+    card: { anchor: "bottom-6", row: "gap-8", pill: "w-10 h-48 xl:w-12 xl:h-70" },
+    cover: { anchor: "bottom-[-6cqw]", row: "gap-[3.3cqw]", pill: "w-[6.7cqw] h-[29cqw]" },
 };
 
 const SPHERE = {
     card: { row: "gap-16", ball: "w-28 h-28 xl:w-40 xl:h-40" },
-    cover: { row: "gap-[8cqw]", ball: "w-[20cqw] aspect-square" },
+    cover: { row: "gap-[6.7cqw]", ball: "w-[16.7cqw] aspect-square" },
 };
 
 type PartProps = {
@@ -101,7 +110,7 @@ export function MarcelEyes({ variant = "card", frameRef, ref }: PartProps) {
 
     return (
         <div className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center">
-            <div ref={frameRef} className="relative h-full aspect-[1.597] [container-type:inline-size]">
+            <div ref={frameRef} className="relative h-full aspect-[1.597] @container">
                 <div className={`absolute left-1/2 -translate-x-1/2 -translate-y-1/2 ${s.anchor}`}>
                     <div ref={ref} className={`flex will-change-transform ${s.row}`}>
                         <div className={`rounded-full bg-black ${s.pill}`} />
@@ -117,7 +126,7 @@ export function MarcelSpheres({ variant = "card", ref }: { variant?: Variant; re
     const s = SPHERE[variant];
 
     return (
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex justify-center [container-type:inline-size]">
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex justify-center @container">
             <div ref={ref} className={`flex translate-y-1/2 will-change-transform ${s.row}`}>
                 <div className={`rounded-full bg-[#95DFE9] shadow-3xl ${s.ball}`} />
                 <div className={`rounded-full bg-[#95DFE9] shadow-3xl ${s.ball}`} />

@@ -40,7 +40,7 @@ export default function MemberPage() {
                         <p className="mt-2 text-lg text-white/60">{member.role}</p>
                     </div>
 
-                    <p className="max-w-[48ch] text-white/70">{member.description}</p>
+                    <p className="max-w-[48ch] text-white/50">{member.description}</p>
 
                     {member.socials.length > 0 && (
                         <div className="mt-2 flex flex-wrap gap-4">
