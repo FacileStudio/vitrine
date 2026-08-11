@@ -30,6 +30,9 @@ export interface Swatch {
     rgb?: string;
     cmyk?: string;
     hsv?: string;
+    // for a hex that isn't a plain color (a CSS gradient) contrast can't be
+    // derived, so the chart states its own readable text color
+    textColor?: string;
 }
 
 // what projects.json (and later the backoffice) stores. Media entries are either

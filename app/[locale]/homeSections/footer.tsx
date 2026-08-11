@@ -38,7 +38,7 @@ export default function Footer() {
     }, [show]);
 
     return (
-        <section ref={sectionRef} id="contact" className="relative w-full bg-[#111] text-white/80 py-24 px-12 md:px-20">
+        <section ref={sectionRef} id="contact" className="relative w-full bg-foreground text-white/80 py-24 px-12 md:px-20">
             <div className="overflow-hidden">
                 <div ref={headingRef} className="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
                     <h2 className="max-w-[16ch] text-4xl md:text-6xl font-medium text-white">{t("footer.buildTogether")}</h2>
@@ -46,7 +46,7 @@ export default function Footer() {
                         <Button text={t("footer.hireUs")} icon="mail" onClick={openContactModal} />
                         <a
                             href={`tel:${CONTACT.phone.replace(/\s+/g, "")}`}
-                            className="border-2 border-white/20 rounded-full px-6 py-3 text-white transition-colors hover:bg-white hover:text-[#111]"
+                            className="border-2 border-white/20 rounded-full px-6 py-3 text-white transition-colors hover:bg-white hover:text-foreground"
                         >
                             {t("footer.callUs")}
                         </a>

@@ -15,7 +15,7 @@ export default function StudioPage() {
     const locale = useLocale();
 
     return (
-        <div className="relative h-screen w-full overflow-hidden bg-[#111]">
+        <div className="relative h-screen w-full overflow-hidden bg-foreground">
             <PageCurtain enter="dark" leave="dark" />
 
             <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />

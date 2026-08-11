@@ -11,14 +11,16 @@ type PageProps = {
 };
 
 const projectDescriptions: Record<string, string> = {
-    capsule: "Capsule is a zero-knowledge encrypted sharing tool by Facile Studio. Client-side AES-256-GCM encryption, self-destructing pastes, built with Go and SvelteKit.",
-    opus: "Opus is a minimalist project management platform by Facile Studio. Built with SvelteKit and Go, featuring real-time updates, OIDC SSO, and a Rust TUI client.",
     waves: "Waves is a cross-platform music player built in Rust by Facile Studio. Real-time FFT audio visualization, Miller Column browser, and vim keybindings.",
-    glouton: "Glouton is an enterprise lead generation platform by Facile Studio. Intelligent web scraping with smart scoring, built with TypeScript, tRPC, and BullMQ.",
     marcel: "Marcel is a wellbeing application by Facile Studio. Gamified habit tracking and task management, built with Svelte and Go.",
     "solais-intra": "Custom intranet application built by Facile Studio for Solaïs. Vue.js and TypeScript platform for team collaboration and document management.",
     "laura-herve": "Artist portfolio designed and built by Facile Studio. Typography-focused design with smooth transitions and responsive layouts.",
     evelynecrea: "Portfolio redesign by Facile Studio for a creative professional. Custom visual identity, animations, and organic navigation flow.",
+    "projet-zero": "Projet Zero is a sci-fi RPG Minecraft server brand and showcase website by Facile Studio — a soldier-astronaut identity built around a single ancient blue energy, carried through the shop and battle-pass pages. Built with Next.js, React and TypeScript.",
+    hottake: "Hottake is a community-driven music taste ranking platform by Facile Studio, with a curated, modern look built for music enthusiasts. Built with Next.js, React and GSAP.",
+    "mont-k": "Mont-k is a UI/UX design exploration by Facile Studio — a clean, considered interface built to be handed straight to development.",
+    "retro-festival": "RetroFestival is a retro-flavoured festival identity by Facile Studio, built around warm grain, vintage type and a poster-first attitude.",
+    "Black&White": "A curated black and white photography showcase by Facile Studio.",
 };
 
 export const dynamicParams = false;

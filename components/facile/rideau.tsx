@@ -175,7 +175,7 @@ const Rideau = ({ setCharged }: { setCharged: (charged: boolean) => void }) => {
                     </div>
             </div>
 
-            <Stripes count={4} orientation={0} open={open} className="bg-[#111]" />
+            <Stripes count={4} orientation={0} open={open} className="bg-foreground" />
         </div>
     )
 }

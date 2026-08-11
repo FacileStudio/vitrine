@@ -1,6 +1,18 @@
 import { NextResponse } from "next/server";
 import { getContactMailConfig, getTransporter } from "./transporter";
 
+const escapeHtml = (value: string) =>
+    value
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+
+// breaks a run of backticks so submitted content can't close the Discord
+// code fence early and start formatting/pinging outside it
+const escapeCodeFence = (value: string) => value.replace(/`/g, "`​");
+
 export async function POST(req: Request) {
     try {
         const data = await req.json();
@@ -22,11 +34,11 @@ export async function POST(req: Request) {
             subject: "New email from Facile.",
             html: `
                 <h2>New Email sent</h2>
-                <p><strong>Name:</strong> ${name}</p>
-                <p><strong>Email:</strong> ${email}</p>
-                <p><strong>Phone:</strong> ${phone || "N/A"}</p>
+                <p><strong>Name:</strong> ${escapeHtml(name)}</p>
+                <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+                <p><strong>Phone:</strong> ${escapeHtml(phone || "N/A")}</p>
                 <p><strong>Message:</strong></p>
-                <p>${message}</p>
+                <p>${escapeHtml(message)}</p>
             `,
         });
 
@@ -37,7 +49,10 @@ export async function POST(req: Request) {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    content: `@everyone\nNew contact form submission:\nName: ${name}\nEmail: ${email}\nPhone: ${phone || "N/A"}\nMessage: ${message}`,
+                    // fenced as a code block so a submitted "@everyone" or markdown/mention
+                    // syntax renders as literal text instead of pinging or formatting
+                    content: `@everyone\nNew contact form submission:\n\`\`\`\nName: ${escapeCodeFence(name)}\nEmail: ${escapeCodeFence(email)}\nPhone: ${escapeCodeFence(phone || "N/A")}\nMessage: ${escapeCodeFence(message)}\n\`\`\``,
+                    allowed_mentions: { parse: ["everyone"] },
                 }),
             });
         }

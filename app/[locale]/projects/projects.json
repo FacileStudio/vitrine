@@ -1,6 +1,7 @@
 [
     {
         "slug": "marcel",
+        "coverEffect": "marcel",
         "name": "Marcel",
         "tier": 1,
         "weeks": 12,
@@ -160,6 +161,7 @@
     },
     {
         "slug": "projet-zero",
+        "coverEffect": "projet-zero-pillar",
         "name": "Projet Zero",
         "tier": 1,
         "weeks": 6,
@@ -245,7 +247,7 @@
                         "swatches": [
                             { "label": "Background", "hex": "#121219" },
                             { "label": "Component", "hex": "#181920", "note": "#E8EEFF (opacity 3%) — informations & titles" },
-                            { "label": "Titre H1 Dégradé", "hex": "linear-gradient(135deg, #B4C3F0 0%, #7B8FD6 100%)", "note": "Gradient: #B4C3F0 → #7B8FD6", "rgb": "—", "hsv": "—", "cmyk": "—" },
+                            { "label": "Titre H1 Dégradé", "hex": "linear-gradient(135deg, #B4C3F0 0%, #7B8FD6 100%)", "note": "Gradient: #B4C3F0 → #7B8FD6", "textColor": "#0E0F10", "rgb": "—", "hsv": "—", "cmyk": "—" },
                             { "label": "Text", "hex": "#E8EEFF" },
                             { "label": "Sous Text", "hex": "#7D808C", "note": "#E8EEFF (opacity 50%) — minor informations" }
                         ]

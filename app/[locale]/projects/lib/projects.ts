@@ -2,6 +2,11 @@ import type { StorySection } from "./story";
 import projects from "../projects.json";
 import studio from "../../studio/studio.json";
 
+// a project's one-off cover treatment — "marcel" swaps in the googly eyes,
+// "projet-zero-pillar" swaps in the generative light pillar. Read by Cover.tsx
+// and ShelfCard.tsx instead of each hardcoding project.slug checks of its own
+export type CoverEffect = "marcel" | "projet-zero-pillar";
+
 export interface Project {
     slug: string;
     name: string;
@@ -19,6 +24,7 @@ export interface Project {
     team: string[];
     notes: string[];
     story?: StorySection[];
+    coverEffect?: CoverEffect;
 }
 
 export type Member = (typeof studio)[number];

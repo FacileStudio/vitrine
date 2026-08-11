@@ -170,7 +170,7 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
             {/* white curtain leads, dark curtain trails: two waves racing down the screen.
                 on close they wait for the dither object to fade out before retreating */}
             <div className="absolute inset-0 z-30">{Stripes(menuOpen, '#ffffff', 0, 0.14 + exitDelay)}</div>
-            <div className="absolute inset-0 z-40">{Stripes(menuOpen, '#111111', 0.14, 0 + exitDelay)}</div>
+            <div className="absolute inset-0 z-40">{Stripes(menuOpen, 'var(--foreground)', 0.14, 0 + exitDelay)}</div>
 
             {/* dither backdrop, revealed top-to-bottom by a clip wipe once the covers land */}
             {mountDither && (

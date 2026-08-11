@@ -14,8 +14,8 @@ import Stripes from "./stripes";
 export type CurtainTone = { lead: string; trail: string };
 
 export const TONES = {
-    dark: { lead: "bg-white", trail: "bg-[#111]" },
-    light: { lead: "bg-[#111]", trail: "bg-white" },
+    dark: { lead: "bg-white", trail: "bg-foreground" },
+    light: { lead: "bg-foreground", trail: "bg-white" },
     mint: { lead: "bg-white", trail: "bg-[#CAE6D8]" },
 } as const;
 

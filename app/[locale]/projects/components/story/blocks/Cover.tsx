@@ -6,11 +6,13 @@ import { Block, Cell, Media } from "./Bento";
 export default function Cover({ block, project, imgRef, ref }: BlockProps) {
     const { frame, eyes, spheres, start, stop } = useMarcelEyes("cover");
 
+    const isCoverSlot = block.media[0] === project.image;
+
     // only the opening cover wears the eyes — the mid-story ones are other frames
-    const marcel = project.slug === "marcel" && block.media[0] === project.image;
+    const marcel = project.coverEffect === "marcel" && isCoverSlot;
 
     // projet-zero's cover trades the static hero shot for the alien-energy light pillar
-    const projetZero = project.slug === "projet-zero" && block.media[0] === project.image;
+    const projetZero = project.coverEffect === "projet-zero-pillar" && isCoverSlot;
 
     return (
         <Block ref={ref} cols={block.cols} className="relative">
