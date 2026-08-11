@@ -51,7 +51,9 @@ export function PostProcessing({
         return () => canvas.removeEventListener("webglcontextrestored", onRestored);
     }, [gl]);
 
-    // (re)build the pass chain: render -> bloom -> dithering -> bloom
+    // (re)build the pass chain: render -> bloom -> dithering. Nothing blooms after
+    // the dither: a threshold-0 pass over the grain lit the whole frame, which
+    // washed out whatever the canvas was laid over
     useEffect(() => {
         if (!scene || !camera || !composerRef.current) return;
         const composer = composerRef.current;
@@ -71,21 +73,6 @@ export function PostProcessing({
         const dither = new DitheringEffect({ gridSize: gridValue.current, pixelSizeRatio, grayscaleOnly, rotation });
         ditherRef.current = dither;
         composer.addPass(new EffectPass(camera, dither));
-
-        if (bloom) {
-            composer.addPass(
-                new EffectPass(
-                    camera,
-                    new BloomEffect({
-                        luminanceThreshold: 0,
-                        luminanceSmoothing: 0.22,
-                        intensity: bloomIntensity * 0.7,
-                        radius: 0.75,
-                        mipmapBlur: true,
-                    }),
-                ),
-            );
-        }
     }, [scene, camera, pixelSizeRatio, grayscaleOnly, rotation, bloom, bloomIntensity]);
 
     // animate the dithering grid toward the target
