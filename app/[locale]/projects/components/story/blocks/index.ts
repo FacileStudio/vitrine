@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { BlockKind, PartProps } from "../../lib/story";
+import type { BlockKind, BlockProps } from "../../../lib/story";
 import Cover from "./Cover";
 import Intro from "./Intro";
 import Note from "./Note";
@@ -12,9 +12,9 @@ import Collage from "./Collage";
 import Full from "./Full";
 import End from "./End";
 
-// block kind -> renderer. A new part is a component, a row in BLOCK_SPECS and a
-// line here; nothing else in the detail view has to know it exists.
-export const PARTS: Record<BlockKind, (props: PartProps) => ReactNode> = {
+// block kind -> renderer. A new block is a component, a row in BLOCK_SPECS and a
+// line here; nothing else in the story has to know it exists.
+export const BLOCKS: Record<BlockKind, (props: BlockProps) => ReactNode> = {
     cover: Cover,
     intro: Intro,
     note: Note,

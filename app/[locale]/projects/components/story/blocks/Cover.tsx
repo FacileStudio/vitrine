@@ -1,8 +1,8 @@
-import type { PartProps } from "../../lib/story";
-import { MarcelEyes, MarcelSpheres, useMarcelEyes } from "../marcelEyes";
+import type { BlockProps } from "../../../lib/story";
+import { MarcelEyes, MarcelSpheres, useMarcelEyes } from "../../marcelEyes";
 import { Block, Cell, Media } from "./Bento";
 
-export default function Cover({ block, project, imgRef, ref }: PartProps) {
+export default function Cover({ block, project, imgRef, ref }: BlockProps) {
     const { frame, eyes, spheres, start, stop } = useMarcelEyes("cover");
 
     // only the opening cover wears the eyes — the mid-story ones are other frames

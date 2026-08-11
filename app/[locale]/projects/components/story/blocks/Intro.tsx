@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import SplitLines from "@/components/facile/splitLines";
-import type { PartProps } from "../../lib/story";
-import { team } from "../../lib/story";
+import type { BlockProps } from "../../../lib/story";
+import { team } from "../../../lib/projects";
 import { Block, Cell } from "./Bento";
 import Line from "./Line";
 
@@ -16,7 +16,7 @@ function Meta({ label, children }: { label: string; children: ReactNode }) {
     );
 }
 
-export default function Intro({ block, project, ref }: PartProps) {
+export default function Intro({ block, project, ref }: BlockProps) {
     const members = team(project);
 
     return (
@@ -42,7 +42,7 @@ export default function Intro({ block, project, ref }: PartProps) {
                                 {project.services.map((s) => (
                                     <span
                                         key={s}
-                                        className="rounded-md px-[1.4vh] py-[0.7vh] text-[clamp(0.65rem,1.4vh,0.9rem)] bg-white/5 text-white"
+                                        className="rounded-md px-[2vh] py-[1vh] text-[clamp(0.65rem,1.4vh,0.9rem)] bg-[#212121] text-white"
                                     >
                                         {s}
                                     </span>
@@ -56,7 +56,7 @@ export default function Intro({ block, project, ref }: PartProps) {
                             <Meta label="Created with">
                                 <Line className="flex flex-wrap items-center gap-x-[2vh] gap-y-[1vh] text-[clamp(0.8rem,1.9vh,1.35rem)] text-white/70">
                                     {project.techStack.map((t) => (
-                                        <img key={t} src={`/images/logo/${t}.png`} alt="" className="h-[2.6vh] max-h-8 w-auto" />
+                                        <img key={t} src={`/images/logo/${t}.png`} alt={t} className="h-[2.6vh] max-h-8 w-auto" />
                                     ))}
                                 </Line>
                             </Meta>

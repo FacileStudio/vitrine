@@ -1,10 +1,10 @@
 import SplitLines from "@/components/facile/splitLines";
-import type { PartProps } from "../../lib/story";
+import type { BlockProps } from "../../../lib/story";
 import { Block, Cell, Media } from "./Bento";
 
 const CHAPTER = "mr-6 font-medium text-[0.6em] text-[#24E27A]";
 
-export default function Note({ block, ref }: PartProps) {
+export default function Note({ block, ref }: BlockProps) {
     return (
         <Block ref={ref} cols={block.cols}>
             <Cell col="1 / -1" row="1">

@@ -1,4 +1,4 @@
-import type { PartProps, Swatch } from "../../lib/story";
+import type { BlockProps, Swatch } from "../../../lib/story";
 import { Block, Cell } from "./Bento";
 
 // shorthand is expanded and an alpha byte dropped, so a chart that authors
@@ -84,7 +84,7 @@ function Chip({ swatch, span }: { swatch: Swatch; span: number }) {
     );
 }
 
-export default function Palette({ block, ref }: PartProps) {
+export default function Palette({ block, ref }: BlockProps) {
     const swatches = block.swatches ?? [];
 
     return (

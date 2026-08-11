@@ -1,8 +1,8 @@
-import type { PartProps } from "../../lib/story";
+import type { BlockProps } from "../../../lib/story";
 import { Block, Cell } from "./Bento";
 import Line from "./Line";
 
-export default function End({ block, project, onClose, ref }: PartProps) {
+export default function End({ block, project, onClose, ref }: BlockProps) {
     return (
         <Block ref={ref} cols={block.cols}>
             <Cell col="1 / -1" row="1 / -1">
