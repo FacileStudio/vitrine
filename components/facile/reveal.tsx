@@ -184,10 +184,10 @@ export function StripReveal({ orientation = 0, strips = 4, heightVh = 250, child
                 </div>
             </div>
 
-            <div ref={paraSentinel} className="absolute top-[12%] bg-red-500 w-full h-px" aria-hidden="true" />
-            <div ref={ctaSentinel} className="absolute top-[24%] bg-red-500 w-full h-px" aria-hidden="true" />
-            <div ref={textExitSentinel} className="absolute top-[36%] bg-red-500 w-full h-px" aria-hidden="true" />
-            <div ref={exitSentinel} className="absolute top-[48%] bg-red-500 w-full h-px" aria-hidden="true" />
+            <div ref={paraSentinel} className="absolute top-[12%]  w-full h-px" aria-hidden="true" />
+            <div ref={ctaSentinel} className="absolute top-[24%]  w-full h-px" aria-hidden="true" />
+            <div ref={textExitSentinel} className="absolute top-[36%]  w-full h-px" aria-hidden="true" />
+            <div ref={exitSentinel} className="absolute top-[48%]  w-full h-px" aria-hidden="true" />
         </section>
     );
 }
