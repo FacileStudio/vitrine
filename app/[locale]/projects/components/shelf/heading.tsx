@@ -32,7 +32,7 @@ export default function Heading({ lines, filter = null, count = 0, onFilter }: H
     ];
 
     return (
-        <div className="relative z-10 3xl:w-[70vw] w-[80vw] pb-[12vh] p-12 flex items-start justify-between gap-12 text-white">
+        <div className="relative z-10 3xl:w-[70vw] w-[80vw] pb-[12vh] flex items-start justify-between gap-12 text-white">
             <h2 className="text-start text-4xl md:text-5xl font-medium leading-tight">
                 {lines.map((line, i) => (
                     <span key={i} className="block overflow-hidden">
@@ -48,10 +48,13 @@ export default function Heading({ lines, filter = null, count = 0, onFilter }: H
                     <span className="block overflow-hidden">
                         <span
                             ref={(el) => { menuRefs.current[0] = el; }}
-                            className="flex justify-end gap-4 w-full text-right text-md capitalize font-medium tabular-nums"
+                            className="flex justify-end gap-3 w-full text-right text-md capitalize font-medium tabular-nums"
                         >
                             <span className="text-[#24E27A]">
-                                {String(count).padStart(2, "0")}.
+                                {String(count).padStart(2, "0")}
+                            </span>
+                            <span className="text-[#d0ebdc]">
+                                .
                             </span>
                             <span className="text-white">
                                 {count === 1 ? "project" : "projects"}

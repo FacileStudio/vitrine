@@ -10,7 +10,7 @@ import { ARRIVE, TransitionOut } from "@/components/facile/pageTransition";
 import { projectsIn, type Category } from "../../lib/projects";
 import Backdrop from "./backdrop";
 import Heading from "./heading";
-import Card, { type CardRefs } from "./card";
+import ShelfCard, { type ShelfCardRefs } from "./shelfCard";
 
 const DEFAULT_LINES = ["A curated selection of", "our latest and best work."];
 
@@ -35,7 +35,7 @@ export default function Shelf({
     const sectionRef = useRef<HTMLElement>(null);
 
     const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-    const entryRefs = useRef<(HTMLButtonElement | null)[]>([]);
+    const entryRefs = useRef<(HTMLDivElement | null)[]>([]);
     const imgRefs = useRef<(HTMLDivElement | null)[]>([]);
     const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -49,7 +49,7 @@ export default function Shelf({
 
     // callback-ref setters: the refs are owned here, so the children just receive
     // a per-index setter instead of writing into a ref object passed as a prop
-    const refs: CardRefs = {
+    const refs: ShelfCardRefs = {
         card: (i) => (el) => { cardRefs.current[i] = el; },
         entry: (i) => (el) => { entryRefs.current[i] = el; },
         img: (i) => (el) => { imgRefs.current[i] = el; },
@@ -125,7 +125,7 @@ export default function Shelf({
 
 
     // hover: wipe the centered media (video or image) open from the bottom up, then close it back down
-    const onEnter = (e: MouseEvent<HTMLButtonElement>) => {
+    const onEnter = (e: MouseEvent<HTMLElement>) => {
         const m = e.currentTarget.querySelector<HTMLElement>("[data-media]");
         if (!m)
             return;
@@ -142,7 +142,7 @@ export default function Shelf({
         });
     };
 
-    const onLeave = (e: MouseEvent<HTMLButtonElement>) => {
+    const onLeave = (e: MouseEvent<HTMLElement>) => {
         const m = e.currentTarget.querySelector<HTMLElement>("[data-media]");
         if (!m)
             return;
@@ -174,7 +174,7 @@ export default function Shelf({
 
             <Backdrop sticky={stickyBackdrop} />
 
-            <div className="w-full h-full pt-[20vh] flex flex-col justify-start items-center px-6">
+            <div className="w-full h-full pt-[20vh] flex flex-col gap-1 justify-start items-center px-6">
                 <Heading
                     lines={lines}
                     filter={filter}
@@ -183,7 +183,7 @@ export default function Shelf({
                 />
 
                 {visible.map((p, i) => (
-                    <Card
+                    <ShelfCard
                         key={`${filter ?? "all"}-${p.slug}`}
                         project={p}
                         index={i}

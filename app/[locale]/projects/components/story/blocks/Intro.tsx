@@ -85,14 +85,15 @@ export default function Intro({ block, project, ref }: BlockProps) {
 
                         {project.link ? (
                             <Meta label="Live">
-                                <Line className="text-[clamp(0.8rem,1.9vh,1.35rem)] text-white/70">
+                                <Line>
                                     <a
                                         href={project.link}
                                         target="_blank"
                                         rel="noreferrer"
-                                        className="underline-offset-4 transition-colors hover:text-[#24E27A] hover:underline"
+                                        className="group flex w-fit items-center gap-[1vh] text-[clamp(0.8rem,1.9vh,1.35rem)] text-white transition-colors duration-200 hover:text-[#24E27A]"
                                     >
-                                        {project.link.replace(/^https?:\/\//, "")}
+                                        Visit site
+                                        <span className="transition-transform duration-200 group-hover:-translate-y-1 group-hover:translate-x-1">↗</span>
                                     </a>
                                 </Line>
                             </Meta>

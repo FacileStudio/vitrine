@@ -1,6 +1,6 @@
 'use client'
 
-import type { MouseEvent } from "react";
+import type { KeyboardEvent, MouseEvent } from "react";
 import SplitLines from "@/components/facile/splitLines";
 import { isVideoFile, type Project } from "../../lib/projects";
 import { MarcelEyes, MarcelSpheres, useMarcelEyes } from "../marcelEyes";
@@ -11,40 +11,55 @@ const coverClass = "w-full h-full object-cover brightness-100 transition-all dur
 
 // the shelf owns every ref array, so a card only receives the per-index setter
 // it has to hand to each of its four moving parts
-export type CardRefs = {
+export type ShelfCardRefs = {
     card: (i: number) => (el: HTMLDivElement | null) => void;
-    entry: (i: number) => (el: HTMLButtonElement | null) => void;
+    entry: (i: number) => (el: HTMLDivElement | null) => void;
     img: (i: number) => (el: HTMLDivElement | null) => void;
     content: (i: number) => (el: HTMLDivElement | null) => void;
 };
 
-interface CardProps {
+interface ShelfCardProps {
     project: Project;
     index: number;
-    refs: CardRefs;
+    refs: ShelfCardRefs;
     onOpen: (slug: string) => void;
-    onEnter: (e: MouseEvent<HTMLButtonElement>) => void;
-    onLeave: (e: MouseEvent<HTMLButtonElement>) => void;
+    onEnter: (e: MouseEvent<HTMLElement>) => void;
+    onLeave: (e: MouseEvent<HTMLElement>) => void;
 }
 
 // one project row: parallaxed cover image on the left with the hover media wipe,
-// its name/tech/description on the right. Marcel gets the extra googly-eyes markup
-export default function Card({ project, index, refs, onOpen, onEnter, onLeave }: CardProps) {
+// its name/tech/description on the right. Marcel gets the extra googly-eyes markup.
+// The whole row opens the story — only the live-site link inside it stops the
+// click from bubbling, so it can go its own way to the external site
+export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLeave }: ShelfCardProps) {
     const { frame, eyes, spheres, start, stop } = useMarcelEyes();
     const marcel = project.slug === "marcel";
 
+    const open = () => { stop(); onOpen(project.slug); };
+    const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            open();
+        }
+    };
+
     return (
-        <div ref={refs.card(index)} className="3xl:w-[70vw] w-[80vw] shrink-0 flex items-start justify-between">
+        <div
+            ref={refs.card(index)}
+            role="button"
+            tabIndex={0}
+            aria-label={project.name}
+            onClick={open}
+            onKeyDown={onKeyDown}
+            onMouseEnter={(e) => { onEnter(e); if (marcel) start(); }}
+            onMouseLeave={(e) => { onLeave(e); stop(); }}
+            className="group/card cursor-pointer 3xl:w-[70vw] w-[80vw] shrink-0 flex items-start justify-between"
+        >
             <div className="relative shrink-0">
                 {marcel && <MarcelSpheres ref={spheres} />}
-                <button
+                <div
                     ref={refs.entry(index)}
-                    type="button"
-                    aria-label={project.name}
-                    onClick={() => { stop(); onOpen(project.slug); }}
-                    onMouseEnter={(e) => { onEnter(e); if (marcel) start(); }}
-                    onMouseLeave={(e) => { onLeave(e); stop(); }}
-                    className="group relative 3xl:w-5xl w-[50vw] aspect-16/10 shrink-0 overflow-hidden rounded-md"
+                    className="relative 3xl:w-5xl w-[50vw] aspect-16/10 shrink-0 overflow-hidden rounded-md"
                 >
                     <div ref={refs.img(index)} className="absolute inset-0 will-change-transform">
                         <img
@@ -52,7 +67,7 @@ export default function Card({ project, index, refs, onOpen, onEnter, onLeave }:
                             alt={project.name}
                             loading="lazy"
                             decoding="async"
-                            className={marcel ? coverClass : `${coverClass} group-hover:brightness-[0.6] group-hover:scale-110`}
+                            className={marcel ? coverClass : `${coverClass} group-hover/card:brightness-[0.6] group-hover/card:scale-110`}
                         />
 
                         {marcel && <MarcelEyes frameRef={frame} ref={eyes} />}
@@ -75,7 +90,7 @@ export default function Card({ project, index, refs, onOpen, onEnter, onLeave }:
                             />
                         )
                     )}
-                </button>
+                </div>
             </div>
 
             <div ref={refs.content(index)} className="flex flex-col items-end gap-12 max-w-sm text-right py-12">
@@ -94,6 +109,23 @@ export default function Card({ project, index, refs, onOpen, onEnter, onLeave }:
                             />
                         )}
                     </div>
+                    {project.link && (
+                        <span className="relative z-10 mt-2 block overflow-hidden">
+                            <a
+                                data-reveal
+                                href={project.link}
+                                target="_blank"
+                                rel="noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                className="group w-full flex justify-end  "
+                            >
+                                <div className="w-fit flex text-xl gap-2 rounded-md px-[2vh] py-[1vh] text-white transition-colors duration-200 hover:text-[#24E27A]">
+                                    Visit site
+                                    <span className="transition-transform duration-200 group-hover:-translate-y-1 group-hover:translate-x-1">↗</span>
+                                </div>
+                            </a>
+                        </span>
+                    )}
                 </div>
                 <div className="gap-y-6 flex flex-col">
                     {project.services.length > 0 && (
