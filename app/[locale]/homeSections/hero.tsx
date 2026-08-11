@@ -53,7 +53,7 @@ export default function Hero({ charged }: { charged: boolean }) {
             <div className="relative w-full h-screen">
                 <DitherView
                     file="/models/F.glb"
-                    className="absolute top-0 left-0 w-full h-full -z-10 lg:opacity-75 opacity-25"
+                    className="absolute top-0 left-0 w-full h-full -z-10 lg:opacity-90 opacity-25"
                     gridSize={resolved ? 2 : 16}
                     position={[-1, -0.5, -0.5]}
                     rotation={[0, 0.35, 0]}

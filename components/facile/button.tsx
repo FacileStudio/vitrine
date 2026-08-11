@@ -8,27 +8,31 @@ import Link from "next/link";
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
     text: string;
     icon: string;
+    variant?: "light" | "dark";
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-    ({ text, icon, className = "", ...props }, ref) => {
+    ({ text, icon, variant = "dark", className = "", ...props }, ref) => {
+        const isDark = variant === "dark";
+
         return (
             <button
                 ref={ref}
-                className={clsx(`
-                    bg-[#CAE6D8] hover:bg-[#1E1E1E]
-                    text-[#1E1E1E] hover:text-[#CAE6D8]
-                    border-2 border-[#1E1E1E]/33 rounded-full
-                    px-4 py-3
-                    duration-150 transition-colors
-                    flex gap-2 items-center
-                    cursor-pointer
-                    group
-                `, className)}
+                className={clsx(
+                    "flex items-center gap-2 rounded-md px-4 py-3",
+                    "transition-colors duration-300 cursor-pointer group",
+                    isDark
+                        ? "bg-white/5 text-white/60 hover:bg-white/10 hover:text-white"
+                        : "bg-black/5 text-black/60 hover:bg-black/10 hover:text-black",
+                    className
+                )}
                 {...props}
             >
-                <div 
-                    className="w-6 h-6 bg-[#1E1E1E] group-hover:bg-[#CAE6D8] transition-colors duration-150"
+                <div
+                    className={clsx(
+                        "w-5 h-5 transition-colors duration-300",
+                        isDark ? "bg-white/60 group-hover:bg-white" : "bg-black/60 group-hover:bg-black"
+                    )}
                     style={{
                         WebkitMaskImage: `url(/icons/${icon}.svg)`,
                         maskImage: `url(/icons/${icon}.svg)`,

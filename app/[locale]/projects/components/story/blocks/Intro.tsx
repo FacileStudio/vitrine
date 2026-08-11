@@ -54,7 +54,7 @@ export default function Intro({ block, project, ref }: BlockProps) {
                     <div className="flex flex-col gap-y-12">
                         {project.techStack?.length ? (
                             <Meta label="Created with">
-                                <Line className="flex flex-wrap items-center gap-x-[2vh] gap-y-[1vh] text-[clamp(0.8rem,1.9vh,1.35rem)] text-white/70">
+                                <Line className="flex flex-wrap items-center gap-x-[2vh] gap-y-[1vh]">
                                     {project.techStack.map((t) => (
                                         <img key={t} src={`/images/logo/${t}.png`} alt={t} className="h-[2.6vh] max-h-8 w-auto" />
                                     ))}
