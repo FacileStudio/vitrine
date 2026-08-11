@@ -4,52 +4,41 @@ import gsap from "gsap";
 import Lenis from "lenis";
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef } from "react";
+import { useRouter } from "next/navigation";
+import { useLocale } from "next-intl";
 import { EASE, hideRevealY, run, slideY } from "@/app/utils/animations";
-import { buildStory, type Block, type Project } from "../lib/story";
-import { Bento } from "./gridParts/Bento";
-import { PARTS } from "./gridParts";
+import { ARRIVE, TransitionOut } from "@/components/facile/pageTransition";
+import type { Project } from "../../lib/projects";
+import { buildStory, type Block } from "../../lib/story";
+import { Bento } from "./blocks/Bento";
+import { BLOCKS } from "./blocks";
+import Chrome from "./chrome";
 
 const DitherView = dynamic(() => import("@/webgl/DitherView").then((m) => m.DitherView), { ssr: false });
 
-export interface DetailOrigin {
-    box: HTMLElement | null;
-    img: HTMLElement | null;
-}
-
-interface ProjectDetailProps {
+interface StoryProps {
     project: Project;
     index: number;
     total: number;
-    origin: () => DetailOrigin;
-    onExit: () => void;
-    onClosed: () => void;
 }
 
-export default function ProjectDetail({ project, index, total, origin, onExit, onClosed }: ProjectDetailProps) {
+// one project's story: a horizontal band of bento chapters that owns the whole
+// viewport. It is the /projects/[slug] route, so it can be linked to from
+// anywhere — the shelf is one entry point among several, not its owner
+export default function Story({ project, index, total }: StoryProps) {
     // dom refs
     const rootRef = useRef<HTMLDivElement>(null);
     const bgRef = useRef<HTMLDivElement>(null);
     const scrollerRef = useRef<HTMLDivElement>(null);
     const trackRef = useRef<HTMLDivElement>(null);
-    const coverRef = useRef<HTMLDivElement>(null);
-    const coverImgRef = useRef<HTMLDivElement>(null);
     const barRef = useRef<HTMLSpanElement>(null);
 
     const blockRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-    const closing = useRef(false);
+    const leaving = useRef(false);
 
-    // the callbacks are read from a ref so the open/close choreography never has
-    // to re-subscribe when the parent re-renders (same idiom as use-scroll)
-    const originRef = useRef(origin);
-    const onExitRef = useRef(onExit);
-    const onClosedRef = useRef(onClosed);
-
-    useEffect(() => {
-        originRef.current = origin;
-        onExitRef.current = onExit;
-        onClosedRef.current = onClosed;
-    });
+    const router = useRouter();
+    const locale = useLocale();
 
     const sections = useMemo(() => buildStory(project), [project]);
 
@@ -60,26 +49,33 @@ export default function ProjectDetail({ project, index, total, origin, onExit, o
         [sections],
     );
 
-    // block 0 is the cover the list card flips into, so it doubles as the flip target
-    const setBlockRef = (i: number) => (el: HTMLDivElement | null) => {
-        blockRefs.current[i] = el;
-        if (i === 0) coverRef.current = el;
-    };
+    const setBlockRef = (i: number) => (el: HTMLDivElement | null) => { blockRefs.current[i] = el; };
 
-    const rest = () => blockRefs.current.slice(1).filter((el): el is HTMLDivElement => el != null);
-
-    const renderBlock = (b: Block, i: number) => {
-        const Part = PARTS[b.type];
-
-        return <Part key={i} ref={setBlockRef(i)} block={b} project={project} imgRef={i === 0 ? coverImgRef : undefined} onClose={close} />;
-    };
+    const blocks = () => blockRefs.current.filter((el): el is HTMLDivElement => el != null);
 
     const chrome = () => Array.from(rootRef.current?.querySelectorAll<HTMLElement>("[data-chrome]") ?? []);
 
+    // leaving is a route change like any other: the curtain covers the band, the
+    // shelf is pushed underneath it and lifts it on arrival
+    const back = useCallback(() => {
+        if (leaving.current)
+            return;
+
+        leaving.current = true;
+        TransitionOut({ href: `/${locale}/projects`, router });
+    }, [locale, router]);
+
+    const renderBlock = (b: Block, i: number) => {
+        const Part = BLOCKS[b.type];
+
+        return <Part key={i} ref={setBlockRef(i)} block={b} project={project} onClose={back} />;
+    };
 
 
-    // open: lock the page behind the overlay (keeping the scrollbar's width so
-    // nothing shifts), then flip the list card into the cover block
+
+    // open: lock the page behind the band (keeping the scrollbar's width so
+    // nothing shifts), then slide the track in once the arriving curtain has
+    // cleared most of the viewport
     useLayoutEffect(() => {
         const html = document.documentElement;
         const gap = window.innerWidth - html.clientWidth;
@@ -92,112 +88,17 @@ export default function ProjectDetail({ project, index, total, origin, onExit, o
 
         hideRevealY(chrome());
 
-        const { box, img } = originRef.current();
-        const cover = coverRef.current;
-        const coverImg = coverImgRef.current;
-
-        // measure the cover untransformed: React runs this effect twice in dev
-        // and a killed timeline leaves the previous flip's transform behind,
-        // which would make the card and the cover measure the same box.
-        // only the transform goes — clearProps "all" wipes cssText, and with it
-        // the inline grid span React put on the block
-        if (cover) gsap.set(cover, { clearProps: "transform,opacity" });
-        if (coverImg) gsap.set(coverImg, { clearProps: "transform,opacity" });
-
-        const tl = gsap.timeline();
+        const tl = gsap.timeline({ delay: ARRIVE / 1000 });
         tl.set(rootRef.current, { autoAlpha: 1 })
             .fromTo(bgRef.current, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: EASE.out }, 0)
-            .fromTo(rest(), { xPercent: 14, opacity: 0 }, { xPercent: 0, opacity: 1, duration: 0.9, ease: EASE.out, stagger: 0.07 }, 0.3)
+            .fromTo(blocks(), { xPercent: 14, opacity: 0 }, { xPercent: 0, opacity: 1, duration: 0.9, ease: EASE.out, stagger: 0.07 }, 0.15)
             .add(() => run(chrome(), slideY(true, false, { stagger: 0.06, duration: 0.6 })), 0.35);
-
-        if (box && cover) {
-            const first = box.getBoundingClientRect();
-            const last = cover.getBoundingClientRect();
-
-            gsap.set(cover, {
-                x: first.left - last.left,
-                y: first.top - last.top,
-                scaleX: first.width / last.width,
-                scaleY: first.height / last.height,
-                transformOrigin: "top left",
-            });
-            tl.to(cover, { x: 0, y: 0, scaleX: 1, scaleY: 1, duration: 0.95, ease: EASE.inOut }, 0);
-        }
-
-        // the card's cover is parallaxed and scaled up by the list — start from
-        // exactly that framing so the flip doesn't jump the image
-        if (img && coverImg) {
-            gsap.set(coverImg, {
-                yPercent: Number(gsap.getProperty(img, "yPercent")) || 0,
-                scale: Number(gsap.getProperty(img, "scale")) || 1,
-            });
-            tl.to(coverImg, { yPercent: 0, scale: 1, duration: 0.95, ease: EASE.inOut }, 0);
-        }
 
         return () => {
             tl.kill();
-            if (cover) gsap.killTweensOf(cover);
-            if (coverImg) gsap.killTweensOf(coverImg);
             html.style.setProperty("overflow", prevOverflow);
             html.style.setProperty("padding-right", prevPad);
         };
-    }, []);
-
-
-
-    // close: flip back onto the card when it is still the block on screen,
-    // otherwise dissolve — flying the cover in from far off-track reads as noise
-    const close = useCallback(() => {
-        if (closing.current)
-            return;
-
-        closing.current = true;
-        onExitRef.current();
-
-        const { box, img } = originRef.current();
-        const cover = coverRef.current;
-        const last = cover?.getBoundingClientRect();
-        const flip = box && cover && last && last.right > 0 && last.left < window.innerWidth;
-
-        run(chrome(), slideY(false, true, { stagger: 0.04, duration: 0.4 }));
-
-        const tl = gsap.timeline({ onComplete: () => onClosedRef.current() });
-        tl.to(rest(), { xPercent: 10, opacity: 0, duration: 0.5, ease: EASE.in, stagger: 0.04 }, 0);
-
-        if (flip) {
-            const first = box.getBoundingClientRect();
-
-            // compose with whatever the cover already carries, so closing mid-open
-            // still lands exactly on the card
-            const x = Number(gsap.getProperty(cover, "x")) || 0;
-            const y = Number(gsap.getProperty(cover, "y")) || 0;
-            const sx = Number(gsap.getProperty(cover, "scaleX")) || 1;
-            const sy = Number(gsap.getProperty(cover, "scaleY")) || 1;
-
-            tl.to(cover, {
-                x: x + (first.left - last.left),
-                y: y + (first.top - last.top),
-                scaleX: sx * (first.width / last.width),
-                scaleY: sy * (first.height / last.height),
-                transformOrigin: "top left",
-                duration: 0.85,
-                ease: EASE.inOut,
-                overwrite: true,
-            }, 0)
-                .to(bgRef.current, { opacity: 0, duration: 0.5, ease: EASE.in }, 0.35);
-
-            // land on the card's own framing, not on the story's
-            if (img && coverImgRef.current) {
-                tl.to(coverImgRef.current, {
-                    yPercent: Number(gsap.getProperty(img, "yPercent")) || 0,
-                    scale: Number(gsap.getProperty(img, "scale")) || 1,
-                    duration: 0.85,
-                    ease: EASE.inOut,
-                }, 0);
-            }
-        } else {
-            tl.to([cover, bgRef.current], { opacity: 0, duration: 0.6, ease: EASE.in }, 0);
-        }
     }, []);
 
 
@@ -233,7 +134,7 @@ export default function ProjectDetail({ project, index, total, origin, onExit, o
         };
 
         const onKey = (e: KeyboardEvent) => {
-            if (e.key === "Escape") close();
+            if (e.key === "Escape") back();
             else if (e.key === "ArrowRight") lenis.scrollTo(lenis.targetScroll + window.innerWidth * 0.6, { duration: 0.8 });
             else if (e.key === "ArrowLeft") lenis.scrollTo(lenis.targetScroll - window.innerWidth * 0.6, { duration: 0.8 });
         };
@@ -279,7 +180,7 @@ export default function ProjectDetail({ project, index, total, origin, onExit, o
             window.removeEventListener("pointercancel", onUp);
             window.removeEventListener("keydown", onKey);
         };
-    }, [close]);
+    }, [back]);
 
 
 
@@ -344,8 +245,6 @@ export default function ProjectDetail({ project, index, total, origin, onExit, o
     return (
         <div
             ref={rootRef}
-            role="dialog"
-            aria-modal="true"
             aria-label={project.name}
             className="fixed inset-0 z-120 text-white opacity-0"
         >
@@ -379,43 +278,7 @@ export default function ProjectDetail({ project, index, total, origin, onExit, o
                 </div>
             </div>
 
-            <div className="pointer-events-none absolute inset-0 flex flex-col justify-between p-6 md:p-10">
-                <div className="flex items-start justify-between gap-8">
-                    <span className="block overflow-hidden">
-                        <button
-                            data-chrome
-                            type="button"
-                            onClick={close}
-                            className="pointer-events-auto block text-sm text-white/50 transition-colors hover:text-white"
-                        >
-                            ← Back to projects
-                        </button>
-                    </span>
-
-                    <span className="block overflow-hidden">
-                        <span data-chrome className="block text-sm tabular-nums text-white/40">
-                            {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
-                        </span>
-                    </span>
-                </div>
-
-                <div className="flex items-end justify-between gap-8">
-                    <span className="block overflow-hidden">
-                        <span data-chrome className="block text-xs uppercase tracking-widest text-white/40">
-                            {project.name}
-                        </span>
-                    </span>
-
-                    <span className="block overflow-hidden">
-                        <span data-chrome className="flex items-center gap-4">
-                            <span className="text-xs uppercase tracking-widest text-white/40">scroll</span>
-                            <span className="relative h-px w-32 bg-white/20 md:w-48">
-                                <span ref={barRef} className="absolute inset-0 origin-left scale-x-0 bg-[#24E27A]" />
-                            </span>
-                        </span>
-                    </span>
-                </div>
-            </div>
+            <Chrome name={project.name} index={index} total={total} barRef={barRef} onBack={back} />
         </div>
     );
 }

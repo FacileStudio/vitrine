@@ -1,31 +1,7 @@
 import type { Ref } from "react";
-import projects from "../projects.json";
-import studio from "../../studio/studio.json";
+import type { Project } from "./projects";
 
-export interface Project {
-    slug: string;
-    name: string;
-    tier: number;
-    weeks: number;
-    link?: string;
-    image: string;
-    video?: string;
-    gallery: string[];
-    description: string;
-    techStack?: string[];
-    date: string;
-    challenge?: string;
-    services: string[];
-    team: string[];
-    notes: string[];
-    story?: StorySection[];
-}
-
-export type Member = (typeof studio)[number];
-
-export const allProjects = projects as Project[];
-
-// the single source of truth for the bento vocabulary: how many media each part
+// the single source of truth for the bento vocabulary: how many media each block
 // eats and how many columns it spans by default. A backoffice can read this to
 // know what a block needs before it lets an editor drop one in the track.
 export const BLOCK_SPECS = {
@@ -86,20 +62,14 @@ export interface Block extends StoryBlock {
     index: number;
 }
 
-export interface PartProps {
+// every renderer in components/story/blocks takes exactly this
+export interface BlockProps {
     block: Block;
     project: Project;
     imgRef?: Ref<HTMLDivElement>;
     ref?: Ref<HTMLDivElement>;
     onClose?: () => void;
 }
-
-export const isVideoFile = (src: string) => /\.(mp4|webm|ogg|mov)$/i.test(src);
-
-export const team = (p: Project): Member[] =>
-    p.team
-        .map((slug) => studio.find((m) => m.slug === slug))
-        .filter((m): m is Member => m != null);
 
 const resolveMedia = (p: Project, refs: (string | number)[] = []) =>
     refs

@@ -10,7 +10,7 @@ import Hero from "./homeSections/hero";
 import Manifesto from "./homeSections/manifesto";
 import Suite from "./homeSections/suite";
 import Avis from "./homeSections/avis";
-import Projects from "./homeSections/projects";
+import Shelf from "./homeSections/shelf";
 import Friends from "./homeSections/friends";
 import Footer from "./homeSections/footer";
 
@@ -55,7 +55,7 @@ export default function Home() {
 
                 <Friends />
 
-                <Projects />
+                <Shelf />
 
                 <Friends id="friends-2" />
 

@@ -1,5 +1,5 @@
 import type { CSSProperties, ReactNode, Ref } from "react";
-import { isVideoFile } from "../../lib/story";
+import { isVideoFile } from "../../../lib/projects";
 
 export const BENTO_VARS = {
     "--gap": "4px",
@@ -19,14 +19,14 @@ export function Bento({ children }: { children: ReactNode }) {
     );
 }
 
-type BlockProps = {
+type SpanProps = {
     cols: number;
     className?: string;
     children?: ReactNode;
     ref?: Ref<HTMLDivElement>;
 };
 
-export function Block({ cols, className = "", children, ref }: BlockProps) {
+export function Block({ cols, className = "", children, ref }: SpanProps) {
     return (
         <div
             ref={ref}

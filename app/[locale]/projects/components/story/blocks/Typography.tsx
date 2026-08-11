@@ -1,4 +1,4 @@
-import type { PartProps } from "../../lib/story";
+import type { BlockProps } from "../../../lib/story";
 import { Block, Cell } from "./Bento";
 import Line from "./Line";
 
@@ -8,7 +8,7 @@ const NUMBERS = "0123456789";
 
 const SPECIALS = "&@#$%€£()[]{}!?.,;:\"'/\\+−=×÷<>~^_|©®°*";
 
-export default function Typography({ block, ref }: PartProps) {
+export default function Typography({ block, ref }: BlockProps) {
     return (
         <Block ref={ref} cols={block.cols}>
             <Cell col="1 / -1" row="1 / -1">

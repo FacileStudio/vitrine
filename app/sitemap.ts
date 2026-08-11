@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { locales, type Locale } from "@/lib/i18n/locales"
 import { getLocalizedPath, routePaths, siteUrl, type RoutePath } from "@/lib/seo/metadata"
-import projects from "@/app/[locale]/projects/projects.json"
+import { allProjects } from "@/app/[locale]/projects/lib/projects"
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date()
@@ -25,8 +25,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }))
   })
 
-  const caseStudyEntries = projects
-    .filter((p) => p.tier === 1 || p.tier === 2)
+  // every project has a story route now, so every project is listed
+  const storyEntries = allProjects
     .flatMap((project) => {
       const languages = Object.fromEntries(
         locales.map((locale) => [locale, `${siteUrl}/${locale}/projects/${project.slug}`])
@@ -46,5 +46,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
       }))
     })
 
-  return [...staticEntries, ...caseStudyEntries]
+  return [...staticEntries, ...storyEntries]
 }

@@ -1,78 +1,56 @@
-# Projects page — open findings
+# Projects area — architecture + open findings
 
-Audit of `app/[locale]/projects` (list, detail overlay, bento parts, case-study route).
+## Layout
 
-The refactor pass that came with this file fixed everything that was safe to fix without
-touching the rendered output. What follows is what was **deliberately left alone**: each item
-either changes what is on screen, or is a call that is not mine to make. Nothing here is a
-regression introduced by the refactor.
+```
+app/[locale]/projects/
+  page.tsx              /projects        -> Portfolio -> Shelf
+  [slug]/page.tsx       /projects/<slug> -> Story     (metadata, JSON-LD, static params)
+  projects.json         authored data
+  lib/
+    projects.ts         Project/Member types, the list, categories + filtering, media helpers
+    story.ts            block vocabulary (BLOCK_SPECS), authored story types, buildStory()
+  components/
+    portfolio.tsx       /projects shell: Lenis, curtain, header, menu
+    marcelEyes.tsx      shared by the shelf card and the story cover block
+    shelf/
+      index.tsx         Shelf — scroll list, filter, parallax, hover wipe, opens a route
+      heading.tsx       intro copy + category filter
+      card.tsx          one project row
+      backdrop.tsx      pinned dither backdrop
+    story/
+      index.tsx         Story — horizontal bento band for one project
+      chrome.tsx        back link, counter, name, scroll bar
+      blocks/           one component per BlockKind, wired up in blocks/index.ts (BLOCKS)
+```
+
+A story is a route, not a piece of shelf state: `/projects/<slug>` can be linked to, bookmarked
+and landed on cold, and the shelf is just one of its entry points. Both directions of the hop go
+through `TransitionOut`, so the curtain covers the page before the push either way.
 
 ---
 
-## 1. `lib/navigation.ts` + `components/mobileNavigation.tsx` are dead
+## Open findings
 
-`usePortfolioNavigation` holds a `selectedWorkId` that is written by three callers and read by
-nobody. `MobileNavigationButtons` renders one unstyled zero-size `<button>` per project, plus
-two unstyled `‹` / `›` buttons that **are visible** at the bottom of `/projects`.
+Each item below either changes what is on screen or is a call that is not mine to make.
 
-Deleting both files and the `<MobileNavigationButtons />` call in `portfolio.tsx` removes dead
-state and nine phantom entries from the accessibility tree — but it also removes those two
-glyphs from the page, which is a visual change.
+### 1. Story has no focus management
 
-**Decision needed:** delete, or style them into a real mobile pager.
+It is a full page now rather than a `role="dialog"` overlay, so the old focus-trap complaint is
+gone — but nothing is focused when it mounts, and the only keyboard affordances are Escape
+(back to the shelf) and the arrow keys (pan the band). A visitor tabbing in lands on the back
+button, which is at least a sane first stop; a proper roving focus through the chapters is still
+missing.
 
-## 2. Missing logo assets
+### 2. Bento media loads eagerly
 
-`public/images/logo/egui.png` and `public/images/logo/FFT.png` do not exist, but `waves`
-lists `egui` and `FFT` in its `techStack`.
-
-- the list card (`projectsSection.tsx`) renders them with `alt={name}`, so the alt text is
-  already showing today
-- the detail intro (`gridParts/Intro.tsx`) renders them with `alt=""`, so they are invisible
-
-Left at `alt=""` in the intro so the overlay stays pixel-identical. The real fix is to add the
-two files, then make both call sites use `alt={name}`.
-
-## 3. `caseStudy.tsx` — unreachable tier-3 branch
-
-`[slug]/page.tsx` sets `dynamicParams = false` and `generateStaticParams` only emits tier 1
-and tier 2 slugs. So in `CaseStudyPage`:
-
-- `project.tier === 3 → notFound()` can never fire; routing 404s first
-- `findNextProject` would return `undefined` for a slug outside the navigable list, which is
-  likewise unreachable today but is an unguarded `navigable[(i + 1) % navigable.length]` with
-  `i === -1`
-
-Harmless now, a trap the day tier filtering changes.
-
-## 4. `projectDetail.tsx` — dialog without focus management
-
-The overlay is `role="dialog" aria-modal="true"` but:
-
-- nothing is focused when it opens
-- focus is not trapped, so Tab walks straight into the list behind it
-- focus is not returned to the originating card on close
-- the page behind is only `overflow: hidden`; every link and button in it stays tabbable
-
-Escape-to-close already works. Adding a focus trap changes tab order and initial focus, hence
-not done as part of a no-visual-change pass.
-
-## 5. Bento media loads eagerly
-
-Every `<img>` produced by `gridParts/Bento.tsx:Media` ships without `loading` or `decoding`.
-Opening Marcel fetches all 14 gallery images the moment the overlay mounts.
+Every `<img>` produced by `story/blocks/Bento.tsx:Media` ships without `loading` or `decoding`.
+Opening Marcel fetches all 14 gallery images the moment the page mounts.
 
 `loading="lazy"` is the obvious win, but the track scrolls horizontally and fast — the risk is
 visible pop-in as blocks arrive. Wants a measurement, not a guess.
 
-## 6. `usePinProgress` writes a constant every frame
-
-In `projectsSection.tsx` the parallax callback sets `scale: 1.30` on every card image on every
-frame, though it never changes. Only `yPercent` is dynamic. Hoisting the scale to a one-shot
-`gsap.set` is safe; it was left in place because it sits inside the same call as the value that
-does change.
-
-## 7. `starts` in `projectDetail.tsx` stays a spread-reduce
+### 3. `starts` in `story/index.tsx` stays a spread-reduce
 
 ```ts
 const starts = useMemo(
@@ -84,3 +62,23 @@ const starts = useMemo(
 Quadratic, and it returns one element more than there are sections. A linear rewrite using a
 running counter trips `react-hooks/immutability` ("cannot reassign variable after render
 completes"). With at most five chapters the spread costs nothing, so the lint-clean version won.
+
+### 4. `portfolio.caseStudy.*` messages are now unused
+
+`components/caseStudy.tsx` is gone — `/projects/<slug>` renders the Story instead of the prose
+page. The translated `challenge` / `approach` / `result` / `features` strings are still in the
+message catalogues, and the prose they carried is no longer rendered anywhere, so that copy is
+out of the index. Either fold it into a story block or delete the keys.
+
+---
+
+## Closed since the last pass
+
+- **Dead mobile pager** — `lib/navigation.ts` and `components/mobileNavigation.tsx` deleted, along
+  with the two unstyled `‹ ›` glyphs and nine zero-size buttons they put on `/projects`.
+- **Missing logo assets** — every `techStack` entry in `projects.json` now resolves to a file in
+  `public/images/logo`, so both call sites render `alt={name}`.
+- **Unreachable tier-3 branch** — `caseStudy.tsx` is deleted; `[slug]` pre-builds every project
+  and 404s through `notFound()` on an unknown slug.
+- **Constant written every frame** — the cover images' `scale: 1.3` moved out of the
+  `usePinProgress` callback into the one-shot `gsap.set` in `shelf/index.tsx`.

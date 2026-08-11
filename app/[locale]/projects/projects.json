@@ -494,8 +494,8 @@
         "techStack": [
             "Rust",
             "Tauri",
-            "egui",
-            "FFT"
+            "Egui",
+            "FTT"
         ],
         "image": "/images/projects/Waves.webp",
         "date": "2025",

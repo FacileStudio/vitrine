@@ -1,8 +1,10 @@
-import CaseStudyPage from "../components/caseStudy";
+import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import PageCurtain from "@/components/facile/pageTransition";
 import { locales, type Locale } from "@/lib/i18n/locales";
 import { baseMetadata, getOpenGraphLocale, siteUrl } from "@/lib/seo/metadata";
-import data from "../projects.json";
+import Story from "../components/story";
+import { allProjects, findProject, projectIndex } from "../lib/projects";
 
 type PageProps = {
     params: Promise<{ locale: string; slug: string }>;
@@ -19,12 +21,12 @@ const projectDescriptions: Record<string, string> = {
     evelynecrea: "Portfolio redesign by Facile Studio for a creative professional. Custom visual identity, animations, and organic navigation flow.",
 };
 
-const navigableProjects = data.filter((p) => p.tier === 1 || p.tier === 2);
-
 export const dynamicParams = false;
 
+// every card on the shelf links here, so every project gets a route — the story
+// builder falls back to an auto-laid-out one for projects with nothing authored
 export function generateStaticParams() {
-    return navigableProjects.flatMap((project) =>
+    return allProjects.flatMap((project) =>
         locales.map((locale) => ({
             locale,
             slug: project.slug,
@@ -35,7 +37,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { locale, slug } = await params;
     const validLocale = locales.includes(locale as Locale) ? locale as Locale : "en";
-    const project = data.find((p) => p.slug === slug);
+    const project = findProject(slug);
     const projectName = project?.name ?? slug;
     const path = `/${validLocale}/projects/${slug}`;
     const description = projectDescriptions[slug] ?? `${projectName} — a project by Facile Studio.`;
@@ -67,17 +69,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
 }
 
-export default async function LocaleCaseStudyPage({ params }: PageProps) {
+export default async function LocaleProjectStoryPage({ params }: PageProps) {
     const { locale, slug } = await params;
     const validLocale = locales.includes(locale as Locale) ? locale as Locale : "en";
-    const project = data.find((p) => p.slug === slug);
-    const projectName = project?.name ?? slug;
-    const description = projectDescriptions[slug] ?? `${projectName} — a project by Facile Studio.`;
+    const project = findProject(slug);
+
+    if (!project)
+        notFound();
+
+    const description = projectDescriptions[slug] ?? `${project.name} — a project by Facile Studio.`;
 
     const jsonLd = {
         "@context": "https://schema.org",
         "@type": "CreativeWork",
-        name: projectName,
+        name: project.name,
         description,
         url: `${siteUrl}/${validLocale}/projects/${slug}`,
         inLanguage: validLocale,
@@ -86,7 +91,7 @@ export default async function LocaleCaseStudyPage({ params }: PageProps) {
             name: "Facile Studio",
             url: "https://facile.studio",
         },
-        ...(project?.techStack && {
+        ...(project.techStack && {
             keywords: project.techStack.join(", "),
         }),
     };
@@ -97,7 +102,7 @@ export default async function LocaleCaseStudyPage({ params }: PageProps) {
         itemListElement: [
             { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/${validLocale}` },
             { "@type": "ListItem", position: 2, name: "Projects", item: `${siteUrl}/${validLocale}/projects` },
-            { "@type": "ListItem", position: 3, name: projectName, item: `${siteUrl}/${validLocale}/projects/${slug}` },
+            { "@type": "ListItem", position: 3, name: project.name, item: `${siteUrl}/${validLocale}/projects/${slug}` },
         ],
     };
 
@@ -105,7 +110,10 @@ export default async function LocaleCaseStudyPage({ params }: PageProps) {
         <>
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
-            <CaseStudyPage />
+
+            <PageCurtain enter="dark" leave="dark" />
+
+            <Story project={project} index={projectIndex(slug)} total={allProjects.length} />
         </>
     );
 }
