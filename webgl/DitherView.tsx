@@ -34,7 +34,7 @@ export function DitherView({
     highlight = "#4ADE8E",
     fov = 60,
     cameraPosition = [0, -1, 4],
-    bloom = true,
+    bloom = false,
     bloomIntensity = 0.5,
     gridTween = 0.8,
     background = "#000000",
