@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import Header from "@/components/facile/header";
 import Menu from "@/components/facile/menu";
+import PageCurtain, { TransitionOut } from "@/components/facile/pageTransition";
 import DitherReveal from "@/components/facile/ditherReveal";
 import members from "./studio.json";
 
@@ -15,6 +16,8 @@ export default function StudioPage() {
 
     return (
         <div className="relative h-screen w-full overflow-hidden bg-[#111]">
+            <PageCurtain enter="dark" leave="dark" />
+
             <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 
             <div className="flex h-full w-full">
@@ -22,7 +25,7 @@ export default function StudioPage() {
                     <button
                         key={member.slug}
                         type="button"
-                        onClick={() => router.push(`/${locale}/studio/${member.slug}`)}
+                        onClick={() => TransitionOut({ href: `/${locale}/studio/${member.slug}`, router })}
                         aria-label={`Open ${member.name}`}
                         className="group relative h-full flex-1 cursor-pointer overflow-hidden border-r border-white/5 last:border-r-0"
                     >

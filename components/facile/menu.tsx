@@ -3,7 +3,9 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import { useLocale } from 'next-intl';
+import { usePathname, useRouter } from 'next/navigation';
 import { run, slideY, hideRevealY } from '@/app/utils/animations';
+import { TransitionOut } from '@/components/facile/pageTransition';
 import { GithubIcon } from '../ui/github';
 import { InstagramIcon } from '../ui/instagram';
 import { DribbbleIcon } from '../ui/dribbble';
@@ -104,8 +106,27 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
     const subRefs = React.useRef<(HTMLAnchorElement | null)[]>([]);
     const contactRefs = React.useRef<(HTMLElement | null)[]>([]);
     const locale = useLocale();
+    const router = useRouter();
+    const pathname = usePathname();
     // internal routes need the always-on locale prefix; external URLs (http…) pass through
     const withLocale = (href: string) => href.startsWith('/') ? `/${locale}${href === '/' ? '' : href}` : href;
+
+    // the curtain is already down while the menu is open, so the route is pushed
+    // under it and the arriving page lifts it — closing the menu first would
+    // uncover the old page for the length of the navigation
+    const go = (e: React.MouseEvent, href: string) => {
+        e.preventDefault();
+
+        // an anchor on the page we are already on has nothing to cover: close the
+        // menu and let the scroll happen in the open
+        if (href.split('#')[0] === pathname) {
+            setMenuOpen(false);
+            router.push(href);
+            return;
+        }
+
+        TransitionOut({ href, router });
+    };
     const [mountDither, setMountDither] = React.useState(false);
     const [showDither, setShowDither] = React.useState(false);
     const [resolved, setResolved] = React.useState(false);
@@ -149,7 +170,7 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
             {/* white curtain leads, dark curtain trails: two waves racing down the screen.
                 on close they wait for the dither object to fade out before retreating */}
             <div className="absolute inset-0 z-30">{Stripes(menuOpen, '#ffffff', 0, 0.14 + exitDelay)}</div>
-            <div className="absolute inset-0 z-40">{Stripes(menuOpen, '#1E1E1E', 0.14, 0 + exitDelay)}</div>
+            <div className="absolute inset-0 z-40">{Stripes(menuOpen, '#111111', 0.14, 0 + exitDelay)}</div>
 
             {/* dither backdrop, revealed top-to-bottom by a clip wipe once the covers land */}
             {mountDither && (
@@ -186,7 +207,7 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
                             <a
                                 ref={(el) => { linkRefs.current[i] = el; }}
                                 href={withLocale(link.href)}
-                                onClick={() => setMenuOpen(false)}
+                                onClick={(e) => go(e, withLocale(link.href))}
                                 className="block text-3xl md:text-4xl 3xl:text-5xl font-medium text-white/80 transition-colors hover:text-white"
                             >
                                 {link.label}
@@ -199,7 +220,7 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
                                         <a
                                             ref={(el) => { subRefs.current[subBase[i] + j] = el; }}
                                             href={sub.external ? sub.href : withLocale(sub.href)}
-                                            onClick={() => setMenuOpen(false)}
+                                            onClick={(e) => { if (!sub.external) go(e, withLocale(sub.href)); }}
                                             {...(sub.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                                             className="block text-sm md:text-md 3xl:text-lg text-white/45 transition-colors hover:text-white/90"
                                         >

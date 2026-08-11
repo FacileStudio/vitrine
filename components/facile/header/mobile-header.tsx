@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import { languages } from "./languages";
 import * as Dialog from '@radix-ui/react-dialog';
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
-import Link from "next/link";
+import Link from "@/components/facile/transitionLink";
 import type { Locale } from "@/lib/i18n/locales";
 
 type MobileHeaderProps = {

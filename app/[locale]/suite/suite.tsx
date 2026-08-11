@@ -1,7 +1,7 @@
 'use client'
 
 import React from "react";
-import { TransitionIn } from "@/components/facile/pageTransition";
+import PageCurtain from "@/components/facile/pageTransition";
 import { useTranslations } from 'next-intl';
 import data from "../projects/projects.json";
 
@@ -10,10 +10,6 @@ const productSlugs = ["capsule", "opus", "glouton", "marcel"];
 export default function SuitePage() {
     const t = useTranslations('suite');
     const common = useTranslations('common');
-
-    React.useEffect(() => {
-        TransitionIn(0);
-    }, []);
 
     const openContactModal = React.useCallback(() => {
         window.dispatchEvent(new Event("facile:open-contact-modal"));
@@ -25,6 +21,8 @@ export default function SuitePage() {
 
     return (
         <main>
+            <PageCurtain enter="light" leave="light" />
+
             <section>
                 <h1>{t('title')}</h1>
                 <p>{t('subtitle')}</p>

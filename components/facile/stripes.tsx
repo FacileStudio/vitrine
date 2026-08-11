@@ -9,11 +9,15 @@ const defaultEase = "cubic-bezier(0.7, 0, 0.3, 1)";
 // pass a static `open`, or `openWhen` to derive it from scroll (listener lives here, not the parent).
 // tune the slide feel via `ease` (any CSS timing function, e.g. "ease-out") and `duration` (seconds).
 // stack two colours (different `zIndex`, `leadOpen`/`leadClose`) to race one another across, same
-// trick as the Menu curtain — one layer's smaller lead value arrives/leaves first. `reverseOnClose`
-// flips the per-index stagger on the close transition, so the wave that arrived low-to-high leaves
-// high-to-low instead of snapping back the same way, exactly like Menu's own curtain does.
+// trick as the Menu curtain — one layer's smaller lead value arrives/leaves first. `reverseOnOpen`
+// and `reverseOnClose` flip the per-index stagger on that transition: set one to bounce the wave
+// back the way it came, set both to keep it sweeping the same way on arrival and departure.
+// `exitOrientation` sends the covers off toward a different heading than the one they arrived
+// from — give it the opposite of `orientation` and the wave carries straight on through the
+// viewport instead of retreating back out the side it came in.
 export default function Stripes({
     orientation,
+    exitOrientation,
     count,
     open: openProp,
     openWhen,
@@ -21,6 +25,7 @@ export default function Stripes({
     zIndex = 40,
     leadOpen = 0,
     leadClose = 0,
+    reverseOnOpen = false,
     reverseOnClose = false,
     ease = defaultEase,
     duration = 0.8,
@@ -29,6 +34,7 @@ export default function Stripes({
     children,
 }: {
     orientation: number;
+    exitOrientation?: number;
     count: number;
     open?: boolean;
     openWhen?: () => boolean;
@@ -36,6 +42,7 @@ export default function Stripes({
     zIndex?: number;
     leadOpen?: number;
     leadClose?: number;
+    reverseOnOpen?: boolean;
     reverseOnClose?: boolean;
     ease?: string;
     duration?: number;
@@ -67,10 +74,11 @@ export default function Stripes({
 
     const open = ready && (openWhen ? openState : !!openProp);
 
+    // the split into rows or columns follows `orientation`; only the heading the
+    // covers leave on is allowed to differ from the one they arrived from
     const rad = (orientation * Math.PI) / 180;
-    const dx = -Math.sin(rad);
-    const dy = -Math.cos(rad);
-    const away = `translate(${(dx * 110).toFixed(2)}%, ${(dy * 110).toFixed(2)}%)`;
+    const exitRad = ((exitOrientation ?? orientation) * Math.PI) / 180;
+    const away = `translate(${(-Math.sin(exitRad) * 110).toFixed(2)}%, ${(-Math.cos(exitRad) * 110).toFixed(2)}%)`;
     const vertical = Math.abs(Math.cos(rad)) >= Math.abs(Math.sin(rad));
 
     const stripStyle = (i: number): CSSProperties =>
@@ -92,7 +100,7 @@ export default function Stripes({
         <>
             {Array.from({ length: count }, (_, i) => {
                 const delay = open
-                    ? leadOpen + i * stagger
+                    ? leadOpen + (reverseOnOpen ? count - 1 - i : i) * stagger
                     : leadClose + (reverseOnClose ? count - 1 - i : i) * stagger;
                 return (
                     <div
