@@ -83,9 +83,10 @@ export default function Manifesto() {
                         <Link
                             ref={ctaRef}
                             href="/projects"
-                            className="inline-block px-8 py-5  text-md font-medium rounded-full bg-background/50"
+                            className="group inline-flex items-center gap-2 px-8 py-5 text-md font-medium rounded-full bg-background/50 transition-colors duration-200 hover:text-[#24E27A]"
                         >
                             Voir nos projets
+                            <span className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">↗</span>
                         </Link>
                     </div>
                 </div>

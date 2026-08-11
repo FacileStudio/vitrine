@@ -79,7 +79,10 @@ export default function Hero({ charged }: { charged: boolean }) {
                 <div className="w-full flex flex-col text-left xl:text-2xl lg:text-xl text-lg">
                     <span className="block overflow-hidden"><div ref={(el) => { lineRefs.current[3] = el; }} className="font-medium">Quand 2 bons designers rencontrent</div></span>
                     <span className="block overflow-hidden"><div ref={(el) => { lineRefs.current[4] = el; }} className="font-medium">2 bons developpeurs</div></span>
-                    <Link ref={ctaRef} href="/projects" className="mt-6 w-fit px-6 py-4 border-2 border-black/10 text-sm font-medium rounded-full bg-background/50">Voir nos projets</Link>
+                    <Link ref={ctaRef} href="/projects" className="group mt-6 w-fit flex items-center gap-2 px-6 py-4 border-2 border-black/10 text-sm font-medium rounded-full bg-background/50 transition-colors duration-200 hover:border-[#24E27A]/50 hover:text-[#24E27A]">
+                        Voir nos projets
+                        <span className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">↗</span>
+                    </Link>
                 </div>
             </div>
 

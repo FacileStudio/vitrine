@@ -77,9 +77,16 @@ export default function Friends({ id = "friends" }: { id?: string }) {
 
     return (
         <section ref={sectionRef} id={id} className="relative w-full py-24 overflow-visible">
-            <div className="px-60">
-                <h2 className="text-5xl font-bold">They trusted us</h2>
-                <div className="text-lg opacity-66 mt-4 max-w-[40ch]">Our clients let us the lead on projects they held close to their hearts</div>
+            <div className="px-60 flex items-end justify-between gap-12">
+                <div>
+                    <h2 className="text-5xl font-bold">They trusted us</h2>
+                    <div className="text-lg opacity-66 mt-4 max-w-[40ch]">Our clients let us the lead on projects they held close to their hearts</div>
+                </div>
+                <span className="hidden md:flex shrink-0 items-center gap-1 text-md font-medium tabular-nums">
+                    <span className="text-[#24E27A]">{String(icons.length).padStart(2, "0")}</span>
+                    <span className="opacity-30">.</span>
+                    <span className="opacity-60">brands trust us</span>
+                </span>
             </div>
 
             {/* <div className="absolute top-0 left-0 -translate-y-1/2 -translate-x-1/2 w-100 h-100 blur-[400px] opacity-20 bg-[#24E27A] -z-10 pointer-events-none" aria-hidden="true" /> */}
