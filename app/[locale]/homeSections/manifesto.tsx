@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
-import Link from "next/link";
+import Link from "@/components/facile/transitionLink";
 import Stripes from "@/components/facile/stripes";
 import { run, slideY, hideRevealY } from "@/app/utils/animations";
 import { usePinProgress } from "@/hooks/use-pin-progress";

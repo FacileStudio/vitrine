@@ -3,9 +3,10 @@
 import { useState } from "react";
 import { useParams } from "next/navigation";
 import { useLocale } from "next-intl";
-import Link from "next/link";
+import Link from "@/components/facile/transitionLink";
 import Header from "@/components/facile/header";
 import Menu from "@/components/facile/menu";
+import PageCurtain from "@/components/facile/pageTransition";
 import DitherReveal from "@/components/facile/ditherReveal";
 import members from "../studio.json";
 
@@ -17,6 +18,8 @@ export default function MemberPage() {
 
     return (
         <div className="relative h-screen w-full overflow-hidden bg-[#111] text-white">
+            <PageCurtain enter="dark" leave="dark" />
+
             <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 
             <div className="flex h-full w-full flex-col md:flex-row">

@@ -6,6 +6,7 @@ import Menu from "@/components/facile/menu";
 import Header from "@/components/facile/header";
 import ShadowFilter from "@/components/facile/shadowFilter";
 import Rideau from "@/components/facile/rideau";
+import PageCurtain from "@/components/facile/pageTransition";
 import Hero from "./homeSections/hero";
 import Manifesto from "./homeSections/manifesto";
 import Suite from "./homeSections/suite";
@@ -39,6 +40,8 @@ export default function Home() {
     return (
         <div className="relative">
             <Rideau setCharged={setCharged} />
+
+            <PageCurtain enter="light" leave="dark" />
 
             <ReactLenis ref={lenisRef} root options={{ lerp: 0.1, smoothWheel: true }} />
 

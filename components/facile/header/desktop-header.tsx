@@ -1,7 +1,7 @@
 'use client'
 
 import React from "react";
-import Link from "next/link";
+import Link from "@/components/facile/transitionLink";
 
 // sections with a dark background — the header goes light (white) over these,
 // and stays dark over everything else (hero, manifesto, friends, …)
