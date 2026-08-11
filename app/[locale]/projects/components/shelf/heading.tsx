@@ -62,7 +62,7 @@ export default function Heading({ lines, filter = null, count = 0, onFilter }: H
                         </span>
                     </span>
 
-                    <ul className="mt-6 flex justify-end gap-1">
+                    <ul className="mt-6 flex overflow-hidden gap-1">
                         {entries.map((e, i) => {
                             const on = filter === e.value;
 
