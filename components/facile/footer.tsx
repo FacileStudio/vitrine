@@ -47,7 +47,7 @@ const Footer = ({setOpen}: ContactModalProps) => {
     return (
         <div className={"items-center md:flex hidden justify-between w-full px-12 py-3"}>
             <div className={"flex gap-6 items-center"}>
-                <Button text={t('footer.hireUs')} icon={"mail"} onClick={() => setOpen(true)} onMouseEnter={triggerBounce} />
+                <Button variant="light" text={t('footer.hireUs')} icon={"mail"} onClick={() => setOpen(true)} onMouseEnter={triggerBounce} />
                 <a
                     onMouseEnter={triggerBounce}
                     href={"tel:+33768884818"}

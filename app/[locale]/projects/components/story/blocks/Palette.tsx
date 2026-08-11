@@ -1,9 +1,15 @@
 import type { BlockProps, Swatch } from "../../../lib/story";
 import { Block, Cell } from "./Bento";
 
+const HEX_RE = /^#?[0-9a-f]{3,8}$/i;
+
 // shorthand is expanded and an alpha byte dropped, so a chart that authors
-// #abc or #rrggbbaa still reads the same three channels
+// #abc or #rrggbbaa still reads the same three channels. Anything that isn't
+// a real hex string (a CSS gradient, say) has no channels to read at all
 const channels = (hex: string) => {
+    if (!HEX_RE.test(hex.trim()))
+        return null;
+
     const raw = hex.trim().replace("#", "");
     const full = (raw.length < 6 ? raw.replace(/./g, (c) => c + c) : raw).slice(0, 6);
     const value = Number.parseInt(full, 16) || 0;
@@ -61,7 +67,7 @@ const spanOf = (i: number) => (i % 4 === 0 || i % 4 === 3 ? 2 : 1);
 
 function Chip({ swatch, span }: { swatch: Swatch; span: number }) {
     const rgb = channels(swatch.hex);
-    const tone = readable(rgb);
+    const tone = swatch.textColor ?? (rgb ? readable(rgb) : "#0E0F10");
 
     return (
         <div
@@ -76,9 +82,9 @@ function Chip({ swatch, span }: { swatch: Swatch; span: number }) {
             </div>
 
             <div className="flex flex-col gap-[0.3vh] text-[clamp(0.55rem,1.2vh,0.8rem)] font-medium leading-tight">
-                <Value label="RGB" value={swatch.rgb ?? `(${rgb.join(", ")})`} />
-                <Value label="HSV / HSB" value={swatch.hsv ?? hsvOf(rgb)} />
-                <Value label="CMYK" value={swatch.cmyk ?? cmykOf(rgb)} />
+                <Value label="RGB" value={swatch.rgb ?? (rgb ? `(${rgb.join(", ")})` : "—")} />
+                <Value label="HSV / HSB" value={swatch.hsv ?? (rgb ? hsvOf(rgb) : "—")} />
+                <Value label="CMYK" value={swatch.cmyk ?? (rgb ? cmykOf(rgb) : "—")} />
             </div>
         </div>
     );

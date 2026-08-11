@@ -20,7 +20,7 @@ export default function Portfolio() {
     }, [menuOpen]);
 
     return (
-        <div className="relative min-h-screen w-full bg-[#111] text-white">
+        <div className="relative min-h-screen w-full bg-foreground text-white">
             <ReactLenis ref={lenisRef} root options={{ lerp: 0.1, smoothWheel: true }} />
 
             <PageCurtain enter="dark" leave="dark" />

@@ -17,7 +17,7 @@ export default function MemberPage() {
     const member = members.find((m) => m.slug === params.slug) ?? members[0];
 
     return (
-        <div className="relative h-screen w-full overflow-hidden bg-[#111] text-white">
+        <div className="relative h-screen w-full overflow-hidden bg-foreground text-white">
             <PageCurtain enter="dark" leave="dark" />
 
             <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />

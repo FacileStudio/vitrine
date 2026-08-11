@@ -44,6 +44,7 @@ const LightPillar: React.FC<LightPillarProps> = ({
   const timeRef = useRef(0);
   const rotationSpeedRef = useRef(rotationSpeed);
   const [webGLSupported, setWebGLSupported] = useState<boolean>(true);
+  const [restoreKey, setRestoreKey] = useState(0);
 
   // Check WebGL support
   useEffect(() => {
@@ -380,6 +381,20 @@ const LightPillar: React.FC<LightPillarProps> = ({
 
     tryStart();
 
+    // a GPU driver reset or the tab being backgrounded on mobile can drop the
+    // WebGL context outright — preventDefault() is what tells the browser a
+    // restore is welcome, then a restoreKey bump fully re-inits the scene
+    // (lost-context resources can't just be re-rendered into)
+    const handleContextLost = (event: Event) => {
+      event.preventDefault();
+      tryStop();
+    };
+    const handleContextRestored = () => {
+      setRestoreKey((k) => k + 1);
+    };
+    renderer.domElement.addEventListener('webglcontextlost', handleContextLost, false);
+    renderer.domElement.addEventListener('webglcontextrestored', handleContextRestored, false);
+
     // Handle resize with debouncing
     let resizeTimeout: number | null = null;
     const handleResize = () => {
@@ -402,6 +417,8 @@ const LightPillar: React.FC<LightPillarProps> = ({
     return () => {
       window.removeEventListener('resize', handleResize);
       document.removeEventListener('visibilitychange', onVisibilityChange);
+      renderer.domElement.removeEventListener('webglcontextlost', handleContextLost);
+      renderer.domElement.removeEventListener('webglcontextrestored', handleContextRestored);
       io.disconnect();
       if (interactive) {
         container.removeEventListener('mousemove', handleMouseMove);
@@ -430,7 +447,7 @@ const LightPillar: React.FC<LightPillarProps> = ({
       geometryRef.current = null;
       rafRef.current = null;
     };
-  }, [webGLSupported, quality]);
+  }, [webGLSupported, quality, restoreKey]);
 
   useEffect(() => {
     rotationSpeedRef.current = rotationSpeed;

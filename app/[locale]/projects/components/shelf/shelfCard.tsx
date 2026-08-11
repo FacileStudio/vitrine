@@ -34,8 +34,8 @@ interface ShelfCardProps {
 // click from bubbling, so it can go its own way to the external site
 export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLeave }: ShelfCardProps) {
     const { frame, eyes, spheres, start, stop } = useMarcelEyes();
-    const marcel = project.slug === "marcel";
-    const projetZero = project.slug === "projet-zero";
+    const marcel = project.coverEffect === "marcel";
+    const projetZero = project.coverEffect === "projet-zero-pillar";
 
     const open = () => { stop(); onOpen(project.slug); };
     const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {

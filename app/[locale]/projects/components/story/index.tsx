@@ -248,7 +248,7 @@ export default function Story({ project, index, total }: StoryProps) {
             aria-label={project.name}
             className="fixed inset-0 z-120 text-white opacity-0"
         >
-            <div ref={bgRef} className="absolute inset-0 bg-[#111]">
+            <div ref={bgRef} className="absolute inset-0 bg-foreground">
                 <DitherView
                     className="absolute inset-0 h-full w-full opacity-20"
                     file="/models/manifesto.glb"

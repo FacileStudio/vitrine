@@ -170,7 +170,7 @@ export default function Shelf({
             id="projects"
             className="w-full relative h-full"
         >
-            <div className="absolute inset-0 bg-[#111111] -z-10" aria-hidden="true" />
+            <div className="absolute inset-0 bg-foreground -z-10" aria-hidden="true" />
 
             <Backdrop sticky={stickyBackdrop} />
 

@@ -35,7 +35,7 @@ export const MobileHeader = ({ locale, switchLocale, setMenuOpen }: MobileHeader
                 <VisuallyHidden>
                     <Dialog.Description>{t('navigationDescription')}</Dialog.Description>
                 </VisuallyHidden>
-                <Dialog.Overlay className="fixed inset-0 z-50 bg-[#111111]/75 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
+                <Dialog.Overlay className="fixed inset-0 z-50 bg-foreground/75 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
                 <Dialog.Content className="fixed inset-0 z-50 flex items-center justify-center data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0">
                     <div className="bg-[#CAE6D8] p-16 px-24 rounded-4xl flex flex-col items-center gap-8 text-[#1e1e1e] relative max-w-md w-full mx-4">
                         <Dialog.Close className="absolute top-8 left-8 cursor-pointer text-[#1E1E1E]">
