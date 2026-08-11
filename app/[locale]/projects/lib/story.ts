@@ -10,6 +10,7 @@ export const BLOCK_SPECS = {
     note: { media: 1, cols: 2 },
     col: { media: 3, cols: 1 },
     typography: { media: 0, cols: 2 },
+    typographyPair: { media: 0, cols: 2 },
     palette: { media: 0, cols: 2 },
     big: { media: 3, cols: 2 },
     mosaic: { media: 5, cols: 3 },
@@ -43,6 +44,10 @@ export interface StoryBlock {
     cols?: number;
     font?: string;
     fontFamily?: string;
+    description?: string;
+    secondFont?: string;
+    secondFontFamily?: string;
+    secondDescription?: string;
     swatches?: Swatch[];
 }
 

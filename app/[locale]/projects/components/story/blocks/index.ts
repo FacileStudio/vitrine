@@ -5,6 +5,7 @@ import Intro from "./Intro";
 import Note from "./Note";
 import Col from "./Col";
 import Typography from "./Typography";
+import TypographyPair from "./TypographyPair";
 import Palette from "./Palette";
 import Big from "./Big";
 import Mosaic from "./Mosaic";
@@ -20,6 +21,7 @@ export const BLOCKS: Record<BlockKind, (props: BlockProps) => ReactNode> = {
     note: Note,
     col: Col,
     typography: Typography,
+    typographyPair: TypographyPair,
     palette: Palette,
     big: Big,
     mosaic: Mosaic,

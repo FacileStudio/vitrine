@@ -100,7 +100,8 @@
                     {
                         "type": "typography",
                         "font": "Poppins",
-                        "fontFamily": "var(--font-poppins), sans-serif"
+                        "fontFamily": "var(--font-poppins), sans-serif",
+                        "description": "PLACEHOLDER — explain why Poppins was chosen: its role across titles, body copy and where its rounded, friendly geometry fits Marcel's tone."
                     }
                 ]
             },
@@ -162,8 +163,8 @@
         "name": "Projet Zero",
         "tier": 1,
         "weeks": 6,
-        "image": "https://picsum.photos/seed/projet-zero-hero/1600/1000",
-        "video": "https://media.w3.org/2010/05/bunny/trailer.mp4",
+        "image": "/images/projects/ProjetZero_cover.png",
+        "video": "/images/projects/ProjetZero_reveal.webp",
         "gallery": [
             "https://picsum.photos/seed/projet-zero-sketches/1400/1000",
             "https://picsum.photos/seed/projet-zero-logo-a/1200/1200",
@@ -176,14 +177,17 @@
             "https://picsum.photos/seed/projet-zero-web-shop/1700/1100",
             "https://picsum.photos/seed/projet-zero-web-chapter/1700/1100",
             "https://picsum.photos/seed/projet-zero-web-mobile/1200/1600",
-            "https://picsum.photos/seed/projet-zero-web-glow/1700/1000"
+            "https://picsum.photos/seed/projet-zero-web-glow/1700/1000",
+            "https://picsum.photos/seed/projet-zero-logo-d/1200/1200",
+            "https://picsum.photos/seed/projet-zero-logo-e/1200/1200",
+            "https://picsum.photos/seed/projet-zero-sketches-2/1400/1000",
+            "https://picsum.photos/seed/projet-zero-moodboard-2/1500/1000"
         ],
         "description": "Projet Zero is a sci-fi RPG Minecraft server: you're a human soldier-astronaut holding the line against an alien civilisation whose technology dwarfs ours, all of it drawn from a strange ancient blue energy. We built the brand, the showcase website, the shop and the chapter (battle pass) info page from scratch.",
         "techStack": [
             "Figma",
-            "TS",
-            "Next.js",
-            "React"
+            "Photoshop",
+            "Illustrator"
         ],
         "date": "2026",
         "challenge": "Make an alien civilisation feel millennia ahead of us through one colour and one mark, then carry that all the way to a shop and battle-pass page without it curdling into generic gamer-blue.",
@@ -194,8 +198,7 @@
         ],
         "team": [
             "camille",
-            "noah",
-            "yann"
+            "noah"
         ],
         "notes": [
             "The logo had to read as an ancient artifact and a UI mark at the same time, so every iteration was tested small — favicon-small — before it was tested big.",
@@ -209,18 +212,22 @@
                 ]
             },
             {
-                "title": "Ideation & Logo",
+                "title": "Ideation",
                 "blocks": [
                     {
                         "type": "note",
-                        "title": "Ideation & Logo",
-                        "text": "The starting point wasn't a soldier or a spaceship, it was the energy itself: a mark that reads as scavenged alien tech first, game logo second. We pushed a dozen crests and glyphs before the final emblem earned its shine.",
+                        "title": "Ideation",
+                        "text": "The starting point wasn't a soldier or a spaceship, it was the energy itself: a mark that reads as scavenged alien tech first, game logo second.",
                         "media": [0]
                     },
                     {
                         "type": "big",
                         "media": [1, 2, 3],
                         "smalls": "top"
+                    },
+                    {
+                        "type": "collage",
+                        "media": [12, 13, 14, 15]
                     }
                 ]
             },
@@ -236,17 +243,21 @@
                     {
                         "type": "palette",
                         "swatches": [
-                            { "label": "Void Black", "hex": "#05070C", "note": "Background" },
-                            { "label": "Alien Energy", "hex": "#2D6BFF" },
-                            { "label": "Signal Cyan", "hex": "#7FE9FF", "note": "Glow / highlights" },
-                            { "label": "Human Steel", "hex": "#B8C4D9", "note": "Secondary / neutral" },
-                            { "label": "Text", "hex": "#EAF1FF" }
+                            { "label": "Background", "hex": "#121219" },
+                            { "label": "Component", "hex": "#181920", "note": "#E8EEFF (opacity 3%) — informations & titles" },
+                            { "label": "Titre H1 Dégradé", "hex": "linear-gradient(135deg, #B4C3F0 0%, #7B8FD6 100%)", "note": "Gradient: #B4C3F0 → #7B8FD6", "rgb": "—", "hsv": "—", "cmyk": "—" },
+                            { "label": "Text", "hex": "#E8EEFF" },
+                            { "label": "Sous Text", "hex": "#7D808C", "note": "#E8EEFF (opacity 50%) — minor informations" }
                         ]
                     },
                     {
-                        "type": "typography",
-                        "font": "Orbitron",
-                        "fontFamily": "'Orbitron', sans-serif"
+                        "type": "typographyPair",
+                        "font": "DM Sans",
+                        "fontFamily": "var(--font-dm-sans), sans-serif",
+                        "description": "PLACEHOLDER — explain why DM Sans carries the titles: its geometric weight against the void-black background, and how it reads as \"alien tech\" at large sizes.",
+                        "secondFont": "IBM Plex Mono",
+                        "secondFontFamily": "var(--font-ibm-plex-mono), monospace",
+                        "secondDescription": "PLACEHOLDER — explain why IBM Plex Mono carries body text: the terminal/HUD feel it gives to stats, chapter copy and UI labels."
                     },
                     {
                         "type": "full",

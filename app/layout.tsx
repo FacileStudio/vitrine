@@ -1,6 +1,6 @@
 import "./globals.css";
 import { ReactNode } from "react";
-import { Poppins } from "next/font/google";
+import { Poppins, DM_Sans, IBM_Plex_Mono } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import { baseMetadata, getAlternates, getOpenGraphLocale, siteUrl } from "@/lib/seo/metadata";
@@ -28,12 +28,26 @@ const poppins = Poppins({
     display: "swap",
 });
 
+const dmSans = DM_Sans({
+    subsets: ["latin"],
+    weight: ["400", "500", "600", "700"],
+    variable: "--font-dm-sans",
+    display: "swap",
+});
+
+const ibmPlexMono = IBM_Plex_Mono({
+    subsets: ["latin"],
+    weight: ["400", "500"],
+    variable: "--font-ibm-plex-mono",
+    display: "swap",
+});
+
 export default async function RootLayout({ children }: { children: ReactNode }) {
     const locale = await getLocale();
     const messages = await getMessages({ locale });
 
     return (
-        <html lang={locale} className={poppins.variable}>
+        <html lang={locale} className={`${poppins.variable} ${dmSans.variable} ${ibmPlexMono.variable}`}>
             <head>
                 <script
                     type="application/ld+json"
