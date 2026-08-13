@@ -118,7 +118,7 @@ export default function Orbit({ items, sectionRef, radius = 620 }: OrbitProps) {
         <div className="pointer-events-none absolute inset-0 z-20">
             <div className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 scale-110">
                 <div
-                    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-foreground/[0.07]"
+                    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-background/[0.07]"
                     style={{ width: radius * 1.72, height: radius * 1.72 }}
                 />
             </div>
@@ -132,8 +132,8 @@ export default function Orbit({ items, sectionRef, radius = 620 }: OrbitProps) {
                     >
                         {it.icon.startsWith("/")
                             ? <img src={it.icon} alt="" className="h-8 opacity-80 w-8" />
-                            : <Icon icon={it.icon} className="text-3xl text-foreground font-bold" />}
-                        <span className="text-lg font-medium text-foreground">{it.subtitle}</span>
+                            : <Icon icon={it.icon} className="text-3xl text-background font-bold" />}
+                        <span className="text-lg font-medium text-background">{it.subtitle}</span>
                     </div>
                 ))}
             </div>
@@ -146,18 +146,18 @@ export default function Orbit({ items, sectionRef, radius = 620 }: OrbitProps) {
                 <div ref={iconRef}>
                     {current.icon.startsWith("/")
                         ? <img src={current.icon} alt="" className="mx-auto mb-6 opacity-80 h-20 w-20" />
-                        : <Icon icon={current.icon} className="mx-auto mb-6 block text-7xl text-foreground" />}
+                        : <Icon icon={current.icon} className="mx-auto mb-6 block text-7xl text-background" />}
                 </div>
                 <SplitLines
                     key={`title-${active}`}
                     text={current.subtitle}
-                    className="text-5xl font-bold text-center text-foreground"
+                    className="text-5xl font-bold text-center text-background"
                     gap="mb-1"
                 />
                 <SplitLines
                     key={`description-${active}`}
                     text={current.description}
-                    className="mt-5 text-xl font-medium leading-relaxed text-center text-foreground/60"
+                    className="mt-5 text-xl font-medium leading-relaxed text-center text-background/60"
                     gap="mb-1"
                 />
             </div>

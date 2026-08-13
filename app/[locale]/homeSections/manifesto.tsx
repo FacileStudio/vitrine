@@ -46,28 +46,29 @@ export default function Manifesto() {
 
 
     return (
-        <section ref={sectionRef} id="manifesto" className="relative w-full mt-32 min-h-[400vh]">
-            <div className="absolute inset-0 bg-white -z-10" aria-hidden="true" />
+        <section ref={sectionRef} id="manifesto" className="relative bg-background w-full mt-32 min-h-[400vh]">
+            <div className="absolute inset-0 bg-background -z-10" aria-hidden="true" />
             <div className="sticky top-0 z-20 h-screen w-full overflow-hidden">
 
                 <DitherView
-                    className="absolute top-0 left-0 w-full h-full z-0 opacity-75"
-                    background="#ffffff"
+                    className="absolute top-0 left-0 w-full h-full z-0 opacity-33"
+                    background="#E4EEE8"
                     highlight="#24E27A"
                     grayscaleOnly={false}
                     intensity={1.8}
                     parallax={0.7}
                     gridSize={showText ? 2 : 9}
+                    scale={6}
                     file="/models/manifesto.glb"
                     models={[
-                        { file: "/models/manifesto.glb", position: [-3, 0.5, 0.5] },
-                        { file: "/models/manifesto.glb", position: [3, -2, 0.5] },
+                        { file: "/models/manifesto.glb", position: [0, 0.5, 0], scale: 7, rotation: [0, 0, -Math.PI / 4] },
+                        // { file: "/models/manifesto.glb", position: [3, -2, 0.5], scale: 4 },
                     ]}
                 />
 
-                <Stripes orientation={0} count={4} className="bg-background" openWhen={() => progressRef.current > 0.02} />
+                <Stripes orientation={0} count={4} className="bg-foreground" openWhen={() => progressRef.current > 0.02} />
 
-                <Stripes orientation={180} count={4} className="bg-background" openWhen={() => progressRef.current < 0.90} />
+                <Stripes orientation={180} count={4} className="bg-foreground" openWhen={() => progressRef.current < 0.90} />
 
                 <div className="absolute inset-0 z-50 flex flex-col items-center justify-center px-6 text-center pointer-events-none">
                     <h2 className="max-w-3xl text-4xl md:text-5xl font-medium leading-tight text-foreground/80">
@@ -83,14 +84,14 @@ export default function Manifesto() {
                         <Link
                             ref={ctaRef}
                             href="/projects"
-                            className="inline-block px-8 py-5  text-md font-medium rounded-full bg-background/50"
+                            className="inline-block px-8 py-5  text-md font-medium rounded-full bg-background/50 text-foreground"
                         >
                             Voir nos projets
                         </Link>
                     </div>
                 </div>
 
-                <div className="absolute bottom-0 left-0 flex w-full items-end justify-between px-48 pb-12 pointer-events-none text-md font-medium">
+                <div className="absolute bottom-0 left-0 flex w-full items-end justify-between px-48 pb-12 pointer-events-none text-md font-medium text-foreground">
                     {["Branding", "Web - UI/UX design", "Showcase Websites", "Applications", "DevOps", "Self hosting"].map((entry, i) => (
                         <span key={i} className="block overflow-hidden">
                             <span ref={(el) => { entryRefs.current[i] = el; }} className="block">

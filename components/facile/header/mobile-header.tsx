@@ -19,10 +19,10 @@ export const MobileHeader = ({ locale, switchLocale, setMenuOpen }: MobileHeader
     return (
         <Dialog.Root open={openHeader} onOpenChange={setOpenHeader}>
             <div className={"absolute top-0 right-0 flex flex-col items-end justify-end lg:hidden"}>
-                <div className={"p-6 pr-10 bg-[#CAE6D8] rounded-bl-4xl"}>
+                <div className={"p-6 pr-10 bg-foreground rounded-bl-4xl"}>
                     <Dialog.Trigger asChild>
                         <button className="cursor-pointer">
-                            <img src={"/icons/menu.svg"} alt={t('navigation')} width={20} height={20} />
+                            <img src={"/icons/menu.svg"} alt={t('navigation')} width={20} height={20} className="invert" />
                         </button>
                     </Dialog.Trigger>
                 </div>
@@ -37,8 +37,8 @@ export const MobileHeader = ({ locale, switchLocale, setMenuOpen }: MobileHeader
                 </VisuallyHidden>
                 <Dialog.Overlay className="fixed inset-0 z-50 bg-foreground/75 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
                 <Dialog.Content className="fixed inset-0 z-50 flex items-center justify-center data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0">
-                    <div className="bg-[#CAE6D8] p-16 px-24 rounded-4xl flex flex-col items-center gap-8 text-[#1e1e1e] relative max-w-md w-full mx-4">
-                        <Dialog.Close className="absolute top-8 left-8 cursor-pointer text-[#1E1E1E]">
+                    <div className="bg-foreground p-16 px-24 rounded-4xl flex flex-col items-center gap-8 text-[#CAE6D8] relative max-w-md w-full mx-4">
+                        <Dialog.Close className="absolute top-8 left-8 cursor-pointer text-[#CAE6D8]">
                             <img src={"/icons/arrow.svg"} alt="close" width={20} height={20} />
                         </Dialog.Close>
 
@@ -55,7 +55,7 @@ export const MobileHeader = ({ locale, switchLocale, setMenuOpen }: MobileHeader
                             {t('contactUs')}
                         </button>
 
-                        <div className="flex gap-2 pt-4 border-t border-[#1E1E1E]/20">
+                        <div className="flex gap-2 pt-4 border-t border-[#CAE6D8]/20">
                             {languages.map((lang) => (
                                 <button
                                     key={lang.code}
@@ -65,8 +65,8 @@ export const MobileHeader = ({ locale, switchLocale, setMenuOpen }: MobileHeader
                                     }}
                                     className={`px-3 py-2 rounded-full transition-colors ${
                                         lang.code === locale
-                                            ? 'bg-[#1E1E1E] text-[#CAE6D8]'
-                                            : 'bg-[#1E1E1E]/10 hover:bg-[#1E1E1E]/20'
+                                            ? 'bg-[#CAE6D8] text-[#1E1E1E]'
+                                            : 'bg-[#CAE6D8]/10 hover:bg-[#CAE6D8]/20'
                                     }`}
                                 >
                                     <span className="text-lg">{lang.flag}</span>

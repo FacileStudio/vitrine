@@ -43,8 +43,10 @@
 }
 
 body {
-    background: var(--background);
-    color: var(--foreground);
+    /* dark theme: --foreground/--background stay the fixed dark/light tones used
+       everywhere as decorative fills; the page canvas just swaps which one it sits on */
+    background: var(--foreground);
+    color: var(--background);
     font-family: var(--font-goga);
     letter-spacing: -3%;
 }

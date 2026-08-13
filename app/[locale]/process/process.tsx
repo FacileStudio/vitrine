@@ -40,28 +40,27 @@ function ProcessSection({ step, index }: { step: Step; index: number }) {
         run(textRefs.current, slideY(show, leaving, { stagger: 0.08, duration: 0.6 }));
     }, [show, leaving]);
 
-    const dark = index % 2 === 0;
-
     return (
         <section ref={sectionRef} id={step.id} className="relative w-full min-h-[280vh]">
-            <div className="absolute inset-0 -z-10" style={{ background: dark ? "var(--foreground)" : "#ffffff" }} aria-hidden="true" />
+            <div className="absolute inset-0 -z-10 bg-foreground" aria-hidden="true" />
             <div className="sticky top-0 h-screen w-full overflow-hidden">
                 <DitherView
                     file="/models/manifesto.glb"
                     className="absolute inset-0 h-full w-full opacity-60"
                     background={null}
-                    highlight={dark ? "#24E27A" : "var(--foreground)"}
+                    highlight="#24E27A"
                     grayscaleOnly={false}
                     intensity={1.8}
                     parallax={0.6}
                     gridSize={show ? 2 : 9}
+                    scale={4}
                 />
 
                 {/* scroll-driven covers: open as the section enters, close as it leaves */}
-                <Stripes orientation={0} count={4} className={dark ? "bg-foreground" : "bg-white"} openWhen={() => progressRef.current > 0.04} />
-                <Stripes orientation={180} count={4} className={dark ? "bg-foreground" : "bg-white"} openWhen={() => progressRef.current < 0.9} />
+                <Stripes orientation={0} count={4} className="bg-foreground" openWhen={() => progressRef.current > 0.04} />
+                <Stripes orientation={180} count={4} className="bg-foreground" openWhen={() => progressRef.current < 0.9} />
 
-                <div className={`absolute inset-0 z-50 flex flex-col items-center justify-center gap-8 px-6 text-center ${dark ? "text-white" : "text-foreground"}`}>
+                <div className="absolute inset-0 z-50 flex flex-col items-center justify-center gap-8 px-6 text-center text-white">
                     <div className="overflow-hidden">
                         <span ref={(el) => { textRefs.current[0] = el; }} className="block text-sm uppercase tracking-widest opacity-50">
                             {String(index + 1).padStart(2, "0")}

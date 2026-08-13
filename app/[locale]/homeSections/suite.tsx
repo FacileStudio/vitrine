@@ -34,34 +34,35 @@ export default function Suite() {
         >
             <div
                 data-no-shadow
-                className="sticky top-0 h-screen w-full overflow-hidden bg-white text-white"
+                className="sticky top-0 h-screen w-full overflow-hidden bg-foreground"
             >
                 <DitherView
                     className="absolute top-0 left-0 w-full h-full z-0 opacity-75"
-                    background="#ffffff"
+                    background="#111111"
                     highlight="#24E27A"
                     grayscaleOnly={false}
                     intensity={1.8}
                     parallax={0.7}
                     gridSize={showText ? 2 : 9}
+                    scale={4}
                     file="/models/manifesto.glb"
                     models={[
-                        { file: "/models/manifesto.glb", position: [-3, -2, 0.5] },
-                        { file: "/models/manifesto.glb", position: [3, 0.5, 0.5] },
+                        { file: "/models/manifesto.glb", position: [-3, -2, 0.5], scale: 4 },
+                        { file: "/models/manifesto.glb", position: [3, 0.5, 0.5], scale: 4 },
                     ]}
                 />
 
                 <Stripes
                     orientation={0}
                     count={4}
-                    className="bg-background"
+                    className="bg-foreground"
                     openWhen={() => progressRef.current > 0.01}
                 />
 
                 <Stripes
                     orientation={180}
                     count={4}
-                    className="bg-background"
+                    className="bg-foreground"
                     openWhen={() => progressRef.current < 0.99}
                 />
 
