@@ -258,9 +258,10 @@ export default function Story({ project, index, total }: StoryProps) {
                     intensity={1.8}
                     parallax={0.5}
                     gridSize={3}
+                    scale={4}
                     models={[
-                        { file: "/models/manifesto.glb", position: [-3.5, -1.5, 0.5] },
-                        { file: "/models/manifesto.glb", position: [3.5, 1, 0.5] },
+                        { file: "/models/manifesto.glb", position: [-3.5, -1.5, 0.5], scale: 4 },
+                        { file: "/models/manifesto.glb", position: [3.5, 1, 0.5], scale: 4 },
                     ]}
                 />
             </div>

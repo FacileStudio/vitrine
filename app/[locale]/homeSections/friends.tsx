@@ -23,7 +23,7 @@ export default function Friends({ id = "friends" }: { id?: string }) {
     // -50% and loops, so the duplicate picks up exactly where the original left off
     const cards = (list: typeof icons) =>
         list.map((icon, i) => (
-            <div key={i} className="shrink-0 flex w-70 h-70 bg-white/33 flex-col justify-center rounded-2xl items-center gap-12">
+            <div key={i} className="shrink-0 flex w-70 h-70 bg-white/33 text-foreground flex-col justify-center rounded-2xl items-center gap-12">
                 <img src={`/images/icons/${icon.src}.png`} alt={icon.name} loading="lazy" decoding="async" className="h-20 opacity-80" />
                 <span className="text-sm font-medium opacity-60 whitespace-nowrap">{icon.name}</span>
             </div>

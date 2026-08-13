@@ -194,7 +194,7 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
                         parallax={0.55}
                         intensity={1.8}
                         float={false}
-                        scale={35}
+                        scale={45}
                         fov={50}
                     />
                 </div>

@@ -25,10 +25,11 @@ export default function Backdrop({ sticky = false }: { sticky?: boolean }) {
                 intensity={1.8}
                 parallax={0.7}
                 gridSize={2}
+                scale={4}
                 file="/models/manifesto.glb"
                 models={[
-                    { file: "/models/manifesto.glb", position: [3, -3, 0] },
-                    { file: "/models/manifesto.glb", position: [-3, 1, 0] },
+                    { file: "/models/manifesto.glb", position: [3, -3, 0], scale: 4 },
+                    { file: "/models/manifesto.glb", position: [-3, 1, 0], scale: 4 },
                 ]}
             />
         </div>

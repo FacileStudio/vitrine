@@ -10,7 +10,7 @@ export default function Note({ block, ref }: BlockProps) {
             <Cell col="1 / -1" row="1">
                 <div className="flex h-full w-full flex-col gap-[2vh] p-[5vh]">
                     <div className="overflow-hidden">
-                        <h3 data-reveal className="text-[clamp(1.5rem,4.4vh,3.75rem)] font-medium leading-[1.05]">
+                        <h3 data-reveal className="text-[clamp(1.5rem,4.4vh,3.75rem)] font-medium">
                             {block.index ? (
                                 <>
                                     <span className={`tabular-nums ${CHAPTER}`}>{String(block.index).padStart(2, "0")}</span>
