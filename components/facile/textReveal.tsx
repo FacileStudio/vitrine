@@ -25,17 +25,11 @@ export default function TextReveal({
     const animationRef = useRef<gsap.core.Animation | null>(null);
 
     useEffect(() => {
-        if (!textRef.current || !blockRef.current) return;
+        if (!blockRef.current) return;
 
         if (animationRef.current) {
             animationRef.current.kill();
         }
-
-        const fontSize = parseInt(
-            window.getComputedStyle(textRef.current).fontSize,
-            10
-        );
-        const blockHeight = fontSize * 1.2;
 
         const timeline = gsap.timeline({ delay });
 
@@ -44,7 +38,6 @@ export default function TextReveal({
                 .set(blockRef.current, {
                     scaleX: 0,
                     transformOrigin: '0% 50%',
-                    height: blockHeight,
                     opacity: 1,
                 })
                 .to(
@@ -70,7 +63,6 @@ export default function TextReveal({
             gsap.set(blockRef.current, {
                 scaleX: 0,
                 transformOrigin: '0% 50%',
-                height: blockHeight,
                 opacity: leaving ? 0 : 1,
             });
         }
@@ -82,7 +74,7 @@ export default function TextReveal({
                 animationRef.current.kill();
             }
         };
-    }, [show, leaving, duration, delay, blockColor]);
+    }, [show, leaving, duration, delay]);
 
     const blockBg = blockColor === 'dark' ? 'bg-foreground' : 'bg-background';
 
@@ -92,11 +84,7 @@ export default function TextReveal({
                 {children}
                 <div
                     ref={blockRef}
-                    className={`absolute inset-y-0 left-0 pointer-events-none w-full ${blockBg}`}
-                    style={{
-                        top: '50%',
-                        transform: 'translateY(-50%)',
-                    } as CSSProperties}
+                    className={`absolute inset-0 pointer-events-none ${blockBg}`}
                 />
             </span>
         </span>
