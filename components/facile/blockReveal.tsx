@@ -66,15 +66,15 @@ export default function BlockReveal({
         if (open) {
             timeline
                 .set(blockRef.current, {
-                    width: 0,
-                    left: 0,
+                    scaleX: 0,
+                    transformOrigin: '0% 50%',
                     height: blockHeight,
                     opacity: 1,
                 })
                 .to(
                     blockRef.current,
                     {
-                        width: '100%',
+                        scaleX: 1,
                         duration: duration * 0.6,
                         ease: 'power2.out',
                     },
@@ -83,9 +83,8 @@ export default function BlockReveal({
                 .to(
                     blockRef.current,
                     {
-                        width: 0,
-                        left: 'auto',
-                        right: 0,
+                        scaleX: 0,
+                        transformOrigin: '100% 50%',
                         duration: duration * 0.4,
                         ease: 'power2.in',
                     },
@@ -93,9 +92,8 @@ export default function BlockReveal({
                 );
         } else {
             gsap.set(blockRef.current, {
-                width: 0,
-                left: 0,
-                right: 'auto',
+                scaleX: 0,
+                transformOrigin: '0% 50%',
                 height: blockHeight,
                 opacity: 0,
             });
@@ -123,7 +121,7 @@ export default function BlockReveal({
             {children}
             <div
                 ref={blockRef}
-                className={`absolute inset-y-0 left-0 pointer-events-none ${blockBg}`}
+                className={`absolute inset-y-0 left-0 pointer-events-none w-full ${blockBg}`}
                 style={{
                     height: 'auto',
                     top: '50%',
