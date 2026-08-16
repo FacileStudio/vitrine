@@ -1,9 +1,15 @@
 import type { ReactNode } from "react";
 import SplitLines from "@/components/facile/splitLines";
+import BlockReveal from "@/components/facile/blockReveal";
+import { ARRIVE } from "@/components/facile/pageTransition";
 import type { BlockProps } from "../../../lib/story";
 import { team } from "../../../lib/projects";
 import { Block, Cell } from "./Bento";
 import Line from "./Line";
+
+// the chapter is the first thing behind the arriving curtain, so its panels hold
+// until it has cleared; the band matches the one the track reveals its copy on
+const wipe = { arrive: ARRIVE / 1000, rootMargin: "0px -18% 0px -18%" };
 
 // the label gets its own crop; the value brings as many as it wants, so a list
 // can rise a row at a time instead of as one slab
@@ -28,14 +34,17 @@ export default function Intro({ block, project, ref }: BlockProps) {
                             {project.date}  —  {project.weeks} weeks
                         </Line>
 
-                        <Line className="text-[clamp(1.75rem,5.2vh,5rem)] font-medium leading-[1.05]">
+                        <BlockReveal {...wipe} className="w-fit text-[clamp(1.75rem,5.2vh,5rem)] font-medium leading-[1.05]">
                             {project.name}
-                        </Line>
+                        </BlockReveal>
 
-                        <SplitLines
-                            text={block.text ?? project.challenge ?? project.description}
-                            className="max-w-[50ch] text-[clamp(0.8rem,1.9vh,1.35rem)] text-white/70"
-                        />
+                        <BlockReveal {...wipe} delay={0.1} className="w-fit">
+                            <SplitLines
+                                text={block.text ?? project.challenge ?? project.description}
+                                reveal={false}
+                                className="max-w-[50ch] text-[clamp(0.8rem,1.9vh,1.35rem)] text-white/70"
+                            />
+                        </BlockReveal>
 
                         {project.services.length ? (
                             <Line className="flex flex-wrap items-center gap-1">
@@ -85,7 +94,7 @@ export default function Intro({ block, project, ref }: BlockProps) {
 
                         {project.link ? (
                             <Meta label="Live">
-                                <Line>
+                                <BlockReveal {...wipe} className="w-fit">
                                     <a
                                         href={project.link}
                                         target="_blank"
@@ -95,7 +104,7 @@ export default function Intro({ block, project, ref }: BlockProps) {
                                         Visit site
                                         <span className="transition-transform duration-200 group-hover:-translate-y-1 group-hover:translate-x-1">↗</span>
                                     </a>
-                                </Line>
+                                </BlockReveal>
                             </Meta>
                         ) : null}
                     </div>

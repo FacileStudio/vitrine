@@ -1,8 +1,9 @@
 'use client'
 
+import { useEffect, useRef, useState } from "react";
 import type { KeyboardEvent, MouseEvent } from "react";
 import SplitLines from "@/components/facile/splitLines";
-import TextReveal from "@/components/facile/textReveal";
+import BlockReveal from "@/components/facile/blockReveal";
 import LightPillar from "@/components/LightPillar";
 import { isVideoFile, type Project } from "../../lib/projects";
 import { MarcelEyes, MarcelSpheres, useMarcelEyes } from "../marcelEyes";
@@ -22,15 +23,41 @@ interface ShelfCardProps {
     project: Project;
     index: number;
     refs: ShelfCardRefs;
+    /** seconds the arriving curtain still has to clear before anything may play */
+    arrive?: number;
     onOpen: (slug: string) => void;
     onEnter: (e: MouseEvent<HTMLElement>) => void;
     onLeave: (e: MouseEvent<HTMLElement>) => void;
 }
 
-export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLeave }: ShelfCardProps) {
+// one project row: parallaxed cover image on the left with the hover media wipe,
+// its name/tech/description on the right. Marcel gets the extra googly-eyes markup.
+// The whole row opens the story — only the live-site link inside it stops the
+// click from bubbling, so it can go its own way to the external site
+export default function ShelfCard({ project, index, refs, arrive = 0, onOpen, onEnter, onLeave }: ShelfCardProps) {
     const { frame, eyes, spheres, start, stop } = useMarcelEyes();
     const marcel = project.coverEffect === "marcel";
     const projetZero = project.coverEffect === "projet-zero-pillar";
+
+    // the title, the description and the live link are wiped in by their own
+    // panels, so they need the same centre band the shelf reveals the rest of its
+    // copy on — one observer here, driving all three, keeps them in step
+    const contentRef = useRef<HTMLDivElement | null>(null);
+    const [inBand, setInBand] = useState(false);
+
+    const setContent = (el: HTMLDivElement | null) => {
+        contentRef.current = el;
+        refs.content(index)(el);
+    };
+
+    useEffect(() => {
+        const el = contentRef.current;
+        if (!el) return;
+
+        const io = new IntersectionObserver(([e]) => setInBand(e.isIntersecting), { rootMargin: "-40% 0px -40% 0px", threshold: 0 });
+        io.observe(el);
+        return () => io.disconnect();
+    }, []);
 
     const open = () => { stop(); onOpen(project.slug); };
     const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
@@ -94,63 +121,62 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
                 </div>
             </div>
 
-            <div ref={refs.content(index)} className="flex flex-col items-end gap-12 max-w-sm text-right py-12">
-                <div className="gap-y-6 flex flex-col">
-                    <TextReveal blockColor="dark" duration={0.6}>
-                        <span className="block text-5xl font-medium text-white">
-                            {project.name}
-                        </span>
-                    </TextReveal>
-                    <div>
-                        {project.description && (
+            <div ref={setContent} className="flex flex-col items-end gap-12 max-w-sm text-right py-12">
+                <div className="gap-y-6 flex flex-col items-end">
+                    <BlockReveal open={inBand} arrive={arrive} className="z-10 text-5xl font-medium text-white">
+                        {project.name}
+                    </BlockReveal>
+
+                    {project.description && (
+                        <BlockReveal open={inBand} arrive={arrive} delay={0.1} className="z-10">
                             <SplitLines
-                            text={project.description}
-                            justify
-                            className="relative z-10 text-md font-medium leading-relaxed text-white/50"
+                                text={project.description}
+                                justify
+                                reveal={false}
+                                className="text-md font-medium leading-relaxed text-white/50"
                             />
-                        )}
-                    </div>
+                        </BlockReveal>
+                    )}
+
                     {project.link && (
-                        <TextReveal blockColor="dark" duration={0.6} delay={0.12}>
+                        <BlockReveal open={inBand} arrive={arrive} delay={0.2} className="z-10 mt-2">
                             <a
                                 href={project.link}
                                 target="_blank"
                                 rel="noreferrer"
                                 onClick={(e) => e.stopPropagation()}
-                                className="group w-full flex justify-end  "
+                                className="group flex w-fit text-xl gap-2 rounded-md px-[2vh] py-[1vh] text-white transition-colors duration-200 hover:text-[#24E27A]"
                             >
-                                <div className="w-fit flex text-xl gap-2 rounded-md px-[2vh] py-[1vh] text-white transition-colors duration-200 hover:text-[#24E27A]">
-                                    Visit site
-                                    <span className="transition-transform duration-200 group-hover:-translate-y-1 group-hover:translate-x-1">↗</span>
-                                </div>
+                                Visit site
+                                <span className="transition-transform duration-200 group-hover:-translate-y-1 group-hover:translate-x-1">↗</span>
                             </a>
-                        </TextReveal>
+                        </BlockReveal>
                     )}
                 </div>
                 <div className="gap-y-6 flex flex-col">
                     {project.services.length > 0 && (
                         <span className="relative mt-4 z-10 flex items-center justify-end gap-1">
-                            {project.services.map((s, i) => (
-                                <TextReveal key={s} blockColor="dark" duration={0.6} delay={0.24 + i * 0.06}>
-                                    <span className="block rounded-md px-[2vh] py-[1vh] text-[clamp(0.65rem,1.4vh,0.9rem)] bg-[#212121] text-white">
+                            {project.services.map((s) => (
+                                <span key={s} className="block shrink-0 overflow-hidden">
+                                    <span data-reveal className="block rounded-md px-[2vh] py-[1vh] text-[clamp(0.65rem,1.4vh,0.9rem)] bg-[#212121] text-white">
                                         {s}
                                     </span>
-                                </TextReveal>
+                                </span>
                             ))}
                         </span>
                     )}
                     {project.techStack?.length ? (
                         <div className="flex flex-col items-end gap-3">
-                            <TextReveal blockColor="dark" duration={0.6} delay={0.12}>
-                                <span className="block text-[clamp(0.65rem,1.4vh,0.9rem)] text-white/35">
+                            <span className="relative z-10 block overflow-hidden">
+                                <span data-reveal className="block text-[clamp(0.65rem,1.4vh,0.9rem)] text-white/35">
                                     Created with
                                 </span>
-                            </TextReveal>
+                            </span>
                             <span className="relative z-10 flex flex-wrap justify-end gap-6">
                                 {project.techStack.map((name) => (
-                                    <TextReveal key={name} blockColor="dark" duration={0.6} delay={0.18}>
-                                        <img src={`/images/logo/${name}.png`} alt={name} className="block h-8" />
-                                    </TextReveal>
+                                    <span key={name} className="block overflow-hidden">
+                                        <img data-reveal src={`/images/logo/${name}.png`} alt={name} className="block h-8" />
+                                    </span>
                                 ))}
                             </span>
                         </div>

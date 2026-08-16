@@ -39,6 +39,23 @@ export const slideX = (show: boolean, { stagger = 0.2, duration = 1, delay = 0 }
 
 
 
+// block sweep: a solid panel wipes in from the left, hands the copy over while it
+// covers it whole, then leaves to the right — so the text is only ever uncovered
+// by the panel's trailing edge, never faded or slid in on its own
+export const hideBlockSweep = (block: HTMLElement | null, text: HTMLElement | null) => {
+    if (text) gsap.set(text, { autoAlpha: 0 });
+    if (block) gsap.set(block, { scaleX: 0, transformOrigin: "0% 50%" });
+};
+
+export const blockSweep = (block: HTMLElement, text: HTMLElement, { duration = 0.8, delay = 0 } = {}) =>
+    gsap.timeline({ delay })
+        .to(block, { scaleX: 1, duration: duration * 0.55, ease: EASE.out })
+        .set(block, { transformOrigin: "100% 50%" })
+        .set(text, { autoAlpha: 1 })
+        .to(block, { scaleX: 0, duration: duration * 0.45, ease: EASE.in });
+
+
+
 
 export const hideFade = (els: (HTMLElement | null)[], y = 12) => gsap.set(els, { opacity: 0, y });
 export const fade = (show: boolean, { y = 12, duration = 0.6, stagger = 0.1, delay = 0 } = {}) =>
