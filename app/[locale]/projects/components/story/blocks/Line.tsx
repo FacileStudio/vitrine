@@ -1,11 +1,22 @@
 import type { CSSProperties, ReactNode } from "react";
+import TextReveal from "@/components/facile/textReveal";
 
-// one crop per line of copy: the inner div is what the detail view's reveal
-// observer slides up out of the overflow
-export default function Line({ className = "", style, children }: { className?: string; style?: CSSProperties; children: ReactNode }) {
+export default function Line({
+    className = "",
+    style,
+    children,
+    show = true,
+    leaving = false,
+}: {
+    className?: string;
+    style?: CSSProperties;
+    children: ReactNode;
+    show?: boolean;
+    leaving?: boolean;
+}) {
     return (
-        <div className="overflow-hidden">
-            <div data-reveal style={style} className={className}>{children}</div>
-        </div>
+        <TextReveal show={show} leaving={leaving} blockColor="dark" duration={0.6}>
+            <div style={style} className={className}>{children}</div>
+        </TextReveal>
     );
 }

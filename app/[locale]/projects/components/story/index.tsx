@@ -3,7 +3,7 @@
 import gsap from "gsap";
 import Lenis from "lenis";
 import dynamic from "next/dynamic";
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import { EASE, hideRevealY, run, slideY } from "@/app/utils/animations";
@@ -34,6 +34,8 @@ export default function Story({ project, index, total }: StoryProps) {
     const barRef = useRef<HTMLSpanElement>(null);
 
     const blockRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+    const [showChrome, setShowChrome] = useState(true);
 
     const leaving = useRef(false);
 
@@ -279,7 +281,7 @@ export default function Story({ project, index, total }: StoryProps) {
                 </div>
             </div>
 
-            <Chrome name={project.name} index={index} total={total} barRef={barRef} onBack={back} />
+            <Chrome name={project.name} index={index} total={total} barRef={barRef} onBack={back} show={showChrome} leaving={false} />
         </div>
     );
 }
