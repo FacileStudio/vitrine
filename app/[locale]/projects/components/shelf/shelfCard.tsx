@@ -2,6 +2,7 @@
 
 import type { KeyboardEvent, MouseEvent } from "react";
 import SplitLines from "@/components/facile/splitLines";
+import TextReveal from "@/components/facile/textReveal";
 import LightPillar from "@/components/LightPillar";
 import { isVideoFile, type Project } from "../../lib/projects";
 import { MarcelEyes, MarcelSpheres, useMarcelEyes } from "../marcelEyes";
@@ -10,8 +11,6 @@ const mediaClass = "pointer-events-none absolute top-1/2 left-1/2 w-4/5 -transla
 
 const coverClass = "w-full h-full object-cover brightness-100 transition-all duration-300 ease-out";
 
-// the shelf owns every ref array, so a card only receives the per-index setter
-// it has to hand to each of its four moving parts
 export type ShelfCardRefs = {
     card: (i: number) => (el: HTMLDivElement | null) => void;
     entry: (i: number) => (el: HTMLDivElement | null) => void;
@@ -28,10 +27,6 @@ interface ShelfCardProps {
     onLeave: (e: MouseEvent<HTMLElement>) => void;
 }
 
-// one project row: parallaxed cover image on the left with the hover media wipe,
-// its name/tech/description on the right. Marcel gets the extra googly-eyes markup.
-// The whole row opens the story — only the live-site link inside it stops the
-// click from bubbling, so it can go its own way to the external site
 export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLeave }: ShelfCardProps) {
     const { frame, eyes, spheres, start, stop } = useMarcelEyes();
     const marcel = project.coverEffect === "marcel";
@@ -101,11 +96,11 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
 
             <div ref={refs.content(index)} className="flex flex-col items-end gap-12 max-w-sm text-right py-12">
                 <div className="gap-y-6 flex flex-col">
-                    <span className="relative z-10 block overflow-hidden">
-                        <span data-reveal className="block text-5xl font-medium text-white">
+                    <TextReveal blockColor="dark" duration={0.6}>
+                        <span className="block text-5xl font-medium text-white">
                             {project.name}
                         </span>
-                    </span>
+                    </TextReveal>
                     <div>
                         {project.description && (
                             <SplitLines
@@ -116,9 +111,8 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
                         )}
                     </div>
                     {project.link && (
-                        <span className="relative z-10 mt-2 block overflow-hidden">
+                        <TextReveal blockColor="dark" duration={0.6} delay={0.12}>
                             <a
-                                data-reveal
                                 href={project.link}
                                 target="_blank"
                                 rel="noreferrer"
@@ -130,33 +124,33 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
                                     <span className="transition-transform duration-200 group-hover:-translate-y-1 group-hover:translate-x-1">↗</span>
                                 </div>
                             </a>
-                        </span>
+                        </TextReveal>
                     )}
                 </div>
                 <div className="gap-y-6 flex flex-col">
                     {project.services.length > 0 && (
                         <span className="relative mt-4 z-10 flex items-center justify-end gap-1">
-                            {project.services.map((s) => (
-                                <span key={s} className="block shrink-0 overflow-hidden">
-                                    <span data-reveal className="block rounded-md px-[2vh] py-[1vh] text-[clamp(0.65rem,1.4vh,0.9rem)] bg-[#212121] text-white">
+                            {project.services.map((s, i) => (
+                                <TextReveal key={s} blockColor="dark" duration={0.6} delay={0.24 + i * 0.06}>
+                                    <span className="block rounded-md px-[2vh] py-[1vh] text-[clamp(0.65rem,1.4vh,0.9rem)] bg-[#212121] text-white">
                                         {s}
                                     </span>
-                                </span>
+                                </TextReveal>
                             ))}
                         </span>
                     )}
                     {project.techStack?.length ? (
                         <div className="flex flex-col items-end gap-3">
-                            <span className="relative z-10 block overflow-hidden">
-                                <span data-reveal className="block text-[clamp(0.65rem,1.4vh,0.9rem)] text-white/35">
+                            <TextReveal blockColor="dark" duration={0.6} delay={0.12}>
+                                <span className="block text-[clamp(0.65rem,1.4vh,0.9rem)] text-white/35">
                                     Created with
                                 </span>
-                            </span>
+                            </TextReveal>
                             <span className="relative z-10 flex flex-wrap justify-end gap-6">
                                 {project.techStack.map((name) => (
-                                    <span key={name} className="block overflow-hidden">
-                                        <img data-reveal src={`/images/logo/${name}.png`} alt={name} className="block h-8" />
-                                    </span>
+                                    <TextReveal key={name} blockColor="dark" duration={0.6} delay={0.18}>
+                                        <img src={`/images/logo/${name}.png`} alt={name} className="block h-8" />
+                                    </TextReveal>
                                 ))}
                             </span>
                         </div>
