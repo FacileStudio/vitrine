@@ -38,13 +38,11 @@ export default function Intro({ block, project, ref }: BlockProps) {
                             {project.name}
                         </BlockReveal>
 
-                        <BlockReveal {...wipe} delay={0.1} className="w-fit">
-                            <SplitLines
-                                text={block.text ?? project.challenge ?? project.description}
-                                reveal={false}
-                                className="max-w-[50ch] text-[clamp(0.8rem,1.9vh,1.35rem)] text-white/70"
-                            />
-                        </BlockReveal>
+                        <SplitLines
+                            text={block.text ?? project.challenge ?? project.description}
+                            sweep={{ ...wipe, delay: 0.1 }}
+                            className="max-w-[50ch] text-[clamp(0.8rem,1.9vh,1.35rem)] text-white/70"
+                        />
 
                         {project.services.length ? (
                             <Line className="flex flex-wrap items-center gap-1">
