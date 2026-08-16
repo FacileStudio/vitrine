@@ -5,6 +5,7 @@ import Link from "@/components/facile/transitionLink";
 import { useEffect, useRef, useState } from "react";
 import { run, slideY, fade, hideRevealY, hideFade } from "@/app/utils/animations";
 import { usePinProgress } from "@/hooks/use-pin-progress";
+import BlockReveal from "@/components/facile/blockReveal";
 import members from "../studio/studio.json";
 
 const DitherView = dynamic(() => import("@/webgl/DitherView").then((m) => m.DitherView), { ssr: false });
@@ -12,7 +13,7 @@ const DitherView = dynamic(() => import("@/webgl/DitherView").then((m) => m.Dith
 const SERVICES = ["Branding", "Web design", "Développement", "3D"];
 
 const DESIGNERS = members.filter((m) => m.role.includes("Designer"));
-const DEVELOPERS = members.filter((m) => m.role === "Developer");
+const DEVELOPERS = members.filter((m) => m.role.includes("Developer"));
 
 // swaps a "N bons designers/développeurs" line for the team's faces on hover: the
 // label hides upward, the faces stagger in from below — both sit stacked in the
@@ -29,22 +30,20 @@ function TeamReveal({ hovered, label, team }: { hovered: boolean; label: string;
                     {label}
                 </span>
             </span>
-            <span className="col-start-1 row-start-1 inline-flex items-center gap-2">
+            <span className="col-start-1 row-start-1 inline-flex items-center gap-2 flex-nowrap">
                 {team.map((m, i) => (
-                    <span key={m.slug} className="inline-flex items-center gap-2">
-                        <span className="overflow-hidden inline-flex items-center gap-2">
-                            <span
-                                className="inline-flex items-center gap-2 transition-transform duration-300 ease-out"
-                                style={{
-                                    transform: hovered ? "translateY(0%)" : "translateY(110%)",
-                                    transitionDelay: hovered ? `${i * 80}ms` : "0ms",
-                                }}
-                            >
-                                <img src={m.avatar} alt={m.name} className="h-[0.9em] w-[0.9em] shrink-0 rounded-full object-cover" />
-                                <span style={{ color: m.highlight }}>{m.name}</span>
-                            </span>
+                    <span key={m.slug} className="overflow-hidden inline-flex items-center gap-2">
+                        <span
+                            className="inline-flex items-center gap-2 transition-transform duration-300 ease-out whitespace-nowrap"
+                            style={{
+                                transform: hovered ? "translateY(0%)" : "translateY(110%)",
+                                transitionDelay: hovered ? `${i * 80}ms` : "0ms",
+                            }}
+                        >
+                            <img src={m.avatar} alt={m.name} className="h-[0.9em] w-[0.9em] shrink-0 rounded-full object-cover" />
+                            <span style={{ color: m.highlight }}>{m.name}</span>
+                            {i < team.length - 1 && <span>&amp;</span>}
                         </span>
-                        {i < team.length - 1 && <span>&amp;</span>}
                     </span>
                 ))}
             </span>
@@ -121,9 +120,13 @@ export default function Hero({ charged }: { charged: boolean }) {
                     onMouseEnter={() => setTeamHover(true)}
                     onMouseLeave={() => setTeamHover(false)}
                 >
-                    <h1 className="flex flex-col text-left max-w-[50ch] text-[clamp(1.5rem,4.4vh,3.75rem)] leading-tight font-medium">
-                        <span className="block overflow-hidden text-end"><span ref={(el) => { lineRefs.current[2] = el; }} className="block">Quand <TeamReveal hovered={teamHover} label="2 bons designers" team={DESIGNERS} /></span></span>
-                        <span className="block overflow-hidden text-end"><span ref={(el) => { lineRefs.current[3] = el; }} className="block">rencontrent <TeamReveal hovered={teamHover} label="2 bons développeurs" team={DEVELOPERS} />.</span></span>
+                    <h1 className="flex flex-col text-left max-w-full text-[clamp(1.5rem,4.4vh,3.75rem)] leading-[1.15] font-medium gap-6">
+                        <BlockReveal open={showText} blockColor="light" duration={0.8}>
+                            <span className="block flex justify-between items-center gap-6"><span className="opacity-70">Quand</span> <span className="text-end"><TeamReveal hovered={teamHover} label="2 bons designers" team={DESIGNERS} /></span></span>
+                        </BlockReveal>
+                        <BlockReveal open={showText} blockColor="light" duration={0.8} delay={0.1}>
+                            <span className="block flex justify-between items-center gap-6"><span className="opacity-70">rencontrent</span> <span className="text-end"><TeamReveal hovered={teamHover} label="2 bons développeurs" team={DEVELOPERS} /></span><span>.</span></span>
+                        </BlockReveal>
                     </h1>
 
                     <div className=" flex flex-col justify-end text-end gap-3">

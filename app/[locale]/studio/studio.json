@@ -1,7 +1,7 @@
 [
     {
-        "slug": "yann",
-        "name": "Yann",
+        "slug": "fanga",
+        "name": "Fanga",
         "role": "Developer",
         "description": "Placeholder bio for Yann — replace via the backoffice. Full-stack developer at Facile Studio.",
         "model": "/models/F.glb",
@@ -21,7 +21,7 @@
     {
         "slug": "noah",
         "name": "Noah",
-        "role": "Designer & Developer",
+        "role": "Designer",
         "description": "Placeholder bio for Noah — replace via the backoffice. Design-focused developer at Facile Studio.",
         "model": "/models/F.glb",
         "highlight": "#95DFE9",
