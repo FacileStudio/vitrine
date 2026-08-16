@@ -128,14 +128,12 @@ export default function ShelfCard({ project, index, refs, arrive = 0, onOpen, on
                     </BlockReveal>
 
                     {project.description && (
-                        <BlockReveal open={inBand} arrive={arrive} delay={0.1} className="z-10">
-                            <SplitLines
-                                text={project.description}
-                                justify
-                                reveal={false}
-                                className="text-md font-medium leading-relaxed text-white/50"
-                            />
-                        </BlockReveal>
+                        <SplitLines
+                            text={project.description}
+                            justify
+                            sweep={{ open: inBand, arrive, delay: 0.1 }}
+                            className="relative z-10 text-md font-medium leading-relaxed text-white/50"
+                        />
                     )}
 
                     {project.link && (
