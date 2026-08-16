@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import BlockReveal from "@/components/facile/blockReveal";
 import { useScroll } from "@/hooks/use-scroll";
 
