@@ -1,16 +1,15 @@
-import type { StorySection } from "./story";
+import type { CoverEffect, StorySection } from "@/components/facile/story/types";
 import projects from "../projects.json";
 import studio from "../../studio/studio.json";
 
 // a project's one-off cover treatment — "marcel" swaps in the googly eyes,
-// "projet-zero-pillar" swaps in the generative light pillar. Read by Cover.tsx
-// and ShelfCard.tsx instead of each hardcoding project.slug checks of its own
-export type CoverEffect = "marcel" | "projet-zero-pillar";
+// "projet-zero-pillar" swaps in the generative light pillar. Handed to the story
+// as block data, and read by ShelfCard.tsx for the same treatment on the shelf
+export type { CoverEffect };
 
 export interface Project {
     slug: string;
     name: string;
-    tier: number;
     weeks: number;
     link?: string;
     image: string;
@@ -55,8 +54,6 @@ export const inCategory = (p: Project, c: Category) =>
 
 export const projectsIn = (c: Category | null) =>
     c ? allProjects.filter((p) => inCategory(p, c)) : allProjects;
-
-export const isVideoFile = (src: string) => /\.(mp4|webm|ogg|mov|webp)$/i.test(src);
 
 export const team = (p: Project): Member[] =>
     p.team

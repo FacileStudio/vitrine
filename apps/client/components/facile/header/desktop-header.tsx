@@ -1,6 +1,7 @@
 'use client'
 
 import React from "react";
+import TextReveal from "../textReveal";
 import Link from "@/components/facile/transitionLink";
 
 // sections still light against the dark site — the header switches to dark
@@ -39,9 +40,9 @@ export const DesktopHeader =({ menuOpen, setMenuOpen }: { menuOpen: boolean; set
                 <Link href="/">
                     <img src="/F.svg" alt="Facile Logo" className={`h-6 aspect-auto brightness-0 ${dark ? "" : "invert"}`} />
                 </Link>
-                <div className="flex items-center">
-                    <span className="italic text-lg">[fasil]</span>
-                    <span className="opacity-50 font-medium text-xs ml-4">Qui ne représente aucune difficulté.</span>
+                <div className=" flex justify-end items-center  text-end gap-8">
+                    <TextReveal delay={1} className="text-xl text-[#24E27A]">[<span className="italic mr-1">fasil</span>]</TextReveal>
+                    <TextReveal delay={1.1} className={`font-bb-mono uppercase text-[clamp(0.5rem,1.2vh,0.7rem)] ${dark ? "text-[#1E1E1E]" : "text-white"} `}>Qui se fait sans effort, qui ne présente aucune difficulté. Simple, aisé, etc&hellip;</TextReveal>
                 </div>
             </div>
             <button onClick={toggleMenu}>

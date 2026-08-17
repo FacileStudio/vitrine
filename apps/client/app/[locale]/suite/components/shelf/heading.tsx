@@ -25,7 +25,7 @@ export default function Heading({ eyebrow, lines, count, onExplain }: HeadingPro
                         duration={0.8}
                         delay={arrive}
                         cropClassName="mb-6"
-                        className="font-bb-mono text-sm tracking-[0.2em] text-foreground/40"
+                        className="font-bb-mono text-sm uppercase tracking-[0.2em] text-foreground/40"
                     >
                         {eyebrow}
                     </TextReveal>
@@ -62,7 +62,7 @@ export default function Heading({ eyebrow, lines, count, onExplain }: HeadingPro
                         <button
                             type="button"
                             onClick={onExplain}
-                            className="group flex w-fit shrink-0 items-center gap-3 whitespace-nowrap rounded-md bg-foreground/5 px-[2vh] py-[1vh] text-[clamp(0.65rem,1.4vh,0.9rem)] text-foreground/60 transition-colors duration-300 hover:bg-foreground/10 hover:text-foreground"
+                            className="group flex w-fit shrink-0 items-center gap-3 whitespace-nowrap rounded-md bg-foreground/10 px-[2vh] py-[1vh] text-[clamp(0.65rem,1.4vh,0.9rem)] text-foreground/60 transition-colors duration-300 hover:bg-foreground/10 hover:text-foreground"
                         >
                             How the suite works
                             <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>

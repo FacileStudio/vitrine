@@ -20,7 +20,6 @@ export default function Backdrop({ sticky = false }: { sticky?: boolean }) {
                 className="absolute inset-0 w-full h-full z-0 opacity-25 mix-blend-multiply"
                 background={null}
                 highlight="#111111"
-                grayscaleOnly
                 intensity={1.4}
                 parallax={0.7}
                 gridSize={2}

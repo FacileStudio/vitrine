@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import PageCurtain from "@/components/facile/pageTransition";
 import { locales, type Locale } from "@/lib/i18n/locales";
 import { baseMetadata, getOpenGraphLocale, siteUrl } from "@/lib/seo/metadata";
-import Story from "../components/story";
+import ProjectStory from "../components/projectStory";
 import { allProjects, findProject, projectIndex } from "../lib/projects";
 
 type PageProps = {
@@ -115,7 +115,7 @@ export default async function LocaleProjectStoryPage({ params }: PageProps) {
 
             <PageCurtain enter="dark" leave="dark" />
 
-            <Story project={project} index={projectIndex(slug)} total={allProjects.length} />
+            <ProjectStory project={project} index={projectIndex(slug)} total={allProjects.length} />
         </>
     );
 }

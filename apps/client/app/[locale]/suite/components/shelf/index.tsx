@@ -5,7 +5,9 @@ import { useRef, useState, useLayoutEffect, type MouseEvent } from "react";
 import { usePinProgress } from "@/hooks/use-pin-progress";
 import { EASE, run, slideY, hideRevealY } from "@/app/utils/animations";
 import { ARRIVE } from "@/components/facile/pageTransition";
-import { allApps } from "../../lib/apps";
+import Story from "@/components/facile/story";
+import { allApps, type SuiteApp } from "../../lib/apps";
+import { appStory } from "../../lib/story";
 import Backdrop from "./backdrop";
 import Heading from "./heading";
 import AppCard, { type AppCardRefs } from "./appCard";
@@ -21,8 +23,8 @@ interface ShelfProps {
 }
 
 // the suite's shelf: the projects shelf on paper. Same column, same centre-band
-// reveal, same parallax — what changes is that an app has no story page, so a row
-// leads out to the live app instead of into the site
+// reveal, same parallax — what changes is that an app has no route of its own, so
+// a row opens its story over the shelf instead of navigating to it
 export default function Shelf({
     eyebrow,
     lines = DEFAULT_LINES,
@@ -37,6 +39,7 @@ export default function Shelf({
     const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
 
     const [explain, setExplain] = useState(false);
+    const [open, setOpen] = useState<SuiteApp | null>(null);
 
     const visible = limit ? allApps.slice(0, limit) : allApps;
 
@@ -152,6 +155,7 @@ export default function Shelf({
                         app={a}
                         index={i}
                         refs={refs}
+                        onOpen={setOpen}
                         onEnter={onEnter}
                         onLeave={onLeave}
                     />
@@ -159,6 +163,18 @@ export default function Shelf({
             </div>
 
             <ArchitectureModal open={explain} setOpen={setExplain} />
+
+            {open ? (
+                <Story
+                    key={open.slug}
+                    sections={appStory(open)}
+                    name={open.name}
+                    index={visible.indexOf(open)}
+                    total={visible.length}
+                    backLabel="Back to the suite"
+                    onClose={() => setOpen(null)}
+                />
+            ) : null}
         </section>
     );
 }

@@ -1,6 +1,6 @@
 'use client'
 
-import type { MouseEvent } from "react";
+import type { KeyboardEvent, MouseEvent } from "react";
 import { Icon } from "@iconify/react";
 import { useTranslations } from "next-intl";
 import SplitLines from "@/components/facile/splitLines";
@@ -20,15 +20,23 @@ interface AppCardProps {
     app: SuiteApp;
     index: number;
     refs: AppCardRefs;
+    onOpen: (app: SuiteApp) => void;
     onEnter: (e: MouseEvent<HTMLElement>) => void;
     onLeave: (e: MouseEvent<HTMLElement>) => void;
 }
 
 // one app of the suite: its mark on a paper-white plate to the left, its name and
-// what it does to the right. The suite has no story pages, so the row is not a
-// button — the only thing you can click is the live app, when there is one
-export default function AppCard({ app, index, refs, onEnter, onLeave }: AppCardProps) {
+// what it does to the right. The whole row opens the app's story; only the live
+// link inside it stops the click from bubbling, so it can go its own way
+export default function AppCard({ app, index, refs, onOpen, onEnter, onLeave }: AppCardProps) {
     const t = useTranslations("suite");
+
+    const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            onOpen(app);
+        }
+    };
 
     const mark = (className: string) => (
         isLocalIcon(app.icon)
@@ -39,9 +47,14 @@ export default function AppCard({ app, index, refs, onEnter, onLeave }: AppCardP
     return (
         <div
             ref={refs.card(index)}
+            role="button"
+            tabIndex={0}
+            aria-label={app.name}
+            onClick={() => onOpen(app)}
+            onKeyDown={onKeyDown}
             onMouseEnter={onEnter}
             onMouseLeave={onLeave}
-            className="group/card 3xl:w-[70vw] w-[80vw] shrink-0 flex items-start justify-between"
+            className="group/card cursor-pointer 3xl:w-[70vw] w-[80vw] shrink-0 flex items-start justify-between"
         >
             <div
                 ref={refs.entry(index)}
@@ -68,7 +81,7 @@ export default function AppCard({ app, index, refs, onEnter, onLeave }: AppCardP
                     <SplitLines
                         text={app.description}
                         justify
-                        className="relative z-10 text-md font-medium leading-relaxed text-foreground/50"
+                        className="relative z-10 font-bb-mono text-sm uppercase text-foreground/50"
                     />
 
                     {app.link && (
@@ -77,10 +90,15 @@ export default function AppCard({ app, index, refs, onEnter, onLeave }: AppCardP
                                 href={app.link}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="group flex w-fit text-xl gap-2 rounded-md px-[2vh] py-[1vh] text-foreground transition-colors duration-200 hover:text-accent-ink"
+                                onClick={(e) => e.stopPropagation()}
+                                className="group flex w-fit text-xl gap-1   text-foreground transition-colors duration-200 hover:text-accent-ink"
                             >
-                                {t("visit")}
-                                <span className="transition-transform duration-200 group-hover:-translate-y-1 group-hover:translate-x-1">↗</span>
+                                <span className="px-[2vh] py-[1vh] rounded-md bg-foreground/5">
+                                    {t("visit")}
+                                </span>
+                                <span className="h-full px-[1.5vh] shrink-0 aspect-square  py-[1vh] rounded-md bg-foreground/5">
+                                    <span className="transition-transform duration-200 group-hover:-translate-y-1 group-hover:translate-x-1">↗</span>
+                                </span>
                             </a>
                         </TextReveal>
                     )}
@@ -88,7 +106,7 @@ export default function AppCard({ app, index, refs, onEnter, onLeave }: AppCardP
 
                 <TextReveal
                     cropClassName="relative z-10"
-                    className="font-bb-mono text-[clamp(0.65rem,1.4vh,0.9rem)] tabular-nums text-foreground/35"
+                    className="font-bb-mono text-[clamp(0.65rem,1.4vh,0.9rem)] uppercase tabular-nums text-foreground/35"
                 >
                     {String(index + 1).padStart(2, "0")}
                 </TextReveal>

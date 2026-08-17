@@ -37,13 +37,13 @@ export default function Manifesto() {
                     highlight="#24E27A"
                     grayscaleOnly={false}
                     intensity={1.8}
-                    parallax={0.7}
+                    parallax={1}
                     scale={1.6}
                     gridSize={showText ? 2 : 9}
                     file="/models/manifesto.glb"
                     models={[
-                        { file: "/models/manifesto.glb", position: [-2.5, 0.5, 2] },
-                        { file: "/models/manifesto.glb", position: [2, -2.5, 2] },
+                        { file: "/models/manifesto.glb", position: [-1.5, 0, 2], rotation: [0, 90, 90]},
+                        { file: "/models/manifesto.glb", position: [1.5, -2.5, 2] },
                     ]}
                 />
 
@@ -62,14 +62,14 @@ export default function Manifesto() {
                     <TextReveal open={showCta} leaving={leaving} duration={0.7} delay={0.5} cropClassName="w-fit mt-10">
                         <Link
                             href="/projects"
-                            className="inline-block px-8 py-5 text-md font-medium rounded-full bg-background/50 text-foreground"
+                            className="inline-block px-8 py-5 font-bb-mono uppercase text-md font-medium rounded-full bg-background/50 text-foreground"
                         >
                             Voir nos projets
                         </Link>
                     </TextReveal>
                 </div>
 
-                <div className="absolute bottom-0 left-0 flex w-full items-end justify-between px-48 pb-12 pointer-events-none text-md font-medium text-foreground">
+                <div className="absolute bottom-0 left-0 flex w-full items-end justify-between px-48 pb-12 pointer-events-none font-bb-mono uppercase text-md font-pp-mono text-foreground">
                     {["Branding", "Web - UI/UX design", "Showcase Websites", "Applications", "DevOps", "Self hosting"].map((entry, i) => (
                         <TextReveal key={i} open={showText} leaving={leaving} delay={i * 0.1}>
                             {entry}

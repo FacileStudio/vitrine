@@ -1,123 +1,42 @@
-import type { Ref } from "react";
-import type { Project } from "./projects";
+import { buildStory, type Block, type StoryBlock, type StorySection } from "@/components/facile/story/types";
+import { team, type Project } from "./projects";
 
-// the single source of truth for the bento vocabulary: how many media each block
-// eats and how many columns it spans by default. A backoffice can read this to
-// know what a block needs before it lets an editor drop one in the track.
-export const BLOCK_SPECS = {
-    cover: { media: 1, cols: 3 },
-    intro: { media: 0, cols: 2 },
-    note: { media: 1, cols: 2 },
-    col: { media: 3, cols: 1 },
-    typography: { media: 0, cols: 2 },
-    typographyPair: { media: 0, cols: 2 },
-    palette: { media: 0, cols: 2 },
-    big: { media: 3, cols: 2 },
-    mosaic: { media: 5, cols: 3 },
-    collage: { media: 4, cols: 3 },
-    full: { media: 1, cols: 2 },
-    end: { media: 0, cols: 2 },
-} as const;
+export type { StoryBlock, StorySection };
 
-export type BlockKind = keyof typeof BLOCK_SPECS;
+// the three blocks that speak for the project rather than for themselves: their
+// content is the project's, so it is filled in here and the renderers stay blind
+// to what a project is. Anything the json authors wins over the default
+function hydrate(p: Project, b: StoryBlock): StoryBlock {
+    if (b.type === "cover")
+        return { ...b, media: b.media?.length ? b.media : [p.image], effect: b.effect ?? p.coverEffect };
 
-// a brand colour. Only the hex is authored: rgb, cmyk and hsv are derived from
-// it unless the chart states its own, so the three notations can never drift
-export interface Swatch {
-    label: string;
-    hex: string;
-    note?: string;
-    rgb?: string;
-    cmyk?: string;
-    hsv?: string;
-    // for a hex that isn't a plain color (a CSS gradient) contrast can't be
-    // derived, so the chart states its own readable text color
-    textColor?: string;
+    if (b.type === "intro")
+        return {
+            eyebrow: `${p.date}  —  ${p.weeks} weeks`,
+            title: p.name,
+            text: p.challenge ?? p.description,
+            tags: p.services,
+            logos: p.techStack,
+            people: team(p).map((m) => ({ name: m.name, role: m.role, avatar: m.avatar, highlight: m.highlight })),
+            link: p.link,
+            ...b,
+        };
+
+    if (b.type === "end")
+        return { eyebrow: `End of ${p.name}`, title: "Thanks for scrolling.", link: p.link, ...b };
+
+    return b;
 }
 
-// what projects.json (and later the backoffice) stores. Media entries are either
-// an index into the project gallery or a raw src, so reordering a story never
-// has to touch the asset list
-export interface StoryBlock {
-    type: BlockKind;
-    media?: (string | number)[];
-    title?: string;
-    text?: string;
-    smalls?: "top" | "bottom";
-    cols?: number;
-    font?: string;
-    fontFamily?: string;
-    description?: string;
-    secondFont?: string;
-    secondFontFamily?: string;
-    secondDescription?: string;
-    swatches?: Swatch[];
-}
-
-// a story is a list of chapters, each holding its own blocks. The track breathes
-// between chapters, so the break is spacing rather than a block of its own — and
-// a backoffice gets a unit it can name, fold and drag as a whole
-export interface StorySection {
-    title?: string;
-    blocks: StoryBlock[];
-}
-
-// what the grid renders: same block, media resolved, geometry filled in and the
-// chapter number stamped on (0 when the chapter carries no title)
-export interface Block extends StoryBlock {
-    media: string[];
-    cols: number;
-    index: number;
-}
-
-// every renderer in components/story/blocks takes exactly this
-export interface BlockProps {
-    block: Block;
-    project: Project;
-    imgRef?: Ref<HTMLDivElement>;
-    ref?: Ref<HTMLDivElement>;
-    onClose?: () => void;
-}
-
-const resolveMedia = (p: Project, refs: (string | number)[] = []) =>
-    refs
-        .map((r) => (typeof r === "number" ? p.gallery[r] : r))
-        .filter((src): src is string => Boolean(src));
-
-// a story is authored data, so it is validated rather than trusted: an unknown
-// kind or a block starved of media is dropped instead of breaking the track, and
-// a chapter left empty by that never opens a hole in the spacing
-export function buildStory(p: Project): Block[][] {
+// a project's story, ready for the track: authored when there is one, laid out
+// automatically when there isn't
+export function projectStory(p: Project): Block[][] {
     const story = p.story?.length ? p.story : autoStory(p);
 
-    // numbered here rather than in the json, so reordering chapters in a
-    // backoffice renumbers them for free
-    let chapter = 0;
-
-    return story
-        .map((section) => {
-            const index = section.title ? ++chapter : 0;
-
-            return section.blocks.flatMap<Block>((b) => {
-                const spec = BLOCK_SPECS[b.type];
-                if (!spec)
-                    return [];
-
-                const media = resolveMedia(p, b.media);
-                if (b.type === "cover" && !media.length)
-                    media.push(p.image);
-                if (media.length < spec.media)
-                    return [];
-
-                return [{
-                    ...b,
-                    media,
-                    index,
-                    cols: b.cols ?? spec.cols,
-                }];
-            });
-        })
-        .filter((blocks) => blocks.length);
+    return buildStory(
+        story.map((section) => ({ ...section, blocks: section.blocks.map((b) => hydrate(p, b)) })),
+        p.gallery,
+    );
 }
 
 // fallback for a project that has no story yet — one chapter per service, then a

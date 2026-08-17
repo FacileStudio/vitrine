@@ -3,7 +3,6 @@
         "slug": "marcel",
         "coverEffect": "marcel",
         "name": "Marcel",
-        "tier": 1,
         "weeks": 12,
         "link": "https://marcel.my/",
         "image": "/images/projects/Marcel.png",
@@ -163,7 +162,6 @@
         "slug": "projet-zero",
         "coverEffect": "projet-zero-pillar",
         "name": "Projet Zero",
-        "tier": 1,
         "weeks": 6,
         "image": "/images/projects/ProjetZero_cover.png",
         "video": "/images/projects/ProjetZero_reveal.webp",
@@ -619,7 +617,6 @@
     {
         "slug": "waves",
         "name": "Waves",
-        "tier": 1,
         "weeks": 1,
         "link": "https://github.com/saravenpi/waves",
         "description": "A native desktop audio visualiser that turns sound into real-time waveforms with an FFT engine at its core.",
@@ -764,149 +761,6 @@
                         "type": "full",
                         "media": [
                             4
-                        ]
-                    }
-                ]
-            },
-            {
-                "blocks": [
-                    {
-                        "type": "end"
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "slug": "retro-festival",
-        "name": "RetroFestival",
-        "tier": 3,
-        "weeks": 4,
-        "image": "/images/projects/RetroFestival.webp",
-        "description": "A retro-flavoured festival identity — all warm grain, vintage type, and a poster-first attitude.",
-        "link": "https://www.instagram.com/p/DL5LYZoIPB0/?img_index=1",
-        "date": "2023",
-        "challenge": "Build a festival identity that reads as vintage without becoming a pastiche of one.",
-        "services": [
-            "Brand identity",
-            "Art direction"
-        ],
-        "team": [
-            "camille"
-        ],
-        "notes": [
-            "Poster first, everything else after — the system was tested at A0 before it was tested on a phone."
-        ],
-        "gallery": [
-            "https://picsum.photos/seed/retro-a/1700/1100",
-            "https://picsum.photos/seed/retro-c/1800/1000",
-            "https://picsum.photos/seed/retro-festival-x0/1500/1000",
-            "https://media.w3.org/2010/05/video/movie_300.mp4",
-            "https://picsum.photos/seed/retro-festival-x2/1500/1400",
-            "https://picsum.photos/seed/retro-festival-x3/1500/1200"
-        ],
-        "story": [
-            {
-                "blocks": [
-                    {
-                        "type": "cover"
-                    },
-                    {
-                        "type": "intro"
-                    }
-                ]
-            },
-            {
-                "title": "Brand identity",
-                "blocks": [
-                    {
-                        "type": "note",
-                        "title": "Brand identity",
-                        "text": "Poster first, everything else after — the system was tested at A0 before it was tested on a phone.",
-                        "media": [
-                            0
-                        ]
-                    },
-                    {
-                        "type": "mosaic",
-                        "media": [
-                            1,
-                            2,
-                            3,
-                            4,
-                            5
-                        ]
-                    }
-                ]
-            },
-            {
-                "blocks": [
-                    {
-                        "type": "end"
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "slug": "Black&White",
-        "name": "Black&White",
-        "tier": 3,
-        "weeks": 4,
-        "image": "/images/projects/Black&White.webp",
-        "description": "A curated selection of black and white photography.",
-        "link": "https://www.instagram.com/p/DL5LYZoIPB0/?img_index=1",
-        "date": "2023",
-        "challenge": "Edit a series down to the frames that survive without colour to carry them.",
-        "services": [
-            "Art direction",
-            "Photography"
-        ],
-        "team": [
-            "camille",
-            "noah"
-        ],
-        "notes": [
-            "The selection was the work: sequencing decides what the series means far more than any single frame."
-        ],
-        "gallery": [
-            "https://picsum.photos/seed/bw-a/1800/1100",
-            "https://picsum.photos/seed/bw-c/1700/1000",
-            "https://picsum.photos/seed/black&white-x0/1500/1000",
-            "https://media.w3.org/2010/05/bunny/trailer.mp4",
-            "https://picsum.photos/seed/black&white-x2/1500/1400",
-            "https://picsum.photos/seed/black&white-x3/1500/1200"
-        ],
-        "story": [
-            {
-                "blocks": [
-                    {
-                        "type": "cover"
-                    },
-                    {
-                        "type": "intro"
-                    }
-                ]
-            },
-            {
-                "title": "Art direction",
-                "blocks": [
-                    {
-                        "type": "note",
-                        "title": "Art direction",
-                        "text": "The selection was the work: sequencing decides what the series means far more than any single frame.",
-                        "media": [
-                            0
-                        ]
-                    },
-                    {
-                        "type": "mosaic",
-                        "media": [
-                            1,
-                            2,
-                            3,
-                            4,
-                            5
                         ]
                     }
                 ]

@@ -4,8 +4,9 @@ import type { KeyboardEvent, MouseEvent } from "react";
 import SplitLines from "@/components/facile/splitLines";
 import TextReveal from "@/components/facile/textReveal";
 import LightPillar from "@/components/LightPillar";
-import { isVideoFile, type Project } from "../../lib/projects";
-import { MarcelEyes, MarcelSpheres, useMarcelEyes } from "../marcelEyes";
+import { MarcelEyes, MarcelSpheres, useMarcelEyes } from "@/components/facile/marcelEyes";
+import { isVideoFile } from "@/app/utils";
+import type { Project } from "../../lib/projects";
 
 const mediaClass = "pointer-events-none absolute top-1/2 left-1/2 w-4/5 -translate-x-1/2 -translate-y-1/2 rounded-md object-cover will-change-[clip-path] [clip-path:inset(100%_0_0_0)]";
 
@@ -109,7 +110,7 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
                         <SplitLines
                             text={project.description}
                             justify
-                            className="relative z-10 text-md font-medium leading-relaxed text-white/50"
+                            className="relative z-10 font-bb-mono text-sm uppercase leading-relaxed text-white/50"
                         />
                     )}
 
@@ -135,7 +136,7 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
                                 <TextReveal
                                     key={s}
                                     cropClassName="shrink-0"
-                                    className="rounded-md px-[2vh] py-[1vh] text-[clamp(0.65rem,1.4vh,0.9rem)] bg-[#212121] text-white"
+                                    className="rounded-md px-[2vh] py-[1vh] font-bb-mono text-[clamp(0.65rem,1.4vh,0.9rem)] uppercase bg-[#212121] text-white"
                                 >
                                     {s}
                                 </TextReveal>
@@ -144,7 +145,7 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
                     )}
                     {project.techStack?.length ? (
                         <div className="flex flex-col items-end gap-3">
-                            <TextReveal cropClassName="relative z-10" className="text-[clamp(0.65rem,1.4vh,0.9rem)] text-white/35">
+                            <TextReveal cropClassName="relative z-10" className="font-bb-mono text-[clamp(0.65rem,1.4vh,0.9rem)] uppercase text-white/35">
                                 Created with
                             </TextReveal>
                             <span className="relative z-10 flex flex-wrap justify-end gap-6">

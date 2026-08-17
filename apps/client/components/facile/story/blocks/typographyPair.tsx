@@ -1,7 +1,7 @@
 import clsx from "clsx";
-import type { BlockProps } from "../../../lib/story";
-import { Block, Cell } from "./Bento";
-import Line from "./Line";
+import Line from "@/components/facile/textReveal";
+import type { BlockProps } from "../types";
+import { Block, Cell } from "../bento";
 
 const ROWS = ["ABCDEFGHIJKL", "MNOPQRSTUVW", "XYZ"].map((row) => row.split(""));
 
@@ -12,7 +12,7 @@ function Panel({ label, font, fontFamily, description, big }: { label: string; f
             className="flex min-h-0 min-w-0 flex-col justify-between gap-[1.5vh] p-[3vh]"
         >
             <div className="flex flex-col gap-1">
-                <Line style={{ fontFamily: "var(--font-goga)" }} className="text-[clamp(0.65rem,1.4vh,0.9rem)] text-white/50">{label}</Line>
+                <Line style={{ fontFamily: "var(--font-bb-mono)" }} className="uppercase text-[clamp(0.65rem,1.4vh,0.9rem)] text-white/50">{label}</Line>
                 <Line className={clsx(
                         "flex gap-x-[1.2vh] leading-none text-white/75",
                         big ? "font-semibold text-[clamp(1.75rem,5.2vh,5rem)]" : "text-[clamp(1rem,3.5vh,5rem)]"
@@ -47,9 +47,9 @@ function Panel({ label, font, fontFamily, description, big }: { label: string; f
     );
 }
 
-export default function TypographyPair({ block, ref }: BlockProps) {
+export default function TypographyPair({ block }: BlockProps) {
     return (
-        <Block ref={ref} cols={block.cols}>
+        <Block cols={block.cols}>
             <Cell col="1 / -1" row="1 / -1">
                 <div className="flex h-full w-full flex-col justify-between">
                     <Panel label="Title" font={block.font} fontFamily={block.fontFamily} description={block.description} big />

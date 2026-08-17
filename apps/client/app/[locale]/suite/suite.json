@@ -1,175 +1,122 @@
 [
     {
-        "slug": "opus",
-        "name": "Opus",
-        "tagline": "Project management that keeps up.",
-        "description": "Workspaces, kanban, tasks, comments and time entries in one place. Fast, opinionated project tracking — everything you need, nothing you don't.",
-        "icon": "solar:box-minimalistic-bold-duotone",
-        "link": "https://opus.facile.studio"
-    },
-    {
         "slug": "sablier",
         "name": "Sablier",
-        "tagline": "Billable hours, without the friction.",
-        "description": "Live timers you start and stop in one click, scoped to spaces, projects and tasks. Billing rates, reminders, and two-way sync with Opus over the Antenne.",
+        "tagline": "Vos heures facturables, tracées sans friction.",
+        "description": "Un clic pour lancer, un clic pour arrêter. Ventilation par projet et sessions partagées.",
         "icon": "solar:hourglass-bold-duotone",
         "link": "https://sablier.facile.studio"
     },
     {
+        "slug": "opus",
+        "name": "Opus",
+        "tagline": "La gestion de projet qui ne vous ralentit pas.",
+        "description": "Kanban, relations entre tâches, recherche instantanée — le minimum qui fait le maximum.",
+        "icon": "solar:box-minimalistic-bold-duotone",
+        "link": "https://opus.facile.studio"
+    },
+    {
+        "slug": "vision",
+        "name": "Vision",
+        "tagline": "L'analytique web qui respecte vos visiteurs.",
+        "description": "Un script, zéro cookie, données en temps réel.",
+        "icon": "solar:panorama-bold-duotone",
+        "link": "https://vision.facile.studio"
+    },
+    {
+        "slug": "glouton",
+        "name": "Glouton",
+        "tagline": "Vos prochains clients, trouvés pendant que vous dormez.",
+        "description": "Glouton crawle le web, détecte les stacks techniques, score les prospects.",
+        "icon": "solar:leaf-bold-duotone",
+        "link": "https://glouton.facile.studio"
+    },
+    {
         "slug": "ardoise",
         "name": "Ardoise",
-        "tagline": "Invoice, get paid, forget.",
-        "description": "Quotes, invoices and contracts typeset properly, paid through Stripe or plain bank transfer. Your clients get a portal, you get a notification — that is the whole ceremony.",
+        "tagline": "Facturez, encaissez, oubliez.",
+        "description": "Stripe intégré, emails automatiques, reçus téléchargeables.",
         "icon": "solar:bill-list-bold-duotone",
         "link": "https://ardoise.facile.studio"
     },
     {
         "slug": "plume",
         "name": "Plume",
-        "tagline": "Signatures without the machinery.",
-        "description": "Drop a PDF, place the fields for each signer, send the link. You get back a flattened document, a signature certificate, an audit trail and a public way to verify it.",
+        "tagline": "La signature électronique sans usine à gaz.",
+        "description": "Déposez un PDF, placez les champs, envoyez le lien.",
         "icon": "solar:ruler-cross-pen-bold-duotone",
         "link": "https://plume.facile.studio"
     },
     {
-        "slug": "agenda",
-        "name": "Agenda",
-        "tagline": "One calendar the whole studio reads.",
-        "description": "Personal and shared calendars with real roles, and real CalDAV underneath. Apple Calendar, Thunderbird and your phone sync with it natively — no Google in the middle.",
-        "icon": "solar:calendar-add-bold-duotone",
-        "link": "https://agenda.facile.studio"
-    },
-    {
-        "slug": "courrier",
-        "name": "Courrier",
-        "tagline": "Your email, at home.",
-        "description": "Connect the IMAP and SMTP accounts you already have, in one clean interface. Threading that survives out-of-order delivery, full-text search, templates and bulk actions.",
-        "icon": "solar:letter-opened-bold-duotone",
-        "link": "https://courrier.facile.studio"
-    },
-    {
-        "slug": "nuage",
-        "name": "Nuage",
-        "tagline": "The studio's own drive.",
-        "description": "Files in spaces, versioned on every reupload, with a trash that forgives you. Resumable uploads, WebDAV mounting, quotas — and your files stay on your server.",
-        "icon": "solar:cloud-bold-duotone",
-        "link": "https://nuage.facile.studio"
-    },
-    {
-        "slug": "capsule",
-        "name": "Capsule",
-        "tagline": "Secrets that self-destruct.",
-        "description": "Encrypted in the browser, with the key living in the URL fragment so the server only ever holds ciphertext. One link, one opening, then nothing.",
-        "icon": "solar:pills-bold-duotone",
-        "link": "https://capsule.facile.studio"
-    },
-    {
         "slug": "casier",
         "name": "Casier",
-        "tagline": "Every secret, none of them on disk.",
-        "description": "Projects, environments and versioned secrets sealed under per-project keys wrapped by a root key that is never written down. The CLI injects them straight into a process — nothing lands in a dotfile.",
+        "tagline": "Coffre-fort à secrets pour votre équipe.",
+        "description": "Chiffré AES-256-GCM, versionné, audit log complet.",
         "icon": "solar:safe-2-bold-duotone",
         "link": "https://casier.facile.studio"
     },
     {
-        "slug": "vision",
-        "name": "Vision",
-        "tagline": "Analytics that respects your visitors.",
-        "description": "A 3.7 KB script, zero cookies, no IP stored, and a dashboard that streams live. You learn where your traffic comes from without selling your users' souls.",
-        "icon": "solar:panorama-bold-duotone",
-        "link": "https://vision.facile.studio"
-    },
-    {
-        "slug": "journal",
-        "name": "Journal",
-        "tagline": "Every log line, one place.",
-        "description": "Apps ship structured entries over HTTP and search them full-text with saved queries and level histograms. A saved query crossing its threshold becomes an alert.",
-        "icon": "solar:notebook-bold-duotone",
-        "link": "https://journal.facile.studio"
-    },
-    {
         "slug": "antenne",
         "name": "Antenne",
-        "tagline": "The nervous system of the suite.",
-        "description": "Alert aggregation and the suite's event bus. It watches providers, routes what they emit to Matrix, Discord, mail or push, and hosts the durable pool every other app syncs through.",
+        "tagline": "Le bus d'événements de la suite.",
+        "description": "Centralisez les alertes de toute votre infra, poussez-les sur Discord, Matrix, email.",
         "icon": "solar:satellite-bold-duotone",
         "link": "https://antenne.facile.studio"
     },
     {
-        "slug": "perception",
-        "name": "Perception",
-        "tagline": "Every tool, one memory.",
-        "description": "Perception listens to the whole event stream and turns it into durable business memory. Clients, contracts, projects, hours — ask in plain language, get a sourced answer.",
-        "icon": "solar:cpu-bold-duotone"
+        "slug": "nuage",
+        "name": "Nuage",
+        "tagline": "Le stockage fichiers du studio.",
+        "description": "Upload, dossiers, recherche — un drive interne connecté à tous vos outils via API.",
+        "icon": "solar:cloud-bold-duotone",
+        "link": "https://nuage.facile.studio"
+    },
+    {
+        "slug": "courrier",
+        "name": "Courrier",
+        "tagline": "Votre email, chez vous.",
+        "description": "IMAP et SMTP natifs, multi-comptes, interface épurée.",
+        "icon": "solar:letter-opened-bold-duotone",
+        "link": "https://courrier.facile.studio"
+    },
+    {
+        "slug": "agenda",
+        "name": "Agenda",
+        "tagline": "Le calendrier partagé du studio.",
+        "description": "Rendez-vous, deadlines, dispos — sans Google Calendar. CalDAV natif.",
+        "icon": "solar:calendar-add-bold-duotone",
+        "link": "https://agenda.facile.studio"
     },
     {
         "slug": "echo",
         "name": "Echo",
-        "tagline": "A room, a link, that is it.",
-        "description": "Video conferencing reduced to what a meeting needs. Transcription runs on our own machines, so the audio of your calls never reaches a vendor.",
+        "tagline": "Visioconférence simple et sécurisée.",
+        "description": "Créez une salle, partagez le lien, c'est tout. Basé sur Jitsi.",
         "icon": "solar:monitor-camera-bold-duotone",
         "link": "https://echo.facile.studio"
     },
     {
+        "slug": "capsule",
+        "name": "Capsule",
+        "tagline": "Partagez un secret qui s'autodétruit.",
+        "description": "Chiffrement de bout en bout dans le navigateur, zero-knowledge côté serveur.",
+        "icon": "solar:pills-bold-duotone",
+        "link": "https://capsule.facile.studio"
+    },
+    {
         "slug": "scribe",
         "name": "Scribe",
-        "tagline": "Meetings, transcribed and structured.",
-        "description": "A desktop app that captures system audio and transcribes it locally, in twenty-five languages, without the recording ever touching the disk. You get the transcript live, and structured notes after.",
+        "tagline": "Transcription de réunions par IA.",
+        "description": "Capturez l'audio, obtenez le transcript en temps réel et des notes structurées.",
         "icon": "solar:microphone-2-bold-duotone",
         "link": "https://scribe.facile.studio"
     },
     {
-        "slug": "galet",
-        "name": "Galet",
-        "tagline": "Notes that link back.",
-        "description": "Markdown on disk, backlinks, graph and canvas on top of it, in the browser, on the desktop and on Android. Sync is end-to-end encrypted through a relay that can read none of it.",
-        "icon": "solar:notes-bold-duotone",
-        "link": "https://galet.facile.studio"
-    },
-    {
-        "slug": "toile",
-        "name": "Toile",
-        "tagline": "An infinite wall of sticky notes.",
-        "description": "Every note is one markdown file with its position in the frontmatter, so a Toile board is just a folder. Point it at a vault you already have and it opens on your phone.",
-        "icon": "solar:sticker-square-bold-duotone",
-        "link": "https://toile.facile.studio"
-    },
-    {
-        "slug": "glouton",
-        "name": "Glouton",
-        "tagline": "Your next clients, found overnight.",
-        "description": "Glouton crawls the web while you sleep, reads the stack a site is built on, and scores what it finds. You wake up to the good leads, ranked.",
-        "icon": "solar:leaf-bold-duotone",
-        "link": "https://glouton.facile.studio"
-    },
-    {
-        "slug": "spore",
-        "name": "Spore",
-        "tagline": "One package manager, any language.",
-        "description": "Declare a monorepo in YAML, link local packages, pull published ones from the registry, run the scripts you named. It does not care which language they are written in.",
-        "icon": "solar:layers-minimalistic-bold-duotone",
-        "link": "https://spore.facile.studio"
-    },
-    {
-        "slug": "jardin",
-        "name": "Jardin",
-        "tagline": "The shared brain of our agents.",
-        "description": "One canonical store of agent memory, rules and skills, written in plain markdown and fanned out into every assistant's native config. Every machine, every agent, the same ground truth.",
-        "icon": "solar:book-bookmark-bold-duotone",
-        "link": "https://jardin.facile.studio"
-    },
-    {
-        "slug": "atelier",
-        "name": "Atelier",
-        "tagline": "A team of agents on one goal.",
-        "description": "A durable orchestrator that decomposes a goal into a task graph, sets builders to work on their own branches, and lets reviewers gate the merges. It coordinates with Jardin for memory and claims.",
-        "icon": "solar:programming-bold-duotone"
-    },
-    {
-        "slug": "portail",
-        "name": "Portail",
-        "tagline": "One door to all the others.",
-        "description": "The home page of the studio: every internal service in one list, with type-ahead and a command palette. One self-contained page, no framework, no build step.",
-        "icon": "solar:widget-5-bold-duotone"
+        "slug": "journal",
+        "name": "Journal",
+        "tagline": "Logs centralisés pour toute la suite.",
+        "description": "Cherchez, filtrez, créez des alertes. Un SDK par langage, un collector Docker.",
+        "icon": "solar:notebook-bold-duotone",
+        "link": "https://journal.facile.studio"
     }
 ]

@@ -1,3 +1,4 @@
+import type { StorySection } from "@/components/facile/story/types";
 import apps from "../suite.json";
 
 export interface SuiteApp {
@@ -7,9 +8,10 @@ export interface SuiteApp {
     description: string;
     icon: string;
     link?: string;
+    story?: StorySection[];
 }
 
-// the suite is authored in one file and read in three places — the home orbit,
+// the suite is authored in one file and read in three places — the home band,
 // the menu, and this shelf — so the shape lives here rather than in each of them
 export const allApps = apps as SuiteApp[];
 

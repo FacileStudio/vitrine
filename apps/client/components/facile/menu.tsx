@@ -41,12 +41,8 @@ export const links: NavLink[] = [
         })),
     },
     {
-        href: '/suite',
+        href: 'https://suite.facile.studio',
         label: 'Suite',
-        secondary: suite.slice(0, MENU_SUITE).map((app) => ({
-            href: '/suite',
-            label: app.name,
-        })),
     },
     {
         href: '/process',
@@ -224,7 +220,7 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
                 <TextReveal open={menuOpen} duration={0.5} delay={menuOpen ? OPEN_AT.contact : 0}>
                     <a
                         href={`mailto:${CONTACT.email}`}
-                        className="block text-sm md:text-md 3xl:text-lg transition-colors hover:text-white"
+                        className="block text-sm md:text-md 3xl:text-lg font-bb-mono uppercase transition-colors hover:text-white"
                     >
                         {CONTACT.email}
                     </a>
@@ -232,7 +228,7 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
                 <TextReveal open={menuOpen} duration={0.5} delay={menuOpen ? OPEN_AT.contact + 0.06 : 0}>
                     <a
                         href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`}
-                        className="block text-sm md:text-md 3xl:text-lg transition-colors hover:text-white"
+                        className="block text-sm md:text-md 3xl:text-lg font-bb-mono transition-colors hover:text-white"
                     >
                         {CONTACT.phone}
                     </a>
