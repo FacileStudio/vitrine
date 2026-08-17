@@ -41,7 +41,7 @@ export default function Home() {
         <div className="relative">
             <Rideau setCharged={setCharged} />
 
-            <PageCurtain enter="light" leave="dark" />
+            <PageCurtain enter="dark" leave="dark" />
 
             <ReactLenis ref={lenisRef} root options={{ lerp: 0.1, smoothWheel: true }} />
 

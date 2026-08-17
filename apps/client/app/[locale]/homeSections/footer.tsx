@@ -1,18 +1,14 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { run, slideY, hideRevealY } from "@/app/utils/animations";
 import { useScroll } from "@/hooks/use-scroll";
+import TextReveal from "@/components/facile/textReveal";
 import { Button } from "@/components/facile/button";
 import { links, CONTACT } from "@/components/facile/menu";
 
 export default function Footer() {
     const sectionRef = useRef<HTMLElement>(null);
-    const headingRef = useRef<HTMLDivElement>(null);
-    const navRef = useRef<HTMLDivElement>(null);
-    const contactRef = useRef<HTMLDivElement>(null);
-
     const [show, setShow] = useState(false);
     const t = useTranslations("common");
     const locale = useLocale();
@@ -27,20 +23,10 @@ export default function Footer() {
         setShow(rect.top < window.innerHeight * 0.85);
     });
 
-    useEffect(() => {
-        hideRevealY([headingRef.current, navRef.current, contactRef.current]);
-    }, []);
-
-    useEffect(() => {
-        run([headingRef.current], slideY(show, false, { duration: 0.6 }));
-        run([navRef.current], slideY(show, false, { duration: 0.6, delay: 0.1 }));
-        run([contactRef.current], slideY(show, false, { duration: 0.6, delay: 0.2 }));
-    }, [show]);
-
     return (
         <section ref={sectionRef} id="contact" className="relative w-full bg-foreground text-white/80 py-24 px-12 md:px-20">
-            <div className="overflow-hidden">
-                <div ref={headingRef} className="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+            <TextReveal open={show}>
+                <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
                     <h2 className="max-w-[16ch] text-4xl md:text-6xl font-medium text-white">{t("footer.buildTogether")}</h2>
                     <div className="flex gap-4 shrink-0">
                         <Button text={t("footer.hireUs")} icon="mail" onClick={openContactModal} />
@@ -52,10 +38,10 @@ export default function Footer() {
                         </a>
                     </div>
                 </div>
-            </div>
+            </TextReveal>
 
-            <div className="overflow-hidden mt-20">
-                <div ref={navRef} className="flex flex-wrap gap-x-16 gap-y-10">
+            <TextReveal open={show} delay={0.1} cropClassName="mt-20">
+                <div className="flex flex-wrap gap-x-16 gap-y-10">
                     {links.map((link) => (
                         <div key={link.href} className="flex w-32 flex-col items-start">
                             <a href={withLocale(link.href)} className="text-2xl md:text-3xl font-medium text-white/80 transition-colors hover:text-white">
@@ -79,10 +65,10 @@ export default function Footer() {
                         </div>
                     ))}
                 </div>
-            </div>
+            </TextReveal>
 
-            <div className="overflow-hidden mt-20">
-                <div ref={contactRef} className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 border-t border-white/10 pt-8">
+            <TextReveal open={show} delay={0.2} cropClassName="mt-20">
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 border-t border-white/10 pt-8">
                     <div className="flex flex-wrap items-center gap-x-8 gap-y-2 text-sm md:text-base">
                         <a href={`mailto:${CONTACT.email}`} className="transition-colors hover:text-white">{CONTACT.email}</a>
                         <span className="text-white/40 select-none" aria-hidden="true">·</span>
@@ -97,7 +83,7 @@ export default function Footer() {
                     </div>
                     <p className="text-sm text-white/40">{t("footer.madeBy")}</p>
                 </div>
-            </div>
+            </TextReveal>
         </section>
     );
 }

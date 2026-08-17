@@ -56,7 +56,7 @@ export const inCategory = (p: Project, c: Category) =>
 export const projectsIn = (c: Category | null) =>
     c ? allProjects.filter((p) => inCategory(p, c)) : allProjects;
 
-export const isVideoFile = (src: string) => /\.(mp4|webm|ogg|mov)$/i.test(src);
+export const isVideoFile = (src: string) => /\.(mp4|webm|ogg|mov|webp)$/i.test(src);
 
 export const team = (p: Project): Member[] =>
     p.team

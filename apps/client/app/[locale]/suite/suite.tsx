@@ -21,7 +21,7 @@ export default function SuitePage() {
 
     return (
         <main>
-            <PageCurtain enter="light" leave="light" />
+            <PageCurtain enter="dark" leave="dark" />
 
             <section>
                 <h1>{t('title')}</h1>
