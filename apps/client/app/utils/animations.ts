@@ -39,7 +39,6 @@ export const slideX = (show: boolean, { stagger = 0.2, duration = 1, delay = 0 }
 
 
 
-
 export const hideFade = (els: (HTMLElement | null)[], y = 12) => gsap.set(els, { opacity: 0, y });
 export const fade = (show: boolean, { y = 12, duration = 0.6, stagger = 0.1, delay = 0 } = {}) =>
     (el: HTMLElement, i: number) =>

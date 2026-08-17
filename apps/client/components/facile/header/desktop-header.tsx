@@ -3,12 +3,12 @@
 import React from "react";
 import Link from "@/components/facile/transitionLink";
 
-// sections with a dark background — the header goes light (white) over these,
-// and stays dark over everything else (hero, manifesto, friends, …)
-const DARK_SECTIONS = ["projects"];
+// sections still light against the dark site — the header switches to dark
+// text over these, and stays light everywhere else
+const LIGHT_SECTIONS = ["manifesto"];
 
 export const DesktopHeader =({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
-    const [onDark, setOnDark] = React.useState(false);
+    const [onLight, setOnLight] = React.useState(false);
 
     const toggleMenu = () => {
         setMenuOpen(prev => !prev);
@@ -18,26 +18,26 @@ export const DesktopHeader =({ menuOpen, setMenuOpen }: { menuOpen: boolean; set
     React.useEffect(() => {
         const y = 40;
         const onScroll = () => {
-            const dark = DARK_SECTIONS.some((id) => {
+            const light = LIGHT_SECTIONS.some((id) => {
                 const el = document.getElementById(id);
                 if (!el) return false;
                 const r = el.getBoundingClientRect();
                 return r.top <= y && r.bottom > y;
             });
-            setOnDark(dark);
+            setOnLight(light);
         };
         onScroll();
         window.addEventListener("scroll", onScroll, { passive: true });
         return () => window.removeEventListener("scroll", onScroll);
     }, []);
 
-    const light = menuOpen || onDark;
+    const dark = onLight && !menuOpen;
 
     return (
-        <header className={`fixed top-0 left-0 w-full pt-4 px-12 z-20 flex justify-between items-center transition-colors duration-300 ${light ? "text-white" : "text-[#1E1E1E]"}`}>
+        <header className={`fixed top-0 left-0 w-full pt-4 px-12 z-20 flex justify-between items-center transition-colors duration-300 ${dark ? "text-[#1E1E1E]" : "text-white"}`}>
             <div className="flex items-center space-x-24">
                 <Link href="/">
-                    <img src="/F.svg" alt="Facile Logo" className={`h-6 aspect-auto brightness-0 ${light ? "invert" : ""}`} />
+                    <img src="/F.svg" alt="Facile Logo" className={`h-6 aspect-auto brightness-0 ${dark ? "" : "invert"}`} />
                 </Link>
                 <div className="flex items-center">
                     <span className="italic text-lg">[fasil]</span>

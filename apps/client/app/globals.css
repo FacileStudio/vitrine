@@ -28,6 +28,24 @@
     font-display: swap;
 }
 
+@font-face {
+    font-family: "BB Manual Mono";
+    src: url("/fonts/bb-manual-mono/BBManualMonoProText-Regular.woff2") format("woff2"),
+         url("/fonts/bb-manual-mono/BBManualMonoProText-Regular.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "BB Manual Mono";
+    src: url("/fonts/bb-manual-mono/BBManualMonoProText-Medium.woff2") format("woff2"),
+         url("/fonts/bb-manual-mono/BBManualMonoProText-Medium.otf") format("opentype");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
 :root {
     --background: #E4EEE8;
     --foreground: #111111;
@@ -37,14 +55,17 @@
     --color-background: var(--background);
     --color-foreground: var(--foreground);
     --font-goga: "Goga", sans-serif;
+    --font-bb-mono: "BB Manual Mono", ui-monospace, monospace;
     /* `3xl:` variant — applies from really big screens (2560px), matching the
        min-[2560px] cutoff used elsewhere for big-monitor tuning */
     --breakpoint-3xl: 160rem;
 }
 
 body {
-    background: var(--background);
-    color: var(--foreground);
+    /* dark theme: --foreground/--background stay the fixed dark/light tones used
+       everywhere as decorative fills; the page canvas just swaps which one it sits on */
+    background: var(--foreground);
+    color: var(--background);
     font-family: var(--font-goga);
     letter-spacing: -3%;
 }

@@ -1,12 +1,12 @@
 'use client'
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { ReactLenis } from "lenis/react";
 import Header from "@/components/facile/header";
 import Menu from "@/components/facile/menu";
 import Stripes from "@/components/facile/stripes";
-import { run, slideY, hideRevealY } from "@/app/utils/animations";
+import TextReveal from "@/components/facile/textReveal";
 import { usePinProgress } from "@/hooks/use-pin-progress";
 import steps from "./process.json";
 
@@ -20,7 +20,6 @@ type Step = (typeof steps)[number];
 function ProcessSection({ step, index }: { step: Step; index: number }) {
     const sectionRef = useRef<HTMLElement>(null);
     const progressRef = useRef(0);
-    const textRefs = useRef<(HTMLElement | null)[]>([]);
 
     const [show, setShow] = useState(false);
     const [leaving, setLeaving] = useState(false);
@@ -32,61 +31,47 @@ function ProcessSection({ step, index }: { step: Step; index: number }) {
         setLeaving(out);
     });
 
-    useEffect(() => {
-        hideRevealY(textRefs.current);
-    }, []);
-
-    useEffect(() => {
-        run(textRefs.current, slideY(show, leaving, { stagger: 0.08, duration: 0.6 }));
-    }, [show, leaving]);
-
-    const dark = index % 2 === 0;
-
     return (
         <section ref={sectionRef} id={step.id} className="relative w-full min-h-[280vh]">
-            <div className="absolute inset-0 -z-10" style={{ background: dark ? "var(--foreground)" : "#ffffff" }} aria-hidden="true" />
+            <div className="absolute inset-0 -z-10 bg-foreground" aria-hidden="true" />
             <div className="sticky top-0 h-screen w-full overflow-hidden">
                 <DitherView
                     file="/models/manifesto.glb"
                     className="absolute inset-0 h-full w-full opacity-60"
                     background={null}
-                    highlight={dark ? "#24E27A" : "var(--foreground)"}
+                    highlight="#24E27A"
                     grayscaleOnly={false}
                     intensity={1.8}
                     parallax={0.6}
                     gridSize={show ? 2 : 9}
+                    scale={4}
                 />
 
                 {/* scroll-driven covers: open as the section enters, close as it leaves */}
-                <Stripes orientation={0} count={4} className={dark ? "bg-foreground" : "bg-white"} openWhen={() => progressRef.current > 0.04} />
-                <Stripes orientation={180} count={4} className={dark ? "bg-foreground" : "bg-white"} openWhen={() => progressRef.current < 0.9} />
+                <Stripes orientation={0} count={4} className="bg-foreground" openWhen={() => progressRef.current > 0.04} />
+                <Stripes orientation={180} count={4} className="bg-foreground" openWhen={() => progressRef.current < 0.9} />
 
-                <div className={`absolute inset-0 z-50 flex flex-col items-center justify-center gap-8 px-6 text-center ${dark ? "text-white" : "text-foreground"}`}>
-                    <div className="overflow-hidden">
-                        <span ref={(el) => { textRefs.current[0] = el; }} className="block text-sm uppercase tracking-widest opacity-50">
-                            {String(index + 1).padStart(2, "0")}
-                        </span>
-                    </div>
-                    <div className="overflow-hidden">
-                        <h2 ref={(el) => { textRefs.current[1] = el; }} className="block text-5xl font-medium 3xl:text-6xl">
+                <div className="absolute inset-0 z-50 flex flex-col items-center justify-center gap-8 px-6 text-center text-white">
+                    <TextReveal open={show} leaving={leaving} className="text-sm uppercase tracking-widest opacity-50">
+                        {String(index + 1).padStart(2, "0")}
+                    </TextReveal>
+
+                    <h2 className="text-5xl font-medium 3xl:text-6xl">
+                        <TextReveal open={show} leaving={leaving} delay={0.08}>
                             {step.title}
-                        </h2>
-                    </div>
+                        </TextReveal>
+                    </h2>
 
                     {/* image (placeholder path until real assets are added) */}
-                    <div className="overflow-hidden">
-                        <div ref={(el) => { textRefs.current[2] = el; }} className="block">
-                            <div className="h-56 w-80 overflow-hidden rounded-xl bg-white/5 3xl:h-72 3xl:w-[28rem]">
-                                <img src={step.image} alt={step.title} loading="lazy" decoding="async" className="h-full w-full object-cover" />
-                            </div>
+                    <TextReveal open={show} leaving={leaving} delay={0.16}>
+                        <div className="h-56 w-80 overflow-hidden rounded-xl bg-white/5 3xl:h-72 3xl:w-[28rem]">
+                            <img src={step.image} alt={step.title} loading="lazy" decoding="async" className="h-full w-full object-cover" />
                         </div>
-                    </div>
+                    </TextReveal>
 
-                    <div className="overflow-hidden">
-                        <p ref={(el) => { textRefs.current[3] = el; }} className="block max-w-[48ch] opacity-70">
-                            {step.text}
-                        </p>
-                    </div>
+                    <TextReveal open={show} leaving={leaving} delay={0.24} className="max-w-[48ch] opacity-70">
+                        {step.text}
+                    </TextReveal>
                 </div>
             </div>
         </section>

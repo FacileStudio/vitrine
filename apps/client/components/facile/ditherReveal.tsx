@@ -18,7 +18,7 @@ export default function DitherReveal({
     delay = 0,
     duration = 0.8,
     stagger = 0.08,
-    coverClassName = "bg-background",
+    coverClassName = "bg-foreground",
     className = "",
     dither,
     children,
