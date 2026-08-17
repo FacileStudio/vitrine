@@ -1,8 +1,6 @@
 'use client'
 
-import { useLayoutEffect, useRef } from "react";
-import { run, slideY, hideRevealY } from "@/app/utils/animations";
-import BlockReveal from "@/components/facile/blockReveal";
+import TextReveal from "@/components/facile/textReveal";
 import { ARRIVE } from "@/components/facile/pageTransition";
 import { categories, type Category } from "../../lib/projects";
 
@@ -13,19 +11,12 @@ interface HeadingProps {
     onFilter?: (c: Category | null) => void;
 }
 
-// the intro copy above the shelf: the title is wiped in a line at a time by its
-// own panel, the count and the category filter still ride up out of their crops.
-// Both only appear where the shelf is filterable — the home page shows a fixed
-// handful of projects, so it passes no `onFilter` and gets neither
+// the intro copy above the shelf, revealed line by line on mount — everything here
+// holds until the arriving curtain has cleared. The count and the category filter
+// only appear where the shelf is filterable: the home page shows a fixed handful of
+// projects, so it passes no `onFilter` and gets neither
 export default function Heading({ lines, filter = null, count = 0, onFilter }: HeadingProps) {
-    const menuRefs = useRef<(HTMLSpanElement | null)[]>([]);
-
     const arrive = ARRIVE / 1000;
-
-    useLayoutEffect(() => {
-        hideRevealY(menuRefs.current);
-        run(menuRefs.current, slideY(true, false, { stagger: 0.07, duration: 0.6, delay: arrive + 0.35 }));
-    }, [arrive]);
 
     const entries: { label: string; value: Category | null }[] = [
         { label: "All", value: null },
@@ -36,30 +27,29 @@ export default function Heading({ lines, filter = null, count = 0, onFilter }: H
         <div className="relative z-10 3xl:w-[70vw] w-[80vw] pb-[12vh] flex items-start justify-between gap-12 text-white">
             <h2 className="text-start text-4xl md:text-5xl font-medium leading-tight">
                 {lines.map((line, i) => (
-                    <BlockReveal key={i} open arrive={arrive} delay={i * 0.12} className="w-fit">
+                    <TextReveal key={i} open duration={0.8} delay={arrive + i * 0.12}>
                         {line}
-                    </BlockReveal>
+                    </TextReveal>
                 ))}
             </h2>
 
             {onFilter && (
                 <nav aria-label="Filter projects" className="w-fit shrink-0">
-                    <span className="block overflow-hidden">
-                        <span
-                            ref={(el) => { menuRefs.current[0] = el; }}
-                            className="flex justify-end gap-3 w-full text-right text-md capitalize font-medium tabular-nums"
-                        >
-                            <span className="text-[#24E27A]">
-                                {String(count).padStart(2, "0")}
-                            </span>
-                            <span className="text-[#d0ebdc]">
-                                .
-                            </span>
-                            <span className="text-white">
-                                {count === 1 ? "project" : "projects"}
-                            </span>
+                    <TextReveal
+                        open
+                        delay={arrive + 0.35}
+                        className="flex justify-end gap-3 w-full text-right text-md capitalize font-medium tabular-nums"
+                    >
+                        <span className="text-[#24E27A]">
+                            {String(count).padStart(2, "0")}
                         </span>
-                    </span>
+                        <span className="text-[#d0ebdc]">
+                            .
+                        </span>
+                        <span className="text-white">
+                            {count === 1 ? "project" : "projects"}
+                        </span>
+                    </TextReveal>
 
                     <ul className="mt-6 flex overflow-hidden gap-1">
                         {entries.map((e, i) => {
@@ -67,7 +57,7 @@ export default function Heading({ lines, filter = null, count = 0, onFilter }: H
 
                             return (
                                 <li key={e.label} className="block shrink-0">
-                                    <span ref={(el) => { menuRefs.current[i + 1] = el; }} className="block">
+                                    <TextReveal open delay={arrive + 0.35 + (i + 1) * 0.07}>
                                         <button
                                             type="button"
                                             onClick={() => onFilter(e.value)}
@@ -76,7 +66,7 @@ export default function Heading({ lines, filter = null, count = 0, onFilter }: H
                                         >
                                             {e.label}
                                         </button>
-                                    </span>
+                                    </TextReveal>
                                 </li>
                             );
                         })}

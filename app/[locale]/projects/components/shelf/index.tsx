@@ -60,12 +60,6 @@ export default function Shelf({
 
     const mounted = useRef(0);
 
-    // a card mounted with the page has to let the arriving curtain clear before its
-    // panels wipe the copy in; cards remounted by a filter have nothing to wait for,
-    // and a filter click is the only thing that ever remounts them
-    const [filtered, setFiltered] = useState(false);
-    const arrive = filtered ? 0 : ARRIVE / 1000;
-
     // every ref array is indexed against the rendered list, so a filter change
     // drops them all and the remounted cards fill them back in
     const applyFilter = (c: Category | null) => {
@@ -76,7 +70,6 @@ export default function Shelf({
         entryRefs.current = [];
         imgRefs.current = [];
         contentRefs.current = [];
-        setFiltered(true);
         setFilter(c);
     };
 
@@ -195,7 +188,6 @@ export default function Shelf({
                         project={p}
                         index={i}
                         refs={refs}
-                        arrive={arrive}
                         onOpen={open}
                         onEnter={onEnter}
                         onLeave={onLeave}

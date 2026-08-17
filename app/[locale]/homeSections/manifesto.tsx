@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import Link from "@/components/facile/transitionLink";
 import Stripes from "@/components/facile/stripes";
-import BlockReveal from "@/components/facile/blockReveal";
+import TextReveal from "@/components/facile/textReveal";
 import { usePinProgress } from "@/hooks/use-pin-progress";
 
 const DitherView = dynamic(() => import("@/webgl/DitherView").then((m) => m.DitherView), { ssr: false });
@@ -53,30 +53,26 @@ export default function Manifesto() {
                 <div className="absolute inset-0 z-50 flex flex-col items-center justify-center px-6 text-center pointer-events-none">
                     <h2 className="max-w-3xl text-4xl md:text-5xl font-medium leading-tight text-foreground/80">
                         {["We are creators building", "stunning and memorable", "experiences."].map((line, i) => (
-                            <BlockReveal key={i} open={showText && !leaving} blockColor="light" duration={0.8} delay={i * 0.1}>
-                                <span className="block">
-                                    {line}
-                                </span>
-                            </BlockReveal>
+                            <TextReveal key={i} open={showText} leaving={leaving} delay={i * 0.2}>
+                                {line}
+                            </TextReveal>
                         ))}
                     </h2>
-                    <BlockReveal open={showCta && !leaving} blockColor="light" duration={0.7} delay={0.5} className="w-fit mt-10">
+                    <TextReveal open={showCta} leaving={leaving} duration={0.7} delay={0.5} cropClassName="w-fit mt-10">
                         <Link
                             href="/projects"
                             className="inline-block px-8 py-5 text-md font-medium rounded-full bg-background/50 text-foreground"
                         >
                             Voir nos projets
                         </Link>
-                    </BlockReveal>
+                    </TextReveal>
                 </div>
 
                 <div className="absolute bottom-0 left-0 flex w-full items-end justify-between px-48 pb-12 pointer-events-none text-md font-medium text-foreground">
                     {["Branding", "Web - UI/UX design", "Showcase Websites", "Applications", "DevOps", "Self hosting"].map((entry, i) => (
-                        <BlockReveal key={i} open={showText && !leaving} blockColor="light" duration={0.8} delay={i * 0.05}>
-                            <span className="block">
-                                {entry}
-                            </span>
-                        </BlockReveal>
+                        <TextReveal key={i} open={showText} leaving={leaving} delay={i * 0.1}>
+                            {entry}
+                        </TextReveal>
                     ))}
                 </div>
             </div>

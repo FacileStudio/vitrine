@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { useScroll } from "@/hooks/use-scroll";
-import BlockReveal from "@/components/facile/blockReveal";
+import TextReveal from "@/components/facile/textReveal";
 import { Button } from "@/components/facile/button";
 import { links, CONTACT } from "@/components/facile/menu";
 
@@ -25,7 +25,7 @@ export default function Footer() {
 
     return (
         <section ref={sectionRef} id="contact" className="relative w-full bg-foreground text-white/80 py-24 px-12 md:px-20">
-            <BlockReveal open={show} blockColor="dark" duration={0.6} className="block">
+            <TextReveal open={show}>
                 <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
                     <h2 className="max-w-[16ch] text-4xl md:text-6xl font-medium text-white">{t("footer.buildTogether")}</h2>
                     <div className="flex gap-4 shrink-0">
@@ -38,9 +38,9 @@ export default function Footer() {
                         </a>
                     </div>
                 </div>
-            </BlockReveal>
+            </TextReveal>
 
-            <BlockReveal open={show} blockColor="dark" duration={0.6} delay={0.1} className="block mt-20">
+            <TextReveal open={show} delay={0.1} cropClassName="mt-20">
                 <div className="flex flex-wrap gap-x-16 gap-y-10">
                     {links.map((link) => (
                         <div key={link.href} className="flex w-32 flex-col items-start">
@@ -65,9 +65,9 @@ export default function Footer() {
                         </div>
                     ))}
                 </div>
-            </BlockReveal>
+            </TextReveal>
 
-            <BlockReveal open={show} blockColor="dark" duration={0.6} delay={0.2} className="block mt-20">
+            <TextReveal open={show} delay={0.2} cropClassName="mt-20">
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 border-t border-white/10 pt-8">
                     <div className="flex flex-wrap items-center gap-x-8 gap-y-2 text-sm md:text-base">
                         <a href={`mailto:${CONTACT.email}`} className="transition-colors hover:text-white">{CONTACT.email}</a>
@@ -83,7 +83,7 @@ export default function Footer() {
                     </div>
                     <p className="text-sm text-white/40">{t("footer.madeBy")}</p>
                 </div>
-            </BlockReveal>
+            </TextReveal>
         </section>
     );
 }
