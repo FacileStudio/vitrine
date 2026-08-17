@@ -1,0 +1,79 @@
+<script lang="ts">
+  import { onMount, onDestroy } from 'svelte';
+  import type * as Leaflet from 'leaflet';
+  import 'leaflet/dist/leaflet.css';
+
+  export let lat = 48.8566;
+  export let lon = 2.3522;
+  export let zoom = 13;
+  export let height = '400px';
+  export let markers: Array<{ lat: number; lon: number; label?: string }> = [];
+
+  let mapElement: HTMLDivElement;
+  let map: Leaflet.Map | null = null;
+  let L: typeof import('leaflet') | null = null;
+  let markerLayers: Leaflet.Marker[] = [];
+
+  async function initMap() {
+    const leaflet = await import('leaflet');
+    L = leaflet;
+
+    delete (L.Icon.Default.prototype as { _getIconUrl?: unknown })._getIconUrl;
+    L.Icon.Default.mergeOptions({
+      iconRetinaUrl:
+        'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
+      iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+    });
+
+    map = L.map(mapElement).setView([lat, lon], zoom);
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '©OpenStreetMap',
+    }).addTo(map);
+
+    updateMarkers();
+  }
+
+  function updateMarkers() {
+    if (!map || !L) return;
+    const currentMap = map;
+    const leaflet = L;
+    markerLayers.forEach((m) => m.remove());
+    markerLayers = [];
+
+    markers.forEach((p) => {
+      const m = leaflet.marker([p.lat, p.lon]).addTo(currentMap);
+      if (p.label) m.bindPopup(p.label);
+      markerLayers.push(m);
+    });
+  }
+
+  onMount(() => {
+    if (typeof window !== 'undefined') {
+      void initMap();
+    }
+  });
+
+  onDestroy(() => {
+    map?.remove();
+  });
+
+  $: if (map && L) {
+    markers;
+    updateMarkers();
+    map.setView([lat, lon], zoom);
+  }
+</script>
+
+<div
+  bind:this={mapElement}
+  class="w-full rounded overflow-hidden border border-slate-100 bg-slate-50"
+  style="height: {height};"
+>
+  {#if !map}
+    <div class="flex h-full w-full items-center justify-center text-slate-400">
+      Chargement de la carte...
+    </div>
+  {/if}
+</div>

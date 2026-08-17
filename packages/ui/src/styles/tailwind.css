@@ -1,0 +1,25 @@
+@import "tailwindcss";
+@import "@fontsource/poppins/400.css";
+@import "@fontsource/poppins/600.css";
+@import "@fontsource/poppins/700.css";
+@import "./satoshi.css";
+
+@source "../../../apps/**/src/**/*.{svelte,ts,js}";
+@source "../../ui/src/**/*.{svelte,ts,js}";
+
+@theme {
+  --font-sans: 'Satoshi', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-heading: 'Poppins', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+}

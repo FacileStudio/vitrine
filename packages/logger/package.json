@@ -1,0 +1,36 @@
+{
+  "name": "@repo/logger",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "browser": {
+        "types": "./src/client.ts",
+        "default": "./src/client.ts"
+      },
+      "bun": {
+        "types": "./src/server.ts",
+        "default": "./src/server.ts"
+      },
+      "node": {
+        "types": "./src/server.ts",
+        "default": "./src/server.ts"
+      },
+      "types": "./src/server.ts",
+      "default": "./src/server.ts"
+    }
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "pino": "^9.6.0"
+  },
+  "devDependencies": {
+    "@logtail/pino": "^0.5.0",
+    "@repo/tsconfig": "workspace:*",
+    "pino-pretty": "^13.0.0",
+    "typescript": "^5.7.3"
+  }
+}

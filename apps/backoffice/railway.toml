@@ -1,0 +1,9 @@
+[build]
+builder = "dockerfile"
+dockerfilePath = "apps/backoffice/Dockerfile"
+watchPaths = ["apps/backoffice/**", "packages/**"]
+
+[deploy]
+startCommand = "bun run apps/backoffice/build"
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 10

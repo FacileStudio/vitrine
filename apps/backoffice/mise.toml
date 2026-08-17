@@ -1,0 +1,37 @@
+[env]
+_.file = ".env"
+
+[tasks.dev]
+description = "Start the backoffice dev server"
+depends = ["//:install"]
+run = 'PATH="$NODE_BIN_DIR:$PATH" "$BUN_BIN" run dev'
+
+[tasks.build]
+description = "Build the backoffice app"
+depends = ["//:install"]
+run = 'PATH="$NODE_BIN_DIR:$PATH" "$BUN_BIN" run build'
+
+[tasks.preview]
+description = "Preview the backoffice build"
+depends = ["//:install"]
+run = 'PATH="$NODE_BIN_DIR:$PATH" "$BUN_BIN" run preview'
+
+[tasks.check]
+description = "Run the backoffice Svelte checks"
+depends = ["//:install"]
+run = 'PATH="$NODE_BIN_DIR:$PATH" "$BUN_BIN" run check'
+
+[tasks.typecheck]
+description = "Typecheck the backoffice app"
+depends = ["//:install"]
+run = 'PATH="$NODE_BIN_DIR:$PATH" "$BUN_BIN" run typecheck'
+
+[tasks.lint]
+description = "Lint the backoffice app"
+depends = ["//:install"]
+run = 'PATH="$NODE_BIN_DIR:$PATH" "$BUN_BIN" run lint'
+
+[tasks."check-env"]
+description = "Validate backoffice environment variables"
+depends = ["//:install"]
+run = 'PATH="$NODE_BIN_DIR:$PATH" "$BUN_BIN" run check-env'
