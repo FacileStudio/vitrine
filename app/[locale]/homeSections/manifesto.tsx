@@ -32,17 +32,18 @@ export default function Manifesto() {
             <div className="sticky top-0 z-20 h-screen w-full overflow-hidden">
 
                 <DitherView
-                    className="absolute top-0 left-0 w-full h-full z-0 opacity-33"
+                    className="absolute top-0 left-0 w-full h-full z-0 opacity-50"
                     background="#E4EEE8"
                     highlight="#24E27A"
                     grayscaleOnly={false}
                     intensity={1.8}
                     parallax={0.7}
+                    scale={1.6}
                     gridSize={showText ? 2 : 9}
                     file="/models/manifesto.glb"
                     models={[
-                        { file: "/models/manifesto.glb", position: [-3, 0.5, 0.5] },
-                        { file: "/models/manifesto.glb", position: [3, -2, 0.5] },
+                        { file: "/models/manifesto.glb", position: [-2.5, 0.5, 2] },
+                        { file: "/models/manifesto.glb", position: [2, -2.5, 2] },
                     ]}
                 />
 
