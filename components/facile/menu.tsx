@@ -27,8 +27,8 @@ const DitherView = dynamic(() => import("@/webgl/DitherView").then((m) => m.Dith
 
 export type SubLink = { href: string; label: string; external?: boolean };
 export type NavLink = { href: string; label: string; secondary?: SubLink[] };
-const MENU_PROJECTS = 4;
-const MENU_SUITE = 4;
+const MENU_PROJECTS = allProjects.length;
+const MENU_SUITE = 0;
 
 export const links: NavLink[] = [
     { href: '/', label: 'Home' },
