@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useState } from "react";
-import BlockReveal from "@/components/facile/blockReveal";
+import TextReveal from "@/components/facile/textReveal";
 import { useScroll } from "@/hooks/use-scroll";
 
 const icons = [
@@ -39,10 +39,14 @@ export default function Friends({ id = "friends" }: { id?: string }) {
 
     return (
         <section ref={sectionRef} id={id} className="relative w-full py-24 overflow-visible">
-            <BlockReveal open={showIcons} blockColor="light" duration={0.8} className="px-60 block">
-                <h2 className="text-5xl font-bold">They trusted us</h2>
-                <div className="text-lg opacity-66 mt-4 max-w-[40ch]">Our clients let us the lead on projects they held close to their hearts</div>
-            </BlockReveal>
+            <div className="px-60">
+                <h2 className="text-5xl font-bold">
+                    <TextReveal open={showIcons}>They trusted us</TextReveal>
+                </h2>
+                <TextReveal open={showIcons} delay={0.1} cropClassName="mt-4" className="text-lg opacity-66 max-w-[40ch]">
+                    Our clients let us the lead on projects they held close to their hearts
+                </TextReveal>
+            </div>
 
             <div className="mt-16 w-full overflow-hidden">
                 <div ref={trackRef} className="flex w-max items-center gap-[2px] animate-marquee-left">

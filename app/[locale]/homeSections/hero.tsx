@@ -3,14 +3,12 @@
 import dynamic from "next/dynamic";
 import Link from "@/components/facile/transitionLink";
 import { useEffect, useRef, useState } from "react";
-import { run, slideY, fade, hideRevealY, hideFade } from "@/app/utils/animations";
+import { run, fade, hideFade } from "@/app/utils/animations";
 import { usePinProgress } from "@/hooks/use-pin-progress";
-import BlockReveal from "@/components/facile/blockReveal";
+import TextReveal from "@/components/facile/textReveal";
 import members from "../studio/studio.json";
 
 const DitherView = dynamic(() => import("@/webgl/DitherView").then((m) => m.DitherView), { ssr: false });
-
-const SERVICES = ["Branding", "Web design", "Développement", "3D"];
 
 const DESIGNERS = members.filter((m) => m.role.includes("Designer"));
 const DEVELOPERS = members.filter((m) => m.role.includes("Developer"));
@@ -53,8 +51,6 @@ function TeamReveal({ hovered, label, team }: { hovered: boolean; label: string;
 
 export default function Hero({ charged }: { charged: boolean }) {
     const sectionRef = useRef<HTMLElement>(null);
-    const lineRefs = useRef<(HTMLElement | null)[]>([]);
-    const pillRefs = useRef<(HTMLElement | null)[]>([]);
     const ctaRef = useRef<HTMLAnchorElement>(null);
     const [showText, setShowText] = useState(false);
     const [leaving, setLeaving] = useState(false);
@@ -76,23 +72,25 @@ export default function Hero({ charged }: { charged: boolean }) {
         setShowText(!leaving);
     });
 
+    // nothing rises before the dither grid has charged, and the whole headline
+    // rides the same flag afterwards
+    const shown = showText && charged;
+
 
 
     useEffect(() => {
-        hideRevealY([...lineRefs.current, ...pillRefs.current]);
         hideFade([ctaRef.current]);
     }, []);
 
 
 
+    // the copy rides up out of its own crops now, so only the CTA is left to fade
     useEffect(() => {
         if (!charged)
             return;
 
-        run(lineRefs.current, slideY(showText, leaving, { stagger: 0.1, delay: 1 }));
-        run(pillRefs.current, slideY(showText, leaving, { stagger: 0.06, delay: 1.3 }));
-        run([ctaRef.current], fade(showText, { delay: 1.6 }));
-    }, [showText, leaving, charged]);
+        run([ctaRef.current], fade(shown, { delay: 1.6 }));
+    }, [shown, charged]);
 
     return (
         <section id="hero" ref={sectionRef} className="h-screen w-full relative isolate bg-foreground text-background">
@@ -121,23 +119,21 @@ export default function Hero({ charged }: { charged: boolean }) {
                     onMouseLeave={() => setTeamHover(false)}
                 >
                     <h1 className="flex flex-col text-left max-w-full text-[clamp(1.5rem,4.4vh,3.75rem)] leading-[1.15] font-medium gap-6">
-                        <BlockReveal open={showText} blockColor="light" duration={0.8}>
-                            <span className="block flex justify-between items-center gap-6"><span className="opacity-70">Quand</span> <span className="text-end"><TeamReveal hovered={teamHover} label="2 bons designers" team={DESIGNERS} /></span></span>
-                        </BlockReveal>
-                        <BlockReveal open={showText} blockColor="light" duration={0.8} delay={0.1}>
-                            <span className="block flex justify-between items-center gap-6"><span className="opacity-70">rencontrent</span> <span className="text-end"><TeamReveal hovered={teamHover} label="2 bons développeurs" team={DEVELOPERS} /></span><span>.</span></span>
-                        </BlockReveal>
+                        <TextReveal open={shown} leaving={leaving} delay={1.2} className="flex justify-between items-center gap-6">
+                            <span className="opacity-70">Quand</span> <span className="text-end"><TeamReveal hovered={teamHover} label="2 bons designers" team={DESIGNERS} /></span>
+                        </TextReveal>
+                        <TextReveal open={shown} leaving={leaving} delay={1.3} className="flex justify-between items-center gap-6">
+                            <span className="opacity-70">rencontrent</span> <span className="text-end"><TeamReveal hovered={teamHover} label="2 bons développeurs" team={DEVELOPERS} /></span><span>.</span>
+                        </TextReveal>
                     </h1>
 
                     <div className=" flex flex-col justify-end text-end gap-3">
-                        <span className="block overflow-hidden">
-                            <div ref={(el) => { lineRefs.current[0] = el; }} className="text-lg text-[#24E27A]">[fasil]</div>
-                        </span>
-                        <span className="block overflow-hidden">
-                            <div ref={(el) => { lineRefs.current[1] = el; }} className="max-w-[36ch] text-[clamp(0.7rem,1.5vh,0.95rem)] font-medium text-background/60">
-                                Qui se fait sans effort, qui ne présente aucune difficulté. Simple, aisé, etc&hellip;
-                            </div>
-                        </span>
+                        <TextReveal open={shown} leaving={leaving} delay={1} className="text-lg text-[#24E27A]">
+                            [fasil]
+                        </TextReveal>
+                        <TextReveal open={shown} leaving={leaving} delay={1.1} className="max-w-[36ch] text-[clamp(0.7rem,1.5vh,0.95rem)] font-medium text-background/60">
+                            Qui se fait sans effort, qui ne présente aucune difficulté. Simple, aisé, etc&hellip;
+                        </TextReveal>
                     </div>
 
                     <span className="block w-fit overflow-hidden">
@@ -157,19 +153,16 @@ export default function Hero({ charged }: { charged: boolean }) {
 
                 {/* wordmark, bottom-right */}
                 <div className="flex flex-col items-start px-20 lg:items-end justify-end gap-6">
-                    <span className="block overflow-hidden mr-8">
+                    <TextReveal open={shown} leaving={leaving} delay={1.4} cropClassName="mr-8">
                         <img
-                            ref={(el) => { lineRefs.current[4] = el; }}
                             src="/Facile.svg"
                             alt="Facile Logo"
                             className="w-auto aspect-auto h-[25vh] invert"
                         />
-                    </span>
-                    <span className="block overflow-hidden">
-                        <span ref={(el) => { lineRefs.current[5] = el; }} className="block text-[clamp(1.5rem,4.5vh,3.75rem)] font-medium leading-none">
-                            Studio
-                        </span>
-                    </span>
+                    </TextReveal>
+                    <TextReveal open={shown} leaving={leaving} delay={1.5} className="text-[clamp(1.5rem,4.5vh,3.75rem)] font-medium leading-none">
+                        Studio
+                    </TextReveal>
                 </div>
             </div>
         </section>
