@@ -1,0 +1,32 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["**/.env.*local"],
+  "tasks": {
+    "check-env": {
+      "cache": false,
+      "inputs": ["**/.env*", "src/env.ts", "src/lib/env.ts"]
+    },
+    "build": {
+      "dependsOn": ["^build", "check-env"],
+      "outputs": [".next/**", "!.next/cache/**", "dist/**", ".svelte-kit/**"]
+    },
+    "@repo/ui#build": {
+      "outputs": []
+    },
+    "dev": {
+      "dependsOn": ["check-env"],
+      "cache": false,
+      "persistent": true
+    },
+    "lint": {
+      "dependsOn": ["^lint"]
+    },
+    "typecheck": {
+      "dependsOn": ["^typecheck"],
+      "outputs": []
+    },
+    "clean": {
+      "cache": false
+    }
+  }
+}
