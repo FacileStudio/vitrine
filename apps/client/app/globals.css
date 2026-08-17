@@ -49,11 +49,17 @@
 :root {
     --background: #E4EEE8;
     --foreground: #111111;
+    /* the brand green, and the same hue darkened until it is readable as text on
+       the light canvas — one is a fill, the other is ink */
+    --accent: #24E27A;
+    --accent-ink: #0A7F42;
 }
 
 @theme inline {
     --color-background: var(--background);
     --color-foreground: var(--foreground);
+    --color-accent: var(--accent);
+    --color-accent-ink: var(--accent-ink);
     --font-goga: "Goga", sans-serif;
     --font-bb-mono: "BB Manual Mono", ui-monospace, monospace;
     /* `3xl:` variant — applies from really big screens (2560px), matching the

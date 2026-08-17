@@ -11,7 +11,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const { locale } = await params;
     const validLocale = locales.includes(locale as Locale) ? locale as Locale : "en";
 
-    const description = "The Facile Studio product suite — Capsule, Opus, Glouton and Marcel. Tools we design, build, and run in-house.";
+    const description = "The Facile Studio product suite — Opus, Sablier, Capsule, Nuage, Perception and the rest. Fifteen tools we design, build, and run in-house, wired together by Antenne and dressed by Muse.";
 
     return {
         ...baseMetadata,

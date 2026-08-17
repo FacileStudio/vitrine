@@ -5,7 +5,7 @@ import Link from "@/components/facile/transitionLink";
 
 // sections still light against the dark site — the header switches to dark
 // text over these, and stays light everywhere else
-const LIGHT_SECTIONS = ["manifesto"];
+const LIGHT_SECTIONS = ["manifesto", "suite-shelf"];
 
 export const DesktopHeader =({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
     const [onLight, setOnLight] = React.useState(false);

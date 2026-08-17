@@ -1,62 +1,39 @@
 'use client'
 
-import React from "react";
+import React, { useState } from "react"
+import { ReactLenis, type LenisRef } from "lenis/react";
+import { useTranslations } from "next-intl";
 import PageCurtain from "@/components/facile/pageTransition";
-import { useTranslations } from 'next-intl';
-import data from "../projects/projects.json";
+import Header from "@/components/facile/header";
+import Menu from "@/components/facile/menu";
+import Shelf from "./components/shelf";
 
-const productSlugs = ["capsule", "opus", "glouton", "marcel"];
-
+// the projects page, printed instead of lit: same shell, same curtain, the light
+// tone on every layer that carries one
 export default function SuitePage() {
-    const t = useTranslations('suite');
-    const common = useTranslations('common');
+    const t = useTranslations("suite");
+    const [menuOpen, setMenuOpen] = useState(false);
+    const lenisRef = React.useRef<LenisRef>(null);
 
-    const openContactModal = React.useCallback(() => {
-        window.dispatchEvent(new Event("facile:open-contact-modal"));
-    }, []);
-
-    const products = productSlugs
-        .map((slug) => data.find((p) => p.slug === slug))
-        .filter((p): p is NonNullable<typeof p> => p !== undefined);
+    // same lock as the projects page: the menu owns the viewport while it is open
+    React.useEffect(() => {
+        const lenis = lenisRef.current?.lenis;
+        if (!lenis) return;
+        if (menuOpen) lenis.stop();
+        else lenis.start();
+    }, [menuOpen]);
 
     return (
-        <main>
-            <PageCurtain enter="dark" leave="dark" />
+        <div className="relative min-h-screen w-full bg-background text-foreground">
+            <ReactLenis ref={lenisRef} root options={{ lerp: 0.1, smoothWheel: true }} />
 
-            <section>
-                <h1>{t('title')}</h1>
-                <p>{t('subtitle')}</p>
-            </section>
+            <PageCurtain enter="light" leave="light" />
 
-            <section>
-                <div>
-                    {products.map((product) => (
-                        <div key={product.slug}>
-                            <h2>{product.name}</h2>
-                            <p>{t(`products.${product.slug}.tagline`)}</p>
-                            <p>{t(`products.${product.slug}.description`)}</p>
-                            <div>
-                                {product.techStack?.map((tech) => (
-                                    <span key={tech}>{tech}</span>
-                                ))}
-                            </div>
-                            {product.link && (
-                                <a href={product.link} target="_blank" rel="noopener noreferrer" aria-label={`${product.name} ${t('visit')}`}>
-                                    {t('visit')}
-                                </a>
-                            )}
-                        </div>
-                    ))}
-                </div>
-            </section>
+            <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 
-            <section>
-                <h2>{t('cta.headline')}</h2>
-                <p>{t('cta.text')}</p>
-                <button type="button" onClick={openContactModal}>
-                    {common('header.contactUs')}
-                </button>
-            </section>
-        </main>
-    );
+            <Shelf eyebrow={t("title")} lines={[t("subtitle")]} />
+
+            <Menu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+        </div>
+    )
 }

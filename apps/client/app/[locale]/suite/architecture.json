@@ -1,0 +1,47 @@
+{
+    "kicker": "How the suite works",
+    "title": "Twenty-two apps, one machine.",
+    "sections": [
+        {
+            "heading": "The premise",
+            "body": [
+                "Every app on this page is a product in its own right. You can run Sablier and never touch Opus, keep Capsule and ignore the rest. Nothing here is a module of something else, and nothing stops working because you did not buy the neighbour.",
+                "But they were all built by the same hands, in the same shape, against the same conventions — and the moment two of them are running side by side, they start behaving like one system. What follows is how that is done, because it is the only interesting part."
+            ]
+        },
+        {
+            "heading": "Antenne — the nervous system",
+            "body": [
+                "The apps do not talk to each other. Not once, not anywhere. Each one talks to Antenne, and Antenne talks to everyone — one integration per app, forever, instead of the twenty-two-times-twenty-one mesh that would otherwise be waiting for us.",
+                "Antenne is a durable event bus: a WebSocket connection over an offset-based queue in Postgres. An app registers with a shared secret, subscribes to the channels it cares about, and reads from where it left off. If it goes down for a day it comes back and replays what it missed. Retention is by interest rather than by clock — an event stays until every listener has acknowledged it.",
+                "What travels on the wire is a canonical envelope, never an app's private shape. A project is a project, a task is a task, and every synced object carries a facile_id minted by the app that created it. That single identifier is what lets Sablier's integers and Opus's strings describe the same piece of work. The app where a thing was born owns it; everyone else defers.",
+                "Antenne's other half is monitoring. It watches sites, inboxes, feeds, deploy hooks and CI runs, and routes what they emit to Matrix, Discord, mail, push or a signed webhook. Nothing is routed by default: a target receives silence until it names what it wants to hear."
+            ]
+        },
+        {
+            "heading": "Muse — one visual language",
+            "body": [
+                "Every interface in the suite is drawn from Muse, our component library: layout primitives, atoms, molecules, organisms and charts, plus the token layer they all read from. Two apps built a year apart still look like siblings, because neither of them ever chose a colour.",
+                "That is enforced rather than encouraged. The token layer clears Tailwind's stock palette outright, so an off-system colour does not merely look wrong — it produces no CSS at all. Chroma is reserved for meaning: the chrome of every app is greyscale, and saturation is spent only on status, roles and data. Contrast is derived, not eyeballed; each tone is tuned until it clears its ratio in both light and dark.",
+                "Apps pin Muse by git tag and consume it as source. Upgrading is a deliberate act with a version attached to it, which is why the suite can share a face without sharing a release train."
+            ]
+        },
+        {
+            "heading": "One shape, repeated",
+            "body": [
+                "The canonical app is a Go API — chi, Postgres, migrations embedded in the binary — serving a SvelteKit client built with Svelte 5 and Tailwind, from the same origin and the same port. One binary, one container, one route in the proxy. A deployment has no moving parts to forget.",
+                "Authentication is the same door everywhere: a single identity provider, OIDC, one login that federates to every tool you have installed. Secrets are injected into the process at run time and never written to a file. Logs go to Journal, alerts to Antenne, files to Nuage.",
+                "The plumbing itself is shared as versioned modules rather than copied: the HTTP chassis, the auth kit, the mailer, the payment adapter, the event types. The rule is simple and unsentimental — the third time something is pasted, it becomes a package. Copy-paste is not a distribution mechanism."
+            ]
+        },
+        {
+            "heading": "Not one repository — one grammar",
+            "body": [
+                "There is no giant monorepo holding the suite. Each app is its own repository, internally split the same way every time, with the same task runner, the same compose file and the same conventions in the same places. Open any of them and you already know where you are.",
+                "The client work we do is the monorepo half of the story: a Turborepo workspace with shared packages for auth, database, mail, storage, payments, i18n and UI, which is what this very site is built from. Same components, same discipline, different assembly.",
+                "The two halves feed each other. Anything we needed twice for a client became a package; anything a suite app proved in production became the default for the next project."
+            ]
+        }
+    ],
+    "footer": "Designed, built and run by Fanga at Facile Studio."
+}
