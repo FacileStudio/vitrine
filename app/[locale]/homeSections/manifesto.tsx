@@ -39,10 +39,10 @@ export default function Manifesto() {
                     intensity={1.8}
                     parallax={0.7}
                     gridSize={showText ? 2 : 9}
-                    scale={6}
                     file="/models/manifesto.glb"
                     models={[
-                        { file: "/models/manifesto.glb", position: [0, 0.5, 0], scale: 7, rotation: [0, 0, -Math.PI / 4] },
+                        { file: "/models/manifesto.glb", position: [-3, 0.5, 0.5] },
+                        { file: "/models/manifesto.glb", position: [3, -2, 0.5] },
                     ]}
                 />
 
