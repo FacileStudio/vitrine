@@ -222,7 +222,7 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
                                             href={sub.external ? sub.href : withLocale(sub.href)}
                                             onClick={(e) => { if (!sub.external) go(e, withLocale(sub.href)); }}
                                             {...(sub.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                                            className="block text-sm md:text-md 3xl:text-lg text-white/45 transition-colors hover:text-white/90"
+                                            className="block font-bb-mono font-medium capitalize text-sm md:text-md 3xl:text-lg text-white/45 transition-colors hover:text-white/90"
                                         >
                                             {sub.label}
                                         </a>
