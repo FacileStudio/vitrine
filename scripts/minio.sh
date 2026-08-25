@@ -15,4 +15,4 @@ mkdir -p "$data_dir"
 exec env \
   MINIO_ROOT_USER="$root_user" \
   MINIO_ROOT_PASSWORD="$root_password" \
-  "$(mise which minio)" server "$data_dir" --address "$address" --console-address "$console_address"
+  minio server "$data_dir" --address "$address" --console-address "$console_address"

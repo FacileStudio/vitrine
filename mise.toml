@@ -10,9 +10,6 @@ config_roots = ["apps/*"]
 [tools]
 bun = "1.2.0"
 node = "22.22.1"
-"asdf:mise-plugins/mise-postgres" = "14.22"
-"asdf:mise-plugins/mise-minio" = "2025-09-07T16-13-09Z"
-"aqua:minio/mc" = "RELEASE.2025-08-13T08-35-41Z"
 
 [env]
 BUN_BIN = { value = "{{tools.bun.path}}/bin/bun", tools = true }
@@ -64,16 +61,20 @@ run = 'PATH="$NODE_BIN_DIR:$PATH" "$BUN_BIN" run clean'
 
 [tasks."db:up"]
 description = "Start the repo-local Postgres dev database and sync DATABASE_URL"
+tools = { "asdf:mise-plugins/mise-postgres" = "14.22" }
 run = "./scripts/db-up.sh"
 
 [tasks."db:down"]
 description = "Stop the repo-local Postgres dev database"
+tools = { "asdf:mise-plugins/mise-postgres" = "14.22" }
 run = "./scripts/db-down.sh"
 
 [tasks.minio]
 description = "Start the repo-local MinIO server"
+tools = { "asdf:mise-plugins/mise-minio" = "2025-09-07T16-13-09Z" }
 run = "./scripts/minio.sh"
 
 [tasks."minio:config"]
 description = "Configure the repo-local MinIO instance and bucket"
+tools = { "aqua:minio/mc" = "RELEASE.2025-08-13T08-35-41Z" }
 run = "./scripts/minio-config.sh"
