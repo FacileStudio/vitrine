@@ -140,11 +140,19 @@
                     },
                     {
                         "type": "col",
-                        "media": [7, 8, 9]
+                        "media": [
+                            7,
+                            8,
+                            9
+                        ]
                     },
                     {
                         "type": "col",
-                        "media": [10, 11, 12]
+                        "media": [
+                            10,
+                            11,
+                            12
+                        ]
                     }
                 ]
             },
@@ -153,7 +161,6 @@
                     {
                         "type": "end"
                     }
-                    
                 ]
             }
         ]
@@ -207,8 +214,12 @@
         "story": [
             {
                 "blocks": [
-                    { "type": "cover" },
-                    { "type": "intro" }
+                    {
+                        "type": "cover"
+                    },
+                    {
+                        "type": "intro"
+                    }
                 ]
             },
             {
@@ -218,16 +229,27 @@
                         "type": "note",
                         "title": "Ideation",
                         "text": "The starting point wasn't a soldier or a spaceship, it was the energy itself: a mark that reads as scavenged alien tech first, game logo second.",
-                        "media": [0]
+                        "media": [
+                            0
+                        ]
                     },
                     {
                         "type": "big",
-                        "media": [1, 2, 3],
+                        "media": [
+                            1,
+                            2,
+                            3
+                        ],
                         "smalls": "top"
                     },
                     {
                         "type": "collage",
-                        "media": [12, 13, 14, 15]
+                        "media": [
+                            12,
+                            13,
+                            14,
+                            15
+                        ]
                     }
                 ]
             },
@@ -238,16 +260,40 @@
                         "type": "note",
                         "title": "Graphic Chart",
                         "text": "Every surface — site, shop, battle pass, marketing — draws from the same ancient-energy blue, so the world never breaks character switching from screenshot to Instagram post.",
-                        "media": [4]
+                        "media": [
+                            4
+                        ]
                     },
                     {
                         "type": "palette",
                         "swatches": [
-                            { "label": "Background", "hex": "#121219" },
-                            { "label": "Component", "hex": "#181920", "note": "#E8EEFF (opacity 3%) — informations & titles" },
-                            { "label": "Titre H1 Dégradé", "hex": "linear-gradient(135deg, #B4C3F0 0%, #7B8FD6 100%)", "note": "Gradient: #B4C3F0 → #7B8FD6", "textColor": "#0E0F10", "rgb": "—", "hsv": "—", "cmyk": "—" },
-                            { "label": "Text", "hex": "#E8EEFF" },
-                            { "label": "Sous Text", "hex": "#7D808C", "note": "#E8EEFF (opacity 50%) — minor informations" }
+                            {
+                                "label": "Background",
+                                "hex": "#121219"
+                            },
+                            {
+                                "label": "Component",
+                                "hex": "#181920",
+                                "note": "#E8EEFF (opacity 3%) — informations & titles"
+                            },
+                            {
+                                "label": "Titre H1 Dégradé",
+                                "hex": "linear-gradient(135deg, #B4C3F0 0%, #7B8FD6 100%)",
+                                "note": "Gradient: #B4C3F0 → #7B8FD6",
+                                "textColor": "#0E0F10",
+                                "rgb": "—",
+                                "hsv": "—",
+                                "cmyk": "—"
+                            },
+                            {
+                                "label": "Text",
+                                "hex": "#E8EEFF"
+                            },
+                            {
+                                "label": "Sous Text",
+                                "hex": "#7D808C",
+                                "note": "#E8EEFF (opacity 50%) — minor informations"
+                            }
                         ]
                     },
                     {
@@ -261,7 +307,9 @@
                     },
                     {
                         "type": "full",
-                        "media": [5]
+                        "media": [
+                            5
+                        ]
                     }
                 ]
             },
@@ -272,17 +320,27 @@
                         "type": "note",
                         "title": "Web Design",
                         "text": "Showcase site, shop and chapter (battle pass) info page, all built as one continuum — the same blue glow escalates as you move from lore to loot.",
-                        "media": [6]
+                        "media": [
+                            6
+                        ]
                     },
                     {
                         "type": "mosaic",
-                        "media": [7, 8, 9, 10, 11]
+                        "media": [
+                            7,
+                            8,
+                            9,
+                            10,
+                            11
+                        ]
                     }
                 ]
             },
             {
                 "blocks": [
-                    { "type": "end" }
+                    {
+                        "type": "end"
+                    }
                 ]
             }
         ]
@@ -762,6 +820,80 @@
                         "media": [
                             4
                         ]
+                    }
+                ]
+            },
+            {
+                "blocks": [
+                    {
+                        "type": "end"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "slug": "muse",
+        "name": "Muse",
+        "weeks": 6,
+        "link": "https://github.com/FacileStudio",
+        "description": "The web component library behind the Suite: one set of Svelte components, tokens and motion rules that every studio tool is built from.",
+        "techStack": [
+            "Svelte",
+            "TypeScript",
+            "Tailwind",
+            "Vite"
+        ],
+        "image": "/images/projects/Muse.webp",
+        "date": "2026",
+        "challenge": "Fifteen tools that had to look like one product without fifteen teams re-solving the same button.",
+        "services": [
+            "Design system",
+            "Frontend development"
+        ],
+        "team": [
+            "yann",
+            "noah",
+            "camille",
+            "mazouz"
+        ],
+        "notes": [
+            "A shared library only pays off if using it is faster than writing the component again, so the API came before the styling."
+        ],
+        "gallery": [
+            "https://picsum.photos/seed/muse-a/1800/1000",
+            "https://picsum.photos/seed/muse-b/1400/1500",
+            "https://picsum.photos/seed/muse-c/1500/1000"
+        ],
+        "story": [
+            {
+                "blocks": [
+                    {
+                        "type": "cover"
+                    },
+                    {
+                        "type": "intro"
+                    }
+                ]
+            },
+            {
+                "title": "Design system",
+                "blocks": [
+                    {
+                        "type": "note",
+                        "title": "Design system",
+                        "text": "One set of tokens, one set of components: every tool in the Suite reads from the same source instead of keeping its own copy.",
+                        "media": [
+                            0
+                        ]
+                    },
+                    {
+                        "type": "big",
+                        "media": [
+                            1,
+                            2
+                        ],
+                        "smalls": "top"
                     }
                 ]
             },

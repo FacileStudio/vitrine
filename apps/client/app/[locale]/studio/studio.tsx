@@ -1,6 +1,6 @@
 'use client'
 
-import { memo, useState } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import Header from "@/components/facile/header";
@@ -14,7 +14,7 @@ import members from "./studio.json";
 // Environment cubemap, four at a time. Memoised component, props built once
 const Head = memo(DitherReveal);
 
-const HEAD_PROPS = members.map((member, i) => ({
+const HEAD_PROPS = (idle: number) => members.map((member, i) => ({
     model: member.model,
     highlight: member.highlight,
     delay: 0.15 + i * 0.15,
@@ -23,6 +23,7 @@ const HEAD_PROPS = members.map((member, i) => ({
         intensity: 1.0,
         parallax: 0.6,
         parallaxSpeed: 0.05,
+        idle,
         ambient: 0.3,
         float: false,
         scale: member.scale + 0.005,
@@ -38,8 +39,21 @@ const HEAD_PROPS = members.map((member, i) => ({
 export default function StudioPage() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [hovered, setHovered] = useState<string | null>(null);
+    const [coarse, setCoarse] = useState(false);
     const router = useRouter();
     const locale = useLocale();
+
+    // no cursor means no hover and no parallax: the copy stays up and the heads
+    // drift on their own
+    useEffect(() => {
+        const mq = window.matchMedia("(hover: none)");
+        const sync = () => setCoarse(mq.matches);
+        sync();
+        mq.addEventListener("change", sync);
+        return () => mq.removeEventListener("change", sync);
+    }, []);
+
+    const heads = useMemo(() => HEAD_PROPS(coarse ? 0.5 : 0.12), [coarse]);
 
     return (
         <div className="relative h-screen w-full overflow-hidden bg-foreground">
@@ -47,7 +61,7 @@ export default function StudioPage() {
 
             <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 
-            <div className="flex h-full w-full">
+            <div className="grid h-full w-full grid-cols-2 grid-rows-2 md:flex">
                 {members.map((member, i) => (
                     <button
                         key={member.slug}
@@ -58,12 +72,12 @@ export default function StudioPage() {
                         onFocus={() => setHovered(member.slug)}
                         onBlur={() => setHovered((s) => (s === member.slug ? null : s))}
                         aria-label={`Open ${member.name}`}
-                        className="group relative h-full flex-1 cursor-pointer overflow-hidden border-r border-white/5 last:border-r-0"
+                        className="group relative h-full w-full cursor-pointer overflow-hidden border-b border-r border-white/5 even:border-r-0 md:flex-1 md:border-b-0 md:even:border-r md:last:border-r-0"
                     >
                         {/* the head 3D object, revealed from behind the stripes */}
                         <Head
-                            {...HEAD_PROPS[i]}
-                            className="absolute hover:opacity-100 saturate-50 hover:saturate-100 opacity-33 transition-all duration-200 inset-0 h-full"
+                            {...heads[i]}
+                            className={`absolute inset-0 h-full transition-all duration-200 ${coarse ? "opacity-100 brightness-100" : "opacity-33 brightness-50 hover:opacity-100 hover:brightness-100"}`}
                         />
 
                         {/* subtle darken + lift on hover */}
@@ -72,16 +86,16 @@ export default function StudioPage() {
                         {/* name / role, revealed just under the head on hover */}
                         <div className="pointer-events-none absolute inset-x-0 top-[66%] z-50 flex flex-col items-center gap-1 text-center text-white">
                             <TextReveal
-                                open={hovered === member.slug}
+                                open={coarse || hovered === member.slug}
                                 duration={0.45}
                                 className="font-goga text-4xl font-medium normal-case tracking-tight 3xl:text-5xl"
                             >
                                 {member.name}
                             </TextReveal>
                             <TextReveal
-                                open={hovered === member.slug}
+                                open={coarse || hovered === member.slug}
                                 duration={0.45}
-                                delay={hovered === member.slug ? 0.08 : 0}
+                                delay={coarse || hovered === member.slug ? 0.08 : 0}
                                 className="text-sm font-semibold tracking-[-0.7%] uppercase text-white/60 3xl:text-base"
                             >
                                 {member.role}
