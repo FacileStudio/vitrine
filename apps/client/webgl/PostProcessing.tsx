@@ -37,6 +37,14 @@ export function PostProcessing({
         composerRef.current?.setSize(size.width, size.height);
     }, [size]);
 
+    // the composer owns render targets on the GPU: dropping the component without
+    // disposing it leaks them, and enough leaks starve the browser of contexts
+    useEffect(() => () => {
+        composerRef.current?.dispose();
+        composerRef.current = null;
+        ditherRef.current = null;
+    }, []);
+
     // on GPU context restore the cached composer is dead — drop it so useFrame
     // rebuilds a fresh one, and clear scene/camera to force the pass chain to rebuild
     useEffect(() => {

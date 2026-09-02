@@ -30,9 +30,18 @@
 
 @font-face {
     font-family: "BB Manual Mono";
+    src: url("/fonts/bb-manual-mono/BBManualMonoProText-Regular.woff2") format("woff2"),
+         url("/fonts/bb-manual-mono/BBManualMonoProText-Regular.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "BB Manual Mono";
     src: url("/fonts/bb-manual-mono/BBManualMonoProText-Medium.woff2") format("woff2"),
          url("/fonts/bb-manual-mono/BBManualMonoProText-Medium.otf") format("opentype");
-    font-weight: 400;
+    font-weight: 500;
     font-style: normal;
     font-display: swap;
 }
@@ -63,7 +72,19 @@ body {
        everywhere as decorative fills; the page canvas just swaps which one it sits on */
     background: var(--foreground);
     color: var(--background);
+    font-family: var(--font-bb-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: var(--font-goga);
+    text-transform: none;
     letter-spacing: -3%;
 }
 

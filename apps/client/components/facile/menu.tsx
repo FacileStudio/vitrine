@@ -183,7 +183,7 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
                             <a
                                 href={withLocale(link.href)}
                                 onClick={(e) => go(e, withLocale(link.href))}
-                                className="block text-4xl md:text-5xl 3xl:text-6xl font-medium text-white/80 transition-colors hover:text-white"
+                                className="block font-goga text-4xl md:text-5xl 3xl:text-6xl font-medium normal-case tracking-normal text-white/80 transition-colors hover:text-white"
                             >
                                 {link.label}
                             </a>

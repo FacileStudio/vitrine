@@ -44,7 +44,7 @@ export default function Footer() {
                 <div className="flex flex-wrap gap-x-16 gap-y-10">
                     {links.map((link) => (
                         <div key={link.href} className="flex w-32 flex-col items-start">
-                            <a href={withLocale(link.href)} className="text-2xl md:text-3xl font-medium text-white/80 transition-colors hover:text-white">
+                            <a href={withLocale(link.href)} className="font-goga text-2xl md:text-3xl font-medium normal-case tracking-normal text-white/80 transition-colors hover:text-white">
                                 {link.label}
                             </a>
                             {link.secondary && link.secondary.length > 0 && (

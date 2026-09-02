@@ -74,7 +74,7 @@ export default function AppCard({ app, index, refs, onOpen, onEnter, onLeave }: 
 
             <div ref={refs.content(index)} className="flex flex-col items-end gap-12 max-w-sm text-right py-12">
                 <div className="gap-y-6 flex flex-col items-end">
-                    <TextReveal cropClassName="z-10" className="text-5xl font-medium text-foreground">
+                    <TextReveal cropClassName="z-10" className="font-goga text-5xl font-medium normal-case tracking-normal text-foreground">
                         {app.name}
                     </TextReveal>
 

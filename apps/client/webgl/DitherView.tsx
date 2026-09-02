@@ -19,6 +19,7 @@ export interface DitherViewProps extends DitherModelProps {
     cameraPosition?: [number, number, number];
     bloom?: boolean;
     bloomIntensity?: number;
+    ambient?: number;
     gridTween?: number;
     background?: string | null;
     ditherAngle?: number;
@@ -36,6 +37,7 @@ export function DitherView({
     cameraPosition = [0, -1, 4],
     bloom = false,
     bloomIntensity = 0.5,
+    ambient = 0,
     gridTween = 0.8,
     background = "#000000",
     position = [0, -0.5, 0],
@@ -45,6 +47,7 @@ export function DitherView({
 }: DitherViewProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const [active, setActive] = useState(true);
+    const [canvasKey, setCanvasKey] = useState(0);
 
     useEffect(() => {
         const el = containerRef.current;
@@ -62,6 +65,7 @@ export function DitherView({
     return (
         <div ref={containerRef} className={className}>
             <Canvas
+                key={canvasKey}
                 className=""
                 dpr={[1, 2]}
                 shadows={{ type: THREE.PCFShadowMap }}
@@ -73,13 +77,23 @@ export function DitherView({
                     else gl.setClearColor(new THREE.Color(background), 1);
 
                     const canvas = gl.domElement;
-                    const onLost = (e: Event) => e.preventDefault();
-                    const onRestored = () => invalidate();
+                    let recover: ReturnType<typeof setTimeout> | undefined;
+                    // a lost context that the browser never restores leaves a blank
+                    // canvas forever, so give it a second then rebuild from scratch
+                    const onLost = (e: Event) => {
+                        e.preventDefault();
+                        recover = setTimeout(() => setCanvasKey((k) => k + 1), 1000);
+                    };
+                    const onRestored = () => {
+                        clearTimeout(recover);
+                        invalidate();
+                    };
                     canvas.addEventListener("webglcontextlost", onLost, false);
                     canvas.addEventListener("webglcontextrestored", onRestored, false);
                 }}
             >
                 <Suspense fallback={null}>
+                    {ambient > 0 && <ambientLight intensity={ambient} />}
                     {items.map(({ position: itemPosition = position, ...m }, i) => (
                         <group key={i} position={itemPosition}>
                             <DitherModel {...m} />

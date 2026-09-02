@@ -4,7 +4,16 @@
         "name": "Fanga",
         "role": "Developer",
         "description": "Placeholder bio for Yann — replace via the backoffice. Full-stack developer at Facile Studio.",
-        "model": "/models/F.glb",
+        "model": "/models/fanga.glb",
+        "scale": 0.015,
+        "roughness": 0.85,
+        "metalness": 1,
+        "hair": "#6E5A4E",
+        "rotation": [
+            0,
+            0.6732,
+            -0.4
+        ],
         "highlight": "#24E27A",
         "socials": [
             {
@@ -16,15 +25,38 @@
                 "href": "https://www.github.com/saravenpi"
             }
         ],
-        "avatar": "https://i.pravatar.cc/240?u=facile-yann"
+        "avatar": "https://i.pravatar.cc/240?u=facile-yann",
+        "labels": [
+            "Backend",
+            "Infra",
+            "Tooling"
+        ],
+        "projects": [
+            "marcel",
+            "projet-zero",
+            "waves"
+        ],
+        "facts": [
+            "Listens to 10 hours of Wii music while working",
+            "Never backs down from a hard mission, always gives his fullest"
+        ]
     },
     {
         "slug": "noah",
         "name": "Noah",
         "role": "Designer",
         "description": "Placeholder bio for Noah — replace via the backoffice. Design-focused developer at Facile Studio.",
-        "model": "/models/F.glb",
-        "highlight": "#95DFE9",
+        "model": "/models/noah.glb",
+        "scale": 0.015,
+        "roughness": 0.85,
+        "metalness": 1,
+        "hair": "#6E5A4E",
+        "rotation": [
+            0,
+            0.6732,
+            -0.4
+        ],
+        "highlight": "#C495E9",
         "socials": [
             {
                 "label": "Dribbble",
@@ -39,36 +71,94 @@
                 "href": "https://www.instagram.com/webbygian"
             }
         ],
-        "avatar": "https://i.pravatar.cc/240?u=facile-noah"
+        "avatar": "https://i.pravatar.cc/240?u=facile-noah",
+        "labels": [
+            "UI | UX systems",
+            "Animations",
+            "Frontend"
+        ],
+        "projects": [
+            "marcel",
+            "hottake",
+            "laura-herve"
+        ],
+        "facts": [
+            "Constantly changing his Linux setup"
+        ]
     },
     {
         "slug": "mazouz",
         "name": "Mazouz",
         "role": "Developer",
         "description": "Placeholder bio for Mazouz — replace via the backoffice. Developer at Facile Studio.",
-        "model": "/models/F.glb",
-        "highlight": "#E9A895",
+        "model": "/models/mazouz.glb",
+        "scale": 0.015,
+        "roughness": 0.85,
+        "metalness": 1,
+        "hair": "#6E5A4E",
+        "rotation": [
+            0,
+            0.6732,
+            -0.4
+        ],
+        "highlight": "#E9483C",
         "socials": [
             {
                 "label": "GitHub",
                 "href": "https://www.github.com/MezzLMC"
             }
         ],
-        "avatar": "https://i.pravatar.cc/240?u=facile-mazouz"
+        "avatar": "https://i.pravatar.cc/240?u=facile-mazouz",
+        "labels": [
+            "Backend",
+            "APIs",
+            "Data",
+            "Automation"
+        ],
+        "projects": [
+            "solais-intra",
+            "mont-k"
+        ],
+        "facts": [
+            "Currently learning to cook",
+            "Sees coding as his sanctuary, loves hearing people's stories, nothing beats a Sunday afternoon side quest"
+        ]
     },
     {
         "slug": "camille",
         "name": "Camille",
         "role": "Designer",
         "description": "Placeholder bio for Camille — replace via the backoffice. Designer at Facile Studio.",
-        "model": "/models/F.glb",
-        "highlight": "#C495E9",
+        "model": "/models/camille.glb",
+        "scale": 0.015,
+        "roughness": 0.85,
+        "metalness": 1,
+        "hair": null,
+        "rotation": [
+            0,
+            0.6732,
+            -0.4
+        ],
+        "highlight": "#E9A03C",
         "socials": [
             {
                 "label": "Instagram",
                 "href": "https://www.instagram.com/camg_raphic/"
             }
         ],
-        "avatar": "https://i.pravatar.cc/240?u=facile-camille"
+        "avatar": "https://i.pravatar.cc/240?u=facile-camille",
+        "labels": [
+            "Branding",
+            "graphical chart",
+            "design direction"
+        ],
+        "projects": [
+            "evelynecrea",
+            "laura-herve"
+        ],
+        "facts": [
+            "Loves getting into her bubble to read her romance books",
+            "Our sun — keeps everyone motivated with a giant smile"
+        ]
     }
 ]
