@@ -28,10 +28,10 @@ export default function MemberPanel({
     setTab: (tab: PanelTab) => void;
 }) {
     return (
-        <InfoModal open={open} setOpen={setOpen} title={member.name} kicker={member.role}>
+        <InfoModal open={open} setOpen={setOpen} title={member.name} kicker={member.role} note={member.description}>
             {(entered) => (
                 <>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-1">
                         {TABS.map(({ id, label }, i) => (
                             <button
                                 key={id}
@@ -51,7 +51,7 @@ export default function MemberPanel({
                             <SplitLines
                                 text={member.bio}
                                 gap="mb-1"
-                                className="font-goga text-lg normal-case leading-relaxed tracking-normal text-foreground/70"
+                                className="font-goga text-lg normal-case leading-relaxed tracking-tight text-foreground/70"
                             />
 
                             {member.socials.length > 0 && <SocialRows socials={member.socials} entered={entered} />}
@@ -95,7 +95,7 @@ export default function MemberPanel({
                             </ul>
 
                             {member.labels.length > 0 && (
-                                <div className="flex flex-wrap gap-2 border-t border-foreground/10 pt-6">
+                                <div className="flex flex-wrap gap-2 pt-6">
                                     {member.labels.map((label, i) => (
                                         <span key={label} className={`rounded-md bg-foreground/5 px-3 py-2 text-[0.7rem] text-foreground/60 ${modalMonoClass}`}>
                                             <TextReveal open={entered} delay={0.36 + i * 0.05}>{label}</TextReveal>

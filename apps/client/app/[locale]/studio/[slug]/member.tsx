@@ -38,14 +38,14 @@ export default function MemberPage() {
     useLineReveal(page, shown, [narrow]);
 
     return (
-        <div ref={page} className="relative h-screen w-full overflow-hidden bg-foreground p-2 text-white md:p-0">
+        <div ref={page} className="relative h-screen w-full overflow-hidden bg-foreground p-2 text-white lg:p-0">
             <PageCurtain enter="dark" leave="dark" />
 
             <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 
             <MemberHead member={member} narrow={narrow} />
 
-            <div className="pointer-events-none absolute inset-0 z-40 mt-24 hidden justify-between gap-10 p-8 md:flex md:p-14">
+            <div className="pointer-events-none absolute inset-0 z-40 mt-24 hidden justify-between gap-10 p-8 lg:flex lg:p-14">
                 <MemberIdentity member={member} shown={shown} />
 
                 <TextReveal open={shown} cropClassName="z-10 absolute top-12 left-1/2 -translate-x-1/2" delay={0.05}>

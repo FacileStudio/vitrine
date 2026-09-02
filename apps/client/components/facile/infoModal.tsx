@@ -11,6 +11,8 @@ type InfoModalProps = {
     setOpen: (open: boolean) => void;
     title: string;
     kicker?: string;
+    /** one line under the kicker: the short description, not the long copy */
+    note?: string;
     /** called with `entered` once the panel has finished sliding up, so the copy inside can reveal after it */
     children: (entered: boolean) => ReactNode;
 };
@@ -19,7 +21,7 @@ type InfoModalProps = {
 // blurred overlay, fixed header with the title and a Close, everything below it
 // scrolling on its own. Lenis is told to keep its hands off the body so the
 // inner scroll behaves like a page
-export default function InfoModal({ open, setOpen, title, kicker, children }: InfoModalProps) {
+export default function InfoModal({ open, setOpen, title, kicker, note, children }: InfoModalProps) {
     const [entered, setEntered] = useState(false);
     const body = useRef<HTMLDivElement>(null);
 
@@ -66,6 +68,12 @@ export default function InfoModal({ open, setOpen, title, kicker, children }: In
                                 <Dialog.Description className="mt-2 font-bb-mono font-medium tracking-tight text-[0.7rem] uppercase text-foreground/40">
                                     <TextReveal open={entered} delay={0.06}>{kicker}</TextReveal>
                                 </Dialog.Description>
+                            ) : null}
+
+                            {note ? (
+                                <p className="mt-3 max-w-[52ch] font-goga text-lg normal-case tracking-tight text-foreground/60">
+                                    <TextReveal open={entered} delay={0.12}>{note}</TextReveal>
+                                </p>
                             ) : null}
                         </div>
 

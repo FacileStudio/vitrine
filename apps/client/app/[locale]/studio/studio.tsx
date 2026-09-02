@@ -61,7 +61,7 @@ export default function StudioPage() {
 
             <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 
-            <div className="grid h-full w-full grid-cols-2 grid-rows-2 md:flex">
+            <div className="grid h-full w-full grid-cols-2 grid-rows-2 lg:flex">
                 {members.map((member, i) => (
                     <button
                         key={member.slug}
@@ -72,7 +72,7 @@ export default function StudioPage() {
                         onFocus={() => setHovered(member.slug)}
                         onBlur={() => setHovered((s) => (s === member.slug ? null : s))}
                         aria-label={`Open ${member.name}`}
-                        className="group relative h-full w-full cursor-pointer overflow-hidden border-b border-r border-white/5 even:border-r-0 md:flex-1 md:border-b-0 md:even:border-r md:last:border-r-0"
+                        className="group relative h-full w-full cursor-pointer overflow-hidden border-b border-r border-white/5 even:border-r-0 lg:flex-1 lg:border-b-0 lg:even:border-r lg:last:border-r-0"
                     >
                         {/* the head 3D object, revealed from behind the stripes */}
                         <Head

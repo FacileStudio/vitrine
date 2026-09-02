@@ -43,7 +43,7 @@ export function SocialIcons({ socials, size = 22 }: { socials: Socials; size?: n
 
 export function SocialRows({ socials, entered, delay = 0.32 }: { socials: Socials; entered: boolean; delay?: number }) {
     return (
-        <div className="flex flex-col gap-3 border-t border-foreground/10 pt-6">
+        <div className="flex flex-col gap-3  pt-6">
             {socials.map(({ label, href }, i) => {
                 const SocialIcon = SOCIAL_ICONS[label];
                 return (

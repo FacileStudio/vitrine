@@ -19,7 +19,7 @@ export default function MemberHead({ member, narrow }: { member: Member; narrow:
                 intensity: 1.0,
                 ambient: 0.9,
                 scale: narrow ? 0.03 : 0.05,
-                position: narrow ? [0, -0.2, 0] : [0, -1.1, 0],
+                position: narrow ? [0, -0.6, 0] : [0, -1.1, 0],
                 roughness: member.roughness,
                 metalness: 1,
                 rotation: [0, 0, 0],

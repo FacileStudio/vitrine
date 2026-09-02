@@ -19,34 +19,37 @@ export default function MemberSummary({
     onSeeMore: () => void;
 }) {
     return (
-        <div className="absolute inset-x-0 bottom-0 z-40 flex flex-col items-center gap-5 px-6 pb-10 text-center md:hidden">
-            <div className="flex items-center gap-2">
-                <div className="h-2.5 w-2.5 rounded-sm" style={{ backgroundColor: member.highlight }} />
-                <TextReveal open={shown} delay={0.1} className={`${nameClass} text-3xl text-white`}>
-                    {member.name}
-                </TextReveal>
-            </div>
-
-            <TextReveal open={shown} delay={0.16} className={labelClass}>
-                {member.role}
-            </TextReveal>
-
-            <SplitLines
-                text={member.description}
-                gap="mb-1"
-                className="max-w-[36ch] font-goga text-sm normal-case tracking-normal text-white/60"
-            />
-
-            <button type="button" onClick={onSeeMore} className={buttonClass}>
-                See more
-            </button>
-
+        <>
             <Link
                 href={`/${locale}/studio`}
-                className="font-bb-mono text-[0.7rem] uppercase text-white/40 transition-colors hover:text-white"
+                className="font-goga text-[1rem] lg:hidden block absolute top-12 font-medium tracking-tight left-1/2 -translate-x-1/2 capitalize transition-colors "
             >
-                ← Studio
+                ← Go Back
             </Link>
-        </div>
+            <div className="absolute inset-x-0 bottom-0 z-40 flex lg:flex-col justify-between lg:justify-start items-center lg:gap-5 gap-3 px-6 pb-10 text-center lg:hidden">
+
+                <div className="flex items-center gap-2">
+                    <div className="h-2.5 w-2.5 rounded-sm" style={{ backgroundColor: member.highlight }} />
+                    <TextReveal open={shown} delay={0.1} className={`${nameClass} text-4xl text-white`}>
+                        {member.name}
+                    </TextReveal>
+                    <TextReveal open={shown} delay={0.16} className={`${labelClass} ml-4`}>
+                        {member.role}
+                    </TextReveal>
+                </div>
+
+
+                <SplitLines
+                    text={member.description}
+                    gap="mb-1"
+                    className="max-w-[36ch] font-goga hidden lg:block text-sm normal-case tracking-normal text-white/60"
+                />
+
+                <button type="button" onClick={onSeeMore} className={`${buttonClass} w-80`}>
+                    See more
+                </button>
+
+            </div>
+        </>
     );
 }
