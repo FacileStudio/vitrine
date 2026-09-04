@@ -1,17 +1,20 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { useScroll } from "@/hooks/use-scroll";
 import TextReveal from "@/components/facile/textReveal";
 import { Button } from "@/components/facile/button";
-import { links, CONTACT } from "@/components/facile/menu";
+import { buildLinks, CONTACT } from "@/components/facile/menu";
+import { useProjects } from "@/app/[locale]/projects/lib/projects-context";
 
 export default function Footer() {
     const sectionRef = useRef<HTMLElement>(null);
     const [show, setShow] = useState(false);
     const t = useTranslations("common");
     const locale = useLocale();
+    const projects = useProjects();
+    const links = useMemo(() => buildLinks(projects), [projects]);
     const withLocale = (href: string) => (href.startsWith("/") ? `/${locale}${href === "/" ? "" : href}` : href);
 
     const openContactModal = () => window.dispatchEvent(new Event("facile:open-contact-modal"));

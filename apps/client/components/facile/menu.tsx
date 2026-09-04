@@ -6,7 +6,8 @@ import { useLocale } from 'next-intl';
 import { usePathname, useRouter } from 'next/navigation';
 import TextReveal from '@/components/facile/textReveal';
 import { TransitionOut } from '@/components/facile/pageTransition';
-import { allProjects } from '@/app/[locale]/projects/lib/projects';
+import { useProjects } from '@/app/[locale]/projects/lib/projects-context';
+import type { Project } from '@/app/[locale]/projects/lib/projects';
 import { GithubIcon } from '../ui/github';
 import { InstagramIcon } from '../ui/instagram';
 import { DribbbleIcon } from '../ui/dribbble';
@@ -26,14 +27,15 @@ const DitherView = dynamic(() => import("@/webgl/DitherView").then((m) => m.Dith
 
 export type SubLink = { href: string; label: string; external?: boolean };
 export type NavLink = { href: string; label: string; secondary?: SubLink[] };
-const MENU_PROJECTS = allProjects.length;
 
-export const links: NavLink[] = [
+// pure so Footer (which renders the same nav) can build it from its own
+// useProjects() call without rendering <Menu>
+export const buildLinks = (projects: Project[]): NavLink[] => [
     { href: '/', label: 'Home' },
     {
         href: '/projects',
         label: 'Projects',
-        secondary: allProjects.slice(0, MENU_PROJECTS).map((p) => ({
+        secondary: projects.map((p) => ({
             href: `/projects/${p.slug}`,
             label: p.name,
         })),
@@ -64,10 +66,11 @@ export const links: NavLink[] = [
     }
 ];
 
-const subBase = links.reduce<number[]>(
-    (acc, l) => [...acc, acc[acc.length - 1] + (l.secondary?.length ?? 0)],
-    [0],
-);
+export const buildSubBase = (links: NavLink[]): number[] =>
+    links.reduce<number[]>(
+        (acc, l) => [...acc, acc[acc.length - 1] + (l.secondary?.length ?? 0)],
+        [0],
+    );
 
 const COUNT = 4;
 const coverEase = 'cubic-bezier(0.7, 0, 0.3, 1)';
@@ -101,6 +104,9 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
     const locale = useLocale();
     const router = useRouter();
     const pathname = usePathname();
+    const projects = useProjects();
+    const links = React.useMemo(() => buildLinks(projects), [projects]);
+    const subBase = React.useMemo(() => buildSubBase(links), [links]);
     const withLocale = (href: string) => href.startsWith('/') ? `/${locale}${href === '/' ? '' : href}` : href;
 
     const go = (e: React.MouseEvent, href: string) => {

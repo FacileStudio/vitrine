@@ -3,4 +3,19 @@ export enum UserRole {
   ADMIN = 'ADMIN',
 }
 
-export type { User, Session, Verification, Contact, Media, Prisma, PrismaClient } from '@repo/database';
+export type {
+  User,
+  Session,
+  Verification,
+  Contact,
+  Media,
+  Project,
+  StorySection,
+  StoryBlock,
+  StorySwatch,
+  StoryTile,
+  StoryPerson,
+  Prisma,
+  PrismaClient,
+} from '@repo/database';
+export { BlockKind, CoverEffect, BlockSmalls } from '@repo/database';

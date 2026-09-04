@@ -1,32 +1,26 @@
-enum TeamMembers {
-  mezz
-  fanga
-  gian
-  cami
-}
-
-// export interface StorySection {
-//     title?: string;
-//     blocks: StoryBlock[];
-// }
-
-
-
+// team is a String[] of studio slugs (resolved against studio.json at read
+// time), not a Postgres enum — the roster changes as data, not as a migration.
+// story is relational (see story.prisma: StorySection/StoryBlock/...) rather
+// than a Json blob, so a backoffice can query/reorder chapters and blocks.
 model Project {
   id          Int      @id @default(autoincrement())
   slug        String   @unique
+  customCover String?
   name        String
   weeks       Int
+  tier        Int?
   link        String?
-  cover       String
+  image       String
   video       String?
   gallery     String[]
   description String
   techStack   String[]
-  date      DateTime
+  date        String
+  challenge   String?
   services    String[]
-  team        TeamMembers[]
+  team        String[]
   notes       String[]
+  sections    StorySection[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

@@ -1,5 +1,4 @@
 import type { StorySection } from "@/components/facile/story/types";
-import projects from "../projects.json";
 import studio from "../../studio/studio.json";
 import type { CustomCoverId } from "../components/CustomCoverFactory";
 
@@ -24,15 +23,19 @@ export interface Project {
 
 export type Member = (typeof studio)[number];
 
-export const allProjects = projects as Project[];
+// projects now come from the database (see lib/projects-server.ts) rather than
+// a static import, so every helper below takes the resolved list explicitly
+// instead of closing over a module-level constant
+export const findProject = (projects: Project[], slug: string) =>
+    projects.find((p) => p.slug === slug);
 
-export const findProject = (slug: string) => allProjects.find((p) => p.slug === slug);
+// the shelf and the story agree on one order — DB insertion order, which the
+// seed writes in projects.json order — so the "03 / 09" counter on a story
+// page matches the card the visitor clicked
+export const projectIndex = (projects: Project[], slug: string) =>
+    projects.findIndex((p) => p.slug === slug);
 
-// the shelf and the story agree on one order — projects.json order — so the
-// "03 / 09" counter on a story page matches the card the visitor clicked
-export const projectIndex = (slug: string) => allProjects.findIndex((p) => p.slug === slug);
-
-// the list filter speaks in the four things we sell, while projects.json stays
+// the list filter speaks in the four things we sell, while projects stay
 // authored in finer-grained services — one map keeps the two vocabularies apart
 export const CATEGORIES = {
     "App dev": ["App development", "Desktop development"],
@@ -48,8 +51,8 @@ export const categories = Object.keys(CATEGORIES) as Category[];
 export const inCategory = (p: Project, c: Category) =>
     p.services.some((s) => (CATEGORIES[c] as readonly string[]).includes(s));
 
-export const projectsIn = (c: Category | null) =>
-    c ? allProjects.filter((p) => inCategory(p, c)) : allProjects;
+export const projectsIn = (projects: Project[], c: Category | null) =>
+    c ? projects.filter((p) => inCategory(p, c)) : projects;
 
 export const member = (slug: string): Member | undefined => studio.find((m) => m.slug === slug);
 

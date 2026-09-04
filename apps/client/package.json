@@ -9,6 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@repo/trpc": "workspace:*",
+    "@repo/trpc-client": "workspace:*",
     "@base-ui/react": "^1.7.0",
     "@gsap/react": "^2.1.2",
     "gsap": "^3.15.0",

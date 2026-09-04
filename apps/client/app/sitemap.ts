@@ -1,10 +1,11 @@
 import type { MetadataRoute } from 'next'
 import { locales, type Locale } from "@/lib/i18n/locales"
 import { getLocalizedPath, routePaths, siteUrl, type RoutePath } from "@/lib/seo/metadata"
-import { allProjects } from "@/app/[locale]/projects/lib/projects"
+import { getAllProjects } from "@/app/[locale]/projects/lib/projects-server"
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const lastModified = new Date()
+  const allProjects = await getAllProjects()
 
   const staticEntries = routePaths.flatMap((route) => {
     const languages = Object.fromEntries(

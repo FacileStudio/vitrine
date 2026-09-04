@@ -8,6 +8,7 @@ import { usePinProgress } from "@/hooks/use-pin-progress";
 import { EASE, run, slideY, hideRevealY } from "@/app/utils/animations";
 import { ARRIVE, TransitionOut } from "@/components/facile/pageTransition";
 import { projectsIn, type Category } from "../../lib/projects";
+import { useProjects } from "../../lib/projects-context";
 import ShelfBackdrop from "@/components/facile/shelfBackdrop";
 import Stripes from "@/components/facile/stripes";
 import Heading from "./heading";
@@ -49,7 +50,8 @@ export default function Shelf({
     const router = useRouter();
     const locale = useLocale();
 
-    const pool = projectsIn(filter);
+    const projects = useProjects();
+    const pool = projectsIn(projects, filter);
     const visible = limit ? pool.slice(0, limit) : pool;
 
     // callback-ref setters: the refs are owned here, so the children just receive

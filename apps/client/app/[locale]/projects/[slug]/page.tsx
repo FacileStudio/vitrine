@@ -4,7 +4,8 @@ import PageCurtain from "@/components/facile/pageTransition";
 import { locales, type Locale } from "@/lib/i18n/locales";
 import { baseMetadata, getOpenGraphLocale, siteUrl } from "@/lib/seo/metadata";
 import ProjectStory from "../components/projectStory";
-import { allProjects, findProject, projectIndex } from "../lib/projects";
+import { findProject, projectIndex } from "../lib/projects";
+import { getAllProjects } from "../lib/projects-server";
 
 type PageProps = {
     params: Promise<{ locale: string; slug: string }>;
@@ -27,8 +28,10 @@ export const dynamicParams = false;
 
 // every card on the shelf links here, so every project gets a route — the story
 // builder falls back to an auto-laid-out one for projects with nothing authored
-export function generateStaticParams() {
-    return allProjects.flatMap((project) =>
+export async function generateStaticParams() {
+    const projects = await getAllProjects();
+
+    return projects.flatMap((project) =>
         locales.map((locale) => ({
             locale,
             slug: project.slug,
@@ -39,7 +42,8 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { locale, slug } = await params;
     const validLocale = locales.includes(locale as Locale) ? locale as Locale : "en";
-    const project = findProject(slug);
+    const projects = await getAllProjects();
+    const project = findProject(projects, slug);
     const projectName = project?.name ?? slug;
     const path = `/${validLocale}/projects/${slug}`;
     const description = projectDescriptions[slug] ?? `${projectName} — a project by Facile Studio.`;
@@ -74,7 +78,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function LocaleProjectStoryPage({ params }: PageProps) {
     const { locale, slug } = await params;
     const validLocale = locales.includes(locale as Locale) ? locale as Locale : "en";
-    const project = findProject(slug);
+    const projects = await getAllProjects();
+    const project = findProject(projects, slug);
 
     if (!project)
         notFound();
@@ -115,7 +120,7 @@ export default async function LocaleProjectStoryPage({ params }: PageProps) {
 
             <PageCurtain enter="dark" leave="dark" />
 
-            <ProjectStory project={project} index={projectIndex(slug)} total={allProjects.length} />
+            <ProjectStory project={project} index={projectIndex(projects, slug)} total={projects.length} />
         </>
     );
 }

@@ -2,6 +2,8 @@ import { ReactNode } from "react";
 import { locales, type Locale } from "@/lib/i18n/locales";
 import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
+import { getAllProjects } from "./projects/lib/projects-server";
+import { ProjectsProvider } from "./projects/lib/projects-context";
 
 export function generateStaticParams() {
     return locales.map((locale) => ({locale}));
@@ -24,5 +26,7 @@ export default async function LocaleLayout({
 
     setRequestLocale(validLocale);
 
-    return children;
+    const projects = await getAllProjects();
+
+    return <ProjectsProvider projects={projects}>{children}</ProjectsProvider>;
 }

@@ -1,0 +1,133 @@
+// Relational mirror of apps/client/components/facile/story/types.ts
+// (StorySection / StoryBlock / Swatch / Tile / Person). Project.story used to
+// be a raw Json blob; this is the generic form so a backoffice can query,
+// reorder and edit chapters/blocks as rows instead of hand-editing JSON, and
+// the Prisma/zod types become the source of truth that types.ts is meant to
+// eventually import instead of hand-authoring.
+
+enum BlockKind {
+  cover
+  intro
+  note
+  col
+  tiles
+  typography
+  typographyPair
+  palette
+  big
+  mosaic
+  collage
+  full
+  end
+}
+
+// a one-off treatment for a cover's media — the googly eyes, the light pillar
+enum CoverEffect {
+  marcel
+  projetZeroPillar @map("projet-zero-pillar")
+}
+
+enum BlockSmalls {
+  top
+  bottom
+}
+
+model StorySection {
+  id        String       @id @default(uuid())
+  project   Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId Int
+  order     Int
+  title     String?
+  // studio slugs of whoever owns the chapter — resolved to People at read time
+  by        String[]
+  blocks    StoryBlock[]
+
+  @@unique([projectId, order])
+}
+
+model StoryBlock {
+  id        String        @id @default(uuid())
+  section   StorySection  @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  sectionId String
+  order     Int
+  type      BlockKind
+
+  // resolved media URLs — the string|index union in the JSON authoring format
+  // only existed so reordering a story didn't have to touch the asset list;
+  // relational rows don't need that indirection
+  media     String[]
+
+  eyebrow            String?
+  title              String?
+  text               String?
+  tags               String[]
+  logos              String[]
+  link               String?
+  linkLabel          String?
+  effect             CoverEffect?
+  smalls             BlockSmalls?
+  cols               Int?
+  font               String?
+  fontFamily         String?
+  description        String?
+  secondFont         String?
+  secondFontFamily   String?
+  secondDescription  String?
+
+  people    StoryPerson[]
+  tiles     StoryTile[]
+  swatches  StorySwatch[]
+
+  @@unique([sectionId, order])
+}
+
+// a brand colour. Only the hex is authored: rgb, cmyk and hsv are derived
+// from it unless the chart states its own, so the three notations never drift
+model StorySwatch {
+  id        String     @id @default(uuid())
+  block     StoryBlock @relation(fields: [blockId], references: [id], onDelete: Cascade)
+  blockId   String
+  order     Int
+  label     String
+  hex       String
+  note      String?
+  rgb       String?
+  cmyk      String?
+  hsv       String?
+  // for a hex that isn't a plain color (a CSS gradient) contrast can't be
+  // derived, so the chart states its own readable text color
+  textColor String?
+
+  @@unique([blockId, order])
+}
+
+model StoryTile {
+  id      String     @id @default(uuid())
+  block   StoryBlock @relation(fields: [blockId], references: [id], onDelete: Cascade)
+  blockId String
+  order   Int
+  label   String
+  text    String?
+  icon    String?
+
+  @@unique([blockId, order])
+}
+
+model StoryPerson {
+  id        String     @id @default(uuid())
+  block     StoryBlock @relation(fields: [blockId], references: [id], onDelete: Cascade)
+  blockId   String
+  order     Int
+  name      String
+  role      String
+  avatar    String
+  highlight String?
+  // the studio head, so a story shows the same dithered model as the studio
+  // grid; a person without one falls back to the avatar image
+  model     String?
+  scale     Float?
+  roughness Float?
+  hair      String?
+
+  @@unique([blockId, order])
+}
