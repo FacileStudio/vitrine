@@ -5,10 +5,10 @@ import { useLayoutEffect, useRef, useState } from "react";
 import { usePinProgress } from "@/hooks/use-pin-progress";
 import Backdrop from "./backdrop";
 import Track from "./track";
-import type { Block } from "./types";
+import type { Chapter } from "./types";
 
 interface BandProps {
-    sections: Block[][];
+    sections: Chapter[];
     id?: string;
 }
 

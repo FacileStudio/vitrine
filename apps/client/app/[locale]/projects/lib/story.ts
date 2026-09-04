@@ -1,5 +1,5 @@
-import { buildStory, type Block, type StoryBlock, type StorySection } from "@/components/facile/story/types";
-import { team, type Project } from "./projects";
+import { buildStory, type Chapter, type StoryBlock, type StorySection } from "@/components/facile/story/types";
+import { member, team, type Project } from "./projects";
 
 export type { StoryBlock, StorySection };
 
@@ -17,7 +17,7 @@ function hydrate(p: Project, b: StoryBlock): StoryBlock {
             text: p.challenge ?? p.description,
             tags: p.services,
             logos: p.techStack,
-            people: team(p).map((m) => ({ name: m.name, role: m.role, avatar: m.avatar, highlight: m.highlight })),
+            people: team(p).map((m) => ({ name: m.name, role: m.role, avatar: m.avatar, highlight: m.highlight, model: m.model, scale: m.scale, roughness: m.roughness, hair: m.hair })),
             link: p.link,
             ...b,
         };
@@ -30,12 +30,13 @@ function hydrate(p: Project, b: StoryBlock): StoryBlock {
 
 // a project's story, ready for the track: authored when there is one, laid out
 // automatically when there isn't
-export function projectStory(p: Project): Block[][] {
+export function projectStory(p: Project): Chapter[] {
     const story = p.story?.length ? p.story : autoStory(p);
 
     return buildStory(
         story.map((section) => ({ ...section, blocks: section.blocks.map((b) => hydrate(p, b)) })),
         p.gallery,
+        member,
     );
 }
 

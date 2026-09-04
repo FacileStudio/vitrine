@@ -8,10 +8,10 @@ import { EASE, hideRevealY, run, slideY } from "@/app/utils/animations";
 import Backdrop from "./backdrop";
 import Chrome from "./chrome";
 import Track from "./track";
-import type { Block } from "./types";
+import type { Chapter } from "./types";
 
 interface StoryProps {
-    sections: Block[][];
+    sections: Chapter[];
     name: string;
     index: number;
     total: number;

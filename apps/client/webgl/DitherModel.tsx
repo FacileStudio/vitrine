@@ -35,19 +35,22 @@ export function DitherModel({
     const { scene } = useGLTF(file);
     const canvas = useThree((state) => state.gl.domElement);
     const group = useRef<THREE.Group>(null);
+    const cursor = useRef<{ x: number; y: number } | null>(null);
     const pointer = useRef({ x: 0, y: 0 });
     const seed = useRef(Math.random() * 100);
 
+    // the move handler only records where the cursor is: measuring the canvas
+    // here forces a layout per event per head, and a pointer fires far more
+    // often than a frame. The measurement happens once a frame instead, in
+    // useFrame, which a canvas scrolled out of view is not running at all
     useEffect(() => {
         if (!parallax) return;
         const onMove = (e: PointerEvent) => {
-            const rect = canvas.getBoundingClientRect();
-            pointer.current.x = (e.clientX - (rect.left + rect.width / 2)) / (window.innerWidth / 2);
-            pointer.current.y = -(e.clientY - (rect.top + rect.height / 2)) / (window.innerHeight / 2);
+            cursor.current = { x: e.clientX, y: e.clientY };
         };
-        window.addEventListener("pointermove", onMove);
+        window.addEventListener("pointermove", onMove, { passive: true });
         return () => window.removeEventListener("pointermove", onMove);
-    }, [parallax, canvas]);
+    }, [parallax]);
 
     const model = useMemo(() => {
         const cloned = scene.clone(true);
@@ -85,6 +88,15 @@ export function DitherModel({
     // beat the eye can catch, so the head wanders instead of oscillating
     useFrame((state) => {
         if (!group.current || (!parallax && !idle)) return;
+
+        // measured from this canvas's own centre, so heads in different columns
+        // never rotate in lockstep
+        if (parallax && cursor.current) {
+            const rect = canvas.getBoundingClientRect();
+            pointer.current.x = (cursor.current.x - (rect.left + rect.width / 2)) / (window.innerWidth / 2);
+            pointer.current.y = -(cursor.current.y - (rect.top + rect.height / 2)) / (window.innerHeight / 2);
+        }
+
         const { x, y } = pointer.current;
         const t = state.clock.elapsedTime + seed.current;
         const driftX = Math.sin(t * 0.23) * 0.6 + Math.sin(t * 0.13 + 2.1) * 0.4;

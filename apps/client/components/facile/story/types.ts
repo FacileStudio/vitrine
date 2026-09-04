@@ -41,6 +41,12 @@ export interface Person {
     role: string;
     avatar: string;
     highlight?: string;
+    // the studio head, so a story shows the same dithered model as the studio
+    // grid; a person without one falls back to the avatar image
+    model?: string;
+    scale?: number;
+    roughness?: number;
+    hair?: string | null;
 }
 
 export interface Tile {
@@ -82,6 +88,8 @@ export interface StoryBlock {
 // a backoffice gets a unit it can name, fold and drag as a whole
 export interface StorySection {
     title?: string;
+    /** studio slug of whoever owns the chapter — resolved to a Person by buildStory */
+    by?: string;
     blocks: StoryBlock[];
 }
 
@@ -91,6 +99,13 @@ export interface Block extends StoryBlock {
     media: string[];
     cols: number;
     index: number;
+}
+
+// a built chapter: the blocks the grid renders, plus whoever the chapter is
+// credited to, so the track can sit their head in front of the bento
+export interface Chapter {
+    by?: Person;
+    blocks: Block[];
 }
 
 // every renderer in story/blocks takes exactly this
@@ -107,7 +122,11 @@ const resolveMedia = (gallery: string[], refs: (string | number)[] = []) =>
 // a story is authored data, so it is validated rather than trusted: an unknown
 // kind or a block starved of media is dropped instead of breaking the track, and
 // a chapter left empty by that never opens a hole in the spacing
-export function buildStory(sections: StorySection[], gallery: string[] = []): Block[][] {
+export function buildStory(
+    sections: StorySection[],
+    gallery: string[] = [],
+    person: (slug: string) => Person | undefined = () => undefined,
+): Chapter[] {
     // numbered here rather than in the json, so reordering chapters in a
     // backoffice renumbers them for free
     let chapter = 0;
@@ -116,7 +135,7 @@ export function buildStory(sections: StorySection[], gallery: string[] = []): Bl
         .map((section) => {
             const index = section.title ? ++chapter : 0;
 
-            return section.blocks.flatMap<Block>((b) => {
+            const blocks = section.blocks.flatMap<Block>((b) => {
                 const spec = BLOCK_SPECS[b.type];
                 if (!spec)
                     return [];
@@ -132,6 +151,8 @@ export function buildStory(sections: StorySection[], gallery: string[] = []): Bl
                     cols: b.cols ?? spec.cols,
                 }];
             });
+
+            return { by: section.by ? person(section.by) : undefined, blocks };
         })
-        .filter((blocks) => blocks.length);
+        .filter((chapter) => chapter.blocks.length);
 }

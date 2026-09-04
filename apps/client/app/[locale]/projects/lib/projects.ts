@@ -55,6 +55,8 @@ export const inCategory = (p: Project, c: Category) =>
 export const projectsIn = (c: Category | null) =>
     c ? allProjects.filter((p) => inCategory(p, c)) : allProjects;
 
+export const member = (slug: string): Member | undefined => studio.find((m) => m.slug === slug);
+
 export const team = (p: Project): Member[] =>
     p.team
         .map((slug) => studio.find((m) => m.slug === slug))

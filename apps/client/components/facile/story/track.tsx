@@ -5,10 +5,11 @@ import { useEffect, type Ref, type RefObject } from "react";
 import { EASE, hideRevealY, run, slideY } from "@/app/utils/animations";
 import { Bento } from "./bento";
 import { BLOCKS } from "./blocks";
-import type { Block } from "./types";
+import PersonHead from "./head";
+import type { Chapter } from "./types";
 
 interface TrackProps {
-    sections: Block[][];
+    sections: Chapter[];
     /** the element the blocks travel across — the observers measure against it */
     scrollerRef: RefObject<HTMLElement | null>;
     onClose?: () => void;
@@ -78,14 +79,21 @@ export default function Track({ sections, scrollerRef, onClose, ref }: TrackProp
 
     return (
         <div ref={ref} className="flex h-full w-max items-center gap-128 px-[6vw]">
-            {sections.map((blocks, s) => (
-                <Bento key={s}>
-                    {blocks.map((b, i) => {
-                        const Part = BLOCKS[b.type];
+            {sections.map((chapter, s) => (
+                <div key={s} className="flex items-center gap-8">
+                    {/* whoever owns the chapter, sat in front of its bento. The
+                        opening chapter credits nobody — its intro already names
+                        the whole crew */}
+                    {chapter.by ? <PersonHead person={chapter.by} className="h-[7vh] w-[7vh] max-h-20 max-w-20" gridSize={0.5} label /> : null}
 
-                        return <Part key={i} block={b} onClose={onClose} />;
-                    })}
-                </Bento>
+                    <Bento>
+                        {chapter.blocks.map((b, i) => {
+                            const Part = BLOCKS[b.type];
+
+                            return <Part key={i} block={b} onClose={onClose} />;
+                        })}
+                    </Bento>
+                </div>
             ))}
         </div>
     );

@@ -1,4 +1,4 @@
-import { buildStory, type Block, type StoryBlock, type StorySection, type Tile } from "@/components/facile/story/types";
+import { buildStory, type Chapter, type StoryBlock, type StorySection, type Tile } from "@/components/facile/story/types";
 import { allApps, type SuiteApp } from "./apps";
 
 // the suite's own marks live in public/icons, each named after the iconify id it
@@ -31,7 +31,7 @@ const chunk = (apps: SuiteApp[]): StoryBlock[] =>
 
 // one app's story: what it is, then the company it keeps. An app can author a
 // full story in suite.json the same way a project does — this is the fallback
-export function appStory(app: SuiteApp): Block[][] {
+export function appStory(app: SuiteApp): Chapter[] {
     const sections: StorySection[] = app.story?.length ? app.story : [
         {
             blocks: [{
@@ -56,7 +56,7 @@ export function appStory(app: SuiteApp): Block[][] {
 }
 
 // the whole suite as one story — the home page reads it as a pinned band
-export function suiteStory(locale: string): Block[][] {
+export function suiteStory(locale: string): Chapter[] {
     return buildStory([
         {
             blocks: [{
