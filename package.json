@@ -31,7 +31,13 @@
   },
   "trustedDependencies": [
     "@parcel/watcher",
+    "@prisma/engines",
     "@swc/core",
+    "argon2",
+    "esbuild",
+    "prisma",
+    "prisma-zod-generator",
+    "svelte-preprocess",
     "unrs-resolver"
   ]
 }

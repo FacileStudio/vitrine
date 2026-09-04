@@ -1,0 +1,37 @@
+model User {
+  id             String           @id @default(uuid())
+  email          String           @unique
+  firstName      String
+  lastName       String
+  password       String
+  emailVerified  Boolean          @default(false)
+  role           UserRole         @default(USER)
+
+  status         UserStatus       @default(ACTIVE)
+  lastLoginAt    DateTime?
+  lastLoginIp    String?
+
+  avatar         Media?           @relation("UserAvatar")
+  coverImage     Media?           @relation("UserCover")
+
+  sessions       Session[]
+  accounts       Account[]
+
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  @@index([status])
+  @@index([emailVerified])
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+  BANNED
+  PENDING
+}

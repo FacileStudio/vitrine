@@ -18,6 +18,12 @@ out/
 *.tsbuildinfo
 next-env.d.ts
 
+# Prisma generated client (packages/database)
+/packages/database/src/generated
+/packages/database/prisma/src/generated
+/packages/database/generated
+/packages/database/src/zod/.prisma-zod-generator-manifest.json
+
 # Testing
 coverage
 
