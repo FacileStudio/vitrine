@@ -175,7 +175,11 @@ const Rideau = ({ setCharged }: { setCharged: (charged: boolean) => void }) => {
                     </div>
             </div>
 
-            <Stripes count={4} orientation={0} open={open} className="bg-foreground" />
+            {/* two layers leaving one after the other: the dark goes first and uncovers
+                the white behind it, which follows a beat later. The counter sits above
+                both on z-50, so it is still readable while the dark is on its way out */}
+            <Stripes count={4} orientation={0} open={open} className="bg-foreground" zIndex={45} leadOpen={0} />
+            <Stripes count={4} orientation={0} open={open} className="bg-background" zIndex={44} leadOpen={0.35} />
         </div>
     )
 }

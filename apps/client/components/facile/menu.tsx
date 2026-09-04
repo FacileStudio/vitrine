@@ -139,13 +139,17 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
             };
         }
         setResolved(false);
-        setStage('off');
+        // on the way out it stays in the layout and fades, which is the animation it
+        // always had — dropping straight to `off` would make it vanish on the frame
+        // the menu closed
+        setStage((s) => (s === 'off' ? 'off' : 'ready'));
 
         // and give the canvas back once the wipe has finished: mounted, it holds a
         // WebGL context and renders every frame behind a clip-path, on whatever page
         // the visitor went back to
+        const off = setTimeout(() => setStage('off'), (exitDelay + 0.6) * 1000);
         const t = setTimeout(() => setMountDither(false), (exitDelay + 0.6) * 1000);
-        return () => clearTimeout(t);
+        return () => { clearTimeout(off); clearTimeout(t); };
     }, [menuOpen]);
 
     return (
@@ -162,7 +166,10 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
                     style={{
                         clipPath: stage === 'shown' ? 'inset(0% 0% 0% 0%)' : 'inset(0% 0% 0% 100%)',
                         opacity: stage === 'shown' ? 1 : 0,
-                        transition: `clip-path 0.6s ${coverEase}, opacity 0.9s ${coverEase}`,
+                        // opening needs no delay of its own — `stage` already waited for
+                        // the covers. Leaving keeps the original one: the copy goes
+                        // first, the clip retracts behind the returning stripes
+                        transition: `clip-path 0.6s ${coverEase} ${menuOpen ? '0s' : `${exitDelay}s`}, opacity 0.9s ${coverEase} 0s`,
                     }}
                 >
                     <DitherView
