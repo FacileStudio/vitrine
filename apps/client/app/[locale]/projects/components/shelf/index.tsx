@@ -180,7 +180,7 @@ export default function Shelf({
 
             <ShelfBackdrop tone="dark" sticky={stickyBackdrop} />
 
-            <div className="w-full h-full pt-[20vh] flex flex-col gap-1 justify-start items-center px-6">
+            <div className="w-full h-full pt-[20vh] pb-[30vh] flex flex-col gap-[35vh] justify-start items-center px-6">
                 <Heading
                     lines={lines}
                     filter={filter}
