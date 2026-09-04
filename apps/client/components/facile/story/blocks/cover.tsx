@@ -21,7 +21,7 @@ export default function Cover({ block }: BlockProps) {
                     onPointerEnter={marcel ? start : undefined}
                     onPointerLeave={marcel ? stop : undefined}
                 >
-                    {pillar ? <LightPillar /> : <Media src={block.media[0]} />}
+                    {pillar ? <LightPillar fallback={block.media[0]} /> : <Media src={block.media[0]} />}
 
                     {marcel ? <MarcelEyes variant="cover" frameRef={frame} ref={eyes} /> : null}
                 </div>

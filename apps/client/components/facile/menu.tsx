@@ -132,6 +132,12 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
         }
         setShowDither(false);
         setResolved(false);
+
+        // and give the canvas back once the wipe has finished: mounted, it holds a
+        // WebGL context and renders every frame behind a clip-path, on whatever page
+        // the visitor went back to
+        const t = setTimeout(() => setMountDither(false), (exitDelay + 0.6) * 1000);
+        return () => clearTimeout(t);
     }, [menuOpen]);
 
     return (
@@ -139,12 +145,9 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
             aria-hidden={!menuOpen}
             className={`fixed inset-0 z-100 ${menuOpen ? '' : 'pointer-events-none'}`}
         >
-            {/* white curtain leads, dark curtain trails: two waves racing down the screen.
-                on close they wait for the dither object to fade out before retreating */}
             <div className="absolute inset-0 z-30">{Stripes(menuOpen, '#ffffff', 0, 0.14 + exitDelay)}</div>
             <div className="absolute inset-0 z-40">{Stripes(menuOpen, 'var(--foreground)', 0.14, 0 + exitDelay)}</div>
 
-            {/* dither backdrop, revealed top-to-bottom by a clip wipe once the covers land */}
             {mountDither && (
                 <div
                     className="absolute inset-0 z-45 overflow-hidden"
@@ -183,7 +186,7 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
                             <a
                                 href={withLocale(link.href)}
                                 onClick={(e) => go(e, withLocale(link.href))}
-                                className="subtitle block text-white/80 transition-colors hover:text-white"
+                                className="subtitle block text-white transition-colors"
                             >
                                 {link.label}
                             </a>

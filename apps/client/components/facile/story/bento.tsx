@@ -62,5 +62,5 @@ export function Media({ src, className = "", pop = true }: { src: string; classN
 
     return isVideoFile(src)
         ? <video data-pop={pop || undefined} src={src} loop muted playsInline preload="metadata" className={cls} />
-        : <img data-pop={pop || undefined} src={src} alt="" className={cls} />;
+        : <img data-pop={pop || undefined} src={src} alt="" loading="lazy" decoding="async" className={cls} />;
 }

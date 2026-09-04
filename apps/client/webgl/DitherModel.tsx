@@ -65,13 +65,23 @@ export function DitherModel({
             const mesh = o as THREE.Mesh;
             if (mesh.isMesh) {
                 mesh.castShadow = true;
-                const mat = mesh.material as THREE.MeshStandardMaterial;
-                if (mat && "roughness" in mat) mat.roughness = roughness;
-                if (mat && metalness !== undefined && "metalness" in mat) mat.metalness = metalness;
-                if (mat && hairColor && (mat.name === "Material_OpaHair" || mat.name === "Material_OpaBeard")) {
+
+                // scene.clone() copies the graph but shares the materials, and what
+                // follows writes to them — so two components on the same GLB used to
+                // overwrite each other's roughness and hair colour. F.glb is loaded by
+                // both the hero and the menu, at different settings
+                const source = mesh.material as THREE.MeshStandardMaterial;
+                if (!source) return;
+
+                const mat = source.clone();
+                mesh.material = mat;
+
+                if ("roughness" in mat) mat.roughness = roughness;
+                if (metalness !== undefined && "metalness" in mat) mat.metalness = metalness;
+                if (hairColor && (mat.name === "Material_OpaHair" || mat.name === "Material_OpaBeard")) {
                     mat.color.set(hairColor);
                 }
-                if (mat && mat.name.startsWith("Material_Opa") && mat.map) {
+                if (mat.name.startsWith("Material_Opa") && mat.map) {
                     mat.map = null;
                     mat.alphaTest = 0;
                     mat.transparent = false;
@@ -83,6 +93,17 @@ export function DitherModel({
         });
         return cloned;
     }, [scene, roughness, metalness, hairColor]);
+
+    // the materials above are this instance's own, so nothing else will free them.
+    // The geometry is not cloned and still belongs to useGLTF's cache — disposing
+    // that would blank every other canvas on the same model
+    useEffect(() => () => {
+        model.traverse((o) => {
+            const mat = (o as THREE.Mesh).material;
+            if (Array.isArray(mat)) mat.forEach((m) => m.dispose());
+            else mat?.dispose();
+        });
+    }, [model]);
 
     // two sines per axis at unrelated frequencies: the pair never repeats on a
     // beat the eye can catch, so the head wanders instead of oscillating

@@ -66,7 +66,7 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
                 >
                     <div ref={refs.img(index)} className="absolute inset-0 will-change-transform">
                         {projetZero ? (
-                            <LightPillar className="object-cover brightness-100 transition-all duration-300 ease-out group-hover/card:brightness-[0.6] group-hover/card:scale-110" />
+                            <LightPillar fallback={project.image} className="object-cover brightness-100 transition-all duration-300 ease-out group-hover/card:brightness-[0.6] group-hover/card:scale-110" />
                         ) : (
                             <img
                                 src={project.image}
