@@ -63,7 +63,7 @@ export default function Manifesto() {
             <div className="sticky top-0 z-20 h-screen w-full overflow-hidden">
 
                 <DitherView
-                    className="absolute top-0 left-0 w-full h-full z-0 opacity-50"
+                    className="absolute top-0 left-0 w-full h-full z-0 opacity-80"
                     background="#E4EEE8"
                     highlight="#24E27A"
                     grayscaleOnly={false}
