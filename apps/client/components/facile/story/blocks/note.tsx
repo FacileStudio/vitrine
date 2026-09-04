@@ -1,7 +1,6 @@
 import SplitLines from "@/components/facile/splitLines";
 import Line from "@/components/facile/textReveal";
 import type { BlockProps } from "../types";
-import PersonHead from "../head";
 import { Block, Cell, Media } from "../bento";
 
 const CHAPTER = "mr-6 font-medium text-[0.6em] text-[#24E27A]";
@@ -19,19 +18,6 @@ export default function Note({ block }: BlockProps) {
                                     <span className={CHAPTER}>.</span>
                                 </>
                             ) : null}
-
-                            {/* who owned the chapter, sized to the heading — the
-                                credit reads as part of the title rather than as a
-                                line of copy saying who did the rebrand */}
-                            {block.owners.map((p) => (
-                                <PersonHead
-                                    key={p.name}
-                                    person={p}
-                                    gridSize={1.2}
-                                    className="mr-4 inline-block h-[1.4em] w-[1.4em] align-middle"
-                                />
-                            ))}
-
                             {block.title}
                         </Line>
                     </h3>

@@ -80,13 +80,12 @@ export default function Track({ sections, scrollerRef, onClose, ref }: TrackProp
     return (
         <div ref={ref} className="flex h-full w-max items-center gap-128 px-[6vw]">
             {sections.map((chapter, s) => (
-                <div key={s} className="flex items-center gap-8">
-                    {/* whoever owns the chapter, sat in front of its bento. The
-                        opening chapter credits nobody — its intro already names
-                        the whole crew */}
-                    {chapter.owners.map((p) => (
-                        <PersonHead key={p.name} person={p} className="h-[7vh] w-[7vh] max-h-20 max-w-20" gridSize={0.5} label />
-                    ))}
+                <div key={s} className="flex items-center gap-20">
+                        <div className="">
+                            {chapter.owners.map((p) => (
+                                <PersonHead key={p.name} person={p} className="h-[12vh] w-[12vh] mt-4 max-h-64 max-w-64" gridSize={0.43} scaleMultiplier={2.5} />
+                            ))}
+                        </div>
 
                     <Bento>
                         {chapter.blocks.map((b, i) => {

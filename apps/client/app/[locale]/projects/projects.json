@@ -37,8 +37,8 @@
             "App development"
         ],
         "team": [
+            "fanga",
             "noah",
-            "yann",
             "camille",
             "mazouz"
         ],
@@ -59,6 +59,7 @@
             },
             {
                 "title": "New Face!",
+                "by": "camille",
                 "blocks": [
                     {
                         "type": "note",
@@ -107,6 +108,7 @@
             },
             {
                 "title": "Redesign",
+                "by": ["camille", "noah"],
                 "blocks": [
                     {
                         "type": "note",
@@ -129,6 +131,7 @@
             },
             {
                 "title": "Implementation",
+                "by": ["noah", "mazouz", "fanga"],
                 "blocks": [
                     {
                         "type": "note",
