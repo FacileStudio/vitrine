@@ -102,15 +102,16 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
 
             <div ref={refs.content(index)} className="flex flex-col items-end gap-12 max-w-sm text-right py-12">
                 <div className="gap-y-8 flex flex-col items-end">
-                    <TextReveal cropClassName="z-10" className="font-goga text-5xl font-medium normal-case tracking-normal text-white">
+                    <TextReveal as="h2" cropClassName="z-10" className="subtitle text-white">
                         {project.name}
                     </TextReveal>
 
                     {project.description && (
                         <SplitLines
+                            as="p"
                             text={project.description}
                             justify
-                            className="relative z-10 font-bb-mono text-sm font-medium uppercase tracking-tight leading-relaxed text-white/66"
+                            className="relative z-10 text-white/66"
                         />
                     )}
 
@@ -135,8 +136,9 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
                             {project.services.map((s) => (
                                 <TextReveal
                                     key={s}
+                                    as="p"
                                     cropClassName="shrink-0"
-                                    className="rounded-md px-[2vh] py-[1vh] tracking-tight font-bb-mono font-medium text-[clamp(0.65rem,1.4vh,0.9rem)] uppercase bg-[#212121] text-white"
+                                    className="rounded-md px-[2vh] py-[1vh] text-[clamp(0.65rem,1.4vh,0.9rem)] bg-[#212121] text-white"
                                 >
                                     {s}
                                 </TextReveal>
@@ -145,7 +147,7 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
                     )}
                     {project.techStack?.length ? (
                         <div className="flex flex-col items-end gap-3">
-                            <TextReveal cropClassName="relative z-10" className="font-goga lowercase tracking-tighter text-[clamp(0.65rem,1.4vh,0.9rem)] text-white/35">
+                            <TextReveal as="p" cropClassName="relative z-10" className="subtext text-white">
                                 Created with
                             </TextReveal>
                             <span className="relative z-10 flex flex-wrap justify-end gap-6">

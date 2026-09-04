@@ -42,7 +42,7 @@ export const DesktopHeader =({ menuOpen, setMenuOpen }: { menuOpen: boolean; set
                 </Link>
                 <div className=" lg:flex justify-end items-center hidden   text-end gap-8">
                     <TextReveal delay={1} className="text-xl text-[#24E27A] ">[<span className="italic font-goga lowercase tracking-tight mr-1">fasil</span>]</TextReveal>
-                    <TextReveal delay={1.1} className={`font-bb-mono font-medium  tracking-tight uppercase text-[clamp(0.5rem,1.2vh,0.7rem)] ${dark ? "text-[#1E1E1E]" : "text-white"} `}>Qui se fait sans effort, qui ne présente aucune difficulté. Simple, aisé, etc&hellip;</TextReveal>
+                    <TextReveal as="p" delay={1.1} className={`subtext text-[clamp(0.5rem,1.2vh,0.7rem)] ${dark ? "text-[#1E1E1E]" : "text-white"} `}>Qui se fait sans effort, qui ne présente aucune difficulté. Simple, aisé, etc&hellip;</TextReveal>
                 </div>
             </div>
             <button className="hidden lg:block font-bb-mono font-medium  tracking-tight uppercase text-[clamp(0.5rem,1.8vh,1.2rem)]" onClick={toggleMenu}>

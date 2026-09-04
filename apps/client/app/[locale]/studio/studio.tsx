@@ -74,21 +74,19 @@ export default function StudioPage() {
                         aria-label={`Open ${member.name}`}
                         className="group relative h-full w-full cursor-pointer overflow-hidden border-b border-r border-white/5 even:border-r-0 lg:flex-1 lg:border-b-0 lg:even:border-r lg:last:border-r-0"
                     >
-                        {/* the head 3D object, revealed from behind the stripes */}
                         <Head
                             {...heads[i]}
                             className={`absolute inset-0 h-full transition-all duration-200 ${coarse ? "opacity-100 brightness-100" : "opacity-33 brightness-50 hover:opacity-100 hover:brightness-100"}`}
                         />
 
-                        {/* subtle darken + lift on hover */}
                         <div className="pointer-events-none absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/20" />
 
-                        {/* name / role, revealed just under the head on hover */}
                         <div className="pointer-events-none absolute inset-x-0 top-[66%] z-50 flex flex-col items-center gap-1 text-center text-white">
                             <TextReveal
                                 open={coarse || hovered === member.slug}
                                 duration={0.45}
-                                className="font-goga text-4xl font-medium normal-case tracking-tight 3xl:text-5xl"
+                                as="h2"
+                                className="subtitle"
                             >
                                 {member.name}
                             </TextReveal>
@@ -96,7 +94,8 @@ export default function StudioPage() {
                                 open={coarse || hovered === member.slug}
                                 duration={0.45}
                                 delay={coarse || hovered === member.slug ? 0.08 : 0}
-                                className="text-sm font-semibold tracking-[-0.7%] uppercase text-white/60 3xl:text-base"
+                                as="p"
+                                className="text-white/60"
                             >
                                 {member.role}
                             </TextReveal>

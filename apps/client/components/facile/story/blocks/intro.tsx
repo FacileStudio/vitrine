@@ -10,7 +10,7 @@ import { Block, Cell } from "../bento";
 function Meta({ label, children }: { label: string; children: ReactNode }) {
     return (
         <div className="flex flex-col gap-3">
-            <Line className="font-goga tracking-tight text-[clamp(0.65rem,1.4vh,1.1rem)] text-white/35">{label}</Line>
+            <Line as="p" className="subtext text-white">{label}</Line>
             {children}
         </div>
     );
@@ -26,31 +26,32 @@ export default function Intro({ block }: BlockProps) {
                 <div className="flex h-full w-full flex-col justify-between gap-[3vh] p-[5vh]">
                     <div className="flex flex-col gap-6">
                         {block.eyebrow ? (
-                            <Line className="font-bb-mono tracking-tight font-medium text-[clamp(0.65rem,1.4vh,0.9rem)] uppercase text-white/70">
+                            <Line as="p" className="text-[clamp(0.65rem,1.4vh,0.9rem)] text-white/70">
                                 {block.eyebrow}
                             </Line>
                         ) : null}
 
-                        <Line className="text-[clamp(1.75rem,5.2vh,5rem)] font-goga capitalize tracking-tighter leading-[1.05]">
+                        <Line as="h2" className="capitalize">
                             {block.title}
                         </Line>
 
                         {block.text ? (
                             <SplitLines
+                                as="p"
                                 text={block.text}
-                                className="max-w-[60ch] font-goga tracking-tighter leading-[1.5] text-[clamp(0.8rem,1.9vh,1.6rem)] text-white/70"
+                                className="lead max-w-[60ch] text-white/70"
                             />
                         ) : null}
 
                         {block.tags?.length ? (
                             <Line className="flex flex-wrap items-center gap-1">
                                 {block.tags.map((t) => (
-                                    <span
+                                    <p
                                         key={t}
-                                        className="rounded-md px-[2vh] py-[1vh] font-bb-mono tracking-tight font-medium uppercase text-[clamp(0.65rem,1.4vh,0.9rem)] bg-[#212121] text-white"
+                                        className="rounded-md px-[2vh] py-[1vh] text-[clamp(0.65rem,1.4vh,0.9rem)] bg-[#212121] text-white"
                                     >
                                         {t}
-                                    </span>
+                                    </p>
                                 ))}
                             </Line>
                         ) : null}

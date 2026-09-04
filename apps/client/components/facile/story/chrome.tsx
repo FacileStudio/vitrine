@@ -30,22 +30,22 @@ export default function Chrome({ name, index, total, backLabel, barRef, onBack }
                 </span>
 
                 <span className="block overflow-hidden">
-                    <span data-chrome className="block font-bb-mono text-sm tabular-nums text-white/40">
+                    <p data-chrome className="block tabular-nums text-white/40">
                         {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
-                    </span>
+                    </p>
                 </span>
             </div>
 
             <div className="flex items-end justify-between gap-8">
                 <span className="block overflow-hidden">
-                    <span data-chrome className="block font-bb-mono text-xs uppercase tracking-widest text-white/40">
+                    <p data-chrome className="block text-xs tracking-widest text-white/40">
                         {name}
-                    </span>
+                    </p>
                 </span>
 
                 <span className="block overflow-hidden">
                     <span data-chrome className="flex items-center gap-4">
-                        <span className="font-bb-mono text-xs uppercase tracking-widest text-white/40">scroll</span>
+                        <p className="text-xs tracking-widest text-white/40">scroll</p>
                         <span className="relative h-px w-32 bg-white/20 md:w-48">
                             <span ref={barRef} className="absolute inset-0 origin-left scale-x-0 bg-[#24E27A]" />
                         </span>

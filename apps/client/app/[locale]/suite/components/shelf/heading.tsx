@@ -25,13 +25,14 @@ export default function Heading({ eyebrow, lines, count, onExplain }: HeadingPro
                         duration={0.8}
                         delay={arrive}
                         cropClassName="mb-6"
-                        className="font-bb-mono text-sm uppercase tracking-[0.2em] text-foreground/40"
+                        as="p"
+                        className="tracking-[0.2em] text-foreground/40"
                     >
                         {eyebrow}
                     </TextReveal>
                 )}
 
-                <h2 className="text-4xl md:text-5xl font-medium leading-tight">
+                <h2>
                     {lines.map((line, i) => (
                         <TextReveal key={i} open duration={0.8} delay={arrive + (i + 1) * 0.12}>
                             {line}
@@ -44,7 +45,8 @@ export default function Heading({ eyebrow, lines, count, onExplain }: HeadingPro
                 <TextReveal
                     open
                     delay={arrive + 0.35}
-                    className="flex justify-end gap-3 w-full text-right text-md capitalize font-medium tabular-nums"
+                    as="p"
+                    className="flex justify-end gap-3 w-full text-right tabular-nums"
                 >
                     <span className="text-accent-ink">
                         {String(count).padStart(2, "0")}

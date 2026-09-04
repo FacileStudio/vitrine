@@ -61,17 +61,17 @@ export default function InfoModal({ open, setOpen, title, kicker, note, children
                 >
                     <div className="flex items-start justify-between gap-6 px-8 py-6">
                         <div>
-                            <Dialog.Title className="font-goga text-[2.5rem] font-medium normal-case leading-tight tracking-normal text-foreground">
+                            <Dialog.Title className="text-foreground">
                                 <TextReveal open={entered}>{title}</TextReveal>
                             </Dialog.Title>
                             {kicker ? (
-                                <Dialog.Description className="mt-2 font-bb-mono font-medium tracking-tight text-[0.7rem] uppercase text-foreground/40">
+                                <Dialog.Description className="mt-2 text-[0.7rem] text-foreground/40">
                                     <TextReveal open={entered} delay={0.06}>{kicker}</TextReveal>
                                 </Dialog.Description>
                             ) : null}
 
                             {note ? (
-                                <p className="mt-3 max-w-[52ch] font-goga text-lg normal-case tracking-tight text-foreground/60">
+                                <p className="lead mt-3 max-w-[52ch] text-foreground/60">
                                     <TextReveal open={entered} delay={0.12}>{note}</TextReveal>
                                 </p>
                             ) : null}

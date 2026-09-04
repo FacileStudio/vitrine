@@ -3,7 +3,7 @@
 import TextReveal from "@/components/facile/textReveal";
 import SplitLines from "@/components/facile/splitLines";
 import type { Member } from "./memberData";
-import { chipClass, labelClass, nameClass } from "./memberStyles";
+import { chipClass } from "./memberStyles";
 import { SocialIcons } from "./socialLinks";
 
 // desktop, top-left: who they are. Same stack as a shelf card's content column,
@@ -14,24 +14,25 @@ export default function MemberIdentity({ member, shown }: { member: Member; show
             <div className="flex flex-wrap items-center gap-8">
                 <div className="flex items-center gap-2">
                     <div className="aspect-square h-3 w-3 rounded-sm" style={{ backgroundColor: member.highlight }} />
-                    <TextReveal open={shown} cropClassName="z-10" delay={0.1} className={`${nameClass} mb-1 text-5xl text-white`}>
+                    <TextReveal as="h2" open={shown} cropClassName="z-10" delay={0.1} className="mb-1 text-white">
                         {member.name}
                     </TextReveal>
                 </div>
-                <TextReveal open={shown} cropClassName="z-10" delay={0.16} className={labelClass}>
+                <TextReveal as="p" open={shown} cropClassName="z-10" delay={0.16} className="subtext text-white">
                     {member.role}
                 </TextReveal>
             </div>
 
             <SplitLines
+                as="p"
                 text={member.description}
-                className="relative z-10 font-goga text-[clamp(0.8rem,1.9vh,1.35rem)] normal-case tracking-normal text-white/70"
+                className="lead relative z-10 text-white/70"
             />
 
             {member.labels.length > 0 && (
                 <span className="relative z-10 flex flex-wrap items-center gap-1">
                     {member.labels.map((label, i) => (
-                        <TextReveal key={label} open={shown} delay={0.24 + i * 0.05} cropClassName="shrink-0" className={chipClass}>
+                        <TextReveal key={label} as="p" open={shown} delay={0.24 + i * 0.05} cropClassName="shrink-0" className={chipClass}>
                             {label}
                         </TextReveal>
                     ))}

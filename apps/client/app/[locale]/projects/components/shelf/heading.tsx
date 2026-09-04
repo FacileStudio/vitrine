@@ -25,7 +25,7 @@ export default function Heading({ lines, filter = null, count = 0, onFilter }: H
 
     return (
         <div className="relative z-10 3xl:w-[70vw] w-[80vw] pb-[12vh] flex items-start justify-between gap-12 text-white">
-            <h2 className="text-start text-5xl md:text-6xl font-medium leading-tight">
+            <h2 className="text-start">
                 {lines.map((line, i) => (
                     <TextReveal key={i} open duration={0.8} delay={arrive + i * 0.12}>
                         {line}
@@ -38,7 +38,8 @@ export default function Heading({ lines, filter = null, count = 0, onFilter }: H
                     <TextReveal
                         open
                         delay={arrive + 0.35}
-                        className="flex justify-end gap-3 w-full text-right font-bb-mono tracking-tight font-medium text-sm uppercase tabular-nums"
+                        as="p"
+                        className="flex justify-end gap-3 w-full text-right tabular-nums"
                     >
                         <span className="text-[#24E27A]">
                             {String(count).padStart(2, "0")}

@@ -10,7 +10,7 @@ export default function Note({ block }: BlockProps) {
         <Block cols={block.cols}>
             <Cell col="1 / -1" row="1">
                 <div className="flex h-full w-full flex-col gap-[2vh] p-[5vh]">
-                    <h3 className="text-[clamp(1.5rem,4.4vh,3.75rem)] tracking-tight font-medium">
+                    <h2 className="subtitle">
                         <Line>
                             {block.index ? (
                                 <>
@@ -20,10 +20,10 @@ export default function Note({ block }: BlockProps) {
                             ) : null}
                             {block.title}
                         </Line>
-                    </h3>
+                    </h2>
 
                     {block.text ? (
-                        <SplitLines text={block.text} className="max-w-[45ch] font-goga tracking-tight text-[clamp(0.8rem,1.9vh,1.5rem)] text-white/70" />
+                        <SplitLines as="p" text={block.text} className="lead max-w-[45ch] text-white/70" />
                     ) : null}
                 </div>
             </Cell>

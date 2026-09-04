@@ -66,7 +66,7 @@ export default function AppCard({ app, index, refs, onOpen, onEnter, onLeave }: 
 
                 <div data-media className={wipeClass}>
                     {mark("text-[9vh] text-white")}
-                    <span className="text-[clamp(0.9rem,2.1vh,1.5rem)] font-medium leading-snug text-white">
+                    <span className="subtitle text-white">
                         {app.tagline}
                     </span>
                 </div>
@@ -74,14 +74,15 @@ export default function AppCard({ app, index, refs, onOpen, onEnter, onLeave }: 
 
             <div ref={refs.content(index)} className="flex flex-col items-end gap-12 max-w-sm text-right py-12">
                 <div className="gap-y-6 flex flex-col items-end">
-                    <TextReveal cropClassName="z-10" className="font-goga text-5xl font-medium normal-case tracking-normal text-foreground">
+                    <TextReveal as="h2" cropClassName="z-10" className="subtitle text-foreground">
                         {app.name}
                     </TextReveal>
 
                     <SplitLines
+                        as="p"
                         text={app.description}
                         justify
-                        className="relative z-10 font-bb-mono text-sm uppercase text-foreground/50"
+                        className="relative z-10 text-foreground/50"
                     />
 
                     {app.link && (
@@ -106,7 +107,8 @@ export default function AppCard({ app, index, refs, onOpen, onEnter, onLeave }: 
 
                 <TextReveal
                     cropClassName="relative z-10"
-                    className="font-bb-mono text-[clamp(0.65rem,1.4vh,0.9rem)] uppercase tabular-nums text-foreground/35"
+                    as="p"
+                    className="text-[clamp(0.65rem,1.4vh,0.9rem)] tabular-nums text-foreground/35"
                 >
                     {String(index + 1).padStart(2, "0")}
                 </TextReveal>

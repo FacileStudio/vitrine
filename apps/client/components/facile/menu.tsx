@@ -183,7 +183,7 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
                             <a
                                 href={withLocale(link.href)}
                                 onClick={(e) => go(e, withLocale(link.href))}
-                                className="block font-goga text-4xl md:text-5xl 3xl:text-6xl font-medium normal-case tracking-normal text-white/80 transition-colors hover:text-white"
+                                className="subtitle block text-white/80 transition-colors hover:text-white"
                             >
                                 {link.label}
                             </a>
@@ -201,9 +201,9 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
                                                 href={sub.external ? sub.href : withLocale(sub.href)}
                                                 onClick={(e) => { if (!sub.external) go(e, withLocale(sub.href)); }}
                                                 {...(sub.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                                                className="block font-bb-mono font-medium uppercase text-sm md:text-md 3xl:text-lg text-white/45 transition-colors hover:text-white/90"
+                                                className="block text-white/45 transition-colors hover:text-white/90"
                                             >
-                                                {sub.label}
+                                                <p>{sub.label}</p>
                                             </a>
                                         </TextReveal>
                                     </li>
@@ -220,24 +220,24 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
                 <TextReveal open={menuOpen} duration={0.5} delay={menuOpen ? OPEN_AT.contact : 0}>
                     <a
                         href={`mailto:${CONTACT.email}`}
-                        className="block text-sm lg:text-md 3xl:text-lg font-bb-mono uppercase transition-colors hover:text-white"
+                        className="block transition-colors hover:text-white"
                     >
-                        {CONTACT.email}
+                        <p>{CONTACT.email}</p>
                     </a>
                 </TextReveal>
                 <TextReveal open={menuOpen} duration={0.5} delay={menuOpen ? OPEN_AT.contact + 0.06 : 0}>
                     <a
                         href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`}
-                        className="block text-sm lg:text-md 3xl:text-lg font-bb-mono transition-colors hover:text-white"
+                        className="block transition-colors hover:text-white"
                     >
-                        {CONTACT.phone}
+                        <p className="normal-case">{CONTACT.phone}</p>
                     </a>
                 </TextReveal>
                 <TextReveal
                     open={menuOpen}
                     duration={0.5}
                     delay={menuOpen ? OPEN_AT.contact + 0.12 : 0}
-                    className="text-sm lg:text-md 3xl:text-lg text-white/40 select-none"
+                    className="text-white/40 select-none"
                 >
                     <span aria-hidden="true">·</span>
                 </TextReveal>

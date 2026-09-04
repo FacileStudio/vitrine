@@ -4,7 +4,7 @@ import Link from "@/components/facile/transitionLink";
 import TextReveal from "@/components/facile/textReveal";
 import SplitLines from "@/components/facile/splitLines";
 import type { Member } from "./memberData";
-import { buttonClass, labelClass, nameClass } from "./memberStyles";
+import { buttonClass } from "./memberStyles";
 
 // phone: name, role, the short description, and one button for everything else
 export default function MemberSummary({
@@ -22,7 +22,7 @@ export default function MemberSummary({
         <>
             <Link
                 href={`/${locale}/studio`}
-                className="font-goga text-[1rem] lg:hidden block absolute top-12 font-medium tracking-tight left-1/2 -translate-x-1/2 capitalize transition-colors "
+                className="subtitle lg:hidden block absolute top-12 left-1/2 -translate-x-1/2 capitalize transition-colors"
             >
                 ← Go Back
             </Link>
@@ -30,10 +30,10 @@ export default function MemberSummary({
 
                 <div className="flex items-center gap-2">
                     <div className="h-2.5 w-2.5 rounded-sm" style={{ backgroundColor: member.highlight }} />
-                    <TextReveal open={shown} delay={0.1} className={`${nameClass} text-4xl text-white`}>
+                    <TextReveal as="h2" open={shown} delay={0.1} className="text-white">
                         {member.name}
                     </TextReveal>
-                    <TextReveal open={shown} delay={0.16} className={`${labelClass} ml-4`}>
+                    <TextReveal as="p" open={shown} delay={0.16} className="subtext ml-4 text-white">
                         {member.role}
                     </TextReveal>
                 </div>
@@ -42,7 +42,8 @@ export default function MemberSummary({
                 <SplitLines
                     text={member.description}
                     gap="mb-1"
-                    className="max-w-[36ch] font-goga hidden lg:block text-sm normal-case tracking-normal text-white/60"
+                    as="p"
+                    className="lead max-w-[36ch] hidden lg:block text-white/60"
                 />
 
                 <button type="button" onClick={onSeeMore} className={`${buttonClass} w-80`}>

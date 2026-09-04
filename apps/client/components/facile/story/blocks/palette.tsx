@@ -56,10 +56,10 @@ const readable = ([r, g, b]: readonly number[]) =>
 
 function Value({ label, value }: { label: string; value: string }) {
     return (
-        <span className="flex gap-[0.4em]">
+        <p className="flex gap-[0.4em] text-[clamp(0.55rem,1.2vh,0.8rem)] leading-tight">
             <span style={{ opacity: 0.45 }}>{label}:</span>
             <span style={{ opacity: 0.75 }}>{value}</span>
-        </span>
+        </p>
     );
 }
 
@@ -75,13 +75,13 @@ function Chip({ swatch, span }: { swatch: Swatch; span: number }) {
             className="flex min-h-0 min-w-0 flex-col justify-between gap-[1.5vh] rounded-md p-[3vh]"
         >
             <div className="flex flex-col gap-1">
-                <span className="text-[clamp(0.9rem,2.3vh,1.6rem)] font-goga tracking-tight">{swatch.label}</span>
-                <span style={{ opacity: 0.6 }} className="font-bb-mono uppercase text-[clamp(0.65rem,1.4vh,0.9rem)] font-medium">
+                <span className="subtitle">{swatch.label}</span>
+                <p style={{ opacity: 0.6 }} className="text-[clamp(0.65rem,1.4vh,0.9rem)]">
                     {swatch.note ?? swatch.hex}
-                </span>
+                </p>
             </div>
 
-            <div className="flex flex-col gap-[0.3vh] font-bb-mono uppercase text-[clamp(0.55rem,1.2vh,0.8rem)] font-medium leading-tight">
+            <div className="flex flex-col gap-[0.3vh] text-[clamp(0.55rem,1.2vh,0.8rem)] leading-tight">
                 <Value label="RGB" value={swatch.rgb ?? (rgb ? `(${rgb.join(", ")})` : "—")} />
                 <Value label="HSV / HSB" value={swatch.hsv ?? (rgb ? hsvOf(rgb) : "—")} />
                 <Value label="CMYK" value={swatch.cmyk ?? (rgb ? cmykOf(rgb) : "—")} />
@@ -97,7 +97,7 @@ export default function Palette({ block }: BlockProps) {
         <Block cols={block.cols}>
             <Cell col="1 / -1" row="1 / -1">
                 <div className="flex h-full w-full flex-col">
-                    <span className="px-[1.5vh] pt-[6vh] pb-[1.5vh] text-[clamp(0.65rem,1.4vh,1.1rem)] font-goga tracking-tight text-white/50">Color palette</span>
+                    <p className="subtext px-[1.5vh] pt-[6vh] pb-[1.5vh] text-white">Color palette</p>
 
                     <div className="grid min-h-0 flex-1 grid-cols-3 gap-[var(--gap)]">
                         {swatches.map((s, i) => (

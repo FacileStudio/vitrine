@@ -22,7 +22,7 @@ export default function Friends({ id = "friends" }: { id?: string }) {
         list.map((icon, i) => (
             <div key={i} className="shrink-0 flex w-70 h-70 bg-white/5 text-foreground flex-col justify-center rounded-2xl items-center gap-6">
                 <img src={`/images/icons/${icon.src}.png`} alt={icon.name} loading="lazy" decoding="async" className="h-20 opacity-100 invert" />
-                <span className="text-sm font-medium opacity-60 text-white whitespace-nowrap">{icon.name}</span>
+                <p className="subtext text-white whitespace-nowrap">{icon.name}</p>
             </div>
         ));
 
@@ -40,10 +40,10 @@ export default function Friends({ id = "friends" }: { id?: string }) {
     return (
         <section ref={sectionRef} id={id} className="relative w-full py-24 overflow-visible">
             <div className="px-60">
-                <h2 className="text-5xl font-bold">
+                <h2>
                     <TextReveal open={showIcons}>They trusted us</TextReveal>
                 </h2>
-                <TextReveal open={showIcons} delay={0.1} cropClassName="mt-4" className="text-lg opacity-66 max-w-[40ch]">
+                <TextReveal as="p" open={showIcons} delay={0.1} cropClassName="mt-4" className="lead max-w-[40ch] opacity-66">
                     Our clients let us the lead on projects they held close to their hearts
                 </TextReveal>
             </div>

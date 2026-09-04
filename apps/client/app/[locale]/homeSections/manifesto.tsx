@@ -52,7 +52,7 @@ export default function Manifesto() {
                 <Stripes orientation={180} count={4} className="bg-foreground" openWhen={() => progressRef.current < 0.90} />
 
                 <div className="absolute inset-0 z-50 flex flex-col items-center justify-center px-6 text-center pointer-events-none">
-                    <h2 className="max-w-3xl text-4xl md:text-5xl font-medium leading-tight text-foreground/80">
+                    <h2 className="max-w-3xl text-foreground/80">
                         {["We are creators building", "stunning and memorable", "experiences."].map((line, i) => (
                             <TextReveal key={i} open={showText} leaving={leaving} delay={i * 0.2}>
                                 {line}
@@ -62,16 +62,16 @@ export default function Manifesto() {
                     <TextReveal open={showCta} leaving={leaving} duration={0.7} delay={0.5} cropClassName="w-fit mt-10">
                         <Link
                             href="/projects"
-                            className="inline-block px-8 py-5 font-bb-mono uppercase text-md font-medium rounded-full bg-background/50 text-foreground"
+                            className="inline-block px-8 py-5 rounded-full bg-background/50 text-foreground"
                         >
-                            Voir nos projets
+                            <p className="text-md">Voir nos projets</p>
                         </Link>
                     </TextReveal>
                 </div>
 
-                <div className="absolute bottom-0 left-0 flex w-full items-end justify-between px-48 pb-12 pointer-events-none font-bb-mono uppercase text-md font-pp-mono text-foreground">
+                <div className="absolute bottom-0 left-0 flex w-full items-end justify-between px-48 pb-12 pointer-events-none text-foreground">
                     {["Branding", "Web - UI/UX design", "Showcase Websites", "Applications", "DevOps", "Self hosting"].map((entry, i) => (
-                        <TextReveal key={i} open={showText} leaving={leaving} delay={i * 0.1}>
+                        <TextReveal as="p" key={i} open={showText} leaving={leaving} delay={i * 0.1} className="text-md">
                             {entry}
                         </TextReveal>
                     ))}

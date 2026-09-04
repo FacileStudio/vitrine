@@ -5,7 +5,6 @@ import TextReveal from "@/components/facile/textReveal";
 import SplitLines from "@/components/facile/splitLines";
 import InfoModal from "@/components/facile/infoModal";
 import { TABS, type Member, type PanelTab, type WorkedProject } from "./memberData";
-import { modalMonoClass, nameClass } from "./memberStyles";
 import { SocialRows } from "./socialLinks";
 
 // everything that does not fit on a phone, one tab at a time. Every string waits
@@ -37,11 +36,11 @@ export default function MemberPanel({
                                 key={id}
                                 type="button"
                                 onClick={() => setTab(id)}
-                                className={`rounded-md px-3 py-2 text-[0.7rem] transition-colors ${modalMonoClass} ${
+                                className={`rounded-md px-3 py-2 transition-colors ${
                                     tab === id ? "bg-foreground text-background" : "bg-foreground/5 text-foreground/50"
                                 }`}
                             >
-                                <TextReveal open={entered} delay={0.1 + i * 0.05}>{label}</TextReveal>
+                                <TextReveal as="p" open={entered} delay={0.1 + i * 0.05}>{label}</TextReveal>
                             </button>
                         ))}
                     </div>
@@ -49,9 +48,10 @@ export default function MemberPanel({
                     {tab === "details" && (
                         <div className="flex flex-col gap-6">
                             <SplitLines
+                                as="p"
                                 text={member.bio}
                                 gap="mb-1"
-                                className="font-goga text-lg normal-case leading-relaxed tracking-tight text-foreground/70"
+                                className="lead text-foreground/70"
                             />
 
                             {member.socials.length > 0 && <SocialRows socials={member.socials} entered={entered} />}
@@ -66,7 +66,7 @@ export default function MemberPanel({
                                         <li>
                                             <Link
                                                 href={`/${locale}/suite`}
-                                                className={`group text-2xl ${nameClass} text-foreground/80 transition-colors hover:text-foreground`}
+                                                className="subtitle group text-foreground/80 transition-colors hover:text-foreground"
                                             >
                                                 <TextReveal open={entered} delay={0.22} className="flex items-center gap-2">
                                                     The Suite
@@ -83,7 +83,7 @@ export default function MemberPanel({
                                     <li key={project.slug}>
                                         <Link
                                             href={`/${locale}/projects/${project.slug}`}
-                                            className={`group text-2xl ${nameClass} text-foreground/80 transition-colors hover:text-foreground`}
+                                            className="subtitle group text-foreground/80 transition-colors hover:text-foreground"
                                         >
                                             <TextReveal open={entered} delay={0.28 + i * 0.06} className="flex items-center gap-2">
                                                 {project.name}
@@ -97,8 +97,8 @@ export default function MemberPanel({
                             {member.labels.length > 0 && (
                                 <div className="flex flex-wrap gap-2 pt-6">
                                     {member.labels.map((label, i) => (
-                                        <span key={label} className={`rounded-md bg-foreground/5 px-3 py-2 text-[0.7rem] text-foreground/60 ${modalMonoClass}`}>
-                                            <TextReveal open={entered} delay={0.36 + i * 0.05}>{label}</TextReveal>
+                                        <span key={label} className="rounded-md bg-foreground/5 px-3 py-2 text-foreground/60">
+                                            <TextReveal as="p" open={entered} delay={0.36 + i * 0.05}>{label}</TextReveal>
                                         </span>
                                     ))}
                                 </div>
@@ -109,8 +109,8 @@ export default function MemberPanel({
                     {tab === "facts" && (
                         <ul className="flex flex-col gap-4">
                             {member.facts.map((fact, i) => (
-                                <li key={fact} className={`text-[0.8rem] leading-relaxed text-foreground/60 ${modalMonoClass}`}>
-                                    <TextReveal open={entered} delay={0.26 + i * 0.06}>{fact}</TextReveal>
+                                <li key={fact} className="text-foreground/60">
+                                    <TextReveal as="p" open={entered} delay={0.26 + i * 0.06}>{fact}</TextReveal>
                                 </li>
                             ))}
                         </ul>

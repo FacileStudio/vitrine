@@ -8,7 +8,7 @@ export default function NotFound() {
 
     return (
         <div>
-            <h1>{t("title")}</h1>
+            <h2>{t("title")}</h2>
             <p>{t("message")}</p>
             <Link href="/">{t("goHome")}</Link>
         </div>

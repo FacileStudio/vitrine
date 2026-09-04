@@ -6,7 +6,6 @@ import { GithubIcon } from "@/components/ui/github";
 import { InstagramIcon } from "@/components/ui/instagram";
 import { DribbbleIcon } from "@/components/ui/dribbble";
 import type { Member } from "./memberData";
-import { modalMonoClass } from "./memberStyles";
 
 // lucide dropped its brand icons, so LinkedIn comes from iconify while the other
 // three are the studio's own animated marks
@@ -52,9 +51,9 @@ export function SocialRows({ socials, entered, delay = 0.32 }: { socials: Social
                         href={href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`${modalMonoClass} text-[0.75rem] text-foreground/60 transition-colors hover:text-foreground`}
+                        className="text-foreground/60 transition-colors hover:text-foreground"
                     >
-                        <TextReveal open={entered} delay={delay + i * 0.05} className="flex items-center gap-3">
+                        <TextReveal as="p" open={entered} delay={delay + i * 0.05} className="flex items-center gap-3">
                             {SocialIcon ? <SocialIcon size={18} /> : null}
                             {label}
                             <span className="ml-auto">↗</span>

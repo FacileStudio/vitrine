@@ -12,7 +12,7 @@ function Panel({ label, font, fontFamily, description, big }: { label: string; f
             className="flex min-h-0 min-w-0 flex-col justify-between gap-[1.5vh] p-[3vh]"
         >
             <div className="flex flex-col gap-1">
-                <Line style={{ fontFamily: "var(--font-bb-mono)" }} className="uppercase text-[clamp(0.65rem,1.4vh,0.9rem)] text-white/50">{label}</Line>
+                <Line as="p" className="text-[clamp(0.65rem,1.4vh,0.9rem)] text-white/50">{label}</Line>
                 <Line className={clsx(
                         "flex gap-x-[1.2vh] leading-none text-white/75",
                         big ? "font-semibold text-[clamp(1.75rem,5.2vh,5rem)]" : "text-[clamp(1rem,3.5vh,5rem)]"

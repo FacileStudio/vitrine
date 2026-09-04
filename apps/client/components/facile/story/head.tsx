@@ -25,7 +25,7 @@ const PersonHead = memo(function PersonHead({ person, className = "", gridSize =
         idle: 0.12,
         ambient: 0.3,
         float: false,
-        position: [0, -0.35, 0] as [number, number, number],
+        position: [0, -1, 0] as [number, number, number],
         scale: person.scale ? person.scale * scaleMultiplier : undefined,
         roughness: person.roughness,
         metalness: 0,

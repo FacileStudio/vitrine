@@ -22,12 +22,12 @@ export default function End({ block, onClose }: BlockProps) {
 
                     <div className="flex flex-col gap-[2.5vh]">
                         {block.eyebrow ? (
-                            <Line className="font-bb-mono text-[clamp(0.65rem,1.4vh,0.9rem)] uppercase text-white/35">
+                            <Line as="p" className="subtext text-white">
                                 {block.eyebrow}
                             </Line>
                         ) : null}
 
-                        <Line className="text-[clamp(1.75rem,5.2vh,5rem)] font-goga font-medium leading-[0.95]">
+                        <Line as="h2">
                             {block.title ?? "Thanks for scrolling."}
                         </Line>
 

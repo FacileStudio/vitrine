@@ -19,19 +19,19 @@ export default function ArchitectureModal({ open, setOpen }: ArchitectureModalPr
                 <>
                     {architecture.sections.map((section, s) => (
                         <section key={section.heading} className="flex flex-col gap-3">
-                            <h3 className="font-medium text-[1.75rem] text-foreground">
+                            <h2 className="text-foreground">
                                 <TextReveal open={entered} delay={0.08 + s * 0.05}>{section.heading}</TextReveal>
-                            </h3>
+                            </h2>
 
                             {section.body.map((paragraph, i) => (
-                                <p key={i} className="text-justify font-bb-mono text-[0.8rem] uppercase text-foreground/50 hyphens-auto">
+                                <p key={i} className="text-justify text-[0.8rem] text-foreground/50 hyphens-auto">
                                     <TextReveal open={entered} delay={0.12 + s * 0.05 + i * 0.04}>{paragraph}</TextReveal>
                                 </p>
                             ))}
                         </section>
                     ))}
 
-                    <p className="border-t border-foreground/10 pt-6 text-justify font-bb-mono text-[0.7rem] uppercase text-foreground/40">
+                    <p className="border-t border-foreground/10 pt-6 text-justify text-[0.7rem] text-foreground/40">
                         <TextReveal open={entered} delay={0.3}>{architecture.footer}</TextReveal>
                     </p>
                 </>
