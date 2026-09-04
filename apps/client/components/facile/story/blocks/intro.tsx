@@ -71,12 +71,8 @@ export default function Intro({ block }: BlockProps) {
                             <Meta label="Involved">
                                 <div className="flex">
                                     {block.people.map((m) => (
-                                        <Line key={m.name} className="flex items-center">
-                                                <PersonHead person={m} gridSize={0.5} className="h-[16vh] w-[12vh] max-h-48 max-w-48" label/>
-                                            {/* <span className="flex items-center gap-3 leading-tight">
-                                                <span className="text-white text-[clamp(0.8rem,1.9vh,1.35rem)] font-medium">{m.name}</span>
-                                                <span className="font-bb-mono tracking-tight font-medium uppercase text-[clamp(0.65rem,1.4vh,0.9rem)] mt-0.5 text-white/40">{m.role}</span>
-                                            </span> */}
+                                        <Line key={m.name} className="flex items-center gap-6">
+                                            <PersonHead person={m} className="h-[12vh] w-[12vh] mt-4 max-h-64 max-w-64" gridSize={0.43} scaleMultiplier={2.5} />
                                         </Line>
                                     ))}
                                 </div>
