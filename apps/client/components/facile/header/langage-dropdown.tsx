@@ -13,12 +13,10 @@ export const LanguageDropdown = ({locale, switchLocale, className} : {
     return (
         <div className={clsx("group relative", className)}>
             <div className="flex items-center bg-[#CAE6D8] overflow-hidden transition-all duration-500 ease-in-out w-[3.5rem] group-hover:w-[13.5rem]">
-                {/* Current language trigger */}
                 <div className="text-xl px-4 py-1 cursor-pointer flex items-center gap-2 whitespace-nowrap">
                     <span className="uppercase">{currentLang.code}</span>
                 </div>
                 
-                {/* Expanded language list - hidden by default, visible on hover */}
                 <div className="flex opacity-0 group-hover:opacity-100 transition-opacity duration-500 overflow-hidden">
                     {languages
                         .filter(lang => lang.code !== locale)

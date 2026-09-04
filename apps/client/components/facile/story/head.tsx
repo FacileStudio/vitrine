@@ -42,7 +42,7 @@ const PersonHead = memo(function PersonHead({ person, className = "", gridSize =
         <div
             className={`group relative shrink-0 ${className}`}
         >
-            <Head model={person.model} highlight={person.highlight} count={3} className={"absolute inset-0 h-full w-full transition-all duration-200 group-hover:scale-105"} dither={dither} />
+            <Head model={person.model} highlight={person.highlight} stripes={false} className={"absolute inset-0 h-full w-full transition-all duration-200 group-hover:scale-105"} dither={dither} />
 
             <div className="pointer-events-none absolute inset-0 " />
 

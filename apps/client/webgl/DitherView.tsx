@@ -1,12 +1,21 @@
 'use client';
 
 import "./silence-three-deprecations";
-import { Suspense, useEffect, useRef, useState } from "react";
+import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import * as THREE from "three";
 import { EnvironmentWrapper } from "./environment";
 import { DitherModel, type DitherModelProps } from "./DitherModel";
 import { PostProcessing } from "./PostProcessing";
+import { registerScene } from "./sceneReady";
+
+// mounts only once its Suspense boundary has resolved, which is the moment every
+// model in this canvas is fetched and parsed. That is the signal a page curtain
+// waits on before it sweeps off
+function Ready({ done }: { done: () => void }) {
+    useEffect(() => { done(); }, [done]);
+    return null;
+}
 
 export interface DitherViewProps extends DitherModelProps {
     className?: string;
@@ -56,6 +65,16 @@ export function DitherView({
     const containerRef = useRef<HTMLDivElement>(null);
     const [active, setActive] = useState(true);
     const [canvasKey, setCanvasKey] = useState(0);
+    const release = useRef<(() => void) | null>(null);
+
+    // counted as pending from mount, released when the models resolve — or on
+    // unmount, so a canvas that leaves before loading cannot hold a curtain down
+    useEffect(() => {
+        release.current = registerScene();
+        return () => release.current?.();
+    }, []);
+
+    const done = useCallback(() => release.current?.(), []);
 
     useEffect(() => {
         const el = containerRef.current;
@@ -108,6 +127,7 @@ export function DitherView({
                         </group>
                     ))}
                     <EnvironmentWrapper intensity={intensity} highlight={highlight} resolution={lite ? 256 : 1024} />
+                    <Ready done={done} />
                 </Suspense>
                 <PostProcessing
                     gridSize={gridSize}

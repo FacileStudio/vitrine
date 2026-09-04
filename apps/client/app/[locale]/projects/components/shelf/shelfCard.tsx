@@ -136,11 +136,10 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
                             {project.services.map((s) => (
                                 <TextReveal
                                     key={s}
-                                    as="p"
                                     cropClassName="shrink-0"
-                                    className="rounded-md px-[2vh] py-[1vh] text-[clamp(0.65rem,1.4vh,0.9rem)] bg-[#212121] text-white"
+                                    className="rounded-md px-[2vh] py-[1vh] text-[clamp(0.65rem,1.4vh,0.9rem)] backdrop-blur-xl bg-[#212121]/20 text-white"
                                 >
-                                    {s}
+                                    <p>{s}</p>
                                 </TextReveal>
                             ))}
                         </span>

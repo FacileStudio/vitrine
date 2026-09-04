@@ -7,9 +7,6 @@ import type { DitherViewProps } from "@/webgl/DitherView";
 
 const DitherView = dynamic(() => import("@/webgl/DitherView").then((m) => m.DitherView), { ssr: false });
 
-// A DitherView that reveals itself once mounted by sliding a set of Stripes covers
-// away. Shared by the Studio section grid and the Process page so the
-// "3D object appears from behind the stripes" effect lives in one place.
 export default function DitherReveal({
     model,
     highlight = "#24E27A",
@@ -20,6 +17,7 @@ export default function DitherReveal({
     stagger = 0.08,
     coverClassName = "bg-foreground",
     className = "",
+    stripes = true,
     dither,
     children,
 }: {
@@ -27,11 +25,12 @@ export default function DitherReveal({
     highlight?: string;
     orientation?: number;
     count?: number;
-    delay?: number;        // seconds before this instance starts revealing (per-section stagger)
+    delay?: number;
     duration?: number;
     stagger?: number;
     coverClassName?: string;
     className?: string;
+    stripes?: boolean;
     dither?: Partial<DitherViewProps>;
     children?: React.ReactNode;
 }) {
@@ -53,14 +52,16 @@ export default function DitherReveal({
                 className="absolute inset-0 h-full w-full"
                 {...dither}
             />
-            <Stripes
-                orientation={orientation}
-                count={count}
-                open={open}
-                duration={duration}
-                stagger={stagger}
-                className={coverClassName}
-            />
+            {stripes ? (
+                <Stripes
+                    orientation={orientation}
+                    count={count}
+                    open={open}
+                    duration={duration}
+                    stagger={stagger}
+                    className={coverClassName}
+                />
+            ) : null}
             {children}
         </div>
     );

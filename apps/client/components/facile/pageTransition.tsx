@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import Stripes from "./stripes";
+import { useScenesReady } from "@/webgl/sceneReady";
 
 // the same curtain the Menu drops: two waves racing across the viewport, the
 // lead colour landing first and leaving last so the pair never travels as one
@@ -104,9 +105,18 @@ export const TransitionOut = ({ href, router }: { href: string; router: AppRoute
 // by a dark curtain, a white one (Suite) by a white one
 export default function PageCurtain({ enter = "dark", leave = "dark" }: { enter?: Tone; leave?: Tone }) {
     const router = useRouter();
-    const [covered, setCovered] = useState(false);
+    // the arriving page starts covered and stays covered until its canvases have
+    // their models: sweeping off a page whose 3D is still downloading shows an
+    // empty grid, then pops the heads in behind it
+    const [covered, setCovered] = useState(true);
     const [tone, setTone] = useState<Tone>(enter);
     const busy = useRef(false);
+    const ready = useScenesReady();
+
+    useEffect(() => {
+        if (ready && !busy.current)
+            setCovered(false);
+    }, [ready]);
 
     useEffect(() => {
         sweeper = (mid) => {

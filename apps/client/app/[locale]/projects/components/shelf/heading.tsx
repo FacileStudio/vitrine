@@ -63,7 +63,7 @@ export default function Heading({ lines, filter = null, count = 0, onFilter }: H
                                             type="button"
                                             onClick={() => onFilter(e.value)}
                                             aria-pressed={on}
-                                            className={`flex w-fit shrink-0 items-center gap-2 whitespace-nowrap rounded-md px-[2vh] py-[1vh] font-bb-mono tracking-tight font-medium text-[clamp(0.65rem,1.4vh,0.9rem)] uppercase transition-colors duration-300 ${on ? "bg-white/15 text-white" : "bg-white/5 text-white/60 hover:bg-white/10 hover:text-white"}`}
+                                            className={`flex w-fit shrink-0 items-center gap-2 whitespace-nowrap rounded-md px-[2vh] py-[1vh] font-bb-mono tracking-tight font-medium text-[clamp(0.65rem,1.4vh,0.9rem)] uppercase transition-colors backdrop-blur-xl bg-[#212121]/20 duration-300 ${on ? "bg-white/15 text-white" : "text-white/60 hover:bg-white/10 hover:text-white"}`}
                                         >
                                             {e.label}
                                         </button>

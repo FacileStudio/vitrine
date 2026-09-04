@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import Header from "@/components/facile/header";
 import Menu from "@/components/facile/menu";
-import PageCurtain, { TransitionOut } from "@/components/facile/pageTransition";
+import PageCurtain, { CURTAIN_MS, TransitionOut } from "@/components/facile/pageTransition";
 import DitherReveal from "@/components/facile/ditherReveal";
 import TextReveal from "@/components/facile/textReveal";
 import members from "./studio.json";
@@ -14,12 +14,12 @@ import members from "./studio.json";
 // Environment cubemap, four at a time. Memoised component, props built once
 const Head = memo(DitherReveal);
 
-const HEAD_PROPS = (idle: number) => members.map((member, i) => ({
+const HEAD_PROPS = (idle: number, gridSize: number) => members.map((member, i) => ({
     model: member.model,
     highlight: member.highlight,
     delay: 0.15 + i * 0.15,
     dither: {
-        gridSize: 0.9,
+        gridSize,
         intensity: 1.0,
         parallax: 0.6,
         parallaxSpeed: 0.05,
@@ -40,6 +40,7 @@ export default function StudioPage() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [hovered, setHovered] = useState<string | null>(null);
     const [coarse, setCoarse] = useState(false);
+    const [resolved, setResolved] = useState(false);
     const router = useRouter();
     const locale = useLocale();
 
@@ -53,7 +54,15 @@ export default function StudioPage() {
         return () => mq.removeEventListener("change", sync);
     }, []);
 
-    const heads = useMemo(() => HEAD_PROPS(coarse ? 0.5 : 0.12), [coarse]);
+    // the heads arrive as a coarse grid and settle once the curtain has swept
+    // off, so the page resolves rather than appearing finished — PostProcessing
+    // tweens the value onto the dither uniform, nothing re-renders to animate it
+    useEffect(() => {
+        const t = setTimeout(() => setResolved(true), CURTAIN_MS);
+        return () => clearTimeout(t);
+    }, []);
+
+    const heads = useMemo(() => HEAD_PROPS(coarse ? 0.5 : 0.12, resolved ? 0.9 : 12), [coarse, resolved]);
 
     return (
         <div className="relative h-screen w-full overflow-hidden bg-foreground">

@@ -28,8 +28,8 @@ export default function Backdrop({ sticky = false }: { sticky?: boolean }) {
                 scale={4}
                 file="/models/manifesto.glb"
                 models={[
-                    { file: "/models/manifesto.glb", position: [3, -3, 0], scale: 4 },
-                    { file: "/models/manifesto.glb", position: [-3, 1, 0], scale: 4 },
+                    { file: "/models/manifesto.glb", position: [3, -3.5, 0], scale: 4 },
+                    { file: "/models/manifesto.glb", position: [-3.5, 1, 0], scale: 4 },
                 ]}
             />
         </div>
