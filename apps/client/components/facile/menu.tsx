@@ -7,7 +7,6 @@ import { usePathname, useRouter } from 'next/navigation';
 import TextReveal from '@/components/facile/textReveal';
 import { TransitionOut } from '@/components/facile/pageTransition';
 import { allProjects } from '@/app/[locale]/projects/lib/projects';
-import suite from '@/app/[locale]/suite/suite.json';
 import { GithubIcon } from '../ui/github';
 import { InstagramIcon } from '../ui/instagram';
 import { DribbbleIcon } from '../ui/dribbble';
@@ -28,7 +27,6 @@ const DitherView = dynamic(() => import("@/webgl/DitherView").then((m) => m.Dith
 export type SubLink = { href: string; label: string; external?: boolean };
 export type NavLink = { href: string; label: string; secondary?: SubLink[] };
 const MENU_PROJECTS = allProjects.length;
-const MENU_SUITE = 0;
 
 export const links: NavLink[] = [
     { href: '/', label: 'Home' },
@@ -41,12 +39,8 @@ export const links: NavLink[] = [
         })),
     },
     {
-        href: '/suite',
+        href: 'https://suite.facile.studio',
         label: 'Suite',
-        secondary: suite.slice(0, MENU_SUITE).map((app) => ({
-            href: '/suite',
-            label: app.name,
-        })),
     },
     {
         href: '/process',
@@ -78,6 +72,10 @@ const subBase = links.reduce<number[]>(
 const COUNT = 4;
 const coverEase = 'cubic-bezier(0.7, 0, 0.3, 1)';
 const exitDelay = 0.9;
+
+// when the last cover lands: the trailing layer's lead, plus its stagger across the
+// stripes, plus the slide itself. Nothing behind the covers may show before this
+const COVERED_MS = (0.14 + (COUNT - 1) * 0.1 + 0.8) * 1000;
 
 const Stripes = (open: boolean, color: string, leadOpen: number, leadClose: number) =>
     Array.from({ length: COUNT }, (_, i) => (
@@ -117,25 +115,41 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
         TransitionOut({ href, router });
     };
     const [mountDither, setMountDither] = React.useState(false);
-    const [showDither, setShowDither] = React.useState(false);
     const [resolved, setResolved] = React.useState(false);
-
+    // three states, because two were not enough: `hidden` while the covers are still
+    // travelling, so the model cannot show through the gaps between them; then in the
+    // layout at opacity 0 the moment they land; then faded up with the rest of the menu
+    const [stage, setStage] = React.useState<'off' | 'ready' | 'shown'>('off');
 
     // dither on open
     React.useEffect(() => {
         if (menuOpen) {
+            // mounted straight away so the model downloads behind the covers — it is
+            // `hidden` until they have landed, which is what stopped it appearing early
             // eslint-disable-next-line react-hooks/set-state-in-effect
             setMountDither(true);
-            const id = requestAnimationFrame(() => setShowDither(true));
-            // let the clip wipe land before the dither grid resolves
-            const t = setTimeout(() => setResolved(true), 800);
+            // the grid resolves once the wipe has landed, not before
+            const t = setTimeout(() => setResolved(true), COVERED_MS + 600);
+            const ready = setTimeout(() => setStage('ready'), COVERED_MS);
+            const shown = setTimeout(() => setStage('shown'), COVERED_MS + 60);
             return () => {
-                cancelAnimationFrame(id);
                 clearTimeout(t);
+                clearTimeout(ready);
+                clearTimeout(shown);
             };
         }
-        setShowDither(false);
         setResolved(false);
+        // on the way out it stays in the layout and fades, which is the animation it
+        // always had — dropping straight to `off` would make it vanish on the frame
+        // the menu closed
+        setStage((s) => (s === 'off' ? 'off' : 'ready'));
+
+        // and give the canvas back once the wipe has finished: mounted, it holds a
+        // WebGL context and renders every frame behind a clip-path, on whatever page
+        // the visitor went back to
+        const off = setTimeout(() => setStage('off'), (exitDelay + 0.6) * 1000);
+        const t = setTimeout(() => setMountDither(false), (exitDelay + 0.6) * 1000);
+        return () => { clearTimeout(off); clearTimeout(t); };
     }, [menuOpen]);
 
     return (
@@ -143,19 +157,19 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
             aria-hidden={!menuOpen}
             className={`fixed inset-0 z-100 ${menuOpen ? '' : 'pointer-events-none'}`}
         >
-            {/* white curtain leads, dark curtain trails: two waves racing down the screen.
-                on close they wait for the dither object to fade out before retreating */}
             <div className="absolute inset-0 z-30">{Stripes(menuOpen, '#ffffff', 0, 0.14 + exitDelay)}</div>
             <div className="absolute inset-0 z-40">{Stripes(menuOpen, 'var(--foreground)', 0.14, 0 + exitDelay)}</div>
 
-            {/* dither backdrop, revealed top-to-bottom by a clip wipe once the covers land */}
             {mountDither && (
                 <div
-                    className="absolute inset-0 z-45 overflow-hidden"
+                    className={`absolute inset-0 z-45 overflow-hidden ${stage === 'off' ? 'hidden' : 'visible'}`}
                     style={{
-                        clipPath: showDither ? 'inset(0% 0% 0% 0%)' : 'inset(0% 0% 0% 100%)',
-                        opacity: showDither ? 1 : 0,
-                        transition: `clip-path 0.6s ${coverEase} ${menuOpen ? '0.55s' : `${exitDelay}s`}, opacity 0.9s ${coverEase} ${menuOpen ? '0.85s' : '0s'}`,
+                        clipPath: stage === 'shown' ? 'inset(0% 0% 0% 0%)' : 'inset(0% 0% 0% 100%)',
+                        opacity: stage === 'shown' ? 1 : 0,
+                        // opening needs no delay of its own — `stage` already waited for
+                        // the covers. Leaving keeps the original one: the copy goes
+                        // first, the clip retracts behind the returning stripes
+                        transition: `clip-path 0.6s ${coverEase} ${menuOpen ? '0s' : `${exitDelay}s`}, opacity 0.9s ${coverEase} 0s`,
                     }}
                 >
                     <DitherView
@@ -187,7 +201,7 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
                             <a
                                 href={withLocale(link.href)}
                                 onClick={(e) => go(e, withLocale(link.href))}
-                                className="block text-4xl md:text-5xl 3xl:text-6xl font-medium text-white/80 transition-colors hover:text-white"
+                                className="subtitle block text-white transition-colors"
                             >
                                 {link.label}
                             </a>
@@ -205,9 +219,9 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
                                                 href={sub.external ? sub.href : withLocale(sub.href)}
                                                 onClick={(e) => { if (!sub.external) go(e, withLocale(sub.href)); }}
                                                 {...(sub.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                                                className="block font-bb-mono font-medium uppercase text-sm md:text-md 3xl:text-lg text-white/45 transition-colors hover:text-white/90"
+                                                className="block text-white/45 transition-colors hover:text-white/90"
                                             >
-                                                {sub.label}
+                                                <p>{sub.label}</p>
                                             </a>
                                         </TextReveal>
                                     </li>
@@ -224,24 +238,24 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
                 <TextReveal open={menuOpen} duration={0.5} delay={menuOpen ? OPEN_AT.contact : 0}>
                     <a
                         href={`mailto:${CONTACT.email}`}
-                        className="block text-sm md:text-md 3xl:text-lg transition-colors hover:text-white"
+                        className="block transition-colors hover:text-white"
                     >
-                        {CONTACT.email}
+                        <p>{CONTACT.email}</p>
                     </a>
                 </TextReveal>
                 <TextReveal open={menuOpen} duration={0.5} delay={menuOpen ? OPEN_AT.contact + 0.06 : 0}>
                     <a
                         href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`}
-                        className="block text-sm md:text-md 3xl:text-lg transition-colors hover:text-white"
+                        className="block transition-colors hover:text-white"
                     >
-                        {CONTACT.phone}
+                        <p className="normal-case">{CONTACT.phone}</p>
                     </a>
                 </TextReveal>
                 <TextReveal
                     open={menuOpen}
                     duration={0.5}
                     delay={menuOpen ? OPEN_AT.contact + 0.12 : 0}
-                    className="text-sm md:text-md 3xl:text-lg text-white/40 select-none"
+                    className="text-white/40 select-none"
                 >
                     <span aria-hidden="true">·</span>
                 </TextReveal>

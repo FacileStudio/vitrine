@@ -19,11 +19,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             <button
                 ref={ref}
                 className={clsx(
-                    "flex items-center gap-2 rounded-md px-4 py-3",
+                    "button flex items-center gap-2",
                     "transition-colors duration-300 cursor-pointer group",
-                    isDark
-                        ? "bg-white/5 text-white/60 hover:bg-white/10 hover:text-white"
-                        : "bg-black/5 text-black/60 hover:bg-black/10 hover:text-black",
+                    isDark && "button-dark",
                     className
                 )}
                 {...props}

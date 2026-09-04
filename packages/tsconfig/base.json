@@ -16,10 +16,7 @@
     "preserveWatchOutput": true,
     "skipLibCheck": true,
     "strict": true,
-    "strictNullChecks": true,
-    "types": [
-      "bun-types"
-    ]
+    "strictNullChecks": true
   },
   "exclude": ["node_modules"]
 }

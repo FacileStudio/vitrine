@@ -3,14 +3,12 @@
 import type { KeyboardEvent, MouseEvent } from "react";
 import SplitLines from "@/components/facile/splitLines";
 import TextReveal from "@/components/facile/textReveal";
+import Arrow from "@/components/facile/arrow";
 import type { Project } from "../../lib/projects";
-import { ShelfCardRefs } from "../../lib/types";
+import type { ShelfCardRefs } from "../../lib/types";
 import { CustomCoverRender } from "../CustomCoverFactory";
 
-
 const coverClass = "w-full h-full object-cover brightness-100 transition-all duration-300 ease-out";
-
-
 
 interface ShelfCardProps {
     project: Project;
@@ -26,8 +24,6 @@ interface ShelfCardProps {
 // Every piece of copy is a plain crop — the shelf's centre-band observer owns the
 // whole column. The whole row opens the story; only the live-site link inside it
 // stops the click from bubbling, so it can go its own way to the external site
-
-
 export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLeave }: ShelfCardProps) {
     const open = () => onOpen(project.slug);
     const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
@@ -58,16 +54,17 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
             />
 
             <div ref={refs.content(index)} className="flex flex-col items-end gap-12 max-w-sm text-right py-12">
-                <div className="gap-y-6 flex flex-col items-end">
-                    <TextReveal cropClassName="z-10" className="text-5xl font-medium text-white">
+                <div className="gap-y-8 flex flex-col items-end">
+                    <TextReveal as="h2" cropClassName="z-10" className="subtitle text-white">
                         {project.name}
                     </TextReveal>
 
                     {project.description && (
                         <SplitLines
+                            as="p"
                             text={project.description}
                             justify
-                            className="relative z-10 text-md font-medium leading-relaxed text-white/50"
+                            className="relative z-10 text-white/66"
                         />
                     )}
 
@@ -78,10 +75,10 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
                                 target="_blank"
                                 rel="noreferrer"
                                 onClick={(e) => e.stopPropagation()}
-                                className="group flex w-fit text-xl gap-2 rounded-md px-[2vh] py-[1vh] text-white transition-colors duration-200 hover:text-[#24E27A]"
+                                className="group flex w-fit text-xl font-goga capitalize tracking-tighter gap-2 rounded-md px-[2vh] py-[1vh] text-white transition-colors duration-200 hover:text-[#24E27A]"
                             >
                                 Visit site
-                                <span className="transition-transform duration-200 group-hover:-translate-y-1 group-hover:translate-x-1">↗</span>
+                                <Arrow />
                             </a>
                         </TextReveal>
                     )}
@@ -93,16 +90,16 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
                                 <TextReveal
                                     key={s}
                                     cropClassName="shrink-0"
-                                    className="rounded-md px-[2vh] py-[1vh] text-[clamp(0.65rem,1.4vh,0.9rem)] bg-[#212121] text-white"
+                                    className="rounded-md px-[2vh] py-[1vh] text-[clamp(0.65rem,1.4vh,0.9rem)] backdrop-blur-xl bg-[#212121]/20 text-white"
                                 >
-                                    {s}
+                                    <p>{s}</p>
                                 </TextReveal>
                             ))}
                         </span>
                     )}
                     {project.techStack?.length ? (
                         <div className="flex flex-col items-end gap-3">
-                            <TextReveal cropClassName="relative z-10" className="text-[clamp(0.65rem,1.4vh,0.9rem)] text-white/35">
+                            <TextReveal as="p" cropClassName="relative z-10" className="subtext text-white">
                                 Created with
                             </TextReveal>
                             <span className="relative z-10 flex flex-wrap justify-end gap-6">

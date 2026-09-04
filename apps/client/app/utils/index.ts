@@ -9,3 +9,5 @@ export function cn(...inputs: ClassValue[]) {
 export function past(ref: RefObject<HTMLElement | null>, triggerLine = 0.5) {
   return ref.current ? ref.current.getBoundingClientRect().top < window.innerHeight * triggerLine : false
 }
+
+export const isVideoFile = (src: string) => /\.(mp4|webm|ogg|mov|webp)$/i.test(src)

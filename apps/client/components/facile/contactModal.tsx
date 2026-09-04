@@ -239,7 +239,7 @@ export default function ContactModal({ open, setOpen }: ContactModalProps) {
 
                                 <div className="space-y-6 md:space-y-8">
                                     <div className="space-y-4">
-                                        <h2 className="max-w-3xl text-[clamp(2.6rem,7vw,5.75rem)] font-black leading-[0.95] tracking-[-0.06em]">
+                                        <h2 className="max-w-3xl">
                                             {currentStep.label}
                                         </h2>
                                         {currentStep.optional && (

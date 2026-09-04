@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "NODE_OPTIONS='--disable-warning=DEP0205' next build",
+    "build": "NODE_OPTIONS='--disable-warning=DEP0205' next build && mkdir -p .next/standalone/apps/client/public .next/standalone/apps/client/.next/static && cp -r public/. .next/standalone/apps/client/public/ && cp -r .next/static/. .next/standalone/apps/client/.next/static/",
     "start": "next start",
     "lint": "eslint"
   },

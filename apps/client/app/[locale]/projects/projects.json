@@ -3,7 +3,6 @@
         "slug": "marcel",
         "customCover": "marcel",
         "name": "Marcel",
-        "tier": 1,
         "weeks": 12,
         "link": "https://marcel.my/",
         "image": "/images/projects/Marcel.png",
@@ -38,8 +37,8 @@
             "App development"
         ],
         "team": [
+            "fanga",
             "noah",
-            "yann",
             "camille",
             "mazouz"
         ],
@@ -60,6 +59,7 @@
             },
             {
                 "title": "New Face!",
+                "by": "camille",
                 "blocks": [
                     {
                         "type": "note",
@@ -108,6 +108,7 @@
             },
             {
                 "title": "Redesign",
+                "by": ["camille", "noah"],
                 "blocks": [
                     {
                         "type": "note",
@@ -130,6 +131,7 @@
             },
             {
                 "title": "Implementation",
+                "by": ["noah", "mazouz", "fanga"],
                 "blocks": [
                     {
                         "type": "note",
@@ -141,11 +143,19 @@
                     },
                     {
                         "type": "col",
-                        "media": [7, 8, 9]
+                        "media": [
+                            7,
+                            8,
+                            9
+                        ]
                     },
                     {
                         "type": "col",
-                        "media": [10, 11, 12]
+                        "media": [
+                            10,
+                            11,
+                            12
+                        ]
                     }
                 ]
             },
@@ -154,7 +164,6 @@
                     {
                         "type": "end"
                     }
-                    
                 ]
             }
         ]
@@ -163,7 +172,6 @@
         "slug": "projet-zero",
         "customCover": "projet-zero-pillar",
         "name": "Projet Zero",
-        "tier": 1,
         "weeks": 6,
         "image": "/images/projects/ProjetZero_cover.png",
         "video": "/images/projects/ProjetZero_reveal.webp",
@@ -209,8 +217,12 @@
         "story": [
             {
                 "blocks": [
-                    { "type": "cover" },
-                    { "type": "intro" }
+                    {
+                        "type": "cover"
+                    },
+                    {
+                        "type": "intro"
+                    }
                 ]
             },
             {
@@ -220,16 +232,27 @@
                         "type": "note",
                         "title": "Ideation",
                         "text": "The starting point wasn't a soldier or a spaceship, it was the energy itself: a mark that reads as scavenged alien tech first, game logo second.",
-                        "media": [0]
+                        "media": [
+                            0
+                        ]
                     },
                     {
                         "type": "big",
-                        "media": [1, 2, 3],
+                        "media": [
+                            1,
+                            2,
+                            3
+                        ],
                         "smalls": "top"
                     },
                     {
                         "type": "collage",
-                        "media": [12, 13, 14, 15]
+                        "media": [
+                            12,
+                            13,
+                            14,
+                            15
+                        ]
                     }
                 ]
             },
@@ -240,16 +263,40 @@
                         "type": "note",
                         "title": "Graphic Chart",
                         "text": "Every surface — site, shop, battle pass, marketing — draws from the same ancient-energy blue, so the world never breaks character switching from screenshot to Instagram post.",
-                        "media": [4]
+                        "media": [
+                            4
+                        ]
                     },
                     {
                         "type": "palette",
                         "swatches": [
-                            { "label": "Background", "hex": "#121219" },
-                            { "label": "Component", "hex": "#181920", "note": "#E8EEFF (opacity 3%) — informations & titles" },
-                            { "label": "Titre H1 Dégradé", "hex": "linear-gradient(135deg, #B4C3F0 0%, #7B8FD6 100%)", "note": "Gradient: #B4C3F0 → #7B8FD6", "textColor": "#0E0F10", "rgb": "—", "hsv": "—", "cmyk": "—" },
-                            { "label": "Text", "hex": "#E8EEFF" },
-                            { "label": "Sous Text", "hex": "#7D808C", "note": "#E8EEFF (opacity 50%) — minor informations" }
+                            {
+                                "label": "Background",
+                                "hex": "#121219"
+                            },
+                            {
+                                "label": "Component",
+                                "hex": "#181920",
+                                "note": "#E8EEFF (opacity 3%) — informations & titles"
+                            },
+                            {
+                                "label": "Titre H1 Dégradé",
+                                "hex": "linear-gradient(135deg, #B4C3F0 0%, #7B8FD6 100%)",
+                                "note": "Gradient: #B4C3F0 → #7B8FD6",
+                                "textColor": "#0E0F10",
+                                "rgb": "—",
+                                "hsv": "—",
+                                "cmyk": "—"
+                            },
+                            {
+                                "label": "Text",
+                                "hex": "#E8EEFF"
+                            },
+                            {
+                                "label": "Sous Text",
+                                "hex": "#7D808C",
+                                "note": "#E8EEFF (opacity 50%) — minor informations"
+                            }
                         ]
                     },
                     {
@@ -263,7 +310,9 @@
                     },
                     {
                         "type": "full",
-                        "media": [5]
+                        "media": [
+                            5
+                        ]
                     }
                 ]
             },
@@ -274,17 +323,27 @@
                         "type": "note",
                         "title": "Web Design",
                         "text": "Showcase site, shop and chapter (battle pass) info page, all built as one continuum — the same blue glow escalates as you move from lore to loot.",
-                        "media": [6]
+                        "media": [
+                            6
+                        ]
                     },
                     {
                         "type": "mosaic",
-                        "media": [7, 8, 9, 10, 11]
+                        "media": [
+                            7,
+                            8,
+                            9,
+                            10,
+                            11
+                        ]
                     }
                 ]
             },
             {
                 "blocks": [
-                    { "type": "end" }
+                    {
+                        "type": "end"
+                    }
                 ]
             }
         ]
@@ -619,7 +678,6 @@
     {
         "slug": "waves",
         "name": "Waves",
-        "tier": 1,
         "weeks": 1,
         "link": "https://github.com/saravenpi/waves",
         "description": "A native desktop audio visualiser that turns sound into real-time waveforms with an FFT engine at its core.",
@@ -778,104 +836,37 @@
         ]
     },
     {
-        "slug": "retro-festival",
-        "name": "RetroFestival",
-        "tier": 3,
-        "weeks": 4,
-        "image": "/images/projects/RetroFestival.webp",
-        "description": "A retro-flavoured festival identity — all warm grain, vintage type, and a poster-first attitude.",
-        "link": "https://www.instagram.com/p/DL5LYZoIPB0/?img_index=1",
-        "date": "2023",
-        "challenge": "Build a festival identity that reads as vintage without becoming a pastiche of one.",
+        "slug": "muse",
+        "name": "Muse",
+        "weeks": 6,
+        "link": "https://github.com/FacileStudio",
+        "description": "The web component library behind the Suite: one set of Svelte components, tokens and motion rules that every studio tool is built from.",
+        "techStack": [
+            "Svelte",
+            "TypeScript",
+            "Tailwind",
+            "Vite"
+        ],
+        "image": "/images/projects/Muse.webp",
+        "date": "2026",
+        "challenge": "Fifteen tools that had to look like one product without fifteen teams re-solving the same button.",
         "services": [
-            "Brand identity",
-            "Art direction"
+            "Design system",
+            "Frontend development"
         ],
         "team": [
-            "camille"
-        ],
-        "notes": [
-            "Poster first, everything else after — the system was tested at A0 before it was tested on a phone."
-        ],
-        "gallery": [
-            "https://picsum.photos/seed/retro-a/1700/1100",
-            "https://picsum.photos/seed/retro-c/1800/1000",
-            "https://picsum.photos/seed/retro-festival-x0/1500/1000",
-            "https://media.w3.org/2010/05/video/movie_300.mp4",
-            "https://picsum.photos/seed/retro-festival-x2/1500/1400",
-            "https://picsum.photos/seed/retro-festival-x3/1500/1200"
-        ],
-        "story": [
-            {
-                "blocks": [
-                    {
-                        "type": "cover"
-                    },
-                    {
-                        "type": "intro"
-                    }
-                ]
-            },
-            {
-                "title": "Brand identity",
-                "blocks": [
-                    {
-                        "type": "note",
-                        "title": "Brand identity",
-                        "text": "Poster first, everything else after — the system was tested at A0 before it was tested on a phone.",
-                        "media": [
-                            0
-                        ]
-                    },
-                    {
-                        "type": "mosaic",
-                        "media": [
-                            1,
-                            2,
-                            3,
-                            4,
-                            5
-                        ]
-                    }
-                ]
-            },
-            {
-                "blocks": [
-                    {
-                        "type": "end"
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "slug": "Black&White",
-        "name": "Black&White",
-        "tier": 3,
-        "weeks": 4,
-        "image": "/images/projects/Black&White.webp",
-        "description": "A curated selection of black and white photography.",
-        "link": "https://www.instagram.com/p/DL5LYZoIPB0/?img_index=1",
-        "date": "2023",
-        "challenge": "Edit a series down to the frames that survive without colour to carry them.",
-        "services": [
-            "Art direction",
-            "Photography"
-        ],
-        "team": [
+            "yann",
+            "noah",
             "camille",
-            "noah"
+            "mazouz"
         ],
         "notes": [
-            "The selection was the work: sequencing decides what the series means far more than any single frame."
+            "A shared library only pays off if using it is faster than writing the component again, so the API came before the styling."
         ],
         "gallery": [
-            "https://picsum.photos/seed/bw-a/1800/1100",
-            "https://picsum.photos/seed/bw-c/1700/1000",
-            "https://picsum.photos/seed/black&white-x0/1500/1000",
-            "https://media.w3.org/2010/05/bunny/trailer.mp4",
-            "https://picsum.photos/seed/black&white-x2/1500/1400",
-            "https://picsum.photos/seed/black&white-x3/1500/1200"
+            "https://picsum.photos/seed/muse-a/1800/1000",
+            "https://picsum.photos/seed/muse-b/1400/1500",
+            "https://picsum.photos/seed/muse-c/1500/1000"
         ],
         "story": [
             {
@@ -889,25 +880,23 @@
                 ]
             },
             {
-                "title": "Art direction",
+                "title": "Design system",
                 "blocks": [
                     {
                         "type": "note",
-                        "title": "Art direction",
-                        "text": "The selection was the work: sequencing decides what the series means far more than any single frame.",
+                        "title": "Design system",
+                        "text": "One set of tokens, one set of components: every tool in the Suite reads from the same source instead of keeping its own copy.",
                         "media": [
                             0
                         ]
                     },
                     {
-                        "type": "mosaic",
+                        "type": "big",
                         "media": [
                             1,
-                            2,
-                            3,
-                            4,
-                            5
-                        ]
+                            2
+                        ],
+                        "smalls": "top"
                     }
                 ]
             },

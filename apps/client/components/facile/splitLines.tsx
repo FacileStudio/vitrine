@@ -19,6 +19,8 @@ interface SplitLinesProps {
     reveal?: boolean;
     /** flush both edges — every line but the last is justified in place */
     justify?: boolean;
+    /** the container's tag — "p" to take the global body style rather than restate it */
+    as?: "div" | "p";
 }
 
 // Splits a block of text into its actual on-screen lines and wraps each one in its
@@ -35,6 +37,7 @@ const SplitLines = memo(function SplitLines({
     gap = "mb-2",
     reveal = true,
     justify = false,
+    as: Tag = "div",
 }: SplitLinesProps) {
     const ref = useRef<HTMLDivElement>(null);
 
@@ -113,7 +116,7 @@ const SplitLines = memo(function SplitLines({
         return () => { ro.disconnect(); cancelAnimationFrame(raf); };
     }, [text, gap, lineClassName, reveal, justify]);
 
-    return <div ref={ref} className={className} aria-label={text} />;
+    return <Tag ref={ref as never} className={className} aria-label={text} />;
 });
 
 export default SplitLines;

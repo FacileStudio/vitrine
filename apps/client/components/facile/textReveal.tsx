@@ -24,6 +24,8 @@ interface TextRevealProps {
     leaving?: boolean;
     duration?: number;
     delay?: number;
+    /** the revealing element's tag — "p" or a heading, to take the global style rather than restate it */
+    as?: "span" | "p" | "h1" | "h2" | "h3";
 }
 
 // One crop per line of copy: the content is parked below its own overflow-hidden box
@@ -44,8 +46,9 @@ export default function TextReveal({
     leaving = false,
     duration = 0.6,
     delay = 0,
+    as: Tag = "span",
 }: TextRevealProps) {
-    const ref = useRef<HTMLSpanElement>(null);
+    const ref = useRef<HTMLElement>(null);
     const driven = open !== undefined;
 
     // hide before first paint, or the copy flashes above its crop
@@ -62,14 +65,14 @@ export default function TextReveal({
 
     return (
         <span className={cn("block overflow-hidden", cropClassName)}>
-            <span
-                ref={ref}
+            <Tag
+                ref={ref as never}
                 data-reveal={driven ? undefined : ""}
                 style={style}
                 className={cn("block", className)}
             >
                 {children}
-            </span>
+            </Tag>
         </span>
     );
 }

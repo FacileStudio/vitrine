@@ -24,17 +24,17 @@ export default function Footer() {
     });
 
     return (
-        <section ref={sectionRef} id="contact" className="relative w-full bg-foreground text-white/80 py-24 px-12 md:px-20">
+        <section ref={sectionRef} id="contact" className="relative w-full bg-foreground text-white/80 py-24 px-12 lg:px-20">
             <TextReveal open={show}>
-                <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
-                    <h2 className="max-w-[16ch] text-4xl md:text-6xl font-medium text-white">{t("footer.buildTogether")}</h2>
+                <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+                    <h2 className="max-w-[16ch] text-white">{t("footer.buildTogether")}</h2>
                     <div className="flex gap-4 shrink-0">
                         <Button text={t("footer.hireUs")} icon="mail" onClick={openContactModal} />
                         <a
                             href={`tel:${CONTACT.phone.replace(/\s+/g, "")}`}
-                            className="border-2 border-white/20 rounded-full px-6 py-3 text-white transition-colors hover:bg-white hover:text-foreground"
+                            className="button button-dark transition-colors hover:bg-white hover:text-foreground"
                         >
-                            {t("footer.callUs")}
+                            <p>{t("footer.callUs")}</p>
                         </a>
                     </div>
                 </div>
@@ -44,7 +44,7 @@ export default function Footer() {
                 <div className="flex flex-wrap gap-x-16 gap-y-10">
                     {links.map((link) => (
                         <div key={link.href} className="flex w-32 flex-col items-start">
-                            <a href={withLocale(link.href)} className="text-2xl md:text-3xl font-medium text-white/80 transition-colors hover:text-white">
+                            <a href={withLocale(link.href)} className="subtitle text-white/80 transition-colors hover:text-white">
                                 {link.label}
                             </a>
                             {link.secondary && link.secondary.length > 0 && (
@@ -54,9 +54,9 @@ export default function Footer() {
                                             <a
                                                 href={sub.external ? sub.href : withLocale(sub.href)}
                                                 {...(sub.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                                                className="text-sm text-white/45 transition-colors hover:text-white/90"
+                                                className="text-white/45 transition-colors hover:text-white/90"
                                             >
-                                                {sub.label}
+                                                <p>{sub.label}</p>
                                             </a>
                                         </li>
                                     ))}
@@ -68,8 +68,8 @@ export default function Footer() {
             </TextReveal>
 
             <TextReveal open={show} delay={0.2} cropClassName="mt-20">
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 border-t border-white/10 pt-8">
-                    <div className="flex flex-wrap items-center gap-x-8 gap-y-2 text-sm md:text-base">
+                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 border-t border-white/10 pt-8">
+                    <div className="flex flex-wrap items-center gap-x-8 gap-y-2">
                         <a href={`mailto:${CONTACT.email}`} className="transition-colors hover:text-white">{CONTACT.email}</a>
                         <span className="text-white/40 select-none" aria-hidden="true">·</span>
                         <a href={`tel:${CONTACT.phone.replace(/\s+/g, "")}`} className="transition-colors hover:text-white">{CONTACT.phone}</a>
@@ -81,7 +81,7 @@ export default function Footer() {
                             ))}
                         </div>
                     </div>
-                    <p className="text-sm text-white/40">{t("footer.madeBy")}</p>
+                    <p className="text-white/40">{t("footer.madeBy")}</p>
                 </div>
             </TextReveal>
         </section>

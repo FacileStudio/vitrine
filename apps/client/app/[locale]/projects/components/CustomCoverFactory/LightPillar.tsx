@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import * as THREE from 'three';
+import { prefersNoWebGL } from '@/webgl/capability';
 
 interface LightPillarProps {
   topColor?: string;
@@ -15,6 +16,8 @@ interface LightPillarProps {
   mixBlendMode?: React.CSSProperties['mixBlendMode'];
   pillarRotation?: number;
   quality?: 'low' | 'medium' | 'high';
+  /** shown instead of the canvas when there is no GPU to run it on */
+  fallback?: string;
 }
 
 const LightPillar: React.FC<LightPillarProps> = ({
@@ -30,7 +33,8 @@ const LightPillar: React.FC<LightPillarProps> = ({
   noiseIntensity = 0.3,
   mixBlendMode = 'screen',
   pillarRotation = 132,
-  quality = 'high'
+  quality = 'high',
+  fallback
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number | null>(null);
@@ -46,11 +50,10 @@ const LightPillar: React.FC<LightPillarProps> = ({
   const [webGLSupported, setWebGLSupported] = useState<boolean>(true);
   const [restoreKey, setRestoreKey] = useState(0);
 
-  // Check WebGL support
+  // a raymarcher at up to 64 steps a pixel is not worth attempting without a GPU,
+  // and a software renderer answers getContext just as happily as a real one
   useEffect(() => {
-    const canvas = document.createElement('canvas');
-    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-    if (!gl) {
+    if (prefersNoWebGL()) {
       setWebGLSupported(false);
     }
   }, []);
@@ -509,13 +512,19 @@ const LightPillar: React.FC<LightPillarProps> = ({
   }, [pillarRotation]);
 
   if (!webGLSupported) {
-    return (
+    return fallback ? (
+      <img
+        src={fallback}
+        alt=""
+        loading="lazy"
+        decoding="async"
+        className={`w-full h-full absolute top-0 left-0 object-cover rounded-sm ${className}`}
+      />
+    ) : (
       <div
-        className={`w-full h-full absolute top-0 left-0 flex items-center justify-center bg-[#121212] rounded-sm text-gray-500 text-sm ${className}`}
+        className={`w-full h-full absolute top-0 left-0 bg-[#121212] rounded-sm ${className}`}
         style={{ mixBlendMode }}
-      >
-        WebGL not supported
-      </div>
+      />
     );
   }
 

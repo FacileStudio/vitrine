@@ -25,7 +25,7 @@ export default function Heading({ lines, filter = null, count = 0, onFilter }: H
 
     return (
         <div className="relative z-10 3xl:w-[70vw] w-[80vw] pb-[12vh] flex items-start justify-between gap-12 text-white">
-            <h2 className="text-start text-4xl md:text-5xl font-medium leading-tight">
+            <h2 className="text-start">
                 {lines.map((line, i) => (
                     <TextReveal key={i} open duration={0.8} delay={arrive + i * 0.12}>
                         {line}
@@ -38,7 +38,8 @@ export default function Heading({ lines, filter = null, count = 0, onFilter }: H
                     <TextReveal
                         open
                         delay={arrive + 0.35}
-                        className="flex justify-end gap-3 w-full text-right text-md capitalize font-medium tabular-nums"
+                        as="p"
+                        className="flex justify-end gap-3 w-full text-right tabular-nums"
                     >
                         <span className="text-[#24E27A]">
                             {String(count).padStart(2, "0")}
@@ -62,7 +63,7 @@ export default function Heading({ lines, filter = null, count = 0, onFilter }: H
                                             type="button"
                                             onClick={() => onFilter(e.value)}
                                             aria-pressed={on}
-                                            className={`flex w-fit shrink-0 items-center gap-2 whitespace-nowrap rounded-md px-[2vh] py-[1vh] text-[clamp(0.65rem,1.4vh,0.9rem)] transition-colors duration-300 ${on ? "bg-white/15 text-white" : "bg-white/5 text-white/60 hover:bg-white/10 hover:text-white"}`}
+                                            className={`flex w-fit shrink-0 items-center gap-2 whitespace-nowrap rounded-md px-[2vh] py-[1vh] font-bb-mono tracking-tight font-medium text-[clamp(0.65rem,1.4vh,0.9rem)] uppercase transition-colors backdrop-blur-xl bg-[#212121]/20 duration-300 ${on ? "bg-white/15 text-white" : "text-white/60 hover:bg-white/10 hover:text-white"}`}
                                         >
                                             {e.label}
                                         </button>

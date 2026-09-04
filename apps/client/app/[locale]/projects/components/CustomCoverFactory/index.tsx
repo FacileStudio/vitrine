@@ -2,11 +2,11 @@ import { ComponentType } from "react";
 import LightPillar from "./LightPillar";
 import { MarcelCover } from "./MarcelCover";
 import { CustomCoverProps } from "./types";
-import { isVideoFile } from "../../lib/types";
+import { isVideoFile } from "@/app/utils";
 
 const mediaClass = "pointer-events-none absolute top-1/2 left-1/2 w-4/5 -translate-x-1/2 -translate-y-1/2 rounded-md object-cover will-change-[clip-path] [clip-path:inset(100%_0_0_0)]";
 
-const ProjectZeroPillar = ({ refs, index }: CustomCoverProps) => {
+const ProjectZeroPillar = ({ project, refs, index }: CustomCoverProps) => {
     return (
         <div className="relative shrink-0">
             <div
@@ -14,7 +14,7 @@ const ProjectZeroPillar = ({ refs, index }: CustomCoverProps) => {
                 className="relative 3xl:w-5xl w-[50vw] aspect-16/10 shrink-0 overflow-hidden rounded-md"
             >
                 <div ref={refs.img(index)} className="absolute inset-0 will-change-transform">
-                    <LightPillar className="object-cover brightness-100 transition-all duration-300 ease-out group-hover/card:brightness-[0.6] group-hover/card:scale-110" />
+                    <LightPillar fallback={project.image} className="object-cover brightness-100 transition-all duration-300 ease-out group-hover/card:brightness-[0.6] group-hover/card:scale-110" />
                 </div>
             </div>
         </div>

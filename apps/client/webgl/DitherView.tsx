@@ -1,12 +1,21 @@
 'use client';
 
 import "./silence-three-deprecations";
-import { Suspense, useEffect, useRef, useState } from "react";
+import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import * as THREE from "three";
 import { EnvironmentWrapper } from "./environment";
 import { DitherModel, type DitherModelProps } from "./DitherModel";
 import { PostProcessing } from "./PostProcessing";
+import { registerScene } from "./sceneReady";
+
+// mounts only once its Suspense boundary has resolved, which is the moment every
+// model in this canvas is fetched and parsed. That is the signal a page curtain
+// waits on before it sweeps off
+function Ready({ done }: { done: () => void }) {
+    useEffect(() => { done(); }, [done]);
+    return null;
+}
 
 export interface DitherViewProps extends DitherModelProps {
     className?: string;
@@ -19,10 +28,18 @@ export interface DitherViewProps extends DitherModelProps {
     cameraPosition?: [number, number, number];
     bloom?: boolean;
     bloomIntensity?: number;
+    ambient?: number;
     gridTween?: number;
     background?: string | null;
     ditherAngle?: number;
     models?: DitherModelProps[];
+    /**
+     * a thumbnail-sized canvas pays the same price as a full-bleed one: five
+     * shadow maps a frame, a 1024 cubemap bake and a 2x pixel ratio. `lite`
+     * drops all three, which a head a few vh tall cannot tell apart once the
+     * dither grid has been over it — and a story page can carry a dozen of them
+     */
+    lite?: boolean;
 }
 
 export function DitherView({
@@ -36,15 +53,28 @@ export function DitherView({
     cameraPosition = [0, -1, 4],
     bloom = false,
     bloomIntensity = 0.5,
+    ambient = 0,
     gridTween = 0.8,
     background = "#000000",
     position = [0, -0.5, 0],
     ditherAngle = 45,
     models,
+    lite = false,
     ...model
 }: DitherViewProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const [active, setActive] = useState(true);
+    const [canvasKey, setCanvasKey] = useState(0);
+    const release = useRef<(() => void) | null>(null);
+
+    // counted as pending from mount, released when the models resolve — or on
+    // unmount, so a canvas that leaves before loading cannot hold a curtain down
+    useEffect(() => {
+        release.current = registerScene();
+        return () => release.current?.();
+    }, []);
+
+    const done = useCallback(() => release.current?.(), []);
 
     useEffect(() => {
         const el = containerRef.current;
@@ -62,9 +92,10 @@ export function DitherView({
     return (
         <div ref={containerRef} className={className}>
             <Canvas
+                key={canvasKey}
                 className=""
-                dpr={[1, 2]}
-                shadows={{ type: THREE.PCFShadowMap }}
+                dpr={lite ? 1 : [1, 2]}
+                shadows={lite ? false : { type: THREE.PCFShadowMap }}
                 frameloop={active ? "always" : "never"}
                 gl={{ alpha: background === null, antialias: true }}
                 camera={{ position: cameraPosition, fov }}
@@ -73,19 +104,30 @@ export function DitherView({
                     else gl.setClearColor(new THREE.Color(background), 1);
 
                     const canvas = gl.domElement;
-                    const onLost = (e: Event) => e.preventDefault();
-                    const onRestored = () => invalidate();
+                    let recover: ReturnType<typeof setTimeout> | undefined;
+                    // a lost context that the browser never restores leaves a blank
+                    // canvas forever, so give it a second then rebuild from scratch
+                    const onLost = (e: Event) => {
+                        e.preventDefault();
+                        recover = setTimeout(() => setCanvasKey((k) => k + 1), 1000);
+                    };
+                    const onRestored = () => {
+                        clearTimeout(recover);
+                        invalidate();
+                    };
                     canvas.addEventListener("webglcontextlost", onLost, false);
                     canvas.addEventListener("webglcontextrestored", onRestored, false);
                 }}
             >
                 <Suspense fallback={null}>
+                    {ambient > 0 && <ambientLight intensity={ambient} />}
                     {items.map(({ position: itemPosition = position, ...m }, i) => (
                         <group key={i} position={itemPosition}>
                             <DitherModel {...m} />
                         </group>
                     ))}
-                    <EnvironmentWrapper intensity={intensity} highlight={highlight} />
+                    <EnvironmentWrapper intensity={intensity} highlight={highlight} resolution={lite ? 256 : 1024} />
+                    <Ready done={done} />
                 </Suspense>
                 <PostProcessing
                     gridSize={gridSize}

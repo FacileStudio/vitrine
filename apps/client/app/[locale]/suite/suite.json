@@ -1,77 +1,122 @@
 [
     {
+        "slug": "sablier",
         "name": "Sablier",
-        "description": "Vos heures facturables, tracées sans friction. Un clic pour lancer, un clic pour arrêter. Ventilation par projet et sessions partagées.",
-        "icon": "solar:hourglass-bold-duotone"
+        "tagline": "Vos heures facturables, tracées sans friction.",
+        "description": "Un clic pour lancer, un clic pour arrêter. Ventilation par projet et sessions partagées.",
+        "icon": "solar:hourglass-bold-duotone",
+        "link": "https://sablier.facile.studio"
     },
     {
+        "slug": "opus",
         "name": "Opus",
-        "description": "La gestion de projet qui ne vous ralentit pas. Kanban, relations entre tâches, recherche instantanée — le minimum qui fait le maximum.",
-        "icon": "solar:box-minimalistic-bold-duotone"
+        "tagline": "La gestion de projet qui ne vous ralentit pas.",
+        "description": "Kanban, relations entre tâches, recherche instantanée — le minimum qui fait le maximum.",
+        "icon": "solar:box-minimalistic-bold-duotone",
+        "link": "https://opus.facile.studio"
     },
     {
+        "slug": "vision",
         "name": "Vision",
-        "description": "L'analytique web qui respecte vos visiteurs. Un script, zéro cookie, données en temps réel. Vous savez d'où vient votre trafic sans vendre l'âme de vos utilisateurs.",
-        "icon": "/icons/solar_panorama-bold-duotone.svg"
+        "tagline": "L'analytique web qui respecte vos visiteurs.",
+        "description": "Un script, zéro cookie, données en temps réel.",
+        "icon": "solar:panorama-bold-duotone",
+        "link": "https://vision.facile.studio"
     },
     {
+        "slug": "glouton",
         "name": "Glouton",
-        "description": "Vos prochains clients, trouvés pendant que vous dormez. Glouton crawle le web, détecte les stacks techniques, score les prospects et vous sert les meilleurs sur un plateau.",
-        "icon": "/icons/solar_leaf-bold-duotone.svg"
+        "tagline": "Vos prochains clients, trouvés pendant que vous dormez.",
+        "description": "Glouton crawle le web, détecte les stacks techniques, score les prospects.",
+        "icon": "solar:leaf-bold-duotone",
+        "link": "https://glouton.facile.studio"
     },
     {
-        "name": "Nook",
-        "description": "Quand quelque chose tombe, vous le savez en premier. Nook centralise les alertes de toute votre infra et les pousse où vous voulez — Discord, Matrix, email, push.",
-        "icon": "solar:bell-bold-duotone"
-    },
-    {
+        "slug": "ardoise",
         "name": "Ardoise",
-        "description": "Facturez, encaissez, oubliez. Stripe intégré, emails automatiques, reçus téléchargeables. Vos clients paient, vous êtes notifié, point.",
-        "icon": "/icons/solar_bill-list-bold-duotone.svg"
+        "tagline": "Facturez, encaissez, oubliez.",
+        "description": "Stripe intégré, emails automatiques, reçus téléchargeables.",
+        "icon": "solar:bill-list-bold-duotone",
+        "link": "https://ardoise.facile.studio"
     },
     {
+        "slug": "plume",
         "name": "Plume",
-        "description": "La signature électronique sans usine à gaz. Déposez un PDF, placez les champs, envoyez le lien, recevez la preuve signée avec audit trail et webhooks.",
-        "icon": "/icons/solar_ruler-cross-pen-bold-duotone.svg"
+        "tagline": "La signature électronique sans usine à gaz.",
+        "description": "Déposez un PDF, placez les champs, envoyez le lien.",
+        "icon": "solar:ruler-cross-pen-bold-duotone",
+        "link": "https://plume.facile.studio"
     },
     {
-        "name": "Portail",
-        "description": "Un fichier YAML, et toute votre équipe a une page d'accueil vers chaque service du studio. Déploiements, docs, monitoring, mots de passe — tout en un clic.",
-        "icon": "/icons/solar_widget-5-bold-duotone.svg"
+        "slug": "casier",
+        "name": "Casier",
+        "tagline": "Coffre-fort à secrets pour votre équipe.",
+        "description": "Chiffré AES-256-GCM, versionné, audit log complet.",
+        "icon": "solar:safe-2-bold-duotone",
+        "link": "https://casier.facile.studio"
     },
     {
+        "slug": "antenne",
+        "name": "Antenne",
+        "tagline": "Le bus d'événements de la suite.",
+        "description": "Centralisez les alertes de toute votre infra, poussez-les sur Discord, Matrix, email.",
+        "icon": "solar:satellite-bold-duotone",
+        "link": "https://antenne.facile.studio"
+    },
+    {
+        "slug": "nuage",
         "name": "Nuage",
-        "description": "Le stockage fichiers du studio. Upload, dossiers, recherche — un drive interne connecté à tous vos outils via API. Vos fichiers restent sur votre serveur, pas chez Google.",
-        "icon": "/icons/solar_cloud-bold-duotone.svg"
+        "tagline": "Le stockage fichiers du studio.",
+        "description": "Upload, dossiers, recherche — un drive interne connecté à tous vos outils via API.",
+        "icon": "solar:cloud-bold-duotone",
+        "link": "https://nuage.facile.studio"
     },
     {
-        "name": "Echo",
-        "description": "Visioconférence simple et sécurisée. Créez une salle, partagez le lien, c'est tout.",
-        "icon": "/icons/solar_monitor-camera-bold-duotone.svg"
-    },
-    {
-        "name": "Capsule",
-        "description": "Partagez un secret qui s'autodétruit. Chiffrement de bout en bout dans le navigateur, zero-knowledge côté serveur. Un lien, une ouverture, puis rien.",
-        "icon": "/icons/solar_pills-bold-duotone.svg"
-    },
-    {
+        "slug": "courrier",
         "name": "Courrier",
-        "description": "Votre email, chez vous. IMAP et SMTP natifs, multi-comptes, interface épurée. Toute la correspondance du studio sans passer par Gmail.",
-        "icon": "/icons/solar_letter-opened-bold-duotone.svg"
+        "tagline": "Votre email, chez vous.",
+        "description": "IMAP et SMTP natifs, multi-comptes, interface épurée.",
+        "icon": "solar:letter-opened-bold-duotone",
+        "link": "https://courrier.facile.studio"
     },
     {
+        "slug": "agenda",
         "name": "Agenda",
-        "description": "Le calendrier partagé du studio. Rendez-vous, deadlines, dispos — tout le monde voit la même chose, sans Google Calendar.",
-        "icon": "/icons/solar_calendar-add-bold-duotone.svg"
+        "tagline": "Le calendrier partagé du studio.",
+        "description": "Rendez-vous, deadlines, dispos — sans Google Calendar. CalDAV natif.",
+        "icon": "solar:calendar-add-bold-duotone",
+        "link": "https://agenda.facile.studio"
     },
     {
+        "slug": "echo",
+        "name": "Echo",
+        "tagline": "Visioconférence simple et sécurisée.",
+        "description": "Créez une salle, partagez le lien, c'est tout. Basé sur Jitsi.",
+        "icon": "solar:monitor-camera-bold-duotone",
+        "link": "https://echo.facile.studio"
+    },
+    {
+        "slug": "capsule",
+        "name": "Capsule",
+        "tagline": "Partagez un secret qui s'autodétruit.",
+        "description": "Chiffrement de bout en bout dans le navigateur, zero-knowledge côté serveur.",
+        "icon": "solar:pills-bold-duotone",
+        "link": "https://capsule.facile.studio"
+    },
+    {
+        "slug": "scribe",
         "name": "Scribe",
-        "description": "Transcription de réunions par IA. Capturez l'audio, obtenez le transcript en temps réel et des notes structurées — sujets, décisions, actions.",
-        "icon": "/icons/solar_microphone-2-bold-duotone.svg"
+        "tagline": "Transcription de réunions par IA.",
+        "description": "Capturez l'audio, obtenez le transcript en temps réel et des notes structurées.",
+        "icon": "solar:microphone-2-bold-duotone",
+        "link": "https://scribe.facile.studio"
     },
     {
-        "name": "Perception",
-        "description": "Perception connecte tous vos outils en un seul cerveau. Clients, contrats, projets, heures — tout est lié. Demandez n'importe quoi en langage naturel, obtenez une réponse sourcée en temps réel.",
-        "icon": "solar:cpu-bold-duotone"
+        "slug": "journal",
+        "name": "Journal",
+        "tagline": "Logs centralisés pour toute la suite.",
+        "description": "Cherchez, filtrez, créez des alertes. Un SDK par langage, un collector Docker.",
+        "icon": "solar:notebook-bold-duotone",
+        "link": "https://journal.facile.studio"
     }
 ]

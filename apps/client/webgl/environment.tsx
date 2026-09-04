@@ -7,6 +7,7 @@ const whiteMaterial = new THREE.MeshStandardMaterial({ color: new THREE.Color(1,
 export interface EnvironmentWrapperProps {
     intensity?: number;
     highlight?: string;
+    resolution?: number;
 }
 
 function Room({ highlight = "#066aff" }: { highlight?: string }) {
@@ -43,9 +44,9 @@ function Room({ highlight = "#066aff" }: { highlight?: string }) {
     );
 }
 
-export function EnvironmentWrapper({ intensity = 1.5, highlight = "#066aff" }: EnvironmentWrapperProps) {
+export function EnvironmentWrapper({ intensity = 1.5, highlight = "#066aff", resolution = 1024 }: EnvironmentWrapperProps) {
     return (
-        <Environment resolution={1024} background={false} environmentIntensity={intensity}>
+        <Environment resolution={resolution} background={false} environmentIntensity={intensity}>
             <Room highlight={highlight} />
         </Environment>
     );
