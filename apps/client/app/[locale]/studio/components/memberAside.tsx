@@ -3,6 +3,7 @@
 import Link from "@/components/facile/transitionLink";
 import TextReveal from "@/components/facile/textReveal";
 import SplitLines from "@/components/facile/splitLines";
+import Arrow from "@/components/facile/arrow";
 import type { Member, WorkedProject } from "./memberData";
 
 // desktop, right edge: the projects at the top, the personal notes at the bottom
@@ -33,7 +34,7 @@ export default function MemberAside({
                                         className="lead subtitle group pointer-events-auto flex items-center gap-2 transition-colors hover:text-white"
                                     >
                                         Facile Suite.
-                                        <span className="transition-transform duration-200 group-hover:-translate-y-1 group-hover:translate-x-1">↗</span>
+                                        <Arrow />
                                     </Link>
                                 </TextReveal>
                                 <TextReveal open={shown} cropClassName="relative z-10" delay={0.2} className="select-none text-white/30">
@@ -48,7 +49,7 @@ export default function MemberAside({
                                     className="lead group pointer-events-auto flex items-center gap-2 text-white/70 transition-colors hover:text-white"
                                 >
                                     {project.name}
-                                    <span className="transition-transform duration-200 group-hover:-translate-y-1 group-hover:translate-x-1">↗</span>
+                                    <Arrow />
                                 </Link>
                             </TextReveal>
                         ))}

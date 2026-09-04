@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Link from "@/components/facile/transitionLink";
+import Arrow from "@/components/facile/arrow";
 import { useEffect, useRef, useState } from "react";
 import { run, fade, hideFade } from "@/app/utils/animations";
 import { usePinProgress } from "@/hooks/use-pin-progress";
@@ -144,7 +145,7 @@ export default function Hero({ charged }: { charged: boolean }) {
                             <p>
                                 Voir nos projets
                             </p>
-                            <span className="transition-transform duration-200 group-hover:-translate-y-1 group-hover:translate-x-1">↗</span>
+                            <Arrow />
                         </Link>
                     </span>
                 </div>

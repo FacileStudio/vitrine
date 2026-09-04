@@ -4,6 +4,7 @@ import Link from "@/components/facile/transitionLink";
 import TextReveal from "@/components/facile/textReveal";
 import SplitLines from "@/components/facile/splitLines";
 import InfoModal from "@/components/facile/infoModal";
+import Arrow from "@/components/facile/arrow";
 import { TABS, type Member, type PanelTab, type WorkedProject } from "./memberData";
 import { SocialRows } from "./socialLinks";
 
@@ -70,7 +71,7 @@ export default function MemberPanel({
                                             >
                                                 <TextReveal open={entered} delay={0.22} className="flex items-center gap-2">
                                                     The Suite
-                                                    <span className="transition-transform duration-200 group-hover:-translate-y-1 group-hover:translate-x-1">↗</span>
+                                                    <Arrow />
                                                 </TextReveal>
                                             </Link>
                                         </li>
@@ -87,7 +88,7 @@ export default function MemberPanel({
                                         >
                                             <TextReveal open={entered} delay={0.28 + i * 0.06} className="flex items-center gap-2">
                                                 {project.name}
-                                                <span className="transition-transform duration-200 group-hover:-translate-y-1 group-hover:translate-x-1">↗</span>
+                                                <Arrow />
                                             </TextReveal>
                                         </Link>
                                     </li>

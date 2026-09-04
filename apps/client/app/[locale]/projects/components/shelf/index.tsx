@@ -8,7 +8,7 @@ import { usePinProgress } from "@/hooks/use-pin-progress";
 import { EASE, run, slideY, hideRevealY } from "@/app/utils/animations";
 import { ARRIVE, TransitionOut } from "@/components/facile/pageTransition";
 import { projectsIn, type Category } from "../../lib/projects";
-import Backdrop from "./backdrop";
+import ShelfBackdrop from "@/components/facile/shelfBackdrop";
 import Heading from "./heading";
 import ShelfCard, { type ShelfCardRefs } from "./shelfCard";
 
@@ -172,7 +172,7 @@ export default function Shelf({
         >
             <div className="absolute inset-0 bg-foreground -z-10" aria-hidden="true" />
 
-            <Backdrop sticky={stickyBackdrop} />
+            <ShelfBackdrop tone="dark" sticky={stickyBackdrop} />
 
             <div className="w-full h-full pt-[20vh] flex flex-col gap-1 justify-start items-center px-6">
                 <Heading

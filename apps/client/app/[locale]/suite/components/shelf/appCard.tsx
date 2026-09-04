@@ -4,6 +4,7 @@ import type { KeyboardEvent, MouseEvent } from "react";
 import { Icon } from "@iconify/react";
 import { useTranslations } from "next-intl";
 import SplitLines from "@/components/facile/splitLines";
+import Arrow from "@/components/facile/arrow";
 import TextReveal from "@/components/facile/textReveal";
 import { isLocalIcon, type SuiteApp } from "../../lib/apps";
 
@@ -98,7 +99,7 @@ export default function AppCard({ app, index, refs, onOpen, onEnter, onLeave }: 
                                     {t("visit")}
                                 </span>
                                 <span className="h-full px-[1.5vh] shrink-0 aspect-square  py-[1vh] rounded-md bg-foreground/5">
-                                    <span className="transition-transform duration-200 group-hover:-translate-y-1 group-hover:translate-x-1">↗</span>
+                                    <Arrow />
                                 </span>
                             </a>
                         </TextReveal>

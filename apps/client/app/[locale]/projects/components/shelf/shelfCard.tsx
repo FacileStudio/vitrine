@@ -4,6 +4,7 @@ import type { KeyboardEvent, MouseEvent } from "react";
 import SplitLines from "@/components/facile/splitLines";
 import TextReveal from "@/components/facile/textReveal";
 import LightPillar from "@/components/LightPillar";
+import Arrow from "@/components/facile/arrow";
 import { MarcelEyes, MarcelSpheres, useMarcelEyes } from "@/components/facile/marcelEyes";
 import { isVideoFile } from "@/app/utils";
 import type { Project } from "../../lib/projects";
@@ -125,7 +126,7 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
                                 className="group flex w-fit text-xl font-goga capitalize tracking-tighter gap-2 rounded-md px-[2vh] py-[1vh] text-white transition-colors duration-200 hover:text-[#24E27A]"
                             >
                                 Visit site
-                                <span className="transition-transform duration-200 group-hover:-translate-y-1 group-hover:translate-x-1">↗</span>
+                                <Arrow />
                             </a>
                         </TextReveal>
                     )}

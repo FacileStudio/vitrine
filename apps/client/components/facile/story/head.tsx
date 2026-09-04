@@ -1,6 +1,6 @@
 'use client'
 
-import { memo, useEffect, useMemo, useState } from "react";
+import { memo, useMemo } from "react";
 import DitherReveal from "@/components/facile/ditherReveal";
 import TextReveal from "@/components/facile/textReveal";
 import type { Person } from "./types";

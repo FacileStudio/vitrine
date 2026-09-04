@@ -8,7 +8,7 @@ import { ARRIVE } from "@/components/facile/pageTransition";
 import Story from "@/components/facile/story";
 import { allApps, type SuiteApp } from "../../lib/apps";
 import { appStory } from "../../lib/story";
-import Backdrop from "./backdrop";
+import ShelfBackdrop from "@/components/facile/shelfBackdrop";
 import Heading from "./heading";
 import AppCard, { type AppCardRefs } from "./appCard";
 import ArchitectureModal from "../architectureModal";
@@ -139,7 +139,7 @@ export default function Shelf({
         >
             <div className="absolute inset-0 bg-background -z-10" aria-hidden="true" />
 
-            <Backdrop sticky={stickyBackdrop} />
+            <ShelfBackdrop tone="light" sticky={stickyBackdrop} />
 
             <div className="w-full h-full pt-[20vh] flex flex-col gap-1 justify-start items-center px-6">
                 <Heading

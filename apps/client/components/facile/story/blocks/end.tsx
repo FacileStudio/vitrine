@@ -1,4 +1,5 @@
 import Line from "@/components/facile/textReveal";
+import Arrow from "@/components/facile/arrow";
 import type { BlockProps } from "../types";
 import { Block, Cell } from "../bento";
 
@@ -40,7 +41,7 @@ export default function End({ block, onClose }: BlockProps) {
                                     className="group flex w-fit items-center font-goga gap-[1vh] text-[clamp(0.8rem,1.9vh,1.35rem)] text-white transition-colors duration-200 hover:text-[#24E27A]"
                                 >
                                     {block.linkLabel ?? "Visit site"}
-                                    <span className="transition-transform duration-200 group-hover:-translate-y-1 group-hover:translate-x-1">↗</span>
+                                    <Arrow />
                                 </a>
                             </Line>
                         ) : null}
