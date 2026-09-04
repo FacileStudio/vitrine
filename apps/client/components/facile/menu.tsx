@@ -7,7 +7,6 @@ import { usePathname, useRouter } from 'next/navigation';
 import TextReveal from '@/components/facile/textReveal';
 import { TransitionOut } from '@/components/facile/pageTransition';
 import { allProjects } from '@/app/[locale]/projects/lib/projects';
-import suite from '@/app/[locale]/suite/suite.json';
 import { GithubIcon } from '../ui/github';
 import { InstagramIcon } from '../ui/instagram';
 import { DribbbleIcon } from '../ui/dribbble';
@@ -28,7 +27,6 @@ const DitherView = dynamic(() => import("@/webgl/DitherView").then((m) => m.Dith
 export type SubLink = { href: string; label: string; external?: boolean };
 export type NavLink = { href: string; label: string; secondary?: SubLink[] };
 const MENU_PROJECTS = allProjects.length;
-const MENU_SUITE = 0;
 
 export const links: NavLink[] = [
     { href: '/', label: 'Home' },
@@ -75,6 +73,10 @@ const COUNT = 4;
 const coverEase = 'cubic-bezier(0.7, 0, 0.3, 1)';
 const exitDelay = 0.9;
 
+// when the last cover lands: the trailing layer's lead, plus its stagger across the
+// stripes, plus the slide itself. Nothing behind the covers may show before this
+const COVERED_MS = (0.14 + (COUNT - 1) * 0.1 + 0.8) * 1000;
+
 const Stripes = (open: boolean, color: string, leadOpen: number, leadClose: number) =>
     Array.from({ length: COUNT }, (_, i) => (
         <div
@@ -113,25 +115,31 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
         TransitionOut({ href, router });
     };
     const [mountDither, setMountDither] = React.useState(false);
-    const [showDither, setShowDither] = React.useState(false);
     const [resolved, setResolved] = React.useState(false);
-
+    // three states, because two were not enough: `hidden` while the covers are still
+    // travelling, so the model cannot show through the gaps between them; then in the
+    // layout at opacity 0 the moment they land; then faded up with the rest of the menu
+    const [stage, setStage] = React.useState<'off' | 'ready' | 'shown'>('off');
 
     // dither on open
     React.useEffect(() => {
         if (menuOpen) {
+            // mounted straight away so the model downloads behind the covers — it is
+            // `hidden` until they have landed, which is what stopped it appearing early
             // eslint-disable-next-line react-hooks/set-state-in-effect
             setMountDither(true);
-            const id = requestAnimationFrame(() => setShowDither(true));
-            // let the clip wipe land before the dither grid resolves
-            const t = setTimeout(() => setResolved(true), 800);
+            // the grid resolves once the wipe has landed, not before
+            const t = setTimeout(() => setResolved(true), COVERED_MS + 600);
+            const ready = setTimeout(() => setStage('ready'), COVERED_MS);
+            const shown = setTimeout(() => setStage('shown'), COVERED_MS + 60);
             return () => {
-                cancelAnimationFrame(id);
                 clearTimeout(t);
+                clearTimeout(ready);
+                clearTimeout(shown);
             };
         }
-        setShowDither(false);
         setResolved(false);
+        setStage('off');
 
         // and give the canvas back once the wipe has finished: mounted, it holds a
         // WebGL context and renders every frame behind a clip-path, on whatever page
@@ -150,11 +158,11 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
 
             {mountDither && (
                 <div
-                    className="absolute inset-0 z-45 overflow-hidden"
+                    className={`absolute inset-0 z-45 overflow-hidden ${stage === 'off' ? 'hidden' : 'visible'}`}
                     style={{
-                        clipPath: showDither ? 'inset(0% 0% 0% 0%)' : 'inset(0% 0% 0% 100%)',
-                        opacity: showDither ? 1 : 0,
-                        transition: `clip-path 0.6s ${coverEase} ${menuOpen ? '0.55s' : `${exitDelay}s`}, opacity 0.9s ${coverEase} ${menuOpen ? '0.85s' : '0s'}`,
+                        clipPath: stage === 'shown' ? 'inset(0% 0% 0% 0%)' : 'inset(0% 0% 0% 100%)',
+                        opacity: stage === 'shown' ? 1 : 0,
+                        transition: `clip-path 0.6s ${coverEase}, opacity 0.9s ${coverEase}`,
                     }}
                 >
                     <DitherView
