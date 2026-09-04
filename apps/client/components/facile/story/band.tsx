@@ -41,14 +41,14 @@ export default function Band({ sections, id }: BandProps) {
             ref={sectionRef}
             id={id}
             style={{ height: `calc(100vh + ${travel}px)` }}
-            className="relative w-full text-white"
+            className="relative w-full text-foreground"
         >
             <div
                 data-no-shadow
                 ref={viewRef}
-                className="sticky top-0 h-screen w-full overflow-hidden bg-foreground"
+                className="sticky top-0 h-screen w-full overflow-hidden bg-background"
             >
-                <Backdrop />
+                <Backdrop tone="light" />
 
                 <div className="relative h-full">
                     <Track ref={trackRef} sections={sections} scrollerRef={viewRef} />

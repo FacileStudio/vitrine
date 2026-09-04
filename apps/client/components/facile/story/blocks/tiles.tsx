@@ -24,10 +24,10 @@ export default function Tiles({ block }: BlockProps) {
                         {t.icon ? <Mark icon={t.icon} /> : null}
 
                         <div className="flex flex-col gap-1">
-                            <Line as="h2" className="subtitle text-white">{t.label}</Line>
+                            <Line as="h2" className="subtitle text-current">{t.label}</Line>
 
                             {t.text ? (
-                                <Line as="p" className="subtext text-white">
+                                <Line as="p" className="subtext text-current">
                                     {t.text}
                                 </Line>
                             ) : null}

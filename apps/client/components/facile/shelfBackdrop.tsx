@@ -1,6 +1,8 @@
 'use client'
 
 import dynamic from "next/dynamic";
+import { useRef, useState } from "react";
+import { useScroll } from "@/hooks/use-scroll";
 
 const DitherView = dynamic(
     () => import("@/webgl/DitherView").then((m) => m.DitherView),
@@ -21,10 +23,24 @@ const TONES = {
 // start at the top
 export default function ShelfBackdrop({ tone = "dark", sticky = false }: { tone?: keyof typeof TONES; sticky?: boolean }) {
     const t = TONES[tone];
+    const ref = useRef<HTMLDivElement>(null);
+    // absent until the shelf reaches the top of the window, then it charges in: the
+    // grid resolves from coarse to fine while the whole thing fades up, so the
+    // backdrop arrives with the section instead of being there before it
+    const [arrived, setArrived] = useState(false);
+
+    useScroll(() => {
+        const section = ref.current?.parentElement;
+        if (!section) return;
+
+        setArrived(section.getBoundingClientRect().top <= 0);
+    });
 
     return (
         <div
+            ref={ref}
             data-no-shadow
+            style={{ opacity: arrived ? 1 : 0, transition: "opacity 0.8s cubic-bezier(0.7, 0, 0.3, 1)" }}
             className={`h-screen w-full overflow-hidden ${t.text} ${sticky ? "sticky top-0 -mb-[100vh]" : "fixed top-0"}`}
         >
             <DitherView
@@ -34,7 +50,7 @@ export default function ShelfBackdrop({ tone = "dark", sticky = false }: { tone?
                 grayscaleOnly={false}
                 intensity={t.intensity}
                 parallax={0.7}
-                gridSize={2}
+                gridSize={arrived ? 2 : 14}
                 scale={4}
                 file="/models/manifesto.glb"
                 models={[

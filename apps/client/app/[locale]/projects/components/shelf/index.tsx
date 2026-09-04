@@ -9,6 +9,7 @@ import { EASE, run, slideY, hideRevealY } from "@/app/utils/animations";
 import { ARRIVE, TransitionOut } from "@/components/facile/pageTransition";
 import { projectsIn, type Category } from "../../lib/projects";
 import ShelfBackdrop from "@/components/facile/shelfBackdrop";
+import Stripes from "@/components/facile/stripes";
 import Heading from "./heading";
 import ShelfCard, { type ShelfCardRefs } from "./shelfCard";
 
@@ -33,6 +34,9 @@ export default function Shelf({
     stickyBackdrop = false,
 }: ShelfProps = {}) {
     const sectionRef = useRef<HTMLElement>(null);
+    // read by the leaving covers, which are driven by scroll rather than by state so
+    // the shelf does not re-render on every frame of it
+    const progressRef = useRef(0);
 
     const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
     const entryRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -105,7 +109,9 @@ export default function Shelf({
 
 
 
-    usePinProgress(sectionRef, (_p, visible) => {
+    usePinProgress(sectionRef, (p, visible) => {
+        progressRef.current = p;
+
         if (!visible)
             return;
 
@@ -193,6 +199,21 @@ export default function Shelf({
                         onLeave={onLeave}
                     />
                 ))}
+            </div>
+
+            {/* the covers the Suite arrives behind: white, so as the shelf is scrolled
+                past they close over the dark ground and the section below is already
+                the colour they left. h-0 keeps them out of the flow while `sticky`
+                holds them over the viewport rather than over the whole tall section */}
+            <div className="pointer-events-none sticky bottom-0 z-30 h-0">
+                <div className="relative h-screen w-full -translate-y-full overflow-hidden">
+                    <Stripes
+                        orientation={180}
+                        count={4}
+                        className="bg-background"
+                        openWhen={() => progressRef.current < 0.9}
+                    />
+                </div>
             </div>
         </section>
     );

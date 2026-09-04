@@ -10,7 +10,7 @@ import { Block, Cell } from "../bento";
 function Meta({ label, children }: { label: string; children: ReactNode }) {
     return (
         <div className="flex flex-col gap-3">
-            <Line as="p" className="subtext text-white">{label}</Line>
+            <Line as="p" className="subtext text-current">{label}</Line>
             {children}
         </div>
     );
@@ -26,7 +26,7 @@ export default function Intro({ block }: BlockProps) {
                 <div className="flex h-full w-full flex-col justify-between gap-[3vh] p-[5vh]">
                     <div className="flex flex-col gap-6">
                         {block.eyebrow ? (
-                            <Line as="p" className="text-[clamp(0.65rem,1.4vh,0.9rem)] text-white/70">
+                            <Line as="p" className="text-[clamp(0.65rem,1.4vh,0.9rem)] text-current opacity-70">
                                 {block.eyebrow}
                             </Line>
                         ) : null}
@@ -39,7 +39,7 @@ export default function Intro({ block }: BlockProps) {
                             <SplitLines
                                 as="p"
                                 text={block.text}
-                                className="lead max-w-[60ch] text-white/70"
+                                className="lead max-w-[60ch] text-current opacity-70"
                             />
                         ) : null}
 
