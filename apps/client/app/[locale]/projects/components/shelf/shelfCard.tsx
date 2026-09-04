@@ -3,20 +3,14 @@
 import type { KeyboardEvent, MouseEvent } from "react";
 import SplitLines from "@/components/facile/splitLines";
 import TextReveal from "@/components/facile/textReveal";
-import LightPillar from "@/components/LightPillar";
-import { isVideoFile, type Project } from "../../lib/projects";
-import { MarcelEyes, MarcelSpheres, useMarcelEyes } from "../marcelEyes";
+import type { Project } from "../../lib/projects";
+import { ShelfCardRefs } from "../../lib/types";
+import { CustomCoverRender } from "../CustomCoverFactory";
 
-const mediaClass = "pointer-events-none absolute top-1/2 left-1/2 w-4/5 -translate-x-1/2 -translate-y-1/2 rounded-md object-cover will-change-[clip-path] [clip-path:inset(100%_0_0_0)]";
 
 const coverClass = "w-full h-full object-cover brightness-100 transition-all duration-300 ease-out";
 
-export type ShelfCardRefs = {
-    card: (i: number) => (el: HTMLDivElement | null) => void;
-    entry: (i: number) => (el: HTMLDivElement | null) => void;
-    img: (i: number) => (el: HTMLDivElement | null) => void;
-    content: (i: number) => (el: HTMLDivElement | null) => void;
-};
+
 
 interface ShelfCardProps {
     project: Project;
@@ -32,12 +26,10 @@ interface ShelfCardProps {
 // Every piece of copy is a plain crop — the shelf's centre-band observer owns the
 // whole column. The whole row opens the story; only the live-site link inside it
 // stops the click from bubbling, so it can go its own way to the external site
-export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLeave }: ShelfCardProps) {
-    const { frame, eyes, spheres, start, stop } = useMarcelEyes();
-    const marcel = project.coverEffect === "marcel";
-    const projetZero = project.coverEffect === "projet-zero-pillar";
 
-    const open = () => { stop(); onOpen(project.slug); };
+
+export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLeave }: ShelfCardProps) {
+    const open = () => onOpen(project.slug);
     const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
         if (e.key === "Enter" || e.key === " ") {
             e.preventDefault();
@@ -53,51 +45,17 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
             aria-label={project.name}
             onClick={open}
             onKeyDown={onKeyDown}
-            onMouseEnter={(e) => { onEnter(e); if (marcel) start(); }}
-            onMouseLeave={(e) => { onLeave(e); stop(); }}
+            onMouseEnter={onEnter}
+            onMouseLeave={onLeave}
             className="group/card cursor-pointer 3xl:w-[70vw] w-[80vw] shrink-0 flex items-start justify-between"
         >
-            <div className="relative shrink-0">
-                {marcel && <MarcelSpheres ref={spheres} />}
-                <div
-                    ref={refs.entry(index)}
-                    className="relative 3xl:w-5xl w-[50vw] aspect-16/10 shrink-0 overflow-hidden rounded-md"
-                >
-                    <div ref={refs.img(index)} className="absolute inset-0 will-change-transform">
-                        {projetZero ? (
-                            <LightPillar className="object-cover brightness-100 transition-all duration-300 ease-out group-hover/card:brightness-[0.6] group-hover/card:scale-110" />
-                        ) : (
-                            <img
-                                src={project.image}
-                                alt={project.name}
-                                loading="lazy"
-                                decoding="async"
-                                className={marcel ? coverClass : `${coverClass} group-hover/card:brightness-[0.6] group-hover/card:scale-110`}
-                            />
-                        )}
-
-                        {marcel && <MarcelEyes frameRef={frame} ref={eyes} />}
-                    </div>
-
-                    {!marcel && project.video && (
-                        isVideoFile(project.video) ? (
-                            <video
-                                data-media
-                                src={project.video}
-                                loop muted playsInline preload="none"
-                                className={mediaClass}
-                            />
-                        ) : (
-                            <img
-                                data-media
-                                src={project.video}
-                                alt={project.name}
-                                className={mediaClass}
-                            />
-                        )
-                    )}
-                </div>
-            </div>
+            <CustomCoverRender
+                customCoverId={project.customCover}
+                coverClass={coverClass}
+                project={project}
+                refs={refs}
+                index={index}
+            />
 
             <div ref={refs.content(index)} className="flex flex-col items-end gap-12 max-w-sm text-right py-12">
                 <div className="gap-y-6 flex flex-col items-end">

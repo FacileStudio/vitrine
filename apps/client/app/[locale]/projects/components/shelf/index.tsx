@@ -8,9 +8,10 @@ import { usePinProgress } from "@/hooks/use-pin-progress";
 import { EASE, run, slideY, hideRevealY } from "@/app/utils/animations";
 import { ARRIVE, TransitionOut } from "@/components/facile/pageTransition";
 import { projectsIn, type Category } from "../../lib/projects";
+import type { ShelfCardRefs } from "../../lib/types";
 import Backdrop from "./backdrop";
 import Heading from "./heading";
-import ShelfCard, { type ShelfCardRefs } from "./shelfCard";
+import ShelfCard from "./shelfCard";
 
 const DEFAULT_LINES = ["A curated selection of", "our latest and best work."];
 

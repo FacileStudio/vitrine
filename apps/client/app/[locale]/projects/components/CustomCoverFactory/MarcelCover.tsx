@@ -2,6 +2,7 @@
 
 import gsap from "gsap";
 import { useCallback, useEffect, useRef, type Ref } from "react";
+import { CustomCoverProps } from "./types";
 
 // Marcel's cover carries a pair of googly eyes that follow the cursor, with two
 // spheres trailing a beat behind. Every size is a share of the frame it sits in,
@@ -122,7 +123,7 @@ export function MarcelEyes({ variant = "card", frameRef, ref }: EyesProps) {
     );
 }
 
-export function MarcelSpheres({ variant = "card", ref }: Omit<EyesProps, "frameRef">) {
+export function MarcelHands({ variant = "card", ref }: Omit<EyesProps, "frameRef">) {
     const s = SPHERE[variant];
 
     return (
@@ -134,3 +135,28 @@ export function MarcelSpheres({ variant = "card", ref }: Omit<EyesProps, "frameR
         </div>
     );
 }
+
+export const MarcelCover = ({ project, refs, index }: CustomCoverProps) => {
+    const { frame, eyes, spheres, start, stop } = useMarcelEyes();
+    return (
+        <div className="relative shrink-0" onMouseEnter={start} onMouseLeave={stop}>
+            <MarcelHands ref={spheres} />
+            <div
+                ref={refs.entry(index)}
+                className="relative 3xl:w-5xl w-[50vw] aspect-16/10 shrink-0 overflow-hidden rounded-md"
+            >
+                <div ref={refs.img(index)} className="absolute inset-0 will-change-transform">
+                    <img
+                        src={project.image}
+                        alt={project.name}
+                        loading="lazy"
+                        decoding="async"
+                        className={`group-hover/card:brightness-[0.6] group-hover/card:scale-110`}
+                    />
+
+                    <MarcelEyes frameRef={frame} ref={eyes} />
+                </div>
+            </div>
+        </div>
+    )
+};

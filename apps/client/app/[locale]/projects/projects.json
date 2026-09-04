@@ -1,7 +1,7 @@
 [
     {
         "slug": "marcel",
-        "coverEffect": "marcel",
+        "customCover": "marcel",
         "name": "Marcel",
         "tier": 1,
         "weeks": 12,
@@ -161,7 +161,7 @@
     },
     {
         "slug": "projet-zero",
-        "coverEffect": "projet-zero-pillar",
+        "customCover": "projet-zero-pillar",
         "name": "Projet Zero",
         "tier": 1,
         "weeks": 6,
