@@ -42,6 +42,39 @@ services:
       mc anonymous set download local/${MINIO_BUCKET_NAME:-vitrine-bucket}
       "
 
+  backend:
+    build:
+      context: .
+      dockerfile: apps/backend/Dockerfile
+    container_name: vitrine-backend
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/vitrine
+      ENCRYPTION_SECRET: ${ENCRYPTION_SECRET}
+      STORAGE_DRIVER: ${STORAGE_DRIVER:-s3}
+      STORAGE_PATH: /data/storage
+      STORAGE_PUBLIC_URL: ${STORAGE_PUBLIC_URL:-http://localhost:3001}
+      MINIO_ENDPOINT: ${MINIO_ENDPOINT:-http://minio:9000}
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin}
+      MINIO_BUCKET_NAME: ${MINIO_BUCKET_NAME:-vitrine-bucket}
+      MINIO_PUBLIC_URL: ${MINIO_PUBLIC_URL:-}
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:3000}
+      TRUSTED_ORIGINS: ${TRUSTED_ORIGINS:-http://localhost:3000,http://localhost:3002}
+      LOG_LEVEL: info
+      LOGTAIL_TOKEN: ${LOGTAIL_TOKEN:-}
+    volumes:
+      - storage_data:/data/storage
+    depends_on:
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+      minio-config:
+        condition: service_completed_successfully
+    restart: unless-stopped
+
   backoffice:
     build:
       context: .
@@ -51,8 +84,11 @@ services:
     container_name: vitrine-backoffice
     environment:
       PORT: 3002
+    depends_on:
+      - backend
     restart: unless-stopped
 
 volumes:
   postgres_data:
   minio_data:
+  storage_data:

@@ -1,0 +1,9 @@
+[build]
+builder = "dockerfile"
+dockerfilePath = "apps/backend/Dockerfile"
+watchPaths = ["apps/backend/**", "packages/**"]
+
+[deploy]
+startCommand = "bun run apps/backend/src/index.ts"
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 10

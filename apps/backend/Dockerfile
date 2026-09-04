@@ -1,0 +1,64 @@
+FROM oven/bun:1.3.7-alpine AS base
+
+FROM base AS deps
+WORKDIR /app
+
+COPY package.json bun.lock ./
+COPY apps/backend/package.json ./apps/backend/
+COPY apps/backoffice/package.json ./apps/backoffice/
+COPY apps/client/package.json ./apps/client/
+COPY packages/auth/package.json ./packages/auth/
+COPY packages/auth-shared/package.json ./packages/auth-shared/
+COPY packages/crypto/package.json ./packages/crypto/
+COPY packages/database/package.json ./packages/database/
+COPY packages/email/package.json ./packages/email/
+COPY packages/env/package.json ./packages/env/
+COPY packages/eslint-config/package.json ./packages/eslint-config/
+COPY packages/i18n/package.json ./packages/i18n/
+COPY packages/logger/package.json ./packages/logger/
+COPY packages/storage/package.json ./packages/storage/
+COPY packages/storage-client/package.json ./packages/storage-client/
+COPY packages/trpc/package.json ./packages/trpc/
+COPY packages/trpc-client/package.json ./packages/trpc-client/
+COPY packages/tsconfig/package.json ./packages/tsconfig/
+COPY packages/types/package.json ./packages/types/
+COPY packages/ui/package.json ./packages/ui/
+COPY packages/utils/package.json ./packages/utils/
+
+RUN --mount=type=cache,id=bun-install-cache,target=/root/.bun/install/cache \
+    bun install --frozen-lockfile \
+    || { sleep 90; bun install --frozen-lockfile; } \
+    || { sleep 240; bun install --frozen-lockfile; }
+
+FROM base AS builder
+WORKDIR /app
+
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+
+WORKDIR /app/packages/database
+RUN bun run db:generate
+RUN test -f /app/packages/database/src/generated/client/index.js
+WORKDIR /app
+
+FROM base AS runner
+WORKDIR /app
+
+ENV NODE_ENV=production
+
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 backend
+RUN mkdir -p /data/storage && chown -R backend:nodejs /data/storage
+
+COPY --from=builder --chown=backend:nodejs /app/apps/backend ./apps/backend
+COPY --from=builder --chown=backend:nodejs /app/packages ./packages
+COPY --from=builder --chown=backend:nodejs /app/node_modules ./node_modules
+COPY --from=builder --chown=backend:nodejs /app/package.json ./
+
+COPY --chown=backend:nodejs apps/backend/entrypoint.sh ./entrypoint.sh
+
+USER backend
+
+EXPOSE 3001
+
+ENTRYPOINT ["./entrypoint.sh"]
