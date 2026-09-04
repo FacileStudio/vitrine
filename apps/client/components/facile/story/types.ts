@@ -88,23 +88,25 @@ export interface StoryBlock {
 // a backoffice gets a unit it can name, fold and drag as a whole
 export interface StorySection {
     title?: string;
-    /** studio slug of whoever owns the chapter — resolved to a Person by buildStory */
-    by?: string;
+    /** studio slug, or slugs, of whoever owns the chapter — resolved to People by buildStory */
+    by?: string | string[];
     blocks: StoryBlock[];
 }
 
-// what the grid renders: same block, media resolved, geometry filled in and the
-// chapter number stamped on (0 when the chapter carries no title)
+// what the grid renders: same block, media resolved, geometry filled in, and the
+// chapter number and owner stamped on (0 when the chapter carries no title, and
+// no owner when it credits nobody)
 export interface Block extends StoryBlock {
     media: string[];
     cols: number;
     index: number;
+    owners: Person[];
 }
 
 // a built chapter: the blocks the grid renders, plus whoever the chapter is
-// credited to, so the track can sit their head in front of the bento
+// credited to, so the track can sit their heads in front of the bento
 export interface Chapter {
-    by?: Person;
+    owners: Person[];
     blocks: Block[];
 }
 
@@ -134,6 +136,9 @@ export function buildStory(
     return sections
         .map((section) => {
             const index = section.title ? ++chapter : 0;
+            const owners = [section.by ?? []].flat()
+                .map(person)
+                .filter((p): p is Person => Boolean(p));
 
             const blocks = section.blocks.flatMap<Block>((b) => {
                 const spec = BLOCK_SPECS[b.type];
@@ -148,11 +153,12 @@ export function buildStory(
                     ...b,
                     media,
                     index,
+                    owners,
                     cols: b.cols ?? spec.cols,
                 }];
             });
 
-            return { by: section.by ? person(section.by) : undefined, blocks };
+            return { owners, blocks };
         })
         .filter((chapter) => chapter.blocks.length);
 }

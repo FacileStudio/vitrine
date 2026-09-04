@@ -84,7 +84,9 @@ export default function Track({ sections, scrollerRef, onClose, ref }: TrackProp
                     {/* whoever owns the chapter, sat in front of its bento. The
                         opening chapter credits nobody — its intro already names
                         the whole crew */}
-                    {chapter.by ? <PersonHead person={chapter.by} className="h-[7vh] w-[7vh] max-h-20 max-w-20" gridSize={0.5} label /> : null}
+                    {chapter.owners.map((p) => (
+                        <PersonHead key={p.name} person={p} className="h-[7vh] w-[7vh] max-h-20 max-w-20" gridSize={0.5} label />
+                    ))}
 
                     <Bento>
                         {chapter.blocks.map((b, i) => {
