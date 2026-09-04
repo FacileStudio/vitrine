@@ -17,7 +17,7 @@ export default function Typography({ block }: BlockProps) {
                     className="flex h-full w-full flex-col gap-[3vh] p-[5vh]"
                 >
                     <div className="flex flex-col gap-2">
-                        <Line style={{ fontFamily: "var(--font-bb-mono)" }} className="text-[clamp(0.65rem,1.4vh,0.9rem)] uppercase tracking-[0.2em] text-white/50">Typography</Line>
+                        <Line className="px-[1.5vh] pt-[6vh] pb-[1.5vh] text-[clamp(0.65rem,1.4vh,1.1rem)] font-goga tracking-tight text-white/50">Typography</Line>
                         <Line className="text-[clamp(1.75rem,5.2vh,5rem)]">
                             {block.font}
                         </Line>

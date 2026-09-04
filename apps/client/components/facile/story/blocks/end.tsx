@@ -14,7 +14,7 @@ export default function End({ block, onClose }: BlockProps) {
                                 onClick={onClose}
                                 className="group flex items-center gap-[1vh] text-[clamp(0.8rem,1.9vh,1.35rem)] text-white/50 transition-colors duration-200 hover:text-white"
                             >
-                                <span className="transition-transform duration-200 group-hover:-translate-x-1">←</span>
+                                <span className="transition-transform duration-200 font-goga tracking-tight group-hover:-translate-x-1">←</span>
                                 Back
                             </button>
                         </Line>
@@ -27,7 +27,7 @@ export default function End({ block, onClose }: BlockProps) {
                             </Line>
                         ) : null}
 
-                        <Line className="text-[clamp(1.75rem,5.2vh,5rem)] font-medium leading-[0.95]">
+                        <Line className="text-[clamp(1.75rem,5.2vh,5rem)] font-goga font-medium leading-[0.95]">
                             {block.title ?? "Thanks for scrolling."}
                         </Line>
 
@@ -37,7 +37,7 @@ export default function End({ block, onClose }: BlockProps) {
                                     href={block.link}
                                     target={block.link.startsWith("http") ? "_blank" : undefined}
                                     rel="noreferrer"
-                                    className="group flex w-fit items-center gap-[1vh] text-[clamp(0.8rem,1.9vh,1.35rem)] text-white transition-colors duration-200 hover:text-[#24E27A]"
+                                    className="group flex w-fit items-center font-goga gap-[1vh] text-[clamp(0.8rem,1.9vh,1.35rem)] text-white transition-colors duration-200 hover:text-[#24E27A]"
                                 >
                                     {block.linkLabel ?? "Visit site"}
                                     <span className="transition-transform duration-200 group-hover:-translate-y-1 group-hover:translate-x-1">↗</span>

@@ -75,7 +75,7 @@ function Chip({ swatch, span }: { swatch: Swatch; span: number }) {
             className="flex min-h-0 min-w-0 flex-col justify-between gap-[1.5vh] rounded-md p-[3vh]"
         >
             <div className="flex flex-col gap-1">
-                <span className="text-[clamp(0.9rem,2.3vh,1.6rem)] font-medium">{swatch.label}</span>
+                <span className="text-[clamp(0.9rem,2.3vh,1.6rem)] font-goga tracking-tight">{swatch.label}</span>
                 <span style={{ opacity: 0.6 }} className="font-bb-mono uppercase text-[clamp(0.65rem,1.4vh,0.9rem)] font-medium">
                     {swatch.note ?? swatch.hex}
                 </span>
@@ -97,7 +97,7 @@ export default function Palette({ block }: BlockProps) {
         <Block cols={block.cols}>
             <Cell col="1 / -1" row="1 / -1">
                 <div className="flex h-full w-full flex-col">
-                    <span className="px-[1.5vh] pt-[6vh] pb-[1.5vh] font-bb-mono text-[clamp(0.65rem,1.4vh,0.9rem)] uppercase text-white/50">Color palette</span>
+                    <span className="px-[1.5vh] pt-[6vh] pb-[1.5vh] text-[clamp(0.65rem,1.4vh,1.1rem)] font-goga tracking-tight text-white/50">Color palette</span>
 
                     <div className="grid min-h-0 flex-1 grid-cols-3 gap-[var(--gap)]">
                         {swatches.map((s, i) => (
