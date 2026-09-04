@@ -101,7 +101,7 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
             </div>
 
             <div ref={refs.content(index)} className="flex flex-col items-end gap-12 max-w-sm text-right py-12">
-                <div className="gap-y-6 flex flex-col items-end">
+                <div className="gap-y-8 flex flex-col items-end">
                     <TextReveal cropClassName="z-10" className="font-goga text-5xl font-medium normal-case tracking-normal text-white">
                         {project.name}
                     </TextReveal>
@@ -110,7 +110,7 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
                         <SplitLines
                             text={project.description}
                             justify
-                            className="relative z-10 font-bb-mono text-sm uppercase leading-relaxed text-white/50"
+                            className="relative z-10 font-bb-mono text-sm font-medium uppercase tracking-tight leading-relaxed text-white/66"
                         />
                     )}
 
@@ -121,7 +121,7 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
                                 target="_blank"
                                 rel="noreferrer"
                                 onClick={(e) => e.stopPropagation()}
-                                className="group flex w-fit text-xl gap-2 rounded-md px-[2vh] py-[1vh] text-white transition-colors duration-200 hover:text-[#24E27A]"
+                                className="group flex w-fit text-xl font-goga capitalize tracking-tighter gap-2 rounded-md px-[2vh] py-[1vh] text-white transition-colors duration-200 hover:text-[#24E27A]"
                             >
                                 Visit site
                                 <span className="transition-transform duration-200 group-hover:-translate-y-1 group-hover:translate-x-1">↗</span>
@@ -136,7 +136,7 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
                                 <TextReveal
                                     key={s}
                                     cropClassName="shrink-0"
-                                    className="rounded-md px-[2vh] py-[1vh] font-bb-mono text-[clamp(0.65rem,1.4vh,0.9rem)] uppercase bg-[#212121] text-white"
+                                    className="rounded-md px-[2vh] py-[1vh] tracking-tight font-bb-mono font-medium text-[clamp(0.65rem,1.4vh,0.9rem)] uppercase bg-[#212121] text-white"
                                 >
                                     {s}
                                 </TextReveal>
@@ -145,7 +145,7 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
                     )}
                     {project.techStack?.length ? (
                         <div className="flex flex-col items-end gap-3">
-                            <TextReveal cropClassName="relative z-10" className="font-bb-mono text-[clamp(0.65rem,1.4vh,0.9rem)] uppercase text-white/35">
+                            <TextReveal cropClassName="relative z-10" className="font-goga lowercase tracking-tighter text-[clamp(0.65rem,1.4vh,0.9rem)] text-white/35">
                                 Created with
                             </TextReveal>
                             <span className="relative z-10 flex flex-wrap justify-end gap-6">
