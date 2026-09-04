@@ -5,7 +5,7 @@ experimental = true
 lockfile = true
 
 [monorepo]
-config_roots = ["apps/*"]
+config_roots = ["apps/*", "packages/database"]
 
 [tools]
 bun = "1.2.0"
@@ -68,6 +68,25 @@ run = "./scripts/db-up.sh"
 description = "Stop the repo-local Postgres dev database"
 tools = { "asdf:mise-plugins/mise-postgres" = "14.22" }
 run = "./scripts/db-down.sh"
+
+[tasks."db:setup"]
+description = "Start the repo-local Postgres dev database and push the Prisma schema"
+depends = [":install"]
+run = [
+  'mise run db:up',
+  'mise run //packages/database:generate',
+  'mise run //packages/database:push',
+]
+
+[tasks."db:studio"]
+description = "Open Prisma Studio"
+depends = [":install"]
+run = 'mise run //packages/database:studio'
+
+[tasks."db:seed"]
+description = "Seed the database"
+depends = [":install"]
+run = 'mise run //packages/database:seed'
 
 [tasks.minio]
 description = "Start the repo-local MinIO server"
