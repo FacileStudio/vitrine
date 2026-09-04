@@ -48,7 +48,7 @@ export default function Band({ sections, id }: BandProps) {
                 ref={viewRef}
                 className="sticky top-0 h-screen w-full overflow-hidden bg-background"
             >
-                <Backdrop tone="light" arrive />
+                <Backdrop arrive />
 
                 <div className="relative h-full">
                     <Track ref={trackRef} sections={sections} scrollerRef={viewRef} />

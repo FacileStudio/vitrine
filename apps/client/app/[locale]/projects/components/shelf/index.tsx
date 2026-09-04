@@ -174,13 +174,13 @@ export default function Shelf({
         <section
             ref={sectionRef}
             id="projects"
-            className="w-full relative h-full"
+            className="w-full relative h-full pb-[120vh]"
         >
             <div className="absolute inset-0 bg-foreground -z-10" aria-hidden="true" />
 
             <ShelfBackdrop tone="dark" sticky={stickyBackdrop} />
 
-            <div className="w-full h-full pt-[20vh] pb-[30vh] flex flex-col gap-[35vh] justify-start items-center px-6">
+            <div className="w-full h-full pt-[20vh] flex flex-col gap-1 justify-start items-center px-6">
                 <Heading
                     lines={lines}
                     filter={filter}
