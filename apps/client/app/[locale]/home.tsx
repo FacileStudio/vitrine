@@ -11,7 +11,6 @@ import Manifesto from "./homeSections/manifesto";
 import Suite from "./homeSections/suite";
 import Avis from "./homeSections/avis";
 import Shelf from "./homeSections/shelf";
-import Friends from "./homeSections/friends";
 import Footer from "./homeSections/footer";
 
 export default function Home() {
@@ -42,9 +41,7 @@ export default function Home() {
                 <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
                 <Hero charged={charged} />
                 <Manifesto />
-                <Friends />
                 <Shelf />
-                <Friends id="friends-2" />
                 <Suite />
                 <Avis />
             </main>

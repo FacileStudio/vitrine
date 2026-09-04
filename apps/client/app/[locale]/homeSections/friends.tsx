@@ -40,7 +40,7 @@ export default function Friends({ id = "friends" }: { id?: string }) {
     return (
         <section ref={sectionRef} id={id} className="relative w-full py-24 overflow-visible">
             <div className="px-60">
-                <h2>
+                <h2 className="text-[clamp(2rem,6.4vh,5.5rem)] text-white">
                     <TextReveal open={showIcons}>They trusted us</TextReveal>
                 </h2>
                 <TextReveal as="p" open={showIcons} delay={0.1} cropClassName="mt-4" className="lead max-w-[40ch] opacity-66">
