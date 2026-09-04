@@ -24,6 +24,13 @@ export interface DitherViewProps extends DitherModelProps {
     background?: string | null;
     ditherAngle?: number;
     models?: DitherModelProps[];
+    /**
+     * a thumbnail-sized canvas pays the same price as a full-bleed one: five
+     * shadow maps a frame, a 1024 cubemap bake and a 2x pixel ratio. `lite`
+     * drops all three, which a head a few vh tall cannot tell apart once the
+     * dither grid has been over it — and a story page can carry a dozen of them
+     */
+    lite?: boolean;
 }
 
 export function DitherView({
@@ -43,6 +50,7 @@ export function DitherView({
     position = [0, -0.5, 0],
     ditherAngle = 45,
     models,
+    lite = false,
     ...model
 }: DitherViewProps) {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -67,8 +75,8 @@ export function DitherView({
             <Canvas
                 key={canvasKey}
                 className=""
-                dpr={[1, 2]}
-                shadows={{ type: THREE.PCFShadowMap }}
+                dpr={lite ? 1 : [1, 2]}
+                shadows={lite ? false : { type: THREE.PCFShadowMap }}
                 frameloop={active ? "always" : "never"}
                 gl={{ alpha: background === null, antialias: true }}
                 camera={{ position: cameraPosition, fov }}
@@ -99,7 +107,7 @@ export function DitherView({
                             <DitherModel {...m} />
                         </group>
                     ))}
-                    <EnvironmentWrapper intensity={intensity} highlight={highlight} />
+                    <EnvironmentWrapper intensity={intensity} highlight={highlight} resolution={lite ? 256 : 1024} />
                 </Suspense>
                 <PostProcessing
                     gridSize={gridSize}

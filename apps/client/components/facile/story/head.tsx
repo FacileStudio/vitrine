@@ -15,14 +15,12 @@ const Head = memo(DitherReveal);
 // the pointer arrives, then lights up, lifts, and puts a name under itself.
 // Memoised so a re-render never re-bakes the cubemap behind a row of canvases,
 // and null without a model so an avatar-only person costs nothing
-const PersonHead = memo(function PersonHead({ person, className = "", gridSize = 0.5, label = false }: {
+const PersonHead = memo(function PersonHead({ person, className = "", gridSize = 0.5, scaleMultiplier = 2, label = false }: {
     person: Person;
     className?: string;
     gridSize?: number;
-    /** the grid the dither tweens to under the pointer — finer than resting, so the head sharpens */
-    hoverGridSize?: number;
-    /** name and role, revealed under the head on hover — for a head with no copy beside it */
     label?: boolean;
+    scaleMultiplier?: number;
 }) {
     const [hovered, setHovered] = useState(false);
     const [coarse, setCoarse] = useState(false);
@@ -42,6 +40,7 @@ const PersonHead = memo(function PersonHead({ person, className = "", gridSize =
     // holds its environment as one element, so nothing re-bakes on the way. Every
     // other hover effect stays in CSS
     const dither = useMemo(() => ({
+        lite: true,
         gridSize: gridSize,
         intensity: 1.0,
         parallax: 0.6,
@@ -50,14 +49,14 @@ const PersonHead = memo(function PersonHead({ person, className = "", gridSize =
         ambient: 0.3,
         float: false,
         position: [0, -0.35, 0] as [number, number, number],
-        scale: person.scale ? person.scale * 2 : undefined,
+        scale: person.scale ? person.scale * scaleMultiplier : undefined,
         roughness: person.roughness,
         metalness: 0,
         hairColor: person.hair ?? undefined,
         rotation: [0, 0, 0] as [number, number, number],
         bloom: true,
         bloomIntensity: 0.2,
-    }), [hovered, gridSize, person.scale, person.roughness, person.hair]);
+    }), [hovered, gridSize, scaleMultiplier, person.scale, person.roughness, person.hair]);
 
     const headClass = useMemo(() => `absolute inset-0 h-full w-full transition-all duration-200 ${coarse
         ? "opacity-100 brightness-100"
