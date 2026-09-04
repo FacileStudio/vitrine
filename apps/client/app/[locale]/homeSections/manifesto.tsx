@@ -62,17 +62,17 @@ export default function Manifesto() {
                     <TextReveal open={showCta} leaving={leaving} duration={0.7} delay={0.5} cropClassName="w-fit mt-10">
                         <Link
                             href="/projects"
-                            className="inline-block px-8 py-5 rounded-full bg-background/50 text-foreground"
+                            className="button inline-block"
                         >
-                            <p className="text-md">Voir nos projets</p>
+                            <p>Voir nos projets</p>
                         </Link>
                     </TextReveal>
                 </div>
 
-                <div className="absolute bottom-0 left-0 flex w-full items-end justify-between px-48 pb-12 pointer-events-none text-foreground">
+                <div className="absolute bottom-0 left-0 flex w-full items-end justify-between gap-1 px-48 pb-12 pointer-events-none text-foreground">
                     {["Branding", "Web - UI/UX design", "Showcase Websites", "Applications", "DevOps", "Self hosting"].map((entry, i) => (
-                        <TextReveal as="p" key={i} open={showText} leaving={leaving} delay={i * 0.1} className="text-md">
-                            {entry}
+                        <TextReveal key={i} open={showText} leaving={leaving} delay={i * 0.1} className="button">
+                            <p>{entry}</p>
                         </TextReveal>
                     ))}
                 </div>

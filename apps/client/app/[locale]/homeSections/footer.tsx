@@ -32,9 +32,9 @@ export default function Footer() {
                         <Button text={t("footer.hireUs")} icon="mail" onClick={openContactModal} />
                         <a
                             href={`tel:${CONTACT.phone.replace(/\s+/g, "")}`}
-                            className="border-2 border-white/20 rounded-full px-6 py-3 text-white transition-colors hover:bg-white hover:text-foreground"
+                            className="button button-dark transition-colors hover:bg-white hover:text-foreground"
                         >
-                            {t("footer.callUs")}
+                            <p>{t("footer.callUs")}</p>
                         </a>
                     </div>
                 </div>

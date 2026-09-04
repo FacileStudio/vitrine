@@ -6,12 +6,10 @@ import { useEffect, useRef, useState } from "react";
 import { run, fade, hideFade } from "@/app/utils/animations";
 import { usePinProgress } from "@/hooks/use-pin-progress";
 import TextReveal from "@/components/facile/textReveal";
+import PersonHead from "@/components/facile/story/head";
 import members from "../studio/studio.json";
 
 const DitherView = dynamic(() => import("@/webgl/DitherView").then((m) => m.DitherView), { ssr: false });
-
-const DESIGNERS = members.filter((m) => m.role.includes("Designer"));
-const DEVELOPERS = members.filter((m) => m.role.includes("Developer"));
 
 export default function Hero({ charged }: { charged: boolean }) {
     const sectionRef = useRef<HTMLElement>(null);
@@ -27,6 +25,7 @@ export default function Hero({ charged }: { charged: boolean }) {
         const t = setTimeout(() => setResolved(true), 800);
         return () => clearTimeout(t);
     }, [charged]);
+
 
 
 
@@ -76,25 +75,62 @@ export default function Hero({ charged }: { charged: boolean }) {
             <div className="relative h-full  flex flex-col p-4 px-20 lg:p-6">
 
                 {/* headline + cta, bottom-left */}
-                <div
-                    className=" cta flex flex-col items-end justify-center px-20 h-full gap-12"
-                    onMouseEnter={() => setTeamHover(true)}
-                    onMouseLeave={() => setTeamHover(false)}
-                >
-                    <h2 className="flex flex-col items-end max-w-full text-white/90 gap-2">
-                        <TextReveal open={shown} leaving={leaving} delay={1.2} className="flex justify-between items-center gap-6">
-                            Une equipe de passionees
-                        </TextReveal>
-                        <TextReveal open={shown} leaving={leaving} delay={1.3} className="flex justify-between items-center gap-6">
-                            qui sait ce qu'elle fait.
-                        </TextReveal>
-                    </h2>
+                <div className=" cta flex flex-col items-end justify-center px-20 h-full gap-12">
+                    {/* the headline steps aside for the crew: both sit in the same
+                        grid cell, each behind its own crop, so the swap moves
+                        nothing around it. The heads stay mounted — building four
+                        canvases on mouseenter would stutter exactly when it shows */}
+                    <div
+                        className="grid"
+                        onMouseEnter={() => setTeamHover(true)}
+                        onMouseLeave={() => setTeamHover(false)}
+                    >
+                        <h2 className="col-start-1 row-start-1 flex flex-col items-end max-w-full text-white/90 gap-2">
+                            {/* each line leaves through its own crop rather than the
+                                whole headline sliding as one slab — `leaving` is what
+                                sends it up instead of dropping it back down. The delay
+                                is the opening stagger on arrival, and a much shorter
+                                one on hover, where nobody waits a second and a half */}
+                            <TextReveal
+                                open={shown && !teamHover}
+                                leaving={leaving || teamHover}
+                                delay={teamHover ? 0 : 1.2}
+                                className="flex justify-between items-center gap-6"
+                            >
+                                Une equipe de passionees
+                            </TextReveal>
+                            <TextReveal
+                                open={shown && !teamHover}
+                                leaving={leaving || teamHover}
+                                delay={teamHover ? 0.08 : 1.3}
+                                className="flex justify-between items-center gap-6"
+                            >
+                                qui sait ce qu'elle fait.
+                            </TextReveal>
+                        </h2>
 
-                    <div className=" flex flex-col justify-end  text-end gap-2">
-                        <TextReveal as="p" open={shown} leaving={leaving} delay={1} className="text-xl text-[#24E27A]">
-                            [<p className="mr-1">fasil</p>]
+                        <span className="col-start-1 row-start-1 flex items-center justify-end">
+                            {members.map((m, i) => (
+                                <span key={m.slug} className="block overflow-hidden">
+                                    <span
+                                        className="block transition-transform duration-500 ease-out"
+                                        style={{
+                                            transform: teamHover ? "translateY(0%)" : "translateY(110%)",
+                                            transitionDelay: teamHover ? `${i * 80}ms` : "0ms",
+                                        }}
+                                    >
+                                        <PersonHead person={m} className="h-[12vh] w-[12vh] max-h-64 max-w-64" gridSize={0.43} scaleMultiplier={2.5} />
+                                    </span>
+                                </span>
+                            ))}
+                        </span>
+                    </div>
+
+                    <div className=" flex flex-col justify-end text-end gap-2">
+                        <TextReveal open={shown} leaving={leaving} delay={1} className="text-xl w-full lead flex justify-end items-center text-[#24E27A]">
+                            [<p className="italic opacity-100 text-[#24E27A] mr-1 lead">fasil</p>]
                         </TextReveal>
-                        <TextReveal open={shown} leaving={leaving} delay={1.1} as="p" className="subtext max-w-[50ch] text-[clamp(0.5rem,1.2vh,0.7rem)] text-background/60">
+                        <TextReveal open={shown} leaving={leaving} delay={1.1} as="p" className="subtext max-w-[35ch] text-[clamp(0.5rem,1.2vh,0.7rem)] text-background/60">
                             Qui se fait sans effort, qui ne présente aucune difficulté. Simple, aisé, etc&hellip;
                         </TextReveal>
                     </div>
@@ -103,9 +139,11 @@ export default function Hero({ charged }: { charged: boolean }) {
                         <Link
                             ref={ctaRef}
                             href="/projects"
-                            className="lead group flex w-fit items-center gap-[1vh] rounded-md bg-background/10 px-6 py-4 text-sm font-medium transition-colors duration-200 hover:text-[#24E27A]"
+                            className="button button-dark group flex w-fit items-center gap-[1vh] transition-colors duration-200 hover:text-[#24E27A]"
                         >
-                            Voir nos projets
+                            <p>
+                                Voir nos projets
+                            </p>
                             <span className="transition-transform duration-200 group-hover:-translate-y-1 group-hover:translate-x-1">↗</span>
                         </Link>
                     </span>

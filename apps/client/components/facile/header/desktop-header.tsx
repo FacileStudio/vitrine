@@ -45,7 +45,7 @@ export const DesktopHeader =({ menuOpen, setMenuOpen }: { menuOpen: boolean; set
                     <TextReveal as="p" delay={1.1} className={`subtext text-[clamp(0.5rem,1.2vh,0.7rem)] ${dark ? "text-[#1E1E1E]" : "text-white"} `}>Qui se fait sans effort, qui ne présente aucune difficulté. Simple, aisé, etc&hellip;</TextReveal>
                 </div>
             </div>
-            <button className="hidden lg:block font-bb-mono font-medium  tracking-tight uppercase text-[clamp(0.5rem,1.8vh,1.2rem)]" onClick={toggleMenu}>
+            <button className={`button ${dark ? "" : "button-dark"} hidden lg:block font-bb-mono font-medium tracking-tight uppercase`} onClick={toggleMenu}>
                 {menuOpen ? 'Close' : 'Menu'}
             </button>
         </header>
