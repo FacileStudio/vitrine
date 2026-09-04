@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import AppShell from "@/components/facile/appShell";
+import { JournalTelemetry } from "@/components/journal-telemetry";
 import { baseMetadata, getAlternates, getOpenGraphLocale, siteUrl } from "@/lib/seo/metadata";
 import { getOrganizationJsonLd, getWebSiteJsonLd } from "@/lib/seo/jsonld";
 import { Metadata } from "next";
@@ -47,6 +48,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
             />
         </head>
         <body className={manrope.variable}>
+        <JournalTelemetry />
         <NextIntlClientProvider messages={messages} locale={locale}>
             <AppShell>
                 {children}

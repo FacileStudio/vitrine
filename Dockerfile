@@ -7,6 +7,10 @@ COPY .npmrc package.json bun.lock ./
 RUN bun install --frozen-lockfile --linker hoisted
 
 COPY . .
+ARG NEXT_PUBLIC_JOURNAL_URL=https://journal.facile.studio/api
+ARG NEXT_PUBLIC_JOURNAL_KEY=journal_pub_vitrine_AZqPViokahMRdy3f-OD7gKSu0-ADutpK165z_Cq3tYk
+ENV NEXT_PUBLIC_JOURNAL_URL=$NEXT_PUBLIC_JOURNAL_URL
+ENV NEXT_PUBLIC_JOURNAL_KEY=$NEXT_PUBLIC_JOURNAL_KEY
 RUN bun run build
 
 # Production stage
