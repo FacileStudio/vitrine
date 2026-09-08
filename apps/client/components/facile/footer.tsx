@@ -82,7 +82,6 @@ const Footer = ({setOpen}: ContactModalProps) => {
             </div>
 
             <div className={"flex gap-8 items-center"}>
-                {/* add simple langage switch with the 2 first letters of the langage */}
                 <div className="flex gap-4">
                     <a href={"https://www.dribbble.com/webbygian"} target="_blank" rel="noopener noreferrer" aria-label="Dribbble">
                         <DribbbleIcon className={"hover:scale-130 duration-200 transition-all"} size={24}  />
