@@ -107,7 +107,7 @@ p {
     letter-spacing: -0.025em;
     line-height: 1.625;
     font-size: 0.875rem;
-    opacity: 75%;
+    color: color-mix(in srgb, currentColor 75%, transparent);
 }
 
 /* a `p` that labels a control is not copy: it takes the control's colour whole,

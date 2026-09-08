@@ -14,7 +14,7 @@ export default function MemberIdentity({ member, shown }: { member: Member; show
             <div className="flex flex-wrap items-center gap-8">
                 <div className="flex items-center gap-2">
                     <div className="aspect-square h-3 w-3 rounded-sm" style={{ backgroundColor: member.highlight }} />
-                    <TextReveal as="h2" open={shown} cropClassName="z-10" delay={0.1} className="mb-1 text-white">
+                    <TextReveal as="p" open={shown} cropClassName="z-10" delay={0.1} className="lead mb-1 text-white">
                         {member.name}
                     </TextReveal>
                 </div>

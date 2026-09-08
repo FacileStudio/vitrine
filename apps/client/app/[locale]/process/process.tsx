@@ -69,7 +69,7 @@ function ProcessSection({ step, index }: { step: Step; index: number }) {
                         </div>
                     </TextReveal>
 
-                    <TextReveal open={show} leaving={leaving} delay={0.24} className="max-w-[48ch] opacity-70">
+                    <TextReveal as="p" open={show} leaving={leaving} delay={0.24} className="max-w-[48ch] opacity-70">
                         {step.text}
                     </TextReveal>
                 </div>
