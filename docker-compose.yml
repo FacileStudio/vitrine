@@ -5,7 +5,7 @@ services:
     build: .
     container_name: facile-vitrine
     ports:
-      - "3000:3000"
+      - "3011:3011"
     environment:
       SMTP_HOST: "${SMTP_HOST:-smtp.example.com}"
       SMTP_PORT: "${SMTP_PORT:-587}"
@@ -15,7 +15,7 @@ services:
       CONTACT_TO: "${CONTACT_TO:-contact@facile.studio}"
       NODE_ENV: "production"
       HOSTNAME: "0.0.0.0"
-      PORT: "3000"
+      PORT: "3011"
     volumes:
       - ./node_modules:/app/node_modules
       - ./public:/app/public
@@ -24,9 +24,10 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.vitrine.rule=Host(`localhost`) || Host(`127.0.0.1`)"
       - "traefik.http.routers.vitrine.entrypoints=web"
-      - "traefik.http.services.vitrine.loadbalancer.server.port=3000"
+      - "traefik.http.services.vitrine.loadbalancer.server.port=3011"
+      - "traefik.docker.network=dokploy-network"
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000"]
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3011"]
       interval: 30s
       timeout: 10s
       retries: 3
