@@ -1,0 +1,29 @@
+# Traefik Configuration for Local Development
+# This provides reverse proxy and routing for the Vitrine app
+
+# API and Dashboard
+api:
+  dashboard: true
+  insecure: true  # Only for local development!
+
+# Entrypoints
+entrypoints:
+  web:
+    address: ":80"
+  websecure:
+    address: ":443"
+
+# Providers
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    exposedByDefault: false
+    network: "vitrine_default"
+
+# Logging
+log:
+  level: "INFO"
+
+# Access log
+accessLog:
+  enabled: true

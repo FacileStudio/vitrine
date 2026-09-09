@@ -1,0 +1,47 @@
+version: "3.8"
+
+services:
+  vitrine:
+    build: .
+    container_name: facile-vitrine
+    ports:
+      - "3000:3000"
+    environment:
+      SMTP_HOST: "${SMTP_HOST:-smtp.example.com}"
+      SMTP_PORT: "${SMTP_PORT:-587}"
+      SMTP_USER: "${SMTP_USER:-user@example.com}"
+      SMTP_PASS: "${SMTP_PASS:-your_smtp_password}"
+      SMTP_FROM: "${SMTP_FROM:-contact@facile.studio}"
+      CONTACT_TO: "${CONTACT_TO:-contact@facile.studio}"
+      NODE_ENV: "production"
+      HOSTNAME: "0.0.0.0"
+      PORT: "3000"
+    volumes:
+      - ./node_modules:/app/node_modules
+      - ./public:/app/public
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.vitrine.rule=Host(`localhost`) || Host(`127.0.0.1`)"
+      - "traefik.http.routers.vitrine.entrypoints=web"
+      - "traefik.http.services.vitrine.loadbalancer.server.port=3000"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  traefik:
+    image: traefik:latest
+    container_name: traefik
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - ./traefik.yml:/etc/traefik/traefik.yml:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    depends_on:
+      - vitrine
+    restart: unless-stopped
