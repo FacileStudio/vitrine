@@ -2,6 +2,7 @@ import Line from "@/components/facile/textReveal";
 import Arrow from "@/components/facile/arrow";
 import type { BlockProps } from "../types";
 import { Block, Cell } from "../bento";
+import Emphasis from "../../emphasis";
 
 export default function End({ block, onClose }: BlockProps) {
     return (
@@ -29,7 +30,7 @@ export default function End({ block, onClose }: BlockProps) {
                         ) : null}
 
                         <Line as="h2">
-                            {block.title ?? "Thanks for scrolling."}
+                            <Emphasis text={block.title ?? "Thanks for scrolling."} />
                         </Line>
 
                         {block.link ? (

@@ -40,6 +40,12 @@ export interface DitherViewProps extends DitherModelProps {
      * dither grid has been over it — and a story page can carry a dozen of them
      */
     lite?: boolean;
+    /**
+     * whether frames run, decided by the parent instead of the viewport observer.
+     * An observer counts ancestor overflow as off-screen, so a canvas parked below
+     * a reveal crop would never paint until it rode in
+     */
+    active?: boolean;
 }
 
 export function DitherView({
@@ -60,10 +66,12 @@ export function DitherView({
     ditherAngle = 45,
     models,
     lite = false,
+    active: activeOverride,
     ...model
 }: DitherViewProps) {
     const containerRef = useRef<HTMLDivElement>(null);
-    const [active, setActive] = useState(true);
+    const [inView, setInView] = useState(true);
+    const active = activeOverride ?? inView;
     const [canvasKey, setCanvasKey] = useState(0);
     const release = useRef<(() => void) | null>(null);
 
@@ -80,7 +88,7 @@ export function DitherView({
         const el = containerRef.current;
         if (!el) return;
         const io = new IntersectionObserver(
-            ([entry]) => setActive(entry.isIntersecting),
+            ([entry]) => setInView(entry.isIntersecting),
             { rootMargin: "200px 0px" },
         );
         io.observe(el);

@@ -8,7 +8,7 @@ import { Block, Cell } from "../bento";
 // the dark band
 const Mark = ({ icon }: { icon: string }) =>
     icon.startsWith("/")
-        ? <img src={icon} alt="" className="h-[4vh] w-[4vh] object-contain invert" />
+        ? <img src={icon} alt="" className="h-[6vh] w-[6vh] object-contain" />
         : <Icon icon={icon} className="text-[4vh] text-[#24E27A]" />;
 
 // a media-free block for things that only have a name and a mark — the suite's
@@ -19,7 +19,7 @@ export default function Tiles({ block }: BlockProps) {
     return (
         <Block cols={block.cols}>
             {tiles.map((t: Tile) => (
-                <Cell key={t.label} className="bg-[#1d1e1e]/33 backdrop-blur-2xl">
+                <Cell key={t.label} className="bg-foreground/10 backdrop-blur-2xl">
                     <div className="flex h-full w-full flex-col justify-between gap-[1.5vh] p-[3vh]">
                         {t.icon ? <Mark icon={t.icon} /> : null}
 

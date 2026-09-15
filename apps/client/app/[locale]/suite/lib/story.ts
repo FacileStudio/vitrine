@@ -62,7 +62,7 @@ export function suiteStory(locale: string): Chapter[] {
             blocks: [{
                 type: "intro",
                 eyebrow: "Facile Suite — auto-hébergé, open source, intégré",
-                title: "On simplifie. Vous bossez.",
+                title: "On *simplifie*.\nVous *bossez*.",
                 text: `${allApps.length} outils qui se parlent, sur votre serveur. Temps, projets, leads, signatures, factures, secrets, logs — un seul login, zéro dépendance cloud.`,
             }],
         },
@@ -71,7 +71,7 @@ export function suiteStory(locale: string): Chapter[] {
             blocks: [{
                 type: "end",
                 eyebrow: `${allApps.length} outils, une suite`,
-                title: "Et tout communique.",
+                title: "Et tout *communique*.",
                 link: `/${locale}/suite`,
                 linkLabel: "Découvrir la suite",
             }],

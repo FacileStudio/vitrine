@@ -76,9 +76,8 @@ export function useMarcelEyes(variant: Variant = "card") {
     return { frame, eyes, spheres, start, stop };
 }
 
-// the card keeps the hand-picked pixel sizes it shipped with; the detail cover
-// states them as a share of the frame instead, so the gag grows with the image
-// the card flips into
+// the card keeps its hand-picked pixel sizes from lg up, and below it the same
+// proportions of a ~720px desktop card as a share of the frame, so a phone image scales the gag down
 type Variant = "card" | "cover";
 
 const TRAVEL: Record<Variant, number> = {
@@ -87,12 +86,12 @@ const TRAVEL: Record<Variant, number> = {
 };
 
 const EYE = {
-    card: { anchor: "bottom-6", row: "gap-8", pill: "w-10 h-48 xl:w-12 xl:h-70" },
+    card: { anchor: "bottom-[3.3cqw] lg:bottom-6", row: "gap-[4.4cqw] lg:gap-8", pill: "w-[6.1cqw] h-[26.7cqw] lg:w-10 lg:h-48 xl:w-12 xl:h-70" },
     cover: { anchor: "bottom-[-6cqw]", row: "gap-[3.3cqw]", pill: "w-[6.7cqw] h-[29cqw]" },
 };
 
 const SPHERE = {
-    card: { row: "gap-16", ball: "w-28 h-28 xl:w-40 xl:h-40" },
+    card: { row: "gap-[8.9cqw] lg:gap-16", ball: "w-[15.6cqw] h-[15.6cqw] lg:w-28 lg:h-28 xl:w-40 xl:h-40" },
     cover: { row: "gap-[6.7cqw]", ball: "w-[16.7cqw] aspect-square" },
 };
 

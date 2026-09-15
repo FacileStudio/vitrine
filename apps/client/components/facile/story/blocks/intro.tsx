@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import SplitLines from "@/components/facile/splitLines";
 import Line from "@/components/facile/textReveal";
+import Emphasis from "@/components/facile/emphasis";
 import type { BlockProps } from "../types";
 import PersonHead from "../head";
 import { Block, Cell } from "../bento";
@@ -31,8 +32,9 @@ export default function Intro({ block }: BlockProps) {
                             </Line>
                         ) : null}
 
-                        <Line as="h2" className="capitalize">
-                            {block.title}
+                        {/* pre-line keeps a title's \n as its own line */}
+                        <Line as="h2" className="capitalize whitespace-pre-line">
+                            <Emphasis text={block.title ?? ""} />
                         </Line>
 
                         {block.text ? (

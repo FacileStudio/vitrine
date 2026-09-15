@@ -5,7 +5,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useScroll } from "@/hooks/use-scroll";
 import TextReveal from "@/components/facile/textReveal";
 import { Button } from "@/components/facile/button";
-import { links, CONTACT } from "@/components/facile/menu";
+import { links, CONTACT } from "@/components/facile/navLinks";
 
 export default function Footer() {
     const sectionRef = useRef<HTMLElement>(null);
@@ -48,7 +48,7 @@ export default function Footer() {
                                 {link.label}
                             </a>
                             {link.secondary && link.secondary.length > 0 && (
-                                <ul className="mt-3 flex flex-col items-start gap-1">
+                                <ul className="mt-3 hidden md:flex flex-col items-start gap-1">
                                     {link.secondary.map((sub) => (
                                         <li key={sub.label}>
                                             <a

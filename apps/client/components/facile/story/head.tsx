@@ -7,16 +7,17 @@ import type { Person } from "./types";
 
 const Head = memo(DitherReveal);
 
-const PersonHead = memo(function PersonHead({ person, className = "", gridSize = 0.5, scaleMultiplier = 2, label = false }: {
+const PersonHead = memo(function PersonHead({ person, className = "", gridSize = 0.5, scaleMultiplier = 2, label = false, active }: {
     person: Person;
     className?: string;
     gridSize?: number;
     label?: boolean;
     scaleMultiplier?: number;
+    /** see DitherView: set it when the head hides inside a crop */
+    active?: boolean;
 }) {
-  
-
     const dither = useMemo(() => ({
+        active,
         lite: true,
         gridSize: gridSize,
         intensity: 1.0,
@@ -33,7 +34,7 @@ const PersonHead = memo(function PersonHead({ person, className = "", gridSize =
         rotation: [0, 0, 0] as [number, number, number],
         bloom: true,
         bloomIntensity: 0.2,
-    }), [gridSize, scaleMultiplier, person.scale, person.roughness, person.hair]);
+    }), [active, gridSize, scaleMultiplier, person.scale, person.roughness, person.hair]);
 
     if (!person.model)
         return null;

@@ -183,7 +183,7 @@ export default function Shelf({
             {/* the tail lives on the content, not on the section: as section padding it
                 sits between the cards and the sticky covers below, and pushes them out
                 of the viewport they are supposed to hold */}
-            <div className="w-full h-full pt-[20vh] pb-[120vh] flex flex-col gap-1 justify-start items-center px-6">
+            <div className="w-full h-full pt-[10vh] lg:pt-[20vh] pb-[120vh] flex flex-col gap-1 justify-start items-center px-3 lg:px-6">
                 <Heading
                     lines={lines}
                     filter={filter}

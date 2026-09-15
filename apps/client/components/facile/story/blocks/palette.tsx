@@ -83,7 +83,7 @@ function Chip({ swatch, span }: { swatch: Swatch; span: number }) {
 
             <div className="flex flex-col gap-[0.3vh] text-[clamp(0.55rem,1.2vh,0.8rem)] leading-tight">
                 <Value label="RGB" value={swatch.rgb ?? (rgb ? `(${rgb.join(", ")})` : "—")} />
-                <Value label="HSV / HSB" value={swatch.hsv ?? (rgb ? hsvOf(rgb) : "—")} />
+                <Value label="HSV/HSB" value={swatch.hsv ?? (rgb ? hsvOf(rgb) : "—")} />
                 <Value label="CMYK" value={swatch.cmyk ?? (rgb ? cmykOf(rgb) : "—")} />
             </div>
         </div>

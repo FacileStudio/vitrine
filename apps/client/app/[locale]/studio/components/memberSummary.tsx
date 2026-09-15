@@ -22,17 +22,19 @@ export default function MemberSummary({
         <>
             <Link
                 href={`/${locale}/studio`}
-                className="subtitle lg:hidden block absolute top-12 left-1/2 -translate-x-1/2 capitalize transition-colors"
+                className="lg:hidden block absolute top-12 left-1/2 -translate-x-1/2 font-goga text-[clamp(0.65rem,1.7vh,1.3rem)] font-medium capitalize tracking-tight transition-colors"
             >
                 ← Go Back
             </Link>
             <div className="absolute inset-x-0 bottom-0 z-40 flex lg:flex-col justify-between lg:justify-start items-center lg:gap-5 gap-3 px-6 pb-10 text-center lg:hidden">
 
-                <div className="flex items-center gap-2">
-                    <div className="h-2.5 w-2.5 rounded-sm" style={{ backgroundColor: member.highlight }} />
-                    <TextReveal as="h2" open={shown} delay={0.1} className="text-white">
-                        {member.name}
-                    </TextReveal>
+                <div className="flex flex-col items-start">
+                    <div className="flex gap-2">
+                        <div className="h-2.5 w-2.5 rounded-xs mt-4" style={{ backgroundColor: member.highlight }} />
+                        <TextReveal as="h2" open={shown} delay={0.1} className="text-white">
+                            {member.name}
+                        </TextReveal>
+                    </div>
                     <TextReveal as="p" open={shown} delay={0.16} className="subtext ml-4 text-white">
                         {member.role}
                     </TextReveal>
@@ -46,7 +48,7 @@ export default function MemberSummary({
                     className="lead max-w-[36ch] hidden lg:block text-white/60"
                 />
 
-                <button type="button" onClick={onSeeMore} className={`${buttonClass} w-80`}>
+                <button type="button" onClick={onSeeMore} className={`${buttonClass} w-32`}>
                     See more
                 </button>
 

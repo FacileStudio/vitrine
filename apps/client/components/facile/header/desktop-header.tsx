@@ -6,7 +6,7 @@ import Link from "@/components/facile/transitionLink";
 
 // sections still light against the dark site — the header switches to dark
 // text over these, and stays light everywhere else
-const LIGHT_SECTIONS = ["manifesto", "suite-shelf"];
+const LIGHT_SECTIONS = ["manifesto", "suite", "suite-shelf"];
 
 export const DesktopHeader =({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
     const [onLight, setOnLight] = React.useState(false);
@@ -23,7 +23,8 @@ export const DesktopHeader =({ menuOpen, setMenuOpen }: { menuOpen: boolean; set
                 const el = document.getElementById(id);
                 if (!el) return false;
                 const r = el.getBoundingClientRect();
-                return r.top <= y && r.bottom > y;
+                // a light section its own dark has closed over counts as dark
+                return r.top <= y && r.bottom > y && !el.hasAttribute("data-covered");
             });
             setOnLight(light);
         };
@@ -35,9 +36,11 @@ export const DesktopHeader =({ menuOpen, setMenuOpen }: { menuOpen: boolean; set
     const dark = onLight && !menuOpen;
 
     return (
-        <header className={`fixed top-0 left-0 w-full pt-4 px-12 z-20 flex justify-between items-center transition-colors duration-300 ${dark ? "text-[#1E1E1E]" : "text-white"}`}>
+        // the bar spans the full width above the mobile header, so only its controls
+        // take pointer events: the empty rest used to swallow taps on the phone menu button
+        <header className={`pointer-events-none fixed top-0 left-0 w-full pt-4 px-12 z-20 flex justify-between items-center transition-colors duration-300 ${dark ? "text-[#1E1E1E]" : "text-white"}`}>
             <div className="flex items-center space-x-24">
-                <Link href="/">
+                <Link href="/" className="pointer-events-auto">
                     <img src="/F.svg" alt="Facile Logo" className={`h-6 shrink-0 brightness-0 ${dark ? "" : "invert"}`} />
                 </Link>
                 <div className=" lg:flex justify-end items-center hidden   text-end gap-8">
@@ -45,7 +48,7 @@ export const DesktopHeader =({ menuOpen, setMenuOpen }: { menuOpen: boolean; set
                     <TextReveal as="p" delay={1.1} className={`subtext text-[clamp(0.5rem,1.2vh,0.7rem)] ${dark ? "text-[#1E1E1E]" : "text-white"} `}>Qui se fait sans effort, qui ne présente aucune difficulté. Simple, aisé, etc&hellip;</TextReveal>
                 </div>
             </div>
-            <button className={`button ${dark ? "" : "button-dark"} hidden lg:block font-bb-mono font-medium tracking-tight uppercase`} onClick={toggleMenu}>
+            <button className={`pointer-events-auto button ${dark ? "" : "button-dark"} hidden lg:block font-bb-mono font-medium tracking-tight uppercase`} onClick={toggleMenu}>
                 {menuOpen ? 'Close' : 'Menu'}
             </button>
         </header>

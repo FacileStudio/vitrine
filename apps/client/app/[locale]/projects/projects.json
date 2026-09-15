@@ -22,7 +22,7 @@
             "/images/projects/Marcel_1x1_purple.png",
             "/images/projects/Marcel_2x2_dev.png"
         ],
-        "description": "Marcel is an application that lets you turn your life into a game by transforming tasks and habits into adventures. You can gain gold experience and rewards by achieving your tasks, being productive and accomplishing your overdue habits you didn’t do for weeks.",
+        "description": "Marcel is an application that lets you turn your life into a game by transforming tasks and habits into adventures.",
         "techStack": [
             "Svelte",
             "Go",
@@ -193,7 +193,7 @@
             "https://picsum.photos/seed/projet-zero-sketches-2/1400/1000",
             "https://picsum.photos/seed/projet-zero-moodboard-2/1500/1000"
         ],
-        "description": "Projet Zero is a sci-fi RPG Minecraft server: you're a human soldier-astronaut holding the line against an alien civilisation whose technology dwarfs ours, all of it drawn from a strange ancient blue energy. We built the brand, the showcase website, the shop and the chapter (battle pass) info page from scratch.",
+        "description": "Projet Zero is a sci-fi RPG Minecraft server: you're a human soldier-astronaut holding the line against an alien civilisation whose technology dwarfs ours, all of it drawn from a strange ancient blue energy.",
         "techStack": [
             "Figma",
             "Photoshop",

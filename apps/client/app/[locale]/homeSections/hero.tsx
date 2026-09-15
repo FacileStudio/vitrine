@@ -9,6 +9,7 @@ import { usePinProgress } from "@/hooks/use-pin-progress";
 import TextReveal from "@/components/facile/textReveal";
 import PersonHead from "@/components/facile/story/head";
 import members from "../studio/studio.json";
+import { useNarrow } from "@/hooks/use-narrow";
 
 const DitherView = dynamic(() => import("@/webgl/DitherView").then((m) => m.DitherView), { ssr: false });
 
@@ -19,6 +20,7 @@ export default function Hero({ charged }: { charged: boolean }) {
     const [leaving, setLeaving] = useState(false);
     const [resolved, setResolved] = useState(false);
     const [teamHover, setTeamHover] = useState(false);
+    const narrow = useNarrow()
 
     // let the curtain start lifting before the dither grid resolves
     useEffect(() => {
@@ -40,6 +42,12 @@ export default function Hero({ charged }: { charged: boolean }) {
     // rides the same flag afterwards
     const shown = showText && charged;
 
+    // the headline and the crew share one cell, so each waits for the other to
+    // clear it. The long opening stagger only applies before the first hover
+    const [hovered, setHovered] = useState(false);
+    const swap = 0.3;
+    const headlineDelay = (i: number) => teamHover ? i * 0.08 : (hovered ? swap : 0.7) + i * 0.1;
+
 
 
     useEffect(() => {
@@ -60,42 +68,39 @@ export default function Hero({ charged }: { charged: boolean }) {
         <section id="hero" ref={sectionRef} className="h-screen w-full relative isolate bg-foreground text-background">
             <DitherView
                 file="/models/F.glb"
-                className="absolute top-0 left-0 w-full h-full -z-10 lg:opacity-60 opacity-25"
+                className="absolute -top-32 lg:top-0 left-0 w-full h-full -z-10 lg:opacity-60 opacity-25"
                 gridSize={resolved ? 2 : 16}
-                position={[-1, -0.5, -0.5]}
+                position={[narrow ? 0 : -1, -0.5, -0.5]}
                 rotation={[0, 0.35, 0]}
                 background={null}
                 highlight="#24E27A"
                 parallax={0.55}
                 intensity={1.8}
                 float={false}
-                scale={35}
+                scale={narrow ? 20 : 35}
                 fov={45}
             />
 
-            <div className="relative h-full  flex flex-col p-4 px-20 lg:p-6">
+            <div className="relative h-full flex flex-col p-4 lg:px-20 lg:p-6">
 
                 {/* headline + cta, bottom-left */}
-                <div className=" cta flex flex-col items-end justify-center px-20 h-full gap-12">
+                <div className=" cta mt-110 lg:mt-0 flex flex-col items-end justify-center px-2 lg:px-20 h-full gap-6 lg:gap-12">
                     {/* the headline steps aside for the crew: both sit in the same
                         grid cell, each behind its own crop, so the swap moves
                         nothing around it. The heads stay mounted — building four
                         canvases on mouseenter would stutter exactly when it shows */}
                     <div
                         className="grid"
-                        onMouseEnter={() => setTeamHover(true)}
+                        onMouseEnter={() => { setTeamHover(true); setHovered(true); }}
                         onMouseLeave={() => setTeamHover(false)}
                     >
-                        <h2 className="col-start-1 row-start-1 flex flex-col items-end max-w-full text-white/90 gap-2">
+                        <h2 className="col-start-1 row-start-1 flex flex-col text-end items-end max-w-full text-white/90 gap-2">
                             {/* each line leaves through its own crop rather than the
-                                whole headline sliding as one slab — `leaving` is what
-                                sends it up instead of dropping it back down. The delay
-                                is the opening stagger on arrival, and a much shorter
-                                one on hover, where nobody waits a second and a half */}
+                                whole headline sliding as one slab; `leaving` sends it up */}
                             <TextReveal
                                 open={shown && !teamHover}
                                 leaving={leaving || teamHover}
-                                delay={teamHover ? 0 : 1.2}
+                                delay={headlineDelay(0)}
                                 className="flex justify-between items-center gap-6"
                             >
                                 Une equipe de passionees
@@ -103,31 +108,29 @@ export default function Hero({ charged }: { charged: boolean }) {
                             <TextReveal
                                 open={shown && !teamHover}
                                 leaving={leaving || teamHover}
-                                delay={teamHover ? 0.08 : 1.3}
+                                delay={headlineDelay(1)}
                                 className="flex justify-between items-center gap-6"
                             >
                                 qui sait ce qu'elle fait.
                             </TextReveal>
                         </h2>
 
-                        <span className="col-start-1 row-start-1 flex items-center justify-end">
+                        {/* the heads draw while the hero is on screen, hidden or not: a
+                            canvas parked below its crop reads as off-screen and never paints */}
+                        <span className="hidden col-start-1 row-start-1 lg:flex items-center justify-end">
                             {members.map((m, i) => (
-                                <span key={m.slug} className="block overflow-hidden">
-                                    <span
-                                        className="block transition-transform duration-500 ease-out"
-                                        style={{
-                                            transform: teamHover ? "translateY(0%)" : "translateY(110%)",
-                                            transitionDelay: teamHover ? `${i * 80}ms` : "0ms",
-                                        }}
-                                    >
-                                        <PersonHead person={m} className="h-[12vh] w-[12vh] max-h-64 max-w-64" gridSize={0.43} scaleMultiplier={2.5} />
-                                    </span>
-                                </span>
+                                <TextReveal
+                                    key={m.slug}
+                                    open={shown && teamHover}
+                                    delay={teamHover ? swap + i * 0.08 : 0}
+                                >
+                                    <PersonHead person={m} active={!leaving} className="h-[12vh] w-[12vh] max-h-64 max-w-64" gridSize={0.43} scaleMultiplier={2.5} />
+                                </TextReveal>
                             ))}
                         </span>
                     </div>
 
-                    <div className=" flex flex-col justify-end text-end gap-2">
+                    <div className="hidden lg:flex flex-col justify-end text-end gap-2">
                         <TextReveal open={shown} leaving={leaving} delay={1} className="text-xl w-full lead flex justify-end items-center text-[#24E27A]">
                             [<p className="italic opacity-100 text-[#24E27A] mr-1 lead">fasil</p>]
                         </TextReveal>
@@ -136,7 +139,7 @@ export default function Hero({ charged }: { charged: boolean }) {
                         </TextReveal>
                     </div>
 
-                    <span className="block mt-2 w-fit overflow-hidden">
+                    <span className="block lg:mt-2 w-fit overflow-hidden">
                         <Link
                             ref={ctaRef}
                             href="/projects"
@@ -153,8 +156,8 @@ export default function Hero({ charged }: { charged: boolean }) {
 
 
 
-                <div className="flex flex-col items-end justify-end pr-12 pb-6">
-                    <TextReveal open={shown} leaving={leaving} delay={1.4} cropClassName="mr-8">
+                <div className="flex flex-col items-end justify-end lg:pr-12 pb-6">
+                    <TextReveal open={shown} leaving={leaving} delay={1.4} cropClassName="lg:mr-8">
                         <img
                             src="/Facile.svg"
                             alt="Facile Logo"

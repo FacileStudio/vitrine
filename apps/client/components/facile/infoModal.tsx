@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import TextReveal from "@/components/facile/textReveal";
+import SplitLines from "@/components/facile/splitLines";
 import { hideRevealY, run, slideY } from "@/app/utils/animations";
 
 type InfoModalProps = {
@@ -23,7 +24,7 @@ type InfoModalProps = {
 // inner scroll behaves like a page
 export default function InfoModal({ open, setOpen, title, kicker, note, children }: InfoModalProps) {
     const [entered, setEntered] = useState(false);
-    const body = useRef<HTMLDivElement>(null);
+    const panel = useRef<HTMLDivElement>(null);
 
     // the slide fires `entered`, but a browser that skips the animation entirely
     // (reduced motion, missing keyframes) never emits animationend — so time out too
@@ -36,10 +37,10 @@ export default function InfoModal({ open, setOpen, title, kicker, note, children
         return () => clearTimeout(t);
     }, [open]);
 
-    // whatever the panel holds that is tagged [data-reveal] — SplitLines writes one
-    // per rendered line — is parked below its crop and slid up once the panel lands
+    // every [data-reveal] in the panel, header note included, is parked below its
+    // crop and slid up once the panel lands. SplitLines writes one per rendered line
     useEffect(() => {
-        const el = body.current;
+        const el = panel.current;
         if (!el) return;
         const lines = Array.from(el.querySelectorAll<HTMLElement>("[data-reveal]"));
         if (!lines.length) return;
@@ -56,24 +57,28 @@ export default function InfoModal({ open, setOpen, title, kicker, note, children
                 <Dialog.Overlay className="fixed inset-0 z-[120] rounded-md bg-foreground/20 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
 
                 <Dialog.Content
+                    ref={panel}
                     onAnimationEnd={(e) => { if (e.target === e.currentTarget && open) setEntered(true); }}
                     className="fixed inset-2 z-[121] flex flex-col overflow-hidden rounded-md bg-background text-foreground duration-500 data-[state=open]:animate-in data-[state=open]:slide-in-from-bottom-full data-[state=closed]:animate-out data-[state=closed]:slide-out-to-bottom-full"
                 >
-                    <div className="flex items-start justify-between gap-6 px-8 py-6">
+                    <div className="flex items-start justify-between gap-6 px-8 py-8">
                         <div>
                             <Dialog.Title className="text-foreground">
                                 <TextReveal open={entered}>{title}</TextReveal>
                             </Dialog.Title>
                             {kicker ? (
-                                <Dialog.Description className="mt-2 text-[0.7rem] text-foreground/40">
+                                <Dialog.Description className="mt-2 text-[0.7rem] text-foreground/50">
                                     <TextReveal open={entered} delay={0.06}>{kicker}</TextReveal>
                                 </Dialog.Description>
                             ) : null}
 
                             {note ? (
-                                <p className="lead mt-3 max-w-[52ch] text-foreground/60">
-                                    <TextReveal open={entered} delay={0.12}>{note}</TextReveal>
-                                </p>
+                                <SplitLines
+                                    as="p"
+                                    text={note}
+                                    gap="mb-1"
+                                    className="lead mt-3 max-w-[52ch] text-foreground/75"
+                                />
                             ) : null}
                         </div>
 
@@ -85,7 +90,7 @@ export default function InfoModal({ open, setOpen, title, kicker, note, children
                         </Dialog.Close>
                     </div>
 
-                    <div ref={body} data-lenis-prevent className="flex flex-col gap-10 overflow-y-auto px-8 py-8">
+                    <div data-lenis-prevent className="flex flex-col gap-10 overflow-y-auto px-8 py-8">
                         {children(entered)}
                     </div>
                 </Dialog.Content>

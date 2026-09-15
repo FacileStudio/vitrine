@@ -88,7 +88,14 @@ h1, h2, h3, h4, h5, h6 {
     text-transform: none;
     letter-spacing: -0.025em;
     line-height: 1.1;
-    font-size: clamp(1.5rem, 4.4vh, 3.75rem);
+    font-size: clamp(1.7rem, 5vh, 5rem);
+}
+
+/* a phone: 4.4vh of a tall narrow screen makes a heading wider than its column */
+@media (width < 48rem) {
+    h2 {
+        font-size: clamp(1.5rem, 3.2vh, 2rem);
+    }
 }
 
 .subtitle {
@@ -107,17 +114,23 @@ p {
     letter-spacing: -0.025em;
     line-height: 1.625;
     font-size: 0.875rem;
-    color: color-mix(in srgb, currentColor 75%, transparent);
 }
 
-/* a `p` that labels a control is not copy: it takes the control's colour whole,
-   because the control already says what it is through that colour — a pressed
-   filter chip has to read as pressed */
-button p,
-a p,
-label p,
-li p {
-    color: inherit;
+/* the colour sits in the base layer so a `text-*` utility on a `p` can override it */
+@layer base {
+    p {
+        color: color-mix(in srgb, currentColor 75%, transparent);
+    }
+
+    /* a `p` that labels a control is not copy: it takes the control's colour whole,
+       because the control already says what it is through that colour — a pressed
+       filter chip has to read as pressed */
+    button p,
+    a p,
+    label p,
+    li p {
+        color: inherit;
+    }
 }
 
 .lead {
@@ -129,6 +142,16 @@ li p {
     font-size: clamp(0.8rem, 1.9vh, 1.6rem);
 }
 
+/* body copy set in Goga rather than the mono `p`, for the shelf's project descriptions */
+.description {
+    font-family: var(--font-goga);
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: -0.025em;
+    line-height: 1.5;
+    font-size: clamp(0.8rem, 1.7vh, 1.2rem);
+}
+
 /* a button: one box everywhere, tinted by the ground under it. The fill is the
    same grey either way and only its strength changes, so the blur behind it
    picks up whatever the section is doing. `.button-dark` is for a dark ground */
@@ -137,7 +160,7 @@ li p {
     padding: 1vh 2vh;
     font-size: clamp(0.65rem, 1.4vh, 0.9rem);
     backdrop-filter: blur(24px);
-    background-color: rgb(33 33 33 / 0.1);
+    background-color: rgb(20 20 20 / 0.1);
     color: #000;
 }
 

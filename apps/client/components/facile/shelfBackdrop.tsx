@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { useRef, useState } from "react";
 import { useScroll } from "@/hooks/use-scroll";
+import { useNarrow } from "@/hooks/use-narrow";
 
 const DitherView = dynamic(
     () => import("@/webgl/DitherView").then((m) => m.DitherView),
@@ -23,6 +24,12 @@ const TONES = {
 // start at the top
 export default function ShelfBackdrop({ tone = "dark", sticky = false }: { tone?: keyof typeof TONES; sticky?: boolean }) {
     const t = TONES[tone];
+    // a phone's frame is too narrow for the full offset, so the home section pulls them in
+    // there only. Wider screens and the own-page shelves keep their positions
+    const narrow = useNarrow();
+    const near = sticky && narrow;
+    const offset = near ? 2.2 : t.offset;
+    const side = near ? 2 : 3;
     const ref = useRef<HTMLDivElement>(null);
     // absent until the shelf reaches the top of the window, then it charges in: the
     // grid resolves from coarse to fine while the whole thing fades up, so the
@@ -40,7 +47,14 @@ export default function ShelfBackdrop({ tone = "dark", sticky = false }: { tone?
         <div
             ref={ref}
             data-no-shadow
-            style={{ opacity: arrived ? 1 : 0, transition: "opacity 0.8s cubic-bezier(0.7, 0, 0.3, 1)" }}
+            style={{
+                opacity: arrived ? 1 : 0,
+                // arriving is the effect, leaving is cleanup: a fade out as slow as the
+                // fade in leaves the backdrop's own edges showing over the section above
+                transition: arrived
+                    ? "opacity 0.8s cubic-bezier(0.7, 0, 0.3, 1)"
+                    : "opacity 0.2s cubic-bezier(0.6, 0, 1, 1)",
+            }}
             className={`h-screen w-full overflow-hidden ${t.text} ${sticky ? "sticky top-0 -mb-[100vh]" : "fixed top-0"}`}
         >
             <DitherView
@@ -54,8 +68,8 @@ export default function ShelfBackdrop({ tone = "dark", sticky = false }: { tone?
                 scale={4}
                 file="/models/manifesto.glb"
                 models={[
-                    { file: "/models/manifesto.glb", position: [3, -t.offset, 0], scale: 4 },
-                    { file: "/models/manifesto.glb", position: [-t.offset, 1, 0], scale: 4 },
+                    { file: "/models/manifesto.glb", position: [side, -offset, 0], scale: 4 },
+                    { file: "/models/manifesto.glb", position: [-offset, 1, 0], scale: 4 },
                 ]}
             />
         </div>

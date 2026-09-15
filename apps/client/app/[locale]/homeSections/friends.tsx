@@ -21,7 +21,7 @@ export default function Friends({ id = "friends" }: { id?: string }) {
     const cards = (list: typeof icons) =>
         list.map((icon, i) => (
             <div key={i} className="shrink-0 flex w-70 h-70 bg-white/5 text-foreground flex-col justify-center rounded-2xl items-center gap-6">
-                <img src={`/images/icons/${icon.src}.png`} alt={icon.name} loading="lazy" decoding="async" className="h-20 opacity-100 invert" />
+                <img src={`/images/icons/${icon.src}.png`} alt={icon.name} loading="lazy" decoding="async" className="h-20 opacity-100" />
                 <p className="subtext text-white whitespace-nowrap">{icon.name}</p>
             </div>
         ));

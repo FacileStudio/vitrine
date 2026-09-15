@@ -16,19 +16,20 @@ interface TrackProps {
     ref?: Ref<HTMLDivElement>;
 }
 
-// the band itself: chapters of bento blocks, and the observers that wake a block
-// as it arrives. It does not move — a driver (the fullscreen Story, the pinned
-// Band) decides how the track travels across its scroller
-export default function Track({ sections, scrollerRef, onClose, ref }: TrackProps) {
+/**
+ * The observers that wake a block as it arrives: videos play, stills settle out of
+ * their zoom, copy rides up. Both tracks share it and only differ in `rootMargin`,
+ * the axis the band is cropped along before anything counts as arrived.
+ */
+export function useTrackReveal(scrollerRef: RefObject<HTMLElement | null>, sections: Chapter[], rootMargin: string) {
     useEffect(() => {
         const el = scrollerRef.current;
         if (!el)
             return;
 
-        // the band is cropped in from both edges before anything counts as arrived,
-        // so a block plays once it is properly on screen rather than the instant a
-        // sliver of it clears the right edge
-        const arrival = { root: el, rootMargin: "0px -18% 0px -18%", threshold: 0.2 };
+        // cropped in from both leading edges, so a block plays once it is properly
+        // on screen rather than the instant a sliver of it clears the edge
+        const arrival = { root: el, rootMargin, threshold: 0.2 };
 
         const media = new IntersectionObserver((entries) => {
             entries.forEach((e) => {
@@ -75,12 +76,19 @@ export default function Track({ sections, scrollerRef, onClose, ref }: TrackProp
         blocks.forEach((b) => copy.observe(b));
 
         return () => { media.disconnect(); pop.disconnect(); copy.disconnect(); };
-    }, [scrollerRef, sections]);
+    }, [scrollerRef, sections, rootMargin]);
+}
+
+// the band itself: chapters of bento blocks laid out sideways. It does not move —
+// a driver (the fullscreen Story, the pinned Band) decides how it travels. A phone
+// reads the same chapters down a VerticalTrack
+export default function Track({ sections, scrollerRef, onClose, ref }: TrackProps) {
+    useTrackReveal(scrollerRef, sections, "0px -18% 0px -18%");
 
     return (
-        <div ref={ref} className="flex h-full w-max items-center gap-128 px-[6vw]">
+        <div ref={ref} className="flex h-full w-max items-center gap-32 lg:gap-128 px-[6vw]">
             {sections.map((chapter, s) => (
-                <div key={s} className="flex items-center gap-20">
+                <div key={s} className="flex items-center gap-8 lg:gap-20">
                         <div className="">
                             {chapter.owners.map((p) => (
                                 <PersonHead key={p.name} person={p} className="h-[12vh] w-[12vh] mt-4 max-h-64 max-w-64" gridSize={0.43} scaleMultiplier={2.5} />

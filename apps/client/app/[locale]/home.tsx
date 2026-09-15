@@ -9,9 +9,8 @@ import PageCurtain from "@/components/facile/pageTransition";
 import Hero from "./homeSections/hero";
 import Manifesto from "./homeSections/manifesto";
 import Suite from "./homeSections/suite";
-import Avis from "./homeSections/avis";
 import Shelf from "./homeSections/shelf";
-import Footer from "./homeSections/footer";
+import Footer from "@/components/facile/footer";
 
 export default function Home() {
     const [menuOpen, setMenuOpen] = React.useState<boolean>(false);
@@ -43,7 +42,6 @@ export default function Home() {
                 <Manifesto />
                 <Shelf />
                 <Suite />
-                <Avis />
             </main>
 
             <Footer />

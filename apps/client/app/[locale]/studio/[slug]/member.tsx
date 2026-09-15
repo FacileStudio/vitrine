@@ -9,7 +9,7 @@ import Menu from "@/components/facile/menu";
 import PageCurtain from "@/components/facile/pageTransition";
 import TextReveal from "@/components/facile/textReveal";
 import { findMember, workedOn, type PanelTab } from "../components/memberData";
-import { useNarrow } from "../components/useNarrow";
+import { useNarrow } from "@/hooks/use-narrow";
 import { useLineReveal } from "../components/useLineReveal";
 import MemberHead from "../components/memberHead";
 import MemberIdentity from "../components/memberIdentity";

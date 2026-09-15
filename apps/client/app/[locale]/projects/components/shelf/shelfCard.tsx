@@ -57,13 +57,13 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
             onKeyDown={onKeyDown}
             onMouseEnter={(e) => { onEnter(e); if (marcel) start(); }}
             onMouseLeave={(e) => { onLeave(e); stop(); }}
-            className="group/card cursor-pointer 3xl:w-[70vw] w-[80vw] shrink-0 flex items-start justify-between"
+            className="group/card cursor-pointer 3xl:w-[70vw] lg:w-[80vw] w-full shrink-0 flex lg:flex-row flex-col items-start justify-between"
         >
-            <div className="relative shrink-0">
+            <div className="relative shrink-0 w-full lg:w-auto">
                 {marcel && <MarcelSpheres ref={spheres} />}
                 <div
                     ref={refs.entry(index)}
-                    className="relative 3xl:w-5xl w-[50vw] aspect-16/10 shrink-0 overflow-hidden rounded-md"
+                    className="relative 3xl:w-5xl lg:w-[50vw] w-full aspect-16/10 shrink-0 overflow-hidden rounded-md"
                 >
                     <div ref={refs.img(index)} className="absolute inset-0 will-change-transform">
                         {projetZero ? (
@@ -101,8 +101,8 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
                 </div>
             </div>
 
-            <div ref={refs.content(index)} className="flex flex-col items-end gap-12 max-w-sm text-right py-12">
-                <div className="gap-y-8 flex flex-col items-end">
+            <div ref={refs.content(index)} className="flex flex-col items-start lg:items-end gap-6 lg:gap-12 w-full lg:w-auto lg:max-w-sm px-3 lg:px-0 py-12 text-right">
+                <div className="gap-y-6 lg:gap-y-8 flex flex-col items-start lg:items-end text-start lg:text-end">
                     <TextReveal as="h2" cropClassName="z-10" className="subtitle text-white">
                         {project.name}
                     </TextReveal>
@@ -112,18 +112,18 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
                             as="p"
                             text={project.description}
                             justify
-                            className="relative z-10 text-white/66"
+                            className="description relative z-10 text-white/75"
                         />
                     )}
 
                     {project.link && (
-                        <TextReveal cropClassName="z-10 mt-2">
+                        <TextReveal cropClassName="z-10 lg:mt-2">
                             <a
                                 href={project.link}
                                 target="_blank"
                                 rel="noreferrer"
                                 onClick={(e) => e.stopPropagation()}
-                                className="group flex w-fit text-xl font-goga capitalize tracking-tighter gap-2 rounded-md px-[2vh] py-[1vh] text-white transition-colors duration-200 hover:text-[#24E27A]"
+                                className="group flex w-fit text-xl font-goga capitalize tracking-tighter gap-2 rounded-md lg:px-[2vh] lg:py-[1vh] text-white transition-colors duration-200 hover:text-[#24E27A]"
                             >
                                 Visit site
                                 <Arrow />
@@ -131,9 +131,9 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
                         </TextReveal>
                     )}
                 </div>
-                <div className="gap-y-6 flex flex-col">
+                <div className="lg:gap-6 flex flex-col">
                     {project.services.length > 0 && (
-                        <span className="relative mt-4 z-10 flex items-center justify-end gap-1">
+                        <span className="relative lg:mt-4 z-10 flex flex-wrap items-center lg:justify-end gap-1">
                             {project.services.map((s) => (
                                 <TextReveal
                                     key={s}
@@ -146,14 +146,14 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
                         </span>
                     )}
                     {project.techStack?.length ? (
-                        <div className="flex flex-col items-end gap-3">
+                        <div className="flex flex-col pt-6 lg:pt-0 lg:items-end text-start lg:text-right gap-3">
                             <TextReveal as="p" cropClassName="relative z-10" className="subtext text-white">
                                 Created with
                             </TextReveal>
-                            <span className="relative z-10 flex flex-wrap justify-end gap-6">
+                            <span className="relative z-10 flex flex-wrap lg:justify-end gap-6">
                                 {project.techStack.map((name) => (
                                     <TextReveal key={name}>
-                                        <img src={`/images/logo/${name}.png`} alt={name} className="block h-8" />
+                                        <img src={`/images/logo/${name}.png`} alt={name} className="block h-5 lg:h-7" />
                                     </TextReveal>
                                 ))}
                             </span>

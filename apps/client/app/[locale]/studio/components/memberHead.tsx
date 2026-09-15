@@ -13,12 +13,12 @@ export default function MemberHead({ member, narrow }: { member: Member; narrow:
             delay={0.15}
             className="absolute inset-0 h-full"
             dither={{
-                gridSize: narrow ? 1.3 : 2,
+                gridSize: narrow ? 1.7 : 2,
                 parallax: 1,
-                parallaxSpeed: 0.02,
+                parallaxSpeed: 0.01,
                 intensity: 1.0,
                 ambient: 0.9,
-                scale: narrow ? 0.03 : 0.05,
+                scale: member.scale * (narrow ? 2 : 3),
                 position: narrow ? [0, -0.6, 0] : [0, -1.1, 0],
                 roughness: member.roughness,
                 metalness: 1,

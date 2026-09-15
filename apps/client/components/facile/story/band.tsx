@@ -3,6 +3,7 @@
 import gsap from "gsap";
 import { useLayoutEffect, useRef, useState } from "react";
 import { usePinProgress } from "@/hooks/use-pin-progress";
+import Stripes from "@/components/facile/stripes";
 import Backdrop from "./backdrop";
 import Track from "./track";
 import type { Chapter } from "./types";
@@ -32,6 +33,10 @@ export default function Band({ sections, id }: BandProps) {
     }, [sections]);
 
     usePinProgress(sectionRef, (progress, visible) => {
+        // the stripes close over the last half screen of the pin; the header reads the
+        // same flag off the section to go light over the dark
+        const covered = (1 - progress) * Math.max(travel, window.innerHeight) <= window.innerHeight * 0.5;
+        sectionRef.current?.toggleAttribute("data-covered", covered);
         if (visible)
             gsap.set(trackRef.current, { x: -travel * progress });
     });
@@ -53,6 +58,15 @@ export default function Band({ sections, id }: BandProps) {
                 <div className="relative h-full">
                     <Track ref={trackRef} sections={sections} scrollerRef={viewRef} />
                 </div>
+
+                {/* the dark closes over the last half screen of the pin, so the footer below
+                    reads as the same ground rather than a hard cut */}
+                <Stripes
+                    orientation={180}
+                    count={4}
+                    className="bg-foreground"
+                    openWhen={() => !sectionRef.current?.hasAttribute("data-covered")}
+                />
             </div>
         </section>
     );

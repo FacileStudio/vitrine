@@ -53,10 +53,11 @@ export function SocialRows({ socials, entered, delay = 0.32 }: { socials: Social
                         rel="noopener noreferrer"
                         className="text-foreground/60 transition-colors hover:text-foreground"
                     >
-                        <TextReveal as="p" open={entered} delay={delay + i * 0.05} className="flex items-center gap-3">
+                        {/* the animated icons render a <div>, which a <p> cannot hold */}
+                        <TextReveal open={entered} delay={delay + i * 0.05} className="flex items-center gap-3">
                             {SocialIcon ? <SocialIcon size={18} /> : null}
-                            {label}
-                            <span className="ml-auto">↗</span>
+                            <p>{label}</p>
+                            <p className="ml-auto">↗</p>
                         </TextReveal>
                     </a>
                 );

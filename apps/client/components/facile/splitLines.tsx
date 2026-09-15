@@ -50,8 +50,11 @@ const SplitLines = memo(function SplitLines({
         const build = () => {
             // a rebuild must not undo a reveal an ancestor already played, so carry
             // the current state over instead of blindly pre-hiding again
+            // A reveal still in flight counts too, or its tween keeps animating detached lines
             const shown = el.querySelector<HTMLElement>("[data-reveal]");
-            const revealed = shown ? gsap.getProperty(shown, "yPercent") === 0 : false;
+            const revealed = shown
+                ? gsap.getProperty(shown, "yPercent") === 0 || gsap.getTweensOf(shown).some((t) => t.vars.yPercent === 0)
+                : false;
 
             // phase 1: lay the words out inline and read where the browser wraps them
             el.innerHTML = "";

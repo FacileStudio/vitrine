@@ -1,5 +1,6 @@
 'use client'
 
+import gsap from "gsap";
 import { useEffect, useLayoutEffect, useRef } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import { hideRevealY, slideY } from "@/app/utils/animations";
@@ -60,6 +61,9 @@ export default function TextReveal({
         const el = ref.current;
         if (!driven || !el) return;
 
+        // overwrite "auto" only stops tweens already running, so a delayed reveal still
+        // pending from a quick hover would start later and undo this one
+        gsap.killTweensOf(el, "yPercent");
         slideY(!!open, leaving, { duration, delay })(el, 0);
     }, [driven, open, leaving, duration, delay]);
 
