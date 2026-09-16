@@ -57,8 +57,8 @@
     "missingFields": "Merci de renseigner votre nom, votre email et votre message."
   },
   "notFound": {
-    "title": "404",
-    "message": "Page introuvable",
+    "title": "Oups",
+    "message": "On dirait que vous êtes arrivé au bout de notre portfolio.",
     "goHome": "Retour à l'accueil"
   }
 }

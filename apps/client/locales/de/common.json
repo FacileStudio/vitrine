@@ -57,8 +57,8 @@
     "missingFields": "Bitte geben Sie Ihren Namen, Ihre E-Mail und Ihre Nachricht an."
   },
   "notFound": {
-    "title": "404",
-    "message": "Seite nicht gefunden",
+    "title": "Hoppla",
+    "message": "Sieht so aus, als wären Sie am Ende unseres Portfolios angekommen.",
     "goHome": "Zur Startseite"
   }
 }
