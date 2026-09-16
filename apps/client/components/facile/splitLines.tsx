@@ -45,7 +45,11 @@ const SplitLines = memo(function SplitLines({
         const el = ref.current;
         if (!el) return;
 
-        const words = text.trim().split(/\s+/).filter(Boolean);
+        // a hyphenated word is measured in pieces: the browser may break after its hyphen,
+        // and a span that wraps reports only its first line, so the tail landed a line early
+        const words = text.trim().split(/\s+/).filter(Boolean).flatMap((word) =>
+            word.split(/(?<=-)(?=[^-])/).map((piece, i, pieces) => ({ piece, space: i === pieces.length - 1 }))
+        );
 
         const build = () => {
             // a rebuild must not undo a reveal an ancestor already played, so carry
@@ -58,27 +62,32 @@ const SplitLines = memo(function SplitLines({
 
             // phase 1: lay the words out inline and read where the browser wraps them
             el.innerHTML = "";
-            const wordEls = words.map((w) => {
+            const wordEls = words.map(({ piece }) => {
                 const s = document.createElement("span");
-                s.textContent = w;
+                s.textContent = piece;
                 return s;
             });
             wordEls.forEach((s, i) => {
                 el.append(s);
-                if (i < wordEls.length - 1) el.append(document.createTextNode(" "));
+                if (words[i].space && i < wordEls.length - 1) el.append(document.createTextNode(" "));
             });
 
-            const lines: string[][] = [];
+            const lines: string[] = [];
             let top: number | null = null;
             wordEls.forEach((s, i) => {
-                if (top === null || s.offsetTop !== top) { lines.push([]); top = s.offsetTop; }
-                lines[lines.length - 1].push(words[i]);
+                if (top === null || s.offsetTop !== top) {
+                    if (lines.length) lines[lines.length - 1] = lines[lines.length - 1].trimEnd();
+                    lines.push("");
+                    top = s.offsetTop;
+                }
+                lines[lines.length - 1] += words[i].piece + (words[i].space ? " " : "");
             });
+            if (lines.length) lines[lines.length - 1] = lines[lines.length - 1].trimEnd();
 
             // phase 2: one crop box per line, inner span carries the reveal
             el.innerHTML = "";
             const inners: HTMLElement[] = [];
-            lines.forEach((lineWords, i) => {
+            lines.forEach((line, i) => {
                 const outer = document.createElement("span");
                 outer.className = "block overflow-hidden" + (i < lines.length - 1 ? ` ${gap}` : "");
                 const inner = document.createElement("span");
@@ -90,7 +99,7 @@ const SplitLines = memo(function SplitLines({
                     inner.style.textAlignLast = "justify";
                 }
                 if (reveal) inner.setAttribute("data-reveal", "");
-                inner.textContent = lineWords.join(" ");
+                inner.textContent = line;
                 outer.append(inner);
                 el.append(outer);
                 inners.push(inner);
@@ -116,7 +125,14 @@ const SplitLines = memo(function SplitLines({
         });
         ro.observe(el);
 
-        return () => { ro.disconnect(); cancelAnimationFrame(raf); };
+        // lines measured in the fallback font overflow once the web font swaps in
+        const onFonts = () => {
+            cancelAnimationFrame(raf);
+            raf = requestAnimationFrame(build);
+        };
+        document.fonts.addEventListener("loadingdone", onFonts);
+
+        return () => { ro.disconnect(); cancelAnimationFrame(raf); document.fonts.removeEventListener("loadingdone", onFonts); };
     }, [text, gap, lineClassName, reveal, justify]);
 
     return <Tag ref={ref as never} className={className} aria-label={text} />;
