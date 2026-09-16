@@ -35,7 +35,7 @@ export default function LocaleSwitcher({ className }: { className?: string }) {
                         aria-current={current ? "true" : undefined}
                         disabled={current}
                         onClick={() => sweep(() => router.replace(pathname, { locale: l }))}
-                        className={cn("transition-opacity duration-200", current ? "opacity-100" : "cursor-pointer opacity-40 hover:opacity-100")}
+                        className={cn("transition-opacity uppercase duration-200", current ? "opacity-100" : "cursor-pointer opacity-40 hover:opacity-100")}
                     >
                         {l}
                     </button>
