@@ -61,7 +61,7 @@
     --color-foreground: var(--foreground);
     --color-accent: var(--accent);
     --color-accent-ink: var(--accent-ink);
-    --font-goga: "Goga", sans-serif;
+    --font-goga: "Goga", Helvetica, "Helvetica Neue", Arial, sans-serif;
     --font-bb-mono: "BB Manual Mono", ui-monospace, monospace;
     --breakpoint-3xl: 160rem;
 }
