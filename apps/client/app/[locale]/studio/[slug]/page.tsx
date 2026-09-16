@@ -1,8 +1,9 @@
 import MemberPage from "./member";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import { locales, type Locale } from "@/lib/i18n/locales";
-import { baseMetadata, getOpenGraphLocale, siteUrl } from "@/lib/seo/metadata";
+import { defaultLocale, isLocale, locales } from "@/lib/i18n/locales";
+import { getBaseMetadata } from "@/lib/seo/metadata";
+import { localize } from "@/lib/i18n/localize";
 import members from "../studio.json";
 
 type PageProps = {
@@ -19,24 +20,21 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { locale, slug } = await params;
-    const validLocale = locales.includes(locale as Locale) ? (locale as Locale) : "en";
-    const member = members.find((m) => m.slug === slug);
+    const validLocale = isLocale(locale) ? locale : defaultLocale;
+    const base = await getBaseMetadata(validLocale, `/studio/${slug}`);
+    const member = localize(members, validLocale).find((m) => m.slug === slug);
     const name = member?.name ?? slug;
-    const path = `/${validLocale}/studio/${slug}`;
     const description = member?.description ?? `${name} — Facile Studio.`;
 
     return {
-        ...baseMetadata,
+        ...base,
         title: name,
         description,
-        alternates: { canonical: path },
         openGraph: {
-            ...baseMetadata.openGraph,
+            ...base.openGraph,
             type: "profile",
             title: `${name} | Facile Studio`,
             description,
-            locale: getOpenGraphLocale(validLocale),
-            url: `${siteUrl}${path}`,
         },
     };
 }

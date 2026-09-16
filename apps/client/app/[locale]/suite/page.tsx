@@ -1,7 +1,9 @@
 import SuitePage from "./suite";
 import { Metadata } from "next";
-import { locales, type Locale } from "@/lib/i18n/locales";
-import { baseMetadata, getAlternates, getOpenGraphLocale, getLocalizedPath, siteUrl } from "@/lib/seo/metadata";
+import { getTranslations } from "next-intl/server";
+import { defaultLocale, isLocale } from "@/lib/i18n/locales";
+import { getBaseMetadata } from "@/lib/seo/metadata";
+import { authoredApps } from "./lib/apps";
 
 type PageProps = {
     params: Promise<{ locale: string }>;
@@ -9,21 +11,21 @@ type PageProps = {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { locale } = await params;
-    const validLocale = locales.includes(locale as Locale) ? locale as Locale : "en";
+    const validLocale = isLocale(locale) ? locale : defaultLocale;
+    const base = await getBaseMetadata(validLocale, "/suite");
+    const t = await getTranslations({ locale: validLocale, namespace: "suite.meta" });
 
-    const description = "The Facile Studio product suite — Opus, Sablier, Capsule, Nuage, Perception and the rest. Fifteen tools we design, build, and run in-house, wired together by Antenne and dressed by Muse.";
+    const title = t("title");
+    const description = t("description", { count: authoredApps.length });
 
     return {
-        ...baseMetadata,
-        title: "Suite",
+        ...base,
+        title,
         description,
-        alternates: getAlternates("/suite", validLocale),
         openGraph: {
-            ...baseMetadata.openGraph,
-            title: "Suite | Facile Studio",
+            ...base.openGraph,
+            title: `${title} | Facile Studio`,
             description,
-            locale: getOpenGraphLocale(validLocale),
-            url: `${siteUrl}${getLocalizedPath(validLocale, "/suite")}`,
         },
     };
 }

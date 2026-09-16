@@ -1,7 +1,8 @@
 import HomePage from "./home";
 import { Metadata } from "next";
-import { locales, type Locale } from "@/lib/i18n/locales";
-import { baseMetadata, getAlternates, getOpenGraphLocale, getLocalizedPath, siteUrl } from "@/lib/seo/metadata";
+import { getTranslations } from "next-intl/server";
+import { defaultLocale, isLocale } from "@/lib/i18n/locales";
+import { getBaseMetadata } from "@/lib/seo/metadata";
 
 type PageProps = {
     params: Promise<{ locale: string }>;
@@ -9,22 +10,20 @@ type PageProps = {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { locale } = await params;
-    const validLocale = locales.includes(locale as Locale) ? locale as Locale : "en";
-
-    const description = "Facile Studio is a creative agency specializing in design, branding, and web development. We build digital experiences that look exceptional and work flawlessly.";
+    const validLocale = isLocale(locale) ? locale : defaultLocale;
+    const base = await getBaseMetadata(validLocale);
+    const t = await getTranslations({ locale: validLocale, namespace: "seo.home" });
+    const description = t("description");
 
     return {
-        ...baseMetadata,
+        ...base,
         title: {
-            absolute: "Facile Studio - Design, branding et développement web",
+            absolute: t("title"),
         },
         description,
-        alternates: getAlternates("", validLocale),
         openGraph: {
-            ...baseMetadata.openGraph,
+            ...base.openGraph,
             description,
-            locale: getOpenGraphLocale(validLocale),
-            url: `${siteUrl}${getLocalizedPath(validLocale)}`,
         },
     };
 }

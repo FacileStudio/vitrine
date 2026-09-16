@@ -1,8 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { useRouter } from "@/lib/i18n/navigation";
 import Stripes from "./stripes";
 import { useScenesReady } from "@/webgl/sceneReady";
 
@@ -94,7 +93,8 @@ export const sweep = (mid: () => void) => {
     else mid();
 };
 
-export const TransitionOut = ({ href, router }: { href: string; router: AppRouterInstance }) => {
+// `href` is locale-less ("/projects/marcel"); the locale-aware router adds the current locale
+export const TransitionOut = ({ href, router }: { href: string; router: { push: (href: string) => void } }) => {
     if (leaver) leaver(href);
     else router.push(href);
 };

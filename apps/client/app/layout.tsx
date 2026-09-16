@@ -3,22 +3,12 @@ import { ReactNode } from "react";
 import { Poppins, DM_Sans, IBM_Plex_Mono } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
-import { baseMetadata, getAlternates, getOpenGraphLocale, siteUrl } from "@/lib/seo/metadata";
+import { getBaseMetadata } from "@/lib/seo/metadata";
 import { getOrganizationJsonLd, getWebSiteJsonLd } from "@/lib/seo/jsonld";
 import { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
-    const locale = await getLocale();
-
-    return {
-        ...baseMetadata,
-        alternates: getAlternates(),
-        openGraph: {
-            ...baseMetadata.openGraph,
-            locale: getOpenGraphLocale(locale),
-            url: siteUrl,
-        }
-    }
+    return getBaseMetadata(await getLocale());
 };
 
 const poppins = Poppins({
@@ -45,13 +35,14 @@ const ibmPlexMono = IBM_Plex_Mono({
 export default async function RootLayout({ children }: { children: ReactNode }) {
     const locale = await getLocale();
     const messages = await getMessages({ locale });
+    const organization = await getOrganizationJsonLd(locale);
 
     return (
         <html lang={locale} className={`${poppins.variable} ${dmSans.variable} ${ibmPlexMono.variable}`}>
             <head>
                 <script
                     type="application/ld+json"
-                    dangerouslySetInnerHTML={{ __html: JSON.stringify(getOrganizationJsonLd()) }}
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(organization) }}
                 />
                 <script
                     type="application/ld+json"
@@ -59,7 +50,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
                 />
             </head>
             <body>
-                <NextIntlClientProvider messages={messages} locale={locale}>
+                <NextIntlClientProvider messages={messages}>
                     {children}
                 </NextIntlClientProvider>
             </body>

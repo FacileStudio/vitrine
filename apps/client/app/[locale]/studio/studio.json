@@ -2,9 +2,24 @@
     {
         "slug": "fanga",
         "name": "Fanga",
-        "role": "Developer",
-        "description": "Fanga is our mastermind. He constantly upgrades are working stack, and make our jobs the easiest it gets. His current task is to build the Facile Suite. (Yes all by himself)",
-        "bio": "Placeholder long bio for Fanga — replace via the backoffice. Full-stack developer at Facile Studio, most at home in the backend and the infrastructure under it: services, pipelines, and the tooling that keeps the rest of the studio moving.",
+        "role": {
+            "en": "Developer",
+            "fr": "Développeur",
+            "es": "Desarrollador",
+            "de": "Entwickler"
+        },
+        "description": {
+            "en": "Fanga is our mastermind. He constantly upgrades our working stack, and makes our jobs the easiest it gets. His current task is to build the Facile Suite. (Yes all by himself)",
+            "fr": "Fanga, c'est notre cerveau. Il améliore sans cesse notre stack et nous rend le travail aussi facile que possible. Sa mission du moment : construire la Facile Suite. (Oui, tout seul)",
+            "es": "Fanga es nuestro cerebro. Mejora sin parar nuestro stack de trabajo y nos hace el día a día lo más fácil posible. Su misión actual: construir la Facile Suite. (Sí, él solo)",
+            "de": "Fanga ist unser Mastermind. Er verbessert ständig unseren Tech-Stack und macht uns die Arbeit so leicht wie möglich. Seine aktuelle Aufgabe: die Facile Suite bauen. (Ja, ganz allein)"
+        },
+        "bio": {
+            "en": "Placeholder long bio for Fanga — replace via the backoffice. Full-stack developer at Facile Studio, most at home in the backend and the infrastructure under it: services, pipelines, and the tooling that keeps the rest of the studio moving.",
+            "fr": "Bio longue provisoire pour Fanga, à remplacer via le backoffice. Développeur full-stack chez Facile Studio, surtout à l'aise dans le backend et l'infrastructure qui le porte : services, pipelines et l'outillage qui fait avancer le reste du studio.",
+            "es": "Biografía larga provisional de Fanga, sustitúyela desde el backoffice. Desarrollador full-stack en Facile Studio, en su salsa en el backend y en la infraestructura que lo sostiene: servicios, pipelines y las herramientas que mantienen al resto del estudio en marcha.",
+            "de": "Platzhalter für Fangas ausführliche Bio, bitte im Backoffice ersetzen. Full-Stack-Entwickler bei Facile Studio, am liebsten im Backend und in der Infrastruktur darunter: Services, Pipelines und die Tools, die den Rest des Studios am Laufen halten."
+        },
         "model": "/models/fanga.glb",
         "scale": 0.015,
         "roughness": 0.85,
@@ -27,11 +42,12 @@
             }
         ],
         "avatar": "https://i.pravatar.cc/240?u=facile-yann",
-        "labels": [
-            "Backend",
-            "Infra",
-            "Tooling"
-        ],
+        "labels": {
+            "en": ["Backend", "Infra", "Tooling"],
+            "fr": ["Backend", "Infra", "Outillage"],
+            "es": ["Backend", "Infra", "Herramientas"],
+            "de": ["Backend", "Infra", "Tooling"]
+        },
         "projects": [
             "marcel",
             "projet-zero",
@@ -39,17 +55,46 @@
             "muse"
         ],
         "suite": true,
-        "facts": [
-            "Listens to 10 hours of Wii music while working",
-            "Never backs down from a hard mission, always gives his fullest"
-        ]
+        "facts": {
+            "en": [
+                "Listens to 10 hours of Wii music while working",
+                "Never backs down from a hard mission, always gives his fullest"
+            ],
+            "fr": [
+                "Écoute 10 heures de musique Wii en travaillant",
+                "Ne recule jamais devant une mission difficile, et donne toujours tout"
+            ],
+            "es": [
+                "Escucha 10 horas de música de Wii mientras trabaja",
+                "Nunca se echa atrás ante una misión difícil, siempre lo da todo"
+            ],
+            "de": [
+                "Hört bei der Arbeit 10 Stunden Wii-Musik",
+                "Scheut keine schwierige Mission und gibt immer alles"
+            ]
+        }
     },
     {
         "slug": "noah",
         "name": "Noah",
-        "role": "Designer",
-        "description": "Noah is the web designer and frontend developer. He learned UI | UX as an autodidact and uses his skills to craft beautiful websites",
-        "bio": "He specialises himself in creating sleek designs and implementing them with attractive and unique GSAP animations.",
+        "role": {
+            "en": "Designer",
+            "fr": "Designer",
+            "es": "Diseñador",
+            "de": "Designer"
+        },
+        "description": {
+            "en": "Noah is the web designer and frontend developer. He learned UI | UX as an autodidact and uses his skills to craft beautiful websites",
+            "fr": "Noah est le web designer et développeur frontend. Il a appris l'UI | UX en autodidacte et s'en sert pour créer de beaux sites web",
+            "es": "Noah es el diseñador web y desarrollador frontend. Aprendió UI | UX de forma autodidacta y usa lo que sabe para crear webs preciosas",
+            "de": "Noah ist Webdesigner und Frontend-Entwickler. UI | UX hat er sich selbst beigebracht, und damit gestaltet er wunderschöne Websites"
+        },
+        "bio": {
+            "en": "He specialises in creating sleek designs and implementing them with attractive and unique GSAP animations.",
+            "fr": "Sa spécialité : des designs épurés, mis en mouvement par des animations GSAP uniques et séduisantes.",
+            "es": "Se especializa en crear diseños elegantes y darles vida con animaciones GSAP atractivas y únicas.",
+            "de": "Er ist spezialisiert auf elegante Designs, die er mit ansprechenden, einzigartigen GSAP-Animationen umsetzt."
+        },
         "model": "/models/noah.glb",
         "scale": 0.015,
         "roughness": 0.85,
@@ -76,11 +121,12 @@
             }
         ],
         "avatar": "https://i.pravatar.cc/240?u=facile-noah",
-        "labels": [
-            "UI | UX systems",
-            "Animations",
-            "Frontend"
-        ],
+        "labels": {
+            "en": ["UI | UX systems", "Animations", "Frontend"],
+            "fr": ["Systèmes UI | UX", "Animations", "Frontend"],
+            "es": ["Sistemas UI | UX", "Animaciones", "Frontend"],
+            "de": ["UI | UX-Systeme", "Animationen", "Frontend"]
+        },
         "projects": [
             "marcel",
             "hottake",
@@ -91,16 +137,34 @@
             "muse"
         ],
         "suite": false,
-        "facts": [
-            "Constantly changing his Linux setup"
-        ]
+        "facts": {
+            "en": ["Constantly changing his Linux setup"],
+            "fr": ["Change sans arrêt sa config Linux"],
+            "es": ["Siempre está cambiando su configuración de Linux"],
+            "de": ["Baut ständig sein Linux-Setup um"]
+        }
     },
     {
         "slug": "mazouz",
         "name": "Mazouz",
-        "role": "Developer",
-        "description": "Mazouz is a literal swiss knife. Any task you give him, he'll do. Creating web apps and taking care of the hardest features are two of his countless skills.",
-        "bio": "Placeholder long bio for Mazouz — replace via the backoffice. Developer at Facile Studio, on the backend side: APIs, data, and the automation that removes the work nobody wants to do twice.",
+        "role": {
+            "en": "Developer",
+            "fr": "Développeur",
+            "es": "Desarrollador",
+            "de": "Entwickler"
+        },
+        "description": {
+            "en": "Mazouz is a literal swiss knife. Any task you give him, he'll do. Creating web apps and taking care of the hardest features are two of his countless skills.",
+            "fr": "Mazouz est un vrai couteau suisse. Quelle que soit la tâche, il s'en charge. Créer des applications web et venir à bout des fonctionnalités les plus coriaces font partie de ses innombrables talents.",
+            "es": "Mazouz es una auténtica navaja suiza. Dale cualquier tarea y la hará. Crear apps web y encargarse de las funcionalidades más difíciles son solo dos de sus incontables habilidades.",
+            "de": "Mazouz ist ein echtes Schweizer Taschenmesser. Egal welche Aufgabe, er erledigt sie. Web-Apps bauen und die kniffligsten Features stemmen sind nur zwei seiner unzähligen Fähigkeiten."
+        },
+        "bio": {
+            "en": "Placeholder long bio for Mazouz — replace via the backoffice. Developer at Facile Studio, on the backend side: APIs, data, and the automation that removes the work nobody wants to do twice.",
+            "fr": "Bio longue provisoire pour Mazouz, à remplacer via le backoffice. Développeur chez Facile Studio, côté backend : API, données et l'automatisation qui supprime le travail que personne ne veut faire deux fois.",
+            "es": "Biografía larga provisional de Mazouz, sustitúyela desde el backoffice. Desarrollador en Facile Studio, del lado del backend: APIs, datos y la automatización que elimina el trabajo que nadie quiere hacer dos veces.",
+            "de": "Platzhalter für Mazouz' ausführliche Bio, bitte im Backoffice ersetzen. Entwickler bei Facile Studio, im Backend: APIs, Daten und die Automatisierung, die Arbeit abschafft, die niemand zweimal machen will."
+        },
         "model": "/models/mazouz.glb",
         "scale": 4.5,
         "roughness": 0.85,
@@ -119,12 +183,12 @@
             }
         ],
         "avatar": "https://i.pravatar.cc/240?u=facile-mazouz",
-        "labels": [
-            "Backend",
-            "APIs",
-            "Data",
-            "Automation"
-        ],
+        "labels": {
+            "en": ["Backend", "APIs", "Data", "Automation"],
+            "fr": ["Backend", "API", "Données", "Automatisation"],
+            "es": ["Backend", "APIs", "Datos", "Automatización"],
+            "de": ["Backend", "APIs", "Daten", "Automatisierung"]
+        },
         "projects": [
             "hottake",
             "marcel",
@@ -132,19 +196,54 @@
             "muse"
         ],
         "suite": false,
-        "facts": [
-            "Currently learning to cook",
-            "Sees coding as his sanctuary",
-            "loves hearing people's stories",
-            "nothing beats a Sunday afternoon side quest"
-        ]
+        "facts": {
+            "en": [
+                "Currently learning to cook",
+                "Sees coding as his sanctuary",
+                "loves hearing people's stories",
+                "nothing beats a Sunday afternoon side quest"
+            ],
+            "fr": [
+                "Apprend à cuisiner en ce moment",
+                "Voit le code comme son sanctuaire",
+                "adore écouter les histoires des gens",
+                "rien ne vaut une quête secondaire un dimanche après-midi"
+            ],
+            "es": [
+                "Ahora mismo está aprendiendo a cocinar",
+                "Ve la programación como su santuario",
+                "le encanta escuchar las historias de la gente",
+                "nada supera una misión secundaria un domingo por la tarde"
+            ],
+            "de": [
+                "Lernt gerade kochen",
+                "Programmieren ist sein Rückzugsort",
+                "hört gern die Geschichten anderer Menschen",
+                "nichts geht über eine Nebenquest am Sonntagnachmittag"
+            ]
+        }
     },
     {
         "slug": "camille",
         "name": "Camille",
-        "role": "Designer",
-        "description": "Camille is our design director. Coming from graphic design studies and a photograph background. She has a keen eye to make everything beautiful",
-        "bio": "Placeholder long bio for Camille — replace via the backoffice. Designer at Facile Studio, working on brand, illustration and print: the art direction that gives a project its voice before a single line is written.",
+        "role": {
+            "en": "Designer",
+            "fr": "Designer",
+            "es": "Diseñadora",
+            "de": "Designerin"
+        },
+        "description": {
+            "en": "Camille is our design director. Coming from graphic design studies and a photography background. She has a keen eye to make everything beautiful",
+            "fr": "Camille est notre directrice artistique. Passée par des études de graphisme et venue de la photographie, elle a l'œil pour rendre tout plus beau",
+            "es": "Camille es nuestra directora de diseño. Estudió diseño gráfico, viene del mundo de la fotografía y tiene buen ojo para que todo quede bonito",
+            "de": "Camille ist unsere Design-Direktorin. Sie hat Grafikdesign studiert, kommt aus der Fotografie und hat ein feines Gespür dafür, alles schön zu machen"
+        },
+        "bio": {
+            "en": "Placeholder long bio for Camille — replace via the backoffice. Designer at Facile Studio, working on brand, illustration and print: the art direction that gives a project its voice before a single line is written.",
+            "fr": "Bio longue provisoire pour Camille, à remplacer via le backoffice. Designer chez Facile Studio, entre marque, illustration et print : la direction artistique qui donne sa voix à un projet avant qu'une seule ligne soit écrite.",
+            "es": "Biografía larga provisional de Camille, sustitúyela desde el backoffice. Diseñadora en Facile Studio, entre marca, ilustración e impresión: la dirección de arte que da voz a un proyecto antes de escribir una sola línea.",
+            "de": "Platzhalter für Camilles ausführliche Bio, bitte im Backoffice ersetzen. Designerin bei Facile Studio, zuständig für Marke, Illustration und Print: die Art Direction, die einem Projekt seine Stimme gibt, bevor auch nur eine Zeile geschrieben ist."
+        },
         "model": "/models/camille.glb",
         "scale": 0.015,
         "roughness": 0.85,
@@ -163,11 +262,12 @@
             }
         ],
         "avatar": "https://i.pravatar.cc/240?u=facile-camille",
-        "labels": [
-            "Branding",
-            "graphical chart",
-            "design direction"
-        ],
+        "labels": {
+            "en": ["Branding", "graphical chart", "design direction"],
+            "fr": ["Branding", "charte graphique", "direction artistique"],
+            "es": ["Branding", "guía de estilo", "dirección de diseño"],
+            "de": ["Branding", "Styleguide", "Art Direction"]
+        },
         "projects": [
             "projet-zero",
             "hottake",
@@ -176,9 +276,23 @@
             "muse"
         ],
         "suite": false,
-        "facts": [
-            "Loves getting into her bubble to read her romance books",
-            "Our sun — keeps everyone motivated with a giant smile"
-        ]
+        "facts": {
+            "en": [
+                "Loves getting into her bubble to read her romance books",
+                "Our sun — keeps everyone motivated with a giant smile"
+            ],
+            "fr": [
+                "Adore se mettre dans sa bulle pour lire ses romans d'amour",
+                "Notre soleil : elle motive tout le monde avec un sourire immense"
+            ],
+            "es": [
+                "Le encanta meterse en su burbuja a leer novelas románticas",
+                "Nuestro sol: nos mantiene motivados con una sonrisa enorme"
+            ],
+            "de": [
+                "Zieht sich gern in ihre eigene Welt zurück, um Liebesromane zu lesen",
+                "Unser Sonnenschein: motiviert alle mit einem riesigen Lächeln"
+            ]
+        }
     }
 ]

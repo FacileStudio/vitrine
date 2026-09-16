@@ -1,9 +1,8 @@
-import {usePathname, useRouter} from "next/navigation";
+import { Link, usePathname, useRouter } from "@/lib/i18n/navigation";
 import { TransitionOut } from "@/components/facile/pageTransition";
 import React, { forwardRef, ButtonHTMLAttributes } from "react";
 import clsx from "clsx";
 import Image from "next/image";
-import Link from "next/link";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
     text: string;

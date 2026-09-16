@@ -1,47 +1,172 @@
 {
-    "kicker": "How the suite works",
-    "title": "Twenty-two apps, one machine.",
+    "kicker": {
+        "en": "How the suite works",
+        "fr": "Comment fonctionne la suite",
+        "es": "Cómo funciona la suite",
+        "de": "So funktioniert die Suite"
+    },
+    "title": {
+        "en": "Twenty-two apps, one machine.",
+        "fr": "Vingt-deux apps, une seule machine.",
+        "es": "Veintidós apps, una sola máquina.",
+        "de": "Zweiundzwanzig Apps, eine Maschine."
+    },
     "sections": [
         {
-            "heading": "The premise",
-            "body": [
-                "Every app on this page is a product in its own right. You can run Sablier and never touch Opus, keep Capsule and ignore the rest. Nothing here is a module of something else, and nothing stops working because you did not buy the neighbour.",
-                "But they were all built by the same hands, in the same shape, against the same conventions — and the moment two of them are running side by side, they start behaving like one system. What follows is how that is done, because it is the only interesting part."
-            ]
+            "heading": {
+                "en": "The premise",
+                "fr": "Le principe",
+                "es": "La premisa",
+                "de": "Der Grundgedanke"
+            },
+            "body": {
+                "en": [
+                    "Every app on this page is a product in its own right. You can run Sablier and never touch Opus, keep Capsule and ignore the rest. Nothing here is a module of something else, and nothing stops working because you did not buy the neighbour.",
+                    "But they were all built by the same hands, in the same shape, against the same conventions — and the moment two of them are running side by side, they start behaving like one system. What follows is how that is done, because it is the only interesting part."
+                ],
+                "fr": [
+                    "Chaque app de cette page est un produit à part entière. Vous pouvez utiliser Sablier sans jamais toucher à Opus, garder Capsule et ignorer le reste. Rien ici n'est le module d'autre chose, et rien ne cesse de fonctionner parce que vous n'avez pas pris le voisin.",
+                    "Mais elles ont toutes été construites par les mêmes mains, sur le même modèle, selon les mêmes conventions. Et dès que deux d'entre elles tournent côte à côte, elles se comportent comme un seul système. Voici comment, parce que c'est la seule partie intéressante."
+                ],
+                "es": [
+                    "Cada app de esta página es un producto por derecho propio. Puedes usar Sablier sin tocar nunca Opus, quedarte con Capsule e ignorar el resto. Nada aquí es un módulo de otra cosa, y nada deja de funcionar porque no hayas contratado a la vecina.",
+                    "Pero todas las construyeron las mismas manos, con la misma forma y las mismas convenciones. En cuanto dos de ellas funcionan juntas, empiezan a comportarse como un solo sistema. Lo que sigue explica cómo, porque es la única parte interesante."
+                ],
+                "de": [
+                    "Jede App auf dieser Seite ist ein eigenständiges Produkt. Sie können Sablier nutzen, ohne Opus je anzufassen, Capsule behalten und den Rest ignorieren. Nichts hier ist das Modul von etwas anderem, und nichts hört auf zu funktionieren, weil Sie den Nachbarn nicht gekauft haben.",
+                    "Aber alle wurden von denselben Händen gebaut, in derselben Form, nach denselben Konventionen. Sobald zwei davon nebeneinander laufen, verhalten sie sich wie ein einziges System. Was folgt, erklärt, wie das gelingt, denn das ist der einzig spannende Teil."
+                ]
+            }
         },
         {
-            "heading": "Antenne — the nervous system",
-            "body": [
-                "The apps do not talk to each other. Not once, not anywhere. Each one talks to Antenne, and Antenne talks to everyone — one integration per app, forever, instead of the twenty-two-times-twenty-one mesh that would otherwise be waiting for us.",
-                "Antenne is a durable event bus: a WebSocket connection over an offset-based queue in Postgres. An app registers with a shared secret, subscribes to the channels it cares about, and reads from where it left off. If it goes down for a day it comes back and replays what it missed. Retention is by interest rather than by clock — an event stays until every listener has acknowledged it.",
-                "What travels on the wire is a canonical envelope, never an app's private shape. A project is a project, a task is a task, and every synced object carries a facile_id minted by the app that created it. That single identifier is what lets Sablier's integers and Opus's strings describe the same piece of work. The app where a thing was born owns it; everyone else defers.",
-                "Antenne's other half is monitoring. It watches sites, inboxes, feeds, deploy hooks and CI runs, and routes what they emit to Matrix, Discord, mail, push or a signed webhook. Nothing is routed by default: a target receives silence until it names what it wants to hear."
-            ]
+            "heading": {
+                "en": "Antenne — the nervous system",
+                "fr": "Antenne : le système nerveux",
+                "es": "Antenne: el sistema nervioso",
+                "de": "Antenne: das Nervensystem"
+            },
+            "body": {
+                "en": [
+                    "The apps do not talk to each other. Not once, not anywhere. Each one talks to Antenne, and Antenne talks to everyone — one integration per app, forever, instead of the twenty-two-times-twenty-one mesh that would otherwise be waiting for us.",
+                    "Antenne is a durable event bus: a WebSocket connection over an offset-based queue in Postgres. An app registers with a shared secret, subscribes to the channels it cares about, and reads from where it left off. If it goes down for a day it comes back and replays what it missed. Retention is by interest rather than by clock — an event stays until every listener has acknowledged it.",
+                    "What travels on the wire is a canonical envelope, never an app's private shape. A project is a project, a task is a task, and every synced object carries a facile_id minted by the app that created it. That single identifier is what lets Sablier's integers and Opus's strings describe the same piece of work. The app where a thing was born owns it; everyone else defers.",
+                    "Antenne's other half is monitoring. It watches sites, inboxes, feeds, deploy hooks and CI runs, and routes what they emit to Matrix, Discord, mail, push or a signed webhook. Nothing is routed by default: a target receives silence until it names what it wants to hear."
+                ],
+                "fr": [
+                    "Les apps ne se parlent pas entre elles. Jamais, nulle part. Chacune parle à Antenne, et Antenne parle à tout le monde : une intégration par app, pour toujours, au lieu du maillage vingt-deux fois vingt-et-un qui nous attendrait sinon.",
+                    "Antenne est un bus d'événements durable : une connexion WebSocket au-dessus d'une file à offsets dans Postgres. Une app s'enregistre avec un secret partagé, s'abonne aux canaux qui la concernent et reprend là où elle s'était arrêtée. Si elle tombe pendant une journée, elle revient et rejoue ce qu'elle a manqué. La rétention dépend de l'intérêt, pas de l'horloge : un événement reste tant que chaque abonné ne l'a pas acquitté.",
+                    "Ce qui circule, c'est une enveloppe canonique, jamais la forme privée d'une app. Un projet est un projet, une tâche est une tâche, et chaque objet synchronisé porte un facile_id émis par l'app qui l'a créé. C'est cet identifiant unique qui permet aux entiers de Sablier et aux chaînes d'Opus de décrire le même travail. L'app où une chose est née en est propriétaire ; les autres s'y plient.",
+                    "L'autre moitié d'Antenne, c'est la supervision. Elle surveille sites, boîtes mail, flux, hooks de déploiement et exécutions de CI, et route ce qu'ils émettent vers Matrix, Discord, l'email, le push ou un webhook signé. Rien n'est routé par défaut : une cible reçoit le silence tant qu'elle n'a pas dit ce qu'elle veut entendre."
+                ],
+                "es": [
+                    "Las apps no hablan entre sí. Ni una vez, en ningún sitio. Cada una habla con Antenne, y Antenne habla con todas: una integración por app, para siempre, en lugar de la malla de veintidós por veintiuno que si no nos estaría esperando.",
+                    "Antenne es un bus de eventos duradero: una conexión WebSocket sobre una cola basada en offsets en Postgres. Una app se registra con un secreto compartido, se suscribe a los canales que le interesan y lee desde donde lo dejó. Si cae durante un día, vuelve y reproduce lo que se perdió. La retención depende del interés, no del reloj: un evento se queda hasta que todos los oyentes lo han confirmado.",
+                    "Lo que viaja por el cable es un sobre canónico, nunca la forma privada de una app. Un proyecto es un proyecto, una tarea es una tarea, y cada objeto sincronizado lleva un facile_id emitido por la app que lo creó. Ese identificador único es lo que permite que los enteros de Sablier y las cadenas de Opus describan el mismo trabajo. La app donde nació algo es su dueña; las demás se someten.",
+                    "La otra mitad de Antenne es la monitorización. Vigila sitios, bandejas de entrada, feeds, hooks de despliegue y ejecuciones de CI, y envía lo que emiten a Matrix, Discord, correo, push o un webhook firmado. Nada se envía por defecto: un destino recibe silencio hasta que nombra lo que quiere oír."
+                ],
+                "de": [
+                    "Die Apps sprechen nicht miteinander. Kein einziges Mal, nirgends. Jede spricht mit Antenne, und Antenne spricht mit allen: eine Integration pro App, für immer, statt des Geflechts aus zweiundzwanzig mal einundzwanzig Verbindungen, das sonst auf uns warten würde.",
+                    "Antenne ist ein dauerhafter Event-Bus: eine WebSocket-Verbindung über einer offsetbasierten Queue in Postgres. Eine App registriert sich mit einem gemeinsamen Secret, abonniert die Kanäle, die sie interessieren, und liest dort weiter, wo sie aufgehört hat. Fällt sie einen Tag lang aus, kommt sie zurück und spielt nach, was sie verpasst hat. Aufbewahrt wird nach Interesse, nicht nach Uhr: Ein Event bleibt, bis jeder Empfänger es bestätigt hat.",
+                    "Über die Leitung geht ein kanonischer Umschlag, nie die private Form einer App. Ein Projekt ist ein Projekt, eine Aufgabe ist eine Aufgabe, und jedes synchronisierte Objekt trägt eine facile_id, vergeben von der App, die es erstellt hat. Erst diese eine Kennung lässt Sablier mit Ganzzahlen und Opus mit Strings dieselbe Arbeit beschreiben. Die App, in der etwas entstanden ist, besitzt es; alle anderen richten sich danach.",
+                    "Die andere Hälfte von Antenne ist Monitoring. Es beobachtet Websites, Postfächer, Feeds, Deploy-Hooks und CI-Läufe und leitet, was sie melden, an Matrix, Discord, E-Mail, Push oder einen signierten Webhook weiter. Standardmäßig wird nichts weitergeleitet: Ein Ziel bekommt Stille, bis es sagt, was es hören will."
+                ]
+            }
         },
         {
-            "heading": "Muse — one visual language",
-            "body": [
-                "Every interface in the suite is drawn from Muse, our component library: layout primitives, atoms, molecules, organisms and charts, plus the token layer they all read from. Two apps built a year apart still look like siblings, because neither of them ever chose a colour.",
-                "That is enforced rather than encouraged. The token layer clears Tailwind's stock palette outright, so an off-system colour does not merely look wrong — it produces no CSS at all. Chroma is reserved for meaning: the chrome of every app is greyscale, and saturation is spent only on status, roles and data. Contrast is derived, not eyeballed; each tone is tuned until it clears its ratio in both light and dark.",
-                "Apps pin Muse by git tag and consume it as source. Upgrading is a deliberate act with a version attached to it, which is why the suite can share a face without sharing a release train."
-            ]
+            "heading": {
+                "en": "Muse — one visual language",
+                "fr": "Muse : un seul langage visuel",
+                "es": "Muse: un único lenguaje visual",
+                "de": "Muse: eine visuelle Sprache"
+            },
+            "body": {
+                "en": [
+                    "Every interface in the suite is drawn from Muse, our component library: layout primitives, atoms, molecules, organisms and charts, plus the token layer they all read from. Two apps built a year apart still look like siblings, because neither of them ever chose a colour.",
+                    "That is enforced rather than encouraged. The token layer clears Tailwind's stock palette outright, so an off-system colour does not merely look wrong — it produces no CSS at all. Chroma is reserved for meaning: the chrome of every app is greyscale, and saturation is spent only on status, roles and data. Contrast is derived, not eyeballed; each tone is tuned until it clears its ratio in both light and dark.",
+                    "Apps pin Muse by git tag and consume it as source. Upgrading is a deliberate act with a version attached to it, which is why the suite can share a face without sharing a release train."
+                ],
+                "fr": [
+                    "Chaque interface de la suite est dessinée avec Muse, notre bibliothèque de composants : primitives de mise en page, atomes, molécules, organismes et graphiques, plus la couche de tokens dont ils dépendent tous. Deux apps construites à un an d'écart ont toujours l'air de sœurs, parce qu'aucune n'a jamais choisi une couleur.",
+                    "C'est imposé, pas simplement encouragé. La couche de tokens supprime purement et simplement la palette par défaut de Tailwind : une couleur hors système n'a pas seulement l'air fausse, elle ne produit aucun CSS. La couleur est réservée au sens : l'habillage de chaque app est en niveaux de gris, et la saturation ne sert qu'aux statuts, aux rôles et aux données. Le contraste est calculé, pas estimé à l'œil ; chaque ton est ajusté jusqu'à atteindre son ratio en clair comme en sombre.",
+                    "Les apps épinglent Muse par tag git et le consomment comme du code source. Mettre à jour est un acte délibéré, avec une version à la clé : c'est pour cela que la suite peut partager un visage sans partager un calendrier de release."
+                ],
+                "es": [
+                    "Cada interfaz de la suite sale de Muse, nuestra librería de componentes: primitivas de layout, átomos, moléculas, organismos y gráficos, más la capa de tokens de la que todos beben. Dos apps construidas con un año de diferencia siguen pareciendo hermanas, porque ninguna eligió nunca un color.",
+                    "Y eso se impone, no se sugiere. La capa de tokens elimina de raíz la paleta por defecto de Tailwind, así que un color fuera del sistema no solo se ve mal: no genera CSS en absoluto. El color se reserva para el significado: el chrome de cada app es en escala de grises, y la saturación se gasta solo en estados, roles y datos. El contraste se calcula, no se hace a ojo; cada tono se ajusta hasta cumplir su ratio en modo claro y oscuro.",
+                    "Las apps fijan Muse por tag de git y lo consumen como código fuente. Actualizar es un acto deliberado con una versión asociada, y por eso la suite puede compartir una cara sin compartir un calendario de releases."
+                ],
+                "de": [
+                    "Jede Oberfläche der Suite entsteht aus Muse, unserer Komponentenbibliothek: Layout-Primitive, Atome, Moleküle, Organismen und Charts, dazu die Token-Schicht, aus der sie alle lesen. Zwei Apps, die ein Jahr auseinander gebaut wurden, sehen trotzdem aus wie Geschwister, weil keine von beiden je eine Farbe gewählt hat.",
+                    "Das wird durchgesetzt, nicht nur empfohlen. Die Token-Schicht entfernt die Standardpalette von Tailwind komplett, sodass eine systemfremde Farbe nicht bloß falsch aussieht, sondern gar kein CSS erzeugt. Farbe ist für Bedeutung reserviert: Der Rahmen jeder App ist in Graustufen gehalten, Sättigung gibt es nur für Status, Rollen und Daten. Kontrast wird berechnet, nicht geschätzt; jeder Ton wird so lange justiert, bis er sein Verhältnis im hellen wie im dunklen Modus erreicht.",
+                    "Die Apps pinnen Muse per Git-Tag und binden es als Quellcode ein. Ein Upgrade ist ein bewusster Schritt mit einer Versionsnummer, und deshalb kann die Suite ein Gesicht teilen, ohne einen gemeinsamen Release-Zug zu teilen."
+                ]
+            }
         },
         {
-            "heading": "One shape, repeated",
-            "body": [
-                "The canonical app is a Go API — chi, Postgres, migrations embedded in the binary — serving a SvelteKit client built with Svelte 5 and Tailwind, from the same origin and the same port. One binary, one container, one route in the proxy. A deployment has no moving parts to forget.",
-                "Authentication is the same door everywhere: a single identity provider, OIDC, one login that federates to every tool you have installed. Secrets are injected into the process at run time and never written to a file. Logs go to Journal, alerts to Antenne, files to Nuage.",
-                "The plumbing itself is shared as versioned modules rather than copied: the HTTP chassis, the auth kit, the mailer, the payment adapter, the event types. The rule is simple and unsentimental — the third time something is pasted, it becomes a package. Copy-paste is not a distribution mechanism."
-            ]
+            "heading": {
+                "en": "One shape, repeated",
+                "fr": "Une forme, répétée",
+                "es": "Una forma, repetida",
+                "de": "Eine Form, immer wieder"
+            },
+            "body": {
+                "en": [
+                    "The canonical app is a Go API — chi, Postgres, migrations embedded in the binary — serving a SvelteKit client built with Svelte 5 and Tailwind, from the same origin and the same port. One binary, one container, one route in the proxy. A deployment has no moving parts to forget.",
+                    "Authentication is the same door everywhere: a single identity provider, OIDC, one login that federates to every tool you have installed. Secrets are injected into the process at run time and never written to a file. Logs go to Journal, alerts to Antenne, files to Nuage.",
+                    "The plumbing itself is shared as versioned modules rather than copied: the HTTP chassis, the auth kit, the mailer, the payment adapter, the event types. The rule is simple and unsentimental — the third time something is pasted, it becomes a package. Copy-paste is not a distribution mechanism."
+                ],
+                "fr": [
+                    "L'app type est une API Go (chi, Postgres, migrations embarquées dans le binaire) qui sert un client SvelteKit construit avec Svelte 5 et Tailwind, depuis la même origine et le même port. Un binaire, un conteneur, une route dans le proxy. Un déploiement n'a aucune pièce mobile à oublier.",
+                    "L'authentification passe partout par la même porte : un seul fournisseur d'identité, OIDC, un login fédéré vers chaque outil installé. Les secrets sont injectés dans le processus à l'exécution et jamais écrits dans un fichier. Les logs vont dans Journal, les alertes dans Antenne, les fichiers dans Nuage.",
+                    "La plomberie elle-même est partagée en modules versionnés plutôt que copiée : le châssis HTTP, le kit d'authentification, le mailer, l'adaptateur de paiement, les types d'événements. La règle est simple et sans état d'âme : la troisième fois qu'un bout de code est collé, il devient un package. Le copier-coller n'est pas un mode de distribution."
+                ],
+                "es": [
+                    "La app canónica es una API en Go (chi, Postgres, migraciones embebidas en el binario) que sirve un cliente SvelteKit construido con Svelte 5 y Tailwind, desde el mismo origen y el mismo puerto. Un binario, un contenedor, una ruta en el proxy. Un despliegue no tiene piezas móviles que olvidar.",
+                    "La autenticación es la misma puerta en todas partes: un único proveedor de identidad, OIDC, un login federado con cada herramienta que tengas instalada. Los secretos se inyectan en el proceso en tiempo de ejecución y nunca se escriben en un archivo. Los logs van a Journal, las alertas a Antenne, los archivos a Nuage.",
+                    "La fontanería se comparte como módulos versionados en lugar de copiarse: el chasis HTTP, el kit de autenticación, el mailer, el adaptador de pagos, los tipos de eventos. La regla es simple y sin sentimentalismos: la tercera vez que algo se pega, se convierte en un paquete. Copiar y pegar no es un mecanismo de distribución."
+                ],
+                "de": [
+                    "Die kanonische App ist eine Go-API (chi, Postgres, Migrationen im Binary eingebettet), die einen mit Svelte 5 und Tailwind gebauten SvelteKit-Client ausliefert, vom selben Origin und über denselben Port. Ein Binary, ein Container, eine Route im Proxy. Ein Deployment hat keine beweglichen Teile, die man vergessen könnte.",
+                    "Authentifizierung ist überall dieselbe Tür: ein einziger Identity Provider, OIDC, ein Login, der sich auf jedes installierte Tool erstreckt. Secrets werden zur Laufzeit in den Prozess injiziert und nie in eine Datei geschrieben. Logs gehen an Journal, Alerts an Antenne, Dateien an Nuage.",
+                    "Die Infrastruktur selbst wird als versionierte Module geteilt statt kopiert: das HTTP-Chassis, das Auth-Kit, der Mailer, der Payment-Adapter, die Event-Typen. Die Regel ist einfach und nüchtern: Wird etwas zum dritten Mal eingefügt, wird es ein Package. Copy-and-paste ist kein Vertriebsweg."
+                ]
+            }
         },
         {
-            "heading": "Not one repository — one grammar",
-            "body": [
-                "There is no giant monorepo holding the suite. Each app is its own repository, internally split the same way every time, with the same task runner, the same compose file and the same conventions in the same places. Open any of them and you already know where you are.",
-                "The client work we do is the monorepo half of the story: a Turborepo workspace with shared packages for auth, database, mail, storage, payments, i18n and UI, which is what this very site is built from. Same components, same discipline, different assembly.",
-                "The two halves feed each other. Anything we needed twice for a client became a package; anything a suite app proved in production became the default for the next project."
-            ]
+            "heading": {
+                "en": "Not one repository — one grammar",
+                "fr": "Pas un dépôt : une grammaire",
+                "es": "No un repositorio: una gramática",
+                "de": "Kein Repository, sondern eine Grammatik"
+            },
+            "body": {
+                "en": [
+                    "There is no giant monorepo holding the suite. Each app is its own repository, internally split the same way every time, with the same task runner, the same compose file and the same conventions in the same places. Open any of them and you already know where you are.",
+                    "The client work we do is the monorepo half of the story: a Turborepo workspace with shared packages for auth, database, mail, storage, payments, i18n and UI, which is what this very site is built from. Same components, same discipline, different assembly.",
+                    "The two halves feed each other. Anything we needed twice for a client became a package; anything a suite app proved in production became the default for the next project."
+                ],
+                "fr": [
+                    "Il n'y a pas de monorepo géant qui contient la suite. Chaque app a son propre dépôt, découpé de la même façon à chaque fois, avec le même task runner, le même fichier compose et les mêmes conventions aux mêmes endroits. Ouvrez n'importe lequel : vous savez déjà où vous êtes.",
+                    "Nos projets clients sont la moitié monorepo de l'histoire : un workspace Turborepo avec des packages partagés pour l'auth, la base de données, le mail, le stockage, les paiements, l'i18n et l'UI. C'est avec eux qu'est construit ce site. Mêmes composants, même discipline, assemblage différent.",
+                    "Les deux moitiés se nourrissent l'une l'autre. Tout ce dont nous avons eu besoin deux fois pour un client est devenu un package ; tout ce qu'une app de la suite a prouvé en production est devenu la norme du projet suivant."
+                ],
+                "es": [
+                    "No hay un monorepo gigante que contenga la suite. Cada app es su propio repositorio, organizado por dentro siempre igual, con el mismo task runner, el mismo archivo compose y las mismas convenciones en los mismos sitios. Abre cualquiera y ya sabrás dónde estás.",
+                    "Los proyectos para clientes son la mitad monorepo de la historia: un workspace de Turborepo con paquetes compartidos para auth, base de datos, correo, almacenamiento, pagos, i18n y UI, y con ellos está construido este mismo sitio. Mismos componentes, misma disciplina, distinto ensamblaje.",
+                    "Las dos mitades se alimentan entre sí. Todo lo que necesitamos dos veces para un cliente se convirtió en un paquete; todo lo que una app de la suite demostró en producción se convirtió en el estándar del siguiente proyecto."
+                ],
+                "de": [
+                    "Es gibt kein riesiges Monorepo, das die Suite enthält. Jede App hat ihr eigenes Repository, intern jedes Mal gleich aufgeteilt, mit demselben Task Runner, derselben Compose-Datei und denselben Konventionen an denselben Stellen. Öffnen Sie irgendeines, und Sie wissen sofort, wo Sie sind.",
+                    "Unsere Kundenprojekte sind die Monorepo-Hälfte der Geschichte: ein Turborepo-Workspace mit geteilten Packages für Auth, Datenbank, Mail, Storage, Payments, i18n und UI. Genau daraus ist diese Website gebaut. Dieselben Komponenten, dieselbe Disziplin, anders zusammengesetzt.",
+                    "Die beiden Hälften speisen sich gegenseitig. Alles, was wir für einen Kunden zweimal gebraucht haben, wurde ein Package; alles, was sich in einer Suite-App im Betrieb bewährt hat, wurde zum Standard für das nächste Projekt."
+                ]
+            }
         }
     ],
-    "footer": "Designed, built and run by Fanga at Facile Studio."
+    "footer": {
+        "en": "Designed, built and run by Fanga at Facile Studio.",
+        "fr": "Conçu, développé et exploité par Fanga chez Facile Studio.",
+        "es": "Diseñado, desarrollado y operado por Fanga en Facile Studio.",
+        "de": "Entworfen, gebaut und betrieben von Fanga bei Facile Studio."
+    }
 }

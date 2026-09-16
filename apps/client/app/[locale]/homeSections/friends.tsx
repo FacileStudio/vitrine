@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import TextReveal from "@/components/facile/textReveal";
 import { useScroll } from "@/hooks/use-scroll";
 
@@ -17,6 +18,7 @@ const icons = [
 export default function Friends({ id = "friends" }: { id?: string }) {
     const sectionRef = useRef<HTMLElement>(null);
     const trackRef = useRef<HTMLDivElement>(null);
+    const t = useTranslations("home.friends");
 
     const cards = (list: typeof icons) =>
         list.map((icon, i) => (
@@ -41,10 +43,10 @@ export default function Friends({ id = "friends" }: { id?: string }) {
         <section ref={sectionRef} id={id} className="relative w-full py-24 overflow-visible">
             <div className="px-60">
                 <h2 className="text-[clamp(2rem,6.4vh,5.5rem)] text-white">
-                    <TextReveal open={showIcons}>They trusted us</TextReveal>
+                    <TextReveal open={showIcons}>{t("title")}</TextReveal>
                 </h2>
                 <TextReveal as="p" open={showIcons} delay={0.1} cropClassName="mt-4" className="lead max-w-[40ch] opacity-66">
-                    Our clients let us the lead on projects they held close to their hearts
+                    {t("lead")}
                 </TextReveal>
             </div>
 

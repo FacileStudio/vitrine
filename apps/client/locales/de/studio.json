@@ -1,0 +1,24 @@
+{
+  "meta": {
+    "title": "Studio",
+    "description": "Lernen Sie das Team hinter Facile Studio kennen. Wir sind auf Design, Branding, UI/UX und die Entwicklung von Webanwendungen spezialisiert, mit einem ökologischen Ansatz, bei dem Design an erster Stelle steht.",
+    "ogTitle": "Studio | Facile Studio"
+  },
+  "tiles": {
+    "open": "{name} öffnen"
+  },
+  "member": {
+    "back": "← Zurück",
+    "workedOn": "Projekte",
+    "facts": "Fakten",
+    "seeMore": "Mehr sehen"
+  },
+  "panel": {
+    "tabs": {
+      "details": "Details",
+      "projects": "Projekte",
+      "facts": "Fakten"
+    },
+    "suite": "Die Suite"
+  }
+}

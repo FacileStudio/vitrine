@@ -1,0 +1,21 @@
+{
+  "seeProjects": "See our projects",
+  "hero": {
+    "headline": ["A team of enthusiasts", "who know what they're doing."]
+  },
+  "manifesto": {
+    "creators": ["We are *creators* building", "stunning and memorable", "*experiences*."],
+    "trusted": ["They trusted", "our *expertise*."],
+    "openProject": "{name}, see the project"
+  },
+  "shelf": {
+    "lines": ["Take a look at", "our latest projects."]
+  },
+  "friends": {
+    "title": "They trusted us",
+    "lead": "Our clients let us take the lead on projects close to their hearts"
+  },
+  "avis": {
+    "title": "Testimonials"
+  }
+}

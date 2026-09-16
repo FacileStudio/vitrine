@@ -1,12 +1,30 @@
-import { buildStory, type Chapter, type StoryBlock, type StorySection } from "@/components/facile/story/types";
+import { buildStory, type Chapter, type Person, type StoryBlock, type StorySection } from "@/components/facile/story/types";
+import { localize, type Resolved } from "@/lib/i18n/localize";
+import type { Locale } from "@/lib/i18n/locales";
 import { member, team, type Project } from "./projects";
+import studio from "../../studio/studio.json";
 
 export type { StoryBlock, StorySection };
+
+type ResolvedStudio = Resolved<(typeof studio)[number]>;
+
+function toPerson(m: ResolvedStudio): Person {
+    return {
+        name: m.name,
+        role: m.role,
+        avatar: m.avatar,
+        highlight: m.highlight,
+        model: m.model,
+        scale: m.scale,
+        roughness: m.roughness,
+        hair: m.hair,
+    };
+}
 
 // the three blocks that speak for the project rather than for themselves: their
 // content is the project's, so it is filled in here and the renderers stay blind
 // to what a project is. Anything the json authors wins over the default
-function hydrate(p: Project, b: StoryBlock): StoryBlock {
+function hydrate(p: Resolved<Project>, b: StoryBlock, projectPeople: Person[]): StoryBlock {
     if (b.type === "cover")
         return { ...b, media: b.media?.length ? b.media : [p.image], effect: b.effect ?? p.coverEffect };
 
@@ -17,7 +35,7 @@ function hydrate(p: Project, b: StoryBlock): StoryBlock {
             text: p.challenge ?? p.description,
             tags: p.services,
             logos: p.techStack,
-            people: team(p).map((m) => ({ name: m.name, role: m.role, avatar: m.avatar, highlight: m.highlight, model: m.model, scale: m.scale, roughness: m.roughness, hair: m.hair })),
+            people: projectPeople,
             link: p.link,
             ...b,
         };
@@ -30,19 +48,31 @@ function hydrate(p: Project, b: StoryBlock): StoryBlock {
 
 // a project's story, ready for the track: authored when there is one, laid out
 // automatically when there isn't
-export function projectStory(p: Project): Chapter[] {
-    const story = p.story?.length ? p.story : autoStory(p);
+export function projectStory(p: Project, locale: Locale): Chapter[] {
+    const localized = localize(p, locale);
+    const story = localized.story?.length ? localized.story : autoStory(localized);
+    const localizedStudio = localize(studio, locale) as ResolvedStudio[];
+
+    const people = localized.team
+        .map((slug) => localizedStudio.find((m) => m.slug === slug))
+        .filter((m): m is ResolvedStudio => Boolean(m))
+        .map(toPerson);
+
+    const personResolver = (slug: string): Person | undefined => {
+        const m = localizedStudio.find((s) => s.slug === slug);
+        return m ? toPerson(m) : undefined;
+    };
 
     return buildStory(
-        story.map((section) => ({ ...section, blocks: section.blocks.map((b) => hydrate(p, b)) })),
-        p.gallery,
-        member,
+        story.map((section) => ({ ...section, blocks: section.blocks.map((b) => hydrate(localized, b, people)) })),
+        localized.gallery,
+        personResolver,
     );
 }
 
 // fallback for a project that has no story yet — one chapter per service, then a
 // closing chapter with whatever media is left, laid out largest-first
-function autoStory(p: Project): StorySection[] {
+function autoStory(p: Resolved<Project>): StorySection[] {
     const pool = [...new Set([p.video, ...p.gallery].filter(Boolean) as string[])];
     const take = (n: number) => pool.splice(0, n);
 

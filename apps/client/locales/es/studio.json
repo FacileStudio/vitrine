@@ -1,0 +1,24 @@
+{
+  "meta": {
+    "title": "Estudio",
+    "description": "Conoce al equipo detrás de Facile Studio. Nos especializamos en diseño, branding, UI/UX y desarrollo de aplicaciones web, con un enfoque ecológico en el que el diseño va primero.",
+    "ogTitle": "Estudio | Facile Studio"
+  },
+  "tiles": {
+    "open": "Abrir {name}"
+  },
+  "member": {
+    "back": "← Volver",
+    "workedOn": "Sus proyectos",
+    "facts": "Curiosidades",
+    "seeMore": "Ver más"
+  },
+  "panel": {
+    "tabs": {
+      "details": "Detalles",
+      "projects": "Sus proyectos",
+      "facts": "Curiosidades"
+    },
+    "suite": "La Suite"
+  }
+}

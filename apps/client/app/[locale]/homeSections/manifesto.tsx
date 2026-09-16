@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import dynamic from "next/dynamic";
+import { useTranslations } from "next-intl";
 import Link from "@/components/facile/transitionLink";
 import Stripes from "@/components/facile/stripes";
 import TextReveal from "@/components/facile/textReveal";
@@ -10,8 +11,6 @@ import { usePinProgress } from "@/hooks/use-pin-progress";
 import { useNarrow } from "@/hooks/use-narrow";
 
 const DitherView = dynamic(() => import("@/webgl/DitherView").then((m) => m.DitherView), { ssr: false });
-
-const SERVICES = ["Branding", "Web - UI/UX design", "Showcase Websites", "Applications", "DevOps", "Self hosting"];
 
 // the pinned scroll, in section progress: the copy alone first, then it lifts and the
 // collaborators ride across under it, and both leave together
@@ -47,6 +46,7 @@ export default function Manifesto() {
     const progressRef = useRef(0);
     const boxesKey = useRef("");
     const narrow = useNarrow();
+    const t = useTranslations("home");
 
     const [showText, setShowText] = useState(false);
     const [trusted, setTrusted] = useState(false);
@@ -122,14 +122,14 @@ export default function Manifesto() {
                 <div className="absolute inset-0 z-50 flex flex-col items-center justify-center pointer-events-none gap-12">
                     <div ref={titleRef} className="grid place-items-center px-2 text-center transition-transform duration-700 ease-out">
                         <h2 className="col-start-1 row-start-1 max-w-3xl text-foreground" aria-hidden={trusted}>
-                            {["We are *creators* building", "stunning and memorable", "*experiences*."].map((line, i) => (
+                            {(t.raw("manifesto.creators") as string[]).map((line, i) => (
                                 <TextReveal key={i} open={showText && !trusted} leaving={leaving || trusted} duration={trusted ? 0.35 : 0.6} delay={i * (trusted ? 0.04 : 0.1)}>
                                     <Emphasis text={line} />
                                 </TextReveal>
                             ))}
                         </h2>
                         <h2 className="col-start-1 row-start-1 text-foreground" aria-hidden={!trusted}>
-                            {["They trusted", "our *expertise*."].map((line, i) => (
+                            {(t.raw("manifesto.trusted") as string[]).map((line, i) => (
                                 <TextReveal key={i} open={showText && trusted} leaving={leaving} delay={0.15}>
                                     <Emphasis text={line} />
                                 </TextReveal>
@@ -140,7 +140,7 @@ export default function Manifesto() {
                     <div ref={ctaRef} className="absolute left-1/2 mt-10 -translate-x-1/2">
                         <TextReveal open={showText && !trusted} leaving={leaving || trusted} duration={trusted ? 0.35 : 0.7} delay={trusted ? 0.08 : 0.5} cropClassName="w-fit">
                             <Link href="/projects" className="button pointer-events-auto inline-block">
-                                <p>See our projects</p>
+                                <p>{t("seeProjects")}</p>
                             </Link>
                         </TextReveal>
                     </div>
@@ -169,7 +169,7 @@ export default function Manifesto() {
                                     <Link
                                         key={client.src}
                                         href={`/projects/${client.slug}`}
-                                        aria-label={`${client.name}, see the project`}
+                                        aria-label={t("manifesto.openProject", { name: client.name })}
                                         className={`${CARD} pointer-events-auto`}
                                     >
                                         {content}

@@ -1,4 +1,5 @@
 import type { CoverEffect, StorySection } from "@/components/facile/story/types";
+import type { Localized } from "@/lib/i18n/localize";
 import projects from "../projects.json";
 import studio from "../../studio/studio.json";
 
@@ -15,13 +16,14 @@ export interface Project {
     image: string;
     video?: string;
     gallery: string[];
-    description: string;
+    description: Localized<string>;
+    metaDescription: Localized<string>;
     techStack?: string[];
     date: string;
-    challenge?: string;
+    challenge?: Localized<string>;
     services: string[];
     team: string[];
-    notes: string[];
+    notes: Localized<string>[];
     story?: StorySection[];
     coverEffect?: CoverEffect;
 }

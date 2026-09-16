@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from "next-intl";
 import Link from "@/components/facile/transitionLink";
 import TextReveal from "@/components/facile/textReveal";
 import SplitLines from "@/components/facile/splitLines";
@@ -9,22 +10,22 @@ import { buttonClass } from "./memberStyles";
 // phone: name, role, the short description, and one button for everything else
 export default function MemberSummary({
     member,
-    locale,
     shown,
     onSeeMore,
 }: {
     member: Member;
-    locale: string;
     shown: boolean;
     onSeeMore: () => void;
 }) {
+    const t = useTranslations("studio.member");
+
     return (
         <>
             <Link
-                href={`/${locale}/studio`}
+                href="/studio"
                 className="lg:hidden block absolute top-12 left-1/2 -translate-x-1/2 font-goga text-[clamp(0.65rem,1.7vh,1.3rem)] font-medium capitalize tracking-tight transition-colors"
             >
-                ← Go Back
+                {t("back")}
             </Link>
             <div className="absolute inset-x-0 bottom-0 z-40 flex lg:flex-col justify-between lg:justify-start items-center lg:gap-5 gap-3 px-6 pb-10 text-center lg:hidden">
 
@@ -49,7 +50,7 @@ export default function MemberSummary({
                 />
 
                 <button type="button" onClick={onSeeMore} className={`${buttonClass} w-32`}>
-                    See more
+                    {t("seeMore")}
                 </button>
 
             </div>

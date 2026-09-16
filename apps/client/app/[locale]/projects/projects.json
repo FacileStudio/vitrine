@@ -22,7 +22,18 @@
             "/images/projects/Marcel_1x1_purple.png",
             "/images/projects/Marcel_2x2_dev.png"
         ],
-        "description": "Marcel is an application that lets you turn your life into a game by transforming tasks and habits into adventures.",
+        "description": {
+            "en": "Marcel is an application that lets you turn your life into a game by transforming tasks and habits into adventures.",
+            "fr": "Marcel est une application qui transforme votre vie en jeu, en changeant vos tâches et vos habitudes en aventures.",
+            "es": "Marcel es una aplicación que convierte tu vida en un juego, transformando tus tareas y hábitos en aventuras.",
+            "de": "Marcel ist eine App, die Ihr Leben in ein Spiel verwandelt und Aufgaben und Gewohnheiten zu Abenteuern macht."
+        },
+        "metaDescription": {
+            "en": "Marcel is a wellbeing application by Facile Studio. Gamified habit tracking and task management, built with Svelte and Go.",
+            "fr": "Marcel est une application de bien-être signée Facile Studio. Suivi d'habitudes et gestion de tâches gamifiés, développés avec Svelte et Go.",
+            "es": "Marcel es una aplicación de bienestar de Facile Studio. Seguimiento de hábitos y gestión de tareas gamificados, desarrollados con Svelte y Go.",
+            "de": "Marcel ist eine Wellbeing-App von Facile Studio. Spielerisches Gewohnheitstracking und Aufgabenverwaltung, entwickelt mit Svelte und Go."
+        },
         "techStack": [
             "Svelte",
             "Go",
@@ -30,11 +41,16 @@
             "Figma"
         ],
         "date": "2025",
-        "challenge": "Turn a to-do list into something people actually want to open — habits, streaks and overdue tasks had to feel like a quest, not a chore.",
+        "challenge": {
+            "en": "Turn a to-do list into something people actually want to open — habits, streaks and overdue tasks had to feel like a quest, not a chore.",
+            "fr": "Faire d'une to-do list un truc qu'on a vraiment envie d'ouvrir : habitudes, séries et tâches en retard devaient ressembler à une quête, pas à une corvée.",
+            "es": "Convertir una lista de tareas en algo que de verdad quieras abrir: hábitos, rachas y tareas atrasadas tenían que sentirse como una misión, no como una obligación.",
+            "de": "Eine To-do-Liste in etwas verwandeln, das man wirklich öffnen will: Gewohnheiten, Serien und überfällige Aufgaben sollten sich wie eine Quest anfühlen, nicht wie eine Pflicht."
+        },
         "services": [
-            "Transformation",
-            "ReDesign",
-            "App development"
+            "transformation",
+            "redesign",
+            "appDevelopment"
         ],
         "team": [
             "fanga",
@@ -43,8 +59,18 @@
             "mazouz"
         ],
         "notes": [
-            "The reward loop was the whole design problem: gold and experience had to land the moment a task is checked, or the game falls apart.",
-            "Everything was drawn in Figma before a single component was written, so the Svelte build stayed a translation job rather than a discovery one."
+            {
+                "en": "The reward loop was the whole design problem: gold and experience had to land the moment a task is checked, or the game falls apart.",
+                "fr": "Toute la difficulté tenait dans la boucle de récompense : l'or et l'expérience devaient tomber à l'instant où une tâche est cochée, sinon le jeu s'effondre.",
+                "es": "Todo el reto de diseño era el ciclo de recompensas: el oro y la experiencia tenían que llegar en cuanto marcas una tarea, o el juego se viene abajo.",
+                "de": "Die Belohnungsschleife war das eigentliche Designproblem: Gold und Erfahrung mussten in dem Moment ankommen, in dem eine Aufgabe abgehakt wird, sonst fällt das Spiel auseinander."
+            },
+            {
+                "en": "Everything was drawn in Figma before a single component was written, so the Svelte build stayed a translation job rather than a discovery one.",
+                "fr": "Tout a été dessiné dans Figma avant d'écrire le moindre composant, si bien que le développement Svelte est resté un travail de traduction, pas d'exploration.",
+                "es": "Todo se dibujó en Figma antes de escribir un solo componente, así que el desarrollo en Svelte fue un trabajo de traducción, no de descubrimiento.",
+                "de": "Alles wurde in Figma gezeichnet, bevor auch nur eine Komponente geschrieben war. So blieb der Svelte-Build eine Übersetzungsarbeit statt einer Entdeckungsreise."
+            }
         ],
         "story": [
             {
@@ -58,13 +84,28 @@
                 ]
             },
             {
-                "title": "New Face!",
+                "title": {
+                    "en": "New Face!",
+                    "fr": "Nouveau visage !",
+                    "es": "¡Nueva cara!",
+                    "de": "Neues Gesicht!"
+                },
                 "by": "camille",
                 "blocks": [
                     {
                         "type": "note",
-                        "title": "New Face!",
-                        "text": "Marcel started to get a bit old. So he kindly asked us to revamp him and give him the face and shine he needed. The ideation of this rebranding was made by Camille.",
+                        "title": {
+                            "en": "New Face!",
+                            "fr": "Nouveau visage !",
+                            "es": "¡Nueva cara!",
+                            "de": "Neues Gesicht!"
+                        },
+                        "text": {
+                            "en": "Marcel started to get a bit old. So he kindly asked us to revamp him and give him the face and shine he needed. The ideation of this rebranding was made by Camille.",
+                            "fr": "Marcel commençait à prendre un coup de vieux. Il nous a donc gentiment demandé de le rafraîchir et de lui offrir le visage et l'éclat qu'il méritait. L'idée de ce rebranding vient de Camille.",
+                            "es": "Marcel empezaba a hacerse mayor. Así que nos pidió amablemente un lavado de cara que le devolviera el brillo que necesitaba. La idea de este rebranding fue de Camille.",
+                            "de": "Marcel war etwas in die Jahre gekommen. Also bat er uns freundlich, ihn aufzufrischen und ihm das Gesicht und den Glanz zu geben, die er brauchte. Die Idee für dieses Rebranding stammt von Camille."
+                        },
                         "media": [
                             0
                         ]
@@ -79,21 +120,51 @@
                         "type": "palette",
                         "swatches": [
                             {
-                                "label": "Background",
+                                "label": {
+                                    "en": "Background",
+                                    "fr": "Fond",
+                                    "es": "Fondo",
+                                    "de": "Hintergrund"
+                                },
                                 "hex": "#F9F1E7"
                             },
                             {
-                                "label": "Component Bg",
+                                "label": {
+                                    "en": "Component Bg",
+                                    "fr": "Fond composant",
+                                    "es": "Fondo componente",
+                                    "de": "Komponentenfläche"
+                                },
                                 "hex": "#E2DAD2",
-                                "note": "#F9F1E7 + #0E0F10 (opacity 10%)"
+                                "note": {
+                                    "en": "#F9F1E7 + #0E0F10 (opacity 10%)",
+                                    "fr": "#F9F1E7 + #0E0F10 (opacité 10 %)",
+                                    "es": "#F9F1E7 + #0E0F10 (opacidad 10 %)",
+                                    "de": "#F9F1E7 + #0E0F10 (Deckkraft 10 %)"
+                                }
                             },
                             {
-                                "label": "Sous-Text",
+                                "label": {
+                                    "en": "Subtext",
+                                    "fr": "Sous-texte",
+                                    "es": "Subtexto",
+                                    "de": "Nebentext"
+                                },
                                 "hex": "#494846",
-                                "note": "#0E0F10 (opacity 75%)"
+                                "note": {
+                                    "en": "#0E0F10 (opacity 75%)",
+                                    "fr": "#0E0F10 (opacité 75 %)",
+                                    "es": "#0E0F10 (opacidad 75 %)",
+                                    "de": "#0E0F10 (Deckkraft 75 %)"
+                                }
                             },
                             {
-                                "label": "Text",
+                                "label": {
+                                    "en": "Text",
+                                    "fr": "Texte",
+                                    "es": "Texto",
+                                    "de": "Text"
+                                },
                                 "hex": "#0E0F10"
                             }
                         ]
@@ -102,18 +173,38 @@
                         "type": "typography",
                         "font": "Poppins",
                         "fontFamily": "var(--font-poppins), sans-serif",
-                        "description": "PLACEHOLDER — explain why Poppins was chosen: its role across titles, body copy and where its rounded, friendly geometry fits Marcel's tone."
+                        "description": {
+                            "en": "PLACEHOLDER — explain why Poppins was chosen: its role across titles, body copy and where its rounded, friendly geometry fits Marcel's tone.",
+                            "fr": "PLACEHOLDER : expliquer pourquoi Poppins a été choisie, son rôle dans les titres et le texte courant, et en quoi sa géométrie ronde et amicale colle au ton de Marcel.",
+                            "es": "PLACEHOLDER: explicar por qué se eligió Poppins, su papel en títulos y texto, y cómo su geometría redondeada y amable encaja con el tono de Marcel.",
+                            "de": "PLACEHOLDER: erklären, warum Poppins gewählt wurde, welche Rolle sie in Titeln und Fließtext spielt und wie ihre runde, freundliche Geometrie zu Marcels Ton passt."
+                        }
                     }
                 ]
             },
             {
-                "title": "Redesign",
+                "title": {
+                    "en": "Redesign",
+                    "fr": "Refonte",
+                    "es": "Rediseño",
+                    "de": "Redesign"
+                },
                 "by": ["camille", "noah"],
                 "blocks": [
                     {
                         "type": "note",
-                        "title": "Redesign",
-                        "text": "Based on the graphical chart, Noah and Camille teamed up to redesign the entire Marcel app. By carefully crafting every components, we gave a new life to a tired website.",
+                        "title": {
+                            "en": "Redesign",
+                            "fr": "Refonte",
+                            "es": "Rediseño",
+                            "de": "Redesign"
+                        },
+                        "text": {
+                            "en": "Based on the graphical chart, Noah and Camille teamed up to redesign the entire Marcel app. By carefully crafting every component, we gave a new life to a tired website.",
+                            "fr": "À partir de la charte graphique, Noah et Camille ont uni leurs forces pour refondre toute l'application Marcel. En soignant chaque composant, nous avons donné une nouvelle vie à un site fatigué.",
+                            "es": "Partiendo de la guía gráfica, Noah y Camille unieron fuerzas para rediseñar toda la app de Marcel. Cuidando cada componente, le dimos una nueva vida a una web cansada.",
+                            "de": "Auf Basis des Styleguides haben Noah und Camille die gesamte Marcel-App neu gestaltet. Mit viel Sorgfalt für jede Komponente haben wir einer müden Website neues Leben eingehaucht."
+                        },
                         "media": [
                             2
                         ]
@@ -130,13 +221,28 @@
                 ]
             },
             {
-                "title": "Implementation",
+                "title": {
+                    "en": "Implementation",
+                    "fr": "Développement",
+                    "es": "Implementación",
+                    "de": "Umsetzung"
+                },
                 "by": ["noah", "mazouz", "fanga"],
                 "blocks": [
                     {
                         "type": "note",
-                        "title": "Implementation",
-                        "text": "Now we just have to find the time to actually give Marcel it's newly created identity. It will take a moment but we will eventually get there! ;)",
+                        "title": {
+                            "en": "Implementation",
+                            "fr": "Développement",
+                            "es": "Implementación",
+                            "de": "Umsetzung"
+                        },
+                        "text": {
+                            "en": "Now we just have to find the time to actually give Marcel its newly created identity. It will take a moment but we will eventually get there! ;)",
+                            "fr": "Il ne nous reste plus qu'à trouver le temps de donner à Marcel sa toute nouvelle identité. Ça prendra un moment, mais on y arrivera ! ;)",
+                            "es": "Ahora solo nos falta encontrar tiempo para darle a Marcel su nueva identidad. Llevará un rato, ¡pero lo conseguiremos! ;)",
+                            "de": "Jetzt müssen wir nur noch die Zeit finden, Marcel seine neue Identität tatsächlich zu geben. Das dauert noch etwas, aber wir kommen ans Ziel! ;)"
+                        },
                         "media": [
                             13
                         ]
@@ -193,26 +299,52 @@
             "https://picsum.photos/seed/projet-zero-sketches-2/1400/1000",
             "https://picsum.photos/seed/projet-zero-moodboard-2/1500/1000"
         ],
-        "description": "Projet Zero is a sci-fi RPG Minecraft server: you're a human soldier-astronaut holding the line against an alien civilisation whose technology dwarfs ours, all of it drawn from a strange ancient blue energy.",
+        "description": {
+            "en": "Projet Zero is a sci-fi RPG Minecraft server: you're a human soldier-astronaut holding the line against an alien civilisation whose technology dwarfs ours, all of it drawn from a strange ancient blue energy.",
+            "fr": "Projet Zero est un serveur Minecraft RPG de science-fiction : vous incarnez un soldat-astronaute humain qui tient la ligne face à une civilisation extraterrestre dont la technologie écrase la nôtre, entièrement puisée dans une étrange énergie bleue ancestrale.",
+            "es": "Projet Zero es un servidor de Minecraft RPG de ciencia ficción: eres un soldado-astronauta humano que resiste frente a una civilización alienígena cuya tecnología supera con creces la nuestra, toda ella nacida de una extraña energía azul ancestral.",
+            "de": "Projet Zero ist ein Sci-Fi-RPG-Server für Minecraft: Sie sind ein menschlicher Soldat-Astronaut und halten die Stellung gegen eine außerirdische Zivilisation, deren Technologie unsere weit übertrifft, gespeist aus einer seltsamen, uralten blauen Energie."
+        },
+        "metaDescription": {
+            "en": "Projet Zero is a sci-fi RPG Minecraft server brand and showcase website by Facile Studio — a soldier-astronaut identity built around a single ancient blue energy, carried through the shop and battle-pass pages. Built with Next.js, React and TypeScript.",
+            "fr": "Projet Zero : identité et site vitrine d'un serveur Minecraft RPG de science-fiction, par Facile Studio. Une identité de soldat-astronaute bâtie autour d'une seule énergie bleue ancestrale, déclinée jusqu'à la boutique et au battle pass. Développé avec Next.js, React et TypeScript.",
+            "es": "Projet Zero: marca y web de presentación de un servidor de Minecraft RPG de ciencia ficción, por Facile Studio. Una identidad de soldado-astronauta construida en torno a una única energía azul ancestral, llevada hasta la tienda y el pase de batalla. Desarrollado con Next.js, React y TypeScript.",
+            "de": "Projet Zero: Marke und Showcase-Website für einen Sci-Fi-RPG-Server in Minecraft, von Facile Studio. Eine Soldat-Astronaut-Identität rund um eine einzige uralte blaue Energie, bis in Shop und Battle Pass getragen. Entwickelt mit Next.js, React und TypeScript."
+        },
         "techStack": [
             "Figma",
             "Photoshop",
             "Illustrator"
         ],
         "date": "2026",
-        "challenge": "Make an alien civilisation feel millennia ahead of us through one colour and one mark, then carry that all the way to a shop and battle-pass page without it curdling into generic gamer-blue.",
+        "challenge": {
+            "en": "Make an alien civilisation feel millennia ahead of us through one colour and one mark, then carry that all the way to a shop and battle-pass page without it curdling into generic gamer-blue.",
+            "fr": "Faire sentir qu'une civilisation extraterrestre a des millénaires d'avance avec une seule couleur et un seul logo, puis porter ça jusqu'à la boutique et au battle pass sans virer au bleu gamer générique.",
+            "es": "Hacer que una civilización alienígena parezca ir milenios por delante con un solo color y una sola marca, y llevarlo hasta la tienda y el pase de batalla sin caer en el típico azul gamer.",
+            "de": "Mit einer Farbe und einem Zeichen spürbar machen, dass eine außerirdische Zivilisation uns Jahrtausende voraus ist, und das bis zum Shop und zum Battle Pass tragen, ohne in generisches Gamer-Blau abzurutschen."
+        },
         "services": [
-            "Brand identity",
-            "Product design",
-            "Web development"
+            "brandIdentity",
+            "productDesign",
+            "webDevelopment"
         ],
         "team": [
             "camille",
             "noah"
         ],
         "notes": [
-            "The logo had to read as an ancient artifact and a UI mark at the same time, so every iteration was tested small — favicon-small — before it was tested big.",
-            "Blue carries the entire lore: it's the alien energy source, so every glow, every rarity tier and every chapter reward reuses the same handful of blues on purpose."
+            {
+                "en": "The logo had to read as an ancient artifact and a UI mark at the same time, so every iteration was tested small — favicon-small — before it was tested big.",
+                "fr": "Le logo devait se lire à la fois comme un artefact ancien et comme un signe d'interface. Chaque itération a donc été testée en tout petit, taille favicon, avant d'être testée en grand.",
+                "es": "El logo tenía que leerse a la vez como artefacto antiguo y como icono de interfaz, así que cada iteración se probó en pequeño, tamaño favicon, antes de probarla en grande.",
+                "de": "Das Logo musste zugleich als uraltes Artefakt und als UI-Zeichen funktionieren. Deshalb wurde jede Iteration erst winzig, in Favicon-Größe, getestet und dann groß."
+            },
+            {
+                "en": "Blue carries the entire lore: it's the alien energy source, so every glow, every rarity tier and every chapter reward reuses the same handful of blues on purpose.",
+                "fr": "Le bleu porte tout le lore : c'est la source d'énergie extraterrestre, donc chaque lueur, chaque niveau de rareté et chaque récompense de chapitre reprend volontairement la même poignée de bleus.",
+                "es": "El azul sostiene todo el lore: es la fuente de energía alienígena, así que cada brillo, cada nivel de rareza y cada recompensa de capítulo reutiliza a propósito el mismo puñado de azules.",
+                "de": "Blau trägt die gesamte Lore: Es ist die außerirdische Energiequelle. Darum greifen jedes Leuchten, jede Seltenheitsstufe und jede Kapitelbelohnung bewusst auf dieselbe Handvoll Blautöne zurück."
+            }
         ],
         "story": [
             {
@@ -226,12 +358,27 @@
                 ]
             },
             {
-                "title": "Ideation",
+                "title": {
+                    "en": "Ideation",
+                    "fr": "Idéation",
+                    "es": "Ideación",
+                    "de": "Ideenfindung"
+                },
                 "blocks": [
                     {
                         "type": "note",
-                        "title": "Ideation",
-                        "text": "The starting point wasn't a soldier or a spaceship, it was the energy itself: a mark that reads as scavenged alien tech first, game logo second.",
+                        "title": {
+                            "en": "Ideation",
+                            "fr": "Idéation",
+                            "es": "Ideación",
+                            "de": "Ideenfindung"
+                        },
+                        "text": {
+                            "en": "The starting point wasn't a soldier or a spaceship, it was the energy itself: a mark that reads as scavenged alien tech first, game logo second.",
+                            "fr": "Le point de départ n'était ni un soldat ni un vaisseau, mais l'énergie elle-même : un signe qui se lit d'abord comme une techno extraterrestre récupérée, ensuite comme un logo de jeu.",
+                            "es": "El punto de partida no fue un soldado ni una nave, sino la propia energía: una marca que se lee primero como tecnología alienígena rescatada y después como logo de juego.",
+                            "de": "Ausgangspunkt war weder ein Soldat noch ein Raumschiff, sondern die Energie selbst: ein Zeichen, das zuerst wie geborgene Alien-Technik wirkt und erst dann wie ein Spielelogo."
+                        },
                         "media": [
                             0
                         ]
@@ -257,12 +404,27 @@
                 ]
             },
             {
-                "title": "Graphic Chart",
+                "title": {
+                    "en": "Graphic Chart",
+                    "fr": "Charte graphique",
+                    "es": "Guía gráfica",
+                    "de": "Styleguide"
+                },
                 "blocks": [
                     {
                         "type": "note",
-                        "title": "Graphic Chart",
-                        "text": "Every surface — site, shop, battle pass, marketing — draws from the same ancient-energy blue, so the world never breaks character switching from screenshot to Instagram post.",
+                        "title": {
+                            "en": "Graphic Chart",
+                            "fr": "Charte graphique",
+                            "es": "Guía gráfica",
+                            "de": "Styleguide"
+                        },
+                        "text": {
+                            "en": "Every surface — site, shop, battle pass, marketing — draws from the same ancient-energy blue, so the world never breaks character switching from screenshot to Instagram post.",
+                            "fr": "Chaque support, du site à la boutique en passant par le battle pass et le marketing, puise dans le même bleu d'énergie ancestrale : l'univers ne sort jamais de son rôle, d'une capture d'écran à un post Instagram.",
+                            "es": "Cada superficie, desde la web y la tienda hasta el pase de batalla y el marketing, bebe del mismo azul de energía ancestral, así que el mundo nunca rompe el personaje al pasar de una captura a un post de Instagram.",
+                            "de": "Jede Fläche, ob Website, Shop, Battle Pass oder Marketing, schöpft aus demselben Blau der uralten Energie. So bleibt die Welt immer in ihrer Rolle, vom Screenshot bis zum Instagram-Post."
+                        },
                         "media": [
                             4
                         ]
@@ -271,31 +433,71 @@
                         "type": "palette",
                         "swatches": [
                             {
-                                "label": "Background",
+                                "label": {
+                                    "en": "Background",
+                                    "fr": "Fond",
+                                    "es": "Fondo",
+                                    "de": "Hintergrund"
+                                },
                                 "hex": "#121219"
                             },
                             {
-                                "label": "Component",
+                                "label": {
+                                    "en": "Component",
+                                    "fr": "Composant",
+                                    "es": "Componente",
+                                    "de": "Komponente"
+                                },
                                 "hex": "#181920",
-                                "note": "#E8EEFF (opacity 3%) — informations & titles"
+                                "note": {
+                                    "en": "#E8EEFF (opacity 3%) — informations & titles",
+                                    "fr": "#E8EEFF (opacité 3 %), informations et titres",
+                                    "es": "#E8EEFF (opacidad 3 %), información y títulos",
+                                    "de": "#E8EEFF (Deckkraft 3 %), Infos und Titel"
+                                }
                             },
                             {
-                                "label": "Titre H1 Dégradé",
+                                "label": {
+                                    "en": "H1 Title Gradient",
+                                    "fr": "Titre H1 Dégradé",
+                                    "es": "Título H1 degradado",
+                                    "de": "H1-Titel Verlauf"
+                                },
                                 "hex": "linear-gradient(135deg, #B4C3F0 0%, #7B8FD6 100%)",
-                                "note": "Gradient: #B4C3F0 → #7B8FD6",
+                                "note": {
+                                    "en": "Gradient: #B4C3F0 → #7B8FD6",
+                                    "fr": "Dégradé : #B4C3F0 → #7B8FD6",
+                                    "es": "Degradado: #B4C3F0 → #7B8FD6",
+                                    "de": "Verlauf: #B4C3F0 → #7B8FD6"
+                                },
                                 "textColor": "#0E0F10",
                                 "rgb": "—",
                                 "hsv": "—",
                                 "cmyk": "—"
                             },
                             {
-                                "label": "Text",
+                                "label": {
+                                    "en": "Text",
+                                    "fr": "Texte",
+                                    "es": "Texto",
+                                    "de": "Text"
+                                },
                                 "hex": "#E8EEFF"
                             },
                             {
-                                "label": "Sous Text",
+                                "label": {
+                                    "en": "Subtext",
+                                    "fr": "Sous-texte",
+                                    "es": "Subtexto",
+                                    "de": "Nebentext"
+                                },
                                 "hex": "#7D808C",
-                                "note": "#E8EEFF (opacity 50%) — minor informations"
+                                "note": {
+                                    "en": "#E8EEFF (opacity 50%) — minor informations",
+                                    "fr": "#E8EEFF (opacité 50 %), informations secondaires",
+                                    "es": "#E8EEFF (opacidad 50 %), información secundaria",
+                                    "de": "#E8EEFF (Deckkraft 50 %), Nebeninfos"
+                                }
                             }
                         ]
                     },
@@ -303,10 +505,20 @@
                         "type": "typographyPair",
                         "font": "DM Sans",
                         "fontFamily": "var(--font-dm-sans), sans-serif",
-                        "description": "PLACEHOLDER — explain why DM Sans carries the titles: its geometric weight against the void-black background, and how it reads as \"alien tech\" at large sizes.",
+                        "description": {
+                            "en": "PLACEHOLDER — explain why DM Sans carries the titles: its geometric weight against the void-black background, and how it reads as \"alien tech\" at large sizes.",
+                            "fr": "PLACEHOLDER : expliquer pourquoi DM Sans porte les titres, son poids géométrique sur le fond noir abyssal, et comment elle évoque une « techno extraterrestre » en grande taille.",
+                            "es": "PLACEHOLDER: explicar por qué DM Sans lleva los títulos, su peso geométrico sobre el fondo negro vacío y cómo se lee como \"tecnología alienígena\" en tamaños grandes.",
+                            "de": "PLACEHOLDER: erklären, warum DM Sans die Titel trägt, ihr geometrisches Gewicht vor dem tiefschwarzen Hintergrund und warum sie in großen Größen wie „Alien-Technik“ wirkt."
+                        },
                         "secondFont": "IBM Plex Mono",
                         "secondFontFamily": "var(--font-ibm-plex-mono), monospace",
-                        "secondDescription": "PLACEHOLDER — explain why IBM Plex Mono carries body text: the terminal/HUD feel it gives to stats, chapter copy and UI labels."
+                        "secondDescription": {
+                            "en": "PLACEHOLDER — explain why IBM Plex Mono carries body text: the terminal/HUD feel it gives to stats, chapter copy and UI labels.",
+                            "fr": "PLACEHOLDER : expliquer pourquoi IBM Plex Mono porte le texte courant, et l'effet terminal/HUD qu'elle donne aux stats, aux textes de chapitre et aux libellés d'interface.",
+                            "es": "PLACEHOLDER: explicar por qué IBM Plex Mono lleva el texto, y el aire de terminal/HUD que da a las estadísticas, los textos de capítulo y las etiquetas de la interfaz.",
+                            "de": "PLACEHOLDER: erklären, warum IBM Plex Mono den Fließtext trägt, und welches Terminal-/HUD-Gefühl sie Stats, Kapiteltexten und UI-Labels gibt."
+                        }
                     },
                     {
                         "type": "full",
@@ -317,12 +529,27 @@
                 ]
             },
             {
-                "title": "Web Design",
+                "title": {
+                    "en": "Web Design",
+                    "fr": "Web design",
+                    "es": "Diseño web",
+                    "de": "Webdesign"
+                },
                 "blocks": [
                     {
                         "type": "note",
-                        "title": "Web Design",
-                        "text": "Showcase site, shop and chapter (battle pass) info page, all built as one continuum — the same blue glow escalates as you move from lore to loot.",
+                        "title": {
+                            "en": "Web Design",
+                            "fr": "Web design",
+                            "es": "Diseño web",
+                            "de": "Webdesign"
+                        },
+                        "text": {
+                            "en": "Showcase site, shop and chapter (battle pass) info page, all built as one continuum — the same blue glow escalates as you move from lore to loot.",
+                            "fr": "Site vitrine, boutique et page d'infos des chapitres (battle pass), pensés comme un seul continuum : la même lueur bleue monte en intensité à mesure qu'on passe du lore au butin.",
+                            "es": "Web de presentación, tienda y página de información de capítulos (pase de batalla), todo construido como un único continuo: el mismo brillo azul se intensifica a medida que pasas del lore al botín.",
+                            "de": "Showcase-Website, Shop und Infoseite zu den Kapiteln (Battle Pass), gebaut als ein einziges Kontinuum: Dasselbe blaue Leuchten wird stärker, je weiter man von der Lore zur Beute kommt."
+                        },
                         "media": [
                             6
                         ]
@@ -362,25 +589,46 @@
             "https://picsum.photos/seed/laura-herve-x0/1500/1000"
         ],
         "link": "https://lauraherve.com",
-        "description": "A showcase site for the artist, driven by smooth motion and a bold editorial layout that lets the work breathe.",
+        "description": {
+            "en": "A showcase site for the artist, driven by smooth motion and a bold editorial layout that lets the work breathe.",
+            "fr": "Un site vitrine pour l'artiste, porté par des animations fluides et une mise en page éditoriale audacieuse qui laisse respirer les œuvres.",
+            "es": "Una web de presentación para la artista, con animaciones fluidas y una maquetación editorial atrevida que deja respirar la obra.",
+            "de": "Eine Showcase-Website für die Künstlerin, getragen von fließender Bewegung und einem kühnen redaktionellen Layout, das den Werken Raum lässt."
+        },
+        "metaDescription": {
+            "en": "Artist portfolio designed and built by Facile Studio. Typography-focused design with smooth transitions and responsive layouts.",
+            "fr": "Portfolio d'artiste conçu et développé par Facile Studio. Un design centré sur la typographie, avec des transitions fluides et des mises en page responsives.",
+            "es": "Portfolio de artista diseñado y desarrollado por Facile Studio. Un diseño centrado en la tipografía, con transiciones fluidas y maquetaciones adaptables.",
+            "de": "Künstlerportfolio, gestaltet und entwickelt von Facile Studio. Typografiezentriertes Design mit fließenden Übergängen und responsiven Layouts."
+        },
         "techStack": [
             "TS",
             "Svelte",
             "GSAP"
         ],
         "date": "2024",
-        "challenge": "Give a body of work room to breathe on screen without the site ever pulling attention away from it.",
+        "challenge": {
+            "en": "Give a body of work room to breathe on screen without the site ever pulling attention away from it.",
+            "fr": "Laisser respirer une œuvre à l'écran sans que le site ne lui vole jamais la vedette.",
+            "es": "Dar espacio a una obra en pantalla sin que la web le robe nunca el protagonismo.",
+            "de": "Einem Werk auf dem Bildschirm Raum geben, ohne dass die Website ihm je die Aufmerksamkeit stiehlt."
+        },
         "services": [
-            "Art direction",
-            "Web development",
-            "Motion design"
+            "artDirection",
+            "webDevelopment",
+            "motionDesign"
         ],
         "team": [
             "noah",
             "camille"
         ],
         "notes": [
-            "Motion carries the whole editorial rhythm here — nothing moves unless it earns the reader's eye."
+            {
+                "en": "Motion carries the whole editorial rhythm here — nothing moves unless it earns the reader's eye.",
+                "fr": "Ici, le mouvement porte tout le rythme éditorial : rien ne bouge sans mériter le regard du lecteur.",
+                "es": "Aquí el movimiento marca todo el ritmo editorial: nada se mueve si no merece la mirada de quien lee.",
+                "de": "Hier trägt die Bewegung den gesamten redaktionellen Rhythmus: Nichts bewegt sich, ohne sich den Blick des Betrachters zu verdienen."
+            }
         ],
         "story": [
             {
@@ -394,12 +642,27 @@
                 ]
             },
             {
-                "title": "Art direction",
+                "title": {
+                    "en": "Art direction",
+                    "fr": "Direction artistique",
+                    "es": "Dirección de arte",
+                    "de": "Art Direction"
+                },
                 "blocks": [
                     {
                         "type": "note",
-                        "title": "Art direction",
-                        "text": "Motion carries the whole editorial rhythm here — nothing moves unless it earns the reader's eye.",
+                        "title": {
+                            "en": "Art direction",
+                            "fr": "Direction artistique",
+                            "es": "Dirección de arte",
+                            "de": "Art Direction"
+                        },
+                        "text": {
+                            "en": "Motion carries the whole editorial rhythm here — nothing moves unless it earns the reader's eye.",
+                            "fr": "Ici, le mouvement porte tout le rythme éditorial : rien ne bouge sans mériter le regard du lecteur.",
+                            "es": "Aquí el movimiento marca todo el ritmo editorial: nada se mueve si no merece la mirada de quien lee.",
+                            "de": "Hier trägt die Bewegung den gesamten redaktionellen Rhythmus: Nichts bewegt sich, ohne sich den Blick des Betrachters zu verdienen."
+                        },
                         "media": [
                             0
                         ]
@@ -444,7 +707,18 @@
             "https://picsum.photos/seed/hottake-x0/1500/1000"
         ],
         "link": "https://www.instagram.com/p/DL5Fr7dol_5/?img_index=1",
-        "description": "Hottake is a community driven platform to rank your music taste that is under developement. We came up with a straight forward, curated and modern look that would attract any kind of music enjoyer.",
+        "description": {
+            "en": "Hottake is a community-driven platform to rank your music taste that is under development. We came up with a straightforward, curated and modern look that would attract any kind of music enjoyer.",
+            "fr": "Hottake est une plateforme communautaire, encore en développement, pour classer vos goûts musicaux. Nous avons imaginé un look direct, soigné et moderne, fait pour séduire tous les amateurs de musique.",
+            "es": "Hottake es una plataforma comunitaria, aún en desarrollo, para clasificar tus gustos musicales. Creamos un look directo, cuidado y moderno, pensado para atraer a cualquier amante de la música.",
+            "de": "Hottake ist eine Community-Plattform, noch in Entwicklung, auf der Sie Ihren Musikgeschmack ranken. Wir haben einen klaren, kuratierten und modernen Look entwickelt, der jeden Musikfan anspricht."
+        },
+        "metaDescription": {
+            "en": "Hottake is a community-driven music taste ranking platform by Facile Studio, with a curated, modern look built for music enthusiasts. Built with Next.js, React and GSAP.",
+            "fr": "Hottake est une plateforme communautaire de classement des goûts musicaux, signée Facile Studio, au look soigné et moderne pensé pour les passionnés de musique. Développée avec Next.js, React et GSAP.",
+            "es": "Hottake es una plataforma comunitaria para clasificar gustos musicales, de Facile Studio, con un look cuidado y moderno pensado para los amantes de la música. Desarrollada con Next.js, React y GSAP.",
+            "de": "Hottake ist eine Community-Plattform zum Ranken des Musikgeschmacks von Facile Studio, mit kuratiertem, modernem Look für Musikbegeisterte. Entwickelt mit Next.js, React und GSAP."
+        },
         "techStack": [
             "TS",
             "Next.js",
@@ -452,19 +726,34 @@
             "GSAP"
         ],
         "date": "2025",
-        "challenge": "Make ranking your music taste feel curated and modern enough that any listener wants to argue about it publicly.",
+        "challenge": {
+            "en": "Make ranking your music taste feel curated and modern enough that any listener wants to argue about it publicly.",
+            "fr": "Rendre le classement de vos goûts musicaux assez soigné et moderne pour que chaque auditeur ait envie d'en débattre publiquement.",
+            "es": "Que clasificar tus gustos musicales se sienta tan cuidado y moderno que cualquier oyente quiera discutirlo en público.",
+            "de": "Das Ranking des eigenen Musikgeschmacks so kuratiert und modern wirken lassen, dass jeder darüber öffentlich streiten will."
+        },
         "services": [
-            "Product design",
-            "Web development",
-            "Motion design"
+            "productDesign",
+            "webDevelopment",
+            "motionDesign"
         ],
         "team": [
             "noah",
             "mazouz"
         ],
         "notes": [
-            "The ranking interaction had to survive a thousand taps — every state was prototyped before it was styled.",
-            "Type and grain do the branding work, so the interface itself can stay almost invisible."
+            {
+                "en": "The ranking interaction had to survive a thousand taps — every state was prototyped before it was styled.",
+                "fr": "L'interaction de classement devait survivre à mille tapotements : chaque état a été prototypé avant d'être habillé.",
+                "es": "La interacción de ranking tenía que aguantar mil toques: cada estado se prototipó antes de darle estilo.",
+                "de": "Die Ranking-Interaktion musste tausend Taps überstehen: Jeder Zustand wurde als Prototyp gebaut, bevor er gestaltet wurde."
+            },
+            {
+                "en": "Type and grain do the branding work, so the interface itself can stay almost invisible.",
+                "fr": "La typo et le grain font le travail de marque, pour que l'interface elle-même reste presque invisible.",
+                "es": "La tipografía y el grano hacen el trabajo de marca, así la interfaz puede quedar casi invisible.",
+                "de": "Schrift und Körnung übernehmen das Branding, damit die Oberfläche selbst fast unsichtbar bleiben kann."
+            }
         ],
         "story": [
             {
@@ -478,12 +767,27 @@
                 ]
             },
             {
-                "title": "Product design",
+                "title": {
+                    "en": "Product design",
+                    "fr": "Design produit",
+                    "es": "Diseño de producto",
+                    "de": "Produktdesign"
+                },
                 "blocks": [
                     {
                         "type": "note",
-                        "title": "Product design",
-                        "text": "The ranking interaction had to survive a thousand taps — every state was prototyped before it was styled.",
+                        "title": {
+                            "en": "Product design",
+                            "fr": "Design produit",
+                            "es": "Diseño de producto",
+                            "de": "Produktdesign"
+                        },
+                        "text": {
+                            "en": "The ranking interaction had to survive a thousand taps — every state was prototyped before it was styled.",
+                            "fr": "L'interaction de classement devait survivre à mille tapotements : chaque état a été prototypé avant d'être habillé.",
+                            "es": "La interacción de ranking tenía que aguantar mil toques: cada estado se prototipó antes de darle estilo.",
+                            "de": "Die Ranking-Interaktion musste tausend Taps überstehen: Jeder Zustand wurde als Prototyp gebaut, bevor er gestaltet wurde."
+                        },
                         "media": [
                             0
                         ]
@@ -528,7 +832,18 @@
             "https://picsum.photos/seed/evelyne-c/1700/1000"
         ],
         "link": "https://www.evelynecrea.com",
-        "description": "A warm, handcrafted portfolio site that puts the creations centre stage and keeps everything else out of the way.",
+        "description": {
+            "en": "A warm, handcrafted portfolio site that puts the creations centre stage and keeps everything else out of the way.",
+            "fr": "Un portfolio chaleureux et fait main, qui place les créations au premier plan et écarte tout le reste.",
+            "es": "Un portfolio cálido y artesanal que pone las creaciones en primer plano y aparta todo lo demás.",
+            "de": "Eine warme, handgemachte Portfolio-Website, die die Kreationen in den Mittelpunkt stellt und alles andere aus dem Weg räumt."
+        },
+        "metaDescription": {
+            "en": "Portfolio redesign by Facile Studio for a creative professional. Custom visual identity, animations, and organic navigation flow.",
+            "fr": "Refonte de portfolio par Facile Studio pour une professionnelle de la création. Identité visuelle sur mesure, animations et navigation organique.",
+            "es": "Rediseño de portfolio de Facile Studio para una profesional creativa. Identidad visual a medida, animaciones y una navegación orgánica.",
+            "de": "Portfolio-Redesign von Facile Studio für eine Kreativschaffende. Individuelle visuelle Identität, Animationen und ein organischer Navigationsfluss."
+        },
         "techStack": [
             "TS",
             "Next.js",
@@ -536,11 +851,16 @@
             "GSAP"
         ],
         "date": "2024",
-        "challenge": "Put handmade creations centre stage and keep every piece of interface out of their way.",
+        "challenge": {
+            "en": "Put handmade creations centre stage and keep every piece of interface out of their way.",
+            "fr": "Mettre des créations faites main au premier plan et ne laisser aucun élément d'interface leur faire de l'ombre.",
+            "es": "Poner creaciones hechas a mano en primer plano y que ningún elemento de la interfaz se interponga.",
+            "de": "Handgemachte Kreationen in den Mittelpunkt stellen und jedes Stück Oberfläche aus ihrem Weg halten."
+        },
         "services": [
-            "Art direction",
-            "Web development",
-            "Motion design"
+            "artDirection",
+            "webDevelopment",
+            "motionDesign"
         ],
         "team": [
             "noah",
@@ -548,7 +868,12 @@
             "camille"
         ],
         "notes": [
-            "Warmth came from the palette and the pacing, not from decoration — the layout stays almost bare on purpose."
+            {
+                "en": "Warmth came from the palette and the pacing, not from decoration — the layout stays almost bare on purpose.",
+                "fr": "La chaleur vient de la palette et du rythme, pas de la décoration : la mise en page reste volontairement presque nue.",
+                "es": "La calidez viene de la paleta y del ritmo, no de la decoración: la maquetación se queda casi desnuda a propósito.",
+                "de": "Die Wärme kommt von der Palette und dem Tempo, nicht von Dekoration: Das Layout bleibt bewusst fast leer."
+            }
         ],
         "story": [
             {
@@ -562,12 +887,27 @@
                 ]
             },
             {
-                "title": "Art direction",
+                "title": {
+                    "en": "Art direction",
+                    "fr": "Direction artistique",
+                    "es": "Dirección de arte",
+                    "de": "Art Direction"
+                },
                 "blocks": [
                     {
                         "type": "note",
-                        "title": "Art direction",
-                        "text": "Warmth came from the palette and the pacing, not from decoration — the layout stays almost bare on purpose.",
+                        "title": {
+                            "en": "Art direction",
+                            "fr": "Direction artistique",
+                            "es": "Dirección de arte",
+                            "de": "Art Direction"
+                        },
+                        "text": {
+                            "en": "Warmth came from the palette and the pacing, not from decoration — the layout stays almost bare on purpose.",
+                            "fr": "La chaleur vient de la palette et du rythme, pas de la décoration : la mise en page reste volontairement presque nue.",
+                            "es": "La calidez viene de la paleta y del ritmo, no de la decoración: la maquetación se queda casi desnuda a propósito.",
+                            "de": "Die Wärme kommt von der Palette und dem Tempo, nicht von Dekoration: Das Layout bleibt bewusst fast leer."
+                        },
                         "media": [
                             0
                         ]
@@ -604,22 +944,43 @@
         "weeks": 1,
         "image": "/images/projects/Mont-k.webp",
         "link": "https://dribbble.com/shots/26711277-MONT-K-UI-UX-DESIGN",
-        "description": "A UI/UX design exploration — clean, considered, and built to be handed straight to development.",
+        "description": {
+            "en": "A UI/UX design exploration — clean, considered, and built to be handed straight to development.",
+            "fr": "Une exploration UI/UX, épurée, réfléchie et prête à passer directement en développement.",
+            "es": "Una exploración de diseño UI/UX: limpia, pensada y lista para pasar directamente a desarrollo.",
+            "de": "Eine UI/UX-Designstudie: klar, durchdacht und bereit für die direkte Übergabe an die Entwicklung."
+        },
+        "metaDescription": {
+            "en": "Mont-k is a UI/UX design exploration by Facile Studio — a clean, considered interface built to be handed straight to development.",
+            "fr": "Mont-k est une exploration UI/UX de Facile Studio : une interface épurée et réfléchie, prête à passer directement en développement.",
+            "es": "Mont-k es una exploración de diseño UI/UX de Facile Studio: una interfaz limpia y pensada, lista para pasar directamente a desarrollo.",
+            "de": "Mont-k ist eine UI/UX-Designstudie von Facile Studio: eine klare, durchdachte Oberfläche, bereit für die direkte Übergabe an die Entwicklung."
+        },
         "techStack": [
             "Figma"
         ],
         "date": "2025",
-        "challenge": "Design an interface complete enough to be handed straight to development, with no open questions left.",
+        "challenge": {
+            "en": "Design an interface complete enough to be handed straight to development, with no open questions left.",
+            "fr": "Concevoir une interface assez complète pour passer directement en développement, sans aucune question en suspens.",
+            "es": "Diseñar una interfaz tan completa que pase directamente a desarrollo, sin ninguna pregunta abierta.",
+            "de": "Eine Oberfläche so vollständig gestalten, dass sie ohne offene Fragen direkt an die Entwicklung gehen kann."
+        },
         "services": [
-            "UI/UX design",
-            "Design system"
+            "uiUxDesign",
+            "designSystem"
         ],
         "team": [
             "camille",
             "noah"
         ],
         "notes": [
-            "Every component ships with its states, so the handoff is a file, not a conversation."
+            {
+                "en": "Every component ships with its states, so the handoff is a file, not a conversation.",
+                "fr": "Chaque composant est livré avec tous ses états : la passation tient dans un fichier, pas dans une conversation.",
+                "es": "Cada componente se entrega con sus estados, así que el traspaso es un archivo, no una conversación.",
+                "de": "Jede Komponente kommt mit all ihren Zuständen, die Übergabe ist also eine Datei, kein Gespräch."
+            }
         ],
         "gallery": [
             "https://picsum.photos/seed/montk-a/1700/1100",
@@ -640,12 +1001,27 @@
                 ]
             },
             {
-                "title": "UI/UX design",
+                "title": {
+                    "en": "UI/UX design",
+                    "fr": "Design UI/UX",
+                    "es": "Diseño UI/UX",
+                    "de": "UI/UX-Design"
+                },
                 "blocks": [
                     {
                         "type": "note",
-                        "title": "UI/UX design",
-                        "text": "Every component ships with its states, so the handoff is a file, not a conversation.",
+                        "title": {
+                            "en": "UI/UX design",
+                            "fr": "Design UI/UX",
+                            "es": "Diseño UI/UX",
+                            "de": "UI/UX-Design"
+                        },
+                        "text": {
+                            "en": "Every component ships with its states, so the handoff is a file, not a conversation.",
+                            "fr": "Chaque composant est livré avec tous ses états : la passation tient dans un fichier, pas dans une conversation.",
+                            "es": "Cada componente se entrega con sus estados, así que el traspaso es un archivo, no una conversación.",
+                            "de": "Jede Komponente kommt mit all ihren Zuständen, die Übergabe ist also eine Datei, kein Gespräch."
+                        },
                         "media": [
                             0
                         ]
@@ -680,7 +1056,18 @@
         "name": "Waves",
         "weeks": 1,
         "link": "https://github.com/saravenpi/waves",
-        "description": "A native desktop audio visualiser that turns sound into real-time waveforms with an FFT engine at its core.",
+        "description": {
+            "en": "A native desktop audio visualiser that turns sound into real-time waveforms with an FFT engine at its core.",
+            "fr": "Un visualiseur audio natif pour ordinateur, qui transforme le son en formes d'onde en temps réel grâce à un moteur FFT.",
+            "es": "Un visualizador de audio nativo de escritorio que convierte el sonido en ondas en tiempo real, con un motor FFT en su núcleo.",
+            "de": "Ein nativer Desktop-Audiovisualisierer, der Klang in Echtzeit in Wellenformen verwandelt, mit einer FFT-Engine im Kern."
+        },
+        "metaDescription": {
+            "en": "Waves is a cross-platform music player built in Rust by Facile Studio. Real-time FFT audio visualization, Miller Column browser, and vim keybindings.",
+            "fr": "Waves est un lecteur de musique multiplateforme développé en Rust par Facile Studio. Visualisation audio FFT en temps réel, navigateur en colonnes de Miller et raccourcis clavier vim.",
+            "es": "Waves es un reproductor de música multiplataforma desarrollado en Rust por Facile Studio. Visualización de audio FFT en tiempo real, navegador de columnas Miller y atajos de teclado de vim.",
+            "de": "Waves ist ein plattformübergreifender Musikplayer von Facile Studio, entwickelt in Rust. FFT-Audiovisualisierung in Echtzeit, Miller-Columns-Browser und vim-Tastenkürzel."
+        },
         "techStack": [
             "Rust",
             "Tauri",
@@ -689,16 +1076,26 @@
         ],
         "image": "/images/projects/Waves.webp",
         "date": "2025",
-        "challenge": "Render sound as it happens — an FFT engine fast enough that the waveform never lags behind what you hear.",
+        "challenge": {
+            "en": "Render sound as it happens — an FFT engine fast enough that the waveform never lags behind what you hear.",
+            "fr": "Afficher le son à l'instant où il se produit : un moteur FFT assez rapide pour que l'onde ne soit jamais en retard sur ce que vous entendez.",
+            "es": "Mostrar el sonido en el momento en que suena: un motor FFT tan rápido que la onda nunca va por detrás de lo que oyes.",
+            "de": "Klang in dem Moment darstellen, in dem er entsteht: eine FFT-Engine, schnell genug, dass die Wellenform nie hinter dem Gehörten zurückbleibt."
+        },
         "services": [
-            "Product design",
-            "Desktop development"
+            "productDesign",
+            "desktopDevelopment"
         ],
         "team": [
             "yann"
         ],
         "notes": [
-            "Native was the only honest answer: anything running in a browser would have cost the frames the visualiser lives on."
+            {
+                "en": "Native was the only honest answer: anything running in a browser would have cost the frames the visualiser lives on.",
+                "fr": "Le natif était la seule réponse honnête : tout ce qui tourne dans un navigateur aurait coûté les images dont le visualiseur vit.",
+                "es": "Lo nativo era la única respuesta honesta: cualquier cosa en un navegador habría costado los fotogramas de los que vive el visualizador.",
+                "de": "Nativ war die einzig ehrliche Antwort: Alles im Browser hätte genau die Frames gekostet, von denen der Visualisierer lebt."
+            }
         ],
         "gallery": [
             "https://picsum.photos/seed/waves-a/1800/1000",
@@ -719,12 +1116,27 @@
                 ]
             },
             {
-                "title": "Product design",
+                "title": {
+                    "en": "Product design",
+                    "fr": "Design produit",
+                    "es": "Diseño de producto",
+                    "de": "Produktdesign"
+                },
                 "blocks": [
                     {
                         "type": "note",
-                        "title": "Product design",
-                        "text": "Native was the only honest answer: anything running in a browser would have cost the frames the visualiser lives on.",
+                        "title": {
+                            "en": "Product design",
+                            "fr": "Design produit",
+                            "es": "Diseño de producto",
+                            "de": "Produktdesign"
+                        },
+                        "text": {
+                            "en": "Native was the only honest answer: anything running in a browser would have cost the frames the visualiser lives on.",
+                            "fr": "Le natif était la seule réponse honnête : tout ce qui tourne dans un navigateur aurait coûté les images dont le visualiseur vit.",
+                            "es": "Lo nativo era la única respuesta honesta: cualquier cosa en un navegador habría costado los fotogramas de los que vive el visualizador.",
+                            "de": "Nativ war die einzig ehrliche Antwort: Alles im Browser hätte genau die Frames gekostet, von denen der Visualisierer lebt."
+                        },
                         "media": [
                             0
                         ]
@@ -762,23 +1174,44 @@
         "weeks": 8,
         "link": "https://solais.fr/",
         "image": "/images/projects/SolaïsIntra.webp",
-        "description": "An internal tool that streamlines the day-to-day for the Solaïs team, from tracking to reporting.",
+        "description": {
+            "en": "An internal tool that streamlines the day-to-day for the Solaïs team, from tracking to reporting.",
+            "fr": "Un outil interne qui simplifie le quotidien de l'équipe Solaïs, du suivi jusqu'au reporting.",
+            "es": "Una herramienta interna que agiliza el día a día del equipo de Solaïs, del seguimiento a los informes.",
+            "de": "Ein internes Tool, das den Alltag des Solaïs-Teams vereinfacht, vom Tracking bis zum Reporting."
+        },
+        "metaDescription": {
+            "en": "Custom intranet application built by Facile Studio for Solaïs. Vue.js and TypeScript platform for team collaboration and document management.",
+            "fr": "Application intranet sur mesure développée par Facile Studio pour Solaïs. Une plateforme Vue.js et TypeScript pour la collaboration d'équipe et la gestion documentaire.",
+            "es": "Aplicación de intranet a medida desarrollada por Facile Studio para Solaïs. Una plataforma en Vue.js y TypeScript para la colaboración en equipo y la gestión documental.",
+            "de": "Maßgeschneiderte Intranet-Anwendung von Facile Studio für Solaïs. Eine Plattform mit Vue.js und TypeScript für Teamarbeit und Dokumentenverwaltung."
+        },
         "techStack": [
             "TS",
             "Vue.js"
         ],
         "date": "2024",
-        "challenge": "Compress a team's daily tracking and reporting into a tool they open once and never fight.",
+        "challenge": {
+            "en": "Compress a team's daily tracking and reporting into a tool they open once and never fight.",
+            "fr": "Condenser le suivi et le reporting quotidiens d'une équipe dans un outil qu'on ouvre une fois et contre lequel on ne se bat jamais.",
+            "es": "Condensar el seguimiento y los informes diarios de un equipo en una herramienta que se abre una vez y con la que nunca hay que pelearse.",
+            "de": "Tägliches Tracking und Reporting eines Teams in ein Tool packen, das man einmal öffnet und mit dem man nie kämpft."
+        },
         "services": [
-            "Product design",
-            "Web development"
+            "productDesign",
+            "webDevelopment"
         ],
         "team": [
             "yann",
             "mazouz"
         ],
         "notes": [
-            "Internal tools get judged on the tenth use, not the first — density and keyboard flow beat any onboarding screen."
+            {
+                "en": "Internal tools get judged on the tenth use, not the first — density and keyboard flow beat any onboarding screen.",
+                "fr": "Un outil interne se juge à la dixième utilisation, pas à la première : la densité et la fluidité au clavier valent mieux que n'importe quel écran d'accueil.",
+                "es": "Una herramienta interna se juzga en el décimo uso, no en el primero: la densidad y el flujo con teclado ganan a cualquier pantalla de bienvenida.",
+                "de": "Interne Tools werden bei der zehnten Nutzung beurteilt, nicht bei der ersten: Dichte und Tastatur-Flow schlagen jeden Onboarding-Screen."
+            }
         ],
         "gallery": [
             "https://picsum.photos/seed/solais-a/1800/1100",
@@ -799,12 +1232,27 @@
                 ]
             },
             {
-                "title": "Product design",
+                "title": {
+                    "en": "Product design",
+                    "fr": "Design produit",
+                    "es": "Diseño de producto",
+                    "de": "Produktdesign"
+                },
                 "blocks": [
                     {
                         "type": "note",
-                        "title": "Product design",
-                        "text": "Internal tools get judged on the tenth use, not the first — density and keyboard flow beat any onboarding screen.",
+                        "title": {
+                            "en": "Product design",
+                            "fr": "Design produit",
+                            "es": "Diseño de producto",
+                            "de": "Produktdesign"
+                        },
+                        "text": {
+                            "en": "Internal tools get judged on the tenth use, not the first — density and keyboard flow beat any onboarding screen.",
+                            "fr": "Un outil interne se juge à la dixième utilisation, pas à la première : la densité et la fluidité au clavier valent mieux que n'importe quel écran d'accueil.",
+                            "es": "Una herramienta interna se juzga en el décimo uso, no en el primero: la densidad y el flujo con teclado ganan a cualquier pantalla de bienvenida.",
+                            "de": "Interne Tools werden bei der zehnten Nutzung beurteilt, nicht bei der ersten: Dichte und Tastatur-Flow schlagen jeden Onboarding-Screen."
+                        },
                         "media": [
                             0
                         ]
@@ -840,7 +1288,18 @@
         "name": "Muse",
         "weeks": 6,
         "link": "https://github.com/FacileStudio",
-        "description": "The web component library behind the Suite: one set of Svelte components, tokens and motion rules that every studio tool is built from.",
+        "description": {
+            "en": "The web component library behind the Suite: one set of Svelte components, tokens and motion rules that every studio tool is built from.",
+            "fr": "La bibliothèque de composants web derrière la Suite : un seul jeu de composants Svelte, de tokens et de règles d'animation, sur lequel repose chaque outil du studio.",
+            "es": "La librería de componentes web detrás de la Suite: un único conjunto de componentes Svelte, tokens y reglas de movimiento con el que se construye cada herramienta del estudio.",
+            "de": "Die Web-Komponentenbibliothek hinter der Suite: ein einziger Satz aus Svelte-Komponenten, Tokens und Bewegungsregeln, aus dem jedes Tool des Studios gebaut ist."
+        },
+        "metaDescription": {
+            "en": "Muse is the Svelte component library by Facile Studio behind the Facile Suite: shared components, design tokens and motion rules for every tool.",
+            "fr": "Muse est la bibliothèque de composants Svelte de Facile Studio derrière la Facile Suite : composants partagés, design tokens et règles d'animation pour chaque outil.",
+            "es": "Muse es la librería de componentes Svelte de Facile Studio detrás de la Facile Suite: componentes compartidos, design tokens y reglas de movimiento para cada herramienta.",
+            "de": "Muse ist die Svelte-Komponentenbibliothek von Facile Studio hinter der Facile Suite: gemeinsame Komponenten, Design-Tokens und Bewegungsregeln für jedes Tool."
+        },
         "techStack": [
             "Svelte",
             "TypeScript",
@@ -849,10 +1308,15 @@
         ],
         "image": "/images/projects/Muse.webp",
         "date": "2026",
-        "challenge": "Fifteen tools that had to look like one product without fifteen teams re-solving the same button.",
+        "challenge": {
+            "en": "Fifteen tools that had to look like one product without fifteen teams re-solving the same button.",
+            "fr": "Quinze outils qui devaient ressembler à un seul produit, sans quinze équipes pour réinventer le même bouton.",
+            "es": "Quince herramientas que tenían que parecer un solo producto, sin quince equipos resolviendo otra vez el mismo botón.",
+            "de": "Fünfzehn Tools, die wie ein Produkt aussehen sollten, ohne dass fünfzehn Teams denselben Button neu erfinden."
+        },
         "services": [
-            "Design system",
-            "Frontend development"
+            "designSystem",
+            "frontendDevelopment"
         ],
         "team": [
             "yann",
@@ -861,7 +1325,12 @@
             "mazouz"
         ],
         "notes": [
-            "A shared library only pays off if using it is faster than writing the component again, so the API came before the styling."
+            {
+                "en": "A shared library only pays off if using it is faster than writing the component again, so the API came before the styling.",
+                "fr": "Une bibliothèque partagée n'est rentable que si l'utiliser va plus vite que réécrire le composant : l'API est donc passée avant le style.",
+                "es": "Una librería compartida solo compensa si usarla es más rápido que volver a escribir el componente, así que la API fue antes que el estilo.",
+                "de": "Eine gemeinsame Bibliothek lohnt sich nur, wenn sie schneller ist, als die Komponente neu zu schreiben. Deshalb kam die API vor dem Styling."
+            }
         ],
         "gallery": [
             "https://picsum.photos/seed/muse-a/1800/1000",
@@ -880,12 +1349,27 @@
                 ]
             },
             {
-                "title": "Design system",
+                "title": {
+                    "en": "Design system",
+                    "fr": "Design system",
+                    "es": "Sistema de diseño",
+                    "de": "Designsystem"
+                },
                 "blocks": [
                     {
                         "type": "note",
-                        "title": "Design system",
-                        "text": "One set of tokens, one set of components: every tool in the Suite reads from the same source instead of keeping its own copy.",
+                        "title": {
+                            "en": "Design system",
+                            "fr": "Design system",
+                            "es": "Sistema de diseño",
+                            "de": "Designsystem"
+                        },
+                        "text": {
+                            "en": "One set of tokens, one set of components: every tool in the Suite reads from the same source instead of keeping its own copy.",
+                            "fr": "Un seul jeu de tokens, un seul jeu de composants : chaque outil de la Suite puise à la même source au lieu de garder sa propre copie.",
+                            "es": "Un solo conjunto de tokens y de componentes: cada herramienta de la Suite lee de la misma fuente en lugar de guardar su propia copia.",
+                            "de": "Ein Satz Tokens, ein Satz Komponenten: Jedes Tool der Suite liest aus derselben Quelle, statt eine eigene Kopie zu pflegen."
+                        },
                         "media": [
                             0
                         ]

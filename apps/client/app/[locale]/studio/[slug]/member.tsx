@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Link from "@/components/facile/transitionLink";
 import Header from "@/components/facile/header";
 import Menu from "@/components/facile/menu";
@@ -24,11 +24,12 @@ export default function MemberPage() {
     const [tab, setTab] = useState<PanelTab>("details");
     const page = useRef<HTMLDivElement>(null);
     const params = useParams<{ slug: string }>();
-    const locale = useLocale();
     const narrow = useNarrow();
+    const locale = useLocale();
+    const t = useTranslations("studio.member");
 
-    const member = findMember(params.slug);
-    const worked = workedOn(member);
+    const member = findMember(params.slug, locale);
+    const worked = workedOn(member, locale);
 
     useEffect(() => {
         const t = setTimeout(() => setShown(true), 200);
@@ -50,19 +51,18 @@ export default function MemberPage() {
 
                 <TextReveal open={shown} cropClassName="z-10 absolute top-12 left-1/2 -translate-x-1/2" delay={0.05}>
                     <Link
-                        href={`/${locale}/studio`}
+                        href="/studio"
                         className="pointer-events-auto font-goga text-[clamp(0.65rem,1.7vh,1.3rem)] font-medium capitalize tracking-tight transition-colors hover:text-white"
                     >
-                        ← Go back
+                        {t("back")}
                     </Link>
                 </TextReveal>
 
-                <MemberAside member={member} worked={worked} locale={locale} shown={shown} />
+                <MemberAside member={member} worked={worked} shown={shown} />
             </div>
 
             <MemberSummary
                 member={member}
-                locale={locale}
                 shown={shown}
                 onSeeMore={() => { setTab("details"); setPanelOpen(true); }}
             />
@@ -70,7 +70,6 @@ export default function MemberPage() {
             <MemberPanel
                 member={member}
                 worked={worked}
-                locale={locale}
                 open={panelOpen}
                 setOpen={setPanelOpen}
                 tab={tab}

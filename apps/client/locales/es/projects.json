@@ -1,0 +1,12 @@
+{
+    "back": "Volver a proyectos",
+    "endBack": "Volver",
+    "visitSite": "Visitar sitio",
+    "createdWith": "Creado con",
+    "involved": "Involucrados",
+    "thanks": "Gracias por desplazarte.",
+    "scroll": "desplazar",
+    "shelfTitle": ["Una selección cuidadosa de", "nuestros mejores trabajos."],
+    "filterAll": "Todos",
+    "projectCount": "{count, plural, one {proyecto} other {proyectos}}"
+}

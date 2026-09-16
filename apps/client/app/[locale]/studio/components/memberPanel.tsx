@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from "next-intl";
 import Link from "@/components/facile/transitionLink";
 import TextReveal from "@/components/facile/textReveal";
 import SplitLines from "@/components/facile/splitLines";
@@ -13,7 +14,6 @@ import { SocialRows } from "./socialLinks";
 export default function MemberPanel({
     member,
     worked,
-    locale,
     open,
     setOpen,
     tab,
@@ -21,18 +21,19 @@ export default function MemberPanel({
 }: {
     member: Member;
     worked: WorkedProject[];
-    locale: string;
     open: boolean;
     setOpen: (open: boolean) => void;
     tab: PanelTab;
     setTab: (tab: PanelTab) => void;
 }) {
+    const t = useTranslations("studio.panel");
+
     return (
         <InfoModal open={open} setOpen={setOpen} title={member.name} kicker={member.role} note={member.description}>
             {(entered) => (
                 <>
                     <div className="flex flex-wrap gap-1">
-                        {TABS.map(({ id, label }, i) => (
+                        {TABS.map((id, i) => (
                             <button
                                 key={id}
                                 type="button"
@@ -41,7 +42,7 @@ export default function MemberPanel({
                                     tab === id ? "bg-foreground text-background" : "bg-foreground/5 text-foreground/50"
                                 }`}
                             >
-                                <TextReveal as="p" open={entered} delay={0.1 + i * 0.05}>{label}</TextReveal>
+                                <TextReveal as="p" open={entered} delay={0.1 + i * 0.05}>{t(`tabs.${id}`)}</TextReveal>
                             </button>
                         ))}
                     </div>
@@ -66,11 +67,11 @@ export default function MemberPanel({
                                     <>
                                         <li>
                                             <Link
-                                                href={`/${locale}/suite`}
+                                                href="/suite"
                                                 className="subtitle group text-foreground/80 transition-colors hover:text-foreground"
                                             >
                                                 <TextReveal open={entered} delay={0.22} className="flex items-center gap-2">
-                                                    The Suite
+                                                    {t("suite")}
                                                     <Arrow />
                                                 </TextReveal>
                                             </Link>
@@ -83,7 +84,7 @@ export default function MemberPanel({
                                 {worked.map((project, i) => (
                                     <li key={project.slug}>
                                         <Link
-                                            href={`/${locale}/projects/${project.slug}`}
+                                            href={`/projects/${project.slug}`}
                                             className="subtitle group text-foreground/80 transition-colors hover:text-foreground"
                                         >
                                             <TextReveal open={entered} delay={0.28 + i * 0.06} className="flex items-center gap-2">

@@ -1,0 +1,27 @@
+{
+  "title": "UNSERE SUITE",
+  "subtitle": "Produkte, die wir intern entwerfen, bauen und betreiben.",
+  "visit": "Besuchen",
+  "meta": {
+    "title": "Suite",
+    "description": "Die Produkt-Suite von Facile Studio: Opus, Sablier, Capsule, Nuage, Vision und der Rest. {count, plural, one {# Tool} other {# Tools}}, die wir intern entwerfen, bauen und betreiben, verbunden durch Antenne und gestaltet mit Muse."
+  },
+  "shelf": {
+    "apps": "{count, plural, one {app} other {apps}}",
+    "explain": "So funktioniert die Suite",
+    "back": "Zurück zur Suite"
+  },
+  "story": {
+    "eyebrow": "Facile Suite: selbst gehostet, Open Source, integriert",
+    "title": "Wir *vereinfachen*.\nSie *arbeiten*.",
+    "intro": "{count, plural, one {# Tool} other {# Tools}}, die miteinander sprechen, auf Ihrem eigenen Server. Zeit, Projekte, Leads, Signaturen, Rechnungen, Secrets, Logs: ein Login, null Cloud-Abhängigkeit.",
+    "section": "Die Suite",
+    "count": "{count, plural, one {# Tool} other {# Tools}}, eine Suite",
+    "end": "Und alles ist *vernetzt*.",
+    "discover": "Die Suite entdecken",
+    "open": "App öffnen",
+    "rest": "Der Rest der Suite",
+    "appEnd": "Ende von {name}",
+    "oneLogin": "Ein Login. Die ganze Suite."
+  }
+}

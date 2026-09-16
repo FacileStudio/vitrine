@@ -1,6 +1,7 @@
 'use client'
 
 import dynamic from "next/dynamic";
+import { useTranslations } from "next-intl";
 import Link from "@/components/facile/transitionLink";
 import Arrow from "@/components/facile/arrow";
 import { useEffect, useRef, useState } from "react";
@@ -8,8 +9,9 @@ import { run, fade, hideFade } from "@/app/utils/animations";
 import { usePinProgress } from "@/hooks/use-pin-progress";
 import TextReveal from "@/components/facile/textReveal";
 import PersonHead from "@/components/facile/story/head";
-import members from "../studio/studio.json";
+import studio from "../studio/studio.json";
 import { useNarrow } from "@/hooks/use-narrow";
+import { useLocalized } from "@/lib/i18n/localize";
 
 const DitherView = dynamic(() => import("@/webgl/DitherView").then((m) => m.DitherView), { ssr: false });
 
@@ -21,6 +23,9 @@ export default function Hero({ charged }: { charged: boolean }) {
     const [resolved, setResolved] = useState(false);
     const [teamHover, setTeamHover] = useState(false);
     const narrow = useNarrow()
+    const t = useTranslations("home");
+    const tc = useTranslations("common.header");
+    const members = useLocalized(studio);
 
     // let the curtain start lifting before the dither grid resolves
     useEffect(() => {
@@ -97,22 +102,17 @@ export default function Hero({ charged }: { charged: boolean }) {
                         <h2 className="col-start-1 row-start-1 flex flex-col text-end items-end max-w-full text-white/90 gap-2">
                             {/* each line leaves through its own crop rather than the
                                 whole headline sliding as one slab; `leaving` sends it up */}
-                            <TextReveal
-                                open={shown && !teamHover}
-                                leaving={leaving || teamHover}
-                                delay={headlineDelay(0)}
-                                className="flex justify-between items-center gap-6"
-                            >
-                                Une equipe de passionees
-                            </TextReveal>
-                            <TextReveal
-                                open={shown && !teamHover}
-                                leaving={leaving || teamHover}
-                                delay={headlineDelay(1)}
-                                className="flex justify-between items-center gap-6"
-                            >
-                                qui sait ce qu'elle fait.
-                            </TextReveal>
+                            {(t.raw("hero.headline") as string[]).map((line, i) => (
+                                <TextReveal
+                                    key={i}
+                                    open={shown && !teamHover}
+                                    leaving={leaving || teamHover}
+                                    delay={headlineDelay(i)}
+                                    className="flex justify-between items-center gap-6"
+                                >
+                                    {line}
+                                </TextReveal>
+                            ))}
                         </h2>
 
                         {/* the heads draw while the hero is on screen, hidden or not: a
@@ -135,7 +135,7 @@ export default function Hero({ charged }: { charged: boolean }) {
                             [<p className="italic opacity-100 text-[#24E27A] mr-1 lead">fasil</p>]
                         </TextReveal>
                         <TextReveal open={shown} leaving={leaving} delay={1.1} as="p" className="subtext max-w-[35ch] text-[clamp(0.5rem,1.2vh,0.7rem)] text-background/60">
-                            Qui se fait sans effort, qui ne présente aucune difficulté. Simple, aisé, etc&hellip;
+                            {tc("tagline")}
                         </TextReveal>
                     </div>
 
@@ -146,7 +146,7 @@ export default function Hero({ charged }: { charged: boolean }) {
                             className="button button-dark group flex w-fit items-center gap-[1vh] transition-colors duration-200 hover:text-[#24E27A]"
                         >
                             <p>
-                                Voir nos projets
+                                {t("seeProjects")}
                             </p>
                             <Arrow />
                         </Link>
@@ -160,7 +160,7 @@ export default function Hero({ charged }: { charged: boolean }) {
                     <TextReveal open={shown} leaving={leaving} delay={1.4} cropClassName="lg:mr-8">
                         <img
                             src="/Facile.svg"
-                            alt="Facile Logo"
+                            alt={tc("logoAlt")}
                             className="w-auto aspect-auto h-[15vh] invert"
                         />
                     </TextReveal>

@@ -1,0 +1,64 @@
+{
+  "header": {
+    "navigation": "Navigation",
+    "logoAlt": "Facile Studio Logo",
+    "tagline": "Was ohne Mühe gelingt und keinerlei Schwierigkeit bereitet. Einfach, leicht, usw…",
+    "menu": "Menü",
+    "close": "Schließen",
+    "language": "Sprache"
+  },
+  "locales": {
+    "en": "English",
+    "fr": "Français",
+    "es": "Español",
+    "de": "Deutsch"
+  },
+  "nav": {
+    "home": "Start",
+    "projects": "Projekte",
+    "suite": "Suite",
+    "process": "Prozess",
+    "studio": "Studio",
+    "discovery": "Analyse",
+    "design": "Design",
+    "development": "Entwicklung",
+    "launch": "Launch & Betreuung"
+  },
+  "footer": {
+    "hireUs": "Beauftragen Sie uns",
+    "callUs": "Rufen Sie uns an",
+    "buildTogether": "Lassen Sie uns gemeinsam eine Website erstellen.",
+    "madeBy": "_ Erstellt von Facile. Studio @ 2025"
+  },
+  "contactModal": {
+    "title": "Beauftragen Sie uns",
+    "description": "Haben Sie ein Projekt im Sinn oder möchten Sie einfach nur plaudern? Füllen Sie das untenstehende Formular aus und wir werden uns so schnell wie möglich bei Ihnen melden.",
+    "close": "Schließen",
+    "name": "Ihr Name",
+    "email": "Ihre Email",
+    "phone": "Ihre Telefonnummer",
+    "message": "Ihre Nachricht",
+    "namePlaceholder": "Anna Schmidt",
+    "emailPlaceholder": "anna.schmidt@beispiel.de",
+    "phonePlaceholder": "+49 151 23456789",
+    "next": "Weiter",
+    "back": "Zurück",
+    "optional": "Optional",
+    "steps": {
+      "aboutYou": "Über Sie",
+      "contact": "Kontakt",
+      "message": "Ihr Projekt"
+    },
+    "send": "Senden",
+    "sending": "Wird gesendet...",
+    "success": "Nachricht gesendet!",
+    "error": "Serverfehler. Versuchen Sie es später erneut.",
+    "timeout": "Die Anfrage hat zu lange gedauert. Bitte versuchen Sie es erneut.",
+    "missingFields": "Bitte geben Sie Ihren Namen, Ihre E-Mail und Ihre Nachricht an."
+  },
+  "notFound": {
+    "title": "404",
+    "message": "Seite nicht gefunden",
+    "goHome": "Zur Startseite"
+  }
+}

@@ -1,8 +1,9 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import PageCurtain from "@/components/facile/pageTransition";
-import { locales, type Locale } from "@/lib/i18n/locales";
-import { baseMetadata, getOpenGraphLocale, siteUrl } from "@/lib/seo/metadata";
+import { defaultLocale, isLocale, locales } from "@/lib/i18n/locales";
+import { getBaseMetadata, siteUrl } from "@/lib/seo/metadata";
 import ProjectStory from "../components/projectStory";
 import { allProjects, findProject, projectIndex } from "../lib/projects";
 
@@ -38,47 +39,35 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { locale, slug } = await params;
-    const validLocale = locales.includes(locale as Locale) ? locale as Locale : "en";
+    const validLocale = isLocale(locale) ? locale : defaultLocale;
+    const base = await getBaseMetadata(validLocale, `/projects/${slug}`);
     const project = findProject(slug);
     const projectName = project?.name ?? slug;
-    const path = `/${validLocale}/projects/${slug}`;
     const description = projectDescriptions[slug] ?? `${projectName} — a project by Facile Studio.`;
 
-    const languages = Object.fromEntries(
-        locales.map((l) => [l, `/${l}/projects/${slug}`])
-    ) as Record<Locale, string>;
-
     return {
-        ...baseMetadata,
+        ...base,
         title: projectName,
         description,
-        alternates: {
-            canonical: path,
-            languages: {
-                ...languages,
-                "x-default": `/en/projects/${slug}`,
-            },
-        },
         openGraph: {
+            ...base.openGraph,
             type: "article",
             title: `${projectName} | Facile Studio`,
             description,
-            locale: getOpenGraphLocale(validLocale),
-            url: `${siteUrl}${path}`,
             siteName: "Facile Studio",
-            images: baseMetadata.openGraph?.images,
         },
     };
 }
 
 export default async function LocaleProjectStoryPage({ params }: PageProps) {
     const { locale, slug } = await params;
-    const validLocale = locales.includes(locale as Locale) ? locale as Locale : "en";
+    const validLocale = isLocale(locale) ? locale : defaultLocale;
     const project = findProject(slug);
 
     if (!project)
         notFound();
 
+    const t = await getTranslations({ locale: validLocale, namespace: "seo.breadcrumb" });
     const description = projectDescriptions[slug] ?? `${project.name} — a project by Facile Studio.`;
 
     const jsonLd = {
@@ -102,8 +91,8 @@ export default async function LocaleProjectStoryPage({ params }: PageProps) {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/${validLocale}` },
-            { "@type": "ListItem", position: 2, name: "Projects", item: `${siteUrl}/${validLocale}/projects` },
+            { "@type": "ListItem", position: 1, name: t("home"), item: `${siteUrl}/${validLocale}` },
+            { "@type": "ListItem", position: 2, name: t("projects"), item: `${siteUrl}/${validLocale}/projects` },
             { "@type": "ListItem", position: 3, name: project.name, item: `${siteUrl}/${validLocale}/projects/${slug}` },
         ],
     };
@@ -115,7 +104,7 @@ export default async function LocaleProjectStoryPage({ params }: PageProps) {
 
             <PageCurtain enter="dark" leave="dark" />
 
-            <ProjectStory project={project} index={projectIndex(slug)} total={allProjects.length} />
+            <ProjectStory project={project} index={projectIndex(slug)} total={allProjects.length} locale={validLocale} />
         </>
     );
 }

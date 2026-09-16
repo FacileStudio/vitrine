@@ -40,7 +40,7 @@ export default function AppShell({ children }: AppShellProps) {
             { !isHome && <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} /> }
             { !isHome && <Menu menuOpen={menuOpen} setMenuOpen={setMenuOpen} /> }
             {children}
-            <Footer setOpen={setOpen} />
+            <Footer />
             <ContactModal open={open} setOpen={setOpen} />
         </div>
     );

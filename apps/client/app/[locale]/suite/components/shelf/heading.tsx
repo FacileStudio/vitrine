@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from "next-intl";
 import TextReveal from "@/components/facile/textReveal";
 import { ARRIVE } from "@/components/facile/pageTransition";
 
@@ -14,6 +15,7 @@ interface HeadingProps {
 // — every app is the same monorepo, the same stack, the same hands — so the slot
 // holds the one thing worth saying instead: how the whole thing is wired together
 export default function Heading({ eyebrow, lines, count, onExplain }: HeadingProps) {
+    const t = useTranslations("suite.shelf");
     const arrive = ARRIVE / 1000;
 
     return (
@@ -55,7 +57,7 @@ export default function Heading({ eyebrow, lines, count, onExplain }: HeadingPro
                         .
                     </span>
                     <span className="text-foreground">
-                        {count === 1 ? "app" : "apps"}
+                        {t("apps", { count })}
                     </span>
                 </TextReveal>
 
@@ -66,7 +68,7 @@ export default function Heading({ eyebrow, lines, count, onExplain }: HeadingPro
                             onClick={onExplain}
                             className="group flex w-fit shrink-0 items-center gap-3 whitespace-nowrap rounded-md bg-foreground/10 px-[2vh] py-[1vh] text-[clamp(0.65rem,1.4vh,0.9rem)] text-foreground/60 transition-colors duration-300 hover:bg-foreground/10 hover:text-foreground"
                         >
-                            How the suite works
+                            {t("explain")}
                             <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
                         </button>
                     </TextReveal>

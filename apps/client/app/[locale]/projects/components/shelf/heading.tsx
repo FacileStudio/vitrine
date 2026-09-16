@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from "react";
+import { useTranslations } from "next-intl";
 import TextReveal from "@/components/facile/textReveal";
 import SplitLines from "@/components/facile/splitLines";
 import { ARRIVE } from "@/components/facile/pageTransition";
@@ -20,6 +21,7 @@ interface HeadingProps {
 // only appear where the shelf is filterable: the home page shows a fixed handful of
 // projects, so it passes no `onFilter` and gets neither
 export default function Heading({ lines, filter = null, count = 0, onFilter }: HeadingProps) {
+    const t = useTranslations("projects");
     const arrive = ARRIVE / 1000;
     const narrow = useNarrow();
     const title = useRef<HTMLHeadingElement>(null);
@@ -33,7 +35,7 @@ export default function Heading({ lines, filter = null, count = 0, onFilter }: H
     }, [narrow, lines, arrive]);
 
     const entries: { label: string; value: Category | null }[] = [
-        { label: "All", value: null },
+        { label: t("filterAll"), value: null },
         ...categories.map((c) => ({ label: c, value: c })),
     ];
 
@@ -66,7 +68,7 @@ export default function Heading({ lines, filter = null, count = 0, onFilter }: H
                             .
                         </span>
                         <span className="text-white">
-                            {count === 1 ? "project" : "projects"}
+                            {t("projectCount", { count })}
                         </span>
                     </TextReveal>
 

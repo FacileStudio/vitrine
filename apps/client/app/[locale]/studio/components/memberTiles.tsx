@@ -1,8 +1,9 @@
 'use client'
 
 import { memo, useEffect, useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
+import { useRouter } from "@/lib/i18n/navigation";
+import { useLocalized } from "@/lib/i18n/localize";
 import { TransitionOut } from "@/components/facile/pageTransition";
 import DitherReveal from "@/components/facile/ditherReveal";
 import TextReveal from "@/components/facile/textReveal";
@@ -63,7 +64,8 @@ export default function MemberTiles({
     const [hovered, setHovered] = useState<string | null>(null);
     const [coarse, setCoarse] = useState(false);
     const router = useRouter();
-    const locale = useLocale();
+    const t = useTranslations("studio.tiles");
+    const crew = useLocalized(members);
 
     // no cursor means no hover and no parallax: the copy stays up and the heads
     // drift on their own
@@ -79,16 +81,16 @@ export default function MemberTiles({
 
     return (
         <div className={cn("grid h-full w-full grid-cols-2 grid-rows-2 lg:flex", className)}>
-            {members.map((member, i) => (
+            {crew.map((member, i) => (
                 <button
                     key={member.slug}
                     type="button"
-                    onClick={() => TransitionOut({ href: `/${locale}/studio/${member.slug}`, router })}
+                    onClick={() => TransitionOut({ href: `/studio/${member.slug}`, router })}
                     onMouseEnter={() => setHovered(member.slug)}
                     onMouseLeave={() => setHovered((s) => (s === member.slug ? null : s))}
                     onFocus={() => setHovered(member.slug)}
                     onBlur={() => setHovered((s) => (s === member.slug ? null : s))}
-                    aria-label={`Open ${member.name}`}
+                    aria-label={t("open", { name: member.name })}
                     className={cn("group relative h-full w-full cursor-pointer overflow-hidden lg:flex-1", tileClassName)}
                 >
                     <Head

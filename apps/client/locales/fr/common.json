@@ -1,0 +1,64 @@
+{
+  "header": {
+    "navigation": "Navigation",
+    "logoAlt": "Logo Facile Studio",
+    "tagline": "Qui se fait sans effort, qui ne présente aucune difficulté. Simple, aisé, etc…",
+    "menu": "Menu",
+    "close": "Fermer",
+    "language": "Langue"
+  },
+  "locales": {
+    "en": "English",
+    "fr": "Français",
+    "es": "Español",
+    "de": "Deutsch"
+  },
+  "nav": {
+    "home": "Accueil",
+    "projects": "Projets",
+    "suite": "Suite",
+    "process": "Méthode",
+    "studio": "Studio",
+    "discovery": "Découverte",
+    "design": "Design",
+    "development": "Développement",
+    "launch": "Lancement & suivi"
+  },
+  "footer": {
+    "hireUs": "Contactez-nous",
+    "callUs": "Appelez-nous",
+    "buildTogether": "Construisons un site web ensemble.",
+    "madeBy": "_ Créé par Facile. Studio @ 2025"
+  },
+  "contactModal": {
+    "title": "Contactez-nous",
+    "description": "Vous avez un projet en tête ou souhaitez simplement discuter ? Remplissez le formulaire ci-dessous et nous vous contacterons dès que possible.",
+    "close": "Fermer",
+    "name": "Votre nom",
+    "email": "Votre email",
+    "phone": "Votre téléphone",
+    "message": "Votre message",
+    "namePlaceholder": "Marie Dupont",
+    "emailPlaceholder": "marie.dupont@exemple.fr",
+    "phonePlaceholder": "+33 6 12 34 56 78",
+    "next": "Suivant",
+    "back": "Retour",
+    "optional": "Optionnel",
+    "steps": {
+      "aboutYou": "Vous",
+      "contact": "Coordonnées",
+      "message": "Votre projet"
+    },
+    "send": "Envoyer",
+    "sending": "Envoi...",
+    "success": "Message envoyé !",
+    "error": "Erreur du serveur. Réessayez plus tard.",
+    "timeout": "La requête a expiré. Veuillez réessayer.",
+    "missingFields": "Merci de renseigner votre nom, votre email et votre message."
+  },
+  "notFound": {
+    "title": "404",
+    "message": "Page introuvable",
+    "goHome": "Retour à l'accueil"
+  }
+}

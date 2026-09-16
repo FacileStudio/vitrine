@@ -1,13 +1,14 @@
 'use client'
 
 import React from 'react';
-import { useLocale } from 'next-intl';
-import { usePathname, useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import TextReveal from '@/components/facile/textReveal';
 import { TransitionOut } from '@/components/facile/pageTransition';
 import { allProjects } from '@/app/[locale]/projects/lib/projects';
 import { useNarrow } from '@/hooks/use-narrow';
+import { Link, usePathname, useRouter } from '@/lib/i18n/navigation';
 import { cn } from '@/app/utils';
+import type common from '@/locales/en/common.json';
 import { GithubIcon } from '../ui/github';
 import { InstagramIcon } from '../ui/instagram';
 import { DribbbleIcon } from '../ui/dribbble';
@@ -23,42 +24,49 @@ export const CONTACT = {
     ],
 };
 
-export type SubLink = { href: string; label: string; external?: boolean };
-export type NavLink = { href: string; label: string; secondary?: SubLink[] };
+type NavKey = keyof (typeof common)['nav'];
+
+// a link is labelled by a message key, or by its own name when it points at a project
+// or a person, whose names are the same in every language
+type Label = { key: NavKey } | { name: string };
+
+// hrefs are locale-less ("/projects"); anything starting with http leaves the site
+export type SubLink = Label & { href: string };
+export type NavLink = { href: string; key: NavKey; secondary?: SubLink[] };
 const MENU_PROJECTS = allProjects.length;
 
 export const links: NavLink[] = [
-    { href: '/', label: 'Home' },
+    { href: '/', key: 'home' },
     {
         href: '/projects',
-        label: 'Projects',
+        key: 'projects',
         secondary: allProjects.slice(0, MENU_PROJECTS).map((p) => ({
             href: `/projects/${p.slug}`,
-            label: p.name,
+            name: p.name,
         })),
     },
     {
         href: 'https://suite.facile.studio',
-        label: 'Suite',
+        key: 'suite',
     },
     {
         href: '/process',
-        label: 'Process',
+        key: 'process',
         secondary: [
-            { href: '/process#discovery', label: 'Discovery' },
-            { href: '/process#design', label: 'Design' },
-            { href: '/process#development', label: 'Development' },
-            { href: '/process#launch', label: 'Launch & Care' },
+            { href: '/process#discovery', key: 'discovery' },
+            { href: '/process#design', key: 'design' },
+            { href: '/process#development', key: 'development' },
+            { href: '/process#launch', key: 'launch' },
         ],
     },
     {
         href: '/studio',
-        label: 'Studio',
+        key: 'studio',
         secondary: [
-            { href: '/studio/yann', label: 'Yann' },
-            { href: '/studio/noah', label: 'Noah' },
-            { href: '/studio/mazouz', label: 'Mazouz' },
-            { href: '/studio/camille', label: 'Camille' }
+            { href: '/studio/yann', name: 'Yann' },
+            { href: '/studio/noah', name: 'Noah' },
+            { href: '/studio/mazouz', name: 'Mazouz' },
+            { href: '/studio/camille', name: 'Camille' }
         ]
     }
 ];
@@ -72,6 +80,22 @@ const subBase = links.reduce<number[]>(
 
 // the sub-links wait this long after the first link before they start rising
 const SUB_AFTER = 0.45;
+
+const isExternal = (href: string) => href.startsWith('http');
+
+// an outside link opens in a new tab; an inside one keeps its localized href for
+// middle-clicks and crawlers, while a plain click goes through the curtain
+function Anchor({ href, className, go, children }: {
+    href: string;
+    className: string;
+    go: (e: React.MouseEvent, href: string) => void;
+    children: React.ReactNode;
+}) {
+    if (isExternal(href))
+        return <a href={href} target="_blank" rel="noopener noreferrer" className={className}>{children}</a>;
+
+    return <Link href={href} onClick={(e) => go(e, href)} className={className}>{children}</Link>;
+}
 
 /**
  * The site navigation, every link and sub-link rising in its own crop. The menu and the
@@ -92,11 +116,12 @@ export function NavLinks({
     onSamePage?: () => void;
     className?: string;
 }) {
-    const locale = useLocale();
+    const t = useTranslations('common.nav');
     const router = useRouter();
     const narrow = useNarrow();
     const pathname = usePathname();
-    const withLocale = (href: string) => href.startsWith('/') ? `/${locale}${href === '/' ? '' : href}` : href;
+
+    const label = (l: Label) => ('key' in l ? t(l.key) : l.name);
 
     const go = (e: React.MouseEvent, href: string) => {
         e.preventDefault();
@@ -119,31 +144,22 @@ export function NavLinks({
                         duration={0.6}
                         delay={open ? delay + i * 0.08 : 0}
                     >
-                        <a
-                            href={withLocale(link.href)}
-                            onClick={(e) => go(e, withLocale(link.href))}
-                            className="subtitle block text-white transition-colors"
-                        >
-                            {link.label}
-                        </a>
+                        <Anchor href={link.href} go={go} className="subtitle block text-white transition-colors">
+                            {t(link.key)}
+                        </Anchor>
                     </TextReveal>
                     {link.secondary && link.secondary.length > 0 && !narrow && (
                         <ul className="mt-4 flex flex-col items-start gap-1">
                             {link.secondary.map((sub, j) => (
-                                <li key={sub.label}>
+                                <li key={sub.href}>
                                     <TextReveal
                                         open={open}
                                         duration={0.5}
                                         delay={open ? delay + SUB_AFTER + (subBase[i] + j) * 0.035 : 0}
                                     >
-                                        <a
-                                            href={sub.external ? sub.href : withLocale(sub.href)}
-                                            onClick={(e) => { if (!sub.external) go(e, withLocale(sub.href)); }}
-                                            {...(sub.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                                            className="block text-white/45 transition-colors hover:text-white/90"
-                                        >
-                                            <p>{sub.label}</p>
-                                        </a>
+                                        <Anchor href={sub.href} go={go} className="block text-white/45 transition-colors hover:text-white/90">
+                                            <p>{label(sub)}</p>
+                                        </Anchor>
                                     </TextReveal>
                                 </li>
                             ))}

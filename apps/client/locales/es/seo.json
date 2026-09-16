@@ -1,0 +1,24 @@
+{
+  "site": {
+    "title": "Facile Studio - Diseño, branding y desarrollo web",
+    "description": "Facile Studio, estudio digital creativo especializado en diseño y desarrollo web.",
+    "keywords": "diseño, desarrollo web, estudio creativo, agencia digital, UX/UI",
+    "ogAlt": "Facile Studio"
+  },
+  "home": {
+    "title": "Facile Studio - Diseño, branding y desarrollo web",
+    "description": "Facile Studio es una agencia creativa especializada en diseño, branding y desarrollo web. Creamos experiencias digitales que se ven excepcionales y funcionan a la perfección."
+  },
+  "breadcrumb": {
+    "home": "Inicio",
+    "projects": "Proyectos"
+  },
+  "organization": {
+    "leadDeveloper": "Desarrollador principal y cofundador",
+    "designer": "Diseñador UI/Web y cofundador"
+  },
+  "collection": {
+    "name": "Proyectos | Facile Studio",
+    "description": "Una selección de proyectos de Facile Studio: diseño, branding y desarrollo web."
+  }
+}

@@ -2,22 +2,22 @@
 
 import gsap from "gsap";
 import { useRef, useState, useLayoutEffect, type MouseEvent } from "react";
+import { useTranslations } from "next-intl";
+import { useLocalized } from "@/lib/i18n/localize";
 import { usePinProgress } from "@/hooks/use-pin-progress";
 import { EASE, run, slideY, hideRevealY } from "@/app/utils/animations";
 import { ARRIVE } from "@/components/facile/pageTransition";
 import Story from "@/components/facile/story";
-import { allApps, type SuiteApp } from "../../lib/apps";
+import { authoredApps, type SuiteApp } from "../../lib/apps";
 import { appStory } from "../../lib/story";
 import ShelfBackdrop from "@/components/facile/shelfBackdrop";
 import Heading from "./heading";
 import AppCard, { type AppCardRefs } from "./appCard";
 import ArchitectureModal from "../architectureModal";
 
-const DEFAULT_LINES = ["Tools we build for ourselves,", "and run for you."];
-
 interface ShelfProps {
     eyebrow?: string;
-    lines?: string[];
+    lines: string[];
     limit?: number;
     stickyBackdrop?: boolean;
 }
@@ -27,10 +27,13 @@ interface ShelfProps {
 // a row opens its story over the shelf instead of navigating to it
 export default function Shelf({
     eyebrow,
-    lines = DEFAULT_LINES,
+    lines,
     limit,
     stickyBackdrop = false,
-}: ShelfProps = {}) {
+}: ShelfProps) {
+    const tStory = useTranslations("suite.story");
+    const tShelf = useTranslations("suite.shelf");
+    const allApps = useLocalized(authoredApps);
     const sectionRef = useRef<HTMLElement>(null);
 
     const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -167,11 +170,11 @@ export default function Shelf({
             {open ? (
                 <Story
                     key={open.slug}
-                    sections={appStory(open)}
+                    sections={appStory(open, allApps, tStory)}
                     name={open.name}
                     index={visible.indexOf(open)}
                     total={visible.length}
-                    backLabel="Back to the suite"
+                    backLabel={tShelf("back")}
                     onClose={() => setOpen(null)}
                 />
             ) : null}

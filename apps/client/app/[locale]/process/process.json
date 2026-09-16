@@ -1,26 +1,46 @@
 [
     {
         "id": "discovery",
-        "title": "Discovery",
-        "text": "Placeholder copy — replace via the backoffice. We start by understanding your goals, audience and constraints before a single pixel is drawn.",
+        "title": { "en": "Discovery", "fr": "Découverte", "es": "Descubrimiento", "de": "Analyse" },
+        "text": {
+            "en": "Placeholder copy — replace via the backoffice. We start by understanding your goals, audience and constraints before a single pixel is drawn.",
+            "fr": "Texte provisoire, à remplacer depuis le back-office. Nous commençons par comprendre vos objectifs, votre public et vos contraintes avant de dessiner le moindre pixel.",
+            "es": "Texto provisional, reemplázalo desde el backoffice. Empezamos por entender tus objetivos, tu público y tus limitaciones antes de dibujar un solo píxel.",
+            "de": "Platzhaltertext, bitte im Backoffice ersetzen. Wir verstehen zuerst Ihre Ziele, Ihre Zielgruppe und Ihre Rahmenbedingungen, bevor wir auch nur einen Pixel zeichnen."
+        },
         "image": "/images/process/discovery.png"
     },
     {
         "id": "design",
-        "title": "Design",
-        "text": "Placeholder copy — replace via the backoffice. We craft the visual identity and interface, iterating on branding, layout and motion.",
+        "title": { "en": "Design", "fr": "Design", "es": "Diseño", "de": "Design" },
+        "text": {
+            "en": "Placeholder copy — replace via the backoffice. We craft the visual identity and interface, iterating on branding, layout and motion.",
+            "fr": "Texte provisoire, à remplacer depuis le back-office. Nous créons l'identité visuelle et l'interface, en itérant sur la marque, la mise en page et le mouvement.",
+            "es": "Texto provisional, reemplázalo desde el backoffice. Creamos la identidad visual y la interfaz, iterando sobre la marca, la maquetación y el movimiento.",
+            "de": "Platzhaltertext, bitte im Backoffice ersetzen. Wir gestalten visuelle Identität und Interface und feilen dabei an Branding, Layout und Motion."
+        },
         "image": "/images/process/design.png"
     },
     {
         "id": "development",
-        "title": "Development",
-        "text": "Placeholder copy — replace via the backoffice. We build fast, accessible and maintainable products with a design-first engineering approach.",
+        "title": { "en": "Development", "fr": "Développement", "es": "Desarrollo", "de": "Entwicklung" },
+        "text": {
+            "en": "Placeholder copy — replace via the backoffice. We build fast, accessible and maintainable products with a design-first engineering approach.",
+            "fr": "Texte provisoire, à remplacer depuis le back-office. Nous développons des produits rapides, accessibles et maintenables, avec une ingénierie guidée par le design.",
+            "es": "Texto provisional, reemplázalo desde el backoffice. Desarrollamos productos rápidos, accesibles y mantenibles, con una ingeniería guiada por el diseño.",
+            "de": "Platzhaltertext, bitte im Backoffice ersetzen. Wir entwickeln schnelle, barrierefreie und wartbare Produkte mit einem Engineering, das vom Design ausgeht."
+        },
         "image": "/images/process/development.png"
     },
     {
         "id": "launch",
-        "title": "Launch & Care",
-        "text": "Placeholder copy — replace via the backoffice. We ship, host and keep improving — self-hosted, monitored and cared for over time.",
+        "title": { "en": "Launch & Care", "fr": "Lancement & suivi", "es": "Lanzamiento y soporte", "de": "Launch & Betreuung" },
+        "text": {
+            "en": "Placeholder copy — replace via the backoffice. We ship, host and keep improving — self-hosted, monitored and cared for over time.",
+            "fr": "Texte provisoire, à remplacer depuis le back-office. Nous livrons, hébergeons et améliorons sans cesse : auto-hébergé, surveillé et entretenu dans la durée.",
+            "es": "Texto provisional, reemplázalo desde el backoffice. Lanzamos, alojamos y seguimos mejorando: autoalojado, monitorizado y cuidado a lo largo del tiempo.",
+            "de": "Platzhaltertext, bitte im Backoffice ersetzen. Wir liefern aus, hosten und verbessern laufend: selbst gehostet, überwacht und langfristig betreut."
+        },
         "image": "/images/process/launch.png"
     }
 ]

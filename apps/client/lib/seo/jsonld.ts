@@ -1,4 +1,9 @@
-export function getOrganizationJsonLd() {
+import { getTranslations } from "next-intl/server";
+import { locales, type Locale } from "@/lib/i18n/locales";
+
+export async function getOrganizationJsonLd(locale: Locale) {
+    const t = await getTranslations({ locale, namespace: "seo.organization" });
+
     return {
         "@context": "https://schema.org",
         "@type": "Organization",
@@ -19,12 +24,12 @@ export function getOrganizationJsonLd() {
             {
                 "@type": "Person",
                 name: "Yann Thevenin",
-                jobTitle: "Lead Developer & Co-Founder",
+                jobTitle: t("leadDeveloper"),
             },
             {
                 "@type": "Person",
                 name: "Noah Steiniger",
-                jobTitle: "UI/Web Designer & Co-Founder",
+                jobTitle: t("designer"),
             },
         ],
     };
@@ -36,7 +41,7 @@ export function getWebSiteJsonLd() {
         "@type": "WebSite",
         name: "Facile Studio",
         url: "https://facile.studio",
-        inLanguage: ["en", "fr", "de", "es"],
+        inLanguage: [...locales],
     };
 }
 
@@ -79,13 +84,14 @@ export function getCaseStudyJsonLd(project: {
     };
 }
 
-export function getCollectionPageJsonLd(locale: string) {
+export async function getCollectionPageJsonLd(locale: Locale) {
+    const t = await getTranslations({ locale, namespace: "seo.collection" });
+
     return {
         "@context": "https://schema.org",
         "@type": "CollectionPage",
-        name: "Projects | Facile Studio",
-        description:
-            "A selection of projects by Facile Studio — design, branding, and web development.",
+        name: t("name"),
+        description: t("description"),
         url: `https://facile.studio/${locale}/projects`,
         inLanguage: locale,
         isPartOf: {

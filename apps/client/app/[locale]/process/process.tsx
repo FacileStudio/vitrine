@@ -8,11 +8,12 @@ import Menu from "@/components/facile/menu";
 import Stripes from "@/components/facile/stripes";
 import TextReveal from "@/components/facile/textReveal";
 import { usePinProgress } from "@/hooks/use-pin-progress";
-import steps from "./process.json";
+import { useLocalized, type Resolved } from "@/lib/i18n/localize";
+import authored from "./process.json";
 
 const DitherView = dynamic(() => import("@/webgl/DitherView").then((m) => m.DitherView), { ssr: false });
 
-type Step = (typeof steps)[number];
+type Step = Resolved<(typeof authored)[number]>;
 
 // One process step = a pinned scroll section mirroring the landing page: a dither
 // backdrop revealed by scroll-driven Stripes, with text + image that slide in
@@ -80,6 +81,7 @@ function ProcessSection({ step, index }: { step: Step; index: number }) {
 
 export default function ProcessPage() {
     const [menuOpen, setMenuOpen] = useState(false);
+    const steps = useLocalized(authored);
 
     return (
         <div className="relative">

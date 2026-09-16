@@ -7,6 +7,7 @@ import LightPillar from "@/components/LightPillar";
 import Arrow from "@/components/facile/arrow";
 import { MarcelEyes, MarcelSpheres, useMarcelEyes } from "@/components/facile/marcelEyes";
 import { isVideoFile } from "@/app/utils";
+import { useLocalized } from "@/lib/i18n/localize";
 import type { Project } from "../../lib/projects";
 
 const mediaClass = "pointer-events-none absolute top-1/2 left-1/2 w-4/5 -translate-x-1/2 -translate-y-1/2 rounded-md object-cover will-change-[clip-path] [clip-path:inset(100%_0_0_0)]";
@@ -36,6 +37,7 @@ interface ShelfCardProps {
 // stops the click from bubbling, so it can go its own way to the external site
 export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLeave }: ShelfCardProps) {
     const { frame, eyes, spheres, start, stop } = useMarcelEyes();
+    const description = useLocalized(project.description);
     const marcel = project.coverEffect === "marcel";
     const projetZero = project.coverEffect === "projet-zero-pillar";
 
@@ -107,10 +109,10 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
                         {project.name}
                     </TextReveal>
 
-                    {project.description && (
+                    {description && (
                         <SplitLines
                             as="p"
-                            text={project.description}
+                            text={description}
                             justify
                             className="description relative z-10 text-white/75"
                         />

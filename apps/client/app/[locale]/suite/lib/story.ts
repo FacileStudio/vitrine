@@ -1,5 +1,9 @@
+import type { useTranslations } from "next-intl";
 import { buildStory, type Chapter, type StoryBlock, type StorySection, type Tile } from "@/components/facile/story/types";
-import { allApps, type SuiteApp } from "./apps";
+import type { SuiteApp } from "./apps";
+
+/** The `suite.story` translator, handed in by the component that builds the story. */
+export type StoryCopy = ReturnType<typeof useTranslations<"suite.story">>;
 
 // the suite's own marks live in public/icons, each named after the iconify id it
 // stands in for. An app whose file hasn't landed yet keeps the iconify one
@@ -31,7 +35,7 @@ const chunk = (apps: SuiteApp[]): StoryBlock[] =>
 
 // one app's story: what it is, then the company it keeps. An app can author a
 // full story in suite.json the same way a project does — this is the fallback
-export function appStory(app: SuiteApp): Chapter[] {
+export function appStory(app: SuiteApp, apps: SuiteApp[], t: StoryCopy): Chapter[] {
     const sections: StorySection[] = app.story?.length ? app.story : [
         {
             blocks: [{
@@ -40,15 +44,15 @@ export function appStory(app: SuiteApp): Chapter[] {
                 title: app.name,
                 text: app.description,
                 link: app.link,
-                linkLabel: "Ouvrir l'app",
+                linkLabel: t("open"),
             }],
         },
         {
-            title: "Le reste de la suite",
-            blocks: chunk(allApps.filter((a) => a.slug !== app.slug).slice(0, 6)),
+            title: t("rest"),
+            blocks: chunk(apps.filter((a) => a.slug !== app.slug).slice(0, 6)),
         },
         {
-            blocks: [{ type: "end", eyebrow: `Fin de ${app.name}`, title: "Un seul login. Toute la suite.", link: app.link, linkLabel: "Ouvrir l'app" }],
+            blocks: [{ type: "end", eyebrow: t("appEnd", { name: app.name }), title: t("oneLogin"), link: app.link, linkLabel: t("open") }],
         },
     ];
 
@@ -56,24 +60,24 @@ export function appStory(app: SuiteApp): Chapter[] {
 }
 
 // the whole suite as one story — the home page reads it as a pinned band
-export function suiteStory(locale: string): Chapter[] {
+export function suiteStory(apps: SuiteApp[], t: StoryCopy): Chapter[] {
     return buildStory([
         {
             blocks: [{
                 type: "intro",
-                eyebrow: "Facile Suite — auto-hébergé, open source, intégré",
-                title: "On *simplifie*.\nVous *bossez*.",
-                text: `${allApps.length} outils qui se parlent, sur votre serveur. Temps, projets, leads, signatures, factures, secrets, logs — un seul login, zéro dépendance cloud.`,
+                eyebrow: t("eyebrow"),
+                title: t("title"),
+                text: t("intro", { count: apps.length }),
             }],
         },
-        { title: "La suite", blocks: chunk(allApps) },
+        { title: t("section"), blocks: chunk(apps) },
         {
             blocks: [{
                 type: "end",
-                eyebrow: `${allApps.length} outils, une suite`,
-                title: "Et tout *communique*.",
-                link: `/${locale}/suite`,
-                linkLabel: "Découvrir la suite",
+                eyebrow: t("count", { count: apps.length }),
+                title: t("end"),
+                link: "/suite",
+                linkLabel: t("discover"),
             }],
         },
     ]);

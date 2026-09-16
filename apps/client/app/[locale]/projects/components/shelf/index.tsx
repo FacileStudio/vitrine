@@ -2,8 +2,8 @@
 
 import gsap from "gsap";
 import { useRef, useState, useLayoutEffect, type MouseEvent } from "react";
-import { useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
+import { useRouter } from "@/lib/i18n/navigation";
 import { usePinProgress } from "@/hooks/use-pin-progress";
 import { EASE, run, slideY, hideRevealY } from "@/app/utils/animations";
 import { ARRIVE, TransitionOut } from "@/components/facile/pageTransition";
@@ -12,8 +12,6 @@ import ShelfBackdrop from "@/components/facile/shelfBackdrop";
 import Stripes from "@/components/facile/stripes";
 import Heading from "./heading";
 import ShelfCard, { type ShelfCardRefs } from "./shelfCard";
-
-const DEFAULT_LINES = ["A curated selection of", "our latest and best work."];
 
 interface ShelfProps {
     lines?: string[];
@@ -28,11 +26,13 @@ interface ShelfProps {
 // so a story is a place you can link to, bookmark and land on cold — not a state
 // this component holds
 export default function Shelf({
-    lines = DEFAULT_LINES,
+    lines,
     limit,
     filterable = true,
     stickyBackdrop = false,
 }: ShelfProps = {}) {
+    const t = useTranslations("projects");
+    const heading = lines ?? (t.raw("shelfTitle") as string[]);
     const sectionRef = useRef<HTMLElement>(null);
     // read by the leaving covers, which are driven by scroll rather than by state so
     // the shelf does not re-render on every frame of it
@@ -46,7 +46,6 @@ export default function Shelf({
     const [filter, setFilter] = useState<Category | null>(null);
 
     const router = useRouter();
-    const locale = useLocale();
 
     const pool = projectsIn(filter);
     const visible = limit ? pool.slice(0, limit) : pool;
@@ -167,7 +166,7 @@ export default function Shelf({
     // the story is a route of its own, so the curtain covers the shelf, the push
     // happens underneath it and the arriving page lifts it — the same wave the
     // Menu drops, and nothing has to be flown from the card into the story
-    const open = (slug: string) => TransitionOut({ href: `/${locale}/projects/${slug}`, router });
+    const open = (slug: string) => TransitionOut({ href: `/projects/${slug}`, router });
 
 
     return (
@@ -185,7 +184,7 @@ export default function Shelf({
                 of the viewport they are supposed to hold */}
             <div className="w-full h-full pt-[10vh] lg:pt-[20vh] pb-[120vh] flex flex-col gap-1 justify-start items-center px-3 lg:px-6">
                 <Heading
-                    lines={lines}
+                    lines={heading}
                     filter={filter}
                     count={visible.length}
                     onFilter={filterable ? applyFilter : undefined}

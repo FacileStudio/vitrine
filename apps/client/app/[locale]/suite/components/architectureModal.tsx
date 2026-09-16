@@ -2,7 +2,8 @@
 
 import InfoModal from "@/components/facile/infoModal";
 import TextReveal from "@/components/facile/textReveal";
-import architecture from "../architecture.json";
+import { useLocalized } from "@/lib/i18n/localize";
+import authored from "../architecture.json";
 
 type ArchitectureModalProps = {
     open: boolean;
@@ -13,6 +14,8 @@ type ArchitectureModalProps = {
 // explaining what the suite actually is under the fifteen names. Narrow on
 // purpose — the measure is the point, the reading is the interaction
 export default function ArchitectureModal({ open, setOpen }: ArchitectureModalProps) {
+    const architecture = useLocalized(authored);
+
     return (
         <InfoModal open={open} setOpen={setOpen} title={architecture.title}>
             {(entered) => (

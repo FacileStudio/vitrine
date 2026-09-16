@@ -1,6 +1,7 @@
 'use client'
 import React from "react";
 import { useTranslations } from 'next-intl';
+import LocaleSwitcher from "./localeSwitcher";
 
 type MobileHeaderProps = {
     menuOpen: boolean;
@@ -13,7 +14,8 @@ export const MobileHeader = ({ menuOpen, setMenuOpen }: MobileHeaderProps) => {
     return (
         // fixed like the desktop bar: the home page scrolls the window, and the menu can only close from here
         <div className={"fixed top-0 right-0 flex flex-col items-end justify-end lg:hidden"}>
-            <div className={"p-6 pr-10 bg-foreground rounded-bl-4xl"}>
+            <div className={"flex items-center gap-6 p-6 pr-10 bg-foreground rounded-bl-4xl"}>
+                <LocaleSwitcher className="text-white" />
                 <button
                     className="cursor-pointer"
                     aria-expanded={menuOpen}

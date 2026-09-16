@@ -1,6 +1,7 @@
 'use client'
 
 import type { Ref } from "react";
+import { useTranslations } from "next-intl";
 
 interface ChromeProps {
     name: string;
@@ -15,6 +16,8 @@ interface ChromeProps {
 // story's name and how far the band has travelled. Every piece is tagged
 // data-chrome so the open timeline can slide the whole set in as one stagger
 export default function Chrome({ name, index, total, backLabel, barRef, onBack }: ChromeProps) {
+    const t = useTranslations("projects");
+
     return (
         <div className="pointer-events-none absolute inset-0 flex flex-col justify-between p-6 md:p-10">
             <div className="flex items-start justify-between gap-8">
@@ -45,7 +48,7 @@ export default function Chrome({ name, index, total, backLabel, barRef, onBack }
 
                 <span className="block overflow-hidden">
                     <span data-chrome className="flex items-center gap-4">
-                        <p className="text-xs tracking-widest text-white/40">scroll</p>
+                        <p className="text-xs tracking-widest text-white/40">{t("scroll")}</p>
                         <span className="relative h-px w-32 bg-white/20 md:w-48">
                             <span ref={barRef} className="absolute inset-0 origin-left scale-x-0 bg-[#24E27A]" />
                         </span>

@@ -1,7 +1,8 @@
 import Portfolio from "./components/portfolio";
 import { Metadata } from "next";
-import { locales, type Locale } from "@/lib/i18n/locales";
-import { baseMetadata, getAlternates, getOpenGraphLocale, getLocalizedPath, siteUrl } from "@/lib/seo/metadata";
+import { getTranslations } from "next-intl/server";
+import { defaultLocale, isLocale } from "@/lib/i18n/locales";
+import { getBaseMetadata } from "@/lib/seo/metadata";
 
 type PageProps = {
     params: Promise<{ locale: string }>;
@@ -9,21 +10,19 @@ type PageProps = {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { locale } = await params;
-    const validLocale = locales.includes(locale as Locale) ? locale as Locale : "en";
-
-    const description = "Explore our portfolio of design, branding, and web development projects. From encrypted sharing tools to wellness apps — each project tells a story.";
+    const validLocale = isLocale(locale) ? locale : defaultLocale;
+    const base = await getBaseMetadata(validLocale, "/projects");
+    const t = await getTranslations({ locale: validLocale, namespace: "seo.collection" });
+    const description = t("description");
 
     return {
-        ...baseMetadata,
-        title: "Projets",
+        ...base,
+        title: { absolute: t("name") },
         description,
-        alternates: getAlternates("/projects", validLocale),
         openGraph: {
-            ...baseMetadata.openGraph,
-            title: "Projets | Facile Studio",
+            ...base.openGraph,
+            title: t("name"),
             description,
-            locale: getOpenGraphLocale(validLocale),
-            url: `${siteUrl}${getLocalizedPath(validLocale, "/projects")}`,
         },
     };
 }

@@ -1,7 +1,8 @@
 import StudioPage from "./studio";
 import { Metadata } from "next";
-import { locales, type Locale } from "@/lib/i18n/locales";
-import { baseMetadata, getAlternates, getOpenGraphLocale, getLocalizedPath, siteUrl } from "@/lib/seo/metadata";
+import { getTranslations } from "next-intl/server";
+import { defaultLocale, isLocale } from "@/lib/i18n/locales";
+import { getBaseMetadata } from "@/lib/seo/metadata";
 
 type PageProps = {
     params: Promise<{ locale: string }>;
@@ -9,21 +10,19 @@ type PageProps = {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { locale } = await params;
-    const validLocale = locales.includes(locale as Locale) ? locale as Locale : "en";
-
-    const description = "Meet the team behind Facile Studio. We specialize in design, branding, UI/UX, and web application development with a design-first, ecological approach.";
+    const validLocale = isLocale(locale) ? locale : defaultLocale;
+    const base = await getBaseMetadata(validLocale, "/studio");
+    const t = await getTranslations({ locale: validLocale, namespace: "studio.meta" });
+    const description = t("description");
 
     return {
-        ...baseMetadata,
-        title: "Studio",
+        ...base,
+        title: t("title"),
         description,
-        alternates: getAlternates("/studio", validLocale),
         openGraph: {
-            ...baseMetadata.openGraph,
-            title: "Studio | Facile Studio",
+            ...base.openGraph,
+            title: t("ogTitle"),
             description,
-            locale: getOpenGraphLocale(validLocale),
-            url: `${siteUrl}${getLocalizedPath(validLocale, "/studio")}`,
         },
     };
 }

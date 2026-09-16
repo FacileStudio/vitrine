@@ -36,7 +36,7 @@ export default function ContactModal({ open, setOpen }: ContactModalProps) {
             key: 'name',
             title: t('steps.aboutYou'),
             label: t('name'),
-            placeholder: 'Jane Doe',
+            placeholder: t('namePlaceholder'),
             type: 'text',
             optional: false,
         },
@@ -44,7 +44,7 @@ export default function ContactModal({ open, setOpen }: ContactModalProps) {
             key: 'email',
             title: t('steps.contact'),
             label: t('email'),
-            placeholder: 'jane.doe@example.com',
+            placeholder: t('emailPlaceholder'),
             type: 'email',
             optional: false,
         },
@@ -52,7 +52,7 @@ export default function ContactModal({ open, setOpen }: ContactModalProps) {
             key: 'phone',
             title: t('steps.contact'),
             label: t('phone'),
-            placeholder: '+33 6 12 34 56 78',
+            placeholder: t('phonePlaceholder'),
             type: 'tel',
             optional: true,
         },
@@ -139,10 +139,12 @@ export default function ContactModal({ open, setOpen }: ContactModalProps) {
 
             window.clearTimeout(timeoutId);
 
-            const data = await res.json();
-
+            // the server's own message is English and sometimes an SMTP error: log it for
+            // whoever is debugging, and show the visitor a translated one
             if (!res.ok) {
-                setError(data.error || t('error'));
+                const data = await res.json().catch(() => ({}));
+                console.error("Contact form failed:", data.error ?? res.status);
+                setError(res.status === 400 ? t('missingFields') : t('error'));
                 return;
             }
 
@@ -151,7 +153,7 @@ export default function ContactModal({ open, setOpen }: ContactModalProps) {
             window.setTimeout(() => setOpen(false), 900);
         } catch (err) {
             if (err instanceof DOMException && err.name === "AbortError") {
-                setError("Request timed out. Please try again.");
+                setError(t('timeout'));
             } else {
                 setError(t('error'));
             }

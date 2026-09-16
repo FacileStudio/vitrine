@@ -1,7 +1,8 @@
 import ProcessPage from "./process";
 import { Metadata } from "next";
-import { locales, type Locale } from "@/lib/i18n/locales";
-import { baseMetadata, getAlternates, getOpenGraphLocale, getLocalizedPath, siteUrl } from "@/lib/seo/metadata";
+import { getTranslations } from "next-intl/server";
+import { defaultLocale, isLocale } from "@/lib/i18n/locales";
+import { getBaseMetadata } from "@/lib/seo/metadata";
 
 type PageProps = {
     params: Promise<{ locale: string }>;
@@ -9,21 +10,21 @@ type PageProps = {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { locale } = await params;
-    const validLocale = locales.includes(locale as Locale) ? (locale as Locale) : "en";
+    const validLocale = isLocale(locale) ? locale : defaultLocale;
+    const base = await getBaseMetadata(validLocale, "/process");
+    const t = await getTranslations({ locale: validLocale, namespace: "process.meta" });
 
-    const description = "How Facile Studio works — our process from discovery to launch, step by step.";
+    const title = t("title");
+    const description = t("description");
 
     return {
-        ...baseMetadata,
-        title: "Process",
+        ...base,
+        title,
         description,
-        alternates: getAlternates("/process", validLocale),
         openGraph: {
-            ...baseMetadata.openGraph,
-            title: "Process | Facile Studio",
+            ...base.openGraph,
+            title: `${title} | Facile Studio`,
             description,
-            locale: getOpenGraphLocale(validLocale),
-            url: `${siteUrl}${getLocalizedPath(validLocale, "/process")}`,
         },
     };
 }
