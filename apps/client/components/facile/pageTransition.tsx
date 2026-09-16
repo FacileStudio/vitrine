@@ -102,13 +102,16 @@ export const TransitionOut = ({ href, router }: { href: string; router: { push: 
 
 
 // the leaving/arriving colours are the page's own call: a dark page is uncovered
-// by a dark curtain, a white one (Suite) by a white one
-export default function PageCurtain({ enter = "dark", leave = "dark" }: { enter?: Tone; leave?: Tone }) {
+// by a dark curtain, a white one (Suite) by a white one. `arrive={false}` is for a page
+// with its own loader (home's Rideau): no reveal on mount, the curtain only covers on leave
+export default function PageCurtain({ enter = "dark", leave = "dark", arrive = true }: { enter?: Tone; leave?: Tone; arrive?: boolean }) {
     const router = useRouter();
     // the arriving page starts covered and stays covered until its canvases have
     // their models: sweeping off a page whose 3D is still downloading shows an
     // empty grid, then pops the heads in behind it
-    const [covered, setCovered] = useState(true);
+    const [covered, setCovered] = useState(arrive);
+    // Stripes play a reveal even when mounted uncovered, so it stays invisible until first used
+    const [shown, setShown] = useState(arrive);
     const [tone, setTone] = useState<Tone>(enter);
     const busy = useRef(false);
     const ready = useScenesReady();
@@ -124,6 +127,7 @@ export default function PageCurtain({ enter = "dark", leave = "dark" }: { enter?
                 return;
 
             busy.current = true;
+            setShown(true);
             setTone(leave);
             setCovered(true);
 
@@ -140,6 +144,7 @@ export default function PageCurtain({ enter = "dark", leave = "dark" }: { enter?
                 return;
 
             busy.current = true;
+            setShown(true);
             setTone(leave);
             setCovered(true);
             window.setTimeout(() => router.push(href), CURTAIN_MS);
@@ -148,5 +153,9 @@ export default function PageCurtain({ enter = "dark", leave = "dark" }: { enter?
         return () => { sweeper = null; leaver = null; };
     }, [router, enter, leave]);
 
-    return <Curtain covered={covered} tone={tone} />;
+    return (
+        <div style={{ visibility: shown ? "visible" : "hidden" }}>
+            <Curtain covered={covered} tone={tone} />
+        </div>
+    );
 }

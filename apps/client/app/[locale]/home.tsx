@@ -32,7 +32,7 @@ export default function Home() {
         <div className="relative">
             <Rideau setCharged={setCharged} />
             <Menu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-            <PageCurtain enter="dark" leave="dark" />
+            <PageCurtain enter="dark" leave="dark" arrive={false} />
 
             <ReactLenis ref={lenisRef} root options={{ lerp: 0.1, smoothWheel: true }} />
 
