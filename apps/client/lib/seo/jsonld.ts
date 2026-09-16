@@ -9,7 +9,7 @@ export async function getOrganizationJsonLd(locale: Locale) {
         "@type": "Organization",
         name: "Facile Studio",
         url: "https://facile.studio",
-        logo: "https://facile.studio/icons/F..svg",
+        logo: "https://facile.studio/F.svg",
         sameAs: [
             "https://github.com/FacileStudio",
             "https://www.dribbble.com/webbygian",
@@ -81,23 +81,5 @@ export function getCaseStudyJsonLd(project: {
         ...(project.techStack && {
             keywords: project.techStack.join(", "),
         }),
-    };
-}
-
-export async function getCollectionPageJsonLd(locale: Locale) {
-    const t = await getTranslations({ locale, namespace: "seo.collection" });
-
-    return {
-        "@context": "https://schema.org",
-        "@type": "CollectionPage",
-        name: t("name"),
-        description: t("description"),
-        url: `https://facile.studio/${locale}/projects`,
-        inLanguage: locale,
-        isPartOf: {
-            "@type": "WebSite",
-            name: "Facile Studio",
-            url: "https://facile.studio",
-        },
     };
 }

@@ -1,7 +1,7 @@
 'use client'
 
 import DitherReveal from "@/components/facile/ditherReveal";
-import type { Member } from "./memberData";
+import type { Member } from "@/lib/content/studio";
 
 // the dithered head, filling the viewport behind the copy. A phone gets a smaller
 // model, a coarser grid and the head sat higher, where the copy is not

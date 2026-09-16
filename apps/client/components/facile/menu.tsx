@@ -1,10 +1,9 @@
 'use client'
 
 import React from 'react';
-import dynamic from 'next/dynamic';
 import { ContactLinks, NavLinks } from '@/components/facile/navLinks';
-
-const DitherView = dynamic(() => import("@/webgl/DitherView").then((m) => m.DitherView), { ssr: false });
+import { useAfter } from '@/hooks/use-after';
+import { DitherView } from '@/webgl/lazy';
 
 const COUNT = 4;
 const coverEase = 'cubic-bezier(0.7, 0, 0.3, 1)';
@@ -33,30 +32,30 @@ const Stripes = (open: boolean, color: string, leadOpen: number, leadClose: numb
 
 
     
-export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
+const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
     const OPEN_AT = { link: 0.55, contact: 1.3 };
     const [mountDither, setMountDither] = React.useState(false);
-    const [resolved, setResolved] = React.useState(false);
+    const resolved = useAfter(menuOpen, COVERED_MS + 600);
     const [stage, setStage] = React.useState<'off' | 'ready' | 'shown'>('off');
+
+    if (menuOpen && !mountDither) setMountDither(true);
+    if (!menuOpen && stage === 'shown') setStage('ready');
 
     React.useEffect(() => {
         if (menuOpen) {
-            setMountDither(true);
-            const t = setTimeout(() => setResolved(true), COVERED_MS + 600);
             const ready = setTimeout(() => setStage('ready'), COVERED_MS);
             const shown = setTimeout(() => setStage('shown'), COVERED_MS + 60);
             return () => {
-                clearTimeout(t);
                 clearTimeout(ready);
                 clearTimeout(shown);
             };
         }
-        setResolved(false);
-        setStage((s) => (s === 'off' ? 'off' : 'ready'));
 
-        const off = setTimeout(() => setStage('off'), (exitDelay + 0.6) * 1000);
-        const t = setTimeout(() => setMountDither(false), (exitDelay + 0.6) * 1000);
-        return () => { clearTimeout(off); clearTimeout(t); };
+        const off = setTimeout(() => {
+            setStage('off');
+            setMountDither(false);
+        }, (exitDelay + 0.6) * 1000);
+        return () => clearTimeout(off);
     }, [menuOpen]);
 
     return (
@@ -82,11 +81,7 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
                         gridSize={resolved ? 2 : 16}
                         position={[-1.5, -0.5, -0.5]}
                         rotation={[0, 0.35, 0]}
-                        grayscaleOnly={false}
-                        background={null}
-                        highlight="#24E27A"
                         parallax={0.55}
-                        intensity={1.8}
                         float={false}
                         scale={45}
                         fov={50}
@@ -101,7 +96,7 @@ export const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen
                 className="absolute -translate-y-1/2 top-1/3 right-0 pr-20 z-50 justify-end"
             />
 
-            <ContactLinks open={menuOpen} delay={OPEN_AT.contact} className="absolute bottom-12 right-20 z-50" />
+            <ContactLinks open={menuOpen} delay={OPEN_AT.contact} className="absolute bottom-12 right-20 z-50 hidden md:flex" />
         </div>
     );
 }

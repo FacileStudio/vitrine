@@ -2,6 +2,7 @@
 
 import type { Ref } from "react";
 import { useTranslations } from "next-intl";
+import { pad2 } from "@/lib/utils";
 
 interface ChromeProps {
     name: string;
@@ -16,7 +17,7 @@ interface ChromeProps {
 // story's name and how far the band has travelled. Every piece is tagged
 // data-chrome so the open timeline can slide the whole set in as one stagger
 export default function Chrome({ name, index, total, backLabel, barRef, onBack }: ChromeProps) {
-    const t = useTranslations("projects");
+    const t = useTranslations("story");
 
     return (
         <div className="pointer-events-none absolute inset-0 flex flex-col justify-between p-6 md:p-10">
@@ -34,7 +35,7 @@ export default function Chrome({ name, index, total, backLabel, barRef, onBack }
 
                 <span className="block overflow-hidden">
                     <p data-chrome className="block tabular-nums text-white/40">
-                        {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+                        {pad2(index + 1)} / {pad2(total)}
                     </p>
                 </span>
             </div>
@@ -50,7 +51,7 @@ export default function Chrome({ name, index, total, backLabel, barRef, onBack }
                     <span data-chrome className="flex items-center gap-4">
                         <p className="text-xs tracking-widest text-white/40">{t("scroll")}</p>
                         <span className="relative h-px w-32 bg-white/20 md:w-48">
-                            <span ref={barRef} className="absolute inset-0 origin-left scale-x-0 bg-[#24E27A]" />
+                            <span ref={barRef} className="absolute inset-0 origin-left scale-x-0 bg-accent" />
                         </span>
                     </span>
                 </span>

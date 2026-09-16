@@ -1,38 +1,30 @@
 'use client'
 
-import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
 import Link from "@/components/facile/transitionLink";
 import Arrow from "@/components/facile/arrow";
 import { useEffect, useRef, useState } from "react";
-import { run, fade, hideFade } from "@/app/utils/animations";
+import { run, fade, hideFade } from "@/lib/animations";
 import { usePinProgress } from "@/hooks/use-pin-progress";
+import { useAfter } from "@/hooks/use-after";
 import TextReveal from "@/components/facile/textReveal";
 import PersonHead from "@/components/facile/story/head";
 import studio from "../studio/studio.json";
 import { useNarrow } from "@/hooks/use-narrow";
 import { useLocalized } from "@/lib/i18n/localize";
-
-const DitherView = dynamic(() => import("@/webgl/DitherView").then((m) => m.DitherView), { ssr: false });
+import { DitherView } from "@/webgl/lazy";
 
 export default function Hero({ charged }: { charged: boolean }) {
     const sectionRef = useRef<HTMLElement>(null);
     const ctaRef = useRef<HTMLAnchorElement>(null);
     const [showText, setShowText] = useState(false);
     const [leaving, setLeaving] = useState(false);
-    const [resolved, setResolved] = useState(false);
+    const resolved = useAfter(charged, 800);
     const [teamHover, setTeamHover] = useState(false);
     const narrow = useNarrow()
     const t = useTranslations("home");
     const tc = useTranslations("common.header");
     const members = useLocalized(studio);
-
-    // let the curtain start lifting before the dither grid resolves
-    useEffect(() => {
-        if (!charged) return;
-        const t = setTimeout(() => setResolved(true), 800);
-        return () => clearTimeout(t);
-    }, [charged]);
 
 
 
@@ -77,10 +69,7 @@ export default function Hero({ charged }: { charged: boolean }) {
                 gridSize={resolved ? 2 : 16}
                 position={[narrow ? 0 : -1, -0.5, -0.5]}
                 rotation={[0, 0.35, 0]}
-                background={null}
-                highlight="#24E27A"
                 parallax={0.55}
-                intensity={1.8}
                 float={false}
                 scale={narrow ? 20 : 35}
                 fov={45}
@@ -124,15 +113,15 @@ export default function Hero({ charged }: { charged: boolean }) {
                                     open={shown && teamHover}
                                     delay={teamHover ? swap + i * 0.08 : 0}
                                 >
-                                    <PersonHead person={m} active={!leaving} className="h-[12vh] w-[12vh] max-h-64 max-w-64" gridSize={0.43} scaleMultiplier={2.5} />
+                                    <PersonHead person={m} active={!leaving} className="h-[12vh] w-[12vh] max-h-64 max-w-64" />
                                 </TextReveal>
                             ))}
                         </span>
                     </div>
 
                     <div className="hidden lg:flex flex-col justify-end text-end gap-2">
-                        <TextReveal open={shown} leaving={leaving} delay={1} className="text-xl w-full lead flex justify-end items-center text-[#24E27A]">
-                            [<p className="italic opacity-100 text-[#24E27A] mr-1 lead">fasil</p>]
+                        <TextReveal open={shown} leaving={leaving} delay={1} className="text-xl w-full lead flex justify-end items-center text-accent">
+                            [<p className="italic opacity-100 text-accent mr-1 lead">fasil</p>]
                         </TextReveal>
                         <TextReveal open={shown} leaving={leaving} delay={1.1} as="p" className="subtext max-w-[35ch] text-[clamp(0.5rem,1.2vh,0.7rem)] text-background/60">
                             {tc("tagline")}
@@ -143,7 +132,7 @@ export default function Hero({ charged }: { charged: boolean }) {
                         <Link
                             ref={ctaRef}
                             href="/projects"
-                            className="button button-dark group flex w-fit items-center gap-[1vh] transition-colors duration-200 hover:text-[#24E27A]"
+                            className="button button-dark group flex w-fit items-center gap-[1vh] transition-colors duration-200 hover:text-accent"
                         >
                             <p>
                                 {t("seeProjects")}

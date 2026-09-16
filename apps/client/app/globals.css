@@ -142,6 +142,20 @@ p {
     font-size: clamp(0.8rem, 1.9vh, 1.6rem);
 }
 
+@media (48rem <= width < 64rem) {
+    h1, h2, h3, h4, h5, h6 {
+        font-size: clamp(2.2rem, 6.25vh, 5rem);
+    }
+
+    .subtitle {
+        font-size: clamp(1.4rem, 4vh, 2.8rem);
+    }
+
+    .lead {
+        font-size: clamp(1rem, 2.4vh, 1.8rem);
+    }
+}
+
 /* body copy set in Goga rather than the mono `p`, for the shelf's project descriptions */
 .description {
     font-family: var(--font-goga);
@@ -169,6 +183,26 @@ p {
     color: #fff;
 }
 
+@layer components {
+    .chip,
+    .chip-solid {
+        border-radius: 0.375rem;
+        padding: 1vh 2vh;
+        font-size: clamp(0.65rem, 1.4vh, 0.9rem);
+        color: #fff;
+    }
+
+    .chip {
+        -webkit-backdrop-filter: blur(24px);
+        backdrop-filter: blur(24px);
+        background-color: rgb(33 33 33 / 0.2);
+    }
+
+    .chip-solid {
+        background-color: #212121;
+    }
+}
+
 .subtext {
     font-family: var(--font-goga);
     font-weight: 400;
@@ -190,53 +224,10 @@ body {
     overflow-x: clip;
 }
 
-html.lenis,
-html.lenis body {
-    height: auto;
-}
-
 .lenis.lenis-smooth {
     scroll-behavior: auto !important;
 }
 
-.lenis.lenis-smooth [data-lenis-prevent] {
-    overscroll-behavior: contain;
-}
-
 .lenis.lenis-stopped {
     overflow: hidden;
-}
-
-.lenis.lenis-smooth iframe {
-    pointer-events: none;
-}
-
-@keyframes marquee-left {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-}
-
-@keyframes marquee-right {
-    from { transform: translateX(-50%); }
-    to { transform: translateX(0); }
-}
-
-.animate-marquee-left,
-.animate-marquee-right {
-    will-change: transform;
-}
-
-.animate-marquee-left {
-    animation: marquee-left 40s linear infinite;
-}
-
-.animate-marquee-right {
-    animation: marquee-right 40s linear infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .animate-marquee-left,
-    .animate-marquee-right {
-        animation: none;
-    }
 }

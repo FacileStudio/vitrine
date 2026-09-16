@@ -1,25 +1,23 @@
 'use client'
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import Link from "@/components/facile/transitionLink";
-import Header from "@/components/facile/header";
-import Menu from "@/components/facile/menu";
-import PageCurtain from "@/components/facile/pageTransition";
+import PageShell from "@/components/facile/pageShell";
 import TextReveal from "@/components/facile/textReveal";
-import { findMember, workedOn, type PanelTab } from "../components/memberData";
+import { crew, findMember, workedOn } from "@/lib/content/studio";
 import { useNarrow } from "@/hooks/use-narrow";
-import { useLineReveal } from "../components/useLineReveal";
+import { useAfter } from "@/hooks/use-after";
+import { useLineReveal } from "@/hooks/use-line-reveal";
 import MemberHead from "../components/memberHead";
 import MemberIdentity from "../components/memberIdentity";
 import MemberAside from "../components/memberAside";
 import MemberSummary from "../components/memberSummary";
-import MemberPanel from "../components/memberPanel";
+import MemberPanel, { type PanelTab } from "../components/memberPanel";
 
 export default function MemberPage() {
-    const [menuOpen, setMenuOpen] = useState(false);
-    const [shown, setShown] = useState(false);
+    const shown = useAfter(true, 200);
     const [panelOpen, setPanelOpen] = useState(false);
     const [tab, setTab] = useState<PanelTab>("details");
     const page = useRef<HTMLDivElement>(null);
@@ -28,22 +26,17 @@ export default function MemberPage() {
     const locale = useLocale();
     const t = useTranslations("studio.member");
 
-    const member = findMember(params.slug, locale);
+    const member = findMember(params.slug, locale) ?? crew(locale)[0];
     const worked = workedOn(member, locale);
-
-    useEffect(() => {
-        const t = setTimeout(() => setShown(true), 200);
-        return () => clearTimeout(t);
-    }, []);
 
     useLineReveal(page, shown, [narrow]);
 
     return (
-        <div ref={page} className="relative h-screen w-full overflow-hidden bg-foreground p-2 text-white lg:p-0">
-            <PageCurtain enter="dark" leave="dark" />
-
-            <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-
+        <PageShell
+            ref={page}
+            className="relative h-screen w-full overflow-hidden bg-foreground p-2 text-white lg:p-0"
+            curtain={{ enter: "dark", leave: "dark" }}
+        >
             <MemberHead member={member} narrow={narrow} />
 
             <div className="pointer-events-none absolute inset-0 z-40 mt-24 hidden justify-between gap-10 p-8 lg:flex lg:p-14">
@@ -75,8 +68,6 @@ export default function MemberPage() {
                 tab={tab}
                 setTab={setTab}
             />
-
-            <Menu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-        </div>
+        </PageShell>
     );
 }

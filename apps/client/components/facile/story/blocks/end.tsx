@@ -1,12 +1,12 @@
 import { useTranslations } from "next-intl";
 import Line from "@/components/facile/textReveal";
-import Arrow from "@/components/facile/arrow";
+import ArrowLink from "@/components/facile/arrowLink";
 import type { BlockProps } from "../types";
 import { Block, Cell } from "../bento";
 import Emphasis from "../../emphasis";
 
 export default function End({ block, onClose }: BlockProps) {
-    const t = useTranslations("projects");
+    const t = useTranslations("story");
 
     return (
         <Block cols={block.cols}>
@@ -38,15 +38,12 @@ export default function End({ block, onClose }: BlockProps) {
 
                         {block.link ? (
                             <Line>
-                                <a
+                                <ArrowLink
                                     href={block.link}
-                                    target={block.link.startsWith("http") ? "_blank" : undefined}
-                                    rel="noreferrer"
                                     className="group flex w-fit items-center font-goga gap-[1vh] text-[clamp(0.8rem,1.9vh,1.35rem)] text-current transition-colors duration-200 hover:text-accent-ink"
                                 >
                                     {block.linkLabel ?? t("visitSite")}
-                                    <Arrow />
-                                </a>
+                                </ArrowLink>
                             </Line>
                         ) : null}
                     </div>

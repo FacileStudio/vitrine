@@ -4,17 +4,17 @@ import React from 'react';
 import { useTranslations } from 'next-intl';
 import TextReveal from '@/components/facile/textReveal';
 import { TransitionOut } from '@/components/facile/pageTransition';
-import { allProjects } from '@/app/[locale]/projects/lib/projects';
-import { useNarrow } from '@/hooks/use-narrow';
+import { allProjects } from '@/lib/content/projects';
+import { authoredMembers } from '@/lib/content/studio';
 import { Link, usePathname, useRouter } from '@/lib/i18n/navigation';
-import { cn } from '@/app/utils';
+import { cn } from '@/lib/utils';
 import type common from '@/locales/en/common.json';
 import { GithubIcon } from '../ui/github';
 import { InstagramIcon } from '../ui/instagram';
 import { DribbbleIcon } from '../ui/dribbble';
 
 // TODO(gian): replace with the real studio contact details
-export const CONTACT = {
+const CONTACT = {
     email: 'contact@facile.studio',
     phone: '+33 7 68 88 88 18',
     socials: [
@@ -31,16 +31,15 @@ type NavKey = keyof (typeof common)['nav'];
 type Label = { key: NavKey } | { name: string };
 
 // hrefs are locale-less ("/projects"); anything starting with http leaves the site
-export type SubLink = Label & { href: string };
-export type NavLink = { href: string; key: NavKey; secondary?: SubLink[] };
-const MENU_PROJECTS = allProjects.length;
+type SubLink = Label & { href: string };
+type NavLink = { href: string; key: NavKey; secondary?: SubLink[] };
 
-export const links: NavLink[] = [
+const links: NavLink[] = [
     { href: '/', key: 'home' },
     {
         href: '/projects',
         key: 'projects',
-        secondary: allProjects.slice(0, MENU_PROJECTS).map((p) => ({
+        secondary: allProjects.map((p) => ({
             href: `/projects/${p.slug}`,
             name: p.name,
         })),
@@ -50,24 +49,12 @@ export const links: NavLink[] = [
         key: 'suite',
     },
     {
-        href: '/process',
-        key: 'process',
-        secondary: [
-            { href: '/process#discovery', key: 'discovery' },
-            { href: '/process#design', key: 'design' },
-            { href: '/process#development', key: 'development' },
-            { href: '/process#launch', key: 'launch' },
-        ],
-    },
-    {
         href: '/studio',
         key: 'studio',
-        secondary: [
-            { href: '/studio/yann', name: 'Yann' },
-            { href: '/studio/noah', name: 'Noah' },
-            { href: '/studio/mazouz', name: 'Mazouz' },
-            { href: '/studio/camille', name: 'Camille' }
-        ]
+        secondary: authoredMembers.map((m) => ({
+            href: `/studio/${m.slug}`,
+            name: m.name,
+        })),
     }
 ];
 
@@ -118,7 +105,6 @@ export function NavLinks({
 }) {
     const t = useTranslations('common.nav');
     const router = useRouter();
-    const narrow = useNarrow();
     const pathname = usePathname();
 
     const label = (l: Label) => ('key' in l ? t(l.key) : l.name);
@@ -136,9 +122,9 @@ export function NavLinks({
     };
 
     return (
-        <nav className={cn('flex flex-col lg:flex-row gap-4', className)}>
+        <nav className={cn('flex flex-col md:flex-row gap-4 md:gap-x-10 lg:gap-x-4', className)}>
             {links.map((link, i) => (
-                <div key={link.href} className="flex w-48 flex-col items-start">
+                <div key={link.href} className="flex w-48 md:w-auto lg:w-48 flex-col items-start">
                     <TextReveal
                         open={open}
                         duration={0.6}
@@ -148,8 +134,8 @@ export function NavLinks({
                             {t(link.key)}
                         </Anchor>
                     </TextReveal>
-                    {link.secondary && link.secondary.length > 0 && !narrow && (
-                        <ul className="mt-4 flex flex-col items-start gap-1">
+                    {link.secondary && link.secondary.length > 0 && (
+                        <ul className="mt-4 hidden md:flex flex-col items-start gap-1">
                             {link.secondary.map((sub, j) => (
                                 <li key={sub.href}>
                                     <TextReveal

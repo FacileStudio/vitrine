@@ -1,33 +1,23 @@
 'use client';
 
-import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import Link from "@/components/facile/transitionLink";
 import { useNarrow } from "@/hooks/use-narrow";
+import { useAfter } from "@/hooks/use-after";
 import PageCurtain, { CURTAIN_MS } from "./pageTransition";
 import { useScenesReady } from "@/webgl/sceneReady";
-
-const DitherView = dynamic(() => import("@/webgl/DitherView").then((m) => m.DitherView), { ssr: false });
+import { DitherView } from "@/webgl/lazy";
 
 export default function NotFound() {
     const t = useTranslations("common.notFound");
     const narrow = useNarrow();
-    const [resolved, setResolved] = useState(false);
     const ready = useScenesReady();
-
-    // the grid lands coarse and sharpens once the curtain, which waits on the same
-    // ready signal, has swept all the way off
-    useEffect(() => {
-        if (!ready) return;
-        const timer = setTimeout(() => setResolved(true), CURTAIN_MS);
-        return () => clearTimeout(timer);
-    }, [ready]);
+    const resolved = useAfter(ready, CURTAIN_MS);
 
     return (
         <main className="relative isolate flex h-screen w-full flex-col items-center justify-end bg-foreground p-6 pb-[2vh] text-background">
             <PageCurtain enter="dark" leave="dark" />
-            
+
 
             <DitherView
                 file="/models/404.glb"
@@ -35,10 +25,7 @@ export default function NotFound() {
                 gridSize={resolved ? 2 : 16}
                 position={[0, -0.5, 0]}
                 rotation={[0, 0, 0]}
-                background={null}
-                highlight="#24E27A"
                 parallax={0.35}
-                intensity={1.8}
                 scale={narrow ? 5.5 : 20}
                 fov={45}
             />

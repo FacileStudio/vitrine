@@ -2,8 +2,7 @@
 
 import TextReveal from "@/components/facile/textReveal";
 import SplitLines from "@/components/facile/splitLines";
-import type { Member } from "./memberData";
-import { chipClass } from "./memberStyles";
+import type { Member } from "@/lib/content/studio";
 import { SocialIcons } from "./socialLinks";
 
 // desktop, top-left: who they are. Same stack as a shelf card's content column,
@@ -32,7 +31,7 @@ export default function MemberIdentity({ member, shown }: { member: Member; show
             {member.labels.length > 0 && (
                 <span className="relative z-10 flex flex-wrap items-center gap-1">
                     {member.labels.map((label, i) => (
-                        <TextReveal key={label} as="p" open={shown} delay={0.24 + i * 0.05} cropClassName="shrink-0" className={chipClass}>
+                        <TextReveal key={label} as="p" open={shown} delay={0.24 + i * 0.05} cropClassName="shrink-0" className="chip-solid">
                             {label}
                         </TextReveal>
                     ))}

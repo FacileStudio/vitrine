@@ -25,36 +25,8 @@
     "launch": "Lanzamiento y soporte"
   },
   "footer": {
-    "hireUs": "Contrátanos",
-    "callUs": "Llámanos",
     "buildTogether": "Construyamos un sitio web juntos.",
     "madeBy": "_ Hecho por Facile. Studio @ 2025"
-  },
-  "contactModal": {
-    "title": "Contrátanos",
-    "description": "¿Tienes un proyecto en mente o simplemente quieres charlar? Completa el formulario a continuación y nos pondremos en contacto contigo lo antes posible.",
-    "close": "Cerrar",
-    "name": "Tu nombre",
-    "email": "Tu email",
-    "phone": "Tu teléfono",
-    "message": "Tu mensaje",
-    "namePlaceholder": "Lucía García",
-    "emailPlaceholder": "lucia.garcia@ejemplo.es",
-    "phonePlaceholder": "+34 612 34 56 78",
-    "next": "Siguiente",
-    "back": "Atrás",
-    "optional": "Opcional",
-    "steps": {
-      "aboutYou": "Sobre ti",
-      "contact": "Contacto",
-      "message": "Tu proyecto"
-    },
-    "send": "Enviar",
-    "sending": "Enviando...",
-    "success": "¡Mensaje enviado!",
-    "error": "Error del servidor. Inténtalo más tarde.",
-    "timeout": "La solicitud ha tardado demasiado. Inténtalo de nuevo.",
-    "missingFields": "Completa tu nombre, tu email y tu mensaje."
   },
   "notFound": {
     "title": "Vaya",

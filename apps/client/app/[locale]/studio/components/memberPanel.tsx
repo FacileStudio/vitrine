@@ -1,13 +1,16 @@
 'use client'
 
 import { useTranslations } from "next-intl";
-import Link from "@/components/facile/transitionLink";
 import TextReveal from "@/components/facile/textReveal";
 import SplitLines from "@/components/facile/splitLines";
 import InfoModal from "@/components/facile/infoModal";
-import Arrow from "@/components/facile/arrow";
-import { TABS, type Member, type PanelTab, type WorkedProject } from "./memberData";
+import ArrowLink from "@/components/facile/arrowLink";
+import type { Member, WorkedProject } from "@/lib/content/studio";
 import { SocialRows } from "./socialLinks";
+
+export type PanelTab = "details" | "projects" | "facts";
+
+const TABS: PanelTab[] = ["details", "projects", "facts"];
 
 // everything that does not fit on a phone, one tab at a time. Every string waits
 // for the panel to finish sliding up before it reveals
@@ -66,15 +69,14 @@ export default function MemberPanel({
                                 {member.suite && (
                                     <>
                                         <li>
-                                            <Link
-                                                href="/suite"
-                                                className="subtitle group text-foreground/80 transition-colors hover:text-foreground"
-                                            >
-                                                <TextReveal open={entered} delay={0.22} className="flex items-center gap-2">
+                                            <TextReveal open={entered} delay={0.22}>
+                                                <ArrowLink
+                                                    href="/suite"
+                                                    className="subtitle group flex items-center gap-2 text-foreground/80 transition-colors hover:text-foreground"
+                                                >
                                                     {t("suite")}
-                                                    <Arrow />
-                                                </TextReveal>
-                                            </Link>
+                                                </ArrowLink>
+                                            </TextReveal>
                                         </li>
                                         <li aria-hidden="true" className="select-none text-foreground/30">
                                             <TextReveal open={entered} delay={0.24}>·</TextReveal>
@@ -83,15 +85,14 @@ export default function MemberPanel({
                                 )}
                                 {worked.map((project, i) => (
                                     <li key={project.slug}>
-                                        <Link
-                                            href={`/projects/${project.slug}`}
-                                            className="subtitle group text-foreground/80 transition-colors hover:text-foreground"
-                                        >
-                                            <TextReveal open={entered} delay={0.28 + i * 0.06} className="flex items-center gap-2">
+                                        <TextReveal open={entered} delay={0.28 + i * 0.06}>
+                                            <ArrowLink
+                                                href={`/projects/${project.slug}`}
+                                                className="subtitle group flex items-center gap-2 text-foreground/80 transition-colors hover:text-foreground"
+                                            >
                                                 {project.name}
-                                                <Arrow />
-                                            </TextReveal>
-                                        </Link>
+                                            </ArrowLink>
+                                        </TextReveal>
                                     </li>
                                 ))}
                             </ul>

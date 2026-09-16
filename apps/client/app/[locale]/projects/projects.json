@@ -614,9 +614,9 @@
             "de": "Einem Werk auf dem Bildschirm Raum geben, ohne dass die Website ihm je die Aufmerksamkeit stiehlt."
         },
         "services": [
-            "art Direction",
-            "web Development",
-            "motion Design"
+            "artDirection",
+            "webDevelopment",
+            "motionDesign"
         ],
         "team": [
             "noah",
@@ -858,13 +858,13 @@
             "de": "Handgemachte Kreationen in den Mittelpunkt stellen und jedes Stück Oberfläche aus ihrem Weg halten."
         },
         "services": [
-            "art Direction",
-            "web Development",
-            "motion Design"
+            "artDirection",
+            "webDevelopment",
+            "motionDesign"
         ],
         "team": [
             "noah",
-            "yann",
+            "fanga",
             "camille"
         ],
         "notes": [
@@ -1087,7 +1087,7 @@
             "desktopDevelopment"
         ],
         "team": [
-            "yann"
+            "fanga"
         ],
         "notes": [
             {
@@ -1202,7 +1202,7 @@
             "webDevelopment"
         ],
         "team": [
-            "yann",
+            "fanga",
             "mazouz"
         ],
         "notes": [
@@ -1302,7 +1302,7 @@
         },
         "techStack": [
             "Svelte",
-            "TypeScript",
+            "TS",
             "Tailwind",
             "Vite"
         ],
@@ -1319,7 +1319,7 @@
             "frontendDevelopment"
         ],
         "team": [
-            "yann",
+            "fanga",
             "noah",
             "camille",
             "mazouz"

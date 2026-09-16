@@ -11,15 +11,15 @@ import { useScenesReady } from "@/webgl/sceneReady";
 // bottom-to-top both times, so the reveal carries straight on the way the cover
 // came in instead of retreating back out the side it entered from.
 // Tones are class names rather than raw hex, so Tailwind still sees them
-export type CurtainTone = { lead: string; trail: string };
+type CurtainTone = { lead: string; trail: string };
 
-export const TONES = {
+const TONES = {
     dark: { lead: "bg-white", trail: "bg-foreground" },
     light: { lead: "bg-foreground", trail: "bg-white" },
     mint: { lead: "bg-white", trail: "bg-[#CAE6D8]" },
 } as const;
 
-export type ToneName = keyof typeof TONES;
+type ToneName = keyof typeof TONES;
 export type Tone = ToneName | CurtainTone;
 
 const COUNT = 4;
@@ -42,7 +42,7 @@ const resolve = (t: Tone): CurtainTone => (typeof t === "string" ? TONES[t] : t)
 // presentational half: `covered` paints the viewport, false slides the stripes
 // off to the left. Mounting it uncovered plays the reveal on its own, since
 // Stripes always starts a frame in place before it moves
-export function Curtain({ covered, tone = "dark", zIndex = 200 }: { covered: boolean; tone?: Tone; zIndex?: number }) {
+function Curtain({ covered, tone = "dark", zIndex = 200 }: { covered: boolean; tone?: Tone; zIndex?: number }) {
     const c = resolve(tone);
 
     return (

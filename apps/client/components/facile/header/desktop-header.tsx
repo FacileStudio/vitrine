@@ -6,37 +6,12 @@ import TextReveal from "../textReveal";
 import Link from "@/components/facile/transitionLink";
 import LocaleSwitcher from "./localeSwitcher";
 
-// sections still light against the dark site — the header switches to dark
-// text over these, and stays light everywhere else
-const LIGHT_SECTIONS = ["manifesto", "suite", "suite-shelf"];
-
-export const DesktopHeader =({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
-    const [onLight, setOnLight] = React.useState(false);
+export const DesktopHeader =({ menuOpen, setMenuOpen, dark }: { menuOpen: boolean; setMenuOpen: React.Dispatch<React.SetStateAction<boolean>>; dark: boolean }) => {
     const t = useTranslations("common.header");
 
     const toggleMenu = () => {
         setMenuOpen(prev => !prev);
     };
-
-    // pick the color from whichever section sits under the header line
-    React.useEffect(() => {
-        const y = 40;
-        const onScroll = () => {
-            const light = LIGHT_SECTIONS.some((id) => {
-                const el = document.getElementById(id);
-                if (!el) return false;
-                const r = el.getBoundingClientRect();
-                // a light section its own dark has closed over counts as dark
-                return r.top <= y && r.bottom > y && !el.hasAttribute("data-covered");
-            });
-            setOnLight(light);
-        };
-        onScroll();
-        window.addEventListener("scroll", onScroll, { passive: true });
-        return () => window.removeEventListener("scroll", onScroll);
-    }, []);
-
-    const dark = onLight && !menuOpen;
 
     return (
         // the bar spans the full width above the mobile header, so only its controls
@@ -47,7 +22,7 @@ export const DesktopHeader =({ menuOpen, setMenuOpen }: { menuOpen: boolean; set
                     <img src="/F.svg" alt={t("logoAlt")} className={`h-6 shrink-0 brightness-0 ${dark ? "" : "invert"}`} />
                 </Link>
                 <div className=" lg:flex justify-end items-center hidden   text-end gap-8">
-                    <TextReveal delay={1} className="text-xl text-[#24E27A] ">[<span className="italic font-goga lowercase tracking-tight mr-1">fasil</span>]</TextReveal>
+                    <TextReveal delay={1} className="text-xl text-accent ">[<span className="italic font-goga lowercase tracking-tight mr-1">fasil</span>]</TextReveal>
                     <TextReveal as="p" delay={1.1} className={`subtext text-[clamp(0.5rem,1.2vh,0.7rem)] ${dark ? "text-[#1E1E1E]" : "text-white"} `}>{t("tagline")}</TextReveal>
                 </div>
             </div>

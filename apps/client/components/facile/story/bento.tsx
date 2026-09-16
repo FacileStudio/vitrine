@@ -1,5 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
-import { isVideoFile } from "@/app/utils";
+import { isVideoFile } from "@/lib/utils";
 
 // --band lives in the class list, not here: an inline style would beat the
 // breakpoint that gives a phone a shorter band

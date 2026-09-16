@@ -3,8 +3,8 @@
 import gsap from "gsap";
 import { useEffect, useLayoutEffect, useRef } from "react";
 import type { CSSProperties, ReactNode } from "react";
-import { hideRevealY, slideY } from "@/app/utils/animations";
-import { cn } from "@/app/utils";
+import { hideRevealY, slideY } from "@/lib/animations";
+import { cn } from "@/lib/utils";
 
 // layout effect on the client, plain effect on the server so SSR doesn't warn
 const useIsoLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;

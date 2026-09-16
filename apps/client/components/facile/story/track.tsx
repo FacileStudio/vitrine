@@ -2,7 +2,7 @@
 
 import gsap from "gsap";
 import { useEffect, type Ref, type RefObject } from "react";
-import { EASE, hideRevealY, run, slideY } from "@/app/utils/animations";
+import { EASE, hideRevealY, run, slideY } from "@/lib/animations";
 import { Bento } from "./bento";
 import { BLOCKS } from "./blocks";
 import PersonHead from "./head";
@@ -91,7 +91,7 @@ export default function Track({ sections, scrollerRef, onClose, ref }: TrackProp
                 <div key={s} className="flex items-center gap-8 lg:gap-20">
                         <div className="">
                             {chapter.owners.map((p) => (
-                                <PersonHead key={p.name} person={p} className="h-[12vh] w-[12vh] mt-4 max-h-64 max-w-64" gridSize={0.43} scaleMultiplier={2.5} />
+                                <PersonHead key={p.name} person={p} className="h-[12vh] w-[12vh] mt-4 max-h-64 max-w-64" />
                             ))}
                         </div>
 

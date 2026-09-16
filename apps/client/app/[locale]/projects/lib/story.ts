@@ -1,78 +1,57 @@
+import type { useTranslations } from "next-intl";
 import { buildStory, type Chapter, type Person, type StoryBlock, type StorySection } from "@/components/facile/story/types";
 import { localize, type Resolved } from "@/lib/i18n/localize";
 import type { Locale } from "@/lib/i18n/locales";
-import { member, team, type Project } from "./projects";
-import studio from "../../studio/studio.json";
+import type { Project, Service } from "@/lib/content/projects";
+import { findPerson } from "@/lib/content/studio";
 
-export type { StoryBlock, StorySection };
+export type StoryCopy = ReturnType<typeof useTranslations<"story">>;
+export type ServiceCopy = (service: Service) => string;
 
-type ResolvedStudio = Resolved<(typeof studio)[number]>;
+type Copy = { t: StoryCopy; services: ServiceCopy };
 
-function toPerson(m: ResolvedStudio): Person {
-    return {
-        name: m.name,
-        role: m.role,
-        avatar: m.avatar,
-        highlight: m.highlight,
-        model: m.model,
-        scale: m.scale,
-        roughness: m.roughness,
-        hair: m.hair,
-    };
-}
-
-// the three blocks that speak for the project rather than for themselves: their
-// content is the project's, so it is filled in here and the renderers stay blind
-// to what a project is. Anything the json authors wins over the default
-function hydrate(p: Resolved<Project>, b: StoryBlock, projectPeople: Person[]): StoryBlock {
+// Fills the cover, intro and end blocks with the project's own content
+function hydrate(p: Resolved<Project>, b: StoryBlock, people: Person[], { t, services }: Copy): StoryBlock {
     if (b.type === "cover")
         return { ...b, media: b.media?.length ? b.media : [p.image], effect: b.effect ?? p.coverEffect };
 
     if (b.type === "intro")
         return {
-            eyebrow: `${p.date}  —  ${p.weeks} weeks`,
+            eyebrow: `${p.date}  —  ${t("weeks", { count: p.weeks })}`,
             title: p.name,
             text: p.challenge ?? p.description,
-            tags: p.services,
+            tags: p.services.map((s) => services(s)),
             logos: p.techStack,
-            people: projectPeople,
+            people,
             link: p.link,
             ...b,
         };
 
     if (b.type === "end")
-        return { eyebrow: `End of ${p.name}`, title: "Thanks for scrolling.", link: p.link, ...b };
+        return { eyebrow: t("endOf", { name: p.name }), title: t("thanks"), link: p.link, ...b };
 
     return b;
 }
 
-// a project's story, ready for the track: authored when there is one, laid out
-// automatically when there isn't
-export function projectStory(p: Project, locale: Locale): Chapter[] {
+// A project's story: authored when there is one, laid out automatically otherwise
+export function projectStory(p: Project, locale: Locale, copy: Copy): Chapter[] {
     const localized = localize(p, locale);
-    const story = localized.story?.length ? localized.story : autoStory(localized);
-    const localizedStudio = localize(studio, locale) as ResolvedStudio[];
+    const story = localized.story?.length ? localized.story : autoStory(localized, copy.services);
+    const person = (slug: string) => findPerson(slug, locale);
 
     const people = localized.team
-        .map((slug) => localizedStudio.find((m) => m.slug === slug))
-        .filter((m): m is ResolvedStudio => Boolean(m))
-        .map(toPerson);
-
-    const personResolver = (slug: string): Person | undefined => {
-        const m = localizedStudio.find((s) => s.slug === slug);
-        return m ? toPerson(m) : undefined;
-    };
+        .map(person)
+        .filter((m): m is Person => Boolean(m));
 
     return buildStory(
-        story.map((section) => ({ ...section, blocks: section.blocks.map((b) => hydrate(localized, b, people)) })),
+        story.map((section) => ({ ...section, blocks: section.blocks.map((b) => hydrate(localized, b, people, copy)) })),
         localized.gallery,
-        personResolver,
+        person,
     );
 }
 
-// fallback for a project that has no story yet — one chapter per service, then a
-// closing chapter with whatever media is left, laid out largest-first
-function autoStory(p: Resolved<Project>): StorySection[] {
+// One chapter per service, then the remaining media largest-first
+function autoStory(p: Resolved<Project>, services: ServiceCopy): StorySection[] {
     const pool = [...new Set([p.video, ...p.gallery].filter(Boolean) as string[])];
     const take = (n: number) => pool.splice(0, n);
 
@@ -82,10 +61,12 @@ function autoStory(p: Resolved<Project>): StorySection[] {
         if (pool.length < 4)
             return;
 
+        const title = services(service);
+
         story.push({
-            title: service,
+            title,
             blocks: [
-                { type: "note", title: service, text: p.notes[i] ?? p.description, media: take(1) },
+                { type: "note", title, text: p.notes[i] ?? p.description, media: take(1) },
                 { type: "col", media: take(3) },
             ],
         });

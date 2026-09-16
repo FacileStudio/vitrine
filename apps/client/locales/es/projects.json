@@ -1,12 +1,28 @@
 {
     "back": "Volver a proyectos",
-    "endBack": "Volver",
-    "visitSite": "Visitar sitio",
-    "createdWith": "Creado con",
-    "involved": "Involucrados",
-    "thanks": "Gracias por desplazarte.",
-    "scroll": "desplazar",
     "shelfTitle": ["Una selección cuidadosa de", "nuestros mejores trabajos."],
     "filterAll": "Todos",
-    "projectCount": "{count, plural, one {proyecto} other {proyectos}}"
+    "filterLabel": "Filtrar proyectos",
+    "projectCount": "{count, plural, one {proyecto} other {proyectos}}",
+    "categories": {
+        "appDev": "Apps",
+        "showcaseWebsite": "Web corporativa",
+        "branding": "Branding",
+        "webDesign": "Diseño web"
+    },
+    "services": {
+        "appDevelopment": "Desarrollo de apps",
+        "webDevelopment": "Desarrollo web",
+        "desktopDevelopment": "Desarrollo de escritorio",
+        "frontendDevelopment": "Desarrollo frontend",
+        "brandIdentity": "Identidad de marca",
+        "artDirection": "Dirección de arte",
+        "photography": "Fotografía",
+        "productDesign": "Diseño de producto",
+        "uiUxDesign": "Diseño UI/UX",
+        "designSystem": "Sistema de diseño",
+        "redesign": "Rediseño",
+        "motionDesign": "Motion design",
+        "transformation": "Transformación"
+    }
 }

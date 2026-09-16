@@ -25,36 +25,8 @@
     "launch": "Launch & Care"
   },
   "footer": {
-    "hireUs": "Hire us",
-    "callUs": "Call us",
     "buildTogether": "Let's build a website together.",
     "madeBy": "_ Made by Facile. Studio @ 2025"
-  },
-  "contactModal": {
-    "title": "Hire us",
-    "description": "Have a project in mind or just want to chat? Fill out the form below and we'll get back to you as soon as possible.",
-    "close": "Close",
-    "name": "Your name",
-    "email": "Your email",
-    "phone": "Your phone",
-    "message": "Your message",
-    "namePlaceholder": "Jane Doe",
-    "emailPlaceholder": "jane.doe@example.com",
-    "phonePlaceholder": "+1 555 123 4567",
-    "next": "Next",
-    "back": "Back",
-    "optional": "Optional",
-    "steps": {
-      "aboutYou": "About you",
-      "contact": "Contact details",
-      "message": "Project message"
-    },
-    "send": "Send",
-    "sending": "Sending...",
-    "success": "Message sent!",
-    "error": "Server error. Try again later.",
-    "timeout": "Request timed out. Please try again.",
-    "missingFields": "Please fill in your name, email and message."
   },
   "notFound": {
     "title": "Oops",

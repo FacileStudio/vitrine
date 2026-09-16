@@ -1,11 +1,13 @@
 'use client'
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import type { ReactNode } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
+import { useTranslations } from "next-intl";
 import TextReveal from "@/components/facile/textReveal";
 import SplitLines from "@/components/facile/splitLines";
-import { hideRevealY, run, slideY } from "@/app/utils/animations";
+import { useAfter } from "@/hooks/use-after";
+import { useLineReveal } from "@/hooks/use-line-reveal";
 
 type InfoModalProps = {
     open: boolean;
@@ -23,33 +25,13 @@ type InfoModalProps = {
 // scrolling on its own. Lenis is told to keep its hands off the body so the
 // inner scroll behaves like a page
 export default function InfoModal({ open, setOpen, title, kicker, note, children }: InfoModalProps) {
-    const [entered, setEntered] = useState(false);
+    const t = useTranslations("common.header");
+    const [landed, setLanded] = useState(false);
+    if (!open && landed) setLanded(false);
+    const entered = useAfter(open, 600) || landed;
     const panel = useRef<HTMLDivElement>(null);
 
-    // the slide fires `entered`, but a browser that skips the animation entirely
-    // (reduced motion, missing keyframes) never emits animationend — so time out too
-    useEffect(() => {
-        if (!open) {
-            setEntered(false);
-            return;
-        }
-        const t = setTimeout(() => setEntered(true), 600);
-        return () => clearTimeout(t);
-    }, [open]);
-
-    // every [data-reveal] in the panel, header note included, is parked below its
-    // crop and slid up once the panel lands. SplitLines writes one per rendered line
-    useEffect(() => {
-        const el = panel.current;
-        if (!el) return;
-        const lines = Array.from(el.querySelectorAll<HTMLElement>("[data-reveal]"));
-        if (!lines.length) return;
-        if (!entered) {
-            hideRevealY(lines);
-            return;
-        }
-        run(lines, slideY(true, false, { stagger: 0.05, duration: 0.55, delay: 0.1 }));
-    }, [entered, children]);
+    useLineReveal(panel, entered, [children]);
 
     return (
         <Dialog.Root open={open} onOpenChange={setOpen}>
@@ -58,7 +40,7 @@ export default function InfoModal({ open, setOpen, title, kicker, note, children
 
                 <Dialog.Content
                     ref={panel}
-                    onAnimationEnd={(e) => { if (e.target === e.currentTarget && open) setEntered(true); }}
+                    onAnimationEnd={(e) => { if (e.target === e.currentTarget && open) setLanded(true); }}
                     className="fixed inset-2 z-[121] flex flex-col overflow-hidden rounded-md bg-background text-foreground duration-500 data-[state=open]:animate-in data-[state=open]:slide-in-from-bottom-full data-[state=closed]:animate-out data-[state=closed]:slide-out-to-bottom-full"
                 >
                     <div className="flex items-start justify-between gap-6 px-8 py-8">
@@ -83,7 +65,7 @@ export default function InfoModal({ open, setOpen, title, kicker, note, children
                         </div>
 
                         <Dialog.Close
-                            aria-label="Close"
+                            aria-label={t("close")}
                             className="flex size-10 shrink-0 items-center justify-center rounded-md bg-foreground/5 text-xl leading-none font-medium text-foreground/60 transition-colors duration-200 hover:bg-foreground/10 hover:text-foreground"
                         >
                             <span aria-hidden="true">×</span>

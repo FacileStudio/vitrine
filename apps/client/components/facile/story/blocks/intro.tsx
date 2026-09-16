@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import SplitLines from "@/components/facile/splitLines";
 import Line from "@/components/facile/textReveal";
 import Emphasis from "@/components/facile/emphasis";
+import TechStack from "@/components/facile/techStack";
 import type { BlockProps } from "../types";
 import PersonHead from "../head";
 import { Block, Cell } from "../bento";
@@ -22,7 +23,7 @@ function Meta({ label, children }: { label: string; children: ReactNode }) {
 // so an app with nothing but a name and a tagline reads as well as a project
 // with a full crew behind it
 export default function Intro({ block }: BlockProps) {
-    const t = useTranslations("projects");
+    const t = useTranslations("story");
     return (
         <Block cols={block.cols}>
             <Cell col="1 / -1" row="1 / -1">
@@ -49,25 +50,20 @@ export default function Intro({ block }: BlockProps) {
 
                         {block.tags?.length ? (
                             <Line className="flex flex-wrap items-center gap-1">
-                                {block.tags.map((t) => (
-                                    <p
-                                        key={t}
-                                        className="rounded-md px-[2vh] py-[1vh] text-[clamp(0.65rem,1.4vh,0.9rem)] bg-[#212121] text-white"
-                                    >
-                                        {t}
+                                {block.tags.map((tag) => (
+                                    <p key={tag} className="chip-solid">
+                                        {tag}
                                     </p>
                                 ))}
                             </Line>
                         ) : null}
-                        {block.logos?.length ? (
-                            <Meta label={t("createdWith")}>
-                                <Line className="flex flex-wrap items-center gap-x-[2vh] gap-y-[1vh]">
-                                    {block.logos.map((t) => (
-                                        <img key={t} src={`/images/logo/${t}.png`} alt={t} className="h-[2.6vh] max-h-8 w-auto" />
-                                    ))}
-                                </Line>
-                            </Meta>
-                        ) : null}
+                        <TechStack
+                            stack={block.logos}
+                            className="flex flex-col gap-3"
+                            labelClassName="subtext text-current"
+                            rowClassName="flex flex-wrap items-center gap-x-[2vh] gap-y-[1vh]"
+                            logoClassName="h-[2.6vh] max-h-8 w-auto"
+                        />
                     </div>
 
                     <div className="flex flex-col gap-y-12">
@@ -77,7 +73,7 @@ export default function Intro({ block }: BlockProps) {
                                 <div className="flex">
                                     {block.people.map((m) => (
                                         <Line key={m.name} className="flex items-center gap-6">
-                                            <PersonHead person={m} className="h-[12vh] w-[12vh] mt-4 max-h-64 max-w-64" gridSize={0.43} scaleMultiplier={2.5} />
+                                            <PersonHead person={m} className="h-[12vh] w-[12vh] mt-4 max-h-64 max-w-64" />
                                         </Line>
                                     ))}
                                 </div>

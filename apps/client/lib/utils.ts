@@ -1,13 +1,11 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
-import type { RefObject } from "react"
 
+// Tailwind class merge
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function past(ref: RefObject<HTMLElement | null>, triggerLine = 0.5) {
-  return ref.current ? ref.current.getBoundingClientRect().top < window.innerHeight * triggerLine : false
-}
-
 export const isVideoFile = (src: string) => /\.(mp4|webm|ogg|mov|webp)$/i.test(src)
+
+export const pad2 = (n: number) => String(n).padStart(2, "0")

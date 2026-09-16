@@ -2,7 +2,7 @@
 
 import { memo, useEffect, useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
-import { hideRevealY } from "@/app/utils/animations";
+import { hideRevealY } from "@/lib/animations";
 
 // layout effect on the client, plain effect on the server so SSR doesn't warn
 const useIsoLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;

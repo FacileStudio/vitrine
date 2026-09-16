@@ -4,8 +4,9 @@ import { defaultLocale, isLocale, locales, type Locale } from "@/lib/i18n/locale
 
 export const siteUrl = "https://facile.studio";
 
-export const routePaths = ["", "/projects", "/studio", "/suite", "/process"] as const;
-export type RoutePath = (typeof routePaths)[number];
+export const routePaths = ["", "/projects", "/studio", "/suite"] as const;
+
+export const resolveLocale = (locale: string): Locale => (isLocale(locale) ? locale : defaultLocale);
 
 /** `path` is locale-less: "" for the home page, "/projects/marcel" for a story. */
 export function getLocalizedPath(locale: Locale, path: string = "") {
@@ -103,5 +104,28 @@ export async function getBaseMetadata(locale: Locale, path: string = ""): Promis
                 { url: "/icon.png", type: "image/png", sizes: "32x32" },
             ],
         }
+    };
+}
+
+/**
+ * One page's metadata: the base for `locale` and `path` with the page's own title and
+ * description, which also lands in Open Graph. `openGraph` overrides the rest of it.
+ */
+export async function pageMetadata(
+    locale: Locale,
+    path: string,
+    { title, description, openGraph }: { title: Metadata["title"]; description: string; openGraph?: { type?: "article" | "profile"; title?: string; siteName?: string } },
+): Promise<Metadata> {
+    const base = await getBaseMetadata(locale, path);
+
+    return {
+        ...base,
+        title,
+        description,
+        openGraph: {
+            ...base.openGraph,
+            description,
+            ...openGraph,
+        } as Metadata["openGraph"],
     };
 }

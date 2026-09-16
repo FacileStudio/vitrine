@@ -1,50 +1,32 @@
 import type { MetadataRoute } from 'next'
-import { locales, type Locale } from "@/lib/i18n/locales"
-import { getLocalizedPath, routePaths, siteUrl, type RoutePath } from "@/lib/seo/metadata"
-import { allProjects } from "@/app/[locale]/projects/lib/projects"
+import { defaultLocale, locales, type Locale } from "@/lib/i18n/locales"
+import { getLocalizedPath, routePaths, siteUrl } from "@/lib/seo/metadata"
+import { allProjects } from "@/lib/content/projects"
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date()
 
-  const staticEntries = routePaths.flatMap((route) => {
+  const entries = (path: string, priority: number) => {
     const languages = Object.fromEntries(
-      locales.map((locale) => [locale, `${siteUrl}${getLocalizedPath(locale, route as RoutePath)}`])
+      locales.map((locale) => [locale, `${siteUrl}${getLocalizedPath(locale, path)}`])
     ) as Record<Locale, string>
 
     return locales.map((locale) => ({
-      url: `${siteUrl}${getLocalizedPath(locale, route as RoutePath)}`,
+      url: `${siteUrl}${getLocalizedPath(locale, path)}`,
       lastModified,
       changeFrequency: 'monthly' as const,
-      priority: route === '' ? 1 : 0.8,
+      priority,
       alternates: {
         languages: {
           ...languages,
-          "x-default": `${siteUrl}${getLocalizedPath("en", route as RoutePath)}`,
+          "x-default": `${siteUrl}${getLocalizedPath(defaultLocale, path)}`,
         },
       },
     }))
-  })
+  }
 
-  // every project has a story route now, so every project is listed
-  const storyEntries = allProjects
-    .flatMap((project) => {
-      const languages = Object.fromEntries(
-        locales.map((locale) => [locale, `${siteUrl}/${locale}/projects/${project.slug}`])
-      ) as Record<Locale, string>
-
-      return locales.map((locale) => ({
-        url: `${siteUrl}/${locale}/projects/${project.slug}`,
-        lastModified,
-        changeFrequency: 'monthly' as const,
-        priority: 0.7,
-        alternates: {
-          languages: {
-            ...languages,
-            "x-default": `${siteUrl}/en/projects/${project.slug}`,
-          },
-        },
-      }))
-    })
+  const staticEntries = routePaths.flatMap((route) => entries(route, route === '' ? 1 : 0.8))
+  const storyEntries = allProjects.flatMap((project) => entries(`/projects/${project.slug}`, 0.7))
 
   return [...staticEntries, ...storyEntries]
 }

@@ -2,16 +2,14 @@
 
 import { memo, useMemo } from "react";
 import DitherReveal from "@/components/facile/ditherReveal";
-import TextReveal from "@/components/facile/textReveal";
 import type { Person } from "./types";
 
 const Head = memo(DitherReveal);
 
-const PersonHead = memo(function PersonHead({ person, className = "", gridSize = 0.5, scaleMultiplier = 2, label = false, active }: {
+const PersonHead = memo(function PersonHead({ person, className = "", gridSize = 0.43, scaleMultiplier = 2.5, active }: {
     person: Person;
     className?: string;
     gridSize?: number;
-    label?: boolean;
     scaleMultiplier?: number;
     /** see DitherView: set it when the head hides inside a crop */
     active?: boolean;
@@ -46,14 +44,6 @@ const PersonHead = memo(function PersonHead({ person, className = "", gridSize =
             <Head model={person.model} highlight={person.highlight} stripes={false} className={"absolute inset-0 h-full w-full transition-all duration-200 group-hover:scale-105"} dither={dither} />
 
             <div className="pointer-events-none absolute inset-0 " />
-
-            {label ? (
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 z-50 flex flex-col items-center gap-1 whitespace-nowrap text-center text-white">
-                    <TextReveal duration={0.45} className="font-goga text-2xl normal-case tracking-tight">
-                        {person.name}
-                    </TextReveal>
-                </div>
-            ) : null}
         </div>
     );
 });

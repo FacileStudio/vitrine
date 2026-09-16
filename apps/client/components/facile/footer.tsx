@@ -1,21 +1,19 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useScroll } from "@/hooks/use-scroll";
+import { useAfter } from "@/hooks/use-after";
 import TextReveal from "@/components/facile/textReveal";
-import { Button } from "@/components/facile/button";
 import { ContactLinks, NavLinks } from "@/components/facile/navLinks";
-import MemberTiles from "@/app/[locale]/studio/components/memberTiles";
+import MemberTiles from "@/components/facile/memberTiles";
 
 export default function Footer() {
     const sectionRef = useRef<HTMLElement>(null);
     const [show, setShow] = useState(false);
     const [reached, setReached] = useState(false);
-    const [resolved, setResolved] = useState(false);
+    const resolved = useAfter(reached, 900);
     const t = useTranslations("common");
-
-    const openContactModal = () => window.dispatchEvent(new Event("facile:open-contact-modal"));
 
     useScroll(() => {
         const el = sectionRef.current;
@@ -25,14 +23,6 @@ export default function Footer() {
         setShow(inView);
         if (inView) setReached(true);
     });
-
-    // the heads settle out of their coarse arrival grid a beat after they mount, as they
-    // do on the studio page once its curtain has gone
-    useEffect(() => {
-        if (!reached) return;
-        const id = setTimeout(() => setResolved(true), 900);
-        return () => clearTimeout(id);
-    }, [reached]);
 
     // every link rises in its own crop, the same links and timing as the menu
     return (
@@ -50,7 +40,7 @@ export default function Footer() {
                     {reached ? <MemberTiles resolved={resolved} dimmed={false} /> : null}
                 </div>
                 <div className="absolute z-20 bottom-0 w-full flex flex-col p-20 lg:flex-row lg:items-center lg:justify-between gap-6">
-                    <ContactLinks open={show} delay={0.6} className="flex-wrap gap-x-8 gap-y-2" />
+                    <ContactLinks open={show} delay={0.6} className="hidden md:flex flex-wrap gap-x-8 gap-y-2" />
 
                     <TextReveal as="p" open={show} delay={0.8} className="text-white/40">
                         {t("footer.madeBy")}

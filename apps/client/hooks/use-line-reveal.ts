@@ -2,10 +2,9 @@
 
 import { useEffect } from "react";
 import type { RefObject } from "react";
-import { hideRevealY, run, slideY } from "@/app/utils/animations";
+import { hideRevealY, run, slideY } from "@/lib/animations";
 
-// SplitLines tags one [data-reveal] per rendered line and parks it below its crop.
-// Nothing on this page observes scroll, so the reveal is driven by `shown` instead
+// Line reveal driven by a flag
 export function useLineReveal(scope: RefObject<HTMLElement | null>, shown: boolean, deps: unknown[] = []) {
     useEffect(() => {
         const el = scope.current;

@@ -5,7 +5,7 @@ import TextReveal from "@/components/facile/textReveal";
 import { GithubIcon } from "@/components/ui/github";
 import { InstagramIcon } from "@/components/ui/instagram";
 import { DribbbleIcon } from "@/components/ui/dribbble";
-import type { Member } from "./memberData";
+import type { Member } from "@/lib/content/studio";
 
 // lucide dropped its brand icons, so LinkedIn comes from iconify while the other
 // three are the studio's own animated marks

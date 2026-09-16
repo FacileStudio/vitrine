@@ -4,13 +4,13 @@
 // reports as high-end and then renders a raymarcher at two frames a second. The
 // question worth asking is which renderer the context reports — a software one
 // means no GPU is involved and the answer is a still image, not a smaller canvas.
-export type GpuTier = "none" | "software" | "hardware";
+type GpuTier = "none" | "software" | "hardware";
 
 const SOFTWARE = /swiftshader|llvmpipe|software|basic render|microsoft basic/i;
 
 let cached: GpuTier | null = null;
 
-export function gpuTier(): GpuTier {
+function gpuTier(): GpuTier {
     if (cached)
         return cached;
 

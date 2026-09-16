@@ -10,12 +10,5 @@
   },
   "shelf": {
     "lines": ["Take a look at", "our latest projects."]
-  },
-  "friends": {
-    "title": "They trusted us",
-    "lead": "Our clients let us take the lead on projects close to their hearts"
-  },
-  "avis": {
-    "title": "Testimonials"
   }
 }

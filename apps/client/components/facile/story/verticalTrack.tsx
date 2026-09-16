@@ -27,7 +27,7 @@ export default function VerticalTrack({ sections, scrollerRef, onClose, ref }: V
                     {chapter.owners.length > 0 && (
                         <div className="flex gap-2">
                             {chapter.owners.map((p) => (
-                                <PersonHead key={p.name} person={p} className="h-[10vh] w-[10vh]" gridSize={0.43} scaleMultiplier={2.5} />
+                                <PersonHead key={p.name} person={p} className="h-[10vh] w-[10vh]" />
                             ))}
                         </div>
                     )}

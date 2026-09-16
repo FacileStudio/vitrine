@@ -1,51 +1,32 @@
 'use client'
 
-import React from "react";
-import { ReactLenis, type LenisRef } from "lenis/react";
-import Menu from "@/components/facile/menu";
-import Header from "@/components/facile/header";
+import { useState } from "react";
 import Rideau from "@/components/facile/rideau";
-import PageCurtain from "@/components/facile/pageTransition";
+import PageShell from "@/components/facile/pageShell";
 import Hero from "./homeSections/hero";
 import Manifesto from "./homeSections/manifesto";
 import Suite from "./homeSections/suite";
 import Shelf from "./homeSections/shelf";
-import Footer from "@/components/facile/footer";
 
 export default function Home() {
-    const [menuOpen, setMenuOpen] = React.useState<boolean>(false);
-    const [charged, setCharged] = React.useState(false);
-    const lenisRef = React.useRef<LenisRef>(null);
-
-    React.useEffect(() => {
-        const lenis = lenisRef.current?.lenis;
-        if (!lenis)
-            return;
-
-        if (charged && !menuOpen)
-            lenis.start();
-        else
-            lenis.stop();
-    }, [charged, menuOpen]);
+    const [charged, setCharged] = useState(false);
 
     return (
-        <div className="relative">
+        <PageShell
+            className="relative"
+            lenis
+            locked={!charged}
+            curtain={{ enter: "dark", leave: "dark", arrive: false }}
+            footer
+        >
             <Rideau setCharged={setCharged} />
-            <Menu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-            <PageCurtain enter="dark" leave="dark" arrive={false} />
-
-            <ReactLenis ref={lenisRef} root options={{ lerp: 0.1, smoothWheel: true }} />
 
             <main className="min-h-screen w-full">
-                <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
                 <Hero charged={charged} />
                 <Manifesto />
                 <Shelf />
                 <Suite />
             </main>
-
-            <Footer />
-
-        </div>
+        </PageShell>
     );
 }

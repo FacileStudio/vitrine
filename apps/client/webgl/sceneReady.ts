@@ -29,12 +29,12 @@ export function registerScene() {
     };
 }
 
-export function subscribeScenes(fn: () => void) {
+function subscribeScenes(fn: () => void) {
     listeners.add(fn);
     return () => { listeners.delete(fn); };
 }
 
-export const scenesPending = () => pending;
+const scenesPending = () => pending;
 
 /**
  * True once every canvas on the page has its model. Two timers guard it: a grace

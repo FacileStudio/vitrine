@@ -4,7 +4,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { sweep } from "@/components/facile/pageTransition";
 import { locales } from "@/lib/i18n/locales";
 import { usePathname, useRouter } from "@/lib/i18n/navigation";
-import { cn } from "@/app/utils";
+import { cn } from "@/lib/utils";
 
 /**
  * The four locale codes, the current one at full strength. Picking another drops the

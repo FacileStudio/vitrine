@@ -1,1 +1,10 @@
-{}
+{
+    "endBack": "Back",
+    "visitSite": "Visit site",
+    "createdWith": "Created with",
+    "involved": "Involved",
+    "thanks": "Thanks for scrolling.",
+    "scroll": "scroll",
+    "weeks": "{count, plural, one {# week} other {# weeks}}",
+    "endOf": "End of {name}"
+}

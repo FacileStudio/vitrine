@@ -1,17 +1,14 @@
 'use client'
 
 import { useRef, useState } from "react";
-import dynamic from "next/dynamic";
-import { ReactLenis } from "lenis/react";
-import Header from "@/components/facile/header";
-import Menu from "@/components/facile/menu";
+import PageShell from "@/components/facile/pageShell";
 import Stripes from "@/components/facile/stripes";
 import TextReveal from "@/components/facile/textReveal";
 import { usePinProgress } from "@/hooks/use-pin-progress";
 import { useLocalized, type Resolved } from "@/lib/i18n/localize";
+import { pad2 } from "@/lib/utils";
+import { DitherView } from "@/webgl/lazy";
 import authored from "./process.json";
-
-const DitherView = dynamic(() => import("@/webgl/DitherView").then((m) => m.DitherView), { ssr: false });
 
 type Step = Resolved<(typeof authored)[number]>;
 
@@ -39,10 +36,6 @@ function ProcessSection({ step, index }: { step: Step; index: number }) {
                 <DitherView
                     file="/models/manifesto.glb"
                     className="absolute inset-0 h-full w-full opacity-60"
-                    background={null}
-                    highlight="#24E27A"
-                    grayscaleOnly={false}
-                    intensity={1.8}
                     parallax={0.6}
                     gridSize={show ? 2 : 9}
                     scale={4}
@@ -54,7 +47,7 @@ function ProcessSection({ step, index }: { step: Step; index: number }) {
 
                 <div className="absolute inset-0 z-50 flex flex-col items-center justify-center gap-8 px-6 text-center text-white">
                     <TextReveal as="p" open={show} leaving={leaving} className="tracking-widest opacity-50">
-                        {String(index + 1).padStart(2, "0")}
+                        {pad2(index + 1)}
                     </TextReveal>
 
                     <h2>
@@ -80,20 +73,15 @@ function ProcessSection({ step, index }: { step: Step; index: number }) {
 }
 
 export default function ProcessPage() {
-    const [menuOpen, setMenuOpen] = useState(false);
     const steps = useLocalized(authored);
 
     return (
-        <div className="relative">
-            <ReactLenis root options={{ lerp: 0.1, smoothWheel: true }} />
-            <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-            <Menu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-
+        <PageShell className="relative" lenis>
             <main className="w-full">
                 {steps.map((step, i) => (
                     <ProcessSection key={step.id} step={step} index={i} />
                 ))}
             </main>
-        </div>
+        </PageShell>
     );
 }

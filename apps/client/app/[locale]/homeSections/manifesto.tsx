@@ -1,7 +1,6 @@
 'use client'
 
 import { useRef, useState } from "react";
-import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
 import Link from "@/components/facile/transitionLink";
 import Stripes from "@/components/facile/stripes";
@@ -9,8 +8,7 @@ import TextReveal from "@/components/facile/textReveal";
 import Emphasis from "@/components/facile/emphasis";
 import { usePinProgress } from "@/hooks/use-pin-progress";
 import { useNarrow } from "@/hooks/use-narrow";
-
-const DitherView = dynamic(() => import("@/webgl/DitherView").then((m) => m.DitherView), { ssr: false });
+import { DitherView } from "@/webgl/lazy";
 
 // the pinned scroll, in section progress: the copy alone first, then it lifts and the
 // collaborators ride across under it, and both leave together
@@ -102,9 +100,6 @@ export default function Manifesto() {
                 <DitherView
                     className="absolute top-0 left-0 w-full h-full z-0 opacity-50"
                     background="#E4EEE8"
-                    highlight="#24E27A"
-                    grayscaleOnly={false}
-                    intensity={1.8}
                     parallax={1}
                     scale={1.6}
                     gridSize={showText ? 2 : 9}

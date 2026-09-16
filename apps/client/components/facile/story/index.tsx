@@ -4,9 +4,9 @@ import gsap from "gsap";
 import Lenis from "lenis";
 import { useLenis } from "lenis/react";
 import { useCallback, useEffect, useLayoutEffect, useRef } from "react";
-import { EASE, hideRevealY, run, slideY } from "@/app/utils/animations";
+import { EASE, hideRevealY, run, slideY } from "@/lib/animations";
 import { useNarrow } from "@/hooks/use-narrow";
-import Backdrop from "./backdrop";
+import DitherBackdrop from "@/components/facile/ditherBackdrop";
 import Chrome from "./chrome";
 import Track from "./track";
 import VerticalTrack from "./verticalTrack";
@@ -17,7 +17,7 @@ interface StoryProps {
     name: string;
     index: number;
     total: number;
-    backLabel?: string;
+    backLabel: string;
     /** ms to wait before the band slides in — the time an arriving curtain needs */
     delay?: number;
     onClose: () => void;
@@ -26,7 +26,7 @@ interface StoryProps {
 // a story that owns the whole viewport: a band of bento chapters with its own
 // scroller, sideways on a tablet or desktop and down the screen on a phone.
 // Whatever put it there — a route, a click on a shelf — hands it the blocks and a way out
-export default function Story({ sections, name, index, total, backLabel = "Back", delay = 0, onClose }: StoryProps) {
+export default function Story({ sections, name, index, total, backLabel, delay = 0, onClose }: StoryProps) {
     const rootRef = useRef<HTMLDivElement>(null);
     const bgRef = useRef<HTMLDivElement>(null);
     const scrollerRef = useRef<HTMLDivElement>(null);
@@ -186,7 +186,7 @@ export default function Story({ sections, name, index, total, backLabel = "Back"
             className="fixed inset-0 z-120 text-white opacity-0"
         >
             <div ref={bgRef} className="absolute inset-0 bg-foreground">
-                <Backdrop />
+                <DitherBackdrop variant="story" arrive={false} />
             </div>
 
             <div

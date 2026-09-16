@@ -1,14 +1,15 @@
 'use client'
 
-import { memo, useEffect, useMemo, useState } from "react";
+import { memo, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/lib/i18n/navigation";
 import { useLocalized } from "@/lib/i18n/localize";
 import { TransitionOut } from "@/components/facile/pageTransition";
 import DitherReveal from "@/components/facile/ditherReveal";
 import TextReveal from "@/components/facile/textReveal";
-import { cn } from "@/app/utils";
-import members from "../studio.json";
+import { useNarrow } from "@/hooks/use-narrow";
+import { cn } from "@/lib/utils";
+import { authoredMembers as members } from "@/lib/content/studio";
 
 // the canvases must never re-render on hover: a re-render re-bakes drei's
 // Environment cubemap, four at a time. Memoised component, props built once
@@ -62,20 +63,10 @@ export default function MemberTiles({
     tileClassName?: string;
 }) {
     const [hovered, setHovered] = useState<string | null>(null);
-    const [coarse, setCoarse] = useState(false);
+    const coarse = useNarrow("(hover: none)");
     const router = useRouter();
     const t = useTranslations("studio.tiles");
     const crew = useLocalized(members);
-
-    // no cursor means no hover and no parallax: the copy stays up and the heads
-    // drift on their own
-    useEffect(() => {
-        const mq = window.matchMedia("(hover: none)");
-        const sync = () => setCoarse(mq.matches);
-        sync();
-        mq.addEventListener("change", sync);
-        return () => mq.removeEventListener("change", sync);
-    }, []);
 
     const heads = useMemo(() => HEAD_PROPS(coarse ? 0.5 : 0.12, resolved ? 0.9 : 12), [coarse, resolved]);
 
@@ -97,8 +88,6 @@ export default function MemberTiles({
                         {...heads[i]}
                         className={`absolute inset-0 h-full transition-all duration-200 ${coarse || !dimmed ? "opacity-100 brightness-100" : "opacity-33 brightness-50 hover:opacity-100 hover:brightness-100"}`}
                     />
-
-                    <div className="pointer-events-none absolute inset-0 bg-black/0 transition-colors duration-300" />
 
                     <div className="pointer-events-none absolute inset-x-0 top-[66%] z-50 flex flex-col items-center gap-1 text-center text-white">
                         <TextReveal

@@ -1,28 +1,11 @@
 import type { useTranslations } from "next-intl";
 import { buildStory, type Chapter, type StoryBlock, type StorySection, type Tile } from "@/components/facile/story/types";
-import type { SuiteApp } from "./apps";
+import type { SuiteApp } from "@/lib/content/suite";
 
 /** The `suite.story` translator, handed in by the component that builds the story. */
 export type StoryCopy = ReturnType<typeof useTranslations<"suite.story">>;
 
-// the suite's own marks live in public/icons, each named after the iconify id it
-// stands in for. An app whose file hasn't landed yet keeps the iconify one
-const LOCAL = new Set([
-    "solar:bill-list-bold-duotone",
-    "solar:calendar-add-bold-duotone",
-    "solar:cloud-bold-duotone",
-    "solar:leaf-bold-duotone",
-    "solar:letter-opened-bold-duotone",
-    "solar:microphone-2-bold-duotone",
-    "solar:monitor-camera-bold-duotone",
-    "solar:panorama-bold-duotone",
-    "solar:pills-bold-duotone",
-    "solar:ruler-cross-pen-bold-duotone",
-]);
-
-const iconOf = (icon: string) => (LOCAL.has(icon) ? `/icons/${icon.replace(":", "_")}.svg` : icon);
-
-const tile = (a: SuiteApp): Tile => ({ label: a.name, text: a.tagline, icon: iconOf(a.icon) });
+const tile = (a: SuiteApp): Tile => ({ label: a.name, text: a.tagline, icon: a.icon });
 
 // six tiles fill a two-column block, so the suite is cut into blocks rather than
 // scaled down to fit one

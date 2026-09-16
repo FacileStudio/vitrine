@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import Link from "@/components/facile/transitionLink";
 import TextReveal from "@/components/facile/textReveal";
 import SplitLines from "@/components/facile/splitLines";
-import type { Member } from "./memberData";
+import type { Member } from "@/lib/content/studio";
 import { buttonClass } from "./memberStyles";
 
 // phone: name, role, the short description, and one button for everything else

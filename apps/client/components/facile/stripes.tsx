@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import type { CSSProperties } from "react";
+import { useScroll } from "@/hooks/use-scroll";
 
 const defaultEase = "cubic-bezier(0.7, 0, 0.3, 1)";
 
@@ -30,7 +31,6 @@ export default function Stripes({
     ease = defaultEase,
     duration = 0.8,
     stagger = 0.1,
-    transition,
     children,
 }: {
     orientation: number;
@@ -47,25 +47,14 @@ export default function Stripes({
     ease?: string;
     duration?: number;
     stagger?: number;
-    transition?: string;
     children?: React.ReactNode;
 }) {
-    const coverTransition = transition ?? `transform ${duration}s ${ease}`;
     const [openState, setOpenState] = useState(false);
-    const openWhenRef = useRef(openWhen);
     const [ready, setReady] = useState(false);
 
-    useEffect(() => {
-        openWhenRef.current = openWhen;
+    useScroll(() => {
+        if (openWhen) setOpenState(openWhen());
     });
-
-    useEffect(() => {
-        if (!openWhenRef.current) return;
-        const update = () => setOpenState(openWhenRef.current!());
-        window.addEventListener("scroll", update, { passive: true });
-        update();
-        return () => window.removeEventListener("scroll", update);
-    }, []);
 
     useEffect(() => {
         const id = requestAnimationFrame(() => setReady(true));
@@ -110,7 +99,7 @@ export default function Stripes({
                             ...stripStyle(i),
                             zIndex,
                             transform: open ? away : "translate(0%, 0%)",
-                            transition: coverTransition,
+                            transition: `transform ${duration}s ${ease}`,
                             transitionDelay: `${delay}s`,
                         }}
                     >

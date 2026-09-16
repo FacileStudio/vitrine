@@ -4,7 +4,7 @@ import gsap from "gsap";
 import { useLayoutEffect, useRef, useState } from "react";
 import { usePinProgress } from "@/hooks/use-pin-progress";
 import Stripes from "@/components/facile/stripes";
-import Backdrop from "./backdrop";
+import DitherBackdrop from "@/components/facile/ditherBackdrop";
 import Track from "./track";
 import type { Chapter } from "./types";
 
@@ -49,11 +49,10 @@ export default function Band({ sections, id }: BandProps) {
             className="relative w-full text-foreground"
         >
             <div
-                data-no-shadow
                 ref={viewRef}
                 className="sticky top-0 h-screen w-full overflow-hidden bg-background"
             >
-                <Backdrop arrive />
+                <DitherBackdrop variant="story" />
 
                 <div className="relative h-full">
                     <Track ref={trackRef} sections={sections} scrollerRef={viewRef} />

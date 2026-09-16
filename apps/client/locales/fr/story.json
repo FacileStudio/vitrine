@@ -1,1 +1,10 @@
-{}
+{
+    "endBack": "Retour",
+    "visitSite": "Visiter le site",
+    "createdWith": "Créé avec",
+    "involved": "Impliqué·es",
+    "thanks": "Merci d'avoir défilé.",
+    "scroll": "défiler",
+    "weeks": "{count, plural, one {# semaine} other {# semaines}}",
+    "endOf": "Fin de {name}"
+}
