@@ -45,8 +45,10 @@ All user-facing routes live under `app/[locale]/`. Locale handling:
 - `lib/i18n/locales.ts` — source of truth: `locales = ['en','fr','es','de']`, `defaultLocale = 'en'`.
 - `i18n.ts` (root) — next-intl request config + `routing` (`localePrefix: 'always'`, detection on).
 - `next.config.ts` — wraps the app with `createNextIntlPlugin('./i18n.ts')`.
-- `app/layout.tsx` — root layout; wraps everything in `NextIntlClientProvider` and injects SEO JSON-LD.
-- `app/[locale]/layout.tsx` — validates the locale, `setRequestLocale`, `generateStaticParams` for all locales.
+- `app/layout.tsx` — pass-through root layout. It must not render the document: Next keeps it across client navigation, so a provider there stays on the first locale loaded.
+- `app/shell.tsx` — the `<html>` document: fonts, SEO JSON-LD, `NextIntlClientProvider` with an explicit `locale`.
+- `app/[locale]/layout.tsx` — validates the locale, `setRequestLocale`, `generateStaticParams`, base metadata, renders `Shell`.
+- `app/not-found.tsx` — renders `Shell` itself in the default locale, since it sits outside `[locale]`.
 - **Translation messages:** `locales/<locale>.json` (repo root `locales/`, imported by `i18n.ts`).
 
 > ⚠️ Because `localePrefix` is `'always'`, internal links should include the locale

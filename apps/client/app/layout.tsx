@@ -1,61 +1,9 @@
-import "./globals.css";
 import { ReactNode } from "react";
-import { Poppins, DM_Sans, IBM_Plex_Mono } from "next/font/google";
-import { NextIntlClientProvider } from "next-intl";
-import { getLocale, getMessages } from "next-intl/server";
-import { getBaseMetadata } from "@/lib/seo/metadata";
-import { getOrganizationJsonLd, getWebSiteJsonLd } from "@/lib/seo/jsonld";
-import { Metadata } from "next";
 
-export async function generateMetadata(): Promise<Metadata> {
-    return getBaseMetadata(await getLocale());
-};
-
-const poppins = Poppins({
-    subsets: ["latin"],
-    weight: ["400", "500", "600"],
-    variable: "--font-poppins",
-    display: "swap",
-});
-
-const dmSans = DM_Sans({
-    subsets: ["latin"],
-    weight: ["400", "500", "600", "700"],
-    variable: "--font-dm-sans",
-    display: "swap",
-});
-
-const ibmPlexMono = IBM_Plex_Mono({
-    subsets: ["latin"],
-    weight: ["400", "500"],
-    variable: "--font-ibm-plex-mono",
-    display: "swap",
-});
-
-export default async function RootLayout({ children }: { children: ReactNode }) {
-    const locale = await getLocale();
-    const messages = await getMessages({ locale });
-    const organization = await getOrganizationJsonLd(locale);
-
-    return (
-        <html lang={locale} className={`${poppins.variable} ${dmSans.variable} ${ibmPlexMono.variable}`}>
-            <head>
-                <script
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{ __html: JSON.stringify(organization) }}
-                />
-                <script
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{ __html: JSON.stringify(getWebSiteJsonLd()) }}
-                />
-            </head>
-            <body>
-                <NextIntlClientProvider messages={messages}>
-                    {children}
-                </NextIntlClientProvider>
-            </body>
-        </html>
-    );
+// the document lives in app/[locale]/layout.tsx (see app/shell.tsx); this one only
+// exists because app/not-found.tsx sits outside the locale segment
+export default function RootLayout({ children }: { children: ReactNode }) {
+    return children;
 }
 
 export { viewport } from "@/lib/seo";
