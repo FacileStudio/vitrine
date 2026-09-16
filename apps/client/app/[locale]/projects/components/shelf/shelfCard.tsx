@@ -59,7 +59,7 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
             onKeyDown={onKeyDown}
             onMouseEnter={(e) => { onEnter(e); if (marcel) start(); }}
             onMouseLeave={(e) => { onLeave(e); stop(); }}
-            className="group/card cursor-pointer 3xl:w-[70vw] lg:w-[80vw] w-full shrink-0 flex lg:flex-row flex-col items-start justify-between"
+            className="group/card cursor-pointer 3xl:w-[70vw] lg:w-[80vw] w-full shrink-0 flex lg:flex-row flex-col items-start justify-between lg:gap-[4vw]"
         >
             <div className="relative shrink-0 w-full lg:w-auto">
                 {marcel && <MarcelSpheres ref={spheres} />}
@@ -103,7 +103,7 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
                 </div>
             </div>
 
-            <div ref={refs.content(index)} className="flex flex-col items-start lg:items-end gap-6 lg:gap-12 w-full lg:w-auto lg:max-w-sm px-3 lg:px-0 py-12 text-right">
+            <div ref={refs.content(index)} className="flex flex-col items-start lg:items-end gap-6 lg:gap-12 w-full lg:w-auto lg:max-w-[26vw] px-3 lg:px-0 py-12 text-right">
                 <div className="gap-y-6 lg:gap-y-8 flex flex-col items-start lg:items-end text-start lg:text-end">
                     <TextReveal as="h2" cropClassName="z-10" className="subtitle text-white">
                         {project.name}
