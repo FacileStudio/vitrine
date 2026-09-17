@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useProgress } from "@react-three/drei";
 import { gsap } from "gsap";
-import { bytesProgress } from "@/webgl/loadBytes";
+import { bytesDone, bytesProgress } from "@/webgl/loadBytes";
 
 // playback rate 1 plays a whole track in a second, so a rate reads as hundredths per second
 const FILL_MS = 1000;
@@ -12,7 +11,6 @@ const RATE_EASE = 0.25;
 
 export function useLoadFill<K extends string>(tracks: Record<K, Keyframe[]>, onDone: () => void) {
     const [percent, setPercent] = useState(0);
-    const { active, total } = useProgress();
     const targets = useRef({} as Record<K, HTMLElement | null>);
     const animations = useRef<Animation[]>([]);
     const goal = useRef(0);
@@ -42,7 +40,7 @@ export function useLoadFill<K extends string>(tracks: Record<K, Keyframe[]>, onD
             if (!lead || animations.current.some((anim) => anim.pending))
                 return;
 
-            const loaded = total > 0 && !active;
+            const loaded = bytesDone();
             // elapsed animation time as a share of a whole track, in percent
             const shown = (Number(lead.currentTime ?? 0) / FILL_MS) * 100;
 
@@ -71,7 +69,7 @@ export function useLoadFill<K extends string>(tracks: Record<K, Keyframe[]>, onD
         gsap.ticker.add(tick);
 
         return () => gsap.ticker.remove(tick);
-    }, [active, total, onDone]);
+    }, [onDone]);
 
     return { bind, percent };
 }

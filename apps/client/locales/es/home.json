@@ -4,7 +4,7 @@
     "headline": ["Un equipo de apasionados", "que sabe lo que hace."]
   },
   "manifesto": {
-    "creators": ["Somos *creadores* de", "*experiencias* impactantes", "y memorables."],
+    "creators": ["Somos *creadores*", "de *experiencias*", "memorables."],
     "trusted": ["Confiaron", "en nuestra *experiencia*."],
     "openProject": "{name}, ver el proyecto"
   },

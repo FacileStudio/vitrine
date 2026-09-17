@@ -4,7 +4,7 @@ import type { MouseEvent } from "react";
 import { useTranslations } from "next-intl";
 import SplitLines from "@/components/facile/splitLines";
 import TextReveal from "@/components/facile/textReveal";
-import LightPillar from "@/components/LightPillar";
+import { LightPillar } from "@/webgl/lazy";
 import ArrowLink from "@/components/facile/arrowLink";
 import TechStack from "@/components/facile/techStack";
 import ShelfRow from "@/components/facile/shelf/shelfRow";
@@ -84,6 +84,8 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
                                 data-media
                                 src={project.video}
                                 alt={project.name}
+                                loading="lazy"
+                                decoding="async"
                                 className={mediaClass}
                             />
                         )

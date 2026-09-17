@@ -2,7 +2,7 @@ type Loader = {
     load: (url: string, onLoad: (data: unknown) => void, onProgress?: (event: ProgressEvent) => void, onError?: (error: unknown) => void) => unknown;
 };
 
-const files = new Map<string, { loaded: number; total: number }>();
+const files = new Map<string, { loaded: number; total: number; done: boolean }>();
 const wrapped = new WeakSet<Loader>();
 
 export function trackBytes(loader: Loader) {
@@ -12,21 +12,34 @@ export function trackBytes(loader: Loader) {
     const load = loader.load.bind(loader);
 
     wrapped.add(loader);
-    loader.load = (url, onLoad, onProgress, onError) => load(
-        url,
-        (data) => {
-            const file = files.get(url);
+    loader.load = (url, onLoad, onProgress, onError) => {
+        const file = { loaded: 0, total: 0, done: false };
 
-            if (file)
+        files.set(url, file);
+
+        return load(
+            url,
+            (data) => {
                 file.total = file.loaded;
-            onLoad(data);
-        },
-        (event) => {
-            files.set(url, { loaded: event.loaded, total: event.total });
-            onProgress?.(event);
-        },
-        onError,
-    );
+                file.done = true;
+                onLoad(data);
+            },
+            (event) => {
+                file.loaded = event.loaded;
+                file.total = event.total;
+                onProgress?.(event);
+            },
+            (error) => {
+                file.done = true;
+                onError?.(error);
+            },
+        );
+    };
+}
+
+// the loader calls onLoad after parsing and textures, so this is later than the last byte
+export function bytesDone() {
+    return files.size > 0 && [...files.values()].every((file) => file.done);
 }
 
 export function bytesProgress() {

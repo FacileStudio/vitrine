@@ -24,7 +24,7 @@ export default function TechStack({
 
     if (!stack?.length) return null;
 
-    const logo = (name: string) => <img key={name} src={`/images/logo/${name}.png`} alt={name} className={logoClassName} />;
+    const logo = (name: string) => <img key={name} src={`/images/logo/${name}.png`} alt={name} fetchPriority="low" decoding="async" className={logoClassName} />;
 
     return (
         <div className={className}>

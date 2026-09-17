@@ -43,15 +43,16 @@ export class DitheringEffect extends Effect {
         this.uniforms = uniforms;
     }
 
-    update(_renderer: THREE.WebGLRenderer, inputBuffer: THREE.WebGLRenderTarget, deltaTime: number): void {
+    update(renderer: THREE.WebGLRenderer, _inputBuffer: THREE.WebGLRenderTarget, deltaTime: number): void {
         const timeUniform = this.uniforms.get("time");
         if (timeUniform !== undefined && typeof timeUniform.value === "number") {
             timeUniform.value += deltaTime;
         }
 
+        // the scene buffer is CSS-sized, but the pattern is drawn onto the device-pixel canvas
         const resolutionUniform = this.uniforms.get("resolution");
         if (resolutionUniform !== undefined && resolutionUniform.value instanceof THREE.Vector2) {
-            resolutionUniform.value.set(inputBuffer.width, inputBuffer.height);
+            renderer.getDrawingBufferSize(resolutionUniform.value);
         }
     }
 

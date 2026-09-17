@@ -8,7 +8,7 @@ export default function Portfolio() {
         <PageShell
             className="relative min-h-screen w-full bg-foreground text-white"
             lenis
-            curtain={{ enter: "light", leave: "light" }}
+            curtain={{ enter: "dark", leave: "dark" }}
             footer
         >
             <Shelf />

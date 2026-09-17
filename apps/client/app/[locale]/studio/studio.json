@@ -166,7 +166,7 @@
             "de": "Platzhalter für Mazouz' ausführliche Bio, bitte im Backoffice ersetzen. Entwickler bei Facile Studio, im Backend: APIs, Daten und die Automatisierung, die Arbeit abschafft, die niemand zweimal machen will."
         },
         "model": "/models/mazouz.glb",
-        "scale": 0.015,
+        "scale": 4.5,
         "roughness": 0.85,
         "metalness": 1,
         "hair": "#6E5A4E",

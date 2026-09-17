@@ -90,7 +90,8 @@ export function DitherView({
                 dpr={lite ? 1 : [1, 2]}
                 shadows={lite ? false : { type: THREE.PCFShadowMap }}
                 frameloop={active ? "always" : "never"}
-                gl={{ alpha: background === null, antialias: true }}
+                // the composer's last pass is one full-screen triangle, so MSAA on the canvas only costs memory
+                gl={{ alpha: background === null, antialias: false }}
                 camera={{ position: cameraPosition, fov }}
                 onCreated={({ gl, invalidate }) => {
                     if (background === null) gl.setClearColor(0x000000, 0);
@@ -118,7 +119,7 @@ export function DitherView({
                             <DitherModel {...m} />
                         </group>
                     ))}
-                    <EnvironmentWrapper intensity={intensity} highlight={highlight} resolution={lite ? 256 : 1024} />
+                    <EnvironmentWrapper intensity={intensity} highlight={highlight} />
                     <Ready done={done} />
                 </Suspense>
                 <PostProcessing

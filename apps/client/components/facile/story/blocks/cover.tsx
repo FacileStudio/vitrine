@@ -1,4 +1,4 @@
-import LightPillar from "@/components/LightPillar";
+import { LightPillar } from "@/webgl/lazy";
 import { MarcelEyes, MarcelSpheres, useMarcelEyes } from "@/components/facile/marcelEyes";
 import type { BlockProps } from "../types";
 import { Block, Cell, Media } from "../bento";

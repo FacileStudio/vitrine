@@ -171,7 +171,6 @@ effect keyed on the flags. See `manifesto.tsx`, `projects.tsx`, and `menu.tsx` f
   by sliding `Stripes` covers away. Used by the Studio grid and available for any
   "3D object appears from behind stripes" moment. (The home/process sections instead tie their
   Stripes to scroll progress via `openWhen` — use that when the reveal should follow the scroll.)
-- `rideau.tsx` — the loading curtain; uses drei `useProgress` to know when 3D assets are ready.
 - `appShell.tsx` — wraps non-home pages with Header/Footer/Menu/ContactModal.
   **⚠️ Currently not referenced anywhere** (see [Open work](#open-work--todo)).
 - `orbit.tsx`, `horizontalReel.tsx`, `ParallaxCarousel.tsx`, `reveal.tsx`, `pageTransition.tsx`,

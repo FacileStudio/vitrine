@@ -7,6 +7,16 @@ import { EffectComposer, RenderPass, EffectPass, BloomEffect } from "postprocess
 import gsap from "gsap";
 import { DitheringEffect } from "./dithering-shader/DitheringEffect";
 
+const MAX_FPS = 60;
+const FRAME_SLACK = 0.002;
+
+// the dither reads the scene once per cell, so the scene needs CSS pixels while the pattern keeps device pixels
+function fit(composer: EffectComposer, width: number, height: number) {
+    composer.setSize(width, height);
+    composer.inputBuffer.setSize(Math.ceil(width), Math.ceil(height));
+    composer.outputBuffer.setSize(Math.ceil(width), Math.ceil(height));
+}
+
 export interface PostProcessingProps {
     gridSize?: number;
     pixelSizeRatio?: number;
@@ -31,11 +41,13 @@ export function PostProcessing({
     const gridValue = useRef(gridSize);
     const [scene, setScene] = useState<THREE.Scene | null>(null);
     const [camera, setCamera] = useState<THREE.Camera | null>(null);
-    const { size, gl } = useThree();
+    const sinceRender = useRef(Infinity);
+    const { size, gl, viewport } = useThree();
 
     useEffect(() => {
-        composerRef.current?.setSize(size.width, size.height);
-    }, [size]);
+        if (composerRef.current)
+            fit(composerRef.current, size.width, size.height);
+    }, [size, viewport.dpr]);
 
     useEffect(() => () => {
         composerRef.current?.dispose();
@@ -93,13 +105,22 @@ export function PostProcessing({
         };
     }, [gridSize, gridTween]);
 
-    useFrame(({ gl, scene: currentScene, camera: currentCamera }) => {
+    useFrame(({ gl, scene: currentScene, camera: currentCamera }, delta) => {
         if (!composerRef.current) {
             composerRef.current = new EffectComposer(gl);
-            composerRef.current.setSize(size.width, size.height);
+            fit(composerRef.current, size.width, size.height);
         }
         if (scene !== currentScene) setScene(currentScene);
         if (camera !== currentCamera) setCamera(currentCamera);
+
+        sinceRender.current += delta;
+
+        // a frame a hair early still counts, or display jitter would drop whole frames at the cap
+        if (sinceRender.current < 1 / MAX_FPS - FRAME_SLACK)
+            return;
+
+        // carry the overshoot so 144Hz still averages the cap, but never bank more than one frame
+        sinceRender.current = Math.min(sinceRender.current - 1 / MAX_FPS, 1 / MAX_FPS);
         composerRef.current.render();
     }, 1);
 

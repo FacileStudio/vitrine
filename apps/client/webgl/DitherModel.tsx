@@ -33,7 +33,7 @@ export function DitherModel({
     idle = 0,
     float = true,
 }: DitherModelProps) {
-    const { scene } = useGLTF(file, true, true, trackBytes);
+    const { scene } = useGLTF(file, false, true, trackBytes);
     const canvas = useThree((state) => state.gl.domElement);
     const group = useRef<THREE.Group>(null);
     const cursor = useRef<{ x: number; y: number } | null>(null);

@@ -1,13 +1,16 @@
+import { memo } from "react";
 import * as THREE from "three";
 import { Lightformer, Environment } from "@react-three/drei";
 
 const boxGeometry = new THREE.BoxGeometry();
 const whiteMaterial = new THREE.MeshStandardMaterial({ color: new THREE.Color(1, 1, 1) });
 
+// roughness 0.15 samples the 64px mips, so a bigger cube only grows the PMREM targets (1024 is ~200MB)
+const RESOLUTION = 256;
+
 export interface EnvironmentWrapperProps {
     intensity?: number;
     highlight?: string;
-    resolution?: number;
 }
 
 function Room({ highlight = "#066aff" }: { highlight?: string }) {
@@ -44,10 +47,11 @@ function Room({ highlight = "#066aff" }: { highlight?: string }) {
     );
 }
 
-export function EnvironmentWrapper({ intensity = 1.5, highlight = "#066aff", resolution = 1024 }: EnvironmentWrapperProps) {
+// drei re-bakes whenever children change identity, so a parent re-render must not reach the Room
+export const EnvironmentWrapper = memo(function EnvironmentWrapper({ intensity = 1.5, highlight = "#066aff" }: EnvironmentWrapperProps) {
     return (
-        <Environment resolution={resolution} background={false} environmentIntensity={intensity}>
+        <Environment resolution={RESOLUTION} background={false} environmentIntensity={intensity}>
             <Room highlight={highlight} />
         </Environment>
     );
-}
+});

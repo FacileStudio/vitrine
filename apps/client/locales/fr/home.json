@@ -4,8 +4,8 @@
     "headline": ["Une équipe de passionnés", "qui sait ce qu'elle fait."]
   },
   "manifesto": {
-    "creators": ["Nous sommes des *créateurs*", "d'*expériences* belles", "et mémorables."],
-    "trusted": ["Ils ont fait confiance", "à notre *expertise*."],
+    "creators": ["Nous sommes des", "*créateurs* d'*expériences*", "mémorables."],
+    "trusted": ["Ils ont fait confiance", "en notre *expertise*."],
     "openProject": "{name}, voir le projet"
   },
   "shelf": {

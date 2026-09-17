@@ -5,22 +5,22 @@
         "name": "Marcel",
         "weeks": 12,
         "link": "https://marcel.my/",
-        "image": "/images/projects/Marcel.png",
+        "image": "/images/projects/Marcel_cover.webp",
         "gallery": [
             "/images/projects/Marcel%202x2%20logo.png",
             "/images/projects/Marcel%202x3%20rebranding.png",
-            "/images/projects/Marcel%203x3%20dashboard.png",
-            "/images/projects/Marcel_1x2_phone.png",
-            "/images/projects/Marcel_2x1_onboarding.png",
-            "/images/projects/Marcel_1x1_calendar_dark.png",
-            "/images/projects/Marcel_2x2_calendar.png",
-            "/images/projects/Marcel_1x1_red.png",
-            "/images/projects/Marcel_1x1_orange.png",
-            "/images/projects/Marcel_1x1_yellow.png",
-            "/images/projects/Marcel_1x1_green.png",
-            "/images/projects/Marcel_1x1_blue.png",
-            "/images/projects/Marcel_1x1_purple.png",
-            "/images/projects/Marcel_2x2_dev.png"
+            "/images/projects/Marcel%203x3%20dashboard.webp",
+            "/images/projects/Marcel_1x2_phone.webp",
+            "/images/projects/Marcel_2x1_onboarding.webp",
+            "/images/projects/Marcel_1x1_calendar_dark.webp",
+            "/images/projects/Marcel_2x2_calendar.webp",
+            "/images/projects/Marcel_1x1_red.webp",
+            "/images/projects/Marcel_1x1_orange.webp",
+            "/images/projects/Marcel_1x1_yellow.webp",
+            "/images/projects/Marcel_1x1_green.webp",
+            "/images/projects/Marcel_1x1_blue.webp",
+            "/images/projects/Marcel_1x1_purple.webp",
+            "/images/projects/Marcel_2x2_dev.webp"
         ],
         "description": {
             "en": "Marcel is an application that lets you turn your life into a game by transforming tasks and habits into adventures.",
@@ -279,7 +279,7 @@
         "coverEffect": "projet-zero-pillar",
         "name": "Projet Zero",
         "weeks": 6,
-        "image": "/images/projects/ProjetZero_cover.png",
+        "image": "/images/projects/ProjetZero_cover.webp",
         "video": "/images/projects/ProjetZero_reveal.webp",
         "gallery": [
             "https://picsum.photos/seed/projet-zero-sketches/1400/1000",
@@ -580,8 +580,8 @@
         "name": "LauraHerve",
         "tier": 2,
         "weeks": 4,
-        "image": "/images/projects/Laura.png",
-        "video": "/videos/LauraHerve.mp4",
+        "image": "/images/projects/Laura.webp",
+        "video": "/videos/LauraHerve_web.mp4",
         "gallery": [
             "/images/projects/LauraHerve.webp",
             "https://picsum.photos/seed/laura-b/1400/1500",
@@ -679,7 +679,7 @@
                     {
                         "type": "full",
                         "media": [
-                            "/videos/LauraHerve.mp4"
+                            "/videos/LauraHerve_web.mp4"
                         ]
                     }
                 ]
@@ -698,10 +698,10 @@
         "name": "Hottake",
         "tier": 3,
         "weeks": 1,
-        "image": "/images/projects/Hottake.png",
+        "image": "/images/projects/Hottake.webp",
         "video": "/videos/Hottake.webp",
         "gallery": [
-            "/images/projects/HottakeShow.png",
+            "/images/projects/HottakeShow.webp",
             "https://media.w3.org/2010/05/video/movie_300.mp4",
             "https://picsum.photos/seed/hottake-b/1300/1600",
             "https://picsum.photos/seed/hottake-x0/1500/1000"
@@ -823,8 +823,8 @@
         "name": "EvelyneCrea",
         "tier": 2,
         "weeks": 8,
-        "image": "/images/projects/Green.png",
-        "video": "/videos/EvelyneCrea.mp4",
+        "image": "/images/projects/Green.webp",
+        "video": "/videos/EvelyneCrea_web.mp4",
         "gallery": [
             "/images/projects/EvelyneCrea.webp",
             "https://picsum.photos/seed/evelyne-b/1200/1500",
@@ -923,7 +923,7 @@
                     {
                         "type": "full",
                         "media": [
-                            "/videos/EvelyneCrea.mp4"
+                            "/videos/EvelyneCrea_web.mp4"
                         ]
                     }
                 ]
