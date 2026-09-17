@@ -1,0 +1,5 @@
+# For container workloads:
+type: container
+containerfile: apps/web/Containerfile
+context: .
+# healthcheck: /health
