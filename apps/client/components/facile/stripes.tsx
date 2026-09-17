@@ -6,16 +6,6 @@ import { useScroll } from "@/hooks/use-scroll";
 
 const defaultEase = "cubic-bezier(0.7, 0, 0.3, 1)";
 
-// covers that slide off toward `orientation` (deg) when open; split into columns/rows by the dominant axis.
-// pass a static `open`, or `openWhen` to derive it from scroll (listener lives here, not the parent).
-// tune the slide feel via `ease` (any CSS timing function, e.g. "ease-out") and `duration` (seconds).
-// stack two colours (different `zIndex`, `leadOpen`/`leadClose`) to race one another across, same
-// trick as the Menu curtain — one layer's smaller lead value arrives/leaves first. `reverseOnOpen`
-// and `reverseOnClose` flip the per-index stagger on that transition: set one to bounce the wave
-// back the way it came, set both to keep it sweeping the same way on arrival and departure.
-// `exitOrientation` sends the covers off toward a different heading than the one they arrived
-// from — give it the opposite of `orientation` and the wave carries straight on through the
-// viewport instead of retreating back out the side it came in.
 export default function Stripes({
     orientation,
     exitOrientation,
@@ -63,8 +53,6 @@ export default function Stripes({
 
     const open = ready && (openWhen ? openState : !!openProp);
 
-    // the split into rows or columns follows `orientation`; only the heading the
-    // covers leave on is allowed to differ from the one they arrived from
     const rad = (orientation * Math.PI) / 180;
     const exitRad = ((exitOrientation ?? orientation) * Math.PI) / 180;
     const away = `translate(${(-Math.sin(exitRad) * 110).toFixed(2)}%, ${(-Math.cos(exitRad) * 110).toFixed(2)}%)`;

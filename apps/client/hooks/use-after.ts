@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 
-// True `ms` after `when` turns true, false again when it turns false
 export function useAfter(when: boolean, ms: number) {
     const [done, setDone] = useState(false);
 

@@ -46,7 +46,6 @@ export const findProject = (slug: string) => allProjects.find((p) => p.slug === 
 
 export const projectIndex = (slug: string) => allProjects.findIndex((p) => p.slug === slug);
 
-// Filter categories, keyed by id and mapped onto service ids
 export const CATEGORIES = {
     appDev: ["appDevelopment", "desktopDevelopment"],
     showcaseWebsite: ["webDevelopment"],

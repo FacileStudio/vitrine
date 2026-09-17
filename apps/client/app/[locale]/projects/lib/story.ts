@@ -10,7 +10,6 @@ export type ServiceCopy = (service: Service) => string;
 
 type Copy = { t: StoryCopy; services: ServiceCopy };
 
-// Fills the cover, intro and end blocks with the project's own content
 function hydrate(p: Resolved<Project>, b: StoryBlock, people: Person[], { t, services }: Copy): StoryBlock {
     if (b.type === "cover")
         return { ...b, media: b.media?.length ? b.media : [p.image], effect: b.effect ?? p.coverEffect };
@@ -33,7 +32,6 @@ function hydrate(p: Resolved<Project>, b: StoryBlock, people: Person[], { t, ser
     return b;
 }
 
-// A project's story: authored when there is one, laid out automatically otherwise
 export function projectStory(p: Project, locale: Locale, copy: Copy): Chapter[] {
     const localized = localize(p, locale);
     const story = localized.story?.length ? localized.story : autoStory(localized, copy.services);
@@ -50,7 +48,6 @@ export function projectStory(p: Project, locale: Locale, copy: Copy): Chapter[] 
     );
 }
 
-// One chapter per service, then the remaining media largest-first
 function autoStory(p: Resolved<Project>, services: ServiceCopy): StorySection[] {
     const pool = [...new Set([p.video, ...p.gallery].filter(Boolean) as string[])];
     const take = (n: number) => pool.splice(0, n);

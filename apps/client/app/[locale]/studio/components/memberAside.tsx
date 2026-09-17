@@ -6,7 +6,6 @@ import SplitLines from "@/components/facile/splitLines";
 import ArrowLink from "@/components/facile/arrowLink";
 import type { Member, WorkedProject } from "@/lib/content/studio";
 
-// desktop, right edge: the projects at the top, the personal notes at the bottom
 export default function MemberAside({
     member,
     worked,

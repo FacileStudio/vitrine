@@ -26,34 +26,22 @@ export default function Hero({ charged }: { charged: boolean }) {
     const tc = useTranslations("common.header");
     const members = useLocalized(studio);
 
-
-
-
     usePinProgress(sectionRef, (p) => {
         const leaving = p > 0.4;
         setLeaving(leaving);
         setShowText(!leaving);
     });
 
-    // nothing rises before the dither grid has charged, and the whole headline
-    // rides the same flag afterwards
     const shown = showText && charged;
 
-    // the headline and the crew share one cell, so each waits for the other to
-    // clear it. The long opening stagger only applies before the first hover
     const [hovered, setHovered] = useState(false);
     const swap = 0.3;
     const headlineDelay = (i: number) => teamHover ? i * 0.08 : (hovered ? swap : 0.7) + i * 0.1;
-
-
 
     useEffect(() => {
         hideFade([ctaRef.current]);
     }, []);
 
-
-
-    // the copy rides up out of its own crops now, so only the CTA is left to fade
     useEffect(() => {
         if (!charged)
             return;
@@ -77,20 +65,14 @@ export default function Hero({ charged }: { charged: boolean }) {
 
             <div className="relative h-full flex flex-col p-4 lg:px-20 lg:p-6">
 
-                {/* headline + cta, bottom-left */}
                 <div className=" cta mt-110 lg:mt-0 flex flex-col items-end justify-center px-2 lg:px-20 h-full gap-6 lg:gap-12">
-                    {/* the headline steps aside for the crew: both sit in the same
-                        grid cell, each behind its own crop, so the swap moves
-                        nothing around it. The heads stay mounted — building four
-                        canvases on mouseenter would stutter exactly when it shows */}
+                    {/* heads stay mounted: building four canvases on mouseenter stutters */}
                     <div
                         className="grid"
                         onMouseEnter={() => { setTeamHover(true); setHovered(true); }}
                         onMouseLeave={() => setTeamHover(false)}
                     >
                         <h2 className="col-start-1 row-start-1 flex flex-col text-end items-end max-w-full text-white/90 gap-2">
-                            {/* each line leaves through its own crop rather than the
-                                whole headline sliding as one slab; `leaving` sends it up */}
                             {(t.raw("hero.headline") as string[]).map((line, i) => (
                                 <TextReveal
                                     key={i}
@@ -104,8 +86,6 @@ export default function Hero({ charged }: { charged: boolean }) {
                             ))}
                         </h2>
 
-                        {/* the heads draw while the hero is on screen, hidden or not: a
-                            canvas parked below its crop reads as off-screen and never paints */}
                         <span className="hidden col-start-1 row-start-1 lg:flex items-center justify-end">
                             {members.map((m, i) => (
                                 <TextReveal
@@ -141,8 +121,6 @@ export default function Hero({ charged }: { charged: boolean }) {
                         </Link>
                     </span>
                 </div>
-
-
 
 
                 <div className="flex flex-col items-end justify-end lg:pr-12 pb-6">

@@ -2,7 +2,6 @@
 
 import type { KeyboardEvent, MouseEvent, ReactNode, Ref } from "react";
 
-// A shelf row that opens on click, Enter or Space
 export default function ShelfRow({
     ref,
     label,

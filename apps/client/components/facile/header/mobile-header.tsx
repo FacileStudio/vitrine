@@ -13,7 +13,6 @@ export const MobileHeader = ({ menuOpen, setMenuOpen, dark }: MobileHeaderProps)
     const t = useTranslations('common.header');
 
     return (
-        // fixed like the desktop bar: the home page scrolls the window, and the menu can only close from here
         <div className={"fixed top-0 right-0 flex flex-col items-end justify-end lg:hidden"}>
             <div className="flex items-center gap-6 p-6 pr-10">
                 <LocaleSwitcher className={`transition-colors duration-300 ${dark ? "text-[#1E1E1E]" : "text-white"}`} />

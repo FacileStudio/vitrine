@@ -9,7 +9,6 @@ import Footer from "@/components/facile/footer";
 
 type CurtainProps = { enter?: Tone; leave?: Tone; arrive?: boolean };
 
-// Page frame: header, menu, optional smooth scroll, curtain and footer
 export default function PageShell({
     className,
     lenis = false,

@@ -13,9 +13,6 @@ interface ChromeProps {
     onBack: () => void;
 }
 
-// the fixed furniture around the track: way out, position in the shelf, the
-// story's name and how far the band has travelled. Every piece is tagged
-// data-chrome so the open timeline can slide the whole set in as one stagger
 export default function Chrome({ name, index, total, backLabel, barRef, onBack }: ChromeProps) {
     const t = useTranslations("story");
 

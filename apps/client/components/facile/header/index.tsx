@@ -4,8 +4,6 @@ import { DesktopHeader } from "./desktop-header";
 import { MobileHeader } from "./mobile-header";
 import { useScroll } from "@/hooks/use-scroll";
 
-// sections still light against the dark site — the header switches to dark
-// text over these, and stays light everywhere else
 const LIGHT_SECTIONS = ["manifesto", "suite", "suite-shelf"];
 
 const Header =({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {

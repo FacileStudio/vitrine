@@ -11,7 +11,6 @@ const PersonHead = memo(function PersonHead({ person, className = "", gridSize =
     className?: string;
     gridSize?: number;
     scaleMultiplier?: number;
-    /** see DitherView: set it when the head hides inside a crop */
     active?: boolean;
 }) {
     const dither = useMemo(() => ({

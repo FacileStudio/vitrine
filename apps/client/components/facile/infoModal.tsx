@@ -14,16 +14,10 @@ type InfoModalProps = {
     setOpen: (open: boolean) => void;
     title: string;
     kicker?: string;
-    /** one line under the kicker: the short description, not the long copy */
     note?: string;
-    /** called with `entered` once the panel has finished sliding up, so the copy inside can reveal after it */
     children: (entered: boolean) => ReactNode;
 };
 
-// The panel shape the suite's architecture note introduced: centred card on a
-// blurred overlay, fixed header with the title and a Close, everything below it
-// scrolling on its own. Lenis is told to keep its hands off the body so the
-// inner scroll behaves like a page
 export default function InfoModal({ open, setOpen, title, kicker, note, children }: InfoModalProps) {
     const t = useTranslations("common.header");
     const [landed, setLanded] = useState(false);

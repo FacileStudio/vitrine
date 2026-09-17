@@ -6,7 +6,6 @@ import TransitionLink from "@/components/facile/transitionLink";
 
 const stop = (e: MouseEvent) => e.stopPropagation();
 
-// Link followed by the outbound arrow; http hrefs open in a new tab, the rest go through the curtain
 export default function ArrowLink({
     href,
     className,

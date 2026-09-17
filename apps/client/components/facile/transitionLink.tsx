@@ -4,9 +4,6 @@ import type { ComponentProps, MouseEvent, Ref } from "react";
 import { Link, usePathname, useRouter } from "@/lib/i18n/navigation";
 import { TransitionOut } from "@/components/facile/pageTransition";
 
-// a locale-aware link that drops the curtain first and pushes the route underneath it,
-// so no navigation ever swaps the page in the open. Same-page hrefs fall through
-// to the plain anchor behaviour, since there is nothing to cover
 export default function TransitionLink({
     href,
     onClick,

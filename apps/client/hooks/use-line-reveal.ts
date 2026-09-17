@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import type { RefObject } from "react";
 import { hideRevealY, run, slideY } from "@/lib/animations";
 
-// Line reveal driven by a flag
 export function useLineReveal(scope: RefObject<HTMLElement | null>, shown: boolean, deps: unknown[] = []) {
     useEffect(() => {
         const el = scope.current;

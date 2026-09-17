@@ -17,7 +17,6 @@ interface HeadingProps {
     onFilter?: (c: Category | null) => void;
 }
 
-// Projects shelf intro, with the count and category filter when filterable
 export default function Heading({ lines, filter = null, count = 0, onFilter }: HeadingProps) {
     const t = useTranslations("projects");
     const arrive = ARRIVE / 1000;

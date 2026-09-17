@@ -8,8 +8,6 @@ import type { BlockProps } from "../types";
 import PersonHead from "../head";
 import { Block, Cell } from "../bento";
 
-// the label gets its own crop; the value brings as many as it wants, so a list
-// can rise a row at a time instead of as one slab
 function Meta({ label, children }: { label: string; children: ReactNode }) {
     return (
         <div className="flex flex-col gap-3">
@@ -19,9 +17,6 @@ function Meta({ label, children }: { label: string; children: ReactNode }) {
     );
 }
 
-// the opening card: who made the thing, when, with what. Every part is optional,
-// so an app with nothing but a name and a tagline reads as well as a project
-// with a full crew behind it
 export default function Intro({ block }: BlockProps) {
     const t = useTranslations("story");
     return (
@@ -35,7 +30,6 @@ export default function Intro({ block }: BlockProps) {
                             </Line>
                         ) : null}
 
-                        {/* pre-line keeps a title's \n as its own line */}
                         <Line as="h2" className="capitalize whitespace-pre-line">
                             <Emphasis text={block.title ?? ""} />
                         </Line>

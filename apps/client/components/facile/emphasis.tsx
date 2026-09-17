@@ -1,5 +1,3 @@
-// copy marks its important words with *asterisks*: those keep the full colour and the
-// rest sits at 80%, through opacity so it follows whatever colour the heading already has
 export default function Emphasis({ text }: { text: string }) {
     return (
         <>

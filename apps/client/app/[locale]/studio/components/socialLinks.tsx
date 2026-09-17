@@ -7,8 +7,6 @@ import { InstagramIcon } from "@/components/ui/instagram";
 import { DribbbleIcon } from "@/components/ui/dribbble";
 import type { Member } from "@/lib/content/studio";
 
-// lucide dropped its brand icons, so LinkedIn comes from iconify while the other
-// three are the studio's own animated marks
 const SOCIAL_ICONS: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
     GitHub: GithubIcon,
     Instagram: InstagramIcon,

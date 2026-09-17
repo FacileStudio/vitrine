@@ -27,11 +27,7 @@ const ibmPlexMono = IBM_Plex_Mono({
     display: "swap",
 });
 
-/**
- * The html document and its translations. Rendered by `app/[locale]/layout.tsx` so it
- * re-renders when the locale segment changes; a layout above `[locale]` is kept across
- * client navigation and would pin the provider to the first locale the visitor loaded.
- */
+// rendered under [locale]: a layout above it survives navigation and pins the first locale
 export default async function Shell({ locale, children }: { locale: Locale; children: ReactNode }) {
     const messages = await getMessages({ locale });
     const organization = await getOrganizationJsonLd(locale);

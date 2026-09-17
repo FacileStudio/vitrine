@@ -11,12 +11,9 @@ import { useNarrow } from "@/hooks/use-narrow";
 import { cn } from "@/lib/utils";
 import { authoredMembers as members } from "@/lib/content/studio";
 
-// the canvases must never re-render on hover: a re-render re-bakes drei's
-// Environment cubemap, four at a time. Memoised component, props built once
+// a re-render re-bakes drei's Environment cubemap, so hover must never re-render a head
 const Head = memo(DitherReveal);
 
-// a head's cover takes about a second to clear, so each starts once most of the one
-// before it is out: they arrive one at a time rather than as a block
 const HEAD_STEP = 0.5;
 
 const HEAD_PROPS = (idle: number, gridSize: number) => members.map((member, i) => ({
@@ -41,16 +38,6 @@ const HEAD_PROPS = (idle: number, gridSize: number) => members.map((member, i) =
     },
 }));
 
-/**
- * The crew's four dithered heads side by side, each opening its member's page, with the
- * name and role rising on hover. The studio page fills the screen with them and the
- * footer lines them up along its bottom.
- *
- * `resolved` settles the heads out of the coarse grid they arrive in; the parent decides
- * when, so they resolve once whatever covered them has gone. `dimmed` keeps them faded
- * until hovered, as the studio page wants; turn it off to show them at full strength.
- * `tileClassName` goes on every head's tile, for the dividers the studio page draws.
- */
 export default function MemberTiles({
     resolved,
     dimmed = true,

@@ -7,7 +7,6 @@ import SplitLines from "@/components/facile/splitLines";
 import type { Member } from "@/lib/content/studio";
 import { buttonClass } from "./memberStyles";
 
-// phone: name, role, the short description, and one button for everything else
 export default function MemberSummary({
     member,
     shown,

@@ -7,10 +7,9 @@ import Stripes from "./stripes"
 import { gsap } from "gsap"
 
 function DualRing({ value, ref }: { value: number; ref?: Ref<SVGSVGElement> }) {
-    const r = 46;           // same radius for both arcs
-    const gapDeg = 8;      // white gap between the two arcs' endpoints — bump for more
+    const r = 46;
+    const gapDeg = 8;
 
-    // both arcs sit on the same circle, split by two gaps of gapDeg
     const arcA = (value / 100) * 360 - gapDeg;
     const arcB = ((100 - value) / 100) * 360 - gapDeg;
 
@@ -61,7 +60,6 @@ function DualRing({ value, ref }: { value: number; ref?: Ref<SVGSVGElement> }) {
     );
 }
 
-// dark curtain over the whole viewport; its stripes slide up to reveal the home once loading is done
 const Rideau = ({ setCharged }: { setCharged: (charged: boolean) => void }) => {
     const firstBarRef = useRef<HTMLDivElement | null>(null);
     const secondBarRef = useRef<HTMLDivElement | null>(null);
@@ -78,7 +76,6 @@ const Rideau = ({ setCharged }: { setCharged: (charged: boolean) => void }) => {
     const shown = useRef(0)
     const target = useRef(0)
 
-    // real load progress of everything three.js pulls in (glb models, textures, ...)
     const { progress, active, total } = useProgress()
     useEffect(() => {
         target.current = progress
@@ -86,8 +83,6 @@ const Rideau = ({ setCharged }: { setCharged: (charged: boolean) => void }) => {
 
 
 
-    // the dial builds itself in on mount — ring, logo, counter, then the ticks —
-    // so landing on the home page fades into the loader instead of slamming into it
     useEffect(() => {
         const bars = [firstBarRef.current, secondBarRef.current, thirdBarRef.current, lastBarRef.current];
         const tl = gsap.timeline({ defaults: { ease: "power3.out" }, onComplete: () => setEntered(true) });
@@ -98,8 +93,6 @@ const Rideau = ({ setCharged }: { setCharged: (charged: boolean) => void }) => {
         return () => { tl.kill(); };
     }, []);
 
-    // each bar pops out once, when the percentage crosses its threshold; thresholds
-    // already passed during the entrance fire as a staggered batch once it lands
     useEffect(() => {
         if (!entered) return;
         const bars = [
@@ -118,10 +111,8 @@ const Rideau = ({ setCharged }: { setCharged: (charged: boolean) => void }) => {
 
 
 
-    // one continuous lerp toward the real target so the count keeps gliding
-    // between the loader's discrete progress jumps instead of stalling
     useEffect(() => {
-        const maxStep = 0.6; // cap per-frame change so big jumps don't snap
+        const maxStep = 0.6;
         const tick = () => {
             const diff = target.current - shown.current;
             const step = Math.max(-maxStep, Math.min(maxStep, diff * 0.08));
@@ -175,9 +166,6 @@ const Rideau = ({ setCharged }: { setCharged: (charged: boolean) => void }) => {
                     </div>
             </div>
 
-            {/* two layers leaving one after the other: the dark goes first and uncovers
-                the white behind it, which follows a beat later. The counter sits above
-                both on z-50, so it is still readable while the dark is on its way out */}
             <Stripes count={4} orientation={0} open={open} className="bg-foreground" zIndex={45} leadOpen={0} />
             <Stripes count={4} orientation={0} open={open} className="bg-background" zIndex={44} leadOpen={0.18} />
         </div>

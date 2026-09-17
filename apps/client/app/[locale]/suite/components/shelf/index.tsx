@@ -19,7 +19,6 @@ interface ShelfProps {
     stickyBackdrop?: boolean;
 }
 
-// The suite shelf: a row opens its app's story over the shelf
 export default function SuiteShelf({
     eyebrow,
     lines,

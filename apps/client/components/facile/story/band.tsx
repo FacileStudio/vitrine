@@ -13,9 +13,6 @@ interface BandProps {
     id?: string;
 }
 
-// the same story, read on the page instead of over it: the section is exactly as
-// tall as the track is wide, so a pixel of vertical scroll moves the band a pixel
-// sideways. No nested scroller, and nothing to re-tune when a chapter is added
 export default function Band({ sections, id }: BandProps) {
     const sectionRef = useRef<HTMLElement>(null);
     const viewRef = useRef<HTMLDivElement>(null);
@@ -33,8 +30,6 @@ export default function Band({ sections, id }: BandProps) {
     }, [sections]);
 
     usePinProgress(sectionRef, (progress, visible) => {
-        // the stripes close over the last half screen of the pin; the header reads the
-        // same flag off the section to go light over the dark
         const covered = (1 - progress) * Math.max(travel, window.innerHeight) <= window.innerHeight * 0.5;
         sectionRef.current?.toggleAttribute("data-covered", covered);
         if (visible)
@@ -58,8 +53,6 @@ export default function Band({ sections, id }: BandProps) {
                     <Track ref={trackRef} sections={sections} scrollerRef={viewRef} />
                 </div>
 
-                {/* the dark closes over the last half screen of the pin, so the footer below
-                    reads as the same ground rather than a hard cut */}
                 <Stripes
                     orientation={180}
                     count={4}

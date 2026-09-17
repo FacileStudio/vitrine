@@ -22,7 +22,6 @@ interface AppCardProps {
     onLeave: (e: MouseEvent<HTMLElement>) => void;
 }
 
-// One suite app row: its mark on a white plate, name and description beside it
 export default function AppCard({ app, index, refs, onOpen, onEnter, onLeave }: AppCardProps) {
     const t = useTranslations("suite");
 

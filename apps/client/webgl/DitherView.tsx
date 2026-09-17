@@ -9,9 +9,6 @@ import { DitherModel, type DitherModelProps } from "./DitherModel";
 import { PostProcessing } from "./PostProcessing";
 import { registerScene } from "./sceneReady";
 
-// mounts only once its Suspense boundary has resolved, which is the moment every
-// model in this canvas is fetched and parsed. That is the signal a page curtain
-// waits on before it sweeps off
 function Ready({ done }: { done: () => void }) {
     useEffect(() => { done(); }, [done]);
     return null;
@@ -33,18 +30,8 @@ export interface DitherViewProps extends DitherModelProps {
     background?: string | null;
     ditherAngle?: number;
     models?: DitherModelProps[];
-    /**
-     * a thumbnail-sized canvas pays the same price as a full-bleed one: five
-     * shadow maps a frame, a 1024 cubemap bake and a 2x pixel ratio. `lite`
-     * drops all three, which a head a few vh tall cannot tell apart once the
-     * dither grid has been over it — and a story page can carry a dozen of them
-     */
     lite?: boolean;
-    /**
-     * whether frames run, decided by the parent instead of the viewport observer.
-     * An observer counts ancestor overflow as off-screen, so a canvas parked below
-     * a reveal crop would never paint until it rode in
-     */
+    // an observer counts ancestor overflow as off-screen, so a canvas in a reveal crop never paints
     active?: boolean;
 }
 
@@ -75,8 +62,6 @@ export function DitherView({
     const [canvasKey, setCanvasKey] = useState(0);
     const release = useRef<(() => void) | null>(null);
 
-    // counted as pending from mount, released when the models resolve — or on
-    // unmount, so a canvas that leaves before loading cannot hold a curtain down
     useEffect(() => {
         release.current = registerScene();
         return () => release.current?.();
@@ -113,8 +98,7 @@ export function DitherView({
 
                     const canvas = gl.domElement;
                     let recover: ReturnType<typeof setTimeout> | undefined;
-                    // a lost context that the browser never restores leaves a blank
-                    // canvas forever, so give it a second then rebuild from scratch
+                    // a context the browser never restores stays blank, so rebuild after a second
                     const onLost = (e: Event) => {
                         e.preventDefault();
                         recover = setTimeout(() => setCanvasKey((k) => k + 1), 1000);

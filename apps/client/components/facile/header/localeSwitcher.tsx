@@ -6,11 +6,6 @@ import { locales } from "@/lib/i18n/locales";
 import { usePathname, useRouter } from "@/lib/i18n/navigation";
 import { cn } from "@/lib/utils";
 
-/**
- * The four locale codes, the current one at full strength. Picking another drops the
- * page curtain and reopens the same page in that language; the colour follows whatever
- * text colour the header has, so it reads on light and dark sections alike.
- */
 export default function LocaleSwitcher({ className }: { className?: string }) {
     const locale = useLocale();
     const t = useTranslations("common");

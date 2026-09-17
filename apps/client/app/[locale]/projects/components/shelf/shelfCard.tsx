@@ -35,7 +35,6 @@ interface ShelfCardProps {
     onLeave: (e: MouseEvent<HTMLElement>) => void;
 }
 
-// One project row: cover with hover media on the left, copy on the right
 export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLeave }: ShelfCardProps) {
     const t = useTranslations("story");
     const tProjects = useTranslations("projects");

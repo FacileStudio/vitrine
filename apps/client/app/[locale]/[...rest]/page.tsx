@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 
-// throwing notFound() answers 404 and renders app/[locale]/not-found.tsx in the
-// visitor's locale; rendering the component here directly would answer 200
+// throw rather than render the page: rendering it directly answers 200, not 404
 export default function LocaleRestPage() {
     notFound();
 }

@@ -16,10 +16,6 @@ interface ProjectStoryProps {
     locale: Locale;
 }
 
-// the /projects/[slug] route, so it can be linked to from anywhere — the shelf is
-// one entry point among several, not its owner. Leaving is a route change like
-// any other: the curtain covers the band, the shelf is pushed underneath it and
-// lifts it on arrival
 export default function ProjectStory({ project, index, total, locale }: ProjectStoryProps) {
     const router = useRouter();
     const t = useTranslations("projects");

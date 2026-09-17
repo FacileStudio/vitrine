@@ -12,9 +12,6 @@ import authored from "./process.json";
 
 type Step = Resolved<(typeof authored)[number]>;
 
-// One process step = a pinned scroll section mirroring the landing page: a dither
-// backdrop revealed by scroll-driven Stripes, with text + image that slide in
-// while the section is centred and out as it leaves.
 function ProcessSection({ step, index }: { step: Step; index: number }) {
     const sectionRef = useRef<HTMLElement>(null);
     const progressRef = useRef(0);
@@ -41,7 +38,6 @@ function ProcessSection({ step, index }: { step: Step; index: number }) {
                     scale={4}
                 />
 
-                {/* scroll-driven covers: open as the section enters, close as it leaves */}
                 <Stripes orientation={0} count={4} className="bg-foreground" openWhen={() => progressRef.current > 0.04} />
                 <Stripes orientation={180} count={4} className="bg-foreground" openWhen={() => progressRef.current < 0.9} />
 
@@ -56,7 +52,6 @@ function ProcessSection({ step, index }: { step: Step; index: number }) {
                         </TextReveal>
                     </h2>
 
-                    {/* image (placeholder path until real assets are added) */}
                     <TextReveal open={show} leaving={leaving} delay={0.16}>
                         <div className="h-56 w-80 overflow-hidden rounded-xl bg-white/5 3xl:h-72 3xl:w-[28rem]">
                             <img src={step.image} alt={step.title} loading="lazy" decoding="async" className="h-full w-full object-cover" />

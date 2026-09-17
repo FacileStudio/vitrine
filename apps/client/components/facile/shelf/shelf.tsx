@@ -10,7 +10,6 @@ const GROUND: Record<ShelfTone, string> = {
     light: "absolute inset-0 bg-background -z-10",
 };
 
-// Shelf section: ground, dithered backdrop and the centred column of rows
 export default function Shelf({
     ref,
     id,

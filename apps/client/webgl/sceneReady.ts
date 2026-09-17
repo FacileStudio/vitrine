@@ -2,17 +2,12 @@
 
 import { useEffect, useState } from "react";
 
-// How many canvases are still fetching or parsing a model. A page curtain waits
-// on this so it never sweeps off an empty grid and leaves the heads to pop in
-// afterwards. Module state rather than context: the curtain is a sibling of the
-// canvases, not an ancestor, and nothing here belongs in a render tree.
+// module state, not context: the curtain is a sibling of the canvases, not an ancestor
 let pending = 0;
 const listeners = new Set<() => void>();
 
 const emit = () => listeners.forEach((l) => l());
 
-// Call on mount, call the returned release once the scene is on screen. The
-// release is idempotent, so an unmount before that can call it safely.
 export function registerScene() {
     pending += 1;
     emit();
@@ -36,12 +31,6 @@ function subscribeScenes(fn: () => void) {
 
 const scenesPending = () => pending;
 
-/**
- * True once every canvas on the page has its model. Two timers guard it: a grace
- * period, because a page with no 3D at all starts at zero pending and would
- * otherwise be declared ready before its canvases mount; and a ceiling, because
- * a model that 404s must not leave the viewer stuck behind a curtain forever.
- */
 export function useScenesReady({ grace = 250, ceiling = 8000 } = {}) {
     const [ready, setReady] = useState(false);
 

@@ -3,7 +3,6 @@
 import { useTranslations } from "next-intl";
 import TextReveal from "@/components/facile/textReveal";
 
-// "Created with" label and its logo row
 export default function TechStack({
     stack,
     className,

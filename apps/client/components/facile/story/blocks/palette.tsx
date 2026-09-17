@@ -3,9 +3,6 @@ import { Block, Cell } from "../bento";
 
 const HEX_RE = /^#?[0-9a-f]{3,8}$/i;
 
-// shorthand is expanded and an alpha byte dropped, so a chart that authors
-// #abc or #rrggbbaa still reads the same three channels. Anything that isn't
-// a real hex string (a CSS gradient, say) has no channels to read at all
 const channels = (hex: string) => {
     if (!HEX_RE.test(hex.trim()))
         return null;
@@ -49,8 +46,6 @@ const cmykOf = ([r, g, b]: readonly number[]) => {
     return `(${ink(R)}%, ${ink(G)}%, ${ink(B)}%, ${round(k * 100)}%)`;
 };
 
-// dark text on a light chip and the reverse, so a swatch stays readable whatever
-// the brand throws at it
 const readable = ([r, g, b]: readonly number[]) =>
     (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255 > 0.6 ? "#0E0F10" : "#F9F1E7";
 

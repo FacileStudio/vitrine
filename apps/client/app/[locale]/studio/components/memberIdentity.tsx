@@ -5,8 +5,6 @@ import SplitLines from "@/components/facile/splitLines";
 import type { Member } from "@/lib/content/studio";
 import { SocialIcons } from "./socialLinks";
 
-// desktop, top-left: who they are. Same stack as a shelf card's content column,
-// mirrored to the left edge
 export default function MemberIdentity({ member, shown }: { member: Member; shown: boolean }) {
     return (
         <div className="flex max-w-xl flex-col items-start gap-8 text-left">

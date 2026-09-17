@@ -26,11 +26,8 @@ const CONTACT = {
 
 type NavKey = keyof (typeof common)['nav'];
 
-// a link is labelled by a message key, or by its own name when it points at a project
-// or a person, whose names are the same in every language
 type Label = { key: NavKey } | { name: string };
 
-// hrefs are locale-less ("/projects"); anything starting with http leaves the site
 type SubLink = Label & { href: string };
 type NavLink = { href: string; key: NavKey; secondary?: SubLink[] };
 
@@ -58,20 +55,15 @@ const links: NavLink[] = [
     }
 ];
 
-// where each link's sub-links start in one count across the whole nav, so every
-// sub-link staggers as a single run rather than restarting under each link
 const subBase = links.reduce<number[]>(
     (acc, l) => [...acc, acc[acc.length - 1] + (l.secondary?.length ?? 0)],
     [0],
 );
 
-// the sub-links wait this long after the first link before they start rising
 const SUB_AFTER = 0.45;
 
 const isExternal = (href: string) => href.startsWith('http');
 
-// an outside link opens in a new tab; an inside one keeps its localized href for
-// middle-clicks and crawlers, while a plain click goes through the curtain
 function Anchor({ href, className, go, children }: {
     href: string;
     className: string;
@@ -84,14 +76,6 @@ function Anchor({ href, className, go, children }: {
     return <Link href={href} onClick={(e) => go(e, href)} className={className}>{children}</Link>;
 }
 
-/**
- * The site navigation, every link and sub-link rising in its own crop. The menu and the
- * footer both render it, so they reveal and navigate the same way.
- *
- * `delay` is when the first link starts; closing drops everything at once. A click on the
- * page already showing calls `onSamePage` and scrolls, anything else leaves through the
- * page transition. Sub-links are left out on a phone.
- */
 export function NavLinks({
     open,
     delay = 0,
@@ -157,10 +141,6 @@ export function NavLinks({
     );
 }
 
-/**
- * Email, phone and the socials, a dot between the two groups, each rising in turn from
- * `delay`. Shared by the menu and the footer for the same reason as `NavLinks`.
- */
 export function ContactLinks({ open, delay = 0, className }: { open: boolean; delay?: number; className?: string }) {
     const at = (step: number) => (open ? delay + step : 0);
 

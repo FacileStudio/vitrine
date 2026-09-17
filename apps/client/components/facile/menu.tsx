@@ -9,8 +9,6 @@ const COUNT = 4;
 const coverEase = 'cubic-bezier(0.7, 0, 0.3, 1)';
 const exitDelay = 0.9;
 
-// when the last cover lands: the trailing layer's lead, plus its stagger across the
-// stripes, plus the slide itself. Nothing behind the covers may show before this
 const COVERED_MS = (0.14 + (COUNT - 1) * 0.1 + 0.8) * 1000;
 
 const Stripes = (open: boolean, color: string, leadOpen: number, leadClose: number) =>

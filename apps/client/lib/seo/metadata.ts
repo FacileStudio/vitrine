@@ -8,15 +8,10 @@ export const routePaths = ["", "/projects", "/studio", "/suite"] as const;
 
 export const resolveLocale = (locale: string): Locale => (isLocale(locale) ? locale : defaultLocale);
 
-/** `path` is locale-less: "" for the home page, "/projects/marcel" for a story. */
 export function getLocalizedPath(locale: Locale, path: string = "") {
     return path ? `/${locale}${path}` : `/${locale}`;
 }
 
-/**
- * Every locale of one page, for `hreflang`. The canonical is the locale being rendered,
- * so search engines index each translation instead of folding it into the English one.
- */
 export function getAlternates(path: string, locale: Locale) {
     const languages = Object.fromEntries(
         locales.map((l) => [l, getLocalizedPath(l, path)])
@@ -42,11 +37,6 @@ export function getOpenGraphLocale(locale: string) {
     return isLocale(locale) ? localesMap[locale] : "en_US";
 }
 
-/**
- * The site-wide metadata for one page in `locale`: titles and descriptions from the `seo`
- * messages, alternates and Open Graph URL for `path`. Pages spread it and override their
- * own title and description.
- */
 export async function getBaseMetadata(locale: Locale, path: string = ""): Promise<Metadata> {
     const t = await getTranslations({ locale, namespace: "seo.site" });
     const title = t("title");
@@ -107,10 +97,6 @@ export async function getBaseMetadata(locale: Locale, path: string = ""): Promis
     };
 }
 
-/**
- * One page's metadata: the base for `locale` and `path` with the page's own title and
- * description, which also lands in Open Graph. `openGraph` overrides the rest of it.
- */
 export async function pageMetadata(
     locale: Locale,
     path: string,

@@ -1,11 +1,4 @@
-/**
- * Dithering shader implementation
- * Applies a dithering effect to the rendered scene
- *
- * Credits:
- * Original dithering pattern: https://www.shadertoy.com/view/ltSSzW
- * Ported from: https://github.com/niccolofanton/dithering-shader
- */
+// ported from https://github.com/niccolofanton/dithering-shader, pattern from https://www.shadertoy.com/view/ltSSzW
 
 const ditheringShader = /*glsl*/`
 uniform float ditheringEnabled;

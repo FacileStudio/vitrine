@@ -12,8 +12,6 @@ export type PanelTab = "details" | "projects" | "facts";
 
 const TABS: PanelTab[] = ["details", "projects", "facts"];
 
-// everything that does not fit on a phone, one tab at a time. Every string waits
-// for the panel to finish sliding up before it reveals
 export default function MemberPanel({
     member,
     worked,

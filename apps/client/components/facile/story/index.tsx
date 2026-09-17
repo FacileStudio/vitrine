@@ -18,14 +18,10 @@ interface StoryProps {
     index: number;
     total: number;
     backLabel: string;
-    /** ms to wait before the band slides in — the time an arriving curtain needs */
     delay?: number;
     onClose: () => void;
 }
 
-// a story that owns the whole viewport: a band of bento chapters with its own
-// scroller, sideways on a tablet or desktop and down the screen on a phone.
-// Whatever put it there — a route, a click on a shelf — hands it the blocks and a way out
 export default function Story({ sections, name, index, total, backLabel, delay = 0, onClose }: StoryProps) {
     const rootRef = useRef<HTMLDivElement>(null);
     const bgRef = useRef<HTMLDivElement>(null);
@@ -36,8 +32,6 @@ export default function Story({ sections, name, index, total, backLabel, delay =
     const leaving = useRef(false);
     const narrow = useNarrow();
 
-    // the page keeps its scroll behind the band, but it must not move while the
-    // story is open — the overlay has a scroller of its own
     const page = useLenis();
 
     useEffect(() => {
@@ -58,9 +52,6 @@ export default function Story({ sections, name, index, total, backLabel, delay =
 
 
 
-    // open: lock the page behind the band (keeping the scrollbar's width so
-    // nothing shifts), then slide the track in. A phone swaps tracks after mount,
-    // so the new blocks get their own entrance
     useLayoutEffect(() => {
         const html = document.documentElement;
         const gap = window.innerWidth - html.clientWidth;
@@ -92,8 +83,6 @@ export default function Story({ sections, name, index, total, backLabel, delay =
 
 
 
-    // Lenis owns the track, so a wheel or a swipe glides along the band's axis with
-    // the same inertia the rest of the site scrolls with
     useEffect(() => {
         const el = scrollerRef.current;
         const track = trackRef.current;
@@ -130,9 +119,7 @@ export default function Story({ sections, name, index, total, backLabel, delay =
             else if (e.key === (narrow ? "ArrowUp" : "ArrowLeft")) lenis.scrollTo(lenis.targetScroll - step(), { duration: 0.8 });
         };
 
-        // drag to pan, the way a contact sheet slides under the hand (mouse on the
-        // sideways band only — touch is already handled by Lenis). No pointer capture:
-        // the links inside the track have to keep their clicks
+        // no pointer capture: the links inside the track must keep their clicks
         let startX = 0, startLeft = 0, dragging = false;
 
         const onDown = (e: PointerEvent) => {

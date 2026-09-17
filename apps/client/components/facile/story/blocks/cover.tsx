@@ -8,7 +8,6 @@ export default function Cover({ block }: BlockProps) {
 
     const marcel = block.effect === "marcel";
 
-    // projet-zero's cover trades the static hero shot for the alien-energy light pillar
     const pillar = block.effect === "projet-zero-pillar";
 
     return (

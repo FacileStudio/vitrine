@@ -11,7 +11,6 @@ const COUNTER: Record<ShelfTone, { number: string; dot: string; label: string }>
     light: { number: "text-accent-ink", dot: "text-foreground/30", label: "text-foreground" },
 };
 
-// Copy above a shelf, with the "NN . label" counter and its actions on the side
 export default function ShelfHeading({
     tone,
     className,

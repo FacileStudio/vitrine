@@ -16,7 +16,6 @@ export type ShelfRefs = {
 
 const targets = (el: Element) => Array.from(el.querySelectorAll<HTMLElement>("[data-reveal]"));
 
-// Shelf motion: card fade-in, centre-band copy reveal, media parallax and hover wipe
 export function useShelfMotion({ zoom, range, key }: { zoom: number; range: number; key?: unknown }) {
     const sectionRef = useRef<HTMLElement>(null);
     const progressRef = useRef(0);

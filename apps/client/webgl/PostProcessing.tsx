@@ -37,16 +37,12 @@ export function PostProcessing({
         composerRef.current?.setSize(size.width, size.height);
     }, [size]);
 
-    // the composer owns render targets on the GPU: dropping the component without
-    // disposing it leaks them, and enough leaks starve the browser of contexts
     useEffect(() => () => {
         composerRef.current?.dispose();
         composerRef.current = null;
         ditherRef.current = null;
     }, []);
 
-    // on GPU context restore the cached composer is dead — drop it so useFrame
-    // rebuilds a fresh one, and clear scene/camera to force the pass chain to rebuild
     useEffect(() => {
         const canvas = gl.domElement;
         const onRestored = () => {
@@ -59,9 +55,7 @@ export function PostProcessing({
         return () => canvas.removeEventListener("webglcontextrestored", onRestored);
     }, [gl]);
 
-    // (re)build the pass chain: render -> bloom -> dithering. Nothing blooms after
-    // the dither: a threshold-0 pass over the grain lit the whole frame, which
-    // washed out whatever the canvas was laid over
+    // bloom must run before the dither: after it, the grain lights the whole frame
     useEffect(() => {
         if (!scene || !camera || !composerRef.current) return;
         const composer = composerRef.current;
@@ -83,7 +77,6 @@ export function PostProcessing({
         composer.addPass(new EffectPass(camera, dither));
     }, [scene, camera, pixelSizeRatio, grayscaleOnly, rotation, bloom, bloomIntensity]);
 
-    // animate the dithering grid toward the target
     useEffect(() => {
         const proxy = { v: gridValue.current };
         const tween = gsap.to(proxy, {

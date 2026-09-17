@@ -10,9 +10,6 @@ type ArchitectureModalProps = {
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-// the shelf's filter slot leads here instead: one tall, narrow column of prose
-// explaining what the suite actually is under the fifteen names. Narrow on
-// purpose — the measure is the point, the reading is the interaction
 export default function ArchitectureModal({ open, setOpen }: ArchitectureModalProps) {
     const architecture = useLocalized(authored);
 

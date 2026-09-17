@@ -10,19 +10,14 @@ import { usePinProgress } from "@/hooks/use-pin-progress";
 import { useNarrow } from "@/hooks/use-narrow";
 import { DitherView } from "@/webgl/lazy";
 
-// the pinned scroll, in section progress: the copy alone first, then it lifts and the
-// collaborators ride across under it, and both leave together
 const TITLE_IN = 0.12;
 const LIST_FROM = 0.42;
 const LIST_TO = 0.9;
 
-// a box only shows while its middle sits inside this band of the viewport width
 const BAND = { from: 0.2, to: 0.8 };
 
 const CARD = "flex aspect-square w-[40vw] md:w-[20vw] max-w-80 flex-col items-center justify-center gap-4 rounded-xl bg-foreground/10 text-foreground backdrop-blur-3xl";
 
-// the clients, and the project each one is the client of. A null slug is a client
-// whose work is not in projects.json yet, so its box has nowhere to send anybody
 const CLIENTS: { src: string; name: string; slug: string | null }[] = [
     { src: "LH", name: "Laura Hervé", slug: "laura-herve" },
     { src: "Marcel", name: "Marcel", slug: "marcel" },
@@ -33,7 +28,6 @@ const CLIENTS: { src: string; name: string; slug: string | null }[] = [
     { src: "Equinox", name: "Equinox Studio", slug: null },
 ];
 
-// "down" is still to come on the right, "open" is in the band, "gone" has left on the left
 type BoxState = "down" | "open" | "gone";
 
 export default function Manifesto() {
@@ -61,30 +55,28 @@ export default function Manifesto() {
         const title = titleRef.current;
         const list = listRef.current;
         const row = list?.parentElement;
-        if (!title || !list || !row) return;
+        if (!title || !list || !row)
+            return;
 
-        // the column centres title, gap and row together: pushed down by half the gap and
-        // the row, the title sits centred alone until the row comes in, then eases up
         const drop = (row.offsetTop + row.offsetHeight - title.offsetTop - title.offsetHeight) / 2;
         title.style.transform = `translateY(${p >= LIST_FROM ? 0 : drop}px)`;
-        // the CTA stays pinned under where the title sits alone, and never lifts with it
-        if (ctaRef.current) ctaRef.current.style.top = `${title.offsetTop + drop + title.offsetHeight}px`;
+        if (ctaRef.current)
+            ctaRef.current.style.top = `${title.offsetTop + drop + title.offsetHeight}px`;
 
-        // from its left edge on the viewport's right edge to its right edge on the left one
         const vw = window.innerWidth;
         const t = Math.min(1, Math.max(0, (p - LIST_FROM) / (LIST_TO - LIST_FROM)));
         const x = vw + (-list.offsetWidth - vw) * t;
         list.style.transform = `translate3d(${x}px, 0, 0)`;
 
-        // measured off the offsets rather than getBoundingClientRect, so no layout per box
         const mids = Array.from(list.children as HTMLCollectionOf<HTMLElement>, (box) => (x + box.offsetLeft + box.offsetWidth / 2) / vw);
-        // the copy hands over as soon as the row is a tenth of the way into the screen
         setTrusted(x <= vw * 0.9);
 
         const next = mids.map((mid): BoxState => {
-            if (mid < BAND.from) return "gone";
+            if (mid < BAND.from)
+                return "gone";
             return mid <= BAND.to ? "open" : "down";
         });
+        
         const key = next.join();
         if (key !== boxesKey.current) {
             boxesKey.current = key;

@@ -14,8 +14,6 @@ import Collage from "./collage";
 import Full from "./full";
 import End from "./end";
 
-// block kind -> renderer. A new block is a component, a row in BLOCK_SPECS and a
-// line here; nothing else in the story has to know it exists.
 export const BLOCKS: Record<BlockKind, (props: BlockProps) => ReactNode> = {
     cover: Cover,
     intro: Intro,

@@ -14,7 +14,6 @@ const SHELF = {
 
 export type BackdropVariant = keyof typeof SHELF | "story";
 
-// Two manifesto forms behind a shelf or a story, resolving in once their section reaches the top
 export default function DitherBackdrop({
     variant,
     sticky = false,

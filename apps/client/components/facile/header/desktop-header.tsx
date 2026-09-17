@@ -14,8 +14,7 @@ export const DesktopHeader =({ menuOpen, setMenuOpen, dark }: { menuOpen: boolea
     };
 
     return (
-        // the bar spans the full width above the mobile header, so only its controls
-        // take pointer events: the empty rest used to swallow taps on the phone menu button
+        // only the controls take pointer events, or the full-width bar swallows taps on the phone menu
         <header className={`pointer-events-none fixed top-0 left-0 w-full pt-4 px-12 z-20 flex justify-between items-center transition-colors duration-300 ${dark ? "text-[#1E1E1E]" : "text-white"}`}>
             <div className="flex items-center space-x-24">
                 <Link href="/" className="pointer-events-auto">

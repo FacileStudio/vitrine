@@ -1,7 +1,5 @@
 import { useEffect, useRef } from "react";
 
-// Subscribe to window scroll (passive), run once on mount, and always invoke the
-// latest handler without re-subscribing. Base for any scroll-driven animation.
 export function useScroll(handler: () => void) {
     const ref = useRef(handler);
 

@@ -14,7 +14,6 @@ interface AuthoredApp {
 
 export type SuiteApp = Resolved<AuthoredApp>;
 
-// Iconify ids that have a shipped file in public/icons
 const LOCAL = new Set([
     "solar:bill-list-bold-duotone",
     "solar:calendar-add-bold-duotone",

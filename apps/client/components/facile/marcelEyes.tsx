@@ -3,10 +3,6 @@
 import gsap from "gsap";
 import { useCallback, useEffect, useRef, type Ref } from "react";
 
-// Marcel's cover carries a pair of googly eyes that follow the cursor, with two
-// spheres trailing a beat behind. Every size is a share of the frame it sits in,
-// so the same markup fits the list card and the far bigger cover block the card
-// flips into — the gag keeps its proportions as the image grows.
 export function useMarcelEyes(variant: Variant = "card") {
     const frame = useRef<HTMLDivElement>(null);
     const eyes = useRef<HTMLDivElement>(null);
@@ -28,15 +24,11 @@ export function useMarcelEyes(variant: Variant = "card") {
 
         release();
 
-        // measure the eyes' rest centre — offsets are relative to it
         gsap.set(el, { x: 0, y: 0 });
         const r = el.getBoundingClientRect();
         const cx = r.left + r.width / 2;
         const cy = r.top + r.height / 2;
 
-        // the card's hand-tuned travel, kept as a share of the frame so a bigger
-        // frame gets a proportionally bigger range — but never wider than the box
-        // that actually shows, or the crop swallows the ends of the run
         const w = Math.min(
             box.getBoundingClientRect().width,
             box.parentElement?.getBoundingClientRect().width ?? Infinity,
@@ -63,8 +55,6 @@ export function useMarcelEyes(variant: Variant = "card") {
     const stop = useCallback(() => {
         release();
 
-        // overwrite:true kills the lingering quickTo tweens so they can't snap
-        // back to the cursor
         if (eyes.current)
             gsap.to(eyes.current, { x: 0, y: 0, duration: 0.6, ease: "power2.out", overwrite: true });
         if (spheres.current)
@@ -76,8 +66,6 @@ export function useMarcelEyes(variant: Variant = "card") {
     return { frame, eyes, spheres, start, stop };
 }
 
-// the card keeps its hand-picked pixel sizes from lg up, and below it the same
-// proportions of a ~720px desktop card as a share of the frame, so a phone image scales the gag down
 type Variant = "card" | "cover";
 
 const TRAVEL: Record<Variant, number> = {
@@ -101,9 +89,6 @@ type EyesProps = {
     ref?: Ref<HTMLDivElement>;
 };
 
-// the eyes ride the image, not the block: object-cover crops Marcel's frame in
-// the bento, so the layer mirrors the rendered image box (4379x2742) and the
-// cover's cqw sizes stay locked to the drawing rather than to the cell
 export function MarcelEyes({ variant = "card", frameRef, ref }: EyesProps) {
     const s = EYE[variant];
 

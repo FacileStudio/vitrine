@@ -3,8 +3,6 @@ import AppMark from "@/components/facile/appMark";
 import type { BlockProps, Tile } from "../types";
 import { Block, Cell } from "../bento";
 
-// a media-free block for things that only have a name and a mark — the suite's
-// apps, a list of services. One tile per cell, so the bento places them itself
 export default function Tiles({ block }: BlockProps) {
     const tiles = (block.tiles ?? []).slice(0, block.cols * 3);
 

@@ -1,5 +1,4 @@
-// Fails when the locales disagree, so a missing translation is caught before a visitor
-// finds it. Run from apps/client: bun scripts/check-i18n.ts
+// run from apps/client: bun scripts/check-i18n.ts
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -8,7 +7,6 @@ import { defaultLocale, locales } from "../lib/i18n/locales";
 const ROOT = fileURLToPath(new URL("..", import.meta.url));
 const MESSAGES = join(ROOT, "locales");
 
-// authored content that carries copy; structure in them (slugs, media, colours) stays plain
 const DATA_FILES = [
     "app/[locale]/projects/projects.json",
     "app/[locale]/studio/studio.json",
@@ -17,7 +15,6 @@ const DATA_FILES = [
     "app/[locale]/process/process.json",
 ];
 
-// keys whose string values are always visitor-facing copy, wherever they sit in a data file
 const COPY_FIELDS = new Set([
     "bio", "challenge", "description", "eyebrow", "facts", "footer", "kicker",
     "labels", "linkLabel", "notes", "role", "tagline", "text", "title",
@@ -29,7 +26,6 @@ type Json = null | boolean | number | string | Json[] | { [key: string]: Json };
 
 const readJson = (path: string): Json => JSON.parse(readFileSync(path, "utf8"));
 
-// every leaf as "a.b.0.c" -> value, so two locales compare key by key
 const flatten = (value: Json, prefix = "", out = new Map<string, Json>()) => {
     if (Array.isArray(value))
         value.forEach((v, i) => flatten(v, `${prefix}${i}.`, out));
@@ -40,9 +36,6 @@ const flatten = (value: Json, prefix = "", out = new Map<string, Json>()) => {
     return out;
 };
 
-// ICU argument names ("{count, plural, ...}" -> "count"); a translation must use the same ones.
-// Uses brace-depth tracking so inner values inside plural/select forms ("one {project}")
-// are not mistaken for placeholders.
 const placeholders = (text: string) => {
     const args = new Set<string>();
     let i = 0;

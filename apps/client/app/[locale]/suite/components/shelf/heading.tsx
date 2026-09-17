@@ -12,7 +12,6 @@ interface HeadingProps {
     onExplain: () => void;
 }
 
-// Suite shelf intro, with the app count and the architecture explainer
 export default function Heading({ eyebrow, lines, count, onExplain }: HeadingProps) {
     const t = useTranslations("suite.shelf");
     const arrive = ARRIVE / 1000;

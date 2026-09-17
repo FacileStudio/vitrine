@@ -8,8 +8,6 @@ import type studio from "./locales/en/studio.json";
 import type suite from "./locales/en/suite.json";
 import type process from "./locales/en/process.json";
 
-// English is the reference: a key missing from it, or mistyped in a component, fails tsc.
-// scripts/check-i18n.ts holds the other locales to the same keys
 declare module "next-intl" {
     interface AppConfig {
         Locale: (typeof routing.locales)[number];

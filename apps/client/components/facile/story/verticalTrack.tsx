@@ -9,14 +9,11 @@ import type { Chapter } from "./types";
 
 interface VerticalTrackProps {
     sections: Chapter[];
-    /** the element the blocks travel down — the observers measure against it */
     scrollerRef: RefObject<HTMLElement | null>;
     onClose?: () => void;
     ref?: Ref<HTMLDivElement>;
 }
 
-// the phone's reading of the band: chapters stacked down the screen, each block full
-// width at the proportions it has sideways, so no block layout is authored twice
 export default function VerticalTrack({ sections, scrollerRef, onClose, ref }: VerticalTrackProps) {
     useTrackReveal(scrollerRef, sections, "-18% 0px -18% 0px");
 
