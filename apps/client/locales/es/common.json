@@ -26,7 +26,12 @@
   },
   "footer": {
     "buildTogether": "Construyamos un sitio web juntos.",
-    "madeBy": "_ Hecho por Facile. Studio @ 2025"
+    "madeBy": "_ Hecho por Facile. Studio"
+  },
+  "loader": {
+    "crafting": "Creando la excelencia",
+    "team": "2 devs, 2 diseñadores",
+    "rights": "Todos los derechos reservados"
   },
   "notFound": {
     "title": "Vaya",

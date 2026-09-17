@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { Center, Float, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
+import { trackBytes } from "./loadBytes";
 
 export interface DitherModelProps {
     file: string;
@@ -32,17 +33,13 @@ export function DitherModel({
     idle = 0,
     float = true,
 }: DitherModelProps) {
-    const { scene } = useGLTF(file);
+    const { scene } = useGLTF(file, true, true, trackBytes);
     const canvas = useThree((state) => state.gl.domElement);
     const group = useRef<THREE.Group>(null);
     const cursor = useRef<{ x: number; y: number } | null>(null);
     const pointer = useRef({ x: 0, y: 0 });
     const seed = useRef(Math.random() * 100);
 
-    // the move handler only records where the cursor is: measuring the canvas
-    // here forces a layout per event per head, and a pointer fires far more
-    // often than a frame. The measurement happens once a frame instead, in
-    // useFrame, which a canvas scrolled out of view is not running at all
     useEffect(() => {
         if (!parallax) return;
         const onMove = (e: PointerEvent) => {
@@ -66,10 +63,7 @@ export function DitherModel({
             if (mesh.isMesh) {
                 mesh.castShadow = true;
 
-                // scene.clone() copies the graph but shares the materials, and what
-                // follows writes to them — so two components on the same GLB used to
-                // overwrite each other's roughness and hair colour. F.glb is loaded by
-                // both the hero and the menu, at different settings
+                // scene.clone() shares materials, so two canvases on one GLB would overwrite each other
                 const source = mesh.material as THREE.MeshStandardMaterial;
                 if (!source) return;
 
@@ -94,9 +88,7 @@ export function DitherModel({
         return cloned;
     }, [scene, roughness, metalness, hairColor]);
 
-    // the materials above are this instance's own, so nothing else will free them.
-    // The geometry is not cloned and still belongs to useGLTF's cache — disposing
-    // that would blank every other canvas on the same model
+    // materials only: the geometry belongs to useGLTF's cache and other canvases still use it
     useEffect(() => () => {
         model.traverse((o) => {
             const mat = (o as THREE.Mesh).material;
@@ -105,13 +97,9 @@ export function DitherModel({
         });
     }, [model]);
 
-    // two sines per axis at unrelated frequencies: the pair never repeats on a
-    // beat the eye can catch, so the head wanders instead of oscillating
     useFrame((state) => {
         if (!group.current || (!parallax && !idle)) return;
 
-        // measured from this canvas's own centre, so heads in different columns
-        // never rotate in lockstep
         if (parallax && cursor.current) {
             const rect = canvas.getBoundingClientRect();
             pointer.current.x = (cursor.current.x - (rect.left + rect.width / 2)) / (window.innerWidth / 2);

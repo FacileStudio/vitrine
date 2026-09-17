@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from "react";
-import Rideau from "@/components/facile/rideau";
+import Loader from "@/components/facile/loader";
 import PageShell from "@/components/facile/pageShell";
 import Hero from "./homeSections/hero";
 import Manifesto from "./homeSections/manifesto";
@@ -19,7 +19,7 @@ export default function Home() {
             curtain={{ enter: "dark", leave: "dark", arrive: false }}
             footer
         >
-            <Rideau setCharged={setCharged} />
+            <Loader setCharged={setCharged} />
 
             <main className="min-h-screen w-full">
                 <Hero charged={charged} />

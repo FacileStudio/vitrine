@@ -26,7 +26,12 @@
   },
   "footer": {
     "buildTogether": "Lassen Sie uns gemeinsam eine Website erstellen.",
-    "madeBy": "_ Erstellt von Facile. Studio @ 2025"
+    "madeBy": "_ Erstellt von Facile. Studio"
+  },
+  "loader": {
+    "crafting": "Exzellenz gestalten",
+    "team": "2 Devs, 2 Designer",
+    "rights": "Alle Rechte vorbehalten"
   },
   "notFound": {
     "title": "Hoppla",

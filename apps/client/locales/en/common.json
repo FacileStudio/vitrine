@@ -26,7 +26,12 @@
   },
   "footer": {
     "buildTogether": "Let's build a website together.",
-    "madeBy": "_ Made by Facile. Studio @ 2025"
+    "madeBy": "_ Made by Facile. Studio"
+  },
+  "loader": {
+    "crafting": "Crafting excellence",
+    "team": "2 devs, 2 designers",
+    "rights": "All rights reserved"
   },
   "notFound": {
     "title": "Oops",

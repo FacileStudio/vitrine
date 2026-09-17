@@ -2,21 +2,17 @@ import gsap from "gsap";
 import { CustomEase } from "gsap/CustomEase";
 
 gsap.registerPlugin(CustomEase);
-// same curve as the Stripes covers (cubic-bezier(0.7, 0, 0.3, 1))
 const cover = CustomEase.create("cover", "0.7, 0, 0.3, 1");
+const sharp = CustomEase.create("sharp", "0.8, 0, 0.2, 1");
 
-// One home for every UI motion. Import the preset you need and tune it through
-// its options. Replicable reveal pattern: derive boolean flags from scroll, then
-// feed them to `slide` / `revealY` through `run` (see homeSections/manifesto).
-
-// Named eases so intent reads clearly and stays consistent across the app.
 export const EASE = {
-    soft: "power2.out",     // gentle settle — reveals, pointer drift
-    in: "power3.in",        // accelerate away — closing panels
-    out: "power3.out",      // decelerate in — opening panels
-    inOut: "power4.inOut",  // heavy full-screen transition
-    glide: "power3.inOut",  // lighter transition
-    cover,                  // matches the Stripes covers curve
+    soft: "power2.out",
+    in: "power3.in",
+    out: "power3.out",
+    inOut: "power4.inOut",
+    glide: "power3.inOut",
+    cover,
+    sharp,
 } as const;
 
 export const run = (els: (HTMLElement | null)[], animate: (el: HTMLElement, i: number) => void) =>
@@ -24,7 +20,7 @@ export const run = (els: (HTMLElement | null)[], animate: (el: HTMLElement, i: n
 
 
 
-export const revealY = (show: boolean, leaving: boolean) => show ? 0 : leaving ? -110 : 110;
+export const revealY =(show: boolean, leaving: boolean) => show ? 0 : leaving ? -110 : 110;
 
 const present = (els: (HTMLElement | null)[]) => els.filter((el): el is HTMLElement => el != null);
 export const hideRevealY = (els: (HTMLElement | null)[]) => { const t = present(els); if (t.length) gsap.set(t, { yPercent: 110 }); };

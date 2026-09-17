@@ -26,7 +26,12 @@
   },
   "footer": {
     "buildTogether": "Construisons un site web ensemble.",
-    "madeBy": "_ Créé par Facile. Studio @ 2025"
+    "madeBy": "_ Créé par Facile. Studio"
+  },
+  "loader": {
+    "crafting": "Façonner l'excellence",
+    "team": "2 devs, 2 designers",
+    "rights": "Tous droits réservés"
   },
   "notFound": {
     "title": "Oups",
