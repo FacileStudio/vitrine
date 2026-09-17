@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/lib/i18n/navigation";
 import { useShelfMotion } from "@/hooks/use-shelf-motion";
-import { TransitionOut } from "@/components/facile/pageTransition";
+import { LEAD, TransitionOut } from "@/components/facile/pageTransition";
 import Shelf from "@/components/facile/shelf/shelf";
 import Stripes from "@/components/facile/stripes";
 import { projectsIn, type Category } from "@/lib/content/projects";
@@ -18,7 +18,6 @@ interface ShelfProps {
     stickyBackdrop?: boolean;
 }
 
-// The projects shelf: /projects, and the projects section of the home page
 export default function ProjectShelf({
     lines,
     limit,
@@ -58,6 +57,16 @@ export default function ProjectShelf({
                             orientation={180}
                             count={4}
                             className="bg-background"
+                            zIndex={1}
+                            leadOpen={LEAD}
+                            openWhen={() => progressRef.current < 0.9}
+                        />
+                        <Stripes
+                            orientation={180}
+                            count={4}
+                            className="bg-foreground"
+                            zIndex={2}
+                            leadClose={LEAD}
                             openWhen={() => progressRef.current < 0.9}
                         />
                     </div>

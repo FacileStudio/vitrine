@@ -5,12 +5,7 @@ import { useRouter } from "@/lib/i18n/navigation";
 import Stripes from "./stripes";
 import { useScenesReady } from "@/webgl/sceneReady";
 
-// the same curtain the Menu drops: two waves racing across the viewport, the
-// lead colour landing first and leaving last so the pair never travels as one
-// slab. The covers arrive from the right and leave off the left, staggered
-// bottom-to-top both times, so the reveal carries straight on the way the cover
-// came in instead of retreating back out the side it entered from.
-// Tones are class names rather than raw hex, so Tailwind still sees them
+// tones are class names rather than raw hex, so Tailwind still sees them
 type CurtainTone = { lead: string; trail: string };
 
 const TONES = {
@@ -25,23 +20,16 @@ export type Tone = ToneName | CurtainTone;
 const COUNT = 4;
 const DURATION = 0.8;
 const STAGGER = 0.1;
-const LEAD = 0.14;
+export const LEAD = 0.14;
 
-// how long a full sweep takes end to end, so a route push or a mount can be
-// timed against it instead of guessed
 export const CURTAIN_MS = (DURATION + LEAD + (COUNT - 1) * STAGGER) * 1000;
 
-// nothing on an arriving page starts moving until the curtain has cleared most
-// of the viewport, so its stagger reads as the page waking up behind it
 export const ARRIVE = CURTAIN_MS * 0.55;
 
 const resolve = (t: Tone): CurtainTone => (typeof t === "string" ? TONES[t] : t);
 
 
 
-// presentational half: `covered` paints the viewport, false slides the stripes
-// off to the left. Mounting it uncovered plays the reveal on its own, since
-// Stripes always starts a frame in place before it moves
 function Curtain({ covered, tone = "dark", zIndex = 200 }: { covered: boolean; tone?: Tone; zIndex?: number }) {
     const c = resolve(tone);
 
@@ -81,36 +69,26 @@ function Curtain({ covered, tone = "dark", zIndex = 200 }: { covered: boolean; t
 
 
 
-// a page mounts one curtain, so in-page sweeps borrow it through this registry
-// rather than stacking a second one over the first
 let sweeper: ((mid: () => void) => void) | null = null;
 let leaver: ((href: string) => void) | null = null;
 
-// cover the screen, run `mid` behind it, uncover. Without a curtain mounted the
-// callback still runs, just bare
 export const sweep = (mid: () => void) => {
-    if (sweeper) sweeper(mid);
+    if (sweeper)
+        sweeper(mid);
     else mid();
 };
 
-// `href` is locale-less ("/projects/marcel"); the locale-aware router adds the current locale
 export const TransitionOut = ({ href, router }: { href: string; router: { push: (href: string) => void } }) => {
-    if (leaver) leaver(href);
+    if (leaver)
+        leaver(href);
     else router.push(href);
 };
 
 
 
-// the leaving/arriving colours are the page's own call: a dark page is uncovered
-// by a dark curtain, a white one (Suite) by a white one. `arrive={false}` is for a page
-// with its own loader (home's Rideau): no reveal on mount, the curtain only covers on leave
 export default function PageCurtain({ enter = "dark", leave = "dark", arrive = true }: { enter?: Tone; leave?: Tone; arrive?: boolean }) {
     const router = useRouter();
-    // the arriving page starts covered and stays covered until its canvases have
-    // their models: sweeping off a page whose 3D is still downloading shows an
-    // empty grid, then pops the heads in behind it
     const [covered, setCovered] = useState(arrive);
-    // Stripes play a reveal even when mounted uncovered, so it stays invisible until first used
     const [shown, setShown] = useState(arrive);
     const [tone, setTone] = useState<Tone>(enter);
     const busy = useRef(false);

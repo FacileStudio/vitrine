@@ -24,9 +24,8 @@ export default function Footer() {
         if (inView) setReached(true);
     });
 
-    // every link rises in its own crop, the same links and timing as the menu
     return (
-        <section ref={sectionRef} id="contact" className="relative w-full min-h-screen flex flex-col justify-between py-24 px-12 lg:px-20">
+        <section ref={sectionRef} id="contact" className="relative w-full min-h-screen flex flex-col bg-foreground justify-between py-24 px-12 lg:px-20">
             <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8">
                 <TextReveal as="h2" open={show} className="max-w-[16ch] text-white">
                     {t("footer.buildTogether")}
