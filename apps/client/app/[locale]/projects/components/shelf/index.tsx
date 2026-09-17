@@ -16,6 +16,7 @@ interface ShelfProps {
     limit?: number;
     filterable?: boolean;
     stickyBackdrop?: boolean;
+    endTone?: "light" | "dark";
 }
 
 export default function ProjectShelf({
@@ -23,6 +24,7 @@ export default function ProjectShelf({
     limit,
     filterable = true,
     stickyBackdrop = false,
+    endTone = "dark",
 }: ShelfProps = {}) {
     const t = useTranslations("projects");
     const heading = lines ?? (t.raw("shelfTitle") as string[]);
@@ -52,23 +54,27 @@ export default function ProjectShelf({
             columnClassName="w-full h-full pt-[10vh] lg:pt-[20vh] pb-[120vh] flex flex-col gap-1 justify-start items-center px-3 lg:px-6"
             after={
                 <div className="pointer-events-none sticky bottom-0 z-30 h-0">
-                    <div className="relative h-screen w-full -translate-y-full overflow-hidden">
+                    {/* the section ends on a fractional pixel, so the cover runs 1px past it or the dark ground shows as a line */}
+                    <div className="relative h-[calc(100vh+1px)] w-full translate-y-[calc(-100%+1px)] overflow-hidden">
                         <Stripes
                             orientation={180}
                             count={4}
                             className="bg-background"
                             zIndex={1}
-                            leadOpen={LEAD}
+                            leadOpen={endTone === "dark" ? LEAD : 0}
                             openWhen={() => progressRef.current < 0.9}
                         />
-                        <Stripes
-                            orientation={180}
-                            count={4}
-                            className="bg-foreground"
-                            zIndex={2}
-                            leadClose={LEAD}
-                            openWhen={() => progressRef.current < 0.9}
-                        />
+                        {/* the dark trail only belongs where a dark section follows, the home suite band is light */}
+                        {endTone === "dark" && (
+                            <Stripes
+                                orientation={180}
+                                count={4}
+                                className="bg-foreground"
+                                zIndex={2}
+                                leadClose={LEAD}
+                                openWhen={() => progressRef.current < 0.9}
+                            />
+                        )}
                     </div>
                 </div>
             }

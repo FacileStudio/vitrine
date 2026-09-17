@@ -12,6 +12,7 @@ export default function Shelf() {
             limit={4}
             filterable={false}
             stickyBackdrop
+            endTone="light"
         />
     );
 }

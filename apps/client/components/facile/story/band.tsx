@@ -56,7 +56,7 @@ export default function Band({ sections, id }: BandProps) {
                 <Stripes
                     orientation={180}
                     count={4}
-                    className="bg-foreground"
+                    className="bg-foreground "
                     openWhen={() => !sectionRef.current?.hasAttribute("data-covered")}
                 />
             </div>
