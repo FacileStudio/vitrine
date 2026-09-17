@@ -1,9 +1,9 @@
-FROM oven/bun:1.3 AS deps
+FROM docker.io/oven/bun:1.3 AS deps
 WORKDIR /app
 COPY package.json bun.lock ./
 RUN bun install --frozen-lockfile --prod
 
-FROM oven/bun:1.3 AS builder
+FROM docker.io/oven/bun:1.3 AS builder
 WORKDIR /app
 COPY package.json bun.lock ./
 RUN bun install --frozen-lockfile
@@ -14,7 +14,7 @@ ENV NEXT_PUBLIC_JOURNAL_URL=$NEXT_PUBLIC_JOURNAL_URL
 ENV NEXT_PUBLIC_JOURNAL_KEY=$NEXT_PUBLIC_JOURNAL_KEY
 RUN bun run build
 
-FROM node:20-alpine
+FROM docker.io/node:20-alpine
 WORKDIR /app
 
 RUN addgroup --system --gid 1001 nodejs
