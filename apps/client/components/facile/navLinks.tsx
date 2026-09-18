@@ -101,7 +101,6 @@ export function NavLinks({
             router.push(href);
             return;
         }
-
         TransitionOut({ href, router });
     };
 
@@ -166,7 +165,7 @@ export function ContactLinks({ open, delay = 0, className }: { open: boolean; de
                 open={open}
                 duration={0.5}
                 delay={at(0.12)}
-                className="text-white/40 select-none"
+                className="text-white/40 hidden md:block select-none"
             >
                 <span aria-hidden="true">·</span>
             </TextReveal>
