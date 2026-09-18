@@ -50,7 +50,7 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
             onOpen={() => { stop(); onOpen(project.slug); }}
             onEnter={(e) => { onEnter(e); if (marcel) start(); }}
             onLeave={(e) => { onLeave(e); stop(); }}
-            className="group/card cursor-pointer 3xl:w-[70vw] lg:w-[80vw] w-full shrink-0 flex lg:flex-row flex-col items-start justify-between lg:gap-[4vw]"
+            className="group/card cursor-pointer 3xl:w-[70vw] lg:w-[80vw] w-full shrink-0 lg:flex-row flex-col items-start justify-between lg:gap-[4vw]"
         >
             <div className="relative shrink-0 w-full lg:w-auto">
                 {marcel && <MarcelSpheres ref={spheres} />}

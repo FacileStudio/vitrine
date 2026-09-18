@@ -581,7 +581,7 @@
         "tier": 2,
         "weeks": 4,
         "image": "/images/projects/Laura.webp",
-        "video": "/videos/LauraHerve_web.mp4",
+        "video": "/videos/LauraHerve.mp4",
         "gallery": [
             "/images/projects/LauraHerve.webp",
             "https://picsum.photos/seed/laura-b/1400/1500",
@@ -679,7 +679,7 @@
                     {
                         "type": "full",
                         "media": [
-                            "/videos/LauraHerve_web.mp4"
+                            "/videos/LauraHerve.mp4"
                         ]
                     }
                 ]
