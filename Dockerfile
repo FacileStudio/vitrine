@@ -28,13 +28,10 @@ COPY --from=builder /app/public ./public
 RUN chown -R nextjs:nodejs .
 USER nextjs
 
-EXPOSE 3011
+EXPOSE 3012
 
 ENV NODE_ENV=production
 ENV HOSTNAME=0.0.0.0
-ENV PORT=3011
-
-HEALTHCHECK --interval=30s --timeout=10s --retries=5 --start-period=60s \
-  CMD wget --no-verbose --tries=2 --spider http://localhost:3011 || exit 1
+ENV PORT=3012
 
 CMD ["node", "server.js"]
