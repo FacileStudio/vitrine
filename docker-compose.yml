@@ -24,14 +24,8 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.vitrine.rule=Host(`localhost`) || Host(`127.0.0.1`)"
       - "traefik.http.routers.vitrine.entrypoints=web"
-      - "traefik.http.services.vitrine.loadbalancer.server.port=3011"
+      - "traefik.http.services.vitrine.loadbalancer.server.port=3012"
       - "traefik.docker.network=dokploy-network"
-    healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3011"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 30s
 
   traefik:
     image: traefik:latest
