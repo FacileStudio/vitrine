@@ -34,7 +34,7 @@ ENV NODE_ENV=production
 ENV HOSTNAME=0.0.0.0
 ENV PORT=3011
 
-HEALTHCHECK --interval=30s --timeout=10s --retries=3 --start-period=30s \
-  CMD wget --no-verbose --tries=1 --spider http://localhost:3011 || exit 1
+HEALTHCHECK --interval=30s --timeout=10s --retries=5 --start-period=60s \
+  CMD wget --no-verbose --tries=2 --spider http://localhost:3011 || exit 1
 
 CMD ["node", "server.js"]
