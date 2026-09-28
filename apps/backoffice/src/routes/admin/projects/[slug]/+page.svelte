@@ -4,15 +4,23 @@
 	import { onMount } from 'svelte';
 	import { Spinner } from '@repo/ui';
 	import { logger } from '@repo/logger';
-	import type { Project } from '$lib/components/projects/types';
+	import type { Project, ProjectOptions } from '$lib/components/projects/types';
+	import { isInfoSection } from '$lib/components/projects/elements';
+	import SectionRow from '$lib/components/projects/SectionRow.svelte';
+	import ProjectInfoCard from '$lib/components/projects/ProjectInfoCard.svelte';
 
 	let project = $state<Project | null>(null);
+	let options = $state<ProjectOptions | null>(null);
 	let error = $state('');
-	let saving = $state(false);
-	let saved = $state(false);
 
 	onMount(async () => {
 		try {
+			// the dropdown lists are optional, a failure there must not hide a project that loaded fine
+			trpc.projects.options
+				.query()
+				.then((available) => (options = available))
+				.catch((err) => logger.error({ err }, 'Failed to load project options'));
+
 			project = await trpc.projects.get.query({ slug: page.params.slug! });
 		} catch (err) {
 			logger.error({ err }, 'Failed to load project');
@@ -22,39 +30,17 @@
 
 	});
 
-	// zod input errors arrive as a JSON list of issues, the field paths are what the admin needs
-	function describe(err: unknown) {
-		try {
-			const issues: Array<{ path: (string | number)[] }> = JSON.parse((err as Error).message);
-			return `Champs invalides : ${issues.map((issue) => issue.path.join('.')).join(', ')}`;
-		} catch {
-			return "Erreur lors de l'enregistrement";
-		}
-	}
+//      now let's do the project slug page.
 
-	async function save() {
-		if (!project)
-			return;
-
-		saving = true;
-		saved = false;
-		error = '';
-
-		try {
-			project = await trpc.projects.update.mutate($state.snapshot(project));
-			saved = true;
-		} catch (err) {
-			logger.error({ err }, 'Failed to save project');
-			error = describe(err);
-		} finally {
-			saving = false;
-		}
-	}
+//   What I would want is multiple x by 3 grid that will be my sections where I can drag and drop any type of block
+//   I want, 1x1, 2x1, 3x1, 1x2, 2x2, 3x2, 1x3, 2x3 or 3x3. In those I can add, text (like note with subtitle and
+//   description) or just description, a video or an image (which I will be able to drag and drop too. Can we
+//   simplify this
 </script>
 
-<div class="p-8 max-w-4xl mx-auto space-y-6">
+<div class="p-8 mx-auto space-y-6">
     <a href="/admin/projects" class="p inline-flex items-center gap-2 text-white/58 hover:text-white">
-        <iconify-icon icon="solar:arrow-left-bold" width="16"></iconify-icon>
+        <iconify-icon icon="lucide:arrow-left" width="16"></iconify-icon>
         Projects
     </a>
 
@@ -67,21 +53,19 @@
             </div>
         {/if}
     {:else}
-        <h1 class="title text-white">{project.name}</h1>
+        <div class="w-full flex justify-between items-center">
+            <h1 class="title text-white">{project.name}</h1>
+            <button class="bg-stone-700/5 rounded-md px-6 py-3">Add new block</button>
+        </div>
 
-        <div class="sticky bottom-4 bg-[#050505]/80 backdrop-blur-xl rounded-2xl shadow-lg p-4 flex items-center justify-between gap-4">
-            <p class="p {error ? 'text-red-400' : 'text-white/58'}">
-                {error || (saved ? 'Enregistré' : 'Modifications non enregistrées')}
-            </p>
-            <button
-                type="button"
-                onclick={save}
-                disabled={saving}
-                class="lead flex items-center gap-2 bg-white text-black px-5 py-2.5 rounded-xl hover:bg-white/90 disabled:opacity-50"
-            >
-                <iconify-icon icon="solar:diskette-bold" width="18"></iconify-icon>
-                {saving ? 'Enregistrement...' : 'Enregistrer'}
-            </button>
+        <div class="flex flex-col gap-1">
+            {#each project.story as section, i (i)}
+                {#if isInfoSection(section)}
+                    <ProjectInfoCard bind:project {options} />
+                {:else}
+                    <SectionRow slug={project.slug} {section} index={i} />
+                {/if}
+            {/each}
         </div>
     {/if}
 </div>
