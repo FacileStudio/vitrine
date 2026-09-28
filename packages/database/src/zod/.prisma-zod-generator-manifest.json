@@ -1,0 +1,12 @@
+{
+  "version": "1.0",
+  "generatorVersion": "0.0.0",
+  "generatedAt": "2026-09-28T14:18:36.207Z",
+  "outputPath": "/home/gian/_DELIVERY/_FACILE/facile/Vitrine/packages/database/src/zod",
+  "files": [
+    "index.ts"
+  ],
+  "directories": [],
+  "singleFileMode": true,
+  "singleFileName": "index.ts"
+}

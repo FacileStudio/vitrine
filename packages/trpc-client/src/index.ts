@@ -1,5 +1,5 @@
 import { createTRPCProxyClient, httpBatchLink, type TRPCClient } from '@trpc/client';
-import type { AnyRouter } from '@trpc/server';
+import type { AppRouter } from '@repo/trpc';
 
 interface TrpcConfig {
   baseUrl: string;
@@ -7,12 +7,10 @@ interface TrpcConfig {
   onUnauthorized: () => void;
 }
 
-export const createUniversalTrpcClient = <TRouter extends AnyRouter = AnyRouter>(
-  config: TrpcConfig
-): TRPCClient<TRouter> => {
+export const createUniversalTrpcClient = (config: TrpcConfig): TRPCClient<AppRouter> => {
   const cleanBaseUrl = config.baseUrl.replace(/\/$/, '');
 
-  return createTRPCProxyClient<TRouter>({
+  return createTRPCProxyClient<AppRouter>({
     links: [
       httpBatchLink({
         url: cleanBaseUrl,
@@ -23,7 +21,7 @@ export const createUniversalTrpcClient = <TRouter extends AnyRouter = AnyRouter>
             'x-trpc-source': 'universal-client',
           };
         },
-        fetch: async (url: RequestInfo | URL, options?: RequestInit) => {
+        fetch: async (url, options) => {
           const res = await fetch(url, options);
 
           if (
@@ -36,8 +34,7 @@ export const createUniversalTrpcClient = <TRouter extends AnyRouter = AnyRouter>
 
           return res;
         },
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } as any),
+      }),
     ],
   });
 };

@@ -1,6 +1,7 @@
 {
-  "name": "@repo/trpc-client",
+  "name": "@repo/crypto",
   "version": "0.0.0",
+  "private": true,
   "type": "module",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
@@ -12,10 +13,11 @@
   },
   "devDependencies": {
     "@repo/tsconfig": "workspace:*",
+    "@types/node": "^25.2.3",
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@repo/trpc": "workspace:*",
-    "@trpc/client": "^11.9.0"
+    "argon2": "^0.44.0",
+    "crypto-es": "^3.1.2"
   }
 }

@@ -1,0 +1,23 @@
+model StudioMember {
+  slug        String   @id
+  position    Int      @unique
+  name        String
+  role        Json
+  description Json
+  bio         Json
+  model       String
+  scale       Float
+  roughness   Float
+  metalness   Float
+  hair        String?
+  rotation    Float[]
+  highlight   String
+  socials     Json
+  labels      Json
+  projects    String[]
+  suite       Boolean  @default(false)
+  facts       Json
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

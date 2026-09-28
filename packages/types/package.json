@@ -9,7 +9,10 @@
     ".": "./src/index.ts"
   },
   "scripts": {
-    "typecheck": "tsc --noEmit"
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@repo/database": "workspace:*"
   },
   "devDependencies": {
     "@repo/tsconfig": "workspace:*",

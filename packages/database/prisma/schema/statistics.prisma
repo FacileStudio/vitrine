@@ -1,0 +1,30 @@
+model SiteVisitor {
+  id           String             @id @default(uuid())
+  visitorKey   String             @unique
+  firstSeenAt  DateTime           @default(now())
+  lastSeenAt   DateTime           @default(now())
+  dailyVisits  SiteDailyVisitor[]
+
+  @@index([firstSeenAt])
+  @@index([lastSeenAt])
+}
+
+model SiteDailyStat {
+  date            DateTime           @id
+  visits          Int                @default(0)
+  uniqueVisitors  Int                @default(0)
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+  visitors        SiteDailyVisitor[]
+}
+
+model SiteDailyVisitor {
+  date         DateTime
+  visitorId    String
+  firstVisitAt DateTime      @default(now())
+  day          SiteDailyStat @relation(fields: [date], references: [date], onDelete: Cascade)
+  visitor      SiteVisitor   @relation(fields: [visitorId], references: [id], onDelete: Cascade)
+
+  @@id([date, visitorId])
+  @@index([visitorId])
+}

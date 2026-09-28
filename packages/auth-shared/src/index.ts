@@ -7,7 +7,6 @@ export interface SessionUser {
   firstName: string;
   lastName: string;
   role: UserRole;
-  isPremium: boolean;
   avatarUrl?: string | null;
   coverImageUrl?: string | null;
 }
@@ -18,7 +17,6 @@ export const sessionUserSchema = z.object({
   firstName: z.string(),
   lastName: z.string(),
   role: z.nativeEnum(UserRole),
-  isPremium: z.boolean(),
   avatarUrl: z.string().nullable().optional(),
   coverImageUrl: z.string().nullable().optional(),
 });
