@@ -4,8 +4,9 @@ import React, { useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import TextReveal from '@/components/facile/textReveal';
 import { TransitionOut } from '@/components/facile/pageTransition';
-import { allProjects } from '@/lib/content/projects';
+import type { Project } from '@/lib/content/projects';
 import { useMembers } from '@/components/facile/membersProvider';
+import { useProjects } from '@/components/facile/projectsProvider';
 import type { AuthoredMember } from '@/lib/content/studio';
 import { Link, usePathname, useRouter } from '@/lib/i18n/navigation';
 import { cn } from '@/lib/utils';
@@ -32,12 +33,12 @@ type Label = { key: NavKey } | { name: string };
 type SubLink = Label & { href: string };
 type NavLink = { href: string; key: NavKey; secondary?: SubLink[] };
 
-const buildLinks = (members: AuthoredMember[]): NavLink[] => [
+const buildLinks = (members: AuthoredMember[], projects: Project[]): NavLink[] => [
     { href: '/', key: 'home' },
     {
         href: '/projects',
         key: 'projects',
-        secondary: allProjects.map((p) => ({
+        secondary: projects.map((p) => ({
             href: `/projects/${p.slug}`,
             name: p.name,
         })),
@@ -93,7 +94,8 @@ export function NavLinks({
     const router = useRouter();
     const pathname = usePathname();
     const members = useMembers();
-    const links = useMemo(() => buildLinks(members), [members]);
+    const projects = useProjects();
+    const links = useMemo(() => buildLinks(members, projects), [members, projects]);
     const subBase = useMemo(() => subOffsets(links), [links]);
 
     const label = (l: Label) => ('key' in l ? t(l.key) : l.name);

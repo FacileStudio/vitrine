@@ -8,6 +8,7 @@ import { LEAD, TransitionOut } from "@/components/facile/pageTransition";
 import Shelf from "@/components/facile/shelf/shelf";
 import Stripes from "@/components/facile/stripes";
 import { projectsIn, type Category } from "@/lib/content/projects";
+import { useProjects } from "@/components/facile/projectsProvider";
 import Heading from "./heading";
 import ShelfCard from "./shelfCard";
 
@@ -30,9 +31,10 @@ export default function ProjectShelf({
     const heading = lines ?? (t.raw("shelfTitle") as string[]);
     const [filter, setFilter] = useState<Category | null>(null);
     const router = useRouter();
+    const projects = useProjects();
     const { sectionRef, progressRef, refs, reset, onEnter, onLeave } = useShelfMotion({ zoom: 1.3, range: 25, key: filter });
 
-    const pool = projectsIn(filter);
+    const pool = projectsIn(projects, filter);
     const visible = limit ? pool.slice(0, limit) : pool;
 
     const applyFilter = (c: Category | null) => {

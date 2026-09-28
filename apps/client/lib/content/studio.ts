@@ -4,7 +4,7 @@ import type { Person } from "@/components/facile/story/types";
 import { localize, type Resolved } from "@/lib/i18n/localize";
 import type { Locale } from "@/lib/i18n/locales";
 import { trpc } from "@/lib/trpc";
-import { allProjects, type Project } from "./projects";
+import { findProject, type Project } from "./projects";
 
 export type AuthoredMember = RouterOutputs["studio"]["list"][number];
 
@@ -37,8 +37,8 @@ export const findPerson = (members: AuthoredMember[], slug: string, locale: Loca
     return m ? toPerson(m) : undefined;
 };
 
-export const workedOn = (member: Member, locale: Locale): WorkedProject[] =>
+export const workedOn = (member: Member, projects: Project[], locale: Locale): WorkedProject[] =>
     member.projects
-        .map((slug) => allProjects.find((p) => p.slug === slug))
+        .map((slug) => findProject(projects, slug))
         .filter((p): p is Project => Boolean(p))
         .map((p) => localize(p, locale));

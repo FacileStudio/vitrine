@@ -8,6 +8,7 @@ import PageShell from "@/components/facile/pageShell";
 import TextReveal from "@/components/facile/textReveal";
 import { crew, findMember, workedOn } from "@/lib/content/studio";
 import { useMembers } from "@/components/facile/membersProvider";
+import { useProjects } from "@/components/facile/projectsProvider";
 import { useNarrow } from "@/hooks/use-narrow";
 import { useAfter } from "@/hooks/use-after";
 import { useLineReveal } from "@/hooks/use-line-reveal";
@@ -27,9 +28,10 @@ export default function MemberPage() {
     const locale = useLocale();
     const t = useTranslations("studio.member");
     const members = useMembers();
+    const projects = useProjects();
 
     const member = findMember(members, params.slug, locale) ?? crew(members, locale)[0];
-    const worked = workedOn(member, locale);
+    const worked = workedOn(member, projects, locale);
 
     useLineReveal(page, shown, [narrow]);
 

@@ -2,33 +2,21 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import PageCurtain from "@/components/facile/pageTransition";
-import { locales } from "@/lib/i18n/locales";
 import { localize } from "@/lib/i18n/localize";
 import { getBaseMetadata, pageMetadata, resolveLocale, siteUrl } from "@/lib/seo/metadata";
 import { getBreadcrumbJsonLd, getCaseStudyJsonLd } from "@/lib/seo/jsonld";
-import { allProjects, findProject, projectIndex } from "@/lib/content/projects";
+import { fetchProjects, findProject, projectIndex } from "@/lib/content/projects";
 import ProjectStory from "../components/projectStory";
 
 type PageProps = {
     params: Promise<{ locale: string; slug: string }>;
 };
 
-export const dynamicParams = false;
-
-export function generateStaticParams() {
-    return allProjects.flatMap((project) =>
-        locales.map((locale) => ({
-            locale,
-            slug: project.slug,
-        }))
-    );
-}
-
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { locale: requested, slug } = await params;
     const locale = resolveLocale(requested);
     const path = `/projects/${slug}`;
-    const project = findProject(slug);
+    const project = findProject(await fetchProjects(), slug);
 
     if (!project)
         return getBaseMetadata(locale, path);
@@ -43,7 +31,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function LocaleProjectStoryPage({ params }: PageProps) {
     const { locale: requested, slug } = await params;
     const locale = resolveLocale(requested);
-    const project = findProject(slug);
+    const projects = await fetchProjects();
+    const project = findProject(projects, slug);
 
     if (!project)
         notFound();
@@ -73,7 +62,7 @@ export default async function LocaleProjectStoryPage({ params }: PageProps) {
 
             <PageCurtain enter="dark" leave="dark" />
 
-            <ProjectStory project={project} index={projectIndex(slug)} total={allProjects.length} locale={locale} />
+            <ProjectStory project={project} index={projectIndex(projects, slug)} total={projects.length} locale={locale} />
         </>
     );
 }

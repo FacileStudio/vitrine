@@ -8,7 +8,9 @@ import { getOrganizationJsonLd, getWebSiteJsonLd } from "@/lib/seo/jsonld";
 import type { Locale } from "@/lib/i18n/locales";
 import VisitTracker from "@/components/facile/visitTracker";
 import { MembersProvider } from "@/components/facile/membersProvider";
+import { ProjectsProvider } from "@/components/facile/projectsProvider";
 import { fetchMembers } from "@/lib/content/studio";
+import { fetchProjects } from "@/lib/content/projects";
 
 // only story typography blocks use these three, so they must not preload on every route
 const poppins = Poppins({
@@ -45,7 +47,7 @@ const FONT_PRELOADS = [
 export default async function Shell({ locale, children }: { locale: Locale; children: ReactNode }) {
     const messages = await getMessages({ locale });
     const organization = await getOrganizationJsonLd(locale);
-    const members = await fetchMembers();
+    const [members, projects] = await Promise.all([fetchMembers(), fetchProjects()]);
 
     FONT_PRELOADS.forEach((href) => preload(href, { as: "font", type: "font/woff2", crossOrigin: "anonymous" }));
 
@@ -63,7 +65,9 @@ export default async function Shell({ locale, children }: { locale: Locale; chil
             </head>
             <body>
                 <NextIntlClientProvider locale={locale} messages={messages}>
-                    <MembersProvider members={members}>{children}</MembersProvider>
+                    <MembersProvider members={members}>
+                        <ProjectsProvider projects={projects}>{children}</ProjectsProvider>
+                    </MembersProvider>
                 </NextIntlClientProvider>
                 <VisitTracker />
             </body>

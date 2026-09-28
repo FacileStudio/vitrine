@@ -1,6 +1,7 @@
+import { cache } from "react";
 import type { CoverEffect, StorySection } from "@/components/facile/story/types";
 import type { Localized } from "@/lib/i18n/localize";
-import projects from "@/app/[locale]/projects/projects.json";
+import { trpc } from "@/lib/trpc";
 
 export const SERVICES = [
     "appDevelopment",
@@ -40,11 +41,12 @@ export interface Project {
     coverEffect?: CoverEffect;
 }
 
-export const allProjects = projects as Project[];
+// Project narrows services and block kinds to the site's own unions, which the API only knows as strings
+export const fetchProjects = cache(async () => (await trpc.projects.list.query()) as unknown as Project[]);
 
-export const findProject = (slug: string) => allProjects.find((p) => p.slug === slug);
+export const findProject = (projects: Project[], slug: string) => projects.find((p) => p.slug === slug);
 
-export const projectIndex = (slug: string) => allProjects.findIndex((p) => p.slug === slug);
+export const projectIndex = (projects: Project[], slug: string) => projects.findIndex((p) => p.slug === slug);
 
 export const CATEGORIES = {
     appDev: ["appDevelopment", "desktopDevelopment"],
@@ -60,5 +62,5 @@ export const categories = Object.keys(CATEGORIES) as Category[];
 export const inCategory = (p: Project, c: Category) =>
     p.services.some((s) => (CATEGORIES[c] as readonly Service[]).includes(s));
 
-export const projectsIn = (c: Category | null) =>
-    c ? allProjects.filter((p) => inCategory(p, c)) : allProjects;
+export const projectsIn = (projects: Project[], c: Category | null) =>
+    c ? projects.filter((p) => inCategory(p, c)) : projects;
