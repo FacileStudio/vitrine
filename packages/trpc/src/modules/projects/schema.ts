@@ -1,0 +1,71 @@
+import { z } from 'zod';
+
+const localized = <T extends z.ZodType>(value: T) =>
+  z.object({ en: value, fr: value, es: value, de: value });
+
+const text = localized(z.string());
+
+const swatchSchema = z.object({
+  label: text,
+  hex: z.string().min(1),
+  note: text.optional(),
+  rgb: z.string().optional(),
+  cmyk: z.string().optional(),
+  hsv: z.string().optional(),
+  textColor: z.string().optional(),
+});
+
+const tileSchema = z.object({
+  label: text,
+  text: text.optional(),
+  icon: z.string().optional(),
+});
+
+const blockSchema = z.object({
+  type: z.string().min(1),
+  media: z.array(z.union([z.string(), z.number()])).optional(),
+  eyebrow: text.optional(),
+  title: text.optional(),
+  text: text.optional(),
+  tags: z.array(text).optional(),
+  logos: z.array(z.string()).optional(),
+  tiles: z.array(tileSchema).optional(),
+  link: z.string().optional(),
+  linkLabel: text.optional(),
+  effect: z.string().optional(),
+  smalls: z.enum(['top', 'bottom']).optional(),
+  cols: z.number().int().positive().optional(),
+  font: z.string().optional(),
+  fontFamily: z.string().optional(),
+  description: text.optional(),
+  secondFont: z.string().optional(),
+  secondFontFamily: z.string().optional(),
+  secondDescription: text.optional(),
+  swatches: z.array(swatchSchema).optional(),
+});
+
+const sectionSchema = z.object({
+  title: text.optional(),
+  by: z.array(z.string()).optional(),
+  blocks: z.array(blockSchema),
+});
+
+export const projectSchema = z.object({
+  slug: z.string().regex(/^[a-z0-9-]+$/),
+  name: z.string().min(1),
+  weeks: z.number().int().positive(),
+  link: z.string().url().optional(),
+  image: z.string().min(1),
+  video: z.string().optional(),
+  coverEffect: z.string().optional(),
+  gallery: z.array(z.string().min(1)),
+  description: text,
+  metaDescription: text,
+  challenge: text.optional(),
+  techStack: z.array(z.string()),
+  date: z.string().min(1),
+  services: z.array(z.string()),
+  team: z.array(z.string()),
+  notes: z.array(text),
+  story: z.array(sectionSchema),
+});

@@ -6,6 +6,7 @@ import { mediaRouter } from './modules/media/router';
 import { authRouter } from './modules/auth/router';
 import { statisticsRouter } from './modules/statistics/router';
 import { studioRouter } from './modules/studio/router';
+import { projectRouter } from './modules/projects/router';
 import { createOpenApiDocument } from './openapi';
 
 export const appRouter = router({
@@ -15,6 +16,7 @@ export const appRouter = router({
   media: mediaRouter,
   statistics: statisticsRouter,
   studio: studioRouter,
+  projects: projectRouter,
 });
 
 export const openApiDocument = createOpenApiDocument(appRouter);
