@@ -1,28 +1,44 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
+  "globalPassThroughEnv": [
+    "DATABASE_URL",
+    "ENCRYPTION_SECRET",
+    "FRONTEND_URL",
+    "TRUSTED_ORIGINS",
+    "PORT",
+    "STORAGE_DRIVER",
+    "STORAGE_PATH",
+    "NEXT_PUBLIC_API_URL",
+    "VITE_API_URL",
+    "NODE_ENV"
+  ],
   "tasks": {
+    "db:generate": {
+      "inputs": ["prisma/**", "prisma.config.ts"],
+      "cache": true
+    },
     "check-env": {
       "cache": false,
       "inputs": ["**/.env*", "src/env.ts", "src/lib/env.ts"]
     },
     "build": {
-      "dependsOn": ["^build", "check-env"],
+      "dependsOn": ["^build", "db:generate", "check-env"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**", ".svelte-kit/**"]
     },
     "@repo/ui#build": {
       "outputs": []
     },
     "dev": {
-      "dependsOn": ["check-env"],
+      "dependsOn": ["db:generate", "check-env"],
       "cache": false,
       "persistent": true
     },
     "lint": {
-      "dependsOn": ["^lint"]
+      "dependsOn": ["^lint", "db:generate"]
     },
     "typecheck": {
-      "dependsOn": ["^typecheck"],
+      "dependsOn": ["^typecheck", "db:generate"],
       "outputs": []
     },
     "clean": {

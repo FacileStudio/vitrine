@@ -8,6 +8,8 @@
   ],
   "scripts": {
     "build": "turbo run build",
+    "db:generate": "turbo run db:generate",
+    "test": "bun test",
     "start": "HOSTNAME=0.0.0.0 node apps/client/.next/standalone/apps/client/server.js",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
@@ -32,7 +34,11 @@
   },
   "trustedDependencies": [
     "@parcel/watcher",
+    "@prisma/client",
+    "@prisma/engines",
     "@swc/core",
+    "esbuild",
+    "prisma",
     "unrs-resolver"
   ]
 }

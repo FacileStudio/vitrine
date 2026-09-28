@@ -35,7 +35,10 @@ bun-debug.log*
 .env
 .env.local
 .env.*.local
-!.env.example
+**/.env
+**/.env.local
+**/.env.*.local
+!**/.env.example
 
 # Local dev data (postgres, minio, etc.)
 .local

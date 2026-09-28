@@ -365,8 +365,12 @@
     },
   },
   "trustedDependencies": [
-    "unrs-resolver",
+    "esbuild",
+    "@prisma/engines",
+    "@prisma/client",
     "@swc/core",
+    "unrs-resolver",
+    "prisma",
     "@parcel/watcher",
   ],
   "packages": {

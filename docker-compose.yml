@@ -42,17 +42,67 @@ services:
       mc anonymous set download local/${MINIO_BUCKET_NAME:-vitrine-bucket}
       "
 
+  backend:
+    build:
+      context: .
+      dockerfile: apps/backend/Dockerfile
+    container_name: vitrine-backend
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/vitrine
+      ENCRYPTION_SECRET: ${ENCRYPTION_SECRET:?set ENCRYPTION_SECRET (32+ chars) in .env or the Dokploy environment}
+      STORAGE_DRIVER: ${STORAGE_DRIVER:-fs}
+      STORAGE_PATH: /data/storage
+      STORAGE_PUBLIC_URL: ${STORAGE_PUBLIC_URL:-http://localhost:3001}
+      MINIO_ENDPOINT: ${MINIO_ENDPOINT:-}
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-}
+      MINIO_BUCKET_NAME: ${MINIO_BUCKET_NAME:-}
+      MINIO_PUBLIC_URL: ${MINIO_PUBLIC_URL:-}
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:3000}
+      TRUSTED_ORIGINS: ${TRUSTED_ORIGINS:-http://localhost:3000,http://localhost:3002}
+      DEFAULT_ADMIN_EMAIL: ${DEFAULT_ADMIN_EMAIL:-admin@example.com}
+      DEFAULT_ADMIN_PASSWORD: ${DEFAULT_ADMIN_PASSWORD:-admin123}
+      DEFAULT_ADMIN_FIRST_NAME: ${DEFAULT_ADMIN_FIRST_NAME:-Admin}
+      DEFAULT_ADMIN_LAST_NAME: ${DEFAULT_ADMIN_LAST_NAME:-User}
+      LOG_LEVEL: info
+      LOGTAIL_TOKEN: ${LOGTAIL_TOKEN:-}
+    volumes:
+      - storage_data:/data/storage
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  client:
+    build:
+      context: .
+      dockerfile: apps/client/Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:3001}
+    container_name: vitrine-client
+    environment:
+      PORT: 3000
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:3001}
+    depends_on:
+      - backend
+    restart: unless-stopped
+
   backoffice:
     build:
       context: .
       dockerfile: apps/backoffice/Dockerfile
       args:
-        VITE_API_URL: ${VITE_API_URL:-http://localhost:3001}
+        VITE_API_URL: ${VITE_API_URL:-http://localhost:3001/trpc}
     container_name: vitrine-backoffice
     environment:
       PORT: 3002
+    depends_on:
+      - backend
     restart: unless-stopped
 
 volumes:
   postgres_data:
   minio_data:
+  storage_data:

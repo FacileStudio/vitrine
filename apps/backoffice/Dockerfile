@@ -13,6 +13,7 @@ COPY packages/crypto/package.json ./packages/crypto/
 COPY packages/database/package.json ./packages/database/
 COPY packages/env/package.json ./packages/env/
 COPY packages/eslint-config/package.json ./packages/eslint-config/
+COPY packages/i18n/package.json ./packages/i18n/
 COPY packages/logger/package.json ./packages/logger/
 COPY packages/storage/package.json ./packages/storage/
 COPY packages/storage-client/package.json ./packages/storage-client/
