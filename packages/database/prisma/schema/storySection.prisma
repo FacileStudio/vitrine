@@ -6,6 +6,7 @@ model StorySection {
   title       Json?
   by          String[]
   blocks      StoryBlock[]
+  layout      Json?
 
   @@unique([projectSlug, position])
 }

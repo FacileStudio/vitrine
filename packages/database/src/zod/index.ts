@@ -72,7 +72,7 @@ export type StoryBlockScalarFieldEnum = z.infer<typeof StoryBlockScalarFieldEnum
 
 // File: StorySectionScalarFieldEnum.schema.ts
 
-export const StorySectionScalarFieldEnumSchema = z.enum(['id', 'projectSlug', 'position', 'title', 'by'])
+export const StorySectionScalarFieldEnumSchema = z.enum(['id', 'projectSlug', 'position', 'title', 'by', 'layout'])
 
 export type StorySectionScalarFieldEnum = z.infer<typeof StorySectionScalarFieldEnumSchema>;
 
@@ -966,6 +966,7 @@ const storysectionwhereinputSchema = z.object({
   position: z.union([z.lazy(() => IntFilterObjectSchema), z.number().int()]).optional(),
   title: z.lazy(() => JsonNullableFilterObjectSchema).optional(),
   by: z.lazy(() => StringNullableListFilterObjectSchema).optional(),
+  layout: z.lazy(() => JsonNullableFilterObjectSchema).optional(),
   project: z.union([z.lazy(() => ProjectScalarRelationFilterObjectSchema), z.lazy(() => ProjectWhereInputObjectSchema)]).optional(),
   blocks: z.lazy(() => StoryBlockListRelationFilterObjectSchema).optional()
 }).strict();
@@ -980,6 +981,7 @@ const __makeSchema_StorySectionOrderByWithRelationInput_schema = () => z.object(
   position: SortOrderSchema.optional(),
   title: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   by: SortOrderSchema.optional(),
+  layout: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   project: z.lazy(() => ProjectOrderByWithRelationInputObjectSchema).optional(),
   blocks: z.lazy(() => StoryBlockOrderByRelationAggregateInputObjectSchema).optional()
 }).strict();
@@ -1003,6 +1005,7 @@ const __makeSchema_StorySectionOrderByWithAggregationInput_schema = () => z.obje
   position: SortOrderSchema.optional(),
   title: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   by: SortOrderSchema.optional(),
+  layout: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   _count: z.lazy(() => StorySectionCountOrderByAggregateInputObjectSchema).optional(),
   _avg: z.lazy(() => StorySectionAvgOrderByAggregateInputObjectSchema).optional(),
   _max: z.lazy(() => StorySectionMaxOrderByAggregateInputObjectSchema).optional(),
@@ -1023,7 +1026,8 @@ const storysectionscalarwherewithaggregatesinputSchema = z.object({
   projectSlug: z.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()]).optional(),
   position: z.union([z.lazy(() => IntWithAggregatesFilterObjectSchema), z.number().int()]).optional(),
   title: z.lazy(() => JsonNullableWithAggregatesFilterObjectSchema).optional(),
-  by: z.lazy(() => StringNullableListFilterObjectSchema).optional()
+  by: z.lazy(() => StringNullableListFilterObjectSchema).optional(),
+  layout: z.lazy(() => JsonNullableWithAggregatesFilterObjectSchema).optional()
 }).strict();
 export const StorySectionScalarWhereWithAggregatesInputObjectSchema: z.ZodType<Prisma.StorySectionScalarWhereWithAggregatesInput> = storysectionscalarwherewithaggregatesinputSchema as unknown as z.ZodType<Prisma.StorySectionScalarWhereWithAggregatesInput>;
 export const StorySectionScalarWhereWithAggregatesInputObjectZodSchema = storysectionscalarwherewithaggregatesinputSchema;
@@ -2401,6 +2405,7 @@ const __makeSchema_StorySectionCreateInput_schema = () => z.object({
   position: z.number().int(),
   title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   by: z.union([z.lazy(() => StorySectionCreatebyInputObjectSchema), z.string().array()]).optional(),
+  layout: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   project: z.lazy(() => ProjectCreateNestedOneWithoutStoryInputObjectSchema),
   blocks: z.lazy(() => StoryBlockCreateNestedManyWithoutSectionInputObjectSchema).optional()
 }).strict();
@@ -2415,6 +2420,7 @@ const __makeSchema_StorySectionUncheckedCreateInput_schema = () => z.object({
   position: z.number().int(),
   title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   by: z.union([z.lazy(() => StorySectionCreatebyInputObjectSchema), z.string().array()]).optional(),
+  layout: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   blocks: z.lazy(() => StoryBlockUncheckedCreateNestedManyWithoutSectionInputObjectSchema).optional()
 }).strict();
 export const StorySectionUncheckedCreateInputObjectSchema: z.ZodType<Prisma.StorySectionUncheckedCreateInput> = __makeSchema_StorySectionUncheckedCreateInput_schema() as unknown as z.ZodType<Prisma.StorySectionUncheckedCreateInput>;
@@ -2427,6 +2433,7 @@ const __makeSchema_StorySectionUpdateInput_schema = () => z.object({
   position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
   title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   by: z.union([z.lazy(() => StorySectionUpdatebyInputObjectSchema), z.string().array()]).optional(),
+  layout: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   project: z.lazy(() => ProjectUpdateOneRequiredWithoutStoryNestedInputObjectSchema).optional(),
   blocks: z.lazy(() => StoryBlockUpdateManyWithoutSectionNestedInputObjectSchema).optional()
 }).strict();
@@ -2441,6 +2448,7 @@ const __makeSchema_StorySectionUncheckedUpdateInput_schema = () => z.object({
   position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
   title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   by: z.union([z.lazy(() => StorySectionUpdatebyInputObjectSchema), z.string().array()]).optional(),
+  layout: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   blocks: z.lazy(() => StoryBlockUncheckedUpdateManyWithoutSectionNestedInputObjectSchema).optional()
 }).strict();
 export const StorySectionUncheckedUpdateInputObjectSchema: z.ZodType<Prisma.StorySectionUncheckedUpdateInput> = __makeSchema_StorySectionUncheckedUpdateInput_schema() as unknown as z.ZodType<Prisma.StorySectionUncheckedUpdateInput>;
@@ -2453,7 +2461,8 @@ const __makeSchema_StorySectionCreateManyInput_schema = () => z.object({
   projectSlug: z.string(),
   position: z.number().int(),
   title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
-  by: z.union([z.lazy(() => StorySectionCreatebyInputObjectSchema), z.string().array()]).optional()
+  by: z.union([z.lazy(() => StorySectionCreatebyInputObjectSchema), z.string().array()]).optional(),
+  layout: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional()
 }).strict();
 export const StorySectionCreateManyInputObjectSchema: z.ZodType<Prisma.StorySectionCreateManyInput> = __makeSchema_StorySectionCreateManyInput_schema() as unknown as z.ZodType<Prisma.StorySectionCreateManyInput>;
 export const StorySectionCreateManyInputObjectZodSchema = __makeSchema_StorySectionCreateManyInput_schema();
@@ -2464,7 +2473,8 @@ const __makeSchema_StorySectionUpdateManyMutationInput_schema = () => z.object({
   id: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
   position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
   title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
-  by: z.union([z.lazy(() => StorySectionUpdatebyInputObjectSchema), z.string().array()]).optional()
+  by: z.union([z.lazy(() => StorySectionUpdatebyInputObjectSchema), z.string().array()]).optional(),
+  layout: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional()
 }).strict();
 export const StorySectionUpdateManyMutationInputObjectSchema: z.ZodType<Prisma.StorySectionUpdateManyMutationInput> = __makeSchema_StorySectionUpdateManyMutationInput_schema() as unknown as z.ZodType<Prisma.StorySectionUpdateManyMutationInput>;
 export const StorySectionUpdateManyMutationInputObjectZodSchema = __makeSchema_StorySectionUpdateManyMutationInput_schema();
@@ -2476,7 +2486,8 @@ const __makeSchema_StorySectionUncheckedUpdateManyInput_schema = () => z.object(
   projectSlug: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
   position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
   title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
-  by: z.union([z.lazy(() => StorySectionUpdatebyInputObjectSchema), z.string().array()]).optional()
+  by: z.union([z.lazy(() => StorySectionUpdatebyInputObjectSchema), z.string().array()]).optional(),
+  layout: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional()
 }).strict();
 export const StorySectionUncheckedUpdateManyInputObjectSchema: z.ZodType<Prisma.StorySectionUncheckedUpdateManyInput> = __makeSchema_StorySectionUncheckedUpdateManyInput_schema() as unknown as z.ZodType<Prisma.StorySectionUncheckedUpdateManyInput>;
 export const StorySectionUncheckedUpdateManyInputObjectZodSchema = __makeSchema_StorySectionUncheckedUpdateManyInput_schema();
@@ -3905,7 +3916,8 @@ const __makeSchema_StorySectionCountOrderByAggregateInput_schema = () => z.objec
   projectSlug: SortOrderSchema.optional(),
   position: SortOrderSchema.optional(),
   title: SortOrderSchema.optional(),
-  by: SortOrderSchema.optional()
+  by: SortOrderSchema.optional(),
+  layout: SortOrderSchema.optional()
 }).strict();
 export const StorySectionCountOrderByAggregateInputObjectSchema: z.ZodType<Prisma.StorySectionCountOrderByAggregateInput> = __makeSchema_StorySectionCountOrderByAggregateInput_schema() as unknown as z.ZodType<Prisma.StorySectionCountOrderByAggregateInput>;
 export const StorySectionCountOrderByAggregateInputObjectZodSchema = __makeSchema_StorySectionCountOrderByAggregateInput_schema();
@@ -6106,6 +6118,7 @@ const __makeSchema_StorySectionCreateWithoutProjectInput_schema = () => z.object
   position: z.number().int(),
   title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   by: z.union([z.lazy(() => StorySectionCreatebyInputObjectSchema), z.string().array()]).optional(),
+  layout: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   blocks: z.lazy(() => StoryBlockCreateNestedManyWithoutSectionInputObjectSchema).optional()
 }).strict();
 export const StorySectionCreateWithoutProjectInputObjectSchema: z.ZodType<Prisma.StorySectionCreateWithoutProjectInput> = __makeSchema_StorySectionCreateWithoutProjectInput_schema() as unknown as z.ZodType<Prisma.StorySectionCreateWithoutProjectInput>;
@@ -6118,6 +6131,7 @@ const __makeSchema_StorySectionUncheckedCreateWithoutProjectInput_schema = () =>
   position: z.number().int(),
   title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   by: z.union([z.lazy(() => StorySectionCreatebyInputObjectSchema), z.string().array()]).optional(),
+  layout: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   blocks: z.lazy(() => StoryBlockUncheckedCreateNestedManyWithoutSectionInputObjectSchema).optional()
 }).strict();
 export const StorySectionUncheckedCreateWithoutProjectInputObjectSchema: z.ZodType<Prisma.StorySectionUncheckedCreateWithoutProjectInput> = __makeSchema_StorySectionUncheckedCreateWithoutProjectInput_schema() as unknown as z.ZodType<Prisma.StorySectionUncheckedCreateWithoutProjectInput>;
@@ -6239,7 +6253,8 @@ const storysectionscalarwhereinputSchema = z.object({
   projectSlug: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
   position: z.union([z.lazy(() => IntFilterObjectSchema), z.number().int()]).optional(),
   title: z.lazy(() => JsonNullableFilterObjectSchema).optional(),
-  by: z.lazy(() => StringNullableListFilterObjectSchema).optional()
+  by: z.lazy(() => StringNullableListFilterObjectSchema).optional(),
+  layout: z.lazy(() => JsonNullableFilterObjectSchema).optional()
 }).strict();
 export const StorySectionScalarWhereInputObjectSchema: z.ZodType<Prisma.StorySectionScalarWhereInput> = storysectionscalarwhereinputSchema as unknown as z.ZodType<Prisma.StorySectionScalarWhereInput>;
 export const StorySectionScalarWhereInputObjectZodSchema = storysectionscalarwhereinputSchema;
@@ -6657,6 +6672,7 @@ const __makeSchema_StorySectionCreateWithoutBlocksInput_schema = () => z.object(
   position: z.number().int(),
   title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   by: z.union([z.lazy(() => StorySectionCreatebyInputObjectSchema), z.string().array()]).optional(),
+  layout: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   project: z.lazy(() => ProjectCreateNestedOneWithoutStoryInputObjectSchema)
 }).strict();
 export const StorySectionCreateWithoutBlocksInputObjectSchema: z.ZodType<Prisma.StorySectionCreateWithoutBlocksInput> = __makeSchema_StorySectionCreateWithoutBlocksInput_schema() as unknown as z.ZodType<Prisma.StorySectionCreateWithoutBlocksInput>;
@@ -6669,7 +6685,8 @@ const __makeSchema_StorySectionUncheckedCreateWithoutBlocksInput_schema = () => 
   projectSlug: z.string(),
   position: z.number().int(),
   title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
-  by: z.union([z.lazy(() => StorySectionCreatebyInputObjectSchema), z.string().array()]).optional()
+  by: z.union([z.lazy(() => StorySectionCreatebyInputObjectSchema), z.string().array()]).optional(),
+  layout: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional()
 }).strict();
 export const StorySectionUncheckedCreateWithoutBlocksInputObjectSchema: z.ZodType<Prisma.StorySectionUncheckedCreateWithoutBlocksInput> = __makeSchema_StorySectionUncheckedCreateWithoutBlocksInput_schema() as unknown as z.ZodType<Prisma.StorySectionUncheckedCreateWithoutBlocksInput>;
 export const StorySectionUncheckedCreateWithoutBlocksInputObjectZodSchema = __makeSchema_StorySectionUncheckedCreateWithoutBlocksInput_schema();
@@ -6709,6 +6726,7 @@ const __makeSchema_StorySectionUpdateWithoutBlocksInput_schema = () => z.object(
   position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
   title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   by: z.union([z.lazy(() => StorySectionUpdatebyInputObjectSchema), z.string().array()]).optional(),
+  layout: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   project: z.lazy(() => ProjectUpdateOneRequiredWithoutStoryNestedInputObjectSchema).optional()
 }).strict();
 export const StorySectionUpdateWithoutBlocksInputObjectSchema: z.ZodType<Prisma.StorySectionUpdateWithoutBlocksInput> = __makeSchema_StorySectionUpdateWithoutBlocksInput_schema() as unknown as z.ZodType<Prisma.StorySectionUpdateWithoutBlocksInput>;
@@ -6721,7 +6739,8 @@ const __makeSchema_StorySectionUncheckedUpdateWithoutBlocksInput_schema = () => 
   projectSlug: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
   position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
   title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
-  by: z.union([z.lazy(() => StorySectionUpdatebyInputObjectSchema), z.string().array()]).optional()
+  by: z.union([z.lazy(() => StorySectionUpdatebyInputObjectSchema), z.string().array()]).optional(),
+  layout: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional()
 }).strict();
 export const StorySectionUncheckedUpdateWithoutBlocksInputObjectSchema: z.ZodType<Prisma.StorySectionUncheckedUpdateWithoutBlocksInput> = __makeSchema_StorySectionUncheckedUpdateWithoutBlocksInput_schema() as unknown as z.ZodType<Prisma.StorySectionUncheckedUpdateWithoutBlocksInput>;
 export const StorySectionUncheckedUpdateWithoutBlocksInputObjectZodSchema = __makeSchema_StorySectionUncheckedUpdateWithoutBlocksInput_schema();
@@ -7489,7 +7508,8 @@ const __makeSchema_StorySectionCreateManyProjectInput_schema = () => z.object({
   id: z.string().optional(),
   position: z.number().int(),
   title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
-  by: z.union([z.lazy(() => StorySectionCreatebyInputObjectSchema), z.string().array()]).optional()
+  by: z.union([z.lazy(() => StorySectionCreatebyInputObjectSchema), z.string().array()]).optional(),
+  layout: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional()
 }).strict();
 export const StorySectionCreateManyProjectInputObjectSchema: z.ZodType<Prisma.StorySectionCreateManyProjectInput> = __makeSchema_StorySectionCreateManyProjectInput_schema() as unknown as z.ZodType<Prisma.StorySectionCreateManyProjectInput>;
 export const StorySectionCreateManyProjectInputObjectZodSchema = __makeSchema_StorySectionCreateManyProjectInput_schema();
@@ -7582,6 +7602,7 @@ const __makeSchema_StorySectionUpdateWithoutProjectInput_schema = () => z.object
   position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
   title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   by: z.union([z.lazy(() => StorySectionUpdatebyInputObjectSchema), z.string().array()]).optional(),
+  layout: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   blocks: z.lazy(() => StoryBlockUpdateManyWithoutSectionNestedInputObjectSchema).optional()
 }).strict();
 export const StorySectionUpdateWithoutProjectInputObjectSchema: z.ZodType<Prisma.StorySectionUpdateWithoutProjectInput> = __makeSchema_StorySectionUpdateWithoutProjectInput_schema() as unknown as z.ZodType<Prisma.StorySectionUpdateWithoutProjectInput>;
@@ -7594,6 +7615,7 @@ const __makeSchema_StorySectionUncheckedUpdateWithoutProjectInput_schema = () =>
   position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
   title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   by: z.union([z.lazy(() => StorySectionUpdatebyInputObjectSchema), z.string().array()]).optional(),
+  layout: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   blocks: z.lazy(() => StoryBlockUncheckedUpdateManyWithoutSectionNestedInputObjectSchema).optional()
 }).strict();
 export const StorySectionUncheckedUpdateWithoutProjectInputObjectSchema: z.ZodType<Prisma.StorySectionUncheckedUpdateWithoutProjectInput> = __makeSchema_StorySectionUncheckedUpdateWithoutProjectInput_schema() as unknown as z.ZodType<Prisma.StorySectionUncheckedUpdateWithoutProjectInput>;
@@ -7605,7 +7627,8 @@ const __makeSchema_StorySectionUncheckedUpdateManyWithoutProjectInput_schema = (
   id: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
   position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
   title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
-  by: z.union([z.lazy(() => StorySectionUpdatebyInputObjectSchema), z.string().array()]).optional()
+  by: z.union([z.lazy(() => StorySectionUpdatebyInputObjectSchema), z.string().array()]).optional(),
+  layout: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional()
 }).strict();
 export const StorySectionUncheckedUpdateManyWithoutProjectInputObjectSchema: z.ZodType<Prisma.StorySectionUncheckedUpdateManyWithoutProjectInput> = __makeSchema_StorySectionUncheckedUpdateManyWithoutProjectInput_schema() as unknown as z.ZodType<Prisma.StorySectionUncheckedUpdateManyWithoutProjectInput>;
 export const StorySectionUncheckedUpdateManyWithoutProjectInputObjectZodSchema = __makeSchema_StorySectionUncheckedUpdateManyWithoutProjectInput_schema();
@@ -8511,6 +8534,7 @@ const __makeSchema_StorySectionCountAggregateInput_schema = () => z.object({
   position: z.literal(true).optional(),
   title: z.literal(true).optional(),
   by: z.literal(true).optional(),
+  layout: z.literal(true).optional(),
   _all: z.literal(true).optional()
 }).strict();
 export const StorySectionCountAggregateInputObjectSchema: z.ZodType<Prisma.StorySectionCountAggregateInputType> = __makeSchema_StorySectionCountAggregateInput_schema() as unknown as z.ZodType<Prisma.StorySectionCountAggregateInputType>;
@@ -9077,6 +9101,7 @@ const __makeSchema_StorySectionSelect_schema = () => z.object({
   title: z.boolean().optional(),
   by: z.boolean().optional(),
   blocks: z.union([z.boolean(), z.lazy(() => StoryBlockFindManySchema)]).optional(),
+  layout: z.boolean().optional(),
   _count: z.union([z.boolean(), z.lazy(() => StorySectionCountOutputTypeArgsObjectSchema)]).optional()
 }).strict();
 export const StorySectionSelectObjectSchema: z.ZodType<Prisma.StorySectionSelect> = __makeSchema_StorySectionSelect_schema() as unknown as z.ZodType<Prisma.StorySectionSelect>;
@@ -11163,6 +11188,7 @@ export const StorySectionFindFirstSelectSchema__findFirstStorySection_schema: z.
     title: z.boolean().optional(),
     by: z.boolean().optional(),
     blocks: z.union([z.boolean(), z.lazy(() => StoryBlockFindManySchema)]).optional(),
+    layout: z.boolean().optional(),
     _count: z.union([z.boolean(), z.lazy(() => StorySectionCountOutputTypeArgsObjectSchema)]).optional()
   }).strict() as unknown as z.ZodType<Prisma.StorySectionSelect>;
 
@@ -11174,6 +11200,7 @@ export const StorySectionFindFirstSelectZodSchema__findFirstStorySection_schema 
     title: z.boolean().optional(),
     by: z.boolean().optional(),
     blocks: z.union([z.boolean(), z.lazy(() => StoryBlockFindManySchema)]).optional(),
+    layout: z.boolean().optional(),
     _count: z.union([z.boolean(), z.lazy(() => StorySectionCountOutputTypeArgsObjectSchema)]).optional()
   }).strict();
 
@@ -11194,6 +11221,7 @@ export const StorySectionFindFirstOrThrowSelectSchema__findFirstOrThrowStorySect
     title: z.boolean().optional(),
     by: z.boolean().optional(),
     blocks: z.union([z.boolean(), z.lazy(() => StoryBlockFindManySchema)]).optional(),
+    layout: z.boolean().optional(),
     _count: z.union([z.boolean(), z.lazy(() => StorySectionCountOutputTypeArgsObjectSchema)]).optional()
   }).strict() as unknown as z.ZodType<Prisma.StorySectionSelect>;
 
@@ -11205,6 +11233,7 @@ export const StorySectionFindFirstOrThrowSelectZodSchema__findFirstOrThrowStoryS
     title: z.boolean().optional(),
     by: z.boolean().optional(),
     blocks: z.union([z.boolean(), z.lazy(() => StoryBlockFindManySchema)]).optional(),
+    layout: z.boolean().optional(),
     _count: z.union([z.boolean(), z.lazy(() => StorySectionCountOutputTypeArgsObjectSchema)]).optional()
   }).strict();
 
@@ -11225,6 +11254,7 @@ export const StorySectionFindManySelectSchema__findManyStorySection_schema: z.Zo
     title: z.boolean().optional(),
     by: z.boolean().optional(),
     blocks: z.union([z.boolean(), z.lazy(() => StoryBlockFindManySchema)]).optional(),
+    layout: z.boolean().optional(),
     _count: z.union([z.boolean(), z.lazy(() => StorySectionCountOutputTypeArgsObjectSchema)]).optional()
   }).strict() as unknown as z.ZodType<Prisma.StorySectionSelect>;
 
@@ -11236,6 +11266,7 @@ export const StorySectionFindManySelectZodSchema__findManyStorySection_schema = 
     title: z.boolean().optional(),
     by: z.boolean().optional(),
     blocks: z.union([z.boolean(), z.lazy(() => StoryBlockFindManySchema)]).optional(),
+    layout: z.boolean().optional(),
     _count: z.union([z.boolean(), z.lazy(() => StorySectionCountOutputTypeArgsObjectSchema)]).optional()
   }).strict();
 
@@ -12170,6 +12201,7 @@ export const StorySection = z.object({
   position: z.number().int(),
   title: z.unknown().refine((val) => { const getDepth = (obj: unknown, depth: number = 0): number => { if (depth > 10) return depth; if (obj === null || typeof obj !== 'object') return depth; const values = Object.values(obj as Record<string, unknown>); if (values.length === 0) return depth; return Math.max(...values.map(v => getDepth(v, depth + 1))); }; return getDepth(val) <= 10; }, "JSON nesting depth exceeds maximum of 10").nullish(),
   by: z.array(z.string()),
+  layout: z.unknown().refine((val) => { const getDepth = (obj: unknown, depth: number = 0): number => { if (depth > 10) return depth; if (obj === null || typeof obj !== 'object') return depth; const values = Object.values(obj as Record<string, unknown>); if (values.length === 0) return depth; return Math.max(...values.map(v => getDepth(v, depth + 1))); }; return getDepth(val) <= 10; }, "JSON nesting depth exceeds maximum of 10").nullish(),
 });
 
 export type StorySection = z.infer<typeof StorySection>;
