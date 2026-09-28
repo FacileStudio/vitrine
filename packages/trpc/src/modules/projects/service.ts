@@ -1,11 +1,13 @@
 import { TRPCError } from '@trpc/server';
 import { Prisma, type PrismaClient } from '@repo/database';
 import { blocksToLayout } from './layout';
-import type { ProjectEntry, ProjectStoryBlock, SectionLayout } from './types';
+import type { GridItem, ProjectEntry, ProjectStoryBlock, SectionLayout } from './types';
 
 type Db = PrismaClient | Prisma.TransactionClient;
 
-export type ProjectInfo = Omit<ProjectEntry, 'story'>;
+export type ProjectInfo = Omit<ProjectEntry, 'story' | 'bucket'>;
+
+type SectionChange = { position: number; layout: SectionLayout; by: string[] };
 
 const projectInclude = {
   team: { select: { slug: true }, orderBy: { position: 'asc' } },
@@ -33,6 +35,7 @@ const toProject = ({
   challenge,
   team,
   story,
+  bucket,
   ...project
 }: ProjectRow): ProjectEntry =>
   // Prisma cannot see inside Json columns, only import-projects.ts and the backoffice write them, in this shape
@@ -40,6 +43,8 @@ const toProject = ({
     ...project,
     ...present({ link, video, coverEffect, challenge }),
     team: team.map((member) => member.slug),
+    // the shared bucket may have accumulated duplicates from the per-section migration
+    bucket: [...new Map((bucket as GridItem[]).map((item) => [item.id, item])).values()],
     story: story.map(({ title, by, blocks, layout }) => {
       const cleaned = blocks.map(({ id, sectionId, position, type, ...block }) => ({
         type,
@@ -149,12 +154,16 @@ export const projectService = {
     return toProject(row);
   },
 
-  update: async (db: PrismaClient, { story, ...info }: ProjectEntry) => {
+  update: async (db: PrismaClient, { story, bucket, ...info }: ProjectEntry) => {
     await assertExists(db, info.slug);
 
     // one transaction, so a failed save never leaves the story half rewritten
     await db.$transaction(async (tx) => {
       await writeInfo(tx, info);
+      await tx.project.update({
+        where: { slug: info.slug },
+        data: { bucket: bucket as unknown as Prisma.InputJsonValue },
+      });
       await tx.storySection.deleteMany({ where: { projectSlug: info.slug } });
 
       for (const [position, { title, by, blocks, layout, hasLayout }] of story.entries())
@@ -181,14 +190,27 @@ export const projectService = {
     return projectService.get(db, info.slug);
   },
 
-  updateSection: async (db: PrismaClient, slug: string, position: number, layout: SectionLayout, by: string[]) => {
-    assertLayout(layout);
-    await assertMembers(db, by);
+  // moving an element between sections touches two layouts and the bucket, so they are written as one
+  updateStory: async (db: PrismaClient, slug: string, sections: SectionChange[], bucket: GridItem[]) => {
+    await assertExists(db, slug);
+
+    for (const { layout, by } of sections) {
+      assertLayout(layout);
+      await assertMembers(db, by);
+    }
 
     try {
-      await db.storySection.update({
-        where: { projectSlug_position: { projectSlug: slug, position } },
-        data: { layout: layout as unknown as Prisma.InputJsonValue, by },
+      await db.$transaction(async (tx) => {
+        for (const { position, layout, by } of sections)
+          await tx.storySection.update({
+            where: { projectSlug_position: { projectSlug: slug, position } },
+            data: { layout: layout as unknown as Prisma.InputJsonValue, by },
+          });
+
+        await tx.project.update({
+          where: { slug },
+          data: { bucket: bucket as unknown as Prisma.InputJsonValue },
+        });
       });
     } catch (err) {
       // P2025 is Prisma's "record to update not found", anything else is a real failure

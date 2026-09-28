@@ -24,12 +24,13 @@
 	// the API leaves an empty credit list out, the section's people dropdown needs an array to bind to
 	const withCredits = (result: Project) => {
 		result.story.forEach((s) => (s.by ??= []));
+		result.bucket = [...new Map(result.bucket.map((item) => [item.id, item])).values()];
 		return result;
 	};
 
 	let editingId = $state<string | null>(null);
 
-	// where the clicked item lives, so the dialog binds to that exact entry of the grid or the bucket
+	// where the clicked item lives, so the dialog binds to that exact entry of the grid or the shared bucket
 	const editing = $derived.by(() => {
 		if (!section || !editingId)
 			return null;
@@ -39,7 +40,10 @@
 		if (index !== -1)
 			return { list: 'items' as const, index };
 
-		const inBucket = section.layout.bucket.findIndex((item) => item.id === editingId);
+		if (!project)
+			return null;
+
+		const inBucket = project.bucket.findIndex((item) => item.id === editingId);
 
 		return inBucket === -1 ? null : { list: 'bucket' as const, index: inBucket };
 	});
@@ -71,7 +75,7 @@
 		}
 	}
 
-	async function saveSection() {
+	async function saveStory() {
 		if (!project)
 			return;
 
@@ -80,17 +84,22 @@
 		saveError = '';
 
 		try {
+			const snapshot = $state.snapshot(project);
+			const sections = snapshot.story.map((s, position) => ({
+				position,
+				layout: trimmed(s.layout),
+				by: s.by ?? [],
+			}));
 			project = withCredits(
-				await trpc.projects.updateSection.mutate({
+				await trpc.projects.updateStory.mutate({
 					slug,
-					position,
-					layout: trimmed($state.snapshot(project.story[position].layout)),
-					by: $state.snapshot(project.story[position].by) ?? [],
+					sections,
+					bucket: snapshot.bucket,
 				})
 			);
 			saved = true;
 		} catch (err) {
-			logger.error({ err }, 'Failed to save section');
+			logger.error({ err }, 'Failed to save story');
 			saveError = describe(err);
 		} finally {
 			saving = false;
@@ -106,7 +115,7 @@
 	});
 </script>
 
-<div class="p-8 mx-auto space-y-6">
+<div class="p-8 mx-auto space-y-12">
 	<a href="/admin/projects/{slug}" class="p inline-flex items-center gap-2 text-white/58 hover:text-white">
 		<iconify-icon icon="lucide:arrow-left" width="16"></iconify-icon>
 		{project?.name ?? 'Projet'}
@@ -125,18 +134,26 @@
 			<div class="flex items-baseline gap-3 min-w-0">
 				<span class="subtext text-white/45">{position + 1} / {project.story.length}</span>
 				<h1 class="title text-white truncate">{section.title?.en ?? 'Sans titre'}</h1>
-				<span class="subtext text-white/45 shrink-0">{section.layout.cols} colonnes × 3 lignes</span>
 			</div>
 
-			<div class="flex gap-1 shrink-0">
+            <div class="flex  gap-2 items-center ">
+					<span class="lead text-white/80">Équipe</span>
+					<MultiSelect
+						bind:selected={project.story[position].by!}
+						options={(options?.members ?? []).map((m) => ({ value: m.slug, label: m.name }))}
+						placeholder="Personne"
+					/>
+				</div>
+
+			<div class="flex gap-4 p-4 shrink-0">
 				{#if position > 0}
-					<a href="/admin/projects/{slug}/{position - 1}" class="p rounded-md bg-stone-700/10 px-4 py-2 text-white/58 hover:text-white">
-						<iconify-icon icon="lucide:chevron-left" width="12" class="text-white/45 {open === element.kind ? 'rotate-180' : ''}"></iconify-icon>
+					<a href="/admin/projects/{slug}/{position - 1}">
+						<iconify-icon icon="lucide:chevron-left" width="16"></iconify-icon>
 					</a>
 				{/if}
 				{#if position < project.story.length - 1}
-					<a href="/admin/projects/{slug}/{position + 1}" class="p rounded-md bg-stone-700/10 px-4 py-2 text-white/58 hover:text-white">
-						{">"}
+					<a href="/admin/projects/{slug}/{position + 1}">
+						<iconify-icon icon="lucide:chevron-right" width="16"></iconify-icon>
 					</a>
 				{/if}
 			</div>
@@ -145,41 +162,44 @@
 		{#if isInfoSection(section)}
 			<ProjectInfoCard bind:project {options} />
 		{:else}
-			<ElementLibrary onadd={(kind, w, h) => project && addToBucket(project.story[position].layout, kind, w, h)} />
+			<ElementLibrary onadd={(kind, w, h) => project && addToBucket(project.bucket, kind, w, h)} />
 
 			<div class="space-y-8">
-				<div class="max-w-md space-y-1.5">
-					<span class="lead text-white/80">Équipe de la section</span>
-					<MultiSelect
-						bind:selected={project.story[position].by!}
-						options={(options?.members ?? []).map((m) => ({ value: m.slug, label: m.name }))}
-						placeholder="Personne"
-					/>
-					<span class="block subtext text-white/45">Les têtes affichées pour ce chapitre sur le site</span>
-				</div>
 
-				<SectionGrid bind:layout={project.story[position].layout} onedit={(id) => (editingId = id)} />
-				<SectionBucket bind:layout={project.story[position].layout} onedit={(id) => (editingId = id)} />
+				<SectionGrid bind:layout={project.story[position].layout} bucket={project.bucket} onedit={(id) => (editingId = id)} />
+				<SectionBucket layout={project.story[position].layout} bind:bucket={project.bucket} onedit={(id) => (editingId = id)} />
 
 				{#if editing && editingId}
 					{@const id = editingId}
-					<ItemDialog
-						bind:item={project.story[position].layout[editing.list][editing.index]}
-						gallery={project.gallery}
-						inGrid={editing.list === 'items'}
-						onclose={() => (editingId = null)}
-						onbucket={() => project && moveToBucket(project.story[position].layout, id)}
-						onremove={() => project && removeItem(project.story[position].layout, id)}
-						fitsSize={(w, h) => {
-							if (!project || editing.list === 'bucket')
-								return true;
+					{#if editing.list === 'items'}
+						<ItemDialog
+							bind:item={project.story[position].layout.items[editing.index]}
+							gallery={project.gallery}
+							inGrid={true}
+							onclose={() => (editingId = null)}
+							onbucket={() => project && moveToBucket(project.story[position].layout, project.bucket, id)}
+							onremove={() => project && removeItem(project.story[position].layout, project.bucket, id)}
+							fitsSize={(w, h) => {
+								if (!project)
+									return true;
 
-							const layout = project.story[position].layout;
-							const item = layout.items[editing.index];
+								const layout = project.story[position].layout;
+								const item = layout.items[editing.index];
 
-							return fits(layout, { x: item.x, y: item.y, w, h }, id);
-						}}
-					/>
+								return fits(layout, { x: item.x, y: item.y, w, h }, id);
+							}}
+						/>
+					{:else}
+						<ItemDialog
+							bind:item={project.bucket[editing.index]}
+							gallery={project.gallery}
+							inGrid={false}
+							onclose={() => (editingId = null)}
+							onbucket={() => project && moveToBucket(project.story[position].layout, project.bucket, id)}
+							onremove={() => project && removeItem(project.story[position].layout, project.bucket, id)}
+							fitsSize={() => true}
+						/>
+					{/if}
 				{/if}
 
 				<div class="flex items-center justify-end gap-4">
@@ -188,7 +208,7 @@
 					</p>
 					<button
 						type="button"
-						onclick={saveSection}
+						onclick={saveStory}
 						disabled={saving}
 						class="lead flex items-center gap-2 bg-white text-black px-5 py-2.5 rounded-xl hover:bg-white/90 disabled:opacity-50"
 					>

@@ -6,8 +6,13 @@
 	import type { Project } from './types';
 
 	type Layout = Project['story'][number]['layout'];
+	type Bucket = Project['bucket'];
 
-	let { layout = $bindable(), onedit }: { layout: Layout; onedit?: (id: string) => void } = $props();
+	let {
+		layout = $bindable(),
+		bucket,
+		onedit,
+	}: { layout: Layout; bucket: Bucket; onedit?: (id: string) => void } = $props();
 
 	let hover = $state<{ x: number; y: number } | null>(null);
 
@@ -54,7 +59,7 @@
 		if (current.from === 'library')
 			addToGrid(layout, current.kind, col, row, current.w, current.h);
 		else
-			moveToGrid(layout, current.from, current.id, col, row);
+			moveToGrid(layout, bucket, current.from, current.id, col, row);
 
 		hover = null;
 		endDrag();

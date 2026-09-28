@@ -5,8 +5,13 @@
 	import type { Project } from './types';
 
 	type Layout = Project['story'][number]['layout'];
+	type Bucket = Project['bucket'];
 
-	let { layout = $bindable(), onedit }: { layout: Layout; onedit?: (id: string) => void } = $props();
+	let {
+		layout,
+		bucket = $bindable(),
+		onedit,
+	}: { layout: Layout; bucket: Bucket; onedit?: (id: string) => void } = $props();
 
 	let over = $state(false);
 	let overTrash = $state(false);
@@ -38,11 +43,11 @@
 			e.preventDefault();
 			over = false;
 			if (drag.current?.from === 'grid')
-				moveToBucket(layout, drag.current.id);
+				moveToBucket(layout, bucket, drag.current.id);
 			endDrag();
 		}}
 	>
-		{#each layout.bucket as item (item.id)}
+		{#each bucket as item (item.id)}
 			<div
 				role="button"
 				aria-label="Modifier {item.kind}"
@@ -82,7 +87,7 @@
 			e.preventDefault();
 			overTrash = false;
 			if (drag.current && drag.current.from !== 'library')
-				removeItem(layout, drag.current.id);
+				removeItem(layout, bucket, drag.current.id);
 			endDrag();
 		}}
 	>

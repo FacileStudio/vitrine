@@ -65,7 +65,6 @@ export type GridItem =
 export type SectionLayout = {
   cols: number;
   items: GridItem[];
-  bucket: GridItem[];
 };
 
 export interface ProjectStorySection {
@@ -95,4 +94,6 @@ export interface ProjectEntry {
   team: string[];
   notes: Localized[];
   story: ProjectStorySection[];
+  // elements set aside while arranging, shared by every section so one can move between them
+  bucket: GridItem[];
 }

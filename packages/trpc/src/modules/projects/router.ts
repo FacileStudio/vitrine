@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { router, publicProcedure, adminProcedure } from '../../trpc';
-import { projectInfoSchema, projectSchema, sectionLayoutSchema } from './schema';
+import { projectInfoSchema, projectSchema, storyLayoutSchema } from './schema';
 import projectService from './service';
 
 export const projectRouter = router({
@@ -20,11 +20,9 @@ export const projectRouter = router({
     .input(projectInfoSchema)
     .mutation(({ ctx, input }) => projectService.updateInfo(ctx.db, input)),
 
-  updateSection: adminProcedure
-    .input(sectionLayoutSchema)
-    .mutation(({ ctx, input }) =>
-      projectService.updateSection(ctx.db, input.slug, input.position, input.layout, input.by)
-    ),
+  updateStory: adminProcedure
+    .input(storyLayoutSchema)
+    .mutation(({ ctx, input }) => projectService.updateStory(ctx.db, input.slug, input.sections, input.bucket)),
 });
 
 export default projectRouter;

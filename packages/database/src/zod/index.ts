@@ -36,7 +36,7 @@ export type MediaScalarFieldEnum = z.infer<typeof MediaScalarFieldEnumSchema>;
 
 // File: ProjectScalarFieldEnum.schema.ts
 
-export const ProjectScalarFieldEnumSchema = z.enum(['slug', 'position', 'name', 'weeks', 'link', 'image', 'video', 'coverEffect', 'description', 'metaDescription', 'challenge', 'services', 'techStack', 'date', 'gallery', 'notes', 'createdAt', 'updatedAt'])
+export const ProjectScalarFieldEnumSchema = z.enum(['slug', 'position', 'name', 'weeks', 'link', 'image', 'video', 'coverEffect', 'description', 'metaDescription', 'challenge', 'services', 'techStack', 'date', 'gallery', 'notes', 'bucket', 'createdAt', 'updatedAt'])
 
 export type ProjectScalarFieldEnum = z.infer<typeof ProjectScalarFieldEnumSchema>;
 
@@ -425,6 +425,7 @@ const projectwhereinputSchema = z.object({
   date: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
   gallery: z.lazy(() => StringNullableListFilterObjectSchema).optional(),
   notes: z.lazy(() => JsonNullableListFilterObjectSchema).optional(),
+  bucket: z.lazy(() => JsonFilterObjectSchema).optional(),
   createdAt: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional(),
   updatedAt: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional(),
   team: z.lazy(() => StudioMemberListRelationFilterObjectSchema).optional(),
@@ -452,6 +453,7 @@ const __makeSchema_ProjectOrderByWithRelationInput_schema = () => z.object({
   date: SortOrderSchema.optional(),
   gallery: SortOrderSchema.optional(),
   notes: SortOrderSchema.optional(),
+  bucket: SortOrderSchema.optional(),
   createdAt: SortOrderSchema.optional(),
   updatedAt: SortOrderSchema.optional(),
   team: z.lazy(() => StudioMemberOrderByRelationAggregateInputObjectSchema).optional(),
@@ -488,6 +490,7 @@ const __makeSchema_ProjectOrderByWithAggregationInput_schema = () => z.object({
   date: SortOrderSchema.optional(),
   gallery: SortOrderSchema.optional(),
   notes: SortOrderSchema.optional(),
+  bucket: SortOrderSchema.optional(),
   createdAt: SortOrderSchema.optional(),
   updatedAt: SortOrderSchema.optional(),
   _count: z.lazy(() => ProjectCountOrderByAggregateInputObjectSchema).optional(),
@@ -522,6 +525,7 @@ const projectscalarwherewithaggregatesinputSchema = z.object({
   date: z.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()]).optional(),
   gallery: z.lazy(() => StringNullableListFilterObjectSchema).optional(),
   notes: z.lazy(() => JsonNullableListFilterObjectSchema).optional(),
+  bucket: z.lazy(() => JsonWithAggregatesFilterObjectSchema).optional(),
   createdAt: z.union([z.lazy(() => DateTimeWithAggregatesFilterObjectSchema), z.coerce.date()]).optional(),
   updatedAt: z.union([z.lazy(() => DateTimeWithAggregatesFilterObjectSchema), z.coerce.date()]).optional()
 }).strict();
@@ -1690,6 +1694,7 @@ const __makeSchema_ProjectCreateInput_schema = () => z.object({
   date: z.string(),
   gallery: z.union([z.lazy(() => ProjectCreategalleryInputObjectSchema), z.string().array()]).optional(),
   notes: z.union([z.lazy(() => ProjectCreatenotesInputObjectSchema), jsonSchema.array()]).optional(),
+  bucket: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
   createdAt: z.coerce.date().optional(),
   team: z.lazy(() => StudioMemberCreateNestedManyWithoutTeamOfInputObjectSchema).optional(),
   story: z.lazy(() => StorySectionCreateNestedManyWithoutProjectInputObjectSchema).optional()
@@ -1716,6 +1721,7 @@ const __makeSchema_ProjectUncheckedCreateInput_schema = () => z.object({
   date: z.string(),
   gallery: z.union([z.lazy(() => ProjectCreategalleryInputObjectSchema), z.string().array()]).optional(),
   notes: z.union([z.lazy(() => ProjectCreatenotesInputObjectSchema), jsonSchema.array()]).optional(),
+  bucket: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
   createdAt: z.coerce.date().optional(),
   team: z.lazy(() => StudioMemberUncheckedCreateNestedManyWithoutTeamOfInputObjectSchema).optional(),
   story: z.lazy(() => StorySectionUncheckedCreateNestedManyWithoutProjectInputObjectSchema).optional()
@@ -1742,6 +1748,7 @@ const __makeSchema_ProjectUpdateInput_schema = () => z.object({
   date: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
   gallery: z.union([z.lazy(() => ProjectUpdategalleryInputObjectSchema), z.string().array()]).optional(),
   notes: z.union([z.lazy(() => ProjectUpdatenotesInputObjectSchema), jsonSchema.array()]).optional(),
+  bucket: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
   createdAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
   updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
   team: z.lazy(() => StudioMemberUpdateManyWithoutTeamOfNestedInputObjectSchema).optional(),
@@ -1769,6 +1776,7 @@ const __makeSchema_ProjectUncheckedUpdateInput_schema = () => z.object({
   date: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
   gallery: z.union([z.lazy(() => ProjectUpdategalleryInputObjectSchema), z.string().array()]).optional(),
   notes: z.union([z.lazy(() => ProjectUpdatenotesInputObjectSchema), jsonSchema.array()]).optional(),
+  bucket: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
   createdAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
   updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
   team: z.lazy(() => StudioMemberUncheckedUpdateManyWithoutTeamOfNestedInputObjectSchema).optional(),
@@ -1796,6 +1804,7 @@ const __makeSchema_ProjectCreateManyInput_schema = () => z.object({
   date: z.string(),
   gallery: z.union([z.lazy(() => ProjectCreategalleryInputObjectSchema), z.string().array()]).optional(),
   notes: z.union([z.lazy(() => ProjectCreatenotesInputObjectSchema), jsonSchema.array()]).optional(),
+  bucket: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional()
 }).strict();
@@ -1821,6 +1830,7 @@ const __makeSchema_ProjectUpdateManyMutationInput_schema = () => z.object({
   date: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
   gallery: z.union([z.lazy(() => ProjectUpdategalleryInputObjectSchema), z.string().array()]).optional(),
   notes: z.union([z.lazy(() => ProjectUpdatenotesInputObjectSchema), jsonSchema.array()]).optional(),
+  bucket: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
   createdAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
   updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional()
 }).strict();
@@ -1846,6 +1856,7 @@ const __makeSchema_ProjectUncheckedUpdateManyInput_schema = () => z.object({
   date: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
   gallery: z.union([z.lazy(() => ProjectUpdategalleryInputObjectSchema), z.string().array()]).optional(),
   notes: z.union([z.lazy(() => ProjectUpdatenotesInputObjectSchema), jsonSchema.array()]).optional(),
+  bucket: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
   createdAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
   updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional()
 }).strict();
@@ -3419,6 +3430,7 @@ const __makeSchema_ProjectCountOrderByAggregateInput_schema = () => z.object({
   date: SortOrderSchema.optional(),
   gallery: SortOrderSchema.optional(),
   notes: SortOrderSchema.optional(),
+  bucket: SortOrderSchema.optional(),
   createdAt: SortOrderSchema.optional(),
   updatedAt: SortOrderSchema.optional()
 }).strict();
@@ -6764,6 +6776,7 @@ const __makeSchema_ProjectCreateWithoutStoryInput_schema = () => z.object({
   date: z.string(),
   gallery: z.union([z.lazy(() => ProjectCreategalleryInputObjectSchema), z.string().array()]).optional(),
   notes: z.union([z.lazy(() => ProjectCreatenotesInputObjectSchema), jsonSchema.array()]).optional(),
+  bucket: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   team: z.lazy(() => StudioMemberCreateNestedManyWithoutTeamOfInputObjectSchema).optional()
@@ -6790,6 +6803,7 @@ const __makeSchema_ProjectUncheckedCreateWithoutStoryInput_schema = () => z.obje
   date: z.string(),
   gallery: z.union([z.lazy(() => ProjectCreategalleryInputObjectSchema), z.string().array()]).optional(),
   notes: z.union([z.lazy(() => ProjectCreatenotesInputObjectSchema), jsonSchema.array()]).optional(),
+  bucket: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   team: z.lazy(() => StudioMemberUncheckedCreateNestedManyWithoutTeamOfInputObjectSchema).optional()
@@ -6920,6 +6934,7 @@ const __makeSchema_ProjectUpdateWithoutStoryInput_schema = () => z.object({
   date: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
   gallery: z.union([z.lazy(() => ProjectUpdategalleryInputObjectSchema), z.string().array()]).optional(),
   notes: z.union([z.lazy(() => ProjectUpdatenotesInputObjectSchema), jsonSchema.array()]).optional(),
+  bucket: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
   createdAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
   updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
   team: z.lazy(() => StudioMemberUpdateManyWithoutTeamOfNestedInputObjectSchema).optional()
@@ -6946,6 +6961,7 @@ const __makeSchema_ProjectUncheckedUpdateWithoutStoryInput_schema = () => z.obje
   date: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
   gallery: z.union([z.lazy(() => ProjectUpdategalleryInputObjectSchema), z.string().array()]).optional(),
   notes: z.union([z.lazy(() => ProjectUpdatenotesInputObjectSchema), jsonSchema.array()]).optional(),
+  bucket: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
   createdAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
   updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
   team: z.lazy(() => StudioMemberUncheckedUpdateManyWithoutTeamOfNestedInputObjectSchema).optional()
@@ -7034,6 +7050,7 @@ const __makeSchema_ProjectCreateWithoutTeamInput_schema = () => z.object({
   date: z.string(),
   gallery: z.union([z.lazy(() => ProjectCreategalleryInputObjectSchema), z.string().array()]).optional(),
   notes: z.union([z.lazy(() => ProjectCreatenotesInputObjectSchema), jsonSchema.array()]).optional(),
+  bucket: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   story: z.lazy(() => StorySectionCreateNestedManyWithoutProjectInputObjectSchema).optional()
@@ -7060,6 +7077,7 @@ const __makeSchema_ProjectUncheckedCreateWithoutTeamInput_schema = () => z.objec
   date: z.string(),
   gallery: z.union([z.lazy(() => ProjectCreategalleryInputObjectSchema), z.string().array()]).optional(),
   notes: z.union([z.lazy(() => ProjectCreatenotesInputObjectSchema), jsonSchema.array()]).optional(),
+  bucket: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   story: z.lazy(() => StorySectionUncheckedCreateNestedManyWithoutProjectInputObjectSchema).optional()
@@ -7127,6 +7145,7 @@ const projectscalarwhereinputSchema = z.object({
   date: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
   gallery: z.lazy(() => StringNullableListFilterObjectSchema).optional(),
   notes: z.lazy(() => JsonNullableListFilterObjectSchema).optional(),
+  bucket: z.lazy(() => JsonFilterObjectSchema).optional(),
   createdAt: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional(),
   updatedAt: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional()
 }).strict();
@@ -7840,6 +7859,7 @@ const __makeSchema_ProjectUpdateWithoutTeamInput_schema = () => z.object({
   date: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
   gallery: z.union([z.lazy(() => ProjectUpdategalleryInputObjectSchema), z.string().array()]).optional(),
   notes: z.union([z.lazy(() => ProjectUpdatenotesInputObjectSchema), jsonSchema.array()]).optional(),
+  bucket: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
   createdAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
   updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
   story: z.lazy(() => StorySectionUpdateManyWithoutProjectNestedInputObjectSchema).optional()
@@ -7866,6 +7886,7 @@ const __makeSchema_ProjectUncheckedUpdateWithoutTeamInput_schema = () => z.objec
   date: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
   gallery: z.union([z.lazy(() => ProjectUpdategalleryInputObjectSchema), z.string().array()]).optional(),
   notes: z.union([z.lazy(() => ProjectUpdatenotesInputObjectSchema), jsonSchema.array()]).optional(),
+  bucket: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
   createdAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
   updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
   story: z.lazy(() => StorySectionUncheckedUpdateManyWithoutProjectNestedInputObjectSchema).optional()
@@ -7892,6 +7913,7 @@ const __makeSchema_ProjectUncheckedUpdateManyWithoutTeamInput_schema = () => z.o
   date: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
   gallery: z.union([z.lazy(() => ProjectUpdategalleryInputObjectSchema), z.string().array()]).optional(),
   notes: z.union([z.lazy(() => ProjectUpdatenotesInputObjectSchema), jsonSchema.array()]).optional(),
+  bucket: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
   createdAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
   updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional()
 }).strict();
@@ -8212,6 +8234,7 @@ const __makeSchema_ProjectCountAggregateInput_schema = () => z.object({
   date: z.literal(true).optional(),
   gallery: z.literal(true).optional(),
   notes: z.literal(true).optional(),
+  bucket: z.literal(true).optional(),
   createdAt: z.literal(true).optional(),
   updatedAt: z.literal(true).optional(),
   _all: z.literal(true).optional()
@@ -8998,6 +9021,7 @@ const __makeSchema_ProjectSelect_schema = () => z.object({
   gallery: z.boolean().optional(),
   notes: z.boolean().optional(),
   story: z.union([z.boolean(), z.lazy(() => StorySectionFindManySchema)]).optional(),
+  bucket: z.boolean().optional(),
   createdAt: z.boolean().optional(),
   updatedAt: z.boolean().optional(),
   _count: z.union([z.boolean(), z.lazy(() => ProjectCountOutputTypeArgsObjectSchema)]).optional()
@@ -9993,6 +10017,7 @@ export const ProjectFindFirstSelectSchema__findFirstProject_schema: z.ZodType<Pr
     gallery: z.boolean().optional(),
     notes: z.boolean().optional(),
     story: z.union([z.boolean(), z.lazy(() => StorySectionFindManySchema)]).optional(),
+    bucket: z.boolean().optional(),
     createdAt: z.boolean().optional(),
     updatedAt: z.boolean().optional(),
     _count: z.union([z.boolean(), z.lazy(() => ProjectCountOutputTypeArgsObjectSchema)]).optional()
@@ -10017,6 +10042,7 @@ export const ProjectFindFirstSelectZodSchema__findFirstProject_schema = z.object
     gallery: z.boolean().optional(),
     notes: z.boolean().optional(),
     story: z.union([z.boolean(), z.lazy(() => StorySectionFindManySchema)]).optional(),
+    bucket: z.boolean().optional(),
     createdAt: z.boolean().optional(),
     updatedAt: z.boolean().optional(),
     _count: z.union([z.boolean(), z.lazy(() => ProjectCountOutputTypeArgsObjectSchema)]).optional()
@@ -10050,6 +10076,7 @@ export const ProjectFindFirstOrThrowSelectSchema__findFirstOrThrowProject_schema
     gallery: z.boolean().optional(),
     notes: z.boolean().optional(),
     story: z.union([z.boolean(), z.lazy(() => StorySectionFindManySchema)]).optional(),
+    bucket: z.boolean().optional(),
     createdAt: z.boolean().optional(),
     updatedAt: z.boolean().optional(),
     _count: z.union([z.boolean(), z.lazy(() => ProjectCountOutputTypeArgsObjectSchema)]).optional()
@@ -10074,6 +10101,7 @@ export const ProjectFindFirstOrThrowSelectZodSchema__findFirstOrThrowProject_sch
     gallery: z.boolean().optional(),
     notes: z.boolean().optional(),
     story: z.union([z.boolean(), z.lazy(() => StorySectionFindManySchema)]).optional(),
+    bucket: z.boolean().optional(),
     createdAt: z.boolean().optional(),
     updatedAt: z.boolean().optional(),
     _count: z.union([z.boolean(), z.lazy(() => ProjectCountOutputTypeArgsObjectSchema)]).optional()
@@ -10107,6 +10135,7 @@ export const ProjectFindManySelectSchema__findManyProject_schema: z.ZodType<Pris
     gallery: z.boolean().optional(),
     notes: z.boolean().optional(),
     story: z.union([z.boolean(), z.lazy(() => StorySectionFindManySchema)]).optional(),
+    bucket: z.boolean().optional(),
     createdAt: z.boolean().optional(),
     updatedAt: z.boolean().optional(),
     _count: z.union([z.boolean(), z.lazy(() => ProjectCountOutputTypeArgsObjectSchema)]).optional()
@@ -10131,6 +10160,7 @@ export const ProjectFindManySelectZodSchema__findManyProject_schema = z.object({
     gallery: z.boolean().optional(),
     notes: z.boolean().optional(),
     story: z.union([z.boolean(), z.lazy(() => StorySectionFindManySchema)]).optional(),
+    bucket: z.boolean().optional(),
     createdAt: z.boolean().optional(),
     updatedAt: z.boolean().optional(),
     _count: z.union([z.boolean(), z.lazy(() => ProjectCountOutputTypeArgsObjectSchema)]).optional()
@@ -12085,6 +12115,7 @@ export const Project = z.object({
   date: z.string(),
   gallery: z.array(z.string()),
   notes: z.array(z.unknown().refine((val) => { const getDepth = (obj: unknown, depth: number = 0): number => { if (depth > 10) return depth; if (obj === null || typeof obj !== 'object') return depth; const values = Object.values(obj as Record<string, unknown>); if (values.length === 0) return depth; return Math.max(...values.map(v => getDepth(v, depth + 1))); }; return getDepth(val) <= 10; }, "JSON nesting depth exceeds maximum of 10")),
+  bucket: z.unknown().refine((val) => { const getDepth = (obj: unknown, depth: number = 0): number => { if (depth > 10) return depth; if (obj === null || typeof obj !== 'object') return depth; const values = Object.values(obj as Record<string, unknown>); if (values.length === 0) return depth; return Math.max(...values.map(v => getDepth(v, depth + 1))); }; return getDepth(val) <= 10; }, "JSON nesting depth exceeds maximum of 10").default([]),
   createdAt: z.date(),
   updatedAt: z.date(),
 });

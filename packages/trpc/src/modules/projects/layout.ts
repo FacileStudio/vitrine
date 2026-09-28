@@ -117,5 +117,5 @@ export function blocksToLayout(blocks: ProjectStoryBlock[], gallery: string[]): 
     x += w;
   });
 
-  return { cols: Math.max(1, x - 1), items, bucket: [] };
+  return { cols: Math.max(1, x - 1), items };
 }

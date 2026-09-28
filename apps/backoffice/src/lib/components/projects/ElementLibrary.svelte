@@ -4,7 +4,7 @@
 
 	let { onadd }: { onadd?: (kind: string, w: number, h: number) => void } = $props();
 
-	// these can be sized before they exist, the others keep their fixed default and are only dragged
+	// these can be sized before they exist, the others use their default size
 	const SIZED = ['image', 'video', 'note', 'text'];
 	const SIZES = [1, 2, 3];
 
@@ -27,19 +27,14 @@
 	}}
 />
 
-<div class="flex justify-between w-full space-y-4">
-	<div class="flex items-baseline gap-3">
-		<span class="subtitle text-white">Éléments</span>
-	</div>
-
+<div class="flex justify-start">
 	<div class="flex flex-wrap gap-1">
 		{#each ELEMENTS as element (element.kind)}
 			{@const sized = SIZED.includes(element.kind)}
 			<div class="relative" data-library-chip>
-				<!-- svelte-ignore a11y_no_noninteractive_tabindex: the role is a button exactly when the chip is focusable, the check cannot read a conditional role -->
 				<div
-					role={sized ? 'button' : 'listitem'}
-					tabindex={sized ? 0 : -1}
+					role="button"
+					tabindex="0"
 					aria-expanded={sized ? open === element.kind : undefined}
 					draggable="true"
 					ondragstart={(e) => {
@@ -50,10 +45,16 @@
 					onclick={() => {
 						if (sized)
 							open = open === element.kind ? null : element.kind;
+						else
+							pick(element.kind, element.w, element.h);
 					}}
 					onkeydown={(e) => {
-						if (sized && e.key === 'Enter')
-							open = open === element.kind ? null : element.kind;
+						if (e.key === 'Enter') {
+							if (sized)
+								open = open === element.kind ? null : element.kind;
+							else
+								pick(element.kind, element.w, element.h);
+						}
 					}}
 					class="p flex items-center gap-2 px-4 py-2.5 rounded-md bg-stone-700/10 text-white/80 cursor-grab"
 				>

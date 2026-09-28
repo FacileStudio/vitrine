@@ -2,6 +2,7 @@ import type { Project } from './types';
 
 type Layout = Project['story'][number]['layout'];
 type Item = Layout['items'][number];
+type Bucket = Project['bucket'];
 
 export const ROWS = 3;
 
@@ -36,8 +37,8 @@ const take = (list: Item[], id: string) => {
 	return index === -1 ? undefined : list.splice(index, 1)[0];
 };
 
-export function moveToGrid(layout: Layout, from: 'grid' | 'bucket', id: string, x: number, y: number) {
-	const item = take(from === 'grid' ? layout.items : layout.bucket, id);
+export function moveToGrid(layout: Layout, bucket: Bucket, from: 'grid' | 'bucket', id: string, x: number, y: number) {
+	const item = take(from === 'grid' ? layout.items : bucket, id);
 
 	if (item) {
 		layout.items.push({ ...item, x, y });
@@ -45,11 +46,11 @@ export function moveToGrid(layout: Layout, from: 'grid' | 'bucket', id: string, 
 	}
 }
 
-export function moveToBucket(layout: Layout, id: string) {
+export function moveToBucket(layout: Layout, bucket: Bucket, id: string) {
 	const item = take(layout.items, id);
 
 	if (item)
-		layout.bucket.push({ ...item, x: 0, y: 0 });
+		bucket.push({ ...item, x: 0, y: 0 });
 }
 
 // a fresh element of that kind, empty until its dialog fills it
@@ -72,12 +73,12 @@ export function addToGrid(layout: Layout, kind: string, x: number, y: number, w:
 	layout.cols = Math.max(layout.cols, x + w - 1);
 }
 
-export function addToBucket(layout: Layout, kind: string, w: number, h: number) {
-	layout.bucket.push(newItem(kind, 0, 0, w, h));
+export function addToBucket(bucket: Bucket, kind: string, w: number, h: number) {
+	bucket.push(newItem(kind, 0, 0, w, h));
 }
 
-export function removeItem(layout: Layout, id: string) {
-	take(layout.items, id) ?? take(layout.bucket, id);
+export function removeItem(layout: Layout, bucket: Bucket, id: string) {
+	take(layout.items, id) ?? take(bucket, id);
 }
 
 // optional multilingual fields may be missing, the dialog's inputs need an object to bind to

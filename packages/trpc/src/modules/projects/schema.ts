@@ -83,14 +83,19 @@ const gridItemSchema = z.discriminatedUnion('kind', [
 const layoutSchema = z.object({
   cols: z.number().int().min(1),
   items: z.array(gridItemSchema),
-  bucket: z.array(gridItemSchema),
 });
 
-export const sectionLayoutSchema = z.object({
+// every section changed since the last save, plus the shared bucket, written together
+export const storyLayoutSchema = z.object({
   slug: z.string(),
-  position: z.number().int().min(0),
-  layout: layoutSchema,
-  by: z.array(z.string()),
+  sections: z.array(
+    z.object({
+      position: z.number().int().min(0),
+      layout: layoutSchema,
+      by: z.array(z.string()),
+    })
+  ),
+  bucket: z.array(gridItemSchema),
 });
 
 export const projectSchema = z.object({
@@ -111,6 +116,8 @@ export const projectSchema = z.object({
   team: z.array(z.string()),
   notes: z.array(text),
   story: z.array(sectionSchema),
+  bucket: z.array(gridItemSchema),
 });
 
-export const projectInfoSchema = projectSchema.omit({ story: true });
+// the info card saves project fields only, the story and bucket are saved from the section pages
+export const projectInfoSchema = projectSchema.omit({ story: true, bucket: true });
