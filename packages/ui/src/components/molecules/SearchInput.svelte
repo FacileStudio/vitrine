@@ -20,6 +20,6 @@
         bind:value
         {placeholder}
         {oninput}
-        class="w-full px-6 py-3 bg-white border-2 border-slate-100 rounded-[24px] focus:border-indigo-500 outline-none transition-all font-medium text-sm"
+        class="w-full px-6 py-3 bg-white/[0.03] border-2 border-white/10 rounded-[24px] focus:border-indigo-500 outline-none transition-all font-medium text-sm"
     />
 </div>

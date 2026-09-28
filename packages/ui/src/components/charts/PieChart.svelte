@@ -102,7 +102,7 @@
         {#each data as item, i (i)}
             <div class="flex items-center gap-2">
                 <div class="w-3 h-3 rounded-sm" style="background-color: {colors[i % colors.length]}"></div>
-                <span class="text-xs text-slate-600">{item[label]}</span>
+                <span class="text-xs text-white/70">{item[label]}</span>
             </div>
         {/each}
     </div>
@@ -110,11 +110,11 @@
     {#if hoveredIndex !== null}
         {@const item = data[hoveredIndex]}
         <div
-            class="fixed z-50 px-3 py-2 text-xs bg-slate-900 text-white rounded-lg shadow-xl pointer-events-none"
+            class="fixed z-50 px-3 py-2 text-xs bg-white text-black rounded-lg shadow-xl pointer-events-none"
             style="left: {tooltipX + 10}px; top: {tooltipY - 10}px;"
         >
             <div class="font-medium">{item[label]}</div>
-            <div class="text-slate-300">{value}: {item[value]}</div>
+            <div class="text-white/30">{value}: {item[value]}</div>
         </div>
     {/if}
 </Chart>

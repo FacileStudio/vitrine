@@ -121,51 +121,51 @@
 
 <div class="p-8 max-w-[1400px] mx-auto space-y-6">
 	<header>
-		<h1 class="text-3xl font-black text-slate-900 tracking-tighter">Members</h1>
-		<p class="text-slate-500 text-sm mt-1">Manage and moderate platform members</p>
+		<h1 class="text-3xl font-black text-white tracking-tighter">Members</h1>
+		<p class="text-white/58 text-sm mt-1">Manage and moderate platform members</p>
 	</header>
 
 	{#if stats}
 		<div class="grid grid-cols-4 gap-4">
-			<div class="bg-white rounded-2xl p-4 border border-slate-100">
+			<div class="bg-white/[0.03] rounded-2xl p-4 border border-white/10">
 				<div class="flex items-center justify-between mb-2">
-					<div class="text-xs font-bold text-slate-400">Total</div>
-					<iconify-icon icon="solar:users-group-two-rounded-bold" class="text-slate-400" width="20"></iconify-icon>
+					<div class="text-xs font-bold text-white/45">Total</div>
+					<iconify-icon icon="solar:users-group-two-rounded-bold" class="text-white/45" width="20"></iconify-icon>
 				</div>
-				<div class="text-2xl font-black text-slate-900">{stats.totalUsers}</div>
+				<div class="text-2xl font-black text-white">{stats.totalUsers}</div>
 			</div>
-			<div class="bg-white rounded-2xl p-4 border border-slate-100">
+			<div class="bg-white/[0.03] rounded-2xl p-4 border border-white/10">
 				<div class="flex items-center justify-between mb-2">
-					<div class="text-xs font-bold text-gray-600">Active</div>
-					<iconify-icon icon="solar:user-check-rounded-bold" class="text-gray-600" width="20"></iconify-icon>
+					<div class="text-xs font-bold text-white/58">Active</div>
+					<iconify-icon icon="solar:user-check-rounded-bold" class="text-white/58" width="20"></iconify-icon>
 				</div>
-				<div class="text-2xl font-black text-gray-600">{stats.activeUsers}</div>
+				<div class="text-2xl font-black text-white/58">{stats.activeUsers}</div>
 			</div>
-			<div class="bg-white rounded-2xl p-4 border border-slate-100">
+			<div class="bg-white/[0.03] rounded-2xl p-4 border border-white/10">
 				<div class="flex items-center justify-between mb-2">
-					<div class="text-xs font-bold text-gray-500">Suspended</div>
-					<iconify-icon icon="solar:user-block-rounded-bold" class="text-gray-500" width="20"></iconify-icon>
+					<div class="text-xs font-bold text-white/58">Suspended</div>
+					<iconify-icon icon="solar:user-block-rounded-bold" class="text-white/58" width="20"></iconify-icon>
 				</div>
-				<div class="text-2xl font-black text-gray-500">{stats.suspendedUsers}</div>
+				<div class="text-2xl font-black text-white/58">{stats.suspendedUsers}</div>
 			</div>
-			<div class="bg-white rounded-2xl p-4 border border-slate-100">
+			<div class="bg-white/[0.03] rounded-2xl p-4 border border-white/10">
 				<div class="flex items-center justify-between mb-2">
-					<div class="text-xs font-bold text-gray-700">Banned</div>
-					<iconify-icon icon="solar:user-cross-rounded-bold" class="text-gray-700" width="20"></iconify-icon>
+					<div class="text-xs font-bold text-white/80">Banned</div>
+					<iconify-icon icon="solar:user-cross-rounded-bold" class="text-white/80" width="20"></iconify-icon>
 				</div>
-				<div class="text-2xl font-black text-gray-700">{stats.bannedUsers}</div>
+				<div class="text-2xl font-black text-white/80">{stats.bannedUsers}</div>
 			</div>
 		</div>
 	{/if}
 
-	<div class="bg-white rounded-2xl border border-slate-100 p-4">
+	<div class="bg-white/[0.03] rounded-2xl border border-white/10 p-4">
 		<div class="flex gap-3 items-center">
 			<div class="flex-1">
 				<SearchInput bind:value={searchQuery} placeholder="Search by name, email..." />
 			</div>
 			<select
 				bind:value={filters.status}
-				class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none font-bold text-sm focus:border-gray-300"
+				class="px-4 py-2 bg-white/[0.03] border border-white/10 rounded-xl outline-none font-bold text-sm focus:border-white/20"
 			>
 				<option value="all">All Status</option>
 				<option value="active">Active</option>
@@ -175,7 +175,7 @@
 			</select>
 			<select
 				bind:value={filters.role}
-				class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none font-bold text-sm focus:border-gray-300"
+				class="px-4 py-2 bg-white/[0.03] border border-white/10 rounded-xl outline-none font-bold text-sm focus:border-white/20"
 			>
 				<option value="all">All Roles</option>
 				<option value="admin">Admin</option>
@@ -189,38 +189,38 @@
 			<Spinner size="xl" />
 		</div>
 	{:else if filteredUsers.length > 0}
-		<div class="bg-white rounded-2xl border border-slate-100 overflow-hidden">
+		<div class="bg-white/[0.03] rounded-2xl border border-white/10 overflow-hidden">
 			<div class="overflow-x-auto">
 				<table class="w-full">
-					<thead class="bg-slate-50 border-b border-slate-100">
+					<thead class="bg-white/[0.03] border-b border-white/10">
 						<tr>
-							<th class="text-left px-6 py-3 text-xs font-black text-slate-500">User</th>
-							<th class="text-left px-6 py-3 text-xs font-black text-slate-500">Status</th>
-							<th class="text-left px-6 py-3 text-xs font-black text-slate-500">Role</th>
-							<th class="text-left px-6 py-3 text-xs font-black text-slate-500">Joined</th>
-							<th class="text-right px-6 py-3 text-xs font-black text-slate-500">Actions</th>
+							<th class="text-left px-6 py-3 text-xs font-black text-white/58">User</th>
+							<th class="text-left px-6 py-3 text-xs font-black text-white/58">Status</th>
+							<th class="text-left px-6 py-3 text-xs font-black text-white/58">Role</th>
+							<th class="text-left px-6 py-3 text-xs font-black text-white/58">Joined</th>
+							<th class="text-right px-6 py-3 text-xs font-black text-white/58">Actions</th>
 						</tr>
 					</thead>
-					<tbody class="divide-y divide-slate-100">
+					<tbody class="divide-y divide-white/10">
 						{#each filteredUsers as user (user.id)}
-							<tr class="hover:bg-slate-50 transition-colors">
+							<tr class="hover:bg-white/[0.05] transition-colors">
 								<td class="px-6 py-4">
 									<div class="flex items-center gap-3">
 										{#if user.avatar?.url}
 											<img src={user.avatar.url} alt={user.firstName} class="w-10 h-10 rounded-xl object-cover" />
 										{:else}
-											<div class="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-500 font-bold">
+											<div class="w-10 h-10 rounded-xl bg-white/[0.05] flex items-center justify-center text-white/58 font-bold">
 												{user.firstName[0]}
 											</div>
 										{/if}
 										<div>
-											<div class="font-bold text-slate-900 flex items-center gap-2">
+											<div class="font-bold text-white flex items-center gap-2">
 												{user.firstName} {user.lastName}
 												{#if user.emailVerified}
-													<iconify-icon icon="solar:verified-check-bold" class="text-gray-600" width="16"></iconify-icon>
+													<iconify-icon icon="solar:verified-check-bold" class="text-white/58" width="16"></iconify-icon>
 												{/if}
 											</div>
-											<div class="text-sm text-slate-500">{user.email}</div>
+											<div class="text-sm text-white/58">{user.email}</div>
 										</div>
 									</div>
 								</td>
@@ -232,19 +232,19 @@
 								<td class="px-6 py-4">
 									<button
 										onclick={() => handleToggleRole(user.id, user.role)}
-										class="px-3 py-1 rounded-lg text-xs font-bold transition-colors {user.role === 'ADMIN' ? 'bg-gray-200 text-gray-900 hover:bg-gray-300' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}"
+										class="px-3 py-1 rounded-lg text-xs font-bold transition-colors {user.role === 'ADMIN' ? 'bg-white/10 text-white hover:bg-white/10' : 'bg-white/[0.05] text-white/80 hover:bg-white/10'}"
 									>
 										{user.role}
 									</button>
 								</td>
-								<td class="px-6 py-4 text-sm text-slate-600">
+								<td class="px-6 py-4 text-sm text-white/70">
 									{formatDate(user.createdAt)}
 								</td>
 								<td class="px-6 py-4">
 									<div class="flex items-center justify-end gap-2">
 										<button
 											onclick={() => selectedUserId = user.id}
-											class="p-2 hover:bg-gray-100 rounded-lg transition-colors text-slate-400 hover:text-black"
+											class="p-2 hover:bg-white/[0.05] rounded-lg transition-colors text-white/45 hover:text-white"
 											title="View details"
 										>
 											<iconify-icon icon="solar:eye-bold" width="18"></iconify-icon>
@@ -253,7 +253,7 @@
 										{#if !user.emailVerified}
 											<button
 												onclick={() => handleVerifyEmail(user.id)}
-												class="p-2 hover:bg-gray-100 rounded-lg transition-colors text-slate-400 hover:text-gray-600"
+												class="p-2 hover:bg-white/[0.05] rounded-lg transition-colors text-white/45 hover:text-white"
 												title="Verify email"
 											>
 												<iconify-icon icon="solar:shield-check-bold" width="18"></iconify-icon>
@@ -263,7 +263,7 @@
 										{#if user.status === 'BANNED'}
 											<button
 												onclick={() => handleUnban(user.id)}
-												class="p-2 hover:bg-gray-100 rounded-lg transition-colors text-gray-500 hover:text-gray-600"
+												class="p-2 hover:bg-white/[0.05] rounded-lg transition-colors text-white/58 hover:text-white"
 												title="Unban user"
 											>
 												<iconify-icon icon="solar:shield-check-bold" width="18"></iconify-icon>
@@ -273,7 +273,7 @@
 												onclick={() => {
 													banningUserId = user.id;
 												}}
-												class="p-2 hover:bg-gray-100 rounded-lg transition-colors text-slate-400 hover:text-gray-600"
+												class="p-2 hover:bg-white/[0.05] rounded-lg transition-colors text-white/45 hover:text-white"
 												title="Ban user"
 											>
 												<iconify-icon icon="solar:shield-warning-bold" width="18"></iconify-icon>
@@ -282,7 +282,7 @@
 
 										<button
 											onclick={() => handleDelete(user.id, `${user.firstName} ${user.lastName}`)}
-											class="p-2 hover:bg-gray-100 rounded-lg transition-colors text-slate-400 hover:text-gray-600"
+											class="p-2 hover:bg-white/[0.05] rounded-lg transition-colors text-white/45 hover:text-white"
 											title="Delete user"
 										>
 											<iconify-icon icon="solar:trash-bin-trash-bold" width="18"></iconify-icon>
@@ -292,14 +292,14 @@
 							</tr>
 
 							{#if banningUserId === user.id}
-								<tr class="bg-gray-50">
+								<tr class="bg-white/[0.03]">
 									<td colspan="5" class="px-6 py-4">
 										<div class="flex items-center gap-3">
-											<iconify-icon icon="solar:shield-warning-bold" class="text-gray-600" width="20"></iconify-icon>
-											<p class="flex-1 text-sm text-gray-700">Ban this user? They lose access until unbanned.</p>
+											<iconify-icon icon="solar:shield-warning-bold" class="text-white/58" width="20"></iconify-icon>
+											<p class="flex-1 text-sm text-white/80">Ban this user? They lose access until unbanned.</p>
 											<button
 												onclick={() => handleBan(user.id)}
-												class="px-4 py-2 bg-gray-600 text-white rounded-xl font-bold text-sm hover:bg-gray-700 transition-colors"
+												class="px-4 py-2 bg-white text-black rounded-xl font-bold text-sm hover:bg-white/90 transition-colors"
 											>
 												Ban User
 											</button>
@@ -307,7 +307,7 @@
 												onclick={() => {
 													banningUserId = '';
 												}}
-												class="px-4 py-2 bg-white border border-slate-200 rounded-xl font-bold text-sm hover:bg-slate-50 transition-colors"
+												class="px-4 py-2 bg-white/[0.03] border border-white/10 rounded-xl font-bold text-sm hover:bg-white/[0.05] transition-colors"
 											>
 												Cancel
 											</button>
@@ -321,7 +321,7 @@
 			</div>
 		</div>
 
-		<div class="text-sm text-slate-500 text-center">
+		<div class="text-sm text-white/58 text-center">
 			Showing {filteredUsers.length} of {users.length} users
 		</div>
 	{:else}

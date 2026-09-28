@@ -11,15 +11,15 @@
     }
 </script>
 
-<div class={cn("flex items-center gap-1 bg-slate-100 p-1 rounded-2xl border border-slate-200", className)}>
+<div class={cn("flex items-center gap-1 bg-white/[0.05] p-1 rounded-2xl border border-white/10", className)}>
     {#each tabs as tab (tab.value)}
         <button
             on:click={() => activeTab = tab.value}
             class={cn(
                 "px-5 py-2 rounded-xl text-xs font-black transition-all uppercase flex items-center gap-2",
                 activeTab === tab.value
-                    ? "bg-white text-slate-900 shadow-sm"
-                    : "text-slate-500 hover:text-slate-700"
+                    ? "bg-white/[0.03] text-white shadow-sm"
+                    : "text-white/58 hover:text-white"
             )}
         >
             {#if tab.icon}

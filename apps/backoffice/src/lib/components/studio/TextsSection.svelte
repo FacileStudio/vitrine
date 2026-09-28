@@ -16,8 +16,8 @@
 				type="button"
 				onclick={() => (locale = code)}
 				class="lead px-3 py-1.5 rounded-xl uppercase {locale === code
-					? 'bg-slate-900 text-white'
-					: 'bg-slate-100 text-slate-500 hover:text-slate-900'}"
+					? 'bg-white text-black'
+					: 'bg-white/[0.05] text-white/58 hover:text-white'}"
 			>
 				{code}
 			</button>

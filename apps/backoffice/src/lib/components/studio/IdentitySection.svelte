@@ -13,7 +13,7 @@
 		</Field>
 
 		<Field label="Slug" hint="Utilisé dans l'URL et par les projets, non modifiable">
-			<input value={member.slug} disabled class="{inputClass} text-slate-400" />
+			<input value={member.slug} disabled class="{inputClass} text-white/45" />
 		</Field>
 
 		<Field label="Couleur">
@@ -25,7 +25,7 @@
 	</div>
 
 	<label class="flex items-center gap-3">
-		<input type="checkbox" bind:checked={member.suite} class="w-4 h-4 accent-slate-900" />
-		<span class="p text-slate-700">Travaille sur la Facile Suite</span>
+		<input type="checkbox" bind:checked={member.suite} class="w-4 h-4 accent-white" />
+		<span class="p text-white/80">Travaille sur la Facile Suite</span>
 	</label>
 </Section>

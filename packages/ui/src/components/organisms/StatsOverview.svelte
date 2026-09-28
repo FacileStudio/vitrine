@@ -35,46 +35,46 @@
   function getColorClasses(color: string = 'indigo') {
     const colors = {
       indigo: {
-        bg: 'bg-indigo-50',
-        text: 'text-indigo-600',
-        icon: 'text-indigo-600',
-        border: 'border-indigo-100',
+        bg: 'bg-indigo-500/10',
+        text: 'text-indigo-300',
+        icon: 'text-indigo-300',
+        border: 'border-indigo-500/20',
       },
       emerald: {
-        bg: 'bg-emerald-50',
-        text: 'text-emerald-600',
-        icon: 'text-emerald-600',
-        border: 'border-emerald-100',
+        bg: 'bg-emerald-500/10',
+        text: 'text-emerald-300',
+        icon: 'text-emerald-300',
+        border: 'border-emerald-500/20',
       },
       amber: {
-        bg: 'bg-amber-50',
-        text: 'text-amber-600',
-        icon: 'text-amber-600',
-        border: 'border-amber-100',
+        bg: 'bg-amber-500/10',
+        text: 'text-amber-300',
+        icon: 'text-amber-300',
+        border: 'border-amber-500/20',
       },
       rose: {
-        bg: 'bg-rose-50',
-        text: 'text-rose-600',
-        icon: 'text-rose-600',
-        border: 'border-rose-100',
+        bg: 'bg-rose-500/10',
+        text: 'text-rose-300',
+        icon: 'text-rose-300',
+        border: 'border-rose-500/20',
       },
       violet: {
-        bg: 'bg-violet-50',
-        text: 'text-violet-600',
-        icon: 'text-violet-600',
-        border: 'border-violet-100',
+        bg: 'bg-violet-500/10',
+        text: 'text-violet-300',
+        icon: 'text-violet-300',
+        border: 'border-violet-500/20',
       },
       cyan: {
-        bg: 'bg-cyan-50',
-        text: 'text-cyan-600',
-        icon: 'text-cyan-600',
-        border: 'border-cyan-100',
+        bg: 'bg-cyan-500/10',
+        text: 'text-cyan-300',
+        icon: 'text-cyan-300',
+        border: 'border-cyan-500/20',
       },
       slate: {
-        bg: 'bg-slate-50',
-        text: 'text-slate-600',
-        icon: 'text-slate-600',
-        border: 'border-slate-100',
+        bg: 'bg-white/[0.03]',
+        text: 'text-white/70',
+        icon: 'text-white/70',
+        border: 'border-white/10',
       },
     };
     return colors[color as keyof typeof colors] || colors.indigo;
@@ -97,7 +97,7 @@
 <div class="auto-stats">
   <div class="stats-header">
     <div class="header-left">
-      <iconify-icon icon="heroicons:chart-bar" width="28" class="text-indigo-600"></iconify-icon>
+      <iconify-icon icon="heroicons:chart-bar" width="28" class="text-indigo-300"></iconify-icon>
       <div>
         <h2>{title}</h2>
         {#if description}
@@ -149,7 +149,7 @@
             <iconify-icon
               icon={chart.type === 'bar' ? 'heroicons:chart-bar' : chart.type === 'line' ? 'heroicons:chart-bar' : chart.type === 'pie' ? 'heroicons:chart-pie' : 'heroicons:presentation-chart-line'}
               width="20"
-              class="text-slate-400"
+              class="text-white/45"
             ></iconify-icon>
           </div>
           <div class="chart-content">
@@ -194,7 +194,7 @@
 
   {#if stats.length === 0 && charts.length === 0}
     <div class="empty-state">
-      <iconify-icon icon="heroicons:chart-pie" width="80" class="text-slate-200"></iconify-icon>
+      <iconify-icon icon="heroicons:chart-pie" width="80" class="text-white/20"></iconify-icon>
       <p class="empty-title">No statistics available</p>
       <p class="empty-description">Statistics will appear here once data is available</p>
     </div>

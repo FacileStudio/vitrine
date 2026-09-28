@@ -41,9 +41,9 @@
 				type="checkbox"
 				checked={member.hair !== null}
 				onchange={(e) => (member.hair = e.currentTarget.checked ? '#6E5A4E' : null)}
-				class="w-4 h-4 accent-slate-900"
+				class="w-4 h-4 accent-white"
 			/>
-			<span class="p text-slate-700">Couleur de cheveux personnalisée</span>
+			<span class="p text-white/80">Couleur de cheveux personnalisée</span>
 		</label>
 
 		{#if member.hair !== null}

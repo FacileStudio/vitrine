@@ -5,9 +5,9 @@
 </script>
 
 <label class="block space-y-1.5">
-	<span class="lead text-slate-700">{label}</span>
+	<span class="lead text-white/80">{label}</span>
 	{@render children()}
 	{#if hint}
-		<span class="block subtext text-slate-400">{hint}</span>
+		<span class="block subtext text-white/45">{hint}</span>
 	{/if}
 </label>

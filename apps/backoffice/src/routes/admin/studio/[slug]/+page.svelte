@@ -64,14 +64,14 @@
 </script>
 
 <div class="p-8 max-w-4xl mx-auto space-y-6">
-	<a href="/admin/studio" class="p inline-flex items-center gap-2 text-slate-500 hover:text-slate-900">
+	<a href="/admin/studio" class="p inline-flex items-center gap-2 text-white/58 hover:text-white">
 		<iconify-icon icon="solar:arrow-left-bold" width="16"></iconify-icon>
 		Studio
 	</a>
 
 	{#if !member}
 		{#if error}
-			<p class="p bg-red-50 text-red-700 px-4 py-3 rounded-xl">{error}</p>
+			<p class="p bg-red-500/10 text-red-300 px-4 py-3 rounded-xl">{error}</p>
 		{:else}
 			<div class="py-20 flex justify-center">
 				<Spinner size="xl" />
@@ -81,8 +81,8 @@
 		<header class="flex items-center gap-4">
 			<div class="w-3 h-12 rounded-full" style:background-color={member.highlight}></div>
 			<div>
-				<h1 class="title text-slate-900">{member.name}</h1>
-				<p class="p text-slate-500">{member.role.fr}</p>
+				<h1 class="title text-white">{member.name}</h1>
+				<p class="p text-white/58">{member.role.fr}</p>
 			</div>
 		</header>
 
@@ -92,15 +92,15 @@
 		<ProjectsSection bind:member {options} />
 		<ModelSection bind:member />
 
-		<div class="sticky bottom-4 bg-white rounded-2xl shadow-lg p-4 flex items-center justify-between gap-4">
-			<p class="p {error ? 'text-red-600' : 'text-slate-500'}">
+		<div class="sticky bottom-4 bg-[#050505]/80 backdrop-blur-xl rounded-2xl shadow-lg p-4 flex items-center justify-between gap-4">
+			<p class="p {error ? 'text-red-400' : 'text-white/58'}">
 				{error || (saved ? 'Enregistré' : 'Modifications non enregistrées')}
 			</p>
 			<button
 				type="button"
 				onclick={save}
 				disabled={saving}
-				class="lead flex items-center gap-2 bg-slate-900 text-white px-5 py-2.5 rounded-xl hover:bg-slate-800 disabled:opacity-50"
+				class="lead flex items-center gap-2 bg-white text-black px-5 py-2.5 rounded-xl hover:bg-white/90 disabled:opacity-50"
 			>
 				<iconify-icon icon="solar:diskette-bold" width="18"></iconify-icon>
 				{saving ? 'Enregistrement...' : 'Enregistrer'}

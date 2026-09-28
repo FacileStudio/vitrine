@@ -41,7 +41,7 @@
 
 <div class="p-8 max-w-6xl mx-auto">
 	{#if error}
-		<div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm font-medium">{error}</div>
+		<div class="bg-red-500/10 border border-red-500/30 text-red-300 px-4 py-3 rounded-xl text-sm font-medium">{error}</div>
 	{:else if !overview}
 		<div class="py-20 flex justify-center">
 			<Spinner size="xl" />

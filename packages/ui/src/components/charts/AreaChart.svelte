@@ -82,7 +82,7 @@
                     y1={yScale(tick)}
                     x2={chartWidth}
                     y2={yScale(tick)}
-                    stroke="#e2e8f0"
+                    stroke="rgb(255 255 255 / 0.1)"
                     stroke-dasharray="3 3"
                 />
                 <text
@@ -90,7 +90,7 @@
                     y={yScale(tick)}
                     text-anchor="end"
                     dominant-baseline="middle"
-                    class="text-[10px] fill-slate-500"
+                    class="text-[10px] fill-white/45"
                 >
                     {formatNumber(tick)}
                 </text>
@@ -131,7 +131,7 @@
                     x={pointX}
                     y={chartHeight + 20}
                     text-anchor="middle"
-                    class="text-[10px] fill-slate-600"
+                    class="text-[10px] fill-white/45"
                 >
                     {String(item[x])}
                 </text>
@@ -142,11 +142,11 @@
     {#if hoveredIndex !== null}
         {@const item = data[hoveredIndex]}
         <div
-            class="fixed z-50 px-3 py-2 text-xs bg-slate-900 text-white rounded-lg shadow-xl pointer-events-none"
+            class="fixed z-50 px-3 py-2 text-xs bg-white text-black rounded-lg shadow-xl pointer-events-none"
             style="left: {tooltipX + 10}px; top: {tooltipY - 10}px;"
         >
             <div class="font-medium">{String(item[x])}</div>
-            <div class="text-slate-300">{y}: {item[y]}</div>
+            <div class="text-white/30">{y}: {item[y]}</div>
         </div>
     {/if}
 </Chart>

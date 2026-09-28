@@ -19,8 +19,8 @@
 				type="button"
 				onclick={() => toggle(project.slug)}
 				class="p px-3 py-1.5 rounded-xl {member.projects.includes(project.slug)
-					? 'bg-slate-900 text-white'
-					: 'bg-slate-100 text-slate-500 hover:text-slate-900'}"
+					? 'bg-white text-black'
+					: 'bg-white/[0.05] text-white/58 hover:text-white'}"
 			>
 				{project.name}
 			</button>

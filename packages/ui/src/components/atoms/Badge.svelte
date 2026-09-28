@@ -7,11 +7,11 @@
         {
             variants: {
                 variant: {
-                    indigo: "bg-indigo-50 text-indigo-600 border-indigo-100",
-                    rose: "bg-rose-50 text-rose-600 border-rose-100",
-                    amber: "bg-amber-50 text-amber-600 border-amber-100",
-                    emerald: "bg-emerald-50 text-emerald-600 border-emerald-100",
-                    slate: "bg-slate-50 text-slate-500 border-slate-100"
+                    indigo: "bg-indigo-500/10 text-indigo-300 border-indigo-500/20",
+                    rose: "bg-rose-500/10 text-rose-300 border-rose-500/20",
+                    amber: "bg-amber-500/10 text-amber-300 border-amber-500/20",
+                    emerald: "bg-emerald-500/10 text-emerald-300 border-emerald-500/20",
+                    slate: "bg-white/[0.03] text-white/58 border-white/10"
                 }
             },
             defaultVariants: {

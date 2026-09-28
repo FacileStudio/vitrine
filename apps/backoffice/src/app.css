@@ -1,26 +1,70 @@
-@import '@fontsource/poppins/400.css';
-@import '@fontsource/poppins/600.css';
-@import '@fontsource/poppins/700.css';
-@import '@fontsource-variable/inter';
 @import 'tailwindcss';
 
+@source "../../../packages/ui/src";
+
+@font-face {
+  font-family: 'Goga';
+  src: url('/fonts/GogaTest-Regular-BF6646d5d84f69b.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Goga';
+  src: url('/fonts/GogaTest-Medium-BF6646d5d84754e.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+
 @theme {
-  --font-title: 'Poppins', sans-serif;
-  --font-body: 'Inter Variable', 'Inter', sans-serif;
+  --font-title: 'Goga', Helvetica, 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'Goga', Helvetica, 'Helvetica Neue', Arial, sans-serif;
+}
+
+:root {
+  --backoffice-bg: #050505;
+  --backoffice-surface: rgb(255 255 255 / 0.03);
+  --backoffice-surface-strong: rgb(255 255 255 / 0.05);
+  --backoffice-border: rgb(255 255 255 / 0.1);
+  --backoffice-text: #fff;
+  --backoffice-muted: rgb(255 255 255 / 0.58);
+  color-scheme: dark;
+}
+
+@layer base {
+  html,
+  body {
+    min-height: 100%;
+    margin: 0;
+    background: var(--backoffice-bg);
+    color: var(--backoffice-text);
+    font-family: var(--font-body);
+  }
+
+  html {
+    scrollbar-width: none;
+  }
+
+  *::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 @layer components {
   .title {
     font-family: var(--font-title);
     font-size: 1.875rem;
-    font-weight: 700;
+    font-weight: 500;
     line-height: 1.15;
   }
 
   .subtitle {
     font-family: var(--font-title);
-    font-size: 1.125rem;
-    font-weight: 600;
+    font-size: 1.25rem;
+    font-weight: 500;
     line-height: 1.3;
   }
 
