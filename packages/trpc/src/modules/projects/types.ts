@@ -40,10 +40,40 @@ export interface ProjectStoryBlock {
   swatches?: ProjectSwatch[];
 }
 
+export const LOCKED_KINDS = ['cover', 'intro', 'end'] as const;
+
+type GridBox = { id: string; x: number; y: number; w: number; h: number };
+
+// type aliases for the same InputJsonValue reason as the swatches, the layout is stored as one Json column
+export type GridItem =
+  | (GridBox & { kind: 'image' | 'video'; src: string })
+  | (GridBox & { kind: 'note'; title?: Localized; text?: Localized })
+  | (GridBox & { kind: 'text'; text?: Localized })
+  | (GridBox & { kind: 'palette'; swatches: ProjectSwatch[] })
+  | (GridBox & {
+      kind: 'typography';
+      font?: string;
+      fontFamily?: string;
+      description?: Localized;
+      secondFont?: string;
+      secondFontFamily?: string;
+      secondDescription?: Localized;
+    })
+  | (GridBox & { kind: 'tiles'; tiles: ProjectTile[] })
+  | (GridBox & { kind: (typeof LOCKED_KINDS)[number] });
+
+export type SectionLayout = {
+  cols: number;
+  items: GridItem[];
+  bucket: GridItem[];
+};
+
 export interface ProjectStorySection {
   title?: Localized;
   by?: string[];
   blocks: ProjectStoryBlock[];
+  layout: SectionLayout;
+  hasLayout: boolean;
 }
 
 // written out rather than inferred: Prisma's recursive JsonValue is too deep for svelte-check to expand

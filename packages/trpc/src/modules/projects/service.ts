@@ -1,6 +1,11 @@
 import { TRPCError } from '@trpc/server';
 import { Prisma, type PrismaClient } from '@repo/database';
-import type { ProjectEntry } from './types';
+import { blocksToLayout } from './layout';
+import type { ProjectEntry, ProjectStoryBlock, SectionLayout } from './types';
+
+type Db = PrismaClient | Prisma.TransactionClient;
+
+export type ProjectInfo = Omit<ProjectEntry, 'story'>;
 
 const projectInclude = {
   team: { select: { slug: true }, orderBy: { position: 'asc' } },
@@ -30,18 +35,108 @@ const toProject = ({
   story,
   ...project
 }: ProjectRow): ProjectEntry =>
-  // Prisma cannot see inside Json columns, only import-projects.ts writes them, in this shape
+  // Prisma cannot see inside Json columns, only import-projects.ts and the backoffice write them, in this shape
   ({
     ...project,
     ...present({ link, video, coverEffect, challenge }),
     team: team.map((member) => member.slug),
-    story: story.map(({ title, by, blocks }) => ({
-      ...present({ title, by }),
-      blocks: blocks.map(({ id, sectionId, position, type, ...block }) => ({ type, ...present(block) })),
-    })),
+    story: story.map(({ title, by, blocks, layout }) => {
+      const cleaned = blocks.map(({ id, sectionId, position, type, ...block }) => ({
+        type,
+        ...present(block),
+      })) as unknown as ProjectStoryBlock[];
+
+      return {
+        ...present({ title, by }),
+        blocks: cleaned,
+        layout: (layout as SectionLayout | null) ?? blocksToLayout(cleaned, project.gallery),
+        hasLayout: layout !== null,
+      };
+    }),
   }) as unknown as ProjectEntry;
 
+// a grid is 3 rows tall, every placed item must stay inside it and never cover another
+function assertLayout({ cols, items }: SectionLayout) {
+  const taken = new Set<string>();
+
+  for (const item of items) {
+    if (item.x < 1 || item.y < 1 || item.x + item.w - 1 > cols || item.y + item.h - 1 > 3)
+      throw new TRPCError({ code: 'BAD_REQUEST', message: `Item ${item.id} is outside the grid` });
+
+    for (let col = item.x; col < item.x + item.w; col++)
+      for (let row = item.y; row < item.y + item.h; row++) {
+        const cell = `${col}:${row}`;
+
+        if (taken.has(cell))
+          throw new TRPCError({ code: 'BAD_REQUEST', message: `Item ${item.id} overlaps another item` });
+
+        taken.add(cell);
+      }
+  }
+}
+
+async function assertMembers(db: Db, slugs: string[]) {
+  const members = await db.studioMember.count({ where: { slug: { in: slugs } } });
+
+  if (members !== new Set(slugs).size)
+    throw new TRPCError({ code: 'BAD_REQUEST', message: 'Unknown team member' });
+}
+
+async function writeInfo(db: Db, { slug, team, link, video, coverEffect, challenge, ...fields }: ProjectInfo) {
+  await assertMembers(db, team);
+
+  await db.project.update({
+    where: { slug },
+    data: {
+      ...fields,
+      // a field the admin cleared arrives as undefined, which Prisma reads as "leave unchanged"
+      link: link ?? null,
+      video: video ?? null,
+      coverEffect: coverEffect ?? null,
+      challenge: challenge ?? Prisma.DbNull,
+      team: { set: team.map((member) => ({ slug: member })) },
+    },
+  });
+}
+
+async function assertExists(db: Db, slug: string) {
+  const exists = await db.project.findUnique({ where: { slug }, select: { slug: true } });
+
+  if (!exists)
+    throw new TRPCError({ code: 'NOT_FOUND', message: 'Project not found' });
+}
+
+// copy of SERVICES in apps/client/lib/content/projects.ts, the backend cannot import site code
+const SERVICES = [
+  'appDevelopment',
+  'webDevelopment',
+  'desktopDevelopment',
+  'frontendDevelopment',
+  'brandIdentity',
+  'artDirection',
+  'photography',
+  'productDesign',
+  'uiUxDesign',
+  'designSystem',
+  'redesign',
+  'motionDesign',
+  'transformation',
+];
+
 export const projectService = {
+  options: async (db: PrismaClient) => {
+    const [projects, members] = await Promise.all([
+      db.project.findMany({ select: { techStack: true } }),
+      db.studioMember.findMany({ select: { slug: true, name: true }, orderBy: { position: 'asc' } }),
+    ]);
+
+    return {
+      services: SERVICES,
+      techStack: [...new Set(projects.flatMap((project) => project.techStack))].sort(),
+      members,
+    };
+  },
+
   list: async (db: PrismaClient) =>
     (await db.project.findMany({ orderBy: { position: 'asc' }, include: projectInclude })).map(toProject),
 
@@ -54,48 +149,54 @@ export const projectService = {
     return toProject(row);
   },
 
-  update: async (
-    db: PrismaClient,
-    { slug, team, story, link, video, coverEffect, challenge, ...fields }: ProjectEntry
-  ) => {
-    const exists = await db.project.findUnique({ where: { slug }, select: { slug: true } });
-
-    if (!exists)
-      throw new TRPCError({ code: 'NOT_FOUND', message: 'Project not found' });
-
-    const members = await db.studioMember.count({ where: { slug: { in: team } } });
-
-    if (members !== new Set(team).size)
-      throw new TRPCError({ code: 'BAD_REQUEST', message: 'Unknown team member' });
+  update: async (db: PrismaClient, { story, ...info }: ProjectEntry) => {
+    await assertExists(db, info.slug);
 
     // one transaction, so a failed save never leaves the story half rewritten
     await db.$transaction(async (tx) => {
-      await tx.project.update({
-        where: { slug },
-        data: {
-          ...fields,
-          // a field the admin cleared arrives as undefined, which Prisma reads as "leave unchanged"
-          link: link ?? null,
-          video: video ?? null,
-          coverEffect: coverEffect ?? null,
-          challenge: challenge ?? Prisma.DbNull,
-          team: { set: team.map((member) => ({ slug: member })) },
-        },
-      });
+      await writeInfo(tx, info);
+      await tx.storySection.deleteMany({ where: { projectSlug: info.slug } });
 
-      await tx.storySection.deleteMany({ where: { projectSlug: slug } });
-
-      for (const [position, { title, by, blocks }] of story.entries())
+      for (const [position, { title, by, blocks, layout, hasLayout }] of story.entries())
         await tx.storySection.create({
           data: {
-            projectSlug: slug,
+            projectSlug: info.slug,
             position,
             title,
             by: by ?? [],
+            // a converted layout is only a view of the blocks, only a saved one is written back
+            layout: hasLayout ? (layout as unknown as Prisma.InputJsonValue) : Prisma.DbNull,
             blocks: { create: blocks.map((block, order) => ({ position: order, ...block })) },
           },
         });
     });
+
+    return projectService.get(db, info.slug);
+  },
+
+  updateInfo: async (db: PrismaClient, info: ProjectInfo) => {
+    await assertExists(db, info.slug);
+    await writeInfo(db, info);
+
+    return projectService.get(db, info.slug);
+  },
+
+  updateSection: async (db: PrismaClient, slug: string, position: number, layout: SectionLayout, by: string[]) => {
+    assertLayout(layout);
+    await assertMembers(db, by);
+
+    try {
+      await db.storySection.update({
+        where: { projectSlug_position: { projectSlug: slug, position } },
+        data: { layout: layout as unknown as Prisma.InputJsonValue, by },
+      });
+    } catch (err) {
+      // P2025 is Prisma's "record to update not found", anything else is a real failure
+      if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2025')
+        throw new TRPCError({ code: 'NOT_FOUND', message: 'Section not found' });
+
+      throw err;
+    }
 
     return projectService.get(db, slug);
   },

@@ -48,6 +48,49 @@ const sectionSchema = z.object({
   title: text.optional(),
   by: z.array(z.string()).optional(),
   blocks: z.array(blockSchema),
+  layout: z.lazy(() => layoutSchema),
+  hasLayout: z.boolean(),
+});
+
+const box = {
+  id: z.string().min(1),
+  x: z.number().int().min(0),
+  y: z.number().int().min(0),
+  w: z.number().int().min(1).max(3),
+  h: z.number().int().min(1).max(3),
+};
+
+const gridItemSchema = z.discriminatedUnion('kind', [
+  // empty until a file is picked, so a placeholder dropped from the library does not block the save
+  z.object({ ...box, kind: z.enum(['image', 'video']), src: z.string() }),
+  z.object({ ...box, kind: z.literal('note'), title: text.optional(), text: text.optional() }),
+  z.object({ ...box, kind: z.literal('text'), text: text.optional() }),
+  z.object({ ...box, kind: z.literal('palette'), swatches: z.array(swatchSchema) }),
+  z.object({
+    ...box,
+    kind: z.literal('typography'),
+    font: z.string().optional(),
+    fontFamily: z.string().optional(),
+    description: text.optional(),
+    secondFont: z.string().optional(),
+    secondFontFamily: z.string().optional(),
+    secondDescription: text.optional(),
+  }),
+  z.object({ ...box, kind: z.literal('tiles'), tiles: z.array(tileSchema) }),
+  z.object({ ...box, kind: z.enum(['cover', 'intro', 'end']) }),
+]);
+
+const layoutSchema = z.object({
+  cols: z.number().int().min(1),
+  items: z.array(gridItemSchema),
+  bucket: z.array(gridItemSchema),
+});
+
+export const sectionLayoutSchema = z.object({
+  slug: z.string(),
+  position: z.number().int().min(0),
+  layout: layoutSchema,
+  by: z.array(z.string()),
 });
 
 export const projectSchema = z.object({
@@ -69,3 +112,5 @@ export const projectSchema = z.object({
   notes: z.array(text),
   story: z.array(sectionSchema),
 });
+
+export const projectInfoSchema = projectSchema.omit({ story: true });
