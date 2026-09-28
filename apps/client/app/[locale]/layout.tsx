@@ -6,9 +6,6 @@ import { notFound } from "next/navigation";
 import { getBaseMetadata } from "@/lib/seo/metadata";
 import Shell from "../shell";
 
-// studio members come from the backend, so a backoffice edit reaches the site within a minute
-export const revalidate = 60;
-
 export function generateStaticParams() {
     return locales.map((locale) => ({locale}));
 }
