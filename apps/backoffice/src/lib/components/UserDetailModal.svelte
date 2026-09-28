@@ -11,10 +11,6 @@
 	let activeTab = $state<'overview' | 'activity' | 'moderation'>('overview');
 	let actionLoading = $state(false);
 
-	let banReason = $state('');
-	let suspensionReason = $state('');
-	let suspensionDays = $state(7);
-
 	$effect(() => {
 		if (userId && userId !== '') {
 			loadUser();
@@ -35,17 +31,12 @@
 	}
 
 	async function handleBan() {
-		if (!banReason.trim()) {
-			alert('Please provide a ban reason');
-			return;
-		}
 		if (!confirm('Are you sure you want to ban this user?')) return;
 
 		actionLoading = true;
 		try {
-			await trpc.user.ban.mutate({ id: userId, reason: banReason });
+			await trpc.user.ban.mutate({ id: userId });
 			await loadUser();
-			banReason = '';
 		} catch (err) {
 			logger.error({ err }, 'Failed to ban user');
 			alert('Failed to ban user');
@@ -70,19 +61,12 @@
 	}
 
 	async function handleSuspend() {
-		if (!suspensionReason.trim()) {
-			alert('Please provide a suspension reason');
-			return;
-		}
-		if (!confirm(`Are you sure you want to suspend this user for ${suspensionDays} days?`)) return;
+		if (!confirm('Suspend this user? The suspension lasts until you lift it.')) return;
 
 		actionLoading = true;
 		try {
-			const until = new Date(Date.now() + suspensionDays * 24 * 60 * 60 * 1000);
-
-			await trpc.user.suspend.mutate({ id: userId, reason: suspensionReason, until });
+			await trpc.user.suspend.mutate({ id: userId });
 			await loadUser();
-			suspensionReason = '';
 		} catch (err) {
 			logger.error({ err }, 'Failed to suspend user');
 			alert('Failed to suspend user');
@@ -234,15 +218,11 @@
 				</div>
 			{:else if activeTab === 'moderation'}
 				<div class="space-y-4">
-					{#if user.isBanned}
+					{#if user.status === 'BANNED'}
 						<div class="bg-gray-50 border border-gray-200 p-4 rounded-2xl">
 							<div class="flex items-center gap-2 mb-2">
 								<iconify-icon icon="solar:shield-warning-bold" class="text-gray-600"></iconify-icon>
 								<h3 class="font-black text-gray-900">User is Banned</h3>
-							</div>
-							<div class="text-sm text-gray-700 space-y-1">
-								<div><strong>Reason:</strong> {user.banReason}</div>
-								<div><strong>Banned at:</strong> {formatDate(user.bannedAt)}</div>
 							</div>
 							<button
 								onclick={handleUnban}
@@ -252,15 +232,11 @@
 								Unban User
 							</button>
 						</div>
-					{:else if user.isSuspended}
+					{:else if user.status === 'SUSPENDED'}
 						<div class="bg-gray-50 border border-gray-200 p-4 rounded-2xl">
 							<div class="flex items-center gap-2 mb-2">
 								<iconify-icon icon="solar:clock-circle-bold" class="text-gray-600"></iconify-icon>
 								<h3 class="font-black text-gray-900">User is Suspended</h3>
-							</div>
-							<div class="text-sm text-gray-700 space-y-1">
-								<div><strong>Reason:</strong> {user.suspensionReason}</div>
-								<div><strong>Until:</strong> {formatDate(user.suspendedUntil)}</div>
 							</div>
 							<button
 								onclick={handleUnsuspend}
@@ -290,18 +266,12 @@
 						</div>
 					{/if}
 
-					{#if !user.isBanned}
+					{#if user.status !== 'BANNED'}
 						<div class="bg-white border border-slate-200 p-4 rounded-2xl">
 							<h3 class="font-black text-slate-900 mb-3">Ban User</h3>
-							<input
-								type="text"
-								bind:value={banReason}
-								placeholder="Ban reason..."
-								class="w-full px-4 py-2 bg-slate-50 border-2 border-transparent focus:border-gray-200 rounded-xl outline-none mb-3"
-							/>
 							<button
 								onclick={handleBan}
-								disabled={actionLoading || !banReason.trim()}
+								disabled={actionLoading}
 								class="w-full px-4 py-2 bg-gray-600 text-white rounded-xl font-bold text-sm hover:bg-gray-700 transition-colors disabled:opacity-50"
 							>
 								Ban User Permanently
@@ -309,41 +279,15 @@
 						</div>
 					{/if}
 
-					{#if !user.isSuspended && !user.isBanned}
+					{#if user.status !== 'SUSPENDED' && user.status !== 'BANNED'}
 						<div class="bg-white border border-slate-200 p-4 rounded-2xl">
 							<h3 class="font-black text-slate-900 mb-3">Suspend User</h3>
-							<input
-								type="text"
-								bind:value={suspensionReason}
-								placeholder="Suspension reason..."
-								class="w-full px-4 py-2 bg-slate-50 border-2 border-transparent focus:border-gray-200 rounded-xl outline-none mb-3"
-							/>
-							<div class="flex gap-2 mb-3">
-								<button
-									onclick={() => suspensionDays = 1}
-									class="flex-1 px-3 py-2 rounded-xl font-bold text-sm transition-colors {suspensionDays === 1 ? 'bg-gray-200 text-gray-900' : 'bg-slate-50 text-slate-600 hover:bg-slate-100'}"
-								>
-									1 day
-								</button>
-								<button
-									onclick={() => suspensionDays = 7}
-									class="flex-1 px-3 py-2 rounded-xl font-bold text-sm transition-colors {suspensionDays === 7 ? 'bg-gray-200 text-gray-900' : 'bg-slate-50 text-slate-600 hover:bg-slate-100'}"
-								>
-									7 days
-								</button>
-								<button
-									onclick={() => suspensionDays = 30}
-									class="flex-1 px-3 py-2 rounded-xl font-bold text-sm transition-colors {suspensionDays === 30 ? 'bg-gray-200 text-gray-900' : 'bg-slate-50 text-slate-600 hover:bg-slate-100'}"
-								>
-									30 days
-								</button>
-							</div>
 							<button
 								onclick={handleSuspend}
-								disabled={actionLoading || !suspensionReason.trim()}
+								disabled={actionLoading}
 								class="w-full px-4 py-2 bg-gray-600 text-white rounded-xl font-bold text-sm hover:bg-gray-700 transition-colors disabled:opacity-50"
 							>
-								Suspend for {suspensionDays} days
+								Suspend User
 							</button>
 						</div>
 					{/if}

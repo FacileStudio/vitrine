@@ -12,7 +12,6 @@
 	let searchQuery = $state('');
 	let selectedUserId = $state('');
 	let banningUserId = $state('');
-	let banReason = $state('');
 
 	let filters = $state({
 		status: 'all' as 'all' | 'active' | 'suspended' | 'banned' | 'pending',
@@ -70,16 +69,11 @@
 	};
 
 	const handleBan = async (userId: string) => {
-		if (!banReason.trim()) {
-			alert('Please provide a ban reason');
-			return;
-		}
 		try {
-			await trpc.user.ban.mutate({ id: userId, reason: banReason });
+			await trpc.user.ban.mutate({ id: userId });
 			await fetchUsers();
 			await fetchStats();
 			banningUserId = '';
-			banReason = '';
 		} catch (err) {
 			logger.error({ err }, 'Failed to ban user');
 			alert('Failed to ban user');
@@ -266,7 +260,7 @@
 											</button>
 										{/if}
 
-										{#if user.isBanned}
+										{#if user.status === 'BANNED'}
 											<button
 												onclick={() => handleUnban(user.id)}
 												class="p-2 hover:bg-gray-100 rounded-lg transition-colors text-gray-500 hover:text-gray-600"
@@ -278,7 +272,6 @@
 											<button
 												onclick={() => {
 													banningUserId = user.id;
-													banReason = '';
 												}}
 												class="p-2 hover:bg-gray-100 rounded-lg transition-colors text-slate-400 hover:text-gray-600"
 												title="Ban user"
@@ -303,16 +296,7 @@
 									<td colspan="5" class="px-6 py-4">
 										<div class="flex items-center gap-3">
 											<iconify-icon icon="solar:shield-warning-bold" class="text-gray-600" width="20"></iconify-icon>
-											<input
-												type="text"
-												bind:value={banReason}
-												placeholder="Enter ban reason..."
-												class="flex-1 px-4 py-2 bg-white border border-gray-200 rounded-xl outline-none focus:border-gray-400"
-												onkeydown={(e) => {
-													if (e.key === 'Enter') handleBan(user.id);
-													if (e.key === 'Escape') banningUserId = '';
-												}}
-											/>
+											<p class="flex-1 text-sm text-gray-700">Ban this user? They lose access until unbanned.</p>
 											<button
 												onclick={() => handleBan(user.id)}
 												class="px-4 py-2 bg-gray-600 text-white rounded-xl font-bold text-sm hover:bg-gray-700 transition-colors"
@@ -322,7 +306,6 @@
 											<button
 												onclick={() => {
 													banningUserId = '';
-													banReason = '';
 												}}
 												class="px-4 py-2 bg-white border border-slate-200 rounded-xl font-bold text-sm hover:bg-slate-50 transition-colors"
 											>

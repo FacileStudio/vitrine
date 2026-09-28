@@ -20,6 +20,7 @@ const userSelection = {
   lastName: true,
   password: true,
   role: true,
+  status: true,
   avatar: {
     select: { url: true },
   },
@@ -30,15 +31,17 @@ const userSelection = {
 
 export const authService = {
   login: async (db: PrismaClient, auth: AuthManager, input: LoginInput) => {
-    console.log("Attempting login for:", input.email);
     const user = await db.user.findUnique({
-      where: { email: input.email },
+      where: { email: input.email.toLowerCase() },
       select: userSelection,
     });
 
     if (!user || !(await auth.verifyPassword(input.password, user.password))) {
       throw new TRPCError({ code: 'UNAUTHORIZED', message: 'Invalid credentials' });
     }
+
+    if (user.status !== 'ACTIVE')
+      throw new TRPCError({ code: 'FORBIDDEN', message: 'Account disabled' });
 
     const sessionUser = mapToSessionUser(user);
     const token = await auth.createToken(sessionUser);
