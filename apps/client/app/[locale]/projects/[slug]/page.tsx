@@ -62,7 +62,7 @@ export default async function LocaleProjectStoryPage({ params }: PageProps) {
 
             <PageCurtain enter="dark" leave="dark" />
 
-            <ProjectStory project={project} index={projectIndex(projects, slug)} total={projects.length} locale={locale} />
+            <ProjectStory project={project} index={projectIndex(projects, slug)} total={projects.length} locale={locale} nextSlug={projects[projectIndex(projects, slug) + 1]?.slug ?? null} prevSlug={projects[projectIndex(projects, slug) - 1]?.slug ?? null} />
         </>
     );
 }

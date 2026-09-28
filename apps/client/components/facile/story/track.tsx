@@ -70,7 +70,7 @@ export default function Track({ sections, scrollerRef, onClose, ref }: TrackProp
     useTrackReveal(scrollerRef, sections, "0px -18% 0px -18%");
 
     return (
-        <div ref={ref} className="flex h-full w-max items-center gap-32 lg:gap-128 px-[6vw]">
+        <div ref={ref} className="flex h-full w-max items-center gap-32 lg:gap-128 px-[6vw] pl-[50vw] pr-[50vw]">
             {sections.map((chapter, s) => (
                 <div key={s} className="flex items-center gap-8 lg:gap-20">
                         <div className="">
