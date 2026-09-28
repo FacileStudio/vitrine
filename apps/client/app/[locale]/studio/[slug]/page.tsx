@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { locales } from "@/lib/i18n/locales";
 import { getBaseMetadata, pageMetadata, resolveLocale } from "@/lib/seo/metadata";
-import { authoredMembers, findMember, hasMember } from "@/lib/content/studio";
+import { fetchMembers, findMember, hasMember } from "@/lib/content/studio";
 
 type PageProps = {
     params: Promise<{ locale: string; slug: string }>;
@@ -11,8 +11,10 @@ type PageProps = {
 
 export const dynamicParams = false;
 
-export function generateStaticParams() {
-    return authoredMembers.flatMap((member) =>
+export async function generateStaticParams() {
+    const members = await fetchMembers();
+
+    return members.flatMap((member) =>
         locales.map((locale) => ({ locale, slug: member.slug }))
     );
 }
@@ -21,7 +23,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const { locale: requested, slug } = await params;
     const locale = resolveLocale(requested);
     const path = `/studio/${slug}`;
-    const member = findMember(slug, locale);
+    const member = findMember(await fetchMembers(), slug, locale);
 
     if (!member)
         return getBaseMetadata(locale, path);
@@ -35,7 +37,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function LocaleMemberPage({ params }: PageProps) {
     const { slug } = await params;
-    if (!hasMember(slug)) {
+    if (!hasMember(await fetchMembers(), slug)) {
         notFound();
     }
     return <MemberPage />;

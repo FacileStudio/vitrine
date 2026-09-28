@@ -9,14 +9,15 @@ import DitherReveal from "@/components/facile/ditherReveal";
 import TextReveal from "@/components/facile/textReveal";
 import { useNarrow } from "@/hooks/use-narrow";
 import { cn } from "@/lib/utils";
-import { authoredMembers as members } from "@/lib/content/studio";
+import { useMembers } from "@/components/facile/membersProvider";
+import type { AuthoredMember } from "@/lib/content/studio";
 
 // a re-render re-bakes drei's Environment cubemap, so hover must never re-render a head
 const Head = memo(DitherReveal);
 
 const HEAD_STEP = 0.5;
 
-const HEAD_PROPS = (idle: number, gridSize: number) => members.map((member, i) => ({
+const HEAD_PROPS = (members: AuthoredMember[], idle: number, gridSize: number) => members.map((member, i) => ({
     model: member.model,
     highlight: member.highlight,
     delay: 0.15 + i * HEAD_STEP,
@@ -53,9 +54,10 @@ export default function MemberTiles({
     const coarse = useNarrow("(hover: none)");
     const router = useRouter();
     const t = useTranslations("studio.tiles");
+    const members = useMembers();
     const crew = useLocalized(members);
 
-    const heads = useMemo(() => HEAD_PROPS(coarse ? 0.5 : 0.12, resolved ? 0.9 : 12), [coarse, resolved]);
+    const heads = useMemo(() => HEAD_PROPS(members, coarse ? 0.5 : 0.12, resolved ? 0.9 : 12), [members, coarse, resolved]);
 
     return (
         <div className={cn("grid h-full w-full grid-cols-2 grid-rows-2 lg:flex", className)}>

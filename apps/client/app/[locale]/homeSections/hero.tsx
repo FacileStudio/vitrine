@@ -9,7 +9,7 @@ import { usePinProgress } from "@/hooks/use-pin-progress";
 import { useAfter } from "@/hooks/use-after";
 import TextReveal from "@/components/facile/textReveal";
 import PersonHead from "@/components/facile/story/head";
-import studio from "../studio/studio.json";
+import { useMembers } from "@/components/facile/membersProvider";
 import { useNarrow } from "@/hooks/use-narrow";
 import { useLocalized } from "@/lib/i18n/localize";
 import { DitherView } from "@/webgl/lazy";
@@ -24,7 +24,7 @@ export default function Hero({ charged }: { charged: boolean }) {
     const narrow = useNarrow()
     const t = useTranslations("home");
     const tc = useTranslations("common.header");
-    const members = useLocalized(studio);
+    const members = useLocalized(useMembers());
 
     usePinProgress(sectionRef, (p) => {
         const leaving = p > 0.4;

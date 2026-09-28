@@ -12,6 +12,7 @@ const ASSET_CACHE = 'public, max-age=86400, stale-while-revalidate=604800';
 
 const nextConfig: NextConfig = {
     output: 'standalone',
+    transpilePackages: ['@repo/trpc-client'],
     async headers() {
         return [
             ...['models', 'images', 'videos', 'fonts', 'icons'].map((dir) => ({

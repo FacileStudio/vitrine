@@ -1,11 +1,12 @@
 'use client'
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import TextReveal from '@/components/facile/textReveal';
 import { TransitionOut } from '@/components/facile/pageTransition';
 import { allProjects } from '@/lib/content/projects';
-import { authoredMembers } from '@/lib/content/studio';
+import { useMembers } from '@/components/facile/membersProvider';
+import type { AuthoredMember } from '@/lib/content/studio';
 import { Link, usePathname, useRouter } from '@/lib/i18n/navigation';
 import { cn } from '@/lib/utils';
 import type common from '@/locales/en/common.json';
@@ -31,7 +32,7 @@ type Label = { key: NavKey } | { name: string };
 type SubLink = Label & { href: string };
 type NavLink = { href: string; key: NavKey; secondary?: SubLink[] };
 
-const links: NavLink[] = [
+const buildLinks = (members: AuthoredMember[]): NavLink[] => [
     { href: '/', key: 'home' },
     {
         href: '/projects',
@@ -48,14 +49,15 @@ const links: NavLink[] = [
     {
         href: '/studio',
         key: 'studio',
-        secondary: authoredMembers.map((m) => ({
+        secondary: members.map((m) => ({
             href: `/studio/${m.slug}`,
             name: m.name,
         })),
     }
 ];
 
-const subBase = links.reduce<number[]>(
+// index of each link's first sub-link across the whole menu, so the stagger runs on past section breaks
+const subOffsets = (links: NavLink[]) => links.reduce<number[]>(
     (acc, l) => [...acc, acc[acc.length - 1] + (l.secondary?.length ?? 0)],
     [0],
 );
@@ -90,6 +92,9 @@ export function NavLinks({
     const t = useTranslations('common.nav');
     const router = useRouter();
     const pathname = usePathname();
+    const members = useMembers();
+    const links = useMemo(() => buildLinks(members), [members]);
+    const subBase = useMemo(() => subOffsets(links), [links]);
 
     const label = (l: Label) => ('key' in l ? t(l.key) : l.name);
 

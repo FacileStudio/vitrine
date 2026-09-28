@@ -5,9 +5,8 @@ import gsap from "gsap";
 import { DitherView } from "@/webgl/lazy";
 import { useAfter } from "@/hooks/use-after";
 import { useNarrow } from "@/hooks/use-narrow";
-import { authoredMembers as members } from "@/lib/content/studio";
+import { useMembers } from "@/components/facile/membersProvider";
 
-const heads = members.filter((m) => m.model);
 const ANGLES = [220, 200, 160, 140];
 const LAUNCH = 0.9;
 const GRID_DELAY = 1000;
@@ -29,6 +28,7 @@ export default function FooterHeads({ open, active }: { open: boolean; active: b
     const refs = useRef<(HTMLDivElement | null)[]>([]);
     const sharp = useAfter(open, GRID_DELAY);
     const narrow = useNarrow();
+    const heads = useMembers();
 
     useLayoutEffect(() => {
         gsap.set(refs.current, launched());

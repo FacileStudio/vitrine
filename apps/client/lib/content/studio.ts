@@ -1,26 +1,30 @@
+import { cache } from "react";
+import type { RouterOutputs } from "@repo/trpc";
 import type { Person } from "@/components/facile/story/types";
 import { localize, type Resolved } from "@/lib/i18n/localize";
 import type { Locale } from "@/lib/i18n/locales";
-import members from "@/app/[locale]/studio/studio.json";
+import { trpc } from "@/lib/trpc";
 import { allProjects, type Project } from "./projects";
 
-export const authoredMembers = members;
+export type AuthoredMember = RouterOutputs["studio"]["list"][number];
 
-export type Member = Resolved<(typeof members)[number]>;
+export type Member = Resolved<AuthoredMember>;
 
 export type WorkedProject = Resolved<Project>;
 
-export const hasMember = (slug: string) => members.some((m) => m.slug === slug);
+// params, metadata and the page all ask for the list in one render, cache makes that one request
+export const fetchMembers = cache((): Promise<AuthoredMember[]> => trpc.studio.list.query());
 
-export const crew = (locale: Locale): Member[] => localize(members, locale);
+export const hasMember = (members: AuthoredMember[], slug: string) => members.some((m) => m.slug === slug);
 
-export const findMember = (slug: string, locale: Locale): Member | undefined =>
-    crew(locale).find((m) => m.slug === slug);
+export const crew = (members: AuthoredMember[], locale: Locale): Member[] => localize(members, locale);
 
-export const toPerson = (m: Member): Person => ({
+export const findMember = (members: AuthoredMember[], slug: string, locale: Locale): Member | undefined =>
+    crew(members, locale).find((m) => m.slug === slug);
+
+const toPerson = (m: Member): Person => ({
     name: m.name,
     role: m.role,
-    avatar: m.avatar,
     highlight: m.highlight,
     model: m.model,
     scale: m.scale,
@@ -28,8 +32,8 @@ export const toPerson = (m: Member): Person => ({
     hair: m.hair,
 });
 
-export const findPerson = (slug: string, locale: Locale): Person | undefined => {
-    const m = findMember(slug, locale);
+export const findPerson = (members: AuthoredMember[], slug: string, locale: Locale): Person | undefined => {
+    const m = findMember(members, slug, locale);
     return m ? toPerson(m) : undefined;
 };
 

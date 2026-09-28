@@ -3,7 +3,7 @@ import { buildStory, type Chapter, type Person, type StoryBlock, type StorySecti
 import { localize, type Resolved } from "@/lib/i18n/localize";
 import type { Locale } from "@/lib/i18n/locales";
 import type { Project, Service } from "@/lib/content/projects";
-import { findPerson } from "@/lib/content/studio";
+import { findPerson, type AuthoredMember } from "@/lib/content/studio";
 
 export type StoryCopy = ReturnType<typeof useTranslations<"story">>;
 export type ServiceCopy = (service: Service) => string;
@@ -32,10 +32,10 @@ function hydrate(p: Resolved<Project>, b: StoryBlock, people: Person[], { t, ser
     return b;
 }
 
-export function projectStory(p: Project, locale: Locale, copy: Copy): Chapter[] {
+export function projectStory(p: Project, locale: Locale, copy: Copy, members: AuthoredMember[]): Chapter[] {
     const localized = localize(p, locale);
     const story = localized.story?.length ? localized.story : autoStory(localized, copy.services);
-    const person = (slug: string) => findPerson(slug, locale);
+    const person = (slug: string) => findPerson(members, slug, locale);
 
     const people = localized.team
         .map(person)

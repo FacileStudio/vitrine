@@ -7,6 +7,7 @@ import Story from "@/components/facile/story";
 import { ARRIVE, TransitionOut } from "@/components/facile/pageTransition";
 import type { Project } from "@/lib/content/projects";
 import { projectStory } from "../lib/story";
+import { useMembers } from "@/components/facile/membersProvider";
 import type { Locale } from "@/lib/i18n/locales";
 
 interface ProjectStoryProps {
@@ -20,9 +21,10 @@ export default function ProjectStory({ project, index, total, locale }: ProjectS
     const router = useRouter();
     const t = useTranslations("projects");
     const tStory = useTranslations("story");
+    const members = useMembers();
     const sections = useMemo(
-        () => projectStory(project, locale, { t: tStory, services: (s) => t(`services.${s}`) }),
-        [project, locale, t, tStory],
+        () => projectStory(project, locale, { t: tStory, services: (s) => t(`services.${s}`) }, members),
+        [project, locale, t, tStory, members],
     );
 
     return (

@@ -63,7 +63,7 @@ All user-facing routes live under `app/[locale]/`. Locale handling:
 | `/[locale]/projects/[slug]` | `projects/[slug]/page.tsx` → `case-study.tsx` | Case study |
 | `/[locale]/suite` | `suite/page.tsx` → `suite.tsx` | Product suite |
 | `/[locale]/studio` | `studio/page.tsx` → `studio.tsx` | Team wall — non-scrollable, 4 full-height head columns (DitherReveal), click → member page |
-| `/[locale]/studio/[slug]` | `studio/[slug]/page.tsx` → `member.tsx` | Individual member page (data from `studio.json`) |
+| `/[locale]/studio/[slug]` | `studio/[slug]/page.tsx` → `member.tsx` | Individual member page (data from the backend, `studio.list`) |
 | `/[locale]/process` | `process/page.tsx` → `process.tsx` | Process page — landing-style pinned sections, one per step (data from `process.json`) |
 | `/[locale]/us` | `us/page.tsx` | (see file) |
 | `/[locale]/[...rest]` | catch-all | Fallback |
@@ -76,7 +76,7 @@ SEO helpers live in `lib/seo/` (`metadata.ts`, `jsonld.ts`, `viewport.ts`). `app
   `gallery: string[]` is optional and feeds the horizontal project detail view on `/projects`
   (see `projects/story.ts` — image or video is picked by file extension).
 - `app/[locale]/suite/suite.json` — product suite entries.
-- `app/[locale]/studio/studio.json` — team members (`slug, name, role, description, model, highlight, socials[]`). Drives the `/studio` grid and `/studio/[slug]` pages.
+- Team members live in Postgres (`StudioMember`) and are edited in the backoffice under Studio. `app/shell.tsx` fetches them through tRPC (`studio.list`) and client components read them with `useMembers()`. Drives the `/studio` grid and `/studio/[slug]` pages.
 - `app/[locale]/process/process.json` — process steps (`id, title, text, image`). Drives the `/process` sections; the `id` of each is the anchor the menu links to.
 - `app/[locale]/projects/navigation.ts` — project nav order.
 
@@ -235,8 +235,8 @@ exact keys). 3D models must exist under `public/models/`.
       (watch: its `isHome` check compares `pathname === "/"`, which never matches under the
       always-on locale prefix, and it renders a `Footer` + page-transition curtain).
 - [ ] **Placeholder content from this build:**
-      - Studio heads all use `/models/F.glb` — add real head GLBs and update `model` in `studio.json`.
-      - Member bios/roles in `studio.json` are placeholders.
+      - Studio heads all use `/models/F.glb` — add real head GLBs and update `model` in the backoffice.
+      - Member bios/roles in the database are placeholders.
       - `process.json` copy is placeholder; process step images point at `/images/process/*.png`
         which **do not exist yet** (add them, or the boxes render empty).
 - [ ] **Locale-aware internal links** — the **Menu is done** (it prefixes internal hrefs with

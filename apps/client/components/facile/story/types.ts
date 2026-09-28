@@ -31,7 +31,6 @@ export interface Swatch {
 export interface Person {
     name: string;
     role: string;
-    avatar: string;
     highlight?: string;
     model?: string;
     scale?: number;
