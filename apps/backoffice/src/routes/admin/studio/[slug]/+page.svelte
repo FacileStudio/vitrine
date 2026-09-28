@@ -65,7 +65,7 @@
 
 <div class="p-8 max-w-4xl mx-auto space-y-6">
 	<a href="/admin/studio" class="p inline-flex items-center gap-2 text-white/58 hover:text-white">
-		<iconify-icon icon="solar:arrow-left-bold" width="16"></iconify-icon>
+		<iconify-icon icon="lucide:arrow-left" width="16"></iconify-icon>
 		Studio
 	</a>
 
@@ -92,7 +92,7 @@
 		<ProjectsSection bind:member {options} />
 		<ModelSection bind:member />
 
-		<div class="sticky bottom-4 bg-[#050505]/80 backdrop-blur-xl rounded-2xl shadow-lg p-4 flex items-center justify-between gap-4">
+		<div class="sticky bottom-4 bg-stone-700/5 backdrop-blur-xl rounded-2xl shadow-lg p-4 flex items-center justify-between gap-4">
 			<p class="p {error ? 'text-red-400' : 'text-white/58'}">
 				{error || (saved ? 'Enregistré' : 'Modifications non enregistrées')}
 			</p>
@@ -102,7 +102,7 @@
 				disabled={saving}
 				class="lead flex items-center gap-2 bg-white text-black px-5 py-2.5 rounded-xl hover:bg-white/90 disabled:opacity-50"
 			>
-				<iconify-icon icon="solar:diskette-bold" width="18"></iconify-icon>
+				<iconify-icon icon="lucide:save" width="18"></iconify-icon>
 				{saving ? 'Enregistrement...' : 'Enregistrer'}
 			</button>
 		</div>

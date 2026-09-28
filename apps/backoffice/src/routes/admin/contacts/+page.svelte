@@ -81,7 +81,7 @@
 						<div class="flex items-center gap-3 shrink-0">
 							<span class="text-xs text-white/45 font-medium hidden sm:inline">{formatDate(contact.createdAt)}</span>
 							<iconify-icon
-								icon="solar:alt-arrow-down-bold"
+								icon="lucide:chevron-down"
 								width="16"
 								class="text-white/45 transition-transform {expandedId === contact.id ? 'rotate-180' : ''}"
 							></iconify-icon>
@@ -96,14 +96,14 @@
 									href="mailto:{contact.email}"
 									class="flex items-center gap-2 bg-white text-black px-4 py-2 rounded-xl font-bold text-xs hover:bg-white/90 transition-colors"
 								>
-									<iconify-icon icon="solar:letter-bold" width="14"></iconify-icon>
+									<iconify-icon icon="lucide:mail" width="14"></iconify-icon>
 									Répondre
 								</a>
 								<button
 									onclick={() => handleDelete(contact.id, `${contact.firstName} ${contact.lastName}`)}
 									class="flex items-center gap-2 bg-white/[0.05] text-white/58 px-4 py-2 rounded-xl font-bold text-xs hover:bg-red-500/10 hover:text-red-400 transition-colors"
 								>
-									<iconify-icon icon="solar:trash-bin-trash-bold" width="14"></iconify-icon>
+									<iconify-icon icon="lucide:trash-2" width="14"></iconify-icon>
 									Supprimer
 								</button>
 							</div>
@@ -114,7 +114,7 @@
 		</div>
 	{:else}
 		<EmptyState
-			icon="solar:letter-bold-duotone"
+			icon="lucide:mail"
 			title="Aucun message"
 			description="Les messages envoyés via le formulaire de contact du site apparaîtront ici."
 		/>

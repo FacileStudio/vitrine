@@ -152,9 +152,9 @@
 
 			<Tabs
 				tabs={[
-					{ label: 'Overview', value: 'overview', icon: 'solar:info-circle-bold' },
-					{ label: 'Activity', value: 'activity', icon: 'solar:history-bold' },
-					{ label: 'Moderation', value: 'moderation', icon: 'solar:shield-warning-bold' }
+					{ label: 'Overview', value: 'overview', icon: 'lucide:info' },
+					{ label: 'Activity', value: 'activity', icon: 'lucide:history' },
+					{ label: 'Moderation', value: 'moderation', icon: 'lucide:shield-alert' }
 				]}
 				bind:activeTab
 			/>
@@ -211,7 +211,7 @@
 						{/each}
 					{:else}
 						<div class="text-center py-12 text-white/45">
-							<iconify-icon icon="solar:history-bold" width="48"></iconify-icon>
+							<iconify-icon icon="lucide:history" width="48"></iconify-icon>
 							<p class="mt-2 text-sm">No activity logs</p>
 						</div>
 					{/if}
@@ -221,7 +221,7 @@
 					{#if user.status === 'BANNED'}
 						<div class="bg-white/[0.03] border border-white/10 p-4 rounded-2xl">
 							<div class="flex items-center gap-2 mb-2">
-								<iconify-icon icon="solar:shield-warning-bold" class="text-white/58"></iconify-icon>
+								<iconify-icon icon="lucide:shield-alert" class="text-white/58"></iconify-icon>
 								<h3 class="font-black text-white">User is Banned</h3>
 							</div>
 							<button
@@ -235,7 +235,7 @@
 					{:else if user.status === 'SUSPENDED'}
 						<div class="bg-white/[0.03] border border-white/10 p-4 rounded-2xl">
 							<div class="flex items-center gap-2 mb-2">
-								<iconify-icon icon="solar:clock-circle-bold" class="text-white/58"></iconify-icon>
+								<iconify-icon icon="lucide:clock" class="text-white/58"></iconify-icon>
 								<h3 class="font-black text-white">User is Suspended</h3>
 							</div>
 							<button

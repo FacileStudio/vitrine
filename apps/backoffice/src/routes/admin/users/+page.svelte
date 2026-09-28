@@ -130,28 +130,28 @@
 			<div class="bg-white/[0.03] rounded-2xl p-4 border border-white/10">
 				<div class="flex items-center justify-between mb-2">
 					<div class="text-xs font-bold text-white/45">Total</div>
-					<iconify-icon icon="solar:users-group-two-rounded-bold" class="text-white/45" width="20"></iconify-icon>
+					<iconify-icon icon="lucide:users" class="text-white/45" width="20"></iconify-icon>
 				</div>
 				<div class="text-2xl font-black text-white">{stats.totalUsers}</div>
 			</div>
 			<div class="bg-white/[0.03] rounded-2xl p-4 border border-white/10">
 				<div class="flex items-center justify-between mb-2">
 					<div class="text-xs font-bold text-white/58">Active</div>
-					<iconify-icon icon="solar:user-check-rounded-bold" class="text-white/58" width="20"></iconify-icon>
+					<iconify-icon icon="lucide:user-check" class="text-white/58" width="20"></iconify-icon>
 				</div>
 				<div class="text-2xl font-black text-white/58">{stats.activeUsers}</div>
 			</div>
 			<div class="bg-white/[0.03] rounded-2xl p-4 border border-white/10">
 				<div class="flex items-center justify-between mb-2">
 					<div class="text-xs font-bold text-white/58">Suspended</div>
-					<iconify-icon icon="solar:user-block-rounded-bold" class="text-white/58" width="20"></iconify-icon>
+					<iconify-icon icon="lucide:ban" class="text-white/58" width="20"></iconify-icon>
 				</div>
 				<div class="text-2xl font-black text-white/58">{stats.suspendedUsers}</div>
 			</div>
 			<div class="bg-white/[0.03] rounded-2xl p-4 border border-white/10">
 				<div class="flex items-center justify-between mb-2">
 					<div class="text-xs font-bold text-white/80">Banned</div>
-					<iconify-icon icon="solar:user-cross-rounded-bold" class="text-white/80" width="20"></iconify-icon>
+					<iconify-icon icon="lucide:user-x" class="text-white/80" width="20"></iconify-icon>
 				</div>
 				<div class="text-2xl font-black text-white/80">{stats.bannedUsers}</div>
 			</div>
@@ -217,7 +217,7 @@
 											<div class="font-bold text-white flex items-center gap-2">
 												{user.firstName} {user.lastName}
 												{#if user.emailVerified}
-													<iconify-icon icon="solar:verified-check-bold" class="text-white/58" width="16"></iconify-icon>
+													<iconify-icon icon="lucide:badge-check" class="text-white/58" width="16"></iconify-icon>
 												{/if}
 											</div>
 											<div class="text-sm text-white/58">{user.email}</div>
@@ -232,7 +232,7 @@
 								<td class="px-6 py-4">
 									<button
 										onclick={() => handleToggleRole(user.id, user.role)}
-										class="px-3 py-1 rounded-lg text-xs font-bold transition-colors {user.role === 'ADMIN' ? 'bg-white/10 text-white hover:bg-white/10' : 'bg-white/[0.05] text-white/80 hover:bg-white/10'}"
+										class="px-3 py-1 rounded-lg text-xs font-bold transition-colors {user.role === 'ADMIN' ? 'bg-stone-700/5 text-white hover:bg-stone-700/5' : 'bg-white/[0.05] text-white/80 hover:bg-stone-700/5'}"
 									>
 										{user.role}
 									</button>
@@ -247,7 +247,7 @@
 											class="p-2 hover:bg-white/[0.05] rounded-lg transition-colors text-white/45 hover:text-white"
 											title="View details"
 										>
-											<iconify-icon icon="solar:eye-bold" width="18"></iconify-icon>
+											<iconify-icon icon="lucide:eye" width="18"></iconify-icon>
 										</button>
 
 										{#if !user.emailVerified}
@@ -256,7 +256,7 @@
 												class="p-2 hover:bg-white/[0.05] rounded-lg transition-colors text-white/45 hover:text-white"
 												title="Verify email"
 											>
-												<iconify-icon icon="solar:shield-check-bold" width="18"></iconify-icon>
+												<iconify-icon icon="lucide:shield-check" width="18"></iconify-icon>
 											</button>
 										{/if}
 
@@ -266,7 +266,7 @@
 												class="p-2 hover:bg-white/[0.05] rounded-lg transition-colors text-white/58 hover:text-white"
 												title="Unban user"
 											>
-												<iconify-icon icon="solar:shield-check-bold" width="18"></iconify-icon>
+												<iconify-icon icon="lucide:shield-check" width="18"></iconify-icon>
 											</button>
 										{:else}
 											<button
@@ -276,7 +276,7 @@
 												class="p-2 hover:bg-white/[0.05] rounded-lg transition-colors text-white/45 hover:text-white"
 												title="Ban user"
 											>
-												<iconify-icon icon="solar:shield-warning-bold" width="18"></iconify-icon>
+												<iconify-icon icon="lucide:shield-alert" width="18"></iconify-icon>
 											</button>
 										{/if}
 
@@ -285,7 +285,7 @@
 											class="p-2 hover:bg-white/[0.05] rounded-lg transition-colors text-white/45 hover:text-white"
 											title="Delete user"
 										>
-											<iconify-icon icon="solar:trash-bin-trash-bold" width="18"></iconify-icon>
+											<iconify-icon icon="lucide:trash-2" width="18"></iconify-icon>
 										</button>
 									</div>
 								</td>
@@ -295,7 +295,7 @@
 								<tr class="bg-white/[0.03]">
 									<td colspan="5" class="px-6 py-4">
 										<div class="flex items-center gap-3">
-											<iconify-icon icon="solar:shield-warning-bold" class="text-white/58" width="20"></iconify-icon>
+											<iconify-icon icon="lucide:shield-alert" class="text-white/58" width="20"></iconify-icon>
 											<p class="flex-1 text-sm text-white/80">Ban this user? They lose access until unbanned.</p>
 											<button
 												onclick={() => handleBan(user.id)}
@@ -326,7 +326,7 @@
 		</div>
 	{:else}
 		<EmptyState
-			icon="solar:users-group-two-rounded-bold"
+			icon="lucide:users"
 			title="No users found"
 			description="Try adjusting your filters or search query"
 		/>

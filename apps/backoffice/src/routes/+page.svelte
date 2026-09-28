@@ -60,7 +60,7 @@
           disabled={loading}
           class="w-full bg-white text-black py-2 px-4 rounded-lg hover:bg-white/90 disabled:opacity-50 transition cursor-pointer disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
-          <iconify-icon icon="solar:login-2-bold" width="20" height="20"></iconify-icon>
+          <iconify-icon icon="lucide:log-in" width="20" height="20"></iconify-icon>
           {loading ? 'Logging in...' : 'Login'}
         </button>
 

@@ -58,7 +58,7 @@
         </div>
 
         <div class="text-neutral-300 group-hover:text-black transition-colors">
-          <iconify-icon icon="solar:alt-arrow-right-bold" width="18"></iconify-icon>
+          <iconify-icon icon="lucide:chevron-right" width="18"></iconify-icon>
         </div>
       </div>
 

@@ -30,7 +30,7 @@
     <div class="text-center space-y-6">
         <div class={`w-16 h-16 rounded-2xl flex items-center justify-center mx-auto ${accentBgClass}`}>
             <iconify-icon
-                icon={variant === 'danger' ? 'solar:danger-triangle-bold' : 'solar:question-circle-bold'}
+                icon={variant === 'danger' ? 'lucide:triangle-alert' : 'lucide:circle-help'}
                 width="32"
                 class={accentTextClass}
             ></iconify-icon>

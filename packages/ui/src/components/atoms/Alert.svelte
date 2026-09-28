@@ -26,10 +26,10 @@
     let visible = true;
 
     const icons = {
-        info: 'solar:info-circle-bold',
-        success: 'solar:check-circle-bold',
-        warning: 'solar:danger-triangle-bold',
-        danger: 'solar:close-circle-bold',
+        info: 'lucide:info',
+        success: 'lucide:circle-check',
+        warning: 'lucide:triangle-alert',
+        danger: 'lucide:circle-x',
     };
 </script>
 
@@ -45,7 +45,7 @@
                 class="flex-shrink-0 hover:opacity-70 transition-opacity"
                 aria-label="Dismiss"
             >
-                <iconify-icon icon="solar:close-circle-line-duotone" width="18"></iconify-icon>
+                <iconify-icon icon="lucide:circle-x" width="18"></iconify-icon>
             </button>
         {/if}
     </div>

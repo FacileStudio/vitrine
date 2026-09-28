@@ -52,7 +52,7 @@
             />
         {:else}
             <div class="flex flex-col items-center justify-center h-full gap-2 text-slate-400">
-                <iconify-icon icon="solar:cloud-upload-bold-duotone" width="40"></iconify-icon>
+                <iconify-icon icon="lucide:cloud-upload" width="40"></iconify-icon>
                 <p class="text-[10px] font-black uppercase italic">Cliquez pour uploader</p>
             </div>
         {/if}
@@ -70,7 +70,7 @@
                 class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-2 rounded-full text-rose-500 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity"
                 aria-label="Remove image"
             >
-                <iconify-icon icon="solar:trash-bin-trash-bold" width="20"></iconify-icon>
+                <iconify-icon icon="lucide:trash-2" width="20"></iconify-icon>
             </button>
         {/if}
 

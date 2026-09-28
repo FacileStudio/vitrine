@@ -122,7 +122,7 @@
 			<div class="p-6 border-b border-slate-50">
 				<div class="relative">
 					<iconify-icon
-						icon="solar:magnifer-bold"
+						icon="lucide:search"
 						width="20"
 						class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300"
 					></iconify-icon>
@@ -140,7 +140,7 @@
 			<div class="max-h-[60vh] overflow-y-auto p-4">
 				{#if filteredCommands.length === 0}
 					<div class="flex flex-col items-center justify-center py-12 text-slate-300">
-						<iconify-icon icon="solar:ghost-bold" width="64"></iconify-icon>
+						<iconify-icon icon="lucide:ghost" width="64"></iconify-icon>
 						<p class="mt-4 text-sm font-medium">No commands found</p>
 					</div>
 				{:else}

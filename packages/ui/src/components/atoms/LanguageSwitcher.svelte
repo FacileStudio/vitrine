@@ -44,7 +44,7 @@
       </div>
     </div>
     <iconify-icon
-      icon="solar:alt-arrow-down-bold-duotone"
+      icon="lucide:chevron-down"
       class="text-neutral-400 transition-transform duration-300 {isOpen ? 'rotate-180' : ''}"
       width="20"
     ></iconify-icon>
@@ -78,7 +78,7 @@
             </div>
 
             {#if $locale === lang.code}
-              <iconify-icon icon="solar:check-circle-bold" width="20"></iconify-icon>
+              <iconify-icon icon="lucide:circle-check" width="20"></iconify-icon>
             {/if}
           </button>
         {/each}

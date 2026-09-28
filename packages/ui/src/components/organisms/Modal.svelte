@@ -37,7 +37,7 @@
       <header class="p-6 flex justify-between items-center">
         <h3 class="font-bold uppercase tracking-tighter text-xl text-white">{title}</h3>
         <button on:click={close} class="text-white/30 hover:text-rose-500 transition-colors" aria-label="Close modal">
-          <iconify-icon icon="solar:close-circle-bold" width="28"></iconify-icon>
+          <iconify-icon icon="lucide:circle-x" width="28"></iconify-icon>
         </button>
       </header>
 

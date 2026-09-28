@@ -97,7 +97,7 @@
 <div class="auto-stats">
   <div class="stats-header">
     <div class="header-left">
-      <iconify-icon icon="heroicons:chart-bar" width="28" class="text-indigo-300"></iconify-icon>
+      <iconify-icon icon="lucide:chart-bar" width="28" class="text-indigo-300"></iconify-icon>
       <div>
         <h2>{title}</h2>
         {#if description}
@@ -124,7 +124,7 @@
           {#if stat.trend}
             <div class="stat-trend" class:trend-up={stat.trend.direction === 'up'} class:trend-down={stat.trend.direction === 'down'}>
               <iconify-icon
-                icon={stat.trend.direction === 'up' ? 'heroicons:arrow-trending-up' : 'heroicons:arrow-trending-down'}
+                icon={stat.trend.direction === 'up' ? 'lucide:trending-up' : 'lucide:trending-down'}
                 width="16"
               ></iconify-icon>
               <span>{Math.abs(stat.trend.value)}%</span>
@@ -147,7 +147,7 @@
               {/if}
             </div>
             <iconify-icon
-              icon={chart.type === 'bar' ? 'heroicons:chart-bar' : chart.type === 'line' ? 'heroicons:chart-bar' : chart.type === 'pie' ? 'heroicons:chart-pie' : 'heroicons:presentation-chart-line'}
+              icon={chart.type === 'bar' ? 'lucide:chart-bar' : chart.type === 'line' ? 'lucide:chart-bar' : chart.type === 'pie' ? 'lucide:chart-pie' : 'lucide:presentation'}
               width="20"
               class="text-white/45"
             ></iconify-icon>
@@ -194,7 +194,7 @@
 
   {#if stats.length === 0 && charts.length === 0}
     <div class="empty-state">
-      <iconify-icon icon="heroicons:chart-pie" width="80" class="text-white/20"></iconify-icon>
+      <iconify-icon icon="lucide:chart-pie" width="80" class="text-white/20"></iconify-icon>
       <p class="empty-title">No statistics available</p>
       <p class="empty-description">Statistics will appear here once data is available</p>
     </div>

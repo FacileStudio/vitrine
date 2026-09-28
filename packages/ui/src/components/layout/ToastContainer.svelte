@@ -5,10 +5,10 @@
     import 'iconify-icon';
 
     const icons = {
-        success: 'solar:check-circle-bold',
-        error: 'solar:danger-circle-bold',
-        info: 'solar:info-circle-bold',
-        warning: 'solar:bell-bold'
+        success: 'lucide:circle-check',
+        error: 'lucide:circle-alert',
+        info: 'lucide:info',
+        warning: 'lucide:bell'
     };
 
     const colors = {
@@ -42,7 +42,7 @@
                 class="text-muted-foreground hover:text-foreground transition-colors p-1"
                 aria-label="Close notification"
             >
-                <iconify-icon icon="solar:close-circle-bold" width="16"></iconify-icon>
+                <iconify-icon icon="lucide:circle-x" width="16"></iconify-icon>
             </button>
         </div>
     {/each}

@@ -21,10 +21,10 @@
 	const stats = $derived(
 		overview
 			? [
-					{ title: 'Visites', value: overview.counters.totalVisits, icon: 'solar:eye-bold-duotone', color: 'indigo' as const },
-					{ title: 'Visiteurs uniques', value: overview.counters.totalUniqueVisitors, icon: 'solar:users-group-rounded-bold-duotone', color: 'emerald' as const },
-					{ title: 'Visiteurs / jour (14 j)', value: overview.counters.avgVisitorsPerDay, icon: 'solar:calendar-bold-duotone', color: 'amber' as const },
-					{ title: 'Messages reçus', value: overview.counters.totalContacts, icon: 'solar:letter-bold-duotone', color: 'violet' as const },
+					{ title: 'Visites', value: overview.counters.totalVisits, icon: 'lucide:eye', color: 'indigo' as const },
+					{ title: 'Visiteurs uniques', value: overview.counters.totalUniqueVisitors, icon: 'lucide:users-round', color: 'emerald' as const },
+					{ title: 'Visiteurs / jour (14 j)', value: overview.counters.avgVisitorsPerDay, icon: 'lucide:calendar', color: 'amber' as const },
+					{ title: 'Messages reçus', value: overview.counters.totalContacts, icon: 'lucide:mail', color: 'violet' as const },
 				]
 			: []
 	);

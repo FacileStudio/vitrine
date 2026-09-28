@@ -53,7 +53,7 @@
 								{member.projects.length} projets · {member.socials.length} réseaux{member.suite ? ' · Suite' : ''}
 							</p>
 						</div>
-						<iconify-icon icon="solar:alt-arrow-right-bold" width="20" class="text-white/30 group-hover:text-white"></iconify-icon>
+						<iconify-icon icon="lucide:chevron-right" width="20" class="text-white/30 group-hover:text-white"></iconify-icon>
 					</div>
 				</a>
 			{/each}

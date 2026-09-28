@@ -36,7 +36,7 @@
   <div class="max-w-4xl mx-auto px-4 py-8">
     <div class="mb-8">
       <a href="/" class="text-white/58 hover:text-white flex items-center gap-2 mb-4">
-        <iconify-icon icon="solar:arrow-left-bold" width="20" height="20"></iconify-icon>
+        <iconify-icon icon="lucide:arrow-left" width="20" height="20"></iconify-icon>
         Back to Dashboard
       </a>
       <h1 class="text-4xl font-bold text-white">My Profile</h1>
@@ -89,7 +89,7 @@
             on:click={handleLogout}
             class="bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition cursor-pointer flex items-center gap-2"
           >
-            <iconify-icon icon="solar:logout-2-bold" width="20" height="20"></iconify-icon>
+            <iconify-icon icon="lucide:log-out" width="20" height="20"></iconify-icon>
             Logout
           </button>
         </div>

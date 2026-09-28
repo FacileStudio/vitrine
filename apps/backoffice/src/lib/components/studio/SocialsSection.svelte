@@ -16,7 +16,7 @@
 				onclick={() => member.socials.splice(i, 1)}
 				class="shrink-0 w-10 h-10 rounded-xl bg-white/[0.05] text-white/58 hover:bg-red-500/10 hover:text-red-400 flex items-center justify-center"
 			>
-				<iconify-icon icon="solar:trash-bin-trash-bold" width="16"></iconify-icon>
+				<iconify-icon icon="lucide:trash-2" width="16"></iconify-icon>
 			</button>
 		</div>
 	{/each}
@@ -24,9 +24,9 @@
 	<button
 		type="button"
 		onclick={() => member.socials.push({ label: '', href: '' })}
-		class="p flex items-center gap-2 px-4 py-2 rounded-xl bg-white/[0.05] text-white/80 hover:bg-white/10"
+		class="p flex items-center gap-2 px-4 py-2 rounded-xl bg-white/[0.05] text-white/80 hover:bg-stone-700/5"
 	>
-		<iconify-icon icon="solar:add-circle-bold" width="16"></iconify-icon>
+		<iconify-icon icon="lucide:circle-plus" width="16"></iconify-icon>
 		Ajouter un réseau
 	</button>
 </Section>

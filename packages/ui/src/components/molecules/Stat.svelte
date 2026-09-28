@@ -16,9 +16,9 @@
     };
 
     const trendIcons = {
-        up: 'solar:arrow-up-bold',
-        down: 'solar:arrow-down-bold',
-        neutral: 'solar:minus-circle-bold',
+        up: 'lucide:arrow-up',
+        down: 'lucide:arrow-down',
+        neutral: 'lucide:circle-minus',
     };
 </script>
 

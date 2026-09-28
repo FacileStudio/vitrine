@@ -46,14 +46,14 @@
     onclick={() => goToPage(currentPage - 1)}
     class="flex h-9 w-9 items-center justify-center rounded-xl text-neutral-500 transition-all hover:bg-neutral-100 hover:text-black disabled:opacity-30 disabled:hover:bg-transparent"
   >
-    <iconify-icon icon="solar:alt-arrow-left-linear" width="20"></iconify-icon>
+    <iconify-icon icon="lucide:chevron-left" width="20"></iconify-icon>
   </button>
 
   <div class="flex items-center gap-1">
     {#each pages as page, index (`${page}-${index}`)}
       {#if page === '...'}
         <span class="flex h-9 w-9 items-center justify-center text-neutral-400">
-          <iconify-icon icon="solar:menu-dots-bold" width="14"></iconify-icon>
+          <iconify-icon icon="lucide:ellipsis" width="14"></iconify-icon>
         </span>
       {:else}
         <button
@@ -81,6 +81,6 @@
     onclick={() => goToPage(currentPage + 1)}
     class="flex h-9 w-9 items-center justify-center rounded-xl text-neutral-500 transition-all hover:bg-neutral-100 hover:text-black disabled:opacity-30 disabled:hover:bg-transparent"
   >
-    <iconify-icon icon="solar:alt-arrow-right-linear" width="20"></iconify-icon>
+    <iconify-icon icon="lucide:chevron-right" width="20"></iconify-icon>
   </button>
 </nav>
