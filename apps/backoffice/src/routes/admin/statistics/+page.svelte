@@ -1,0 +1,52 @@
+<script lang="ts">
+	import { trpc } from '$lib/trpc';
+	import { onMount } from 'svelte';
+	import { Spinner, StatsOverview } from '@repo/ui';
+	import { logger } from '@repo/logger';
+
+	type Overview = Awaited<ReturnType<typeof trpc.statistics.overview.query>>;
+
+	let overview = $state<Overview | null>(null);
+	let error = $state('');
+
+	onMount(async () => {
+		try {
+			overview = await trpc.statistics.overview.query();
+		} catch (err) {
+			logger.error({ err }, 'Failed to load statistics');
+			error = 'Erreur chargement des statistiques';
+		}
+	});
+
+	const stats = $derived(
+		overview
+			? [
+					{ title: 'Visites', value: overview.counters.totalVisits, icon: 'solar:eye-bold-duotone', color: 'indigo' as const },
+					{ title: 'Visiteurs uniques', value: overview.counters.totalUniqueVisitors, icon: 'solar:users-group-rounded-bold-duotone', color: 'emerald' as const },
+					{ title: 'Visiteurs / jour (14 j)', value: overview.counters.avgVisitorsPerDay, icon: 'solar:calendar-bold-duotone', color: 'amber' as const },
+					{ title: 'Messages reçus', value: overview.counters.totalContacts, icon: 'solar:letter-bold-duotone', color: 'violet' as const },
+				]
+			: []
+	);
+
+	const charts = $derived(
+		overview
+			? [
+					{ title: 'Visites', description: '14 derniers jours', type: 'area' as const, data: overview.series, x: 'label', y: 'visits' },
+					{ title: 'Visiteurs uniques', description: '14 derniers jours', type: 'bar' as const, data: overview.series, x: 'label', y: 'uniqueVisitors' },
+				]
+			: []
+	);
+</script>
+
+<div class="p-8 max-w-6xl mx-auto">
+	{#if error}
+		<div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm font-medium">{error}</div>
+	{:else if !overview}
+		<div class="py-20 flex justify-center">
+			<Spinner size="xl" />
+		</div>
+	{:else}
+		<StatsOverview title="Statistiques" description="Fréquentation du site vitrine" {stats} {charts} />
+	{/if}
+</div>
