@@ -113,6 +113,10 @@ export default function Story({ sections, name, index, total, backLabel, delay =
         const tick = (time: number) => lenis.raf(time * 1000);
         gsap.ticker.add(tick);
 
+        // skip past the left padding so the first section is visible immediately
+        if (!narrow)
+            lenis.scrollTo(window.innerWidth * 0.5, { immediate: true });
+
         let prevAt = 0;
 
         const onScroll = () => {

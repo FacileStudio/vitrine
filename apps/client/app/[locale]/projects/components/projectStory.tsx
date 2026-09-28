@@ -16,9 +16,11 @@ interface ProjectStoryProps {
     total: number;
     locale: Locale;
     nextSlug: string | null;
+    prevSlug: string | null;
+    firstSlug: string | null;
 }
 
-export default function ProjectStory({ project, index, total, locale, nextSlug }: ProjectStoryProps) {
+export default function ProjectStory({ project, index, total, locale, nextSlug, prevSlug, firstSlug }: ProjectStoryProps) {
     const router = useRouter();
     const t = useTranslations("projects");
     const tStory = useTranslations("story");
@@ -27,6 +29,8 @@ export default function ProjectStory({ project, index, total, locale, nextSlug }
         () => projectStory(project, locale, { t: tStory, services: (s) => t(`services.${s}`) }, members),
         [project, locale, t, tStory, members],
     );
+
+    const go = (slug: string) => TransitionOut({ href: `/projects/${slug}`, router });
 
     return (
         <Story
@@ -37,7 +41,8 @@ export default function ProjectStory({ project, index, total, locale, nextSlug }
             backLabel={t("back")}
             delay={ARRIVE}
             onClose={() => TransitionOut({ href: "/projects", router })}
-            onNext={nextSlug ? () => TransitionOut({ href: `/projects/${nextSlug}`, router }) : undefined}
+            onNext={nextSlug ? () => go(nextSlug) : firstSlug ? () => go(firstSlug) : undefined}
+            onPrev={prevSlug ? () => go(prevSlug) : undefined}
         />
     );
 }
