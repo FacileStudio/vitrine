@@ -1,0 +1,22 @@
+model Project {
+  slug            String         @id
+  position        Int            @unique
+  name            String
+  weeks           Int
+  link            String?
+  image           String
+  video           String?
+  coverEffect     String?
+  description     Json
+  metaDescription Json
+  challenge       Json?
+  services        String[]
+  team            StudioMember[]
+  techStack       String[]
+  date            String
+  gallery         String[]
+  notes           Json[]
+  story           StorySection[]
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+}

@@ -17,6 +17,7 @@ model StudioMember {
   projects    String[]
   suite       Boolean  @default(false)
   facts       Json
+  teamOf      Project[]
 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

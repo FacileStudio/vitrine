@@ -1,0 +1,28 @@
+model StoryBlock {
+  id                String       @id @default(uuid())
+  sectionId         String
+  section           StorySection @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  position          Int
+  type              String
+  media             Json?
+  eyebrow           Json?
+  title             Json?
+  text              Json?
+  tags              Json?
+  logos             String[]
+  tiles             Json?
+  link              String?
+  linkLabel         Json?
+  effect            String?
+  smalls            String?
+  cols              Int?
+  font              String?
+  fontFamily        String?
+  description       Json?
+  secondFont        String?
+  secondFontFamily  String?
+  secondDescription Json?
+  swatches          Json?
+
+  @@unique([sectionId, position])
+}

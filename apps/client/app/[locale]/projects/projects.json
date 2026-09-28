@@ -578,7 +578,6 @@
     {
         "slug": "laura-herve",
         "name": "LauraHerve",
-        "tier": 2,
         "weeks": 4,
         "image": "/images/projects/Laura.webp",
         "video": "/videos/LauraHerve.mp4",
@@ -696,7 +695,6 @@
     {
         "slug": "hottake",
         "name": "Hottake",
-        "tier": 3,
         "weeks": 1,
         "image": "/images/projects/Hottake.webp",
         "video": "/videos/Hottake.webp",
@@ -821,7 +819,6 @@
     {
         "slug": "evelynecrea",
         "name": "EvelyneCrea",
-        "tier": 2,
         "weeks": 8,
         "image": "/images/projects/Green.webp",
         "video": "/videos/EvelyneCrea_web.mp4",
@@ -1480,7 +1477,6 @@
     {
         "slug": "solais-intra",
         "name": "SolaïsIntra",
-        "tier": 2,
         "weeks": 8,
         "link": "https://solais.fr/",
         "image": "/images/projects/SolaïsIntra.webp",

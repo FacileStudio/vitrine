@@ -34,6 +34,12 @@ export const MediaScalarFieldEnumSchema = z.enum(['id', 'url', 'key', 'mimeType'
 
 export type MediaScalarFieldEnum = z.infer<typeof MediaScalarFieldEnumSchema>;
 
+// File: ProjectScalarFieldEnum.schema.ts
+
+export const ProjectScalarFieldEnumSchema = z.enum(['slug', 'position', 'name', 'weeks', 'link', 'image', 'video', 'coverEffect', 'description', 'metaDescription', 'challenge', 'services', 'techStack', 'date', 'gallery', 'notes', 'createdAt', 'updatedAt'])
+
+export type ProjectScalarFieldEnum = z.infer<typeof ProjectScalarFieldEnumSchema>;
+
 // File: SessionScalarFieldEnum.schema.ts
 
 export const SessionScalarFieldEnumSchema = z.enum(['id', 'userId', 'token', 'expiresAt', 'ipAddress', 'userAgent', 'createdAt', 'updatedAt'])
@@ -57,6 +63,18 @@ export type SiteDailyStatScalarFieldEnum = z.infer<typeof SiteDailyStatScalarFie
 export const SiteDailyVisitorScalarFieldEnumSchema = z.enum(['date', 'visitorId', 'firstVisitAt'])
 
 export type SiteDailyVisitorScalarFieldEnum = z.infer<typeof SiteDailyVisitorScalarFieldEnumSchema>;
+
+// File: StoryBlockScalarFieldEnum.schema.ts
+
+export const StoryBlockScalarFieldEnumSchema = z.enum(['id', 'sectionId', 'position', 'type', 'media', 'eyebrow', 'title', 'text', 'tags', 'logos', 'tiles', 'link', 'linkLabel', 'effect', 'smalls', 'cols', 'font', 'fontFamily', 'description', 'secondFont', 'secondFontFamily', 'secondDescription', 'swatches'])
+
+export type StoryBlockScalarFieldEnum = z.infer<typeof StoryBlockScalarFieldEnumSchema>;
+
+// File: StorySectionScalarFieldEnum.schema.ts
+
+export const StorySectionScalarFieldEnumSchema = z.enum(['id', 'projectSlug', 'position', 'title', 'by'])
+
+export type StorySectionScalarFieldEnum = z.infer<typeof StorySectionScalarFieldEnumSchema>;
 
 // File: StudioMemberScalarFieldEnum.schema.ts
 
@@ -87,6 +105,12 @@ export type SortOrder = z.infer<typeof SortOrderSchema>;
 export const JsonNullValueInputSchema = z.enum(['JsonNull'])
 
 export type JsonNullValueInput = z.infer<typeof JsonNullValueInputSchema>;
+
+// File: NullableJsonNullValueInput.schema.ts
+
+export const NullableJsonNullValueInputSchema = z.enum(['DbNull', 'JsonNull'])
+
+export type NullableJsonNullValueInput = z.infer<typeof NullableJsonNullValueInputSchema>;
 
 // File: QueryMode.schema.ts
 
@@ -379,6 +403,132 @@ export const MediaScalarWhereWithAggregatesInputObjectSchema: z.ZodType<Prisma.M
 export const MediaScalarWhereWithAggregatesInputObjectZodSchema = mediascalarwherewithaggregatesinputSchema;
 
 
+// File: ProjectWhereInput.schema.ts
+
+const projectwhereinputSchema = z.object({
+  AND: z.union([z.lazy(() => ProjectWhereInputObjectSchema), z.lazy(() => ProjectWhereInputObjectSchema).array()]).optional(),
+  OR: z.lazy(() => ProjectWhereInputObjectSchema).array().optional(),
+  NOT: z.union([z.lazy(() => ProjectWhereInputObjectSchema), z.lazy(() => ProjectWhereInputObjectSchema).array()]).optional(),
+  slug: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
+  position: z.union([z.lazy(() => IntFilterObjectSchema), z.number().int()]).optional(),
+  name: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
+  weeks: z.union([z.lazy(() => IntFilterObjectSchema), z.number().int()]).optional(),
+  link: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
+  image: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
+  video: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
+  coverEffect: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
+  description: z.lazy(() => JsonFilterObjectSchema).optional(),
+  metaDescription: z.lazy(() => JsonFilterObjectSchema).optional(),
+  challenge: z.lazy(() => JsonNullableFilterObjectSchema).optional(),
+  services: z.lazy(() => StringNullableListFilterObjectSchema).optional(),
+  techStack: z.lazy(() => StringNullableListFilterObjectSchema).optional(),
+  date: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
+  gallery: z.lazy(() => StringNullableListFilterObjectSchema).optional(),
+  notes: z.lazy(() => JsonNullableListFilterObjectSchema).optional(),
+  createdAt: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional(),
+  updatedAt: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional(),
+  team: z.lazy(() => StudioMemberListRelationFilterObjectSchema).optional(),
+  story: z.lazy(() => StorySectionListRelationFilterObjectSchema).optional()
+}).strict();
+export const ProjectWhereInputObjectSchema: z.ZodType<Prisma.ProjectWhereInput> = projectwhereinputSchema as unknown as z.ZodType<Prisma.ProjectWhereInput>;
+export const ProjectWhereInputObjectZodSchema = projectwhereinputSchema;
+
+
+// File: ProjectOrderByWithRelationInput.schema.ts
+const __makeSchema_ProjectOrderByWithRelationInput_schema = () => z.object({
+  slug: SortOrderSchema.optional(),
+  position: SortOrderSchema.optional(),
+  name: SortOrderSchema.optional(),
+  weeks: SortOrderSchema.optional(),
+  link: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  image: SortOrderSchema.optional(),
+  video: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  coverEffect: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  description: SortOrderSchema.optional(),
+  metaDescription: SortOrderSchema.optional(),
+  challenge: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  services: SortOrderSchema.optional(),
+  techStack: SortOrderSchema.optional(),
+  date: SortOrderSchema.optional(),
+  gallery: SortOrderSchema.optional(),
+  notes: SortOrderSchema.optional(),
+  createdAt: SortOrderSchema.optional(),
+  updatedAt: SortOrderSchema.optional(),
+  team: z.lazy(() => StudioMemberOrderByRelationAggregateInputObjectSchema).optional(),
+  story: z.lazy(() => StorySectionOrderByRelationAggregateInputObjectSchema).optional()
+}).strict();
+export const ProjectOrderByWithRelationInputObjectSchema: z.ZodType<Prisma.ProjectOrderByWithRelationInput> = __makeSchema_ProjectOrderByWithRelationInput_schema() as unknown as z.ZodType<Prisma.ProjectOrderByWithRelationInput>;
+export const ProjectOrderByWithRelationInputObjectZodSchema = __makeSchema_ProjectOrderByWithRelationInput_schema();
+
+
+// File: ProjectWhereUniqueInput.schema.ts
+const __makeSchema_ProjectWhereUniqueInput_schema = () => z.object({
+  slug: z.string().optional(),
+  position: z.number().int().optional()
+}).strict();
+export const ProjectWhereUniqueInputObjectSchema: z.ZodType<Prisma.ProjectWhereUniqueInput> = __makeSchema_ProjectWhereUniqueInput_schema() as unknown as z.ZodType<Prisma.ProjectWhereUniqueInput>;
+export const ProjectWhereUniqueInputObjectZodSchema = __makeSchema_ProjectWhereUniqueInput_schema();
+
+
+// File: ProjectOrderByWithAggregationInput.schema.ts
+const __makeSchema_ProjectOrderByWithAggregationInput_schema = () => z.object({
+  slug: SortOrderSchema.optional(),
+  position: SortOrderSchema.optional(),
+  name: SortOrderSchema.optional(),
+  weeks: SortOrderSchema.optional(),
+  link: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  image: SortOrderSchema.optional(),
+  video: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  coverEffect: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  description: SortOrderSchema.optional(),
+  metaDescription: SortOrderSchema.optional(),
+  challenge: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  services: SortOrderSchema.optional(),
+  techStack: SortOrderSchema.optional(),
+  date: SortOrderSchema.optional(),
+  gallery: SortOrderSchema.optional(),
+  notes: SortOrderSchema.optional(),
+  createdAt: SortOrderSchema.optional(),
+  updatedAt: SortOrderSchema.optional(),
+  _count: z.lazy(() => ProjectCountOrderByAggregateInputObjectSchema).optional(),
+  _avg: z.lazy(() => ProjectAvgOrderByAggregateInputObjectSchema).optional(),
+  _max: z.lazy(() => ProjectMaxOrderByAggregateInputObjectSchema).optional(),
+  _min: z.lazy(() => ProjectMinOrderByAggregateInputObjectSchema).optional(),
+  _sum: z.lazy(() => ProjectSumOrderByAggregateInputObjectSchema).optional()
+}).strict();
+export const ProjectOrderByWithAggregationInputObjectSchema: z.ZodType<Prisma.ProjectOrderByWithAggregationInput> = __makeSchema_ProjectOrderByWithAggregationInput_schema() as unknown as z.ZodType<Prisma.ProjectOrderByWithAggregationInput>;
+export const ProjectOrderByWithAggregationInputObjectZodSchema = __makeSchema_ProjectOrderByWithAggregationInput_schema();
+
+
+// File: ProjectScalarWhereWithAggregatesInput.schema.ts
+
+const projectscalarwherewithaggregatesinputSchema = z.object({
+  AND: z.union([z.lazy(() => ProjectScalarWhereWithAggregatesInputObjectSchema), z.lazy(() => ProjectScalarWhereWithAggregatesInputObjectSchema).array()]).optional(),
+  OR: z.lazy(() => ProjectScalarWhereWithAggregatesInputObjectSchema).array().optional(),
+  NOT: z.union([z.lazy(() => ProjectScalarWhereWithAggregatesInputObjectSchema), z.lazy(() => ProjectScalarWhereWithAggregatesInputObjectSchema).array()]).optional(),
+  slug: z.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()]).optional(),
+  position: z.union([z.lazy(() => IntWithAggregatesFilterObjectSchema), z.number().int()]).optional(),
+  name: z.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()]).optional(),
+  weeks: z.union([z.lazy(() => IntWithAggregatesFilterObjectSchema), z.number().int()]).optional(),
+  link: z.union([z.lazy(() => StringNullableWithAggregatesFilterObjectSchema), z.string()]).optional().nullable(),
+  image: z.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()]).optional(),
+  video: z.union([z.lazy(() => StringNullableWithAggregatesFilterObjectSchema), z.string()]).optional().nullable(),
+  coverEffect: z.union([z.lazy(() => StringNullableWithAggregatesFilterObjectSchema), z.string()]).optional().nullable(),
+  description: z.lazy(() => JsonWithAggregatesFilterObjectSchema).optional(),
+  metaDescription: z.lazy(() => JsonWithAggregatesFilterObjectSchema).optional(),
+  challenge: z.lazy(() => JsonNullableWithAggregatesFilterObjectSchema).optional(),
+  services: z.lazy(() => StringNullableListFilterObjectSchema).optional(),
+  techStack: z.lazy(() => StringNullableListFilterObjectSchema).optional(),
+  date: z.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()]).optional(),
+  gallery: z.lazy(() => StringNullableListFilterObjectSchema).optional(),
+  notes: z.lazy(() => JsonNullableListFilterObjectSchema).optional(),
+  createdAt: z.union([z.lazy(() => DateTimeWithAggregatesFilterObjectSchema), z.coerce.date()]).optional(),
+  updatedAt: z.union([z.lazy(() => DateTimeWithAggregatesFilterObjectSchema), z.coerce.date()]).optional()
+}).strict();
+export const ProjectScalarWhereWithAggregatesInputObjectSchema: z.ZodType<Prisma.ProjectScalarWhereWithAggregatesInput> = projectscalarwherewithaggregatesinputSchema as unknown as z.ZodType<Prisma.ProjectScalarWhereWithAggregatesInput>;
+export const ProjectScalarWhereWithAggregatesInputObjectZodSchema = projectscalarwherewithaggregatesinputSchema;
+
+
 // File: SessionWhereInput.schema.ts
 
 const sessionwhereinputSchema = z.object({
@@ -661,6 +811,224 @@ export const SiteDailyVisitorScalarWhereWithAggregatesInputObjectSchema: z.ZodTy
 export const SiteDailyVisitorScalarWhereWithAggregatesInputObjectZodSchema = sitedailyvisitorscalarwherewithaggregatesinputSchema;
 
 
+// File: StoryBlockWhereInput.schema.ts
+
+const storyblockwhereinputSchema = z.object({
+  AND: z.union([z.lazy(() => StoryBlockWhereInputObjectSchema), z.lazy(() => StoryBlockWhereInputObjectSchema).array()]).optional(),
+  OR: z.lazy(() => StoryBlockWhereInputObjectSchema).array().optional(),
+  NOT: z.union([z.lazy(() => StoryBlockWhereInputObjectSchema), z.lazy(() => StoryBlockWhereInputObjectSchema).array()]).optional(),
+  id: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
+  sectionId: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
+  position: z.union([z.lazy(() => IntFilterObjectSchema), z.number().int()]).optional(),
+  type: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
+  media: z.lazy(() => JsonNullableFilterObjectSchema).optional(),
+  eyebrow: z.lazy(() => JsonNullableFilterObjectSchema).optional(),
+  title: z.lazy(() => JsonNullableFilterObjectSchema).optional(),
+  text: z.lazy(() => JsonNullableFilterObjectSchema).optional(),
+  tags: z.lazy(() => JsonNullableFilterObjectSchema).optional(),
+  logos: z.lazy(() => StringNullableListFilterObjectSchema).optional(),
+  tiles: z.lazy(() => JsonNullableFilterObjectSchema).optional(),
+  link: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
+  linkLabel: z.lazy(() => JsonNullableFilterObjectSchema).optional(),
+  effect: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
+  smalls: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
+  cols: z.union([z.lazy(() => IntNullableFilterObjectSchema), z.number().int()]).optional().nullable(),
+  font: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
+  fontFamily: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
+  description: z.lazy(() => JsonNullableFilterObjectSchema).optional(),
+  secondFont: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
+  secondFontFamily: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
+  secondDescription: z.lazy(() => JsonNullableFilterObjectSchema).optional(),
+  swatches: z.lazy(() => JsonNullableFilterObjectSchema).optional(),
+  section: z.union([z.lazy(() => StorySectionScalarRelationFilterObjectSchema), z.lazy(() => StorySectionWhereInputObjectSchema)]).optional()
+}).strict();
+export const StoryBlockWhereInputObjectSchema: z.ZodType<Prisma.StoryBlockWhereInput> = storyblockwhereinputSchema as unknown as z.ZodType<Prisma.StoryBlockWhereInput>;
+export const StoryBlockWhereInputObjectZodSchema = storyblockwhereinputSchema;
+
+
+// File: StoryBlockOrderByWithRelationInput.schema.ts
+const __makeSchema_StoryBlockOrderByWithRelationInput_schema = () => z.object({
+  id: SortOrderSchema.optional(),
+  sectionId: SortOrderSchema.optional(),
+  position: SortOrderSchema.optional(),
+  type: SortOrderSchema.optional(),
+  media: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  eyebrow: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  title: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  text: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  tags: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  logos: SortOrderSchema.optional(),
+  tiles: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  link: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  linkLabel: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  effect: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  smalls: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  cols: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  font: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  fontFamily: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  description: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  secondFont: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  secondFontFamily: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  secondDescription: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  swatches: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  section: z.lazy(() => StorySectionOrderByWithRelationInputObjectSchema).optional()
+}).strict();
+export const StoryBlockOrderByWithRelationInputObjectSchema: z.ZodType<Prisma.StoryBlockOrderByWithRelationInput> = __makeSchema_StoryBlockOrderByWithRelationInput_schema() as unknown as z.ZodType<Prisma.StoryBlockOrderByWithRelationInput>;
+export const StoryBlockOrderByWithRelationInputObjectZodSchema = __makeSchema_StoryBlockOrderByWithRelationInput_schema();
+
+
+// File: StoryBlockWhereUniqueInput.schema.ts
+const __makeSchema_StoryBlockWhereUniqueInput_schema = () => z.object({
+  id: z.string().optional(),
+  sectionId_position: z.lazy(() => StoryBlockSectionIdPositionCompoundUniqueInputObjectSchema).optional()
+}).strict();
+export const StoryBlockWhereUniqueInputObjectSchema: z.ZodType<Prisma.StoryBlockWhereUniqueInput> = __makeSchema_StoryBlockWhereUniqueInput_schema() as unknown as z.ZodType<Prisma.StoryBlockWhereUniqueInput>;
+export const StoryBlockWhereUniqueInputObjectZodSchema = __makeSchema_StoryBlockWhereUniqueInput_schema();
+
+
+// File: StoryBlockOrderByWithAggregationInput.schema.ts
+const __makeSchema_StoryBlockOrderByWithAggregationInput_schema = () => z.object({
+  id: SortOrderSchema.optional(),
+  sectionId: SortOrderSchema.optional(),
+  position: SortOrderSchema.optional(),
+  type: SortOrderSchema.optional(),
+  media: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  eyebrow: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  title: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  text: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  tags: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  logos: SortOrderSchema.optional(),
+  tiles: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  link: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  linkLabel: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  effect: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  smalls: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  cols: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  font: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  fontFamily: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  description: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  secondFont: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  secondFontFamily: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  secondDescription: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  swatches: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  _count: z.lazy(() => StoryBlockCountOrderByAggregateInputObjectSchema).optional(),
+  _avg: z.lazy(() => StoryBlockAvgOrderByAggregateInputObjectSchema).optional(),
+  _max: z.lazy(() => StoryBlockMaxOrderByAggregateInputObjectSchema).optional(),
+  _min: z.lazy(() => StoryBlockMinOrderByAggregateInputObjectSchema).optional(),
+  _sum: z.lazy(() => StoryBlockSumOrderByAggregateInputObjectSchema).optional()
+}).strict();
+export const StoryBlockOrderByWithAggregationInputObjectSchema: z.ZodType<Prisma.StoryBlockOrderByWithAggregationInput> = __makeSchema_StoryBlockOrderByWithAggregationInput_schema() as unknown as z.ZodType<Prisma.StoryBlockOrderByWithAggregationInput>;
+export const StoryBlockOrderByWithAggregationInputObjectZodSchema = __makeSchema_StoryBlockOrderByWithAggregationInput_schema();
+
+
+// File: StoryBlockScalarWhereWithAggregatesInput.schema.ts
+
+const storyblockscalarwherewithaggregatesinputSchema = z.object({
+  AND: z.union([z.lazy(() => StoryBlockScalarWhereWithAggregatesInputObjectSchema), z.lazy(() => StoryBlockScalarWhereWithAggregatesInputObjectSchema).array()]).optional(),
+  OR: z.lazy(() => StoryBlockScalarWhereWithAggregatesInputObjectSchema).array().optional(),
+  NOT: z.union([z.lazy(() => StoryBlockScalarWhereWithAggregatesInputObjectSchema), z.lazy(() => StoryBlockScalarWhereWithAggregatesInputObjectSchema).array()]).optional(),
+  id: z.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()]).optional(),
+  sectionId: z.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()]).optional(),
+  position: z.union([z.lazy(() => IntWithAggregatesFilterObjectSchema), z.number().int()]).optional(),
+  type: z.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()]).optional(),
+  media: z.lazy(() => JsonNullableWithAggregatesFilterObjectSchema).optional(),
+  eyebrow: z.lazy(() => JsonNullableWithAggregatesFilterObjectSchema).optional(),
+  title: z.lazy(() => JsonNullableWithAggregatesFilterObjectSchema).optional(),
+  text: z.lazy(() => JsonNullableWithAggregatesFilterObjectSchema).optional(),
+  tags: z.lazy(() => JsonNullableWithAggregatesFilterObjectSchema).optional(),
+  logos: z.lazy(() => StringNullableListFilterObjectSchema).optional(),
+  tiles: z.lazy(() => JsonNullableWithAggregatesFilterObjectSchema).optional(),
+  link: z.union([z.lazy(() => StringNullableWithAggregatesFilterObjectSchema), z.string()]).optional().nullable(),
+  linkLabel: z.lazy(() => JsonNullableWithAggregatesFilterObjectSchema).optional(),
+  effect: z.union([z.lazy(() => StringNullableWithAggregatesFilterObjectSchema), z.string()]).optional().nullable(),
+  smalls: z.union([z.lazy(() => StringNullableWithAggregatesFilterObjectSchema), z.string()]).optional().nullable(),
+  cols: z.union([z.lazy(() => IntNullableWithAggregatesFilterObjectSchema), z.number().int()]).optional().nullable(),
+  font: z.union([z.lazy(() => StringNullableWithAggregatesFilterObjectSchema), z.string()]).optional().nullable(),
+  fontFamily: z.union([z.lazy(() => StringNullableWithAggregatesFilterObjectSchema), z.string()]).optional().nullable(),
+  description: z.lazy(() => JsonNullableWithAggregatesFilterObjectSchema).optional(),
+  secondFont: z.union([z.lazy(() => StringNullableWithAggregatesFilterObjectSchema), z.string()]).optional().nullable(),
+  secondFontFamily: z.union([z.lazy(() => StringNullableWithAggregatesFilterObjectSchema), z.string()]).optional().nullable(),
+  secondDescription: z.lazy(() => JsonNullableWithAggregatesFilterObjectSchema).optional(),
+  swatches: z.lazy(() => JsonNullableWithAggregatesFilterObjectSchema).optional()
+}).strict();
+export const StoryBlockScalarWhereWithAggregatesInputObjectSchema: z.ZodType<Prisma.StoryBlockScalarWhereWithAggregatesInput> = storyblockscalarwherewithaggregatesinputSchema as unknown as z.ZodType<Prisma.StoryBlockScalarWhereWithAggregatesInput>;
+export const StoryBlockScalarWhereWithAggregatesInputObjectZodSchema = storyblockscalarwherewithaggregatesinputSchema;
+
+
+// File: StorySectionWhereInput.schema.ts
+
+const storysectionwhereinputSchema = z.object({
+  AND: z.union([z.lazy(() => StorySectionWhereInputObjectSchema), z.lazy(() => StorySectionWhereInputObjectSchema).array()]).optional(),
+  OR: z.lazy(() => StorySectionWhereInputObjectSchema).array().optional(),
+  NOT: z.union([z.lazy(() => StorySectionWhereInputObjectSchema), z.lazy(() => StorySectionWhereInputObjectSchema).array()]).optional(),
+  id: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
+  projectSlug: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
+  position: z.union([z.lazy(() => IntFilterObjectSchema), z.number().int()]).optional(),
+  title: z.lazy(() => JsonNullableFilterObjectSchema).optional(),
+  by: z.lazy(() => StringNullableListFilterObjectSchema).optional(),
+  project: z.union([z.lazy(() => ProjectScalarRelationFilterObjectSchema), z.lazy(() => ProjectWhereInputObjectSchema)]).optional(),
+  blocks: z.lazy(() => StoryBlockListRelationFilterObjectSchema).optional()
+}).strict();
+export const StorySectionWhereInputObjectSchema: z.ZodType<Prisma.StorySectionWhereInput> = storysectionwhereinputSchema as unknown as z.ZodType<Prisma.StorySectionWhereInput>;
+export const StorySectionWhereInputObjectZodSchema = storysectionwhereinputSchema;
+
+
+// File: StorySectionOrderByWithRelationInput.schema.ts
+const __makeSchema_StorySectionOrderByWithRelationInput_schema = () => z.object({
+  id: SortOrderSchema.optional(),
+  projectSlug: SortOrderSchema.optional(),
+  position: SortOrderSchema.optional(),
+  title: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  by: SortOrderSchema.optional(),
+  project: z.lazy(() => ProjectOrderByWithRelationInputObjectSchema).optional(),
+  blocks: z.lazy(() => StoryBlockOrderByRelationAggregateInputObjectSchema).optional()
+}).strict();
+export const StorySectionOrderByWithRelationInputObjectSchema: z.ZodType<Prisma.StorySectionOrderByWithRelationInput> = __makeSchema_StorySectionOrderByWithRelationInput_schema() as unknown as z.ZodType<Prisma.StorySectionOrderByWithRelationInput>;
+export const StorySectionOrderByWithRelationInputObjectZodSchema = __makeSchema_StorySectionOrderByWithRelationInput_schema();
+
+
+// File: StorySectionWhereUniqueInput.schema.ts
+const __makeSchema_StorySectionWhereUniqueInput_schema = () => z.object({
+  id: z.string().optional(),
+  projectSlug_position: z.lazy(() => StorySectionProjectSlugPositionCompoundUniqueInputObjectSchema).optional()
+}).strict();
+export const StorySectionWhereUniqueInputObjectSchema: z.ZodType<Prisma.StorySectionWhereUniqueInput> = __makeSchema_StorySectionWhereUniqueInput_schema() as unknown as z.ZodType<Prisma.StorySectionWhereUniqueInput>;
+export const StorySectionWhereUniqueInputObjectZodSchema = __makeSchema_StorySectionWhereUniqueInput_schema();
+
+
+// File: StorySectionOrderByWithAggregationInput.schema.ts
+const __makeSchema_StorySectionOrderByWithAggregationInput_schema = () => z.object({
+  id: SortOrderSchema.optional(),
+  projectSlug: SortOrderSchema.optional(),
+  position: SortOrderSchema.optional(),
+  title: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  by: SortOrderSchema.optional(),
+  _count: z.lazy(() => StorySectionCountOrderByAggregateInputObjectSchema).optional(),
+  _avg: z.lazy(() => StorySectionAvgOrderByAggregateInputObjectSchema).optional(),
+  _max: z.lazy(() => StorySectionMaxOrderByAggregateInputObjectSchema).optional(),
+  _min: z.lazy(() => StorySectionMinOrderByAggregateInputObjectSchema).optional(),
+  _sum: z.lazy(() => StorySectionSumOrderByAggregateInputObjectSchema).optional()
+}).strict();
+export const StorySectionOrderByWithAggregationInputObjectSchema: z.ZodType<Prisma.StorySectionOrderByWithAggregationInput> = __makeSchema_StorySectionOrderByWithAggregationInput_schema() as unknown as z.ZodType<Prisma.StorySectionOrderByWithAggregationInput>;
+export const StorySectionOrderByWithAggregationInputObjectZodSchema = __makeSchema_StorySectionOrderByWithAggregationInput_schema();
+
+
+// File: StorySectionScalarWhereWithAggregatesInput.schema.ts
+
+const storysectionscalarwherewithaggregatesinputSchema = z.object({
+  AND: z.union([z.lazy(() => StorySectionScalarWhereWithAggregatesInputObjectSchema), z.lazy(() => StorySectionScalarWhereWithAggregatesInputObjectSchema).array()]).optional(),
+  OR: z.lazy(() => StorySectionScalarWhereWithAggregatesInputObjectSchema).array().optional(),
+  NOT: z.union([z.lazy(() => StorySectionScalarWhereWithAggregatesInputObjectSchema), z.lazy(() => StorySectionScalarWhereWithAggregatesInputObjectSchema).array()]).optional(),
+  id: z.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()]).optional(),
+  projectSlug: z.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()]).optional(),
+  position: z.union([z.lazy(() => IntWithAggregatesFilterObjectSchema), z.number().int()]).optional(),
+  title: z.lazy(() => JsonNullableWithAggregatesFilterObjectSchema).optional(),
+  by: z.lazy(() => StringNullableListFilterObjectSchema).optional()
+}).strict();
+export const StorySectionScalarWhereWithAggregatesInputObjectSchema: z.ZodType<Prisma.StorySectionScalarWhereWithAggregatesInput> = storysectionscalarwherewithaggregatesinputSchema as unknown as z.ZodType<Prisma.StorySectionScalarWhereWithAggregatesInput>;
+export const StorySectionScalarWhereWithAggregatesInputObjectZodSchema = storysectionscalarwherewithaggregatesinputSchema;
+
+
 // File: StudioMemberWhereInput.schema.ts
 
 const studiomemberwhereinputSchema = z.object({
@@ -686,7 +1054,8 @@ const studiomemberwhereinputSchema = z.object({
   suite: z.union([z.lazy(() => BoolFilterObjectSchema), z.boolean()]).optional(),
   facts: z.lazy(() => JsonFilterObjectSchema).optional(),
   createdAt: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional(),
-  updatedAt: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional()
+  updatedAt: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional(),
+  teamOf: z.lazy(() => ProjectListRelationFilterObjectSchema).optional()
 }).strict();
 export const StudioMemberWhereInputObjectSchema: z.ZodType<Prisma.StudioMemberWhereInput> = studiomemberwhereinputSchema as unknown as z.ZodType<Prisma.StudioMemberWhereInput>;
 export const StudioMemberWhereInputObjectZodSchema = studiomemberwhereinputSchema;
@@ -713,7 +1082,8 @@ const __makeSchema_StudioMemberOrderByWithRelationInput_schema = () => z.object(
   suite: SortOrderSchema.optional(),
   facts: SortOrderSchema.optional(),
   createdAt: SortOrderSchema.optional(),
-  updatedAt: SortOrderSchema.optional()
+  updatedAt: SortOrderSchema.optional(),
+  teamOf: z.lazy(() => ProjectOrderByRelationAggregateInputObjectSchema).optional()
 }).strict();
 export const StudioMemberOrderByWithRelationInputObjectSchema: z.ZodType<Prisma.StudioMemberOrderByWithRelationInput> = __makeSchema_StudioMemberOrderByWithRelationInput_schema() as unknown as z.ZodType<Prisma.StudioMemberOrderByWithRelationInput>;
 export const StudioMemberOrderByWithRelationInputObjectZodSchema = __makeSchema_StudioMemberOrderByWithRelationInput_schema();
@@ -1298,6 +1668,187 @@ export const MediaUncheckedUpdateManyInputObjectSchema: z.ZodType<Prisma.MediaUn
 export const MediaUncheckedUpdateManyInputObjectZodSchema = __makeSchema_MediaUncheckedUpdateManyInput_schema();
 
 
+// File: ProjectCreateInput.schema.ts
+const __makeSchema_ProjectCreateInput_schema = () => z.object({
+  slug: z.string(),
+  position: z.number().int(),
+  name: z.string(),
+  weeks: z.number().int(),
+  link: z.string().optional().nullable(),
+  image: z.string(),
+  video: z.string().optional().nullable(),
+  coverEffect: z.string().optional().nullable(),
+  description: z.union([JsonNullValueInputSchema, jsonSchema]),
+  metaDescription: z.union([JsonNullValueInputSchema, jsonSchema]),
+  challenge: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  services: z.union([z.lazy(() => ProjectCreateservicesInputObjectSchema), z.string().array()]).optional(),
+  techStack: z.union([z.lazy(() => ProjectCreatetechStackInputObjectSchema), z.string().array()]).optional(),
+  date: z.string(),
+  gallery: z.union([z.lazy(() => ProjectCreategalleryInputObjectSchema), z.string().array()]).optional(),
+  notes: z.union([z.lazy(() => ProjectCreatenotesInputObjectSchema), jsonSchema.array()]).optional(),
+  createdAt: z.coerce.date().optional(),
+  team: z.lazy(() => StudioMemberCreateNestedManyWithoutTeamOfInputObjectSchema).optional(),
+  story: z.lazy(() => StorySectionCreateNestedManyWithoutProjectInputObjectSchema).optional()
+}).strict();
+export const ProjectCreateInputObjectSchema: z.ZodType<Prisma.ProjectCreateInput> = __makeSchema_ProjectCreateInput_schema() as unknown as z.ZodType<Prisma.ProjectCreateInput>;
+export const ProjectCreateInputObjectZodSchema = __makeSchema_ProjectCreateInput_schema();
+
+
+// File: ProjectUncheckedCreateInput.schema.ts
+const __makeSchema_ProjectUncheckedCreateInput_schema = () => z.object({
+  slug: z.string(),
+  position: z.number().int(),
+  name: z.string(),
+  weeks: z.number().int(),
+  link: z.string().optional().nullable(),
+  image: z.string(),
+  video: z.string().optional().nullable(),
+  coverEffect: z.string().optional().nullable(),
+  description: z.union([JsonNullValueInputSchema, jsonSchema]),
+  metaDescription: z.union([JsonNullValueInputSchema, jsonSchema]),
+  challenge: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  services: z.union([z.lazy(() => ProjectCreateservicesInputObjectSchema), z.string().array()]).optional(),
+  techStack: z.union([z.lazy(() => ProjectCreatetechStackInputObjectSchema), z.string().array()]).optional(),
+  date: z.string(),
+  gallery: z.union([z.lazy(() => ProjectCreategalleryInputObjectSchema), z.string().array()]).optional(),
+  notes: z.union([z.lazy(() => ProjectCreatenotesInputObjectSchema), jsonSchema.array()]).optional(),
+  createdAt: z.coerce.date().optional(),
+  team: z.lazy(() => StudioMemberUncheckedCreateNestedManyWithoutTeamOfInputObjectSchema).optional(),
+  story: z.lazy(() => StorySectionUncheckedCreateNestedManyWithoutProjectInputObjectSchema).optional()
+}).strict();
+export const ProjectUncheckedCreateInputObjectSchema: z.ZodType<Prisma.ProjectUncheckedCreateInput> = __makeSchema_ProjectUncheckedCreateInput_schema() as unknown as z.ZodType<Prisma.ProjectUncheckedCreateInput>;
+export const ProjectUncheckedCreateInputObjectZodSchema = __makeSchema_ProjectUncheckedCreateInput_schema();
+
+
+// File: ProjectUpdateInput.schema.ts
+const __makeSchema_ProjectUpdateInput_schema = () => z.object({
+  slug: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  name: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  weeks: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  link: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  image: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  video: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  coverEffect: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  description: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  metaDescription: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  challenge: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  services: z.union([z.lazy(() => ProjectUpdateservicesInputObjectSchema), z.string().array()]).optional(),
+  techStack: z.union([z.lazy(() => ProjectUpdatetechStackInputObjectSchema), z.string().array()]).optional(),
+  date: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  gallery: z.union([z.lazy(() => ProjectUpdategalleryInputObjectSchema), z.string().array()]).optional(),
+  notes: z.union([z.lazy(() => ProjectUpdatenotesInputObjectSchema), jsonSchema.array()]).optional(),
+  createdAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
+  updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
+  team: z.lazy(() => StudioMemberUpdateManyWithoutTeamOfNestedInputObjectSchema).optional(),
+  story: z.lazy(() => StorySectionUpdateManyWithoutProjectNestedInputObjectSchema).optional()
+}).strict();
+export const ProjectUpdateInputObjectSchema: z.ZodType<Prisma.ProjectUpdateInput> = __makeSchema_ProjectUpdateInput_schema() as unknown as z.ZodType<Prisma.ProjectUpdateInput>;
+export const ProjectUpdateInputObjectZodSchema = __makeSchema_ProjectUpdateInput_schema();
+
+
+// File: ProjectUncheckedUpdateInput.schema.ts
+const __makeSchema_ProjectUncheckedUpdateInput_schema = () => z.object({
+  slug: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  name: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  weeks: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  link: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  image: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  video: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  coverEffect: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  description: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  metaDescription: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  challenge: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  services: z.union([z.lazy(() => ProjectUpdateservicesInputObjectSchema), z.string().array()]).optional(),
+  techStack: z.union([z.lazy(() => ProjectUpdatetechStackInputObjectSchema), z.string().array()]).optional(),
+  date: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  gallery: z.union([z.lazy(() => ProjectUpdategalleryInputObjectSchema), z.string().array()]).optional(),
+  notes: z.union([z.lazy(() => ProjectUpdatenotesInputObjectSchema), jsonSchema.array()]).optional(),
+  createdAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
+  updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
+  team: z.lazy(() => StudioMemberUncheckedUpdateManyWithoutTeamOfNestedInputObjectSchema).optional(),
+  story: z.lazy(() => StorySectionUncheckedUpdateManyWithoutProjectNestedInputObjectSchema).optional()
+}).strict();
+export const ProjectUncheckedUpdateInputObjectSchema: z.ZodType<Prisma.ProjectUncheckedUpdateInput> = __makeSchema_ProjectUncheckedUpdateInput_schema() as unknown as z.ZodType<Prisma.ProjectUncheckedUpdateInput>;
+export const ProjectUncheckedUpdateInputObjectZodSchema = __makeSchema_ProjectUncheckedUpdateInput_schema();
+
+
+// File: ProjectCreateManyInput.schema.ts
+const __makeSchema_ProjectCreateManyInput_schema = () => z.object({
+  slug: z.string(),
+  position: z.number().int(),
+  name: z.string(),
+  weeks: z.number().int(),
+  link: z.string().optional().nullable(),
+  image: z.string(),
+  video: z.string().optional().nullable(),
+  coverEffect: z.string().optional().nullable(),
+  description: z.union([JsonNullValueInputSchema, jsonSchema]),
+  metaDescription: z.union([JsonNullValueInputSchema, jsonSchema]),
+  challenge: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  services: z.union([z.lazy(() => ProjectCreateservicesInputObjectSchema), z.string().array()]).optional(),
+  techStack: z.union([z.lazy(() => ProjectCreatetechStackInputObjectSchema), z.string().array()]).optional(),
+  date: z.string(),
+  gallery: z.union([z.lazy(() => ProjectCreategalleryInputObjectSchema), z.string().array()]).optional(),
+  notes: z.union([z.lazy(() => ProjectCreatenotesInputObjectSchema), jsonSchema.array()]).optional(),
+  createdAt: z.coerce.date().optional(),
+  updatedAt: z.coerce.date().optional()
+}).strict();
+export const ProjectCreateManyInputObjectSchema: z.ZodType<Prisma.ProjectCreateManyInput> = __makeSchema_ProjectCreateManyInput_schema() as unknown as z.ZodType<Prisma.ProjectCreateManyInput>;
+export const ProjectCreateManyInputObjectZodSchema = __makeSchema_ProjectCreateManyInput_schema();
+
+
+// File: ProjectUpdateManyMutationInput.schema.ts
+const __makeSchema_ProjectUpdateManyMutationInput_schema = () => z.object({
+  slug: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  name: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  weeks: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  link: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  image: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  video: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  coverEffect: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  description: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  metaDescription: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  challenge: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  services: z.union([z.lazy(() => ProjectUpdateservicesInputObjectSchema), z.string().array()]).optional(),
+  techStack: z.union([z.lazy(() => ProjectUpdatetechStackInputObjectSchema), z.string().array()]).optional(),
+  date: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  gallery: z.union([z.lazy(() => ProjectUpdategalleryInputObjectSchema), z.string().array()]).optional(),
+  notes: z.union([z.lazy(() => ProjectUpdatenotesInputObjectSchema), jsonSchema.array()]).optional(),
+  createdAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
+  updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional()
+}).strict();
+export const ProjectUpdateManyMutationInputObjectSchema: z.ZodType<Prisma.ProjectUpdateManyMutationInput> = __makeSchema_ProjectUpdateManyMutationInput_schema() as unknown as z.ZodType<Prisma.ProjectUpdateManyMutationInput>;
+export const ProjectUpdateManyMutationInputObjectZodSchema = __makeSchema_ProjectUpdateManyMutationInput_schema();
+
+
+// File: ProjectUncheckedUpdateManyInput.schema.ts
+const __makeSchema_ProjectUncheckedUpdateManyInput_schema = () => z.object({
+  slug: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  name: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  weeks: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  link: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  image: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  video: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  coverEffect: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  description: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  metaDescription: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  challenge: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  services: z.union([z.lazy(() => ProjectUpdateservicesInputObjectSchema), z.string().array()]).optional(),
+  techStack: z.union([z.lazy(() => ProjectUpdatetechStackInputObjectSchema), z.string().array()]).optional(),
+  date: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  gallery: z.union([z.lazy(() => ProjectUpdategalleryInputObjectSchema), z.string().array()]).optional(),
+  notes: z.union([z.lazy(() => ProjectUpdatenotesInputObjectSchema), jsonSchema.array()]).optional(),
+  createdAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
+  updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional()
+}).strict();
+export const ProjectUncheckedUpdateManyInputObjectSchema: z.ZodType<Prisma.ProjectUncheckedUpdateManyInput> = __makeSchema_ProjectUncheckedUpdateManyInput_schema() as unknown as z.ZodType<Prisma.ProjectUncheckedUpdateManyInput>;
+export const ProjectUncheckedUpdateManyInputObjectZodSchema = __makeSchema_ProjectUncheckedUpdateManyInput_schema();
+
+
 // File: SessionCreateInput.schema.ts
 const __makeSchema_SessionCreateInput_schema = () => z.object({
   id: z.string(),
@@ -1635,6 +2186,302 @@ export const SiteDailyVisitorUncheckedUpdateManyInputObjectSchema: z.ZodType<Pri
 export const SiteDailyVisitorUncheckedUpdateManyInputObjectZodSchema = __makeSchema_SiteDailyVisitorUncheckedUpdateManyInput_schema();
 
 
+// File: StoryBlockCreateInput.schema.ts
+const __makeSchema_StoryBlockCreateInput_schema = () => z.object({
+  id: z.string().optional(),
+  position: z.number().int(),
+  type: z.string(),
+  media: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  eyebrow: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  text: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  tags: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  logos: z.union([z.lazy(() => StoryBlockCreatelogosInputObjectSchema), z.string().array()]).optional(),
+  tiles: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  link: z.string().optional().nullable(),
+  linkLabel: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  effect: z.string().optional().nullable(),
+  smalls: z.string().optional().nullable(),
+  cols: z.number().int().optional().nullable(),
+  font: z.string().optional().nullable(),
+  fontFamily: z.string().optional().nullable(),
+  description: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  secondFont: z.string().optional().nullable(),
+  secondFontFamily: z.string().optional().nullable(),
+  secondDescription: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  swatches: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  section: z.lazy(() => StorySectionCreateNestedOneWithoutBlocksInputObjectSchema)
+}).strict();
+export const StoryBlockCreateInputObjectSchema: z.ZodType<Prisma.StoryBlockCreateInput> = __makeSchema_StoryBlockCreateInput_schema() as unknown as z.ZodType<Prisma.StoryBlockCreateInput>;
+export const StoryBlockCreateInputObjectZodSchema = __makeSchema_StoryBlockCreateInput_schema();
+
+
+// File: StoryBlockUncheckedCreateInput.schema.ts
+const __makeSchema_StoryBlockUncheckedCreateInput_schema = () => z.object({
+  id: z.string().optional(),
+  sectionId: z.string(),
+  position: z.number().int(),
+  type: z.string(),
+  media: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  eyebrow: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  text: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  tags: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  logos: z.union([z.lazy(() => StoryBlockCreatelogosInputObjectSchema), z.string().array()]).optional(),
+  tiles: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  link: z.string().optional().nullable(),
+  linkLabel: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  effect: z.string().optional().nullable(),
+  smalls: z.string().optional().nullable(),
+  cols: z.number().int().optional().nullable(),
+  font: z.string().optional().nullable(),
+  fontFamily: z.string().optional().nullable(),
+  description: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  secondFont: z.string().optional().nullable(),
+  secondFontFamily: z.string().optional().nullable(),
+  secondDescription: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  swatches: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional()
+}).strict();
+export const StoryBlockUncheckedCreateInputObjectSchema: z.ZodType<Prisma.StoryBlockUncheckedCreateInput> = __makeSchema_StoryBlockUncheckedCreateInput_schema() as unknown as z.ZodType<Prisma.StoryBlockUncheckedCreateInput>;
+export const StoryBlockUncheckedCreateInputObjectZodSchema = __makeSchema_StoryBlockUncheckedCreateInput_schema();
+
+
+// File: StoryBlockUpdateInput.schema.ts
+const __makeSchema_StoryBlockUpdateInput_schema = () => z.object({
+  id: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  type: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  media: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  eyebrow: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  text: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  tags: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  logos: z.union([z.lazy(() => StoryBlockUpdatelogosInputObjectSchema), z.string().array()]).optional(),
+  tiles: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  link: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  linkLabel: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  effect: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  smalls: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  cols: z.union([z.number().int(), z.lazy(() => NullableIntFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  font: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  fontFamily: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  description: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  secondFont: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  secondFontFamily: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  secondDescription: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  swatches: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  section: z.lazy(() => StorySectionUpdateOneRequiredWithoutBlocksNestedInputObjectSchema).optional()
+}).strict();
+export const StoryBlockUpdateInputObjectSchema: z.ZodType<Prisma.StoryBlockUpdateInput> = __makeSchema_StoryBlockUpdateInput_schema() as unknown as z.ZodType<Prisma.StoryBlockUpdateInput>;
+export const StoryBlockUpdateInputObjectZodSchema = __makeSchema_StoryBlockUpdateInput_schema();
+
+
+// File: StoryBlockUncheckedUpdateInput.schema.ts
+const __makeSchema_StoryBlockUncheckedUpdateInput_schema = () => z.object({
+  id: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  sectionId: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  type: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  media: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  eyebrow: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  text: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  tags: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  logos: z.union([z.lazy(() => StoryBlockUpdatelogosInputObjectSchema), z.string().array()]).optional(),
+  tiles: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  link: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  linkLabel: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  effect: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  smalls: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  cols: z.union([z.number().int(), z.lazy(() => NullableIntFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  font: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  fontFamily: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  description: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  secondFont: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  secondFontFamily: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  secondDescription: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  swatches: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional()
+}).strict();
+export const StoryBlockUncheckedUpdateInputObjectSchema: z.ZodType<Prisma.StoryBlockUncheckedUpdateInput> = __makeSchema_StoryBlockUncheckedUpdateInput_schema() as unknown as z.ZodType<Prisma.StoryBlockUncheckedUpdateInput>;
+export const StoryBlockUncheckedUpdateInputObjectZodSchema = __makeSchema_StoryBlockUncheckedUpdateInput_schema();
+
+
+// File: StoryBlockCreateManyInput.schema.ts
+const __makeSchema_StoryBlockCreateManyInput_schema = () => z.object({
+  id: z.string().optional(),
+  sectionId: z.string(),
+  position: z.number().int(),
+  type: z.string(),
+  media: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  eyebrow: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  text: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  tags: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  logos: z.union([z.lazy(() => StoryBlockCreatelogosInputObjectSchema), z.string().array()]).optional(),
+  tiles: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  link: z.string().optional().nullable(),
+  linkLabel: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  effect: z.string().optional().nullable(),
+  smalls: z.string().optional().nullable(),
+  cols: z.number().int().optional().nullable(),
+  font: z.string().optional().nullable(),
+  fontFamily: z.string().optional().nullable(),
+  description: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  secondFont: z.string().optional().nullable(),
+  secondFontFamily: z.string().optional().nullable(),
+  secondDescription: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  swatches: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional()
+}).strict();
+export const StoryBlockCreateManyInputObjectSchema: z.ZodType<Prisma.StoryBlockCreateManyInput> = __makeSchema_StoryBlockCreateManyInput_schema() as unknown as z.ZodType<Prisma.StoryBlockCreateManyInput>;
+export const StoryBlockCreateManyInputObjectZodSchema = __makeSchema_StoryBlockCreateManyInput_schema();
+
+
+// File: StoryBlockUpdateManyMutationInput.schema.ts
+const __makeSchema_StoryBlockUpdateManyMutationInput_schema = () => z.object({
+  id: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  type: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  media: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  eyebrow: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  text: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  tags: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  logos: z.union([z.lazy(() => StoryBlockUpdatelogosInputObjectSchema), z.string().array()]).optional(),
+  tiles: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  link: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  linkLabel: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  effect: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  smalls: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  cols: z.union([z.number().int(), z.lazy(() => NullableIntFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  font: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  fontFamily: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  description: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  secondFont: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  secondFontFamily: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  secondDescription: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  swatches: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional()
+}).strict();
+export const StoryBlockUpdateManyMutationInputObjectSchema: z.ZodType<Prisma.StoryBlockUpdateManyMutationInput> = __makeSchema_StoryBlockUpdateManyMutationInput_schema() as unknown as z.ZodType<Prisma.StoryBlockUpdateManyMutationInput>;
+export const StoryBlockUpdateManyMutationInputObjectZodSchema = __makeSchema_StoryBlockUpdateManyMutationInput_schema();
+
+
+// File: StoryBlockUncheckedUpdateManyInput.schema.ts
+const __makeSchema_StoryBlockUncheckedUpdateManyInput_schema = () => z.object({
+  id: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  sectionId: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  type: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  media: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  eyebrow: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  text: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  tags: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  logos: z.union([z.lazy(() => StoryBlockUpdatelogosInputObjectSchema), z.string().array()]).optional(),
+  tiles: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  link: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  linkLabel: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  effect: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  smalls: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  cols: z.union([z.number().int(), z.lazy(() => NullableIntFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  font: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  fontFamily: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  description: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  secondFont: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  secondFontFamily: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  secondDescription: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  swatches: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional()
+}).strict();
+export const StoryBlockUncheckedUpdateManyInputObjectSchema: z.ZodType<Prisma.StoryBlockUncheckedUpdateManyInput> = __makeSchema_StoryBlockUncheckedUpdateManyInput_schema() as unknown as z.ZodType<Prisma.StoryBlockUncheckedUpdateManyInput>;
+export const StoryBlockUncheckedUpdateManyInputObjectZodSchema = __makeSchema_StoryBlockUncheckedUpdateManyInput_schema();
+
+
+// File: StorySectionCreateInput.schema.ts
+const __makeSchema_StorySectionCreateInput_schema = () => z.object({
+  id: z.string().optional(),
+  position: z.number().int(),
+  title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  by: z.union([z.lazy(() => StorySectionCreatebyInputObjectSchema), z.string().array()]).optional(),
+  project: z.lazy(() => ProjectCreateNestedOneWithoutStoryInputObjectSchema),
+  blocks: z.lazy(() => StoryBlockCreateNestedManyWithoutSectionInputObjectSchema).optional()
+}).strict();
+export const StorySectionCreateInputObjectSchema: z.ZodType<Prisma.StorySectionCreateInput> = __makeSchema_StorySectionCreateInput_schema() as unknown as z.ZodType<Prisma.StorySectionCreateInput>;
+export const StorySectionCreateInputObjectZodSchema = __makeSchema_StorySectionCreateInput_schema();
+
+
+// File: StorySectionUncheckedCreateInput.schema.ts
+const __makeSchema_StorySectionUncheckedCreateInput_schema = () => z.object({
+  id: z.string().optional(),
+  projectSlug: z.string(),
+  position: z.number().int(),
+  title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  by: z.union([z.lazy(() => StorySectionCreatebyInputObjectSchema), z.string().array()]).optional(),
+  blocks: z.lazy(() => StoryBlockUncheckedCreateNestedManyWithoutSectionInputObjectSchema).optional()
+}).strict();
+export const StorySectionUncheckedCreateInputObjectSchema: z.ZodType<Prisma.StorySectionUncheckedCreateInput> = __makeSchema_StorySectionUncheckedCreateInput_schema() as unknown as z.ZodType<Prisma.StorySectionUncheckedCreateInput>;
+export const StorySectionUncheckedCreateInputObjectZodSchema = __makeSchema_StorySectionUncheckedCreateInput_schema();
+
+
+// File: StorySectionUpdateInput.schema.ts
+const __makeSchema_StorySectionUpdateInput_schema = () => z.object({
+  id: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  by: z.union([z.lazy(() => StorySectionUpdatebyInputObjectSchema), z.string().array()]).optional(),
+  project: z.lazy(() => ProjectUpdateOneRequiredWithoutStoryNestedInputObjectSchema).optional(),
+  blocks: z.lazy(() => StoryBlockUpdateManyWithoutSectionNestedInputObjectSchema).optional()
+}).strict();
+export const StorySectionUpdateInputObjectSchema: z.ZodType<Prisma.StorySectionUpdateInput> = __makeSchema_StorySectionUpdateInput_schema() as unknown as z.ZodType<Prisma.StorySectionUpdateInput>;
+export const StorySectionUpdateInputObjectZodSchema = __makeSchema_StorySectionUpdateInput_schema();
+
+
+// File: StorySectionUncheckedUpdateInput.schema.ts
+const __makeSchema_StorySectionUncheckedUpdateInput_schema = () => z.object({
+  id: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  projectSlug: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  by: z.union([z.lazy(() => StorySectionUpdatebyInputObjectSchema), z.string().array()]).optional(),
+  blocks: z.lazy(() => StoryBlockUncheckedUpdateManyWithoutSectionNestedInputObjectSchema).optional()
+}).strict();
+export const StorySectionUncheckedUpdateInputObjectSchema: z.ZodType<Prisma.StorySectionUncheckedUpdateInput> = __makeSchema_StorySectionUncheckedUpdateInput_schema() as unknown as z.ZodType<Prisma.StorySectionUncheckedUpdateInput>;
+export const StorySectionUncheckedUpdateInputObjectZodSchema = __makeSchema_StorySectionUncheckedUpdateInput_schema();
+
+
+// File: StorySectionCreateManyInput.schema.ts
+const __makeSchema_StorySectionCreateManyInput_schema = () => z.object({
+  id: z.string().optional(),
+  projectSlug: z.string(),
+  position: z.number().int(),
+  title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  by: z.union([z.lazy(() => StorySectionCreatebyInputObjectSchema), z.string().array()]).optional()
+}).strict();
+export const StorySectionCreateManyInputObjectSchema: z.ZodType<Prisma.StorySectionCreateManyInput> = __makeSchema_StorySectionCreateManyInput_schema() as unknown as z.ZodType<Prisma.StorySectionCreateManyInput>;
+export const StorySectionCreateManyInputObjectZodSchema = __makeSchema_StorySectionCreateManyInput_schema();
+
+
+// File: StorySectionUpdateManyMutationInput.schema.ts
+const __makeSchema_StorySectionUpdateManyMutationInput_schema = () => z.object({
+  id: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  by: z.union([z.lazy(() => StorySectionUpdatebyInputObjectSchema), z.string().array()]).optional()
+}).strict();
+export const StorySectionUpdateManyMutationInputObjectSchema: z.ZodType<Prisma.StorySectionUpdateManyMutationInput> = __makeSchema_StorySectionUpdateManyMutationInput_schema() as unknown as z.ZodType<Prisma.StorySectionUpdateManyMutationInput>;
+export const StorySectionUpdateManyMutationInputObjectZodSchema = __makeSchema_StorySectionUpdateManyMutationInput_schema();
+
+
+// File: StorySectionUncheckedUpdateManyInput.schema.ts
+const __makeSchema_StorySectionUncheckedUpdateManyInput_schema = () => z.object({
+  id: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  projectSlug: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  by: z.union([z.lazy(() => StorySectionUpdatebyInputObjectSchema), z.string().array()]).optional()
+}).strict();
+export const StorySectionUncheckedUpdateManyInputObjectSchema: z.ZodType<Prisma.StorySectionUncheckedUpdateManyInput> = __makeSchema_StorySectionUncheckedUpdateManyInput_schema() as unknown as z.ZodType<Prisma.StorySectionUncheckedUpdateManyInput>;
+export const StorySectionUncheckedUpdateManyInputObjectZodSchema = __makeSchema_StorySectionUncheckedUpdateManyInput_schema();
+
+
 // File: StudioMemberCreateInput.schema.ts
 const __makeSchema_StudioMemberCreateInput_schema = () => z.object({
   slug: z.string(),
@@ -1655,7 +2502,8 @@ const __makeSchema_StudioMemberCreateInput_schema = () => z.object({
   projects: z.union([z.lazy(() => StudioMemberCreateprojectsInputObjectSchema), z.string().array()]).optional(),
   suite: z.boolean().optional(),
   facts: z.union([JsonNullValueInputSchema, jsonSchema]),
-  createdAt: z.coerce.date().optional()
+  createdAt: z.coerce.date().optional(),
+  teamOf: z.lazy(() => ProjectCreateNestedManyWithoutTeamInputObjectSchema).optional()
 }).strict();
 export const StudioMemberCreateInputObjectSchema: z.ZodType<Prisma.StudioMemberCreateInput> = __makeSchema_StudioMemberCreateInput_schema() as unknown as z.ZodType<Prisma.StudioMemberCreateInput>;
 export const StudioMemberCreateInputObjectZodSchema = __makeSchema_StudioMemberCreateInput_schema();
@@ -1681,7 +2529,8 @@ const __makeSchema_StudioMemberUncheckedCreateInput_schema = () => z.object({
   projects: z.union([z.lazy(() => StudioMemberCreateprojectsInputObjectSchema), z.string().array()]).optional(),
   suite: z.boolean().optional(),
   facts: z.union([JsonNullValueInputSchema, jsonSchema]),
-  createdAt: z.coerce.date().optional()
+  createdAt: z.coerce.date().optional(),
+  teamOf: z.lazy(() => ProjectUncheckedCreateNestedManyWithoutTeamInputObjectSchema).optional()
 }).strict();
 export const StudioMemberUncheckedCreateInputObjectSchema: z.ZodType<Prisma.StudioMemberUncheckedCreateInput> = __makeSchema_StudioMemberUncheckedCreateInput_schema() as unknown as z.ZodType<Prisma.StudioMemberUncheckedCreateInput>;
 export const StudioMemberUncheckedCreateInputObjectZodSchema = __makeSchema_StudioMemberUncheckedCreateInput_schema();
@@ -1708,7 +2557,8 @@ const __makeSchema_StudioMemberUpdateInput_schema = () => z.object({
   suite: z.union([z.boolean(), z.lazy(() => BoolFieldUpdateOperationsInputObjectSchema)]).optional(),
   facts: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
   createdAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
-  updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional()
+  updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
+  teamOf: z.lazy(() => ProjectUpdateManyWithoutTeamNestedInputObjectSchema).optional()
 }).strict();
 export const StudioMemberUpdateInputObjectSchema: z.ZodType<Prisma.StudioMemberUpdateInput> = __makeSchema_StudioMemberUpdateInput_schema() as unknown as z.ZodType<Prisma.StudioMemberUpdateInput>;
 export const StudioMemberUpdateInputObjectZodSchema = __makeSchema_StudioMemberUpdateInput_schema();
@@ -1735,7 +2585,8 @@ const __makeSchema_StudioMemberUncheckedUpdateInput_schema = () => z.object({
   suite: z.union([z.boolean(), z.lazy(() => BoolFieldUpdateOperationsInputObjectSchema)]).optional(),
   facts: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
   createdAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
-  updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional()
+  updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
+  teamOf: z.lazy(() => ProjectUncheckedUpdateManyWithoutTeamNestedInputObjectSchema).optional()
 }).strict();
 export const StudioMemberUncheckedUpdateInputObjectSchema: z.ZodType<Prisma.StudioMemberUncheckedUpdateInput> = __makeSchema_StudioMemberUncheckedUpdateInput_schema() as unknown as z.ZodType<Prisma.StudioMemberUncheckedUpdateInput>;
 export const StudioMemberUncheckedUpdateInputObjectZodSchema = __makeSchema_StudioMemberUncheckedUpdateInput_schema();
@@ -2437,6 +3288,235 @@ export const IntWithAggregatesFilterObjectSchema: z.ZodType<Prisma.IntWithAggreg
 export const IntWithAggregatesFilterObjectZodSchema = __makeSchema_IntWithAggregatesFilter_schema();
 
 
+// File: JsonFilter.schema.ts
+const __makeSchema_JsonFilter_schema = () => z.object({
+  equals: jsonSchema.optional(),
+  path: z.string().array().optional(),
+  mode: QueryModeSchema.optional(),
+  string_contains: z.string().optional(),
+  string_starts_with: z.string().optional(),
+  string_ends_with: z.string().optional(),
+  array_starts_with: jsonSchema.optional().nullable(),
+  array_ends_with: jsonSchema.optional().nullable(),
+  array_contains: jsonSchema.optional().nullable(),
+  lt: jsonSchema.optional(),
+  lte: jsonSchema.optional(),
+  gt: jsonSchema.optional(),
+  gte: jsonSchema.optional(),
+  not: jsonSchema.optional()
+}).strict();
+export const JsonFilterObjectSchema: z.ZodType<Prisma.JsonFilter> = __makeSchema_JsonFilter_schema() as unknown as z.ZodType<Prisma.JsonFilter>;
+export const JsonFilterObjectZodSchema = __makeSchema_JsonFilter_schema();
+
+
+// File: JsonNullableFilter.schema.ts
+const __makeSchema_JsonNullableFilter_schema = () => z.object({
+  equals: jsonSchema.optional(),
+  path: z.string().array().optional(),
+  mode: QueryModeSchema.optional(),
+  string_contains: z.string().optional(),
+  string_starts_with: z.string().optional(),
+  string_ends_with: z.string().optional(),
+  array_starts_with: jsonSchema.optional().nullable(),
+  array_ends_with: jsonSchema.optional().nullable(),
+  array_contains: jsonSchema.optional().nullable(),
+  lt: jsonSchema.optional(),
+  lte: jsonSchema.optional(),
+  gt: jsonSchema.optional(),
+  gte: jsonSchema.optional(),
+  not: jsonSchema.optional()
+}).strict();
+export const JsonNullableFilterObjectSchema: z.ZodType<Prisma.JsonNullableFilter> = __makeSchema_JsonNullableFilter_schema() as unknown as z.ZodType<Prisma.JsonNullableFilter>;
+export const JsonNullableFilterObjectZodSchema = __makeSchema_JsonNullableFilter_schema();
+
+
+// File: StringNullableListFilter.schema.ts
+const __makeSchema_StringNullableListFilter_schema = () => z.object({
+  equals: z.string().array().optional().nullable(),
+  has: z.string().optional().nullable(),
+  hasEvery: z.string().array().optional(),
+  hasSome: z.string().array().optional(),
+  isEmpty: z.boolean().optional()
+}).strict();
+export const StringNullableListFilterObjectSchema: z.ZodType<Prisma.StringNullableListFilter> = __makeSchema_StringNullableListFilter_schema() as unknown as z.ZodType<Prisma.StringNullableListFilter>;
+export const StringNullableListFilterObjectZodSchema = __makeSchema_StringNullableListFilter_schema();
+
+
+// File: JsonNullableListFilter.schema.ts
+const __makeSchema_JsonNullableListFilter_schema = () => z.object({
+  equals: jsonSchema.array().optional().nullable(),
+  has: jsonSchema.optional().nullable(),
+  hasEvery: jsonSchema.array().optional(),
+  hasSome: jsonSchema.array().optional(),
+  isEmpty: z.boolean().optional()
+}).strict();
+export const JsonNullableListFilterObjectSchema: z.ZodType<Prisma.JsonNullableListFilter> = __makeSchema_JsonNullableListFilter_schema() as unknown as z.ZodType<Prisma.JsonNullableListFilter>;
+export const JsonNullableListFilterObjectZodSchema = __makeSchema_JsonNullableListFilter_schema();
+
+
+// File: StudioMemberListRelationFilter.schema.ts
+const __makeSchema_StudioMemberListRelationFilter_schema = () => z.object({
+  every: z.lazy(() => StudioMemberWhereInputObjectSchema).optional(),
+  some: z.lazy(() => StudioMemberWhereInputObjectSchema).optional(),
+  none: z.lazy(() => StudioMemberWhereInputObjectSchema).optional()
+}).strict();
+export const StudioMemberListRelationFilterObjectSchema: z.ZodType<Prisma.StudioMemberListRelationFilter> = __makeSchema_StudioMemberListRelationFilter_schema() as unknown as z.ZodType<Prisma.StudioMemberListRelationFilter>;
+export const StudioMemberListRelationFilterObjectZodSchema = __makeSchema_StudioMemberListRelationFilter_schema();
+
+
+// File: StorySectionListRelationFilter.schema.ts
+const __makeSchema_StorySectionListRelationFilter_schema = () => z.object({
+  every: z.lazy(() => StorySectionWhereInputObjectSchema).optional(),
+  some: z.lazy(() => StorySectionWhereInputObjectSchema).optional(),
+  none: z.lazy(() => StorySectionWhereInputObjectSchema).optional()
+}).strict();
+export const StorySectionListRelationFilterObjectSchema: z.ZodType<Prisma.StorySectionListRelationFilter> = __makeSchema_StorySectionListRelationFilter_schema() as unknown as z.ZodType<Prisma.StorySectionListRelationFilter>;
+export const StorySectionListRelationFilterObjectZodSchema = __makeSchema_StorySectionListRelationFilter_schema();
+
+
+// File: StudioMemberOrderByRelationAggregateInput.schema.ts
+const __makeSchema_StudioMemberOrderByRelationAggregateInput_schema = () => z.object({
+  _count: SortOrderSchema.optional()
+}).strict();
+export const StudioMemberOrderByRelationAggregateInputObjectSchema: z.ZodType<Prisma.StudioMemberOrderByRelationAggregateInput> = __makeSchema_StudioMemberOrderByRelationAggregateInput_schema() as unknown as z.ZodType<Prisma.StudioMemberOrderByRelationAggregateInput>;
+export const StudioMemberOrderByRelationAggregateInputObjectZodSchema = __makeSchema_StudioMemberOrderByRelationAggregateInput_schema();
+
+
+// File: StorySectionOrderByRelationAggregateInput.schema.ts
+const __makeSchema_StorySectionOrderByRelationAggregateInput_schema = () => z.object({
+  _count: SortOrderSchema.optional()
+}).strict();
+export const StorySectionOrderByRelationAggregateInputObjectSchema: z.ZodType<Prisma.StorySectionOrderByRelationAggregateInput> = __makeSchema_StorySectionOrderByRelationAggregateInput_schema() as unknown as z.ZodType<Prisma.StorySectionOrderByRelationAggregateInput>;
+export const StorySectionOrderByRelationAggregateInputObjectZodSchema = __makeSchema_StorySectionOrderByRelationAggregateInput_schema();
+
+
+// File: ProjectCountOrderByAggregateInput.schema.ts
+const __makeSchema_ProjectCountOrderByAggregateInput_schema = () => z.object({
+  slug: SortOrderSchema.optional(),
+  position: SortOrderSchema.optional(),
+  name: SortOrderSchema.optional(),
+  weeks: SortOrderSchema.optional(),
+  link: SortOrderSchema.optional(),
+  image: SortOrderSchema.optional(),
+  video: SortOrderSchema.optional(),
+  coverEffect: SortOrderSchema.optional(),
+  description: SortOrderSchema.optional(),
+  metaDescription: SortOrderSchema.optional(),
+  challenge: SortOrderSchema.optional(),
+  services: SortOrderSchema.optional(),
+  techStack: SortOrderSchema.optional(),
+  date: SortOrderSchema.optional(),
+  gallery: SortOrderSchema.optional(),
+  notes: SortOrderSchema.optional(),
+  createdAt: SortOrderSchema.optional(),
+  updatedAt: SortOrderSchema.optional()
+}).strict();
+export const ProjectCountOrderByAggregateInputObjectSchema: z.ZodType<Prisma.ProjectCountOrderByAggregateInput> = __makeSchema_ProjectCountOrderByAggregateInput_schema() as unknown as z.ZodType<Prisma.ProjectCountOrderByAggregateInput>;
+export const ProjectCountOrderByAggregateInputObjectZodSchema = __makeSchema_ProjectCountOrderByAggregateInput_schema();
+
+
+// File: ProjectAvgOrderByAggregateInput.schema.ts
+const __makeSchema_ProjectAvgOrderByAggregateInput_schema = () => z.object({
+  position: SortOrderSchema.optional(),
+  weeks: SortOrderSchema.optional()
+}).strict();
+export const ProjectAvgOrderByAggregateInputObjectSchema: z.ZodType<Prisma.ProjectAvgOrderByAggregateInput> = __makeSchema_ProjectAvgOrderByAggregateInput_schema() as unknown as z.ZodType<Prisma.ProjectAvgOrderByAggregateInput>;
+export const ProjectAvgOrderByAggregateInputObjectZodSchema = __makeSchema_ProjectAvgOrderByAggregateInput_schema();
+
+
+// File: ProjectMaxOrderByAggregateInput.schema.ts
+const __makeSchema_ProjectMaxOrderByAggregateInput_schema = () => z.object({
+  slug: SortOrderSchema.optional(),
+  position: SortOrderSchema.optional(),
+  name: SortOrderSchema.optional(),
+  weeks: SortOrderSchema.optional(),
+  link: SortOrderSchema.optional(),
+  image: SortOrderSchema.optional(),
+  video: SortOrderSchema.optional(),
+  coverEffect: SortOrderSchema.optional(),
+  date: SortOrderSchema.optional(),
+  createdAt: SortOrderSchema.optional(),
+  updatedAt: SortOrderSchema.optional()
+}).strict();
+export const ProjectMaxOrderByAggregateInputObjectSchema: z.ZodType<Prisma.ProjectMaxOrderByAggregateInput> = __makeSchema_ProjectMaxOrderByAggregateInput_schema() as unknown as z.ZodType<Prisma.ProjectMaxOrderByAggregateInput>;
+export const ProjectMaxOrderByAggregateInputObjectZodSchema = __makeSchema_ProjectMaxOrderByAggregateInput_schema();
+
+
+// File: ProjectMinOrderByAggregateInput.schema.ts
+const __makeSchema_ProjectMinOrderByAggregateInput_schema = () => z.object({
+  slug: SortOrderSchema.optional(),
+  position: SortOrderSchema.optional(),
+  name: SortOrderSchema.optional(),
+  weeks: SortOrderSchema.optional(),
+  link: SortOrderSchema.optional(),
+  image: SortOrderSchema.optional(),
+  video: SortOrderSchema.optional(),
+  coverEffect: SortOrderSchema.optional(),
+  date: SortOrderSchema.optional(),
+  createdAt: SortOrderSchema.optional(),
+  updatedAt: SortOrderSchema.optional()
+}).strict();
+export const ProjectMinOrderByAggregateInputObjectSchema: z.ZodType<Prisma.ProjectMinOrderByAggregateInput> = __makeSchema_ProjectMinOrderByAggregateInput_schema() as unknown as z.ZodType<Prisma.ProjectMinOrderByAggregateInput>;
+export const ProjectMinOrderByAggregateInputObjectZodSchema = __makeSchema_ProjectMinOrderByAggregateInput_schema();
+
+
+// File: ProjectSumOrderByAggregateInput.schema.ts
+const __makeSchema_ProjectSumOrderByAggregateInput_schema = () => z.object({
+  position: SortOrderSchema.optional(),
+  weeks: SortOrderSchema.optional()
+}).strict();
+export const ProjectSumOrderByAggregateInputObjectSchema: z.ZodType<Prisma.ProjectSumOrderByAggregateInput> = __makeSchema_ProjectSumOrderByAggregateInput_schema() as unknown as z.ZodType<Prisma.ProjectSumOrderByAggregateInput>;
+export const ProjectSumOrderByAggregateInputObjectZodSchema = __makeSchema_ProjectSumOrderByAggregateInput_schema();
+
+
+// File: JsonWithAggregatesFilter.schema.ts
+const __makeSchema_JsonWithAggregatesFilter_schema = () => z.object({
+  equals: jsonSchema.optional(),
+  path: z.string().array().optional(),
+  mode: QueryModeSchema.optional(),
+  string_contains: z.string().optional(),
+  string_starts_with: z.string().optional(),
+  string_ends_with: z.string().optional(),
+  array_starts_with: jsonSchema.optional().nullable(),
+  array_ends_with: jsonSchema.optional().nullable(),
+  array_contains: jsonSchema.optional().nullable(),
+  lt: jsonSchema.optional(),
+  lte: jsonSchema.optional(),
+  gt: jsonSchema.optional(),
+  gte: jsonSchema.optional(),
+  not: jsonSchema.optional(),
+  _count: z.lazy(() => NestedIntFilterObjectSchema).optional(),
+  _min: z.lazy(() => NestedJsonFilterObjectSchema).optional(),
+  _max: z.lazy(() => NestedJsonFilterObjectSchema).optional()
+}).strict();
+export const JsonWithAggregatesFilterObjectSchema: z.ZodType<Prisma.JsonWithAggregatesFilter> = __makeSchema_JsonWithAggregatesFilter_schema() as unknown as z.ZodType<Prisma.JsonWithAggregatesFilter>;
+export const JsonWithAggregatesFilterObjectZodSchema = __makeSchema_JsonWithAggregatesFilter_schema();
+
+
+// File: JsonNullableWithAggregatesFilter.schema.ts
+const __makeSchema_JsonNullableWithAggregatesFilter_schema = () => z.object({
+  equals: jsonSchema.optional(),
+  path: z.string().array().optional(),
+  mode: QueryModeSchema.optional(),
+  string_contains: z.string().optional(),
+  string_starts_with: z.string().optional(),
+  string_ends_with: z.string().optional(),
+  array_starts_with: jsonSchema.optional().nullable(),
+  array_ends_with: jsonSchema.optional().nullable(),
+  array_contains: jsonSchema.optional().nullable(),
+  lt: jsonSchema.optional(),
+  lte: jsonSchema.optional(),
+  gt: jsonSchema.optional(),
+  gte: jsonSchema.optional(),
+  not: jsonSchema.optional(),
+  _count: z.lazy(() => NestedIntNullableFilterObjectSchema).optional(),
+  _min: z.lazy(() => NestedJsonNullableFilterObjectSchema).optional(),
+  _max: z.lazy(() => NestedJsonNullableFilterObjectSchema).optional()
+}).strict();
+export const JsonNullableWithAggregatesFilterObjectSchema: z.ZodType<Prisma.JsonNullableWithAggregatesFilter> = __makeSchema_JsonNullableWithAggregatesFilter_schema() as unknown as z.ZodType<Prisma.JsonNullableWithAggregatesFilter>;
+export const JsonNullableWithAggregatesFilterObjectZodSchema = __makeSchema_JsonNullableWithAggregatesFilter_schema();
+
+
 // File: SessionCountOrderByAggregateInput.schema.ts
 const __makeSchema_SessionCountOrderByAggregateInput_schema = () => z.object({
   id: SortOrderSchema.optional(),
@@ -2644,25 +3724,227 @@ export const SiteDailyVisitorMinOrderByAggregateInputObjectSchema: z.ZodType<Pri
 export const SiteDailyVisitorMinOrderByAggregateInputObjectZodSchema = __makeSchema_SiteDailyVisitorMinOrderByAggregateInput_schema();
 
 
-// File: JsonFilter.schema.ts
-const __makeSchema_JsonFilter_schema = () => z.object({
-  equals: jsonSchema.optional(),
-  path: z.string().array().optional(),
-  mode: QueryModeSchema.optional(),
-  string_contains: z.string().optional(),
-  string_starts_with: z.string().optional(),
-  string_ends_with: z.string().optional(),
-  array_starts_with: jsonSchema.optional().nullable(),
-  array_ends_with: jsonSchema.optional().nullable(),
-  array_contains: jsonSchema.optional().nullable(),
-  lt: jsonSchema.optional(),
-  lte: jsonSchema.optional(),
-  gt: jsonSchema.optional(),
-  gte: jsonSchema.optional(),
-  not: jsonSchema.optional()
+// File: IntNullableFilter.schema.ts
+const __makeSchema_IntNullableFilter_schema = () => z.object({
+  equals: z.number().int().optional().nullable(),
+  in: z.number().int().array().optional().nullable(),
+  notIn: z.number().int().array().optional().nullable(),
+  lt: z.number().int().optional(),
+  lte: z.number().int().optional(),
+  gt: z.number().int().optional(),
+  gte: z.number().int().optional(),
+  not: z.union([z.number().int(), z.lazy(() => NestedIntNullableFilterObjectSchema)]).optional().nullable()
 }).strict();
-export const JsonFilterObjectSchema: z.ZodType<Prisma.JsonFilter> = __makeSchema_JsonFilter_schema() as unknown as z.ZodType<Prisma.JsonFilter>;
-export const JsonFilterObjectZodSchema = __makeSchema_JsonFilter_schema();
+export const IntNullableFilterObjectSchema: z.ZodType<Prisma.IntNullableFilter> = __makeSchema_IntNullableFilter_schema() as unknown as z.ZodType<Prisma.IntNullableFilter>;
+export const IntNullableFilterObjectZodSchema = __makeSchema_IntNullableFilter_schema();
+
+
+// File: StorySectionScalarRelationFilter.schema.ts
+const __makeSchema_StorySectionScalarRelationFilter_schema = () => z.object({
+  is: z.lazy(() => StorySectionWhereInputObjectSchema).optional(),
+  isNot: z.lazy(() => StorySectionWhereInputObjectSchema).optional()
+}).strict();
+export const StorySectionScalarRelationFilterObjectSchema: z.ZodType<Prisma.StorySectionScalarRelationFilter> = __makeSchema_StorySectionScalarRelationFilter_schema() as unknown as z.ZodType<Prisma.StorySectionScalarRelationFilter>;
+export const StorySectionScalarRelationFilterObjectZodSchema = __makeSchema_StorySectionScalarRelationFilter_schema();
+
+
+// File: StoryBlockSectionIdPositionCompoundUniqueInput.schema.ts
+const __makeSchema_StoryBlockSectionIdPositionCompoundUniqueInput_schema = () => z.object({
+  sectionId: z.string(),
+  position: z.number().int()
+}).strict();
+export const StoryBlockSectionIdPositionCompoundUniqueInputObjectSchema: z.ZodType<Prisma.StoryBlockSectionIdPositionCompoundUniqueInput> = __makeSchema_StoryBlockSectionIdPositionCompoundUniqueInput_schema() as unknown as z.ZodType<Prisma.StoryBlockSectionIdPositionCompoundUniqueInput>;
+export const StoryBlockSectionIdPositionCompoundUniqueInputObjectZodSchema = __makeSchema_StoryBlockSectionIdPositionCompoundUniqueInput_schema();
+
+
+// File: StoryBlockCountOrderByAggregateInput.schema.ts
+const __makeSchema_StoryBlockCountOrderByAggregateInput_schema = () => z.object({
+  id: SortOrderSchema.optional(),
+  sectionId: SortOrderSchema.optional(),
+  position: SortOrderSchema.optional(),
+  type: SortOrderSchema.optional(),
+  media: SortOrderSchema.optional(),
+  eyebrow: SortOrderSchema.optional(),
+  title: SortOrderSchema.optional(),
+  text: SortOrderSchema.optional(),
+  tags: SortOrderSchema.optional(),
+  logos: SortOrderSchema.optional(),
+  tiles: SortOrderSchema.optional(),
+  link: SortOrderSchema.optional(),
+  linkLabel: SortOrderSchema.optional(),
+  effect: SortOrderSchema.optional(),
+  smalls: SortOrderSchema.optional(),
+  cols: SortOrderSchema.optional(),
+  font: SortOrderSchema.optional(),
+  fontFamily: SortOrderSchema.optional(),
+  description: SortOrderSchema.optional(),
+  secondFont: SortOrderSchema.optional(),
+  secondFontFamily: SortOrderSchema.optional(),
+  secondDescription: SortOrderSchema.optional(),
+  swatches: SortOrderSchema.optional()
+}).strict();
+export const StoryBlockCountOrderByAggregateInputObjectSchema: z.ZodType<Prisma.StoryBlockCountOrderByAggregateInput> = __makeSchema_StoryBlockCountOrderByAggregateInput_schema() as unknown as z.ZodType<Prisma.StoryBlockCountOrderByAggregateInput>;
+export const StoryBlockCountOrderByAggregateInputObjectZodSchema = __makeSchema_StoryBlockCountOrderByAggregateInput_schema();
+
+
+// File: StoryBlockAvgOrderByAggregateInput.schema.ts
+const __makeSchema_StoryBlockAvgOrderByAggregateInput_schema = () => z.object({
+  position: SortOrderSchema.optional(),
+  cols: SortOrderSchema.optional()
+}).strict();
+export const StoryBlockAvgOrderByAggregateInputObjectSchema: z.ZodType<Prisma.StoryBlockAvgOrderByAggregateInput> = __makeSchema_StoryBlockAvgOrderByAggregateInput_schema() as unknown as z.ZodType<Prisma.StoryBlockAvgOrderByAggregateInput>;
+export const StoryBlockAvgOrderByAggregateInputObjectZodSchema = __makeSchema_StoryBlockAvgOrderByAggregateInput_schema();
+
+
+// File: StoryBlockMaxOrderByAggregateInput.schema.ts
+const __makeSchema_StoryBlockMaxOrderByAggregateInput_schema = () => z.object({
+  id: SortOrderSchema.optional(),
+  sectionId: SortOrderSchema.optional(),
+  position: SortOrderSchema.optional(),
+  type: SortOrderSchema.optional(),
+  link: SortOrderSchema.optional(),
+  effect: SortOrderSchema.optional(),
+  smalls: SortOrderSchema.optional(),
+  cols: SortOrderSchema.optional(),
+  font: SortOrderSchema.optional(),
+  fontFamily: SortOrderSchema.optional(),
+  secondFont: SortOrderSchema.optional(),
+  secondFontFamily: SortOrderSchema.optional()
+}).strict();
+export const StoryBlockMaxOrderByAggregateInputObjectSchema: z.ZodType<Prisma.StoryBlockMaxOrderByAggregateInput> = __makeSchema_StoryBlockMaxOrderByAggregateInput_schema() as unknown as z.ZodType<Prisma.StoryBlockMaxOrderByAggregateInput>;
+export const StoryBlockMaxOrderByAggregateInputObjectZodSchema = __makeSchema_StoryBlockMaxOrderByAggregateInput_schema();
+
+
+// File: StoryBlockMinOrderByAggregateInput.schema.ts
+const __makeSchema_StoryBlockMinOrderByAggregateInput_schema = () => z.object({
+  id: SortOrderSchema.optional(),
+  sectionId: SortOrderSchema.optional(),
+  position: SortOrderSchema.optional(),
+  type: SortOrderSchema.optional(),
+  link: SortOrderSchema.optional(),
+  effect: SortOrderSchema.optional(),
+  smalls: SortOrderSchema.optional(),
+  cols: SortOrderSchema.optional(),
+  font: SortOrderSchema.optional(),
+  fontFamily: SortOrderSchema.optional(),
+  secondFont: SortOrderSchema.optional(),
+  secondFontFamily: SortOrderSchema.optional()
+}).strict();
+export const StoryBlockMinOrderByAggregateInputObjectSchema: z.ZodType<Prisma.StoryBlockMinOrderByAggregateInput> = __makeSchema_StoryBlockMinOrderByAggregateInput_schema() as unknown as z.ZodType<Prisma.StoryBlockMinOrderByAggregateInput>;
+export const StoryBlockMinOrderByAggregateInputObjectZodSchema = __makeSchema_StoryBlockMinOrderByAggregateInput_schema();
+
+
+// File: StoryBlockSumOrderByAggregateInput.schema.ts
+const __makeSchema_StoryBlockSumOrderByAggregateInput_schema = () => z.object({
+  position: SortOrderSchema.optional(),
+  cols: SortOrderSchema.optional()
+}).strict();
+export const StoryBlockSumOrderByAggregateInputObjectSchema: z.ZodType<Prisma.StoryBlockSumOrderByAggregateInput> = __makeSchema_StoryBlockSumOrderByAggregateInput_schema() as unknown as z.ZodType<Prisma.StoryBlockSumOrderByAggregateInput>;
+export const StoryBlockSumOrderByAggregateInputObjectZodSchema = __makeSchema_StoryBlockSumOrderByAggregateInput_schema();
+
+
+// File: IntNullableWithAggregatesFilter.schema.ts
+const __makeSchema_IntNullableWithAggregatesFilter_schema = () => z.object({
+  equals: z.number().int().optional().nullable(),
+  in: z.number().int().array().optional().nullable(),
+  notIn: z.number().int().array().optional().nullable(),
+  lt: z.number().int().optional(),
+  lte: z.number().int().optional(),
+  gt: z.number().int().optional(),
+  gte: z.number().int().optional(),
+  not: z.union([z.number().int(), z.lazy(() => NestedIntNullableWithAggregatesFilterObjectSchema)]).optional().nullable(),
+  _count: z.lazy(() => NestedIntNullableFilterObjectSchema).optional(),
+  _avg: z.lazy(() => NestedFloatNullableFilterObjectSchema).optional(),
+  _sum: z.lazy(() => NestedIntNullableFilterObjectSchema).optional(),
+  _min: z.lazy(() => NestedIntNullableFilterObjectSchema).optional(),
+  _max: z.lazy(() => NestedIntNullableFilterObjectSchema).optional()
+}).strict();
+export const IntNullableWithAggregatesFilterObjectSchema: z.ZodType<Prisma.IntNullableWithAggregatesFilter> = __makeSchema_IntNullableWithAggregatesFilter_schema() as unknown as z.ZodType<Prisma.IntNullableWithAggregatesFilter>;
+export const IntNullableWithAggregatesFilterObjectZodSchema = __makeSchema_IntNullableWithAggregatesFilter_schema();
+
+
+// File: ProjectScalarRelationFilter.schema.ts
+const __makeSchema_ProjectScalarRelationFilter_schema = () => z.object({
+  is: z.lazy(() => ProjectWhereInputObjectSchema).optional(),
+  isNot: z.lazy(() => ProjectWhereInputObjectSchema).optional()
+}).strict();
+export const ProjectScalarRelationFilterObjectSchema: z.ZodType<Prisma.ProjectScalarRelationFilter> = __makeSchema_ProjectScalarRelationFilter_schema() as unknown as z.ZodType<Prisma.ProjectScalarRelationFilter>;
+export const ProjectScalarRelationFilterObjectZodSchema = __makeSchema_ProjectScalarRelationFilter_schema();
+
+
+// File: StoryBlockListRelationFilter.schema.ts
+const __makeSchema_StoryBlockListRelationFilter_schema = () => z.object({
+  every: z.lazy(() => StoryBlockWhereInputObjectSchema).optional(),
+  some: z.lazy(() => StoryBlockWhereInputObjectSchema).optional(),
+  none: z.lazy(() => StoryBlockWhereInputObjectSchema).optional()
+}).strict();
+export const StoryBlockListRelationFilterObjectSchema: z.ZodType<Prisma.StoryBlockListRelationFilter> = __makeSchema_StoryBlockListRelationFilter_schema() as unknown as z.ZodType<Prisma.StoryBlockListRelationFilter>;
+export const StoryBlockListRelationFilterObjectZodSchema = __makeSchema_StoryBlockListRelationFilter_schema();
+
+
+// File: StoryBlockOrderByRelationAggregateInput.schema.ts
+const __makeSchema_StoryBlockOrderByRelationAggregateInput_schema = () => z.object({
+  _count: SortOrderSchema.optional()
+}).strict();
+export const StoryBlockOrderByRelationAggregateInputObjectSchema: z.ZodType<Prisma.StoryBlockOrderByRelationAggregateInput> = __makeSchema_StoryBlockOrderByRelationAggregateInput_schema() as unknown as z.ZodType<Prisma.StoryBlockOrderByRelationAggregateInput>;
+export const StoryBlockOrderByRelationAggregateInputObjectZodSchema = __makeSchema_StoryBlockOrderByRelationAggregateInput_schema();
+
+
+// File: StorySectionProjectSlugPositionCompoundUniqueInput.schema.ts
+const __makeSchema_StorySectionProjectSlugPositionCompoundUniqueInput_schema = () => z.object({
+  projectSlug: z.string(),
+  position: z.number().int()
+}).strict();
+export const StorySectionProjectSlugPositionCompoundUniqueInputObjectSchema: z.ZodType<Prisma.StorySectionProjectSlugPositionCompoundUniqueInput> = __makeSchema_StorySectionProjectSlugPositionCompoundUniqueInput_schema() as unknown as z.ZodType<Prisma.StorySectionProjectSlugPositionCompoundUniqueInput>;
+export const StorySectionProjectSlugPositionCompoundUniqueInputObjectZodSchema = __makeSchema_StorySectionProjectSlugPositionCompoundUniqueInput_schema();
+
+
+// File: StorySectionCountOrderByAggregateInput.schema.ts
+const __makeSchema_StorySectionCountOrderByAggregateInput_schema = () => z.object({
+  id: SortOrderSchema.optional(),
+  projectSlug: SortOrderSchema.optional(),
+  position: SortOrderSchema.optional(),
+  title: SortOrderSchema.optional(),
+  by: SortOrderSchema.optional()
+}).strict();
+export const StorySectionCountOrderByAggregateInputObjectSchema: z.ZodType<Prisma.StorySectionCountOrderByAggregateInput> = __makeSchema_StorySectionCountOrderByAggregateInput_schema() as unknown as z.ZodType<Prisma.StorySectionCountOrderByAggregateInput>;
+export const StorySectionCountOrderByAggregateInputObjectZodSchema = __makeSchema_StorySectionCountOrderByAggregateInput_schema();
+
+
+// File: StorySectionAvgOrderByAggregateInput.schema.ts
+const __makeSchema_StorySectionAvgOrderByAggregateInput_schema = () => z.object({
+  position: SortOrderSchema.optional()
+}).strict();
+export const StorySectionAvgOrderByAggregateInputObjectSchema: z.ZodType<Prisma.StorySectionAvgOrderByAggregateInput> = __makeSchema_StorySectionAvgOrderByAggregateInput_schema() as unknown as z.ZodType<Prisma.StorySectionAvgOrderByAggregateInput>;
+export const StorySectionAvgOrderByAggregateInputObjectZodSchema = __makeSchema_StorySectionAvgOrderByAggregateInput_schema();
+
+
+// File: StorySectionMaxOrderByAggregateInput.schema.ts
+const __makeSchema_StorySectionMaxOrderByAggregateInput_schema = () => z.object({
+  id: SortOrderSchema.optional(),
+  projectSlug: SortOrderSchema.optional(),
+  position: SortOrderSchema.optional()
+}).strict();
+export const StorySectionMaxOrderByAggregateInputObjectSchema: z.ZodType<Prisma.StorySectionMaxOrderByAggregateInput> = __makeSchema_StorySectionMaxOrderByAggregateInput_schema() as unknown as z.ZodType<Prisma.StorySectionMaxOrderByAggregateInput>;
+export const StorySectionMaxOrderByAggregateInputObjectZodSchema = __makeSchema_StorySectionMaxOrderByAggregateInput_schema();
+
+
+// File: StorySectionMinOrderByAggregateInput.schema.ts
+const __makeSchema_StorySectionMinOrderByAggregateInput_schema = () => z.object({
+  id: SortOrderSchema.optional(),
+  projectSlug: SortOrderSchema.optional(),
+  position: SortOrderSchema.optional()
+}).strict();
+export const StorySectionMinOrderByAggregateInputObjectSchema: z.ZodType<Prisma.StorySectionMinOrderByAggregateInput> = __makeSchema_StorySectionMinOrderByAggregateInput_schema() as unknown as z.ZodType<Prisma.StorySectionMinOrderByAggregateInput>;
+export const StorySectionMinOrderByAggregateInputObjectZodSchema = __makeSchema_StorySectionMinOrderByAggregateInput_schema();
+
+
+// File: StorySectionSumOrderByAggregateInput.schema.ts
+const __makeSchema_StorySectionSumOrderByAggregateInput_schema = () => z.object({
+  position: SortOrderSchema.optional()
+}).strict();
+export const StorySectionSumOrderByAggregateInputObjectSchema: z.ZodType<Prisma.StorySectionSumOrderByAggregateInput> = __makeSchema_StorySectionSumOrderByAggregateInput_schema() as unknown as z.ZodType<Prisma.StorySectionSumOrderByAggregateInput>;
+export const StorySectionSumOrderByAggregateInputObjectZodSchema = __makeSchema_StorySectionSumOrderByAggregateInput_schema();
 
 
 // File: FloatFilter.schema.ts
@@ -2692,18 +3974,6 @@ export const FloatNullableListFilterObjectSchema: z.ZodType<Prisma.FloatNullable
 export const FloatNullableListFilterObjectZodSchema = __makeSchema_FloatNullableListFilter_schema();
 
 
-// File: StringNullableListFilter.schema.ts
-const __makeSchema_StringNullableListFilter_schema = () => z.object({
-  equals: z.string().array().optional().nullable(),
-  has: z.string().optional().nullable(),
-  hasEvery: z.string().array().optional(),
-  hasSome: z.string().array().optional(),
-  isEmpty: z.boolean().optional()
-}).strict();
-export const StringNullableListFilterObjectSchema: z.ZodType<Prisma.StringNullableListFilter> = __makeSchema_StringNullableListFilter_schema() as unknown as z.ZodType<Prisma.StringNullableListFilter>;
-export const StringNullableListFilterObjectZodSchema = __makeSchema_StringNullableListFilter_schema();
-
-
 // File: BoolFilter.schema.ts
 const __makeSchema_BoolFilter_schema = () => z.object({
   equals: z.boolean().optional(),
@@ -2711,6 +3981,24 @@ const __makeSchema_BoolFilter_schema = () => z.object({
 }).strict();
 export const BoolFilterObjectSchema: z.ZodType<Prisma.BoolFilter> = __makeSchema_BoolFilter_schema() as unknown as z.ZodType<Prisma.BoolFilter>;
 export const BoolFilterObjectZodSchema = __makeSchema_BoolFilter_schema();
+
+
+// File: ProjectListRelationFilter.schema.ts
+const __makeSchema_ProjectListRelationFilter_schema = () => z.object({
+  every: z.lazy(() => ProjectWhereInputObjectSchema).optional(),
+  some: z.lazy(() => ProjectWhereInputObjectSchema).optional(),
+  none: z.lazy(() => ProjectWhereInputObjectSchema).optional()
+}).strict();
+export const ProjectListRelationFilterObjectSchema: z.ZodType<Prisma.ProjectListRelationFilter> = __makeSchema_ProjectListRelationFilter_schema() as unknown as z.ZodType<Prisma.ProjectListRelationFilter>;
+export const ProjectListRelationFilterObjectZodSchema = __makeSchema_ProjectListRelationFilter_schema();
+
+
+// File: ProjectOrderByRelationAggregateInput.schema.ts
+const __makeSchema_ProjectOrderByRelationAggregateInput_schema = () => z.object({
+  _count: SortOrderSchema.optional()
+}).strict();
+export const ProjectOrderByRelationAggregateInputObjectSchema: z.ZodType<Prisma.ProjectOrderByRelationAggregateInput> = __makeSchema_ProjectOrderByRelationAggregateInput_schema() as unknown as z.ZodType<Prisma.ProjectOrderByRelationAggregateInput>;
+export const ProjectOrderByRelationAggregateInputObjectZodSchema = __makeSchema_ProjectOrderByRelationAggregateInput_schema();
 
 
 // File: StudioMemberCountOrderByAggregateInput.schema.ts
@@ -2800,30 +4088,6 @@ const __makeSchema_StudioMemberSumOrderByAggregateInput_schema = () => z.object(
 }).strict();
 export const StudioMemberSumOrderByAggregateInputObjectSchema: z.ZodType<Prisma.StudioMemberSumOrderByAggregateInput> = __makeSchema_StudioMemberSumOrderByAggregateInput_schema() as unknown as z.ZodType<Prisma.StudioMemberSumOrderByAggregateInput>;
 export const StudioMemberSumOrderByAggregateInputObjectZodSchema = __makeSchema_StudioMemberSumOrderByAggregateInput_schema();
-
-
-// File: JsonWithAggregatesFilter.schema.ts
-const __makeSchema_JsonWithAggregatesFilter_schema = () => z.object({
-  equals: jsonSchema.optional(),
-  path: z.string().array().optional(),
-  mode: QueryModeSchema.optional(),
-  string_contains: z.string().optional(),
-  string_starts_with: z.string().optional(),
-  string_ends_with: z.string().optional(),
-  array_starts_with: jsonSchema.optional().nullable(),
-  array_ends_with: jsonSchema.optional().nullable(),
-  array_contains: jsonSchema.optional().nullable(),
-  lt: jsonSchema.optional(),
-  lte: jsonSchema.optional(),
-  gt: jsonSchema.optional(),
-  gte: jsonSchema.optional(),
-  not: jsonSchema.optional(),
-  _count: z.lazy(() => NestedIntFilterObjectSchema).optional(),
-  _min: z.lazy(() => NestedJsonFilterObjectSchema).optional(),
-  _max: z.lazy(() => NestedJsonFilterObjectSchema).optional()
-}).strict();
-export const JsonWithAggregatesFilterObjectSchema: z.ZodType<Prisma.JsonWithAggregatesFilter> = __makeSchema_JsonWithAggregatesFilter_schema() as unknown as z.ZodType<Prisma.JsonWithAggregatesFilter>;
-export const JsonWithAggregatesFilterObjectZodSchema = __makeSchema_JsonWithAggregatesFilter_schema();
 
 
 // File: FloatWithAggregatesFilter.schema.ts
@@ -3172,6 +4436,186 @@ export const UserUpdateOneWithoutCoverImageNestedInputObjectSchema: z.ZodType<Pr
 export const UserUpdateOneWithoutCoverImageNestedInputObjectZodSchema = __makeSchema_UserUpdateOneWithoutCoverImageNestedInput_schema();
 
 
+// File: ProjectCreateservicesInput.schema.ts
+const __makeSchema_ProjectCreateservicesInput_schema = () => z.object({
+  set: z.string().array()
+}).strict();
+export const ProjectCreateservicesInputObjectSchema: z.ZodType<Prisma.ProjectCreateservicesInput> = __makeSchema_ProjectCreateservicesInput_schema() as unknown as z.ZodType<Prisma.ProjectCreateservicesInput>;
+export const ProjectCreateservicesInputObjectZodSchema = __makeSchema_ProjectCreateservicesInput_schema();
+
+
+// File: ProjectCreatetechStackInput.schema.ts
+const __makeSchema_ProjectCreatetechStackInput_schema = () => z.object({
+  set: z.string().array()
+}).strict();
+export const ProjectCreatetechStackInputObjectSchema: z.ZodType<Prisma.ProjectCreatetechStackInput> = __makeSchema_ProjectCreatetechStackInput_schema() as unknown as z.ZodType<Prisma.ProjectCreatetechStackInput>;
+export const ProjectCreatetechStackInputObjectZodSchema = __makeSchema_ProjectCreatetechStackInput_schema();
+
+
+// File: ProjectCreategalleryInput.schema.ts
+const __makeSchema_ProjectCreategalleryInput_schema = () => z.object({
+  set: z.string().array()
+}).strict();
+export const ProjectCreategalleryInputObjectSchema: z.ZodType<Prisma.ProjectCreategalleryInput> = __makeSchema_ProjectCreategalleryInput_schema() as unknown as z.ZodType<Prisma.ProjectCreategalleryInput>;
+export const ProjectCreategalleryInputObjectZodSchema = __makeSchema_ProjectCreategalleryInput_schema();
+
+
+// File: ProjectCreatenotesInput.schema.ts
+const __makeSchema_ProjectCreatenotesInput_schema = () => z.object({
+  set: jsonSchema.array()
+}).strict();
+export const ProjectCreatenotesInputObjectSchema: z.ZodType<Prisma.ProjectCreatenotesInput> = __makeSchema_ProjectCreatenotesInput_schema() as unknown as z.ZodType<Prisma.ProjectCreatenotesInput>;
+export const ProjectCreatenotesInputObjectZodSchema = __makeSchema_ProjectCreatenotesInput_schema();
+
+
+// File: StudioMemberCreateNestedManyWithoutTeamOfInput.schema.ts
+const __makeSchema_StudioMemberCreateNestedManyWithoutTeamOfInput_schema = () => z.object({
+  create: z.union([z.lazy(() => StudioMemberCreateWithoutTeamOfInputObjectSchema), z.lazy(() => StudioMemberCreateWithoutTeamOfInputObjectSchema).array(), z.lazy(() => StudioMemberUncheckedCreateWithoutTeamOfInputObjectSchema), z.lazy(() => StudioMemberUncheckedCreateWithoutTeamOfInputObjectSchema).array()]).optional(),
+  connectOrCreate: z.union([z.lazy(() => StudioMemberCreateOrConnectWithoutTeamOfInputObjectSchema), z.lazy(() => StudioMemberCreateOrConnectWithoutTeamOfInputObjectSchema).array()]).optional(),
+  connect: z.union([z.lazy(() => StudioMemberWhereUniqueInputObjectSchema), z.lazy(() => StudioMemberWhereUniqueInputObjectSchema).array()]).optional()
+}).strict();
+export const StudioMemberCreateNestedManyWithoutTeamOfInputObjectSchema: z.ZodType<Prisma.StudioMemberCreateNestedManyWithoutTeamOfInput> = __makeSchema_StudioMemberCreateNestedManyWithoutTeamOfInput_schema() as unknown as z.ZodType<Prisma.StudioMemberCreateNestedManyWithoutTeamOfInput>;
+export const StudioMemberCreateNestedManyWithoutTeamOfInputObjectZodSchema = __makeSchema_StudioMemberCreateNestedManyWithoutTeamOfInput_schema();
+
+
+// File: StorySectionCreateNestedManyWithoutProjectInput.schema.ts
+const __makeSchema_StorySectionCreateNestedManyWithoutProjectInput_schema = () => z.object({
+  create: z.union([z.lazy(() => StorySectionCreateWithoutProjectInputObjectSchema), z.lazy(() => StorySectionCreateWithoutProjectInputObjectSchema).array(), z.lazy(() => StorySectionUncheckedCreateWithoutProjectInputObjectSchema), z.lazy(() => StorySectionUncheckedCreateWithoutProjectInputObjectSchema).array()]).optional(),
+  connectOrCreate: z.union([z.lazy(() => StorySectionCreateOrConnectWithoutProjectInputObjectSchema), z.lazy(() => StorySectionCreateOrConnectWithoutProjectInputObjectSchema).array()]).optional(),
+  createMany: z.lazy(() => StorySectionCreateManyProjectInputEnvelopeObjectSchema).optional(),
+  connect: z.union([z.lazy(() => StorySectionWhereUniqueInputObjectSchema), z.lazy(() => StorySectionWhereUniqueInputObjectSchema).array()]).optional()
+}).strict();
+export const StorySectionCreateNestedManyWithoutProjectInputObjectSchema: z.ZodType<Prisma.StorySectionCreateNestedManyWithoutProjectInput> = __makeSchema_StorySectionCreateNestedManyWithoutProjectInput_schema() as unknown as z.ZodType<Prisma.StorySectionCreateNestedManyWithoutProjectInput>;
+export const StorySectionCreateNestedManyWithoutProjectInputObjectZodSchema = __makeSchema_StorySectionCreateNestedManyWithoutProjectInput_schema();
+
+
+// File: StudioMemberUncheckedCreateNestedManyWithoutTeamOfInput.schema.ts
+const __makeSchema_StudioMemberUncheckedCreateNestedManyWithoutTeamOfInput_schema = () => z.object({
+  create: z.union([z.lazy(() => StudioMemberCreateWithoutTeamOfInputObjectSchema), z.lazy(() => StudioMemberCreateWithoutTeamOfInputObjectSchema).array(), z.lazy(() => StudioMemberUncheckedCreateWithoutTeamOfInputObjectSchema), z.lazy(() => StudioMemberUncheckedCreateWithoutTeamOfInputObjectSchema).array()]).optional(),
+  connectOrCreate: z.union([z.lazy(() => StudioMemberCreateOrConnectWithoutTeamOfInputObjectSchema), z.lazy(() => StudioMemberCreateOrConnectWithoutTeamOfInputObjectSchema).array()]).optional(),
+  connect: z.union([z.lazy(() => StudioMemberWhereUniqueInputObjectSchema), z.lazy(() => StudioMemberWhereUniqueInputObjectSchema).array()]).optional()
+}).strict();
+export const StudioMemberUncheckedCreateNestedManyWithoutTeamOfInputObjectSchema: z.ZodType<Prisma.StudioMemberUncheckedCreateNestedManyWithoutTeamOfInput> = __makeSchema_StudioMemberUncheckedCreateNestedManyWithoutTeamOfInput_schema() as unknown as z.ZodType<Prisma.StudioMemberUncheckedCreateNestedManyWithoutTeamOfInput>;
+export const StudioMemberUncheckedCreateNestedManyWithoutTeamOfInputObjectZodSchema = __makeSchema_StudioMemberUncheckedCreateNestedManyWithoutTeamOfInput_schema();
+
+
+// File: StorySectionUncheckedCreateNestedManyWithoutProjectInput.schema.ts
+const __makeSchema_StorySectionUncheckedCreateNestedManyWithoutProjectInput_schema = () => z.object({
+  create: z.union([z.lazy(() => StorySectionCreateWithoutProjectInputObjectSchema), z.lazy(() => StorySectionCreateWithoutProjectInputObjectSchema).array(), z.lazy(() => StorySectionUncheckedCreateWithoutProjectInputObjectSchema), z.lazy(() => StorySectionUncheckedCreateWithoutProjectInputObjectSchema).array()]).optional(),
+  connectOrCreate: z.union([z.lazy(() => StorySectionCreateOrConnectWithoutProjectInputObjectSchema), z.lazy(() => StorySectionCreateOrConnectWithoutProjectInputObjectSchema).array()]).optional(),
+  createMany: z.lazy(() => StorySectionCreateManyProjectInputEnvelopeObjectSchema).optional(),
+  connect: z.union([z.lazy(() => StorySectionWhereUniqueInputObjectSchema), z.lazy(() => StorySectionWhereUniqueInputObjectSchema).array()]).optional()
+}).strict();
+export const StorySectionUncheckedCreateNestedManyWithoutProjectInputObjectSchema: z.ZodType<Prisma.StorySectionUncheckedCreateNestedManyWithoutProjectInput> = __makeSchema_StorySectionUncheckedCreateNestedManyWithoutProjectInput_schema() as unknown as z.ZodType<Prisma.StorySectionUncheckedCreateNestedManyWithoutProjectInput>;
+export const StorySectionUncheckedCreateNestedManyWithoutProjectInputObjectZodSchema = __makeSchema_StorySectionUncheckedCreateNestedManyWithoutProjectInput_schema();
+
+
+// File: ProjectUpdateservicesInput.schema.ts
+const __makeSchema_ProjectUpdateservicesInput_schema = () => z.object({
+  set: z.string().array().optional(),
+  push: z.union([z.string(), z.string().array()]).optional()
+}).strict();
+export const ProjectUpdateservicesInputObjectSchema: z.ZodType<Prisma.ProjectUpdateservicesInput> = __makeSchema_ProjectUpdateservicesInput_schema() as unknown as z.ZodType<Prisma.ProjectUpdateservicesInput>;
+export const ProjectUpdateservicesInputObjectZodSchema = __makeSchema_ProjectUpdateservicesInput_schema();
+
+
+// File: ProjectUpdatetechStackInput.schema.ts
+const __makeSchema_ProjectUpdatetechStackInput_schema = () => z.object({
+  set: z.string().array().optional(),
+  push: z.union([z.string(), z.string().array()]).optional()
+}).strict();
+export const ProjectUpdatetechStackInputObjectSchema: z.ZodType<Prisma.ProjectUpdatetechStackInput> = __makeSchema_ProjectUpdatetechStackInput_schema() as unknown as z.ZodType<Prisma.ProjectUpdatetechStackInput>;
+export const ProjectUpdatetechStackInputObjectZodSchema = __makeSchema_ProjectUpdatetechStackInput_schema();
+
+
+// File: ProjectUpdategalleryInput.schema.ts
+const __makeSchema_ProjectUpdategalleryInput_schema = () => z.object({
+  set: z.string().array().optional(),
+  push: z.union([z.string(), z.string().array()]).optional()
+}).strict();
+export const ProjectUpdategalleryInputObjectSchema: z.ZodType<Prisma.ProjectUpdategalleryInput> = __makeSchema_ProjectUpdategalleryInput_schema() as unknown as z.ZodType<Prisma.ProjectUpdategalleryInput>;
+export const ProjectUpdategalleryInputObjectZodSchema = __makeSchema_ProjectUpdategalleryInput_schema();
+
+
+// File: ProjectUpdatenotesInput.schema.ts
+const __makeSchema_ProjectUpdatenotesInput_schema = () => z.object({
+  set: jsonSchema.array().optional(),
+  push: z.union([jsonSchema, jsonSchema.array()]).optional()
+}).strict();
+export const ProjectUpdatenotesInputObjectSchema: z.ZodType<Prisma.ProjectUpdatenotesInput> = __makeSchema_ProjectUpdatenotesInput_schema() as unknown as z.ZodType<Prisma.ProjectUpdatenotesInput>;
+export const ProjectUpdatenotesInputObjectZodSchema = __makeSchema_ProjectUpdatenotesInput_schema();
+
+
+// File: StudioMemberUpdateManyWithoutTeamOfNestedInput.schema.ts
+const __makeSchema_StudioMemberUpdateManyWithoutTeamOfNestedInput_schema = () => z.object({
+  create: z.union([z.lazy(() => StudioMemberCreateWithoutTeamOfInputObjectSchema), z.lazy(() => StudioMemberCreateWithoutTeamOfInputObjectSchema).array(), z.lazy(() => StudioMemberUncheckedCreateWithoutTeamOfInputObjectSchema), z.lazy(() => StudioMemberUncheckedCreateWithoutTeamOfInputObjectSchema).array()]).optional(),
+  connectOrCreate: z.union([z.lazy(() => StudioMemberCreateOrConnectWithoutTeamOfInputObjectSchema), z.lazy(() => StudioMemberCreateOrConnectWithoutTeamOfInputObjectSchema).array()]).optional(),
+  upsert: z.union([z.lazy(() => StudioMemberUpsertWithWhereUniqueWithoutTeamOfInputObjectSchema), z.lazy(() => StudioMemberUpsertWithWhereUniqueWithoutTeamOfInputObjectSchema).array()]).optional(),
+  set: z.union([z.lazy(() => StudioMemberWhereUniqueInputObjectSchema), z.lazy(() => StudioMemberWhereUniqueInputObjectSchema).array()]).optional(),
+  disconnect: z.union([z.lazy(() => StudioMemberWhereUniqueInputObjectSchema), z.lazy(() => StudioMemberWhereUniqueInputObjectSchema).array()]).optional(),
+  delete: z.union([z.lazy(() => StudioMemberWhereUniqueInputObjectSchema), z.lazy(() => StudioMemberWhereUniqueInputObjectSchema).array()]).optional(),
+  connect: z.union([z.lazy(() => StudioMemberWhereUniqueInputObjectSchema), z.lazy(() => StudioMemberWhereUniqueInputObjectSchema).array()]).optional(),
+  update: z.union([z.lazy(() => StudioMemberUpdateWithWhereUniqueWithoutTeamOfInputObjectSchema), z.lazy(() => StudioMemberUpdateWithWhereUniqueWithoutTeamOfInputObjectSchema).array()]).optional(),
+  updateMany: z.union([z.lazy(() => StudioMemberUpdateManyWithWhereWithoutTeamOfInputObjectSchema), z.lazy(() => StudioMemberUpdateManyWithWhereWithoutTeamOfInputObjectSchema).array()]).optional(),
+  deleteMany: z.union([z.lazy(() => StudioMemberScalarWhereInputObjectSchema), z.lazy(() => StudioMemberScalarWhereInputObjectSchema).array()]).optional()
+}).strict();
+export const StudioMemberUpdateManyWithoutTeamOfNestedInputObjectSchema: z.ZodType<Prisma.StudioMemberUpdateManyWithoutTeamOfNestedInput> = __makeSchema_StudioMemberUpdateManyWithoutTeamOfNestedInput_schema() as unknown as z.ZodType<Prisma.StudioMemberUpdateManyWithoutTeamOfNestedInput>;
+export const StudioMemberUpdateManyWithoutTeamOfNestedInputObjectZodSchema = __makeSchema_StudioMemberUpdateManyWithoutTeamOfNestedInput_schema();
+
+
+// File: StorySectionUpdateManyWithoutProjectNestedInput.schema.ts
+const __makeSchema_StorySectionUpdateManyWithoutProjectNestedInput_schema = () => z.object({
+  create: z.union([z.lazy(() => StorySectionCreateWithoutProjectInputObjectSchema), z.lazy(() => StorySectionCreateWithoutProjectInputObjectSchema).array(), z.lazy(() => StorySectionUncheckedCreateWithoutProjectInputObjectSchema), z.lazy(() => StorySectionUncheckedCreateWithoutProjectInputObjectSchema).array()]).optional(),
+  connectOrCreate: z.union([z.lazy(() => StorySectionCreateOrConnectWithoutProjectInputObjectSchema), z.lazy(() => StorySectionCreateOrConnectWithoutProjectInputObjectSchema).array()]).optional(),
+  upsert: z.union([z.lazy(() => StorySectionUpsertWithWhereUniqueWithoutProjectInputObjectSchema), z.lazy(() => StorySectionUpsertWithWhereUniqueWithoutProjectInputObjectSchema).array()]).optional(),
+  createMany: z.lazy(() => StorySectionCreateManyProjectInputEnvelopeObjectSchema).optional(),
+  set: z.union([z.lazy(() => StorySectionWhereUniqueInputObjectSchema), z.lazy(() => StorySectionWhereUniqueInputObjectSchema).array()]).optional(),
+  disconnect: z.union([z.lazy(() => StorySectionWhereUniqueInputObjectSchema), z.lazy(() => StorySectionWhereUniqueInputObjectSchema).array()]).optional(),
+  delete: z.union([z.lazy(() => StorySectionWhereUniqueInputObjectSchema), z.lazy(() => StorySectionWhereUniqueInputObjectSchema).array()]).optional(),
+  connect: z.union([z.lazy(() => StorySectionWhereUniqueInputObjectSchema), z.lazy(() => StorySectionWhereUniqueInputObjectSchema).array()]).optional(),
+  update: z.union([z.lazy(() => StorySectionUpdateWithWhereUniqueWithoutProjectInputObjectSchema), z.lazy(() => StorySectionUpdateWithWhereUniqueWithoutProjectInputObjectSchema).array()]).optional(),
+  updateMany: z.union([z.lazy(() => StorySectionUpdateManyWithWhereWithoutProjectInputObjectSchema), z.lazy(() => StorySectionUpdateManyWithWhereWithoutProjectInputObjectSchema).array()]).optional(),
+  deleteMany: z.union([z.lazy(() => StorySectionScalarWhereInputObjectSchema), z.lazy(() => StorySectionScalarWhereInputObjectSchema).array()]).optional()
+}).strict();
+export const StorySectionUpdateManyWithoutProjectNestedInputObjectSchema: z.ZodType<Prisma.StorySectionUpdateManyWithoutProjectNestedInput> = __makeSchema_StorySectionUpdateManyWithoutProjectNestedInput_schema() as unknown as z.ZodType<Prisma.StorySectionUpdateManyWithoutProjectNestedInput>;
+export const StorySectionUpdateManyWithoutProjectNestedInputObjectZodSchema = __makeSchema_StorySectionUpdateManyWithoutProjectNestedInput_schema();
+
+
+// File: StudioMemberUncheckedUpdateManyWithoutTeamOfNestedInput.schema.ts
+const __makeSchema_StudioMemberUncheckedUpdateManyWithoutTeamOfNestedInput_schema = () => z.object({
+  create: z.union([z.lazy(() => StudioMemberCreateWithoutTeamOfInputObjectSchema), z.lazy(() => StudioMemberCreateWithoutTeamOfInputObjectSchema).array(), z.lazy(() => StudioMemberUncheckedCreateWithoutTeamOfInputObjectSchema), z.lazy(() => StudioMemberUncheckedCreateWithoutTeamOfInputObjectSchema).array()]).optional(),
+  connectOrCreate: z.union([z.lazy(() => StudioMemberCreateOrConnectWithoutTeamOfInputObjectSchema), z.lazy(() => StudioMemberCreateOrConnectWithoutTeamOfInputObjectSchema).array()]).optional(),
+  upsert: z.union([z.lazy(() => StudioMemberUpsertWithWhereUniqueWithoutTeamOfInputObjectSchema), z.lazy(() => StudioMemberUpsertWithWhereUniqueWithoutTeamOfInputObjectSchema).array()]).optional(),
+  set: z.union([z.lazy(() => StudioMemberWhereUniqueInputObjectSchema), z.lazy(() => StudioMemberWhereUniqueInputObjectSchema).array()]).optional(),
+  disconnect: z.union([z.lazy(() => StudioMemberWhereUniqueInputObjectSchema), z.lazy(() => StudioMemberWhereUniqueInputObjectSchema).array()]).optional(),
+  delete: z.union([z.lazy(() => StudioMemberWhereUniqueInputObjectSchema), z.lazy(() => StudioMemberWhereUniqueInputObjectSchema).array()]).optional(),
+  connect: z.union([z.lazy(() => StudioMemberWhereUniqueInputObjectSchema), z.lazy(() => StudioMemberWhereUniqueInputObjectSchema).array()]).optional(),
+  update: z.union([z.lazy(() => StudioMemberUpdateWithWhereUniqueWithoutTeamOfInputObjectSchema), z.lazy(() => StudioMemberUpdateWithWhereUniqueWithoutTeamOfInputObjectSchema).array()]).optional(),
+  updateMany: z.union([z.lazy(() => StudioMemberUpdateManyWithWhereWithoutTeamOfInputObjectSchema), z.lazy(() => StudioMemberUpdateManyWithWhereWithoutTeamOfInputObjectSchema).array()]).optional(),
+  deleteMany: z.union([z.lazy(() => StudioMemberScalarWhereInputObjectSchema), z.lazy(() => StudioMemberScalarWhereInputObjectSchema).array()]).optional()
+}).strict();
+export const StudioMemberUncheckedUpdateManyWithoutTeamOfNestedInputObjectSchema: z.ZodType<Prisma.StudioMemberUncheckedUpdateManyWithoutTeamOfNestedInput> = __makeSchema_StudioMemberUncheckedUpdateManyWithoutTeamOfNestedInput_schema() as unknown as z.ZodType<Prisma.StudioMemberUncheckedUpdateManyWithoutTeamOfNestedInput>;
+export const StudioMemberUncheckedUpdateManyWithoutTeamOfNestedInputObjectZodSchema = __makeSchema_StudioMemberUncheckedUpdateManyWithoutTeamOfNestedInput_schema();
+
+
+// File: StorySectionUncheckedUpdateManyWithoutProjectNestedInput.schema.ts
+const __makeSchema_StorySectionUncheckedUpdateManyWithoutProjectNestedInput_schema = () => z.object({
+  create: z.union([z.lazy(() => StorySectionCreateWithoutProjectInputObjectSchema), z.lazy(() => StorySectionCreateWithoutProjectInputObjectSchema).array(), z.lazy(() => StorySectionUncheckedCreateWithoutProjectInputObjectSchema), z.lazy(() => StorySectionUncheckedCreateWithoutProjectInputObjectSchema).array()]).optional(),
+  connectOrCreate: z.union([z.lazy(() => StorySectionCreateOrConnectWithoutProjectInputObjectSchema), z.lazy(() => StorySectionCreateOrConnectWithoutProjectInputObjectSchema).array()]).optional(),
+  upsert: z.union([z.lazy(() => StorySectionUpsertWithWhereUniqueWithoutProjectInputObjectSchema), z.lazy(() => StorySectionUpsertWithWhereUniqueWithoutProjectInputObjectSchema).array()]).optional(),
+  createMany: z.lazy(() => StorySectionCreateManyProjectInputEnvelopeObjectSchema).optional(),
+  set: z.union([z.lazy(() => StorySectionWhereUniqueInputObjectSchema), z.lazy(() => StorySectionWhereUniqueInputObjectSchema).array()]).optional(),
+  disconnect: z.union([z.lazy(() => StorySectionWhereUniqueInputObjectSchema), z.lazy(() => StorySectionWhereUniqueInputObjectSchema).array()]).optional(),
+  delete: z.union([z.lazy(() => StorySectionWhereUniqueInputObjectSchema), z.lazy(() => StorySectionWhereUniqueInputObjectSchema).array()]).optional(),
+  connect: z.union([z.lazy(() => StorySectionWhereUniqueInputObjectSchema), z.lazy(() => StorySectionWhereUniqueInputObjectSchema).array()]).optional(),
+  update: z.union([z.lazy(() => StorySectionUpdateWithWhereUniqueWithoutProjectInputObjectSchema), z.lazy(() => StorySectionUpdateWithWhereUniqueWithoutProjectInputObjectSchema).array()]).optional(),
+  updateMany: z.union([z.lazy(() => StorySectionUpdateManyWithWhereWithoutProjectInputObjectSchema), z.lazy(() => StorySectionUpdateManyWithWhereWithoutProjectInputObjectSchema).array()]).optional(),
+  deleteMany: z.union([z.lazy(() => StorySectionScalarWhereInputObjectSchema), z.lazy(() => StorySectionScalarWhereInputObjectSchema).array()]).optional()
+}).strict();
+export const StorySectionUncheckedUpdateManyWithoutProjectNestedInputObjectSchema: z.ZodType<Prisma.StorySectionUncheckedUpdateManyWithoutProjectNestedInput> = __makeSchema_StorySectionUncheckedUpdateManyWithoutProjectNestedInput_schema() as unknown as z.ZodType<Prisma.StorySectionUncheckedUpdateManyWithoutProjectNestedInput>;
+export const StorySectionUncheckedUpdateManyWithoutProjectNestedInputObjectZodSchema = __makeSchema_StorySectionUncheckedUpdateManyWithoutProjectNestedInput_schema();
+
+
 // File: UserCreateNestedOneWithoutSessionsInput.schema.ts
 const __makeSchema_UserCreateNestedOneWithoutSessionsInput_schema = () => z.object({
   create: z.union([z.lazy(() => UserCreateWithoutSessionsInputObjectSchema), z.lazy(() => UserUncheckedCreateWithoutSessionsInputObjectSchema)]).optional(),
@@ -3354,6 +4798,154 @@ export const SiteVisitorUpdateOneRequiredWithoutDailyVisitsNestedInputObjectSche
 export const SiteVisitorUpdateOneRequiredWithoutDailyVisitsNestedInputObjectZodSchema = __makeSchema_SiteVisitorUpdateOneRequiredWithoutDailyVisitsNestedInput_schema();
 
 
+// File: StoryBlockCreatelogosInput.schema.ts
+const __makeSchema_StoryBlockCreatelogosInput_schema = () => z.object({
+  set: z.string().array()
+}).strict();
+export const StoryBlockCreatelogosInputObjectSchema: z.ZodType<Prisma.StoryBlockCreatelogosInput> = __makeSchema_StoryBlockCreatelogosInput_schema() as unknown as z.ZodType<Prisma.StoryBlockCreatelogosInput>;
+export const StoryBlockCreatelogosInputObjectZodSchema = __makeSchema_StoryBlockCreatelogosInput_schema();
+
+
+// File: StorySectionCreateNestedOneWithoutBlocksInput.schema.ts
+const __makeSchema_StorySectionCreateNestedOneWithoutBlocksInput_schema = () => z.object({
+  create: z.union([z.lazy(() => StorySectionCreateWithoutBlocksInputObjectSchema), z.lazy(() => StorySectionUncheckedCreateWithoutBlocksInputObjectSchema)]).optional(),
+  connectOrCreate: z.lazy(() => StorySectionCreateOrConnectWithoutBlocksInputObjectSchema).optional(),
+  connect: z.lazy(() => StorySectionWhereUniqueInputObjectSchema).optional()
+}).strict();
+export const StorySectionCreateNestedOneWithoutBlocksInputObjectSchema: z.ZodType<Prisma.StorySectionCreateNestedOneWithoutBlocksInput> = __makeSchema_StorySectionCreateNestedOneWithoutBlocksInput_schema() as unknown as z.ZodType<Prisma.StorySectionCreateNestedOneWithoutBlocksInput>;
+export const StorySectionCreateNestedOneWithoutBlocksInputObjectZodSchema = __makeSchema_StorySectionCreateNestedOneWithoutBlocksInput_schema();
+
+
+// File: StoryBlockUpdatelogosInput.schema.ts
+const __makeSchema_StoryBlockUpdatelogosInput_schema = () => z.object({
+  set: z.string().array().optional(),
+  push: z.union([z.string(), z.string().array()]).optional()
+}).strict();
+export const StoryBlockUpdatelogosInputObjectSchema: z.ZodType<Prisma.StoryBlockUpdatelogosInput> = __makeSchema_StoryBlockUpdatelogosInput_schema() as unknown as z.ZodType<Prisma.StoryBlockUpdatelogosInput>;
+export const StoryBlockUpdatelogosInputObjectZodSchema = __makeSchema_StoryBlockUpdatelogosInput_schema();
+
+
+// File: NullableIntFieldUpdateOperationsInput.schema.ts
+const __makeSchema_NullableIntFieldUpdateOperationsInput_schema = () => z.object({
+  set: z.number().int().optional(),
+  increment: z.number().int().optional(),
+  decrement: z.number().int().optional(),
+  multiply: z.number().int().optional(),
+  divide: z.number().int().optional()
+}).strict();
+export const NullableIntFieldUpdateOperationsInputObjectSchema: z.ZodType<Prisma.NullableIntFieldUpdateOperationsInput> = __makeSchema_NullableIntFieldUpdateOperationsInput_schema() as unknown as z.ZodType<Prisma.NullableIntFieldUpdateOperationsInput>;
+export const NullableIntFieldUpdateOperationsInputObjectZodSchema = __makeSchema_NullableIntFieldUpdateOperationsInput_schema();
+
+
+// File: StorySectionUpdateOneRequiredWithoutBlocksNestedInput.schema.ts
+const __makeSchema_StorySectionUpdateOneRequiredWithoutBlocksNestedInput_schema = () => z.object({
+  create: z.union([z.lazy(() => StorySectionCreateWithoutBlocksInputObjectSchema), z.lazy(() => StorySectionUncheckedCreateWithoutBlocksInputObjectSchema)]).optional(),
+  connectOrCreate: z.lazy(() => StorySectionCreateOrConnectWithoutBlocksInputObjectSchema).optional(),
+  upsert: z.lazy(() => StorySectionUpsertWithoutBlocksInputObjectSchema).optional(),
+  connect: z.lazy(() => StorySectionWhereUniqueInputObjectSchema).optional(),
+  update: z.union([z.lazy(() => StorySectionUpdateToOneWithWhereWithoutBlocksInputObjectSchema), z.lazy(() => StorySectionUpdateWithoutBlocksInputObjectSchema), z.lazy(() => StorySectionUncheckedUpdateWithoutBlocksInputObjectSchema)]).optional()
+}).strict();
+export const StorySectionUpdateOneRequiredWithoutBlocksNestedInputObjectSchema: z.ZodType<Prisma.StorySectionUpdateOneRequiredWithoutBlocksNestedInput> = __makeSchema_StorySectionUpdateOneRequiredWithoutBlocksNestedInput_schema() as unknown as z.ZodType<Prisma.StorySectionUpdateOneRequiredWithoutBlocksNestedInput>;
+export const StorySectionUpdateOneRequiredWithoutBlocksNestedInputObjectZodSchema = __makeSchema_StorySectionUpdateOneRequiredWithoutBlocksNestedInput_schema();
+
+
+// File: StorySectionCreatebyInput.schema.ts
+const __makeSchema_StorySectionCreatebyInput_schema = () => z.object({
+  set: z.string().array()
+}).strict();
+export const StorySectionCreatebyInputObjectSchema: z.ZodType<Prisma.StorySectionCreatebyInput> = __makeSchema_StorySectionCreatebyInput_schema() as unknown as z.ZodType<Prisma.StorySectionCreatebyInput>;
+export const StorySectionCreatebyInputObjectZodSchema = __makeSchema_StorySectionCreatebyInput_schema();
+
+
+// File: ProjectCreateNestedOneWithoutStoryInput.schema.ts
+const __makeSchema_ProjectCreateNestedOneWithoutStoryInput_schema = () => z.object({
+  create: z.union([z.lazy(() => ProjectCreateWithoutStoryInputObjectSchema), z.lazy(() => ProjectUncheckedCreateWithoutStoryInputObjectSchema)]).optional(),
+  connectOrCreate: z.lazy(() => ProjectCreateOrConnectWithoutStoryInputObjectSchema).optional(),
+  connect: z.lazy(() => ProjectWhereUniqueInputObjectSchema).optional()
+}).strict();
+export const ProjectCreateNestedOneWithoutStoryInputObjectSchema: z.ZodType<Prisma.ProjectCreateNestedOneWithoutStoryInput> = __makeSchema_ProjectCreateNestedOneWithoutStoryInput_schema() as unknown as z.ZodType<Prisma.ProjectCreateNestedOneWithoutStoryInput>;
+export const ProjectCreateNestedOneWithoutStoryInputObjectZodSchema = __makeSchema_ProjectCreateNestedOneWithoutStoryInput_schema();
+
+
+// File: StoryBlockCreateNestedManyWithoutSectionInput.schema.ts
+const __makeSchema_StoryBlockCreateNestedManyWithoutSectionInput_schema = () => z.object({
+  create: z.union([z.lazy(() => StoryBlockCreateWithoutSectionInputObjectSchema), z.lazy(() => StoryBlockCreateWithoutSectionInputObjectSchema).array(), z.lazy(() => StoryBlockUncheckedCreateWithoutSectionInputObjectSchema), z.lazy(() => StoryBlockUncheckedCreateWithoutSectionInputObjectSchema).array()]).optional(),
+  connectOrCreate: z.union([z.lazy(() => StoryBlockCreateOrConnectWithoutSectionInputObjectSchema), z.lazy(() => StoryBlockCreateOrConnectWithoutSectionInputObjectSchema).array()]).optional(),
+  createMany: z.lazy(() => StoryBlockCreateManySectionInputEnvelopeObjectSchema).optional(),
+  connect: z.union([z.lazy(() => StoryBlockWhereUniqueInputObjectSchema), z.lazy(() => StoryBlockWhereUniqueInputObjectSchema).array()]).optional()
+}).strict();
+export const StoryBlockCreateNestedManyWithoutSectionInputObjectSchema: z.ZodType<Prisma.StoryBlockCreateNestedManyWithoutSectionInput> = __makeSchema_StoryBlockCreateNestedManyWithoutSectionInput_schema() as unknown as z.ZodType<Prisma.StoryBlockCreateNestedManyWithoutSectionInput>;
+export const StoryBlockCreateNestedManyWithoutSectionInputObjectZodSchema = __makeSchema_StoryBlockCreateNestedManyWithoutSectionInput_schema();
+
+
+// File: StoryBlockUncheckedCreateNestedManyWithoutSectionInput.schema.ts
+const __makeSchema_StoryBlockUncheckedCreateNestedManyWithoutSectionInput_schema = () => z.object({
+  create: z.union([z.lazy(() => StoryBlockCreateWithoutSectionInputObjectSchema), z.lazy(() => StoryBlockCreateWithoutSectionInputObjectSchema).array(), z.lazy(() => StoryBlockUncheckedCreateWithoutSectionInputObjectSchema), z.lazy(() => StoryBlockUncheckedCreateWithoutSectionInputObjectSchema).array()]).optional(),
+  connectOrCreate: z.union([z.lazy(() => StoryBlockCreateOrConnectWithoutSectionInputObjectSchema), z.lazy(() => StoryBlockCreateOrConnectWithoutSectionInputObjectSchema).array()]).optional(),
+  createMany: z.lazy(() => StoryBlockCreateManySectionInputEnvelopeObjectSchema).optional(),
+  connect: z.union([z.lazy(() => StoryBlockWhereUniqueInputObjectSchema), z.lazy(() => StoryBlockWhereUniqueInputObjectSchema).array()]).optional()
+}).strict();
+export const StoryBlockUncheckedCreateNestedManyWithoutSectionInputObjectSchema: z.ZodType<Prisma.StoryBlockUncheckedCreateNestedManyWithoutSectionInput> = __makeSchema_StoryBlockUncheckedCreateNestedManyWithoutSectionInput_schema() as unknown as z.ZodType<Prisma.StoryBlockUncheckedCreateNestedManyWithoutSectionInput>;
+export const StoryBlockUncheckedCreateNestedManyWithoutSectionInputObjectZodSchema = __makeSchema_StoryBlockUncheckedCreateNestedManyWithoutSectionInput_schema();
+
+
+// File: StorySectionUpdatebyInput.schema.ts
+const __makeSchema_StorySectionUpdatebyInput_schema = () => z.object({
+  set: z.string().array().optional(),
+  push: z.union([z.string(), z.string().array()]).optional()
+}).strict();
+export const StorySectionUpdatebyInputObjectSchema: z.ZodType<Prisma.StorySectionUpdatebyInput> = __makeSchema_StorySectionUpdatebyInput_schema() as unknown as z.ZodType<Prisma.StorySectionUpdatebyInput>;
+export const StorySectionUpdatebyInputObjectZodSchema = __makeSchema_StorySectionUpdatebyInput_schema();
+
+
+// File: ProjectUpdateOneRequiredWithoutStoryNestedInput.schema.ts
+const __makeSchema_ProjectUpdateOneRequiredWithoutStoryNestedInput_schema = () => z.object({
+  create: z.union([z.lazy(() => ProjectCreateWithoutStoryInputObjectSchema), z.lazy(() => ProjectUncheckedCreateWithoutStoryInputObjectSchema)]).optional(),
+  connectOrCreate: z.lazy(() => ProjectCreateOrConnectWithoutStoryInputObjectSchema).optional(),
+  upsert: z.lazy(() => ProjectUpsertWithoutStoryInputObjectSchema).optional(),
+  connect: z.lazy(() => ProjectWhereUniqueInputObjectSchema).optional(),
+  update: z.union([z.lazy(() => ProjectUpdateToOneWithWhereWithoutStoryInputObjectSchema), z.lazy(() => ProjectUpdateWithoutStoryInputObjectSchema), z.lazy(() => ProjectUncheckedUpdateWithoutStoryInputObjectSchema)]).optional()
+}).strict();
+export const ProjectUpdateOneRequiredWithoutStoryNestedInputObjectSchema: z.ZodType<Prisma.ProjectUpdateOneRequiredWithoutStoryNestedInput> = __makeSchema_ProjectUpdateOneRequiredWithoutStoryNestedInput_schema() as unknown as z.ZodType<Prisma.ProjectUpdateOneRequiredWithoutStoryNestedInput>;
+export const ProjectUpdateOneRequiredWithoutStoryNestedInputObjectZodSchema = __makeSchema_ProjectUpdateOneRequiredWithoutStoryNestedInput_schema();
+
+
+// File: StoryBlockUpdateManyWithoutSectionNestedInput.schema.ts
+const __makeSchema_StoryBlockUpdateManyWithoutSectionNestedInput_schema = () => z.object({
+  create: z.union([z.lazy(() => StoryBlockCreateWithoutSectionInputObjectSchema), z.lazy(() => StoryBlockCreateWithoutSectionInputObjectSchema).array(), z.lazy(() => StoryBlockUncheckedCreateWithoutSectionInputObjectSchema), z.lazy(() => StoryBlockUncheckedCreateWithoutSectionInputObjectSchema).array()]).optional(),
+  connectOrCreate: z.union([z.lazy(() => StoryBlockCreateOrConnectWithoutSectionInputObjectSchema), z.lazy(() => StoryBlockCreateOrConnectWithoutSectionInputObjectSchema).array()]).optional(),
+  upsert: z.union([z.lazy(() => StoryBlockUpsertWithWhereUniqueWithoutSectionInputObjectSchema), z.lazy(() => StoryBlockUpsertWithWhereUniqueWithoutSectionInputObjectSchema).array()]).optional(),
+  createMany: z.lazy(() => StoryBlockCreateManySectionInputEnvelopeObjectSchema).optional(),
+  set: z.union([z.lazy(() => StoryBlockWhereUniqueInputObjectSchema), z.lazy(() => StoryBlockWhereUniqueInputObjectSchema).array()]).optional(),
+  disconnect: z.union([z.lazy(() => StoryBlockWhereUniqueInputObjectSchema), z.lazy(() => StoryBlockWhereUniqueInputObjectSchema).array()]).optional(),
+  delete: z.union([z.lazy(() => StoryBlockWhereUniqueInputObjectSchema), z.lazy(() => StoryBlockWhereUniqueInputObjectSchema).array()]).optional(),
+  connect: z.union([z.lazy(() => StoryBlockWhereUniqueInputObjectSchema), z.lazy(() => StoryBlockWhereUniqueInputObjectSchema).array()]).optional(),
+  update: z.union([z.lazy(() => StoryBlockUpdateWithWhereUniqueWithoutSectionInputObjectSchema), z.lazy(() => StoryBlockUpdateWithWhereUniqueWithoutSectionInputObjectSchema).array()]).optional(),
+  updateMany: z.union([z.lazy(() => StoryBlockUpdateManyWithWhereWithoutSectionInputObjectSchema), z.lazy(() => StoryBlockUpdateManyWithWhereWithoutSectionInputObjectSchema).array()]).optional(),
+  deleteMany: z.union([z.lazy(() => StoryBlockScalarWhereInputObjectSchema), z.lazy(() => StoryBlockScalarWhereInputObjectSchema).array()]).optional()
+}).strict();
+export const StoryBlockUpdateManyWithoutSectionNestedInputObjectSchema: z.ZodType<Prisma.StoryBlockUpdateManyWithoutSectionNestedInput> = __makeSchema_StoryBlockUpdateManyWithoutSectionNestedInput_schema() as unknown as z.ZodType<Prisma.StoryBlockUpdateManyWithoutSectionNestedInput>;
+export const StoryBlockUpdateManyWithoutSectionNestedInputObjectZodSchema = __makeSchema_StoryBlockUpdateManyWithoutSectionNestedInput_schema();
+
+
+// File: StoryBlockUncheckedUpdateManyWithoutSectionNestedInput.schema.ts
+const __makeSchema_StoryBlockUncheckedUpdateManyWithoutSectionNestedInput_schema = () => z.object({
+  create: z.union([z.lazy(() => StoryBlockCreateWithoutSectionInputObjectSchema), z.lazy(() => StoryBlockCreateWithoutSectionInputObjectSchema).array(), z.lazy(() => StoryBlockUncheckedCreateWithoutSectionInputObjectSchema), z.lazy(() => StoryBlockUncheckedCreateWithoutSectionInputObjectSchema).array()]).optional(),
+  connectOrCreate: z.union([z.lazy(() => StoryBlockCreateOrConnectWithoutSectionInputObjectSchema), z.lazy(() => StoryBlockCreateOrConnectWithoutSectionInputObjectSchema).array()]).optional(),
+  upsert: z.union([z.lazy(() => StoryBlockUpsertWithWhereUniqueWithoutSectionInputObjectSchema), z.lazy(() => StoryBlockUpsertWithWhereUniqueWithoutSectionInputObjectSchema).array()]).optional(),
+  createMany: z.lazy(() => StoryBlockCreateManySectionInputEnvelopeObjectSchema).optional(),
+  set: z.union([z.lazy(() => StoryBlockWhereUniqueInputObjectSchema), z.lazy(() => StoryBlockWhereUniqueInputObjectSchema).array()]).optional(),
+  disconnect: z.union([z.lazy(() => StoryBlockWhereUniqueInputObjectSchema), z.lazy(() => StoryBlockWhereUniqueInputObjectSchema).array()]).optional(),
+  delete: z.union([z.lazy(() => StoryBlockWhereUniqueInputObjectSchema), z.lazy(() => StoryBlockWhereUniqueInputObjectSchema).array()]).optional(),
+  connect: z.union([z.lazy(() => StoryBlockWhereUniqueInputObjectSchema), z.lazy(() => StoryBlockWhereUniqueInputObjectSchema).array()]).optional(),
+  update: z.union([z.lazy(() => StoryBlockUpdateWithWhereUniqueWithoutSectionInputObjectSchema), z.lazy(() => StoryBlockUpdateWithWhereUniqueWithoutSectionInputObjectSchema).array()]).optional(),
+  updateMany: z.union([z.lazy(() => StoryBlockUpdateManyWithWhereWithoutSectionInputObjectSchema), z.lazy(() => StoryBlockUpdateManyWithWhereWithoutSectionInputObjectSchema).array()]).optional(),
+  deleteMany: z.union([z.lazy(() => StoryBlockScalarWhereInputObjectSchema), z.lazy(() => StoryBlockScalarWhereInputObjectSchema).array()]).optional()
+}).strict();
+export const StoryBlockUncheckedUpdateManyWithoutSectionNestedInputObjectSchema: z.ZodType<Prisma.StoryBlockUncheckedUpdateManyWithoutSectionNestedInput> = __makeSchema_StoryBlockUncheckedUpdateManyWithoutSectionNestedInput_schema() as unknown as z.ZodType<Prisma.StoryBlockUncheckedUpdateManyWithoutSectionNestedInput>;
+export const StoryBlockUncheckedUpdateManyWithoutSectionNestedInputObjectZodSchema = __makeSchema_StoryBlockUncheckedUpdateManyWithoutSectionNestedInput_schema();
+
+
 // File: StudioMemberCreaterotationInput.schema.ts
 const __makeSchema_StudioMemberCreaterotationInput_schema = () => z.object({
   set: z.number().array()
@@ -3368,6 +4960,26 @@ const __makeSchema_StudioMemberCreateprojectsInput_schema = () => z.object({
 }).strict();
 export const StudioMemberCreateprojectsInputObjectSchema: z.ZodType<Prisma.StudioMemberCreateprojectsInput> = __makeSchema_StudioMemberCreateprojectsInput_schema() as unknown as z.ZodType<Prisma.StudioMemberCreateprojectsInput>;
 export const StudioMemberCreateprojectsInputObjectZodSchema = __makeSchema_StudioMemberCreateprojectsInput_schema();
+
+
+// File: ProjectCreateNestedManyWithoutTeamInput.schema.ts
+const __makeSchema_ProjectCreateNestedManyWithoutTeamInput_schema = () => z.object({
+  create: z.union([z.lazy(() => ProjectCreateWithoutTeamInputObjectSchema), z.lazy(() => ProjectCreateWithoutTeamInputObjectSchema).array(), z.lazy(() => ProjectUncheckedCreateWithoutTeamInputObjectSchema), z.lazy(() => ProjectUncheckedCreateWithoutTeamInputObjectSchema).array()]).optional(),
+  connectOrCreate: z.union([z.lazy(() => ProjectCreateOrConnectWithoutTeamInputObjectSchema), z.lazy(() => ProjectCreateOrConnectWithoutTeamInputObjectSchema).array()]).optional(),
+  connect: z.union([z.lazy(() => ProjectWhereUniqueInputObjectSchema), z.lazy(() => ProjectWhereUniqueInputObjectSchema).array()]).optional()
+}).strict();
+export const ProjectCreateNestedManyWithoutTeamInputObjectSchema: z.ZodType<Prisma.ProjectCreateNestedManyWithoutTeamInput> = __makeSchema_ProjectCreateNestedManyWithoutTeamInput_schema() as unknown as z.ZodType<Prisma.ProjectCreateNestedManyWithoutTeamInput>;
+export const ProjectCreateNestedManyWithoutTeamInputObjectZodSchema = __makeSchema_ProjectCreateNestedManyWithoutTeamInput_schema();
+
+
+// File: ProjectUncheckedCreateNestedManyWithoutTeamInput.schema.ts
+const __makeSchema_ProjectUncheckedCreateNestedManyWithoutTeamInput_schema = () => z.object({
+  create: z.union([z.lazy(() => ProjectCreateWithoutTeamInputObjectSchema), z.lazy(() => ProjectCreateWithoutTeamInputObjectSchema).array(), z.lazy(() => ProjectUncheckedCreateWithoutTeamInputObjectSchema), z.lazy(() => ProjectUncheckedCreateWithoutTeamInputObjectSchema).array()]).optional(),
+  connectOrCreate: z.union([z.lazy(() => ProjectCreateOrConnectWithoutTeamInputObjectSchema), z.lazy(() => ProjectCreateOrConnectWithoutTeamInputObjectSchema).array()]).optional(),
+  connect: z.union([z.lazy(() => ProjectWhereUniqueInputObjectSchema), z.lazy(() => ProjectWhereUniqueInputObjectSchema).array()]).optional()
+}).strict();
+export const ProjectUncheckedCreateNestedManyWithoutTeamInputObjectSchema: z.ZodType<Prisma.ProjectUncheckedCreateNestedManyWithoutTeamInput> = __makeSchema_ProjectUncheckedCreateNestedManyWithoutTeamInput_schema() as unknown as z.ZodType<Prisma.ProjectUncheckedCreateNestedManyWithoutTeamInput>;
+export const ProjectUncheckedCreateNestedManyWithoutTeamInputObjectZodSchema = __makeSchema_ProjectUncheckedCreateNestedManyWithoutTeamInput_schema();
 
 
 // File: FloatFieldUpdateOperationsInput.schema.ts
@@ -3406,6 +5018,40 @@ const __makeSchema_BoolFieldUpdateOperationsInput_schema = () => z.object({
 }).strict();
 export const BoolFieldUpdateOperationsInputObjectSchema: z.ZodType<Prisma.BoolFieldUpdateOperationsInput> = __makeSchema_BoolFieldUpdateOperationsInput_schema() as unknown as z.ZodType<Prisma.BoolFieldUpdateOperationsInput>;
 export const BoolFieldUpdateOperationsInputObjectZodSchema = __makeSchema_BoolFieldUpdateOperationsInput_schema();
+
+
+// File: ProjectUpdateManyWithoutTeamNestedInput.schema.ts
+const __makeSchema_ProjectUpdateManyWithoutTeamNestedInput_schema = () => z.object({
+  create: z.union([z.lazy(() => ProjectCreateWithoutTeamInputObjectSchema), z.lazy(() => ProjectCreateWithoutTeamInputObjectSchema).array(), z.lazy(() => ProjectUncheckedCreateWithoutTeamInputObjectSchema), z.lazy(() => ProjectUncheckedCreateWithoutTeamInputObjectSchema).array()]).optional(),
+  connectOrCreate: z.union([z.lazy(() => ProjectCreateOrConnectWithoutTeamInputObjectSchema), z.lazy(() => ProjectCreateOrConnectWithoutTeamInputObjectSchema).array()]).optional(),
+  upsert: z.union([z.lazy(() => ProjectUpsertWithWhereUniqueWithoutTeamInputObjectSchema), z.lazy(() => ProjectUpsertWithWhereUniqueWithoutTeamInputObjectSchema).array()]).optional(),
+  set: z.union([z.lazy(() => ProjectWhereUniqueInputObjectSchema), z.lazy(() => ProjectWhereUniqueInputObjectSchema).array()]).optional(),
+  disconnect: z.union([z.lazy(() => ProjectWhereUniqueInputObjectSchema), z.lazy(() => ProjectWhereUniqueInputObjectSchema).array()]).optional(),
+  delete: z.union([z.lazy(() => ProjectWhereUniqueInputObjectSchema), z.lazy(() => ProjectWhereUniqueInputObjectSchema).array()]).optional(),
+  connect: z.union([z.lazy(() => ProjectWhereUniqueInputObjectSchema), z.lazy(() => ProjectWhereUniqueInputObjectSchema).array()]).optional(),
+  update: z.union([z.lazy(() => ProjectUpdateWithWhereUniqueWithoutTeamInputObjectSchema), z.lazy(() => ProjectUpdateWithWhereUniqueWithoutTeamInputObjectSchema).array()]).optional(),
+  updateMany: z.union([z.lazy(() => ProjectUpdateManyWithWhereWithoutTeamInputObjectSchema), z.lazy(() => ProjectUpdateManyWithWhereWithoutTeamInputObjectSchema).array()]).optional(),
+  deleteMany: z.union([z.lazy(() => ProjectScalarWhereInputObjectSchema), z.lazy(() => ProjectScalarWhereInputObjectSchema).array()]).optional()
+}).strict();
+export const ProjectUpdateManyWithoutTeamNestedInputObjectSchema: z.ZodType<Prisma.ProjectUpdateManyWithoutTeamNestedInput> = __makeSchema_ProjectUpdateManyWithoutTeamNestedInput_schema() as unknown as z.ZodType<Prisma.ProjectUpdateManyWithoutTeamNestedInput>;
+export const ProjectUpdateManyWithoutTeamNestedInputObjectZodSchema = __makeSchema_ProjectUpdateManyWithoutTeamNestedInput_schema();
+
+
+// File: ProjectUncheckedUpdateManyWithoutTeamNestedInput.schema.ts
+const __makeSchema_ProjectUncheckedUpdateManyWithoutTeamNestedInput_schema = () => z.object({
+  create: z.union([z.lazy(() => ProjectCreateWithoutTeamInputObjectSchema), z.lazy(() => ProjectCreateWithoutTeamInputObjectSchema).array(), z.lazy(() => ProjectUncheckedCreateWithoutTeamInputObjectSchema), z.lazy(() => ProjectUncheckedCreateWithoutTeamInputObjectSchema).array()]).optional(),
+  connectOrCreate: z.union([z.lazy(() => ProjectCreateOrConnectWithoutTeamInputObjectSchema), z.lazy(() => ProjectCreateOrConnectWithoutTeamInputObjectSchema).array()]).optional(),
+  upsert: z.union([z.lazy(() => ProjectUpsertWithWhereUniqueWithoutTeamInputObjectSchema), z.lazy(() => ProjectUpsertWithWhereUniqueWithoutTeamInputObjectSchema).array()]).optional(),
+  set: z.union([z.lazy(() => ProjectWhereUniqueInputObjectSchema), z.lazy(() => ProjectWhereUniqueInputObjectSchema).array()]).optional(),
+  disconnect: z.union([z.lazy(() => ProjectWhereUniqueInputObjectSchema), z.lazy(() => ProjectWhereUniqueInputObjectSchema).array()]).optional(),
+  delete: z.union([z.lazy(() => ProjectWhereUniqueInputObjectSchema), z.lazy(() => ProjectWhereUniqueInputObjectSchema).array()]).optional(),
+  connect: z.union([z.lazy(() => ProjectWhereUniqueInputObjectSchema), z.lazy(() => ProjectWhereUniqueInputObjectSchema).array()]).optional(),
+  update: z.union([z.lazy(() => ProjectUpdateWithWhereUniqueWithoutTeamInputObjectSchema), z.lazy(() => ProjectUpdateWithWhereUniqueWithoutTeamInputObjectSchema).array()]).optional(),
+  updateMany: z.union([z.lazy(() => ProjectUpdateManyWithWhereWithoutTeamInputObjectSchema), z.lazy(() => ProjectUpdateManyWithWhereWithoutTeamInputObjectSchema).array()]).optional(),
+  deleteMany: z.union([z.lazy(() => ProjectScalarWhereInputObjectSchema), z.lazy(() => ProjectScalarWhereInputObjectSchema).array()]).optional()
+}).strict();
+export const ProjectUncheckedUpdateManyWithoutTeamNestedInputObjectSchema: z.ZodType<Prisma.ProjectUncheckedUpdateManyWithoutTeamNestedInput> = __makeSchema_ProjectUncheckedUpdateManyWithoutTeamNestedInput_schema() as unknown as z.ZodType<Prisma.ProjectUncheckedUpdateManyWithoutTeamNestedInput>;
+export const ProjectUncheckedUpdateManyWithoutTeamNestedInputObjectZodSchema = __makeSchema_ProjectUncheckedUpdateManyWithoutTeamNestedInput_schema();
 
 
 // File: MediaCreateNestedOneWithoutAvatarUserInput.schema.ts
@@ -3864,17 +5510,6 @@ export const NestedFloatFilterObjectSchema: z.ZodType<Prisma.NestedFloatFilter> 
 export const NestedFloatFilterObjectZodSchema = nestedfloatfilterSchema;
 
 
-// File: NestedBoolFilter.schema.ts
-
-
-const nestedboolfilterSchema = z.object({
-  equals: z.boolean().optional(),
-  not: z.union([z.boolean(), z.lazy(() => NestedBoolFilterObjectSchema)]).optional()
-}).strict();
-export const NestedBoolFilterObjectSchema: z.ZodType<Prisma.NestedBoolFilter> = nestedboolfilterSchema as unknown as z.ZodType<Prisma.NestedBoolFilter>;
-export const NestedBoolFilterObjectZodSchema = nestedboolfilterSchema;
-
-
 // File: NestedJsonFilter.schema.ts
 const __makeSchema_NestedJsonFilter_schema = () => z.object({
   equals: jsonSchema.optional(),
@@ -3894,6 +5529,76 @@ const __makeSchema_NestedJsonFilter_schema = () => z.object({
 }).strict();
 export const NestedJsonFilterObjectSchema: z.ZodType<Prisma.NestedJsonFilter> = __makeSchema_NestedJsonFilter_schema() as unknown as z.ZodType<Prisma.NestedJsonFilter>;
 export const NestedJsonFilterObjectZodSchema = __makeSchema_NestedJsonFilter_schema();
+
+
+// File: NestedJsonNullableFilter.schema.ts
+const __makeSchema_NestedJsonNullableFilter_schema = () => z.object({
+  equals: jsonSchema.optional(),
+  path: z.string().array().optional(),
+  mode: QueryModeSchema.optional(),
+  string_contains: z.string().optional(),
+  string_starts_with: z.string().optional(),
+  string_ends_with: z.string().optional(),
+  array_starts_with: jsonSchema.optional().nullable(),
+  array_ends_with: jsonSchema.optional().nullable(),
+  array_contains: jsonSchema.optional().nullable(),
+  lt: jsonSchema.optional(),
+  lte: jsonSchema.optional(),
+  gt: jsonSchema.optional(),
+  gte: jsonSchema.optional(),
+  not: jsonSchema.optional()
+}).strict();
+export const NestedJsonNullableFilterObjectSchema: z.ZodType<Prisma.NestedJsonNullableFilter> = __makeSchema_NestedJsonNullableFilter_schema() as unknown as z.ZodType<Prisma.NestedJsonNullableFilter>;
+export const NestedJsonNullableFilterObjectZodSchema = __makeSchema_NestedJsonNullableFilter_schema();
+
+
+// File: NestedIntNullableWithAggregatesFilter.schema.ts
+
+const nestedintnullablewithaggregatesfilterSchema = z.object({
+  equals: z.number().int().optional().nullable(),
+  in: z.number().int().array().optional().nullable(),
+  notIn: z.number().int().array().optional().nullable(),
+  lt: z.number().int().optional(),
+  lte: z.number().int().optional(),
+  gt: z.number().int().optional(),
+  gte: z.number().int().optional(),
+  not: z.union([z.number().int(), z.lazy(() => NestedIntNullableWithAggregatesFilterObjectSchema)]).optional().nullable(),
+  _count: z.lazy(() => NestedIntNullableFilterObjectSchema).optional(),
+  _avg: z.lazy(() => NestedFloatNullableFilterObjectSchema).optional(),
+  _sum: z.lazy(() => NestedIntNullableFilterObjectSchema).optional(),
+  _min: z.lazy(() => NestedIntNullableFilterObjectSchema).optional(),
+  _max: z.lazy(() => NestedIntNullableFilterObjectSchema).optional()
+}).strict();
+export const NestedIntNullableWithAggregatesFilterObjectSchema: z.ZodType<Prisma.NestedIntNullableWithAggregatesFilter> = nestedintnullablewithaggregatesfilterSchema as unknown as z.ZodType<Prisma.NestedIntNullableWithAggregatesFilter>;
+export const NestedIntNullableWithAggregatesFilterObjectZodSchema = nestedintnullablewithaggregatesfilterSchema;
+
+
+// File: NestedFloatNullableFilter.schema.ts
+
+
+const nestedfloatnullablefilterSchema = z.object({
+  equals: z.number().optional().nullable(),
+  in: z.number().array().optional().nullable(),
+  notIn: z.number().array().optional().nullable(),
+  lt: z.number().optional(),
+  lte: z.number().optional(),
+  gt: z.number().optional(),
+  gte: z.number().optional(),
+  not: z.union([z.number(), z.lazy(() => NestedFloatNullableFilterObjectSchema)]).optional().nullable()
+}).strict();
+export const NestedFloatNullableFilterObjectSchema: z.ZodType<Prisma.NestedFloatNullableFilter> = nestedfloatnullablefilterSchema as unknown as z.ZodType<Prisma.NestedFloatNullableFilter>;
+export const NestedFloatNullableFilterObjectZodSchema = nestedfloatnullablefilterSchema;
+
+
+// File: NestedBoolFilter.schema.ts
+
+
+const nestedboolfilterSchema = z.object({
+  equals: z.boolean().optional(),
+  not: z.union([z.boolean(), z.lazy(() => NestedBoolFilterObjectSchema)]).optional()
+}).strict();
+export const NestedBoolFilterObjectSchema: z.ZodType<Prisma.NestedBoolFilter> = nestedboolfilterSchema as unknown as z.ZodType<Prisma.NestedBoolFilter>;
+export const NestedBoolFilterObjectZodSchema = nestedboolfilterSchema;
 
 
 // File: NestedFloatWithAggregatesFilter.schema.ts
@@ -4332,6 +6037,214 @@ export const UserUncheckedUpdateWithoutCoverImageInputObjectSchema: z.ZodType<Pr
 export const UserUncheckedUpdateWithoutCoverImageInputObjectZodSchema = __makeSchema_UserUncheckedUpdateWithoutCoverImageInput_schema();
 
 
+// File: StudioMemberCreateWithoutTeamOfInput.schema.ts
+const __makeSchema_StudioMemberCreateWithoutTeamOfInput_schema = () => z.object({
+  slug: z.string(),
+  position: z.number().int(),
+  name: z.string(),
+  role: z.union([JsonNullValueInputSchema, jsonSchema]),
+  description: z.union([JsonNullValueInputSchema, jsonSchema]),
+  bio: z.union([JsonNullValueInputSchema, jsonSchema]),
+  model: z.string(),
+  scale: z.number(),
+  roughness: z.number(),
+  metalness: z.number(),
+  hair: z.string().optional().nullable(),
+  rotation: z.union([z.lazy(() => StudioMemberCreaterotationInputObjectSchema), z.number().array()]).optional(),
+  highlight: z.string(),
+  socials: z.union([JsonNullValueInputSchema, jsonSchema]),
+  labels: z.union([JsonNullValueInputSchema, jsonSchema]),
+  projects: z.union([z.lazy(() => StudioMemberCreateprojectsInputObjectSchema), z.string().array()]).optional(),
+  suite: z.boolean().optional(),
+  facts: z.union([JsonNullValueInputSchema, jsonSchema]),
+  createdAt: z.coerce.date().optional(),
+  updatedAt: z.coerce.date().optional()
+}).strict();
+export const StudioMemberCreateWithoutTeamOfInputObjectSchema: z.ZodType<Prisma.StudioMemberCreateWithoutTeamOfInput> = __makeSchema_StudioMemberCreateWithoutTeamOfInput_schema() as unknown as z.ZodType<Prisma.StudioMemberCreateWithoutTeamOfInput>;
+export const StudioMemberCreateWithoutTeamOfInputObjectZodSchema = __makeSchema_StudioMemberCreateWithoutTeamOfInput_schema();
+
+
+// File: StudioMemberUncheckedCreateWithoutTeamOfInput.schema.ts
+const __makeSchema_StudioMemberUncheckedCreateWithoutTeamOfInput_schema = () => z.object({
+  slug: z.string(),
+  position: z.number().int(),
+  name: z.string(),
+  role: z.union([JsonNullValueInputSchema, jsonSchema]),
+  description: z.union([JsonNullValueInputSchema, jsonSchema]),
+  bio: z.union([JsonNullValueInputSchema, jsonSchema]),
+  model: z.string(),
+  scale: z.number(),
+  roughness: z.number(),
+  metalness: z.number(),
+  hair: z.string().optional().nullable(),
+  rotation: z.union([z.lazy(() => StudioMemberCreaterotationInputObjectSchema), z.number().array()]).optional(),
+  highlight: z.string(),
+  socials: z.union([JsonNullValueInputSchema, jsonSchema]),
+  labels: z.union([JsonNullValueInputSchema, jsonSchema]),
+  projects: z.union([z.lazy(() => StudioMemberCreateprojectsInputObjectSchema), z.string().array()]).optional(),
+  suite: z.boolean().optional(),
+  facts: z.union([JsonNullValueInputSchema, jsonSchema]),
+  createdAt: z.coerce.date().optional(),
+  updatedAt: z.coerce.date().optional()
+}).strict();
+export const StudioMemberUncheckedCreateWithoutTeamOfInputObjectSchema: z.ZodType<Prisma.StudioMemberUncheckedCreateWithoutTeamOfInput> = __makeSchema_StudioMemberUncheckedCreateWithoutTeamOfInput_schema() as unknown as z.ZodType<Prisma.StudioMemberUncheckedCreateWithoutTeamOfInput>;
+export const StudioMemberUncheckedCreateWithoutTeamOfInputObjectZodSchema = __makeSchema_StudioMemberUncheckedCreateWithoutTeamOfInput_schema();
+
+
+// File: StudioMemberCreateOrConnectWithoutTeamOfInput.schema.ts
+const __makeSchema_StudioMemberCreateOrConnectWithoutTeamOfInput_schema = () => z.object({
+  where: z.lazy(() => StudioMemberWhereUniqueInputObjectSchema),
+  create: z.union([z.lazy(() => StudioMemberCreateWithoutTeamOfInputObjectSchema), z.lazy(() => StudioMemberUncheckedCreateWithoutTeamOfInputObjectSchema)])
+}).strict();
+export const StudioMemberCreateOrConnectWithoutTeamOfInputObjectSchema: z.ZodType<Prisma.StudioMemberCreateOrConnectWithoutTeamOfInput> = __makeSchema_StudioMemberCreateOrConnectWithoutTeamOfInput_schema() as unknown as z.ZodType<Prisma.StudioMemberCreateOrConnectWithoutTeamOfInput>;
+export const StudioMemberCreateOrConnectWithoutTeamOfInputObjectZodSchema = __makeSchema_StudioMemberCreateOrConnectWithoutTeamOfInput_schema();
+
+
+// File: StorySectionCreateWithoutProjectInput.schema.ts
+const __makeSchema_StorySectionCreateWithoutProjectInput_schema = () => z.object({
+  id: z.string().optional(),
+  position: z.number().int(),
+  title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  by: z.union([z.lazy(() => StorySectionCreatebyInputObjectSchema), z.string().array()]).optional(),
+  blocks: z.lazy(() => StoryBlockCreateNestedManyWithoutSectionInputObjectSchema).optional()
+}).strict();
+export const StorySectionCreateWithoutProjectInputObjectSchema: z.ZodType<Prisma.StorySectionCreateWithoutProjectInput> = __makeSchema_StorySectionCreateWithoutProjectInput_schema() as unknown as z.ZodType<Prisma.StorySectionCreateWithoutProjectInput>;
+export const StorySectionCreateWithoutProjectInputObjectZodSchema = __makeSchema_StorySectionCreateWithoutProjectInput_schema();
+
+
+// File: StorySectionUncheckedCreateWithoutProjectInput.schema.ts
+const __makeSchema_StorySectionUncheckedCreateWithoutProjectInput_schema = () => z.object({
+  id: z.string().optional(),
+  position: z.number().int(),
+  title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  by: z.union([z.lazy(() => StorySectionCreatebyInputObjectSchema), z.string().array()]).optional(),
+  blocks: z.lazy(() => StoryBlockUncheckedCreateNestedManyWithoutSectionInputObjectSchema).optional()
+}).strict();
+export const StorySectionUncheckedCreateWithoutProjectInputObjectSchema: z.ZodType<Prisma.StorySectionUncheckedCreateWithoutProjectInput> = __makeSchema_StorySectionUncheckedCreateWithoutProjectInput_schema() as unknown as z.ZodType<Prisma.StorySectionUncheckedCreateWithoutProjectInput>;
+export const StorySectionUncheckedCreateWithoutProjectInputObjectZodSchema = __makeSchema_StorySectionUncheckedCreateWithoutProjectInput_schema();
+
+
+// File: StorySectionCreateOrConnectWithoutProjectInput.schema.ts
+const __makeSchema_StorySectionCreateOrConnectWithoutProjectInput_schema = () => z.object({
+  where: z.lazy(() => StorySectionWhereUniqueInputObjectSchema),
+  create: z.union([z.lazy(() => StorySectionCreateWithoutProjectInputObjectSchema), z.lazy(() => StorySectionUncheckedCreateWithoutProjectInputObjectSchema)])
+}).strict();
+export const StorySectionCreateOrConnectWithoutProjectInputObjectSchema: z.ZodType<Prisma.StorySectionCreateOrConnectWithoutProjectInput> = __makeSchema_StorySectionCreateOrConnectWithoutProjectInput_schema() as unknown as z.ZodType<Prisma.StorySectionCreateOrConnectWithoutProjectInput>;
+export const StorySectionCreateOrConnectWithoutProjectInputObjectZodSchema = __makeSchema_StorySectionCreateOrConnectWithoutProjectInput_schema();
+
+
+// File: StorySectionCreateManyProjectInputEnvelope.schema.ts
+const __makeSchema_StorySectionCreateManyProjectInputEnvelope_schema = () => z.object({
+  data: z.union([z.lazy(() => StorySectionCreateManyProjectInputObjectSchema), z.lazy(() => StorySectionCreateManyProjectInputObjectSchema).array()]),
+  skipDuplicates: z.boolean().optional()
+}).strict();
+export const StorySectionCreateManyProjectInputEnvelopeObjectSchema: z.ZodType<Prisma.StorySectionCreateManyProjectInputEnvelope> = __makeSchema_StorySectionCreateManyProjectInputEnvelope_schema() as unknown as z.ZodType<Prisma.StorySectionCreateManyProjectInputEnvelope>;
+export const StorySectionCreateManyProjectInputEnvelopeObjectZodSchema = __makeSchema_StorySectionCreateManyProjectInputEnvelope_schema();
+
+
+// File: StudioMemberUpsertWithWhereUniqueWithoutTeamOfInput.schema.ts
+const __makeSchema_StudioMemberUpsertWithWhereUniqueWithoutTeamOfInput_schema = () => z.object({
+  where: z.lazy(() => StudioMemberWhereUniqueInputObjectSchema),
+  update: z.union([z.lazy(() => StudioMemberUpdateWithoutTeamOfInputObjectSchema), z.lazy(() => StudioMemberUncheckedUpdateWithoutTeamOfInputObjectSchema)]),
+  create: z.union([z.lazy(() => StudioMemberCreateWithoutTeamOfInputObjectSchema), z.lazy(() => StudioMemberUncheckedCreateWithoutTeamOfInputObjectSchema)])
+}).strict();
+export const StudioMemberUpsertWithWhereUniqueWithoutTeamOfInputObjectSchema: z.ZodType<Prisma.StudioMemberUpsertWithWhereUniqueWithoutTeamOfInput> = __makeSchema_StudioMemberUpsertWithWhereUniqueWithoutTeamOfInput_schema() as unknown as z.ZodType<Prisma.StudioMemberUpsertWithWhereUniqueWithoutTeamOfInput>;
+export const StudioMemberUpsertWithWhereUniqueWithoutTeamOfInputObjectZodSchema = __makeSchema_StudioMemberUpsertWithWhereUniqueWithoutTeamOfInput_schema();
+
+
+// File: StudioMemberUpdateWithWhereUniqueWithoutTeamOfInput.schema.ts
+const __makeSchema_StudioMemberUpdateWithWhereUniqueWithoutTeamOfInput_schema = () => z.object({
+  where: z.lazy(() => StudioMemberWhereUniqueInputObjectSchema),
+  data: z.union([z.lazy(() => StudioMemberUpdateWithoutTeamOfInputObjectSchema), z.lazy(() => StudioMemberUncheckedUpdateWithoutTeamOfInputObjectSchema)])
+}).strict();
+export const StudioMemberUpdateWithWhereUniqueWithoutTeamOfInputObjectSchema: z.ZodType<Prisma.StudioMemberUpdateWithWhereUniqueWithoutTeamOfInput> = __makeSchema_StudioMemberUpdateWithWhereUniqueWithoutTeamOfInput_schema() as unknown as z.ZodType<Prisma.StudioMemberUpdateWithWhereUniqueWithoutTeamOfInput>;
+export const StudioMemberUpdateWithWhereUniqueWithoutTeamOfInputObjectZodSchema = __makeSchema_StudioMemberUpdateWithWhereUniqueWithoutTeamOfInput_schema();
+
+
+// File: StudioMemberUpdateManyWithWhereWithoutTeamOfInput.schema.ts
+const __makeSchema_StudioMemberUpdateManyWithWhereWithoutTeamOfInput_schema = () => z.object({
+  where: z.lazy(() => StudioMemberScalarWhereInputObjectSchema),
+  data: z.union([z.lazy(() => StudioMemberUpdateManyMutationInputObjectSchema), z.lazy(() => StudioMemberUncheckedUpdateManyWithoutTeamOfInputObjectSchema)])
+}).strict();
+export const StudioMemberUpdateManyWithWhereWithoutTeamOfInputObjectSchema: z.ZodType<Prisma.StudioMemberUpdateManyWithWhereWithoutTeamOfInput> = __makeSchema_StudioMemberUpdateManyWithWhereWithoutTeamOfInput_schema() as unknown as z.ZodType<Prisma.StudioMemberUpdateManyWithWhereWithoutTeamOfInput>;
+export const StudioMemberUpdateManyWithWhereWithoutTeamOfInputObjectZodSchema = __makeSchema_StudioMemberUpdateManyWithWhereWithoutTeamOfInput_schema();
+
+
+// File: StudioMemberScalarWhereInput.schema.ts
+
+const studiomemberscalarwhereinputSchema = z.object({
+  AND: z.union([z.lazy(() => StudioMemberScalarWhereInputObjectSchema), z.lazy(() => StudioMemberScalarWhereInputObjectSchema).array()]).optional(),
+  OR: z.lazy(() => StudioMemberScalarWhereInputObjectSchema).array().optional(),
+  NOT: z.union([z.lazy(() => StudioMemberScalarWhereInputObjectSchema), z.lazy(() => StudioMemberScalarWhereInputObjectSchema).array()]).optional(),
+  slug: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
+  position: z.union([z.lazy(() => IntFilterObjectSchema), z.number().int()]).optional(),
+  name: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
+  role: z.lazy(() => JsonFilterObjectSchema).optional(),
+  description: z.lazy(() => JsonFilterObjectSchema).optional(),
+  bio: z.lazy(() => JsonFilterObjectSchema).optional(),
+  model: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
+  scale: z.union([z.lazy(() => FloatFilterObjectSchema), z.number()]).optional(),
+  roughness: z.union([z.lazy(() => FloatFilterObjectSchema), z.number()]).optional(),
+  metalness: z.union([z.lazy(() => FloatFilterObjectSchema), z.number()]).optional(),
+  hair: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
+  rotation: z.lazy(() => FloatNullableListFilterObjectSchema).optional(),
+  highlight: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
+  socials: z.lazy(() => JsonFilterObjectSchema).optional(),
+  labels: z.lazy(() => JsonFilterObjectSchema).optional(),
+  projects: z.lazy(() => StringNullableListFilterObjectSchema).optional(),
+  suite: z.union([z.lazy(() => BoolFilterObjectSchema), z.boolean()]).optional(),
+  facts: z.lazy(() => JsonFilterObjectSchema).optional(),
+  createdAt: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional(),
+  updatedAt: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional()
+}).strict();
+export const StudioMemberScalarWhereInputObjectSchema: z.ZodType<Prisma.StudioMemberScalarWhereInput> = studiomemberscalarwhereinputSchema as unknown as z.ZodType<Prisma.StudioMemberScalarWhereInput>;
+export const StudioMemberScalarWhereInputObjectZodSchema = studiomemberscalarwhereinputSchema;
+
+
+// File: StorySectionUpsertWithWhereUniqueWithoutProjectInput.schema.ts
+const __makeSchema_StorySectionUpsertWithWhereUniqueWithoutProjectInput_schema = () => z.object({
+  where: z.lazy(() => StorySectionWhereUniqueInputObjectSchema),
+  update: z.union([z.lazy(() => StorySectionUpdateWithoutProjectInputObjectSchema), z.lazy(() => StorySectionUncheckedUpdateWithoutProjectInputObjectSchema)]),
+  create: z.union([z.lazy(() => StorySectionCreateWithoutProjectInputObjectSchema), z.lazy(() => StorySectionUncheckedCreateWithoutProjectInputObjectSchema)])
+}).strict();
+export const StorySectionUpsertWithWhereUniqueWithoutProjectInputObjectSchema: z.ZodType<Prisma.StorySectionUpsertWithWhereUniqueWithoutProjectInput> = __makeSchema_StorySectionUpsertWithWhereUniqueWithoutProjectInput_schema() as unknown as z.ZodType<Prisma.StorySectionUpsertWithWhereUniqueWithoutProjectInput>;
+export const StorySectionUpsertWithWhereUniqueWithoutProjectInputObjectZodSchema = __makeSchema_StorySectionUpsertWithWhereUniqueWithoutProjectInput_schema();
+
+
+// File: StorySectionUpdateWithWhereUniqueWithoutProjectInput.schema.ts
+const __makeSchema_StorySectionUpdateWithWhereUniqueWithoutProjectInput_schema = () => z.object({
+  where: z.lazy(() => StorySectionWhereUniqueInputObjectSchema),
+  data: z.union([z.lazy(() => StorySectionUpdateWithoutProjectInputObjectSchema), z.lazy(() => StorySectionUncheckedUpdateWithoutProjectInputObjectSchema)])
+}).strict();
+export const StorySectionUpdateWithWhereUniqueWithoutProjectInputObjectSchema: z.ZodType<Prisma.StorySectionUpdateWithWhereUniqueWithoutProjectInput> = __makeSchema_StorySectionUpdateWithWhereUniqueWithoutProjectInput_schema() as unknown as z.ZodType<Prisma.StorySectionUpdateWithWhereUniqueWithoutProjectInput>;
+export const StorySectionUpdateWithWhereUniqueWithoutProjectInputObjectZodSchema = __makeSchema_StorySectionUpdateWithWhereUniqueWithoutProjectInput_schema();
+
+
+// File: StorySectionUpdateManyWithWhereWithoutProjectInput.schema.ts
+const __makeSchema_StorySectionUpdateManyWithWhereWithoutProjectInput_schema = () => z.object({
+  where: z.lazy(() => StorySectionScalarWhereInputObjectSchema),
+  data: z.union([z.lazy(() => StorySectionUpdateManyMutationInputObjectSchema), z.lazy(() => StorySectionUncheckedUpdateManyWithoutProjectInputObjectSchema)])
+}).strict();
+export const StorySectionUpdateManyWithWhereWithoutProjectInputObjectSchema: z.ZodType<Prisma.StorySectionUpdateManyWithWhereWithoutProjectInput> = __makeSchema_StorySectionUpdateManyWithWhereWithoutProjectInput_schema() as unknown as z.ZodType<Prisma.StorySectionUpdateManyWithWhereWithoutProjectInput>;
+export const StorySectionUpdateManyWithWhereWithoutProjectInputObjectZodSchema = __makeSchema_StorySectionUpdateManyWithWhereWithoutProjectInput_schema();
+
+
+// File: StorySectionScalarWhereInput.schema.ts
+
+const storysectionscalarwhereinputSchema = z.object({
+  AND: z.union([z.lazy(() => StorySectionScalarWhereInputObjectSchema), z.lazy(() => StorySectionScalarWhereInputObjectSchema).array()]).optional(),
+  OR: z.lazy(() => StorySectionScalarWhereInputObjectSchema).array().optional(),
+  NOT: z.union([z.lazy(() => StorySectionScalarWhereInputObjectSchema), z.lazy(() => StorySectionScalarWhereInputObjectSchema).array()]).optional(),
+  id: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
+  projectSlug: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
+  position: z.union([z.lazy(() => IntFilterObjectSchema), z.number().int()]).optional(),
+  title: z.lazy(() => JsonNullableFilterObjectSchema).optional(),
+  by: z.lazy(() => StringNullableListFilterObjectSchema).optional()
+}).strict();
+export const StorySectionScalarWhereInputObjectSchema: z.ZodType<Prisma.StorySectionScalarWhereInput> = storysectionscalarwhereinputSchema as unknown as z.ZodType<Prisma.StorySectionScalarWhereInput>;
+export const StorySectionScalarWhereInputObjectZodSchema = storysectionscalarwhereinputSchema;
+
+
 // File: UserCreateWithoutSessionsInput.schema.ts
 const __makeSchema_UserCreateWithoutSessionsInput_schema = () => z.object({
   id: z.string().optional(),
@@ -4738,6 +6651,470 @@ export const SiteVisitorUncheckedUpdateWithoutDailyVisitsInputObjectSchema: z.Zo
 export const SiteVisitorUncheckedUpdateWithoutDailyVisitsInputObjectZodSchema = __makeSchema_SiteVisitorUncheckedUpdateWithoutDailyVisitsInput_schema();
 
 
+// File: StorySectionCreateWithoutBlocksInput.schema.ts
+const __makeSchema_StorySectionCreateWithoutBlocksInput_schema = () => z.object({
+  id: z.string().optional(),
+  position: z.number().int(),
+  title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  by: z.union([z.lazy(() => StorySectionCreatebyInputObjectSchema), z.string().array()]).optional(),
+  project: z.lazy(() => ProjectCreateNestedOneWithoutStoryInputObjectSchema)
+}).strict();
+export const StorySectionCreateWithoutBlocksInputObjectSchema: z.ZodType<Prisma.StorySectionCreateWithoutBlocksInput> = __makeSchema_StorySectionCreateWithoutBlocksInput_schema() as unknown as z.ZodType<Prisma.StorySectionCreateWithoutBlocksInput>;
+export const StorySectionCreateWithoutBlocksInputObjectZodSchema = __makeSchema_StorySectionCreateWithoutBlocksInput_schema();
+
+
+// File: StorySectionUncheckedCreateWithoutBlocksInput.schema.ts
+const __makeSchema_StorySectionUncheckedCreateWithoutBlocksInput_schema = () => z.object({
+  id: z.string().optional(),
+  projectSlug: z.string(),
+  position: z.number().int(),
+  title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  by: z.union([z.lazy(() => StorySectionCreatebyInputObjectSchema), z.string().array()]).optional()
+}).strict();
+export const StorySectionUncheckedCreateWithoutBlocksInputObjectSchema: z.ZodType<Prisma.StorySectionUncheckedCreateWithoutBlocksInput> = __makeSchema_StorySectionUncheckedCreateWithoutBlocksInput_schema() as unknown as z.ZodType<Prisma.StorySectionUncheckedCreateWithoutBlocksInput>;
+export const StorySectionUncheckedCreateWithoutBlocksInputObjectZodSchema = __makeSchema_StorySectionUncheckedCreateWithoutBlocksInput_schema();
+
+
+// File: StorySectionCreateOrConnectWithoutBlocksInput.schema.ts
+const __makeSchema_StorySectionCreateOrConnectWithoutBlocksInput_schema = () => z.object({
+  where: z.lazy(() => StorySectionWhereUniqueInputObjectSchema),
+  create: z.union([z.lazy(() => StorySectionCreateWithoutBlocksInputObjectSchema), z.lazy(() => StorySectionUncheckedCreateWithoutBlocksInputObjectSchema)])
+}).strict();
+export const StorySectionCreateOrConnectWithoutBlocksInputObjectSchema: z.ZodType<Prisma.StorySectionCreateOrConnectWithoutBlocksInput> = __makeSchema_StorySectionCreateOrConnectWithoutBlocksInput_schema() as unknown as z.ZodType<Prisma.StorySectionCreateOrConnectWithoutBlocksInput>;
+export const StorySectionCreateOrConnectWithoutBlocksInputObjectZodSchema = __makeSchema_StorySectionCreateOrConnectWithoutBlocksInput_schema();
+
+
+// File: StorySectionUpsertWithoutBlocksInput.schema.ts
+const __makeSchema_StorySectionUpsertWithoutBlocksInput_schema = () => z.object({
+  update: z.union([z.lazy(() => StorySectionUpdateWithoutBlocksInputObjectSchema), z.lazy(() => StorySectionUncheckedUpdateWithoutBlocksInputObjectSchema)]),
+  create: z.union([z.lazy(() => StorySectionCreateWithoutBlocksInputObjectSchema), z.lazy(() => StorySectionUncheckedCreateWithoutBlocksInputObjectSchema)]),
+  where: z.lazy(() => StorySectionWhereInputObjectSchema).optional()
+}).strict();
+export const StorySectionUpsertWithoutBlocksInputObjectSchema: z.ZodType<Prisma.StorySectionUpsertWithoutBlocksInput> = __makeSchema_StorySectionUpsertWithoutBlocksInput_schema() as unknown as z.ZodType<Prisma.StorySectionUpsertWithoutBlocksInput>;
+export const StorySectionUpsertWithoutBlocksInputObjectZodSchema = __makeSchema_StorySectionUpsertWithoutBlocksInput_schema();
+
+
+// File: StorySectionUpdateToOneWithWhereWithoutBlocksInput.schema.ts
+const __makeSchema_StorySectionUpdateToOneWithWhereWithoutBlocksInput_schema = () => z.object({
+  where: z.lazy(() => StorySectionWhereInputObjectSchema).optional(),
+  data: z.union([z.lazy(() => StorySectionUpdateWithoutBlocksInputObjectSchema), z.lazy(() => StorySectionUncheckedUpdateWithoutBlocksInputObjectSchema)])
+}).strict();
+export const StorySectionUpdateToOneWithWhereWithoutBlocksInputObjectSchema: z.ZodType<Prisma.StorySectionUpdateToOneWithWhereWithoutBlocksInput> = __makeSchema_StorySectionUpdateToOneWithWhereWithoutBlocksInput_schema() as unknown as z.ZodType<Prisma.StorySectionUpdateToOneWithWhereWithoutBlocksInput>;
+export const StorySectionUpdateToOneWithWhereWithoutBlocksInputObjectZodSchema = __makeSchema_StorySectionUpdateToOneWithWhereWithoutBlocksInput_schema();
+
+
+// File: StorySectionUpdateWithoutBlocksInput.schema.ts
+const __makeSchema_StorySectionUpdateWithoutBlocksInput_schema = () => z.object({
+  id: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  by: z.union([z.lazy(() => StorySectionUpdatebyInputObjectSchema), z.string().array()]).optional(),
+  project: z.lazy(() => ProjectUpdateOneRequiredWithoutStoryNestedInputObjectSchema).optional()
+}).strict();
+export const StorySectionUpdateWithoutBlocksInputObjectSchema: z.ZodType<Prisma.StorySectionUpdateWithoutBlocksInput> = __makeSchema_StorySectionUpdateWithoutBlocksInput_schema() as unknown as z.ZodType<Prisma.StorySectionUpdateWithoutBlocksInput>;
+export const StorySectionUpdateWithoutBlocksInputObjectZodSchema = __makeSchema_StorySectionUpdateWithoutBlocksInput_schema();
+
+
+// File: StorySectionUncheckedUpdateWithoutBlocksInput.schema.ts
+const __makeSchema_StorySectionUncheckedUpdateWithoutBlocksInput_schema = () => z.object({
+  id: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  projectSlug: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  by: z.union([z.lazy(() => StorySectionUpdatebyInputObjectSchema), z.string().array()]).optional()
+}).strict();
+export const StorySectionUncheckedUpdateWithoutBlocksInputObjectSchema: z.ZodType<Prisma.StorySectionUncheckedUpdateWithoutBlocksInput> = __makeSchema_StorySectionUncheckedUpdateWithoutBlocksInput_schema() as unknown as z.ZodType<Prisma.StorySectionUncheckedUpdateWithoutBlocksInput>;
+export const StorySectionUncheckedUpdateWithoutBlocksInputObjectZodSchema = __makeSchema_StorySectionUncheckedUpdateWithoutBlocksInput_schema();
+
+
+// File: ProjectCreateWithoutStoryInput.schema.ts
+const __makeSchema_ProjectCreateWithoutStoryInput_schema = () => z.object({
+  slug: z.string(),
+  position: z.number().int(),
+  name: z.string(),
+  weeks: z.number().int(),
+  link: z.string().optional().nullable(),
+  image: z.string(),
+  video: z.string().optional().nullable(),
+  coverEffect: z.string().optional().nullable(),
+  description: z.union([JsonNullValueInputSchema, jsonSchema]),
+  metaDescription: z.union([JsonNullValueInputSchema, jsonSchema]),
+  challenge: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  services: z.union([z.lazy(() => ProjectCreateservicesInputObjectSchema), z.string().array()]).optional(),
+  techStack: z.union([z.lazy(() => ProjectCreatetechStackInputObjectSchema), z.string().array()]).optional(),
+  date: z.string(),
+  gallery: z.union([z.lazy(() => ProjectCreategalleryInputObjectSchema), z.string().array()]).optional(),
+  notes: z.union([z.lazy(() => ProjectCreatenotesInputObjectSchema), jsonSchema.array()]).optional(),
+  createdAt: z.coerce.date().optional(),
+  updatedAt: z.coerce.date().optional(),
+  team: z.lazy(() => StudioMemberCreateNestedManyWithoutTeamOfInputObjectSchema).optional()
+}).strict();
+export const ProjectCreateWithoutStoryInputObjectSchema: z.ZodType<Prisma.ProjectCreateWithoutStoryInput> = __makeSchema_ProjectCreateWithoutStoryInput_schema() as unknown as z.ZodType<Prisma.ProjectCreateWithoutStoryInput>;
+export const ProjectCreateWithoutStoryInputObjectZodSchema = __makeSchema_ProjectCreateWithoutStoryInput_schema();
+
+
+// File: ProjectUncheckedCreateWithoutStoryInput.schema.ts
+const __makeSchema_ProjectUncheckedCreateWithoutStoryInput_schema = () => z.object({
+  slug: z.string(),
+  position: z.number().int(),
+  name: z.string(),
+  weeks: z.number().int(),
+  link: z.string().optional().nullable(),
+  image: z.string(),
+  video: z.string().optional().nullable(),
+  coverEffect: z.string().optional().nullable(),
+  description: z.union([JsonNullValueInputSchema, jsonSchema]),
+  metaDescription: z.union([JsonNullValueInputSchema, jsonSchema]),
+  challenge: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  services: z.union([z.lazy(() => ProjectCreateservicesInputObjectSchema), z.string().array()]).optional(),
+  techStack: z.union([z.lazy(() => ProjectCreatetechStackInputObjectSchema), z.string().array()]).optional(),
+  date: z.string(),
+  gallery: z.union([z.lazy(() => ProjectCreategalleryInputObjectSchema), z.string().array()]).optional(),
+  notes: z.union([z.lazy(() => ProjectCreatenotesInputObjectSchema), jsonSchema.array()]).optional(),
+  createdAt: z.coerce.date().optional(),
+  updatedAt: z.coerce.date().optional(),
+  team: z.lazy(() => StudioMemberUncheckedCreateNestedManyWithoutTeamOfInputObjectSchema).optional()
+}).strict();
+export const ProjectUncheckedCreateWithoutStoryInputObjectSchema: z.ZodType<Prisma.ProjectUncheckedCreateWithoutStoryInput> = __makeSchema_ProjectUncheckedCreateWithoutStoryInput_schema() as unknown as z.ZodType<Prisma.ProjectUncheckedCreateWithoutStoryInput>;
+export const ProjectUncheckedCreateWithoutStoryInputObjectZodSchema = __makeSchema_ProjectUncheckedCreateWithoutStoryInput_schema();
+
+
+// File: ProjectCreateOrConnectWithoutStoryInput.schema.ts
+const __makeSchema_ProjectCreateOrConnectWithoutStoryInput_schema = () => z.object({
+  where: z.lazy(() => ProjectWhereUniqueInputObjectSchema),
+  create: z.union([z.lazy(() => ProjectCreateWithoutStoryInputObjectSchema), z.lazy(() => ProjectUncheckedCreateWithoutStoryInputObjectSchema)])
+}).strict();
+export const ProjectCreateOrConnectWithoutStoryInputObjectSchema: z.ZodType<Prisma.ProjectCreateOrConnectWithoutStoryInput> = __makeSchema_ProjectCreateOrConnectWithoutStoryInput_schema() as unknown as z.ZodType<Prisma.ProjectCreateOrConnectWithoutStoryInput>;
+export const ProjectCreateOrConnectWithoutStoryInputObjectZodSchema = __makeSchema_ProjectCreateOrConnectWithoutStoryInput_schema();
+
+
+// File: StoryBlockCreateWithoutSectionInput.schema.ts
+const __makeSchema_StoryBlockCreateWithoutSectionInput_schema = () => z.object({
+  id: z.string().optional(),
+  position: z.number().int(),
+  type: z.string(),
+  media: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  eyebrow: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  text: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  tags: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  logos: z.union([z.lazy(() => StoryBlockCreatelogosInputObjectSchema), z.string().array()]).optional(),
+  tiles: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  link: z.string().optional().nullable(),
+  linkLabel: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  effect: z.string().optional().nullable(),
+  smalls: z.string().optional().nullable(),
+  cols: z.number().int().optional().nullable(),
+  font: z.string().optional().nullable(),
+  fontFamily: z.string().optional().nullable(),
+  description: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  secondFont: z.string().optional().nullable(),
+  secondFontFamily: z.string().optional().nullable(),
+  secondDescription: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  swatches: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional()
+}).strict();
+export const StoryBlockCreateWithoutSectionInputObjectSchema: z.ZodType<Prisma.StoryBlockCreateWithoutSectionInput> = __makeSchema_StoryBlockCreateWithoutSectionInput_schema() as unknown as z.ZodType<Prisma.StoryBlockCreateWithoutSectionInput>;
+export const StoryBlockCreateWithoutSectionInputObjectZodSchema = __makeSchema_StoryBlockCreateWithoutSectionInput_schema();
+
+
+// File: StoryBlockUncheckedCreateWithoutSectionInput.schema.ts
+const __makeSchema_StoryBlockUncheckedCreateWithoutSectionInput_schema = () => z.object({
+  id: z.string().optional(),
+  position: z.number().int(),
+  type: z.string(),
+  media: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  eyebrow: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  text: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  tags: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  logos: z.union([z.lazy(() => StoryBlockCreatelogosInputObjectSchema), z.string().array()]).optional(),
+  tiles: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  link: z.string().optional().nullable(),
+  linkLabel: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  effect: z.string().optional().nullable(),
+  smalls: z.string().optional().nullable(),
+  cols: z.number().int().optional().nullable(),
+  font: z.string().optional().nullable(),
+  fontFamily: z.string().optional().nullable(),
+  description: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  secondFont: z.string().optional().nullable(),
+  secondFontFamily: z.string().optional().nullable(),
+  secondDescription: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  swatches: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional()
+}).strict();
+export const StoryBlockUncheckedCreateWithoutSectionInputObjectSchema: z.ZodType<Prisma.StoryBlockUncheckedCreateWithoutSectionInput> = __makeSchema_StoryBlockUncheckedCreateWithoutSectionInput_schema() as unknown as z.ZodType<Prisma.StoryBlockUncheckedCreateWithoutSectionInput>;
+export const StoryBlockUncheckedCreateWithoutSectionInputObjectZodSchema = __makeSchema_StoryBlockUncheckedCreateWithoutSectionInput_schema();
+
+
+// File: StoryBlockCreateOrConnectWithoutSectionInput.schema.ts
+const __makeSchema_StoryBlockCreateOrConnectWithoutSectionInput_schema = () => z.object({
+  where: z.lazy(() => StoryBlockWhereUniqueInputObjectSchema),
+  create: z.union([z.lazy(() => StoryBlockCreateWithoutSectionInputObjectSchema), z.lazy(() => StoryBlockUncheckedCreateWithoutSectionInputObjectSchema)])
+}).strict();
+export const StoryBlockCreateOrConnectWithoutSectionInputObjectSchema: z.ZodType<Prisma.StoryBlockCreateOrConnectWithoutSectionInput> = __makeSchema_StoryBlockCreateOrConnectWithoutSectionInput_schema() as unknown as z.ZodType<Prisma.StoryBlockCreateOrConnectWithoutSectionInput>;
+export const StoryBlockCreateOrConnectWithoutSectionInputObjectZodSchema = __makeSchema_StoryBlockCreateOrConnectWithoutSectionInput_schema();
+
+
+// File: StoryBlockCreateManySectionInputEnvelope.schema.ts
+const __makeSchema_StoryBlockCreateManySectionInputEnvelope_schema = () => z.object({
+  data: z.union([z.lazy(() => StoryBlockCreateManySectionInputObjectSchema), z.lazy(() => StoryBlockCreateManySectionInputObjectSchema).array()]),
+  skipDuplicates: z.boolean().optional()
+}).strict();
+export const StoryBlockCreateManySectionInputEnvelopeObjectSchema: z.ZodType<Prisma.StoryBlockCreateManySectionInputEnvelope> = __makeSchema_StoryBlockCreateManySectionInputEnvelope_schema() as unknown as z.ZodType<Prisma.StoryBlockCreateManySectionInputEnvelope>;
+export const StoryBlockCreateManySectionInputEnvelopeObjectZodSchema = __makeSchema_StoryBlockCreateManySectionInputEnvelope_schema();
+
+
+// File: ProjectUpsertWithoutStoryInput.schema.ts
+const __makeSchema_ProjectUpsertWithoutStoryInput_schema = () => z.object({
+  update: z.union([z.lazy(() => ProjectUpdateWithoutStoryInputObjectSchema), z.lazy(() => ProjectUncheckedUpdateWithoutStoryInputObjectSchema)]),
+  create: z.union([z.lazy(() => ProjectCreateWithoutStoryInputObjectSchema), z.lazy(() => ProjectUncheckedCreateWithoutStoryInputObjectSchema)]),
+  where: z.lazy(() => ProjectWhereInputObjectSchema).optional()
+}).strict();
+export const ProjectUpsertWithoutStoryInputObjectSchema: z.ZodType<Prisma.ProjectUpsertWithoutStoryInput> = __makeSchema_ProjectUpsertWithoutStoryInput_schema() as unknown as z.ZodType<Prisma.ProjectUpsertWithoutStoryInput>;
+export const ProjectUpsertWithoutStoryInputObjectZodSchema = __makeSchema_ProjectUpsertWithoutStoryInput_schema();
+
+
+// File: ProjectUpdateToOneWithWhereWithoutStoryInput.schema.ts
+const __makeSchema_ProjectUpdateToOneWithWhereWithoutStoryInput_schema = () => z.object({
+  where: z.lazy(() => ProjectWhereInputObjectSchema).optional(),
+  data: z.union([z.lazy(() => ProjectUpdateWithoutStoryInputObjectSchema), z.lazy(() => ProjectUncheckedUpdateWithoutStoryInputObjectSchema)])
+}).strict();
+export const ProjectUpdateToOneWithWhereWithoutStoryInputObjectSchema: z.ZodType<Prisma.ProjectUpdateToOneWithWhereWithoutStoryInput> = __makeSchema_ProjectUpdateToOneWithWhereWithoutStoryInput_schema() as unknown as z.ZodType<Prisma.ProjectUpdateToOneWithWhereWithoutStoryInput>;
+export const ProjectUpdateToOneWithWhereWithoutStoryInputObjectZodSchema = __makeSchema_ProjectUpdateToOneWithWhereWithoutStoryInput_schema();
+
+
+// File: ProjectUpdateWithoutStoryInput.schema.ts
+const __makeSchema_ProjectUpdateWithoutStoryInput_schema = () => z.object({
+  slug: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  name: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  weeks: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  link: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  image: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  video: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  coverEffect: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  description: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  metaDescription: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  challenge: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  services: z.union([z.lazy(() => ProjectUpdateservicesInputObjectSchema), z.string().array()]).optional(),
+  techStack: z.union([z.lazy(() => ProjectUpdatetechStackInputObjectSchema), z.string().array()]).optional(),
+  date: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  gallery: z.union([z.lazy(() => ProjectUpdategalleryInputObjectSchema), z.string().array()]).optional(),
+  notes: z.union([z.lazy(() => ProjectUpdatenotesInputObjectSchema), jsonSchema.array()]).optional(),
+  createdAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
+  updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
+  team: z.lazy(() => StudioMemberUpdateManyWithoutTeamOfNestedInputObjectSchema).optional()
+}).strict();
+export const ProjectUpdateWithoutStoryInputObjectSchema: z.ZodType<Prisma.ProjectUpdateWithoutStoryInput> = __makeSchema_ProjectUpdateWithoutStoryInput_schema() as unknown as z.ZodType<Prisma.ProjectUpdateWithoutStoryInput>;
+export const ProjectUpdateWithoutStoryInputObjectZodSchema = __makeSchema_ProjectUpdateWithoutStoryInput_schema();
+
+
+// File: ProjectUncheckedUpdateWithoutStoryInput.schema.ts
+const __makeSchema_ProjectUncheckedUpdateWithoutStoryInput_schema = () => z.object({
+  slug: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  name: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  weeks: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  link: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  image: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  video: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  coverEffect: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  description: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  metaDescription: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  challenge: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  services: z.union([z.lazy(() => ProjectUpdateservicesInputObjectSchema), z.string().array()]).optional(),
+  techStack: z.union([z.lazy(() => ProjectUpdatetechStackInputObjectSchema), z.string().array()]).optional(),
+  date: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  gallery: z.union([z.lazy(() => ProjectUpdategalleryInputObjectSchema), z.string().array()]).optional(),
+  notes: z.union([z.lazy(() => ProjectUpdatenotesInputObjectSchema), jsonSchema.array()]).optional(),
+  createdAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
+  updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
+  team: z.lazy(() => StudioMemberUncheckedUpdateManyWithoutTeamOfNestedInputObjectSchema).optional()
+}).strict();
+export const ProjectUncheckedUpdateWithoutStoryInputObjectSchema: z.ZodType<Prisma.ProjectUncheckedUpdateWithoutStoryInput> = __makeSchema_ProjectUncheckedUpdateWithoutStoryInput_schema() as unknown as z.ZodType<Prisma.ProjectUncheckedUpdateWithoutStoryInput>;
+export const ProjectUncheckedUpdateWithoutStoryInputObjectZodSchema = __makeSchema_ProjectUncheckedUpdateWithoutStoryInput_schema();
+
+
+// File: StoryBlockUpsertWithWhereUniqueWithoutSectionInput.schema.ts
+const __makeSchema_StoryBlockUpsertWithWhereUniqueWithoutSectionInput_schema = () => z.object({
+  where: z.lazy(() => StoryBlockWhereUniqueInputObjectSchema),
+  update: z.union([z.lazy(() => StoryBlockUpdateWithoutSectionInputObjectSchema), z.lazy(() => StoryBlockUncheckedUpdateWithoutSectionInputObjectSchema)]),
+  create: z.union([z.lazy(() => StoryBlockCreateWithoutSectionInputObjectSchema), z.lazy(() => StoryBlockUncheckedCreateWithoutSectionInputObjectSchema)])
+}).strict();
+export const StoryBlockUpsertWithWhereUniqueWithoutSectionInputObjectSchema: z.ZodType<Prisma.StoryBlockUpsertWithWhereUniqueWithoutSectionInput> = __makeSchema_StoryBlockUpsertWithWhereUniqueWithoutSectionInput_schema() as unknown as z.ZodType<Prisma.StoryBlockUpsertWithWhereUniqueWithoutSectionInput>;
+export const StoryBlockUpsertWithWhereUniqueWithoutSectionInputObjectZodSchema = __makeSchema_StoryBlockUpsertWithWhereUniqueWithoutSectionInput_schema();
+
+
+// File: StoryBlockUpdateWithWhereUniqueWithoutSectionInput.schema.ts
+const __makeSchema_StoryBlockUpdateWithWhereUniqueWithoutSectionInput_schema = () => z.object({
+  where: z.lazy(() => StoryBlockWhereUniqueInputObjectSchema),
+  data: z.union([z.lazy(() => StoryBlockUpdateWithoutSectionInputObjectSchema), z.lazy(() => StoryBlockUncheckedUpdateWithoutSectionInputObjectSchema)])
+}).strict();
+export const StoryBlockUpdateWithWhereUniqueWithoutSectionInputObjectSchema: z.ZodType<Prisma.StoryBlockUpdateWithWhereUniqueWithoutSectionInput> = __makeSchema_StoryBlockUpdateWithWhereUniqueWithoutSectionInput_schema() as unknown as z.ZodType<Prisma.StoryBlockUpdateWithWhereUniqueWithoutSectionInput>;
+export const StoryBlockUpdateWithWhereUniqueWithoutSectionInputObjectZodSchema = __makeSchema_StoryBlockUpdateWithWhereUniqueWithoutSectionInput_schema();
+
+
+// File: StoryBlockUpdateManyWithWhereWithoutSectionInput.schema.ts
+const __makeSchema_StoryBlockUpdateManyWithWhereWithoutSectionInput_schema = () => z.object({
+  where: z.lazy(() => StoryBlockScalarWhereInputObjectSchema),
+  data: z.union([z.lazy(() => StoryBlockUpdateManyMutationInputObjectSchema), z.lazy(() => StoryBlockUncheckedUpdateManyWithoutSectionInputObjectSchema)])
+}).strict();
+export const StoryBlockUpdateManyWithWhereWithoutSectionInputObjectSchema: z.ZodType<Prisma.StoryBlockUpdateManyWithWhereWithoutSectionInput> = __makeSchema_StoryBlockUpdateManyWithWhereWithoutSectionInput_schema() as unknown as z.ZodType<Prisma.StoryBlockUpdateManyWithWhereWithoutSectionInput>;
+export const StoryBlockUpdateManyWithWhereWithoutSectionInputObjectZodSchema = __makeSchema_StoryBlockUpdateManyWithWhereWithoutSectionInput_schema();
+
+
+// File: StoryBlockScalarWhereInput.schema.ts
+
+const storyblockscalarwhereinputSchema = z.object({
+  AND: z.union([z.lazy(() => StoryBlockScalarWhereInputObjectSchema), z.lazy(() => StoryBlockScalarWhereInputObjectSchema).array()]).optional(),
+  OR: z.lazy(() => StoryBlockScalarWhereInputObjectSchema).array().optional(),
+  NOT: z.union([z.lazy(() => StoryBlockScalarWhereInputObjectSchema), z.lazy(() => StoryBlockScalarWhereInputObjectSchema).array()]).optional(),
+  id: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
+  sectionId: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
+  position: z.union([z.lazy(() => IntFilterObjectSchema), z.number().int()]).optional(),
+  type: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
+  media: z.lazy(() => JsonNullableFilterObjectSchema).optional(),
+  eyebrow: z.lazy(() => JsonNullableFilterObjectSchema).optional(),
+  title: z.lazy(() => JsonNullableFilterObjectSchema).optional(),
+  text: z.lazy(() => JsonNullableFilterObjectSchema).optional(),
+  tags: z.lazy(() => JsonNullableFilterObjectSchema).optional(),
+  logos: z.lazy(() => StringNullableListFilterObjectSchema).optional(),
+  tiles: z.lazy(() => JsonNullableFilterObjectSchema).optional(),
+  link: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
+  linkLabel: z.lazy(() => JsonNullableFilterObjectSchema).optional(),
+  effect: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
+  smalls: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
+  cols: z.union([z.lazy(() => IntNullableFilterObjectSchema), z.number().int()]).optional().nullable(),
+  font: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
+  fontFamily: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
+  description: z.lazy(() => JsonNullableFilterObjectSchema).optional(),
+  secondFont: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
+  secondFontFamily: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
+  secondDescription: z.lazy(() => JsonNullableFilterObjectSchema).optional(),
+  swatches: z.lazy(() => JsonNullableFilterObjectSchema).optional()
+}).strict();
+export const StoryBlockScalarWhereInputObjectSchema: z.ZodType<Prisma.StoryBlockScalarWhereInput> = storyblockscalarwhereinputSchema as unknown as z.ZodType<Prisma.StoryBlockScalarWhereInput>;
+export const StoryBlockScalarWhereInputObjectZodSchema = storyblockscalarwhereinputSchema;
+
+
+// File: ProjectCreateWithoutTeamInput.schema.ts
+const __makeSchema_ProjectCreateWithoutTeamInput_schema = () => z.object({
+  slug: z.string(),
+  position: z.number().int(),
+  name: z.string(),
+  weeks: z.number().int(),
+  link: z.string().optional().nullable(),
+  image: z.string(),
+  video: z.string().optional().nullable(),
+  coverEffect: z.string().optional().nullable(),
+  description: z.union([JsonNullValueInputSchema, jsonSchema]),
+  metaDescription: z.union([JsonNullValueInputSchema, jsonSchema]),
+  challenge: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  services: z.union([z.lazy(() => ProjectCreateservicesInputObjectSchema), z.string().array()]).optional(),
+  techStack: z.union([z.lazy(() => ProjectCreatetechStackInputObjectSchema), z.string().array()]).optional(),
+  date: z.string(),
+  gallery: z.union([z.lazy(() => ProjectCreategalleryInputObjectSchema), z.string().array()]).optional(),
+  notes: z.union([z.lazy(() => ProjectCreatenotesInputObjectSchema), jsonSchema.array()]).optional(),
+  createdAt: z.coerce.date().optional(),
+  updatedAt: z.coerce.date().optional(),
+  story: z.lazy(() => StorySectionCreateNestedManyWithoutProjectInputObjectSchema).optional()
+}).strict();
+export const ProjectCreateWithoutTeamInputObjectSchema: z.ZodType<Prisma.ProjectCreateWithoutTeamInput> = __makeSchema_ProjectCreateWithoutTeamInput_schema() as unknown as z.ZodType<Prisma.ProjectCreateWithoutTeamInput>;
+export const ProjectCreateWithoutTeamInputObjectZodSchema = __makeSchema_ProjectCreateWithoutTeamInput_schema();
+
+
+// File: ProjectUncheckedCreateWithoutTeamInput.schema.ts
+const __makeSchema_ProjectUncheckedCreateWithoutTeamInput_schema = () => z.object({
+  slug: z.string(),
+  position: z.number().int(),
+  name: z.string(),
+  weeks: z.number().int(),
+  link: z.string().optional().nullable(),
+  image: z.string(),
+  video: z.string().optional().nullable(),
+  coverEffect: z.string().optional().nullable(),
+  description: z.union([JsonNullValueInputSchema, jsonSchema]),
+  metaDescription: z.union([JsonNullValueInputSchema, jsonSchema]),
+  challenge: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  services: z.union([z.lazy(() => ProjectCreateservicesInputObjectSchema), z.string().array()]).optional(),
+  techStack: z.union([z.lazy(() => ProjectCreatetechStackInputObjectSchema), z.string().array()]).optional(),
+  date: z.string(),
+  gallery: z.union([z.lazy(() => ProjectCreategalleryInputObjectSchema), z.string().array()]).optional(),
+  notes: z.union([z.lazy(() => ProjectCreatenotesInputObjectSchema), jsonSchema.array()]).optional(),
+  createdAt: z.coerce.date().optional(),
+  updatedAt: z.coerce.date().optional(),
+  story: z.lazy(() => StorySectionUncheckedCreateNestedManyWithoutProjectInputObjectSchema).optional()
+}).strict();
+export const ProjectUncheckedCreateWithoutTeamInputObjectSchema: z.ZodType<Prisma.ProjectUncheckedCreateWithoutTeamInput> = __makeSchema_ProjectUncheckedCreateWithoutTeamInput_schema() as unknown as z.ZodType<Prisma.ProjectUncheckedCreateWithoutTeamInput>;
+export const ProjectUncheckedCreateWithoutTeamInputObjectZodSchema = __makeSchema_ProjectUncheckedCreateWithoutTeamInput_schema();
+
+
+// File: ProjectCreateOrConnectWithoutTeamInput.schema.ts
+const __makeSchema_ProjectCreateOrConnectWithoutTeamInput_schema = () => z.object({
+  where: z.lazy(() => ProjectWhereUniqueInputObjectSchema),
+  create: z.union([z.lazy(() => ProjectCreateWithoutTeamInputObjectSchema), z.lazy(() => ProjectUncheckedCreateWithoutTeamInputObjectSchema)])
+}).strict();
+export const ProjectCreateOrConnectWithoutTeamInputObjectSchema: z.ZodType<Prisma.ProjectCreateOrConnectWithoutTeamInput> = __makeSchema_ProjectCreateOrConnectWithoutTeamInput_schema() as unknown as z.ZodType<Prisma.ProjectCreateOrConnectWithoutTeamInput>;
+export const ProjectCreateOrConnectWithoutTeamInputObjectZodSchema = __makeSchema_ProjectCreateOrConnectWithoutTeamInput_schema();
+
+
+// File: ProjectUpsertWithWhereUniqueWithoutTeamInput.schema.ts
+const __makeSchema_ProjectUpsertWithWhereUniqueWithoutTeamInput_schema = () => z.object({
+  where: z.lazy(() => ProjectWhereUniqueInputObjectSchema),
+  update: z.union([z.lazy(() => ProjectUpdateWithoutTeamInputObjectSchema), z.lazy(() => ProjectUncheckedUpdateWithoutTeamInputObjectSchema)]),
+  create: z.union([z.lazy(() => ProjectCreateWithoutTeamInputObjectSchema), z.lazy(() => ProjectUncheckedCreateWithoutTeamInputObjectSchema)])
+}).strict();
+export const ProjectUpsertWithWhereUniqueWithoutTeamInputObjectSchema: z.ZodType<Prisma.ProjectUpsertWithWhereUniqueWithoutTeamInput> = __makeSchema_ProjectUpsertWithWhereUniqueWithoutTeamInput_schema() as unknown as z.ZodType<Prisma.ProjectUpsertWithWhereUniqueWithoutTeamInput>;
+export const ProjectUpsertWithWhereUniqueWithoutTeamInputObjectZodSchema = __makeSchema_ProjectUpsertWithWhereUniqueWithoutTeamInput_schema();
+
+
+// File: ProjectUpdateWithWhereUniqueWithoutTeamInput.schema.ts
+const __makeSchema_ProjectUpdateWithWhereUniqueWithoutTeamInput_schema = () => z.object({
+  where: z.lazy(() => ProjectWhereUniqueInputObjectSchema),
+  data: z.union([z.lazy(() => ProjectUpdateWithoutTeamInputObjectSchema), z.lazy(() => ProjectUncheckedUpdateWithoutTeamInputObjectSchema)])
+}).strict();
+export const ProjectUpdateWithWhereUniqueWithoutTeamInputObjectSchema: z.ZodType<Prisma.ProjectUpdateWithWhereUniqueWithoutTeamInput> = __makeSchema_ProjectUpdateWithWhereUniqueWithoutTeamInput_schema() as unknown as z.ZodType<Prisma.ProjectUpdateWithWhereUniqueWithoutTeamInput>;
+export const ProjectUpdateWithWhereUniqueWithoutTeamInputObjectZodSchema = __makeSchema_ProjectUpdateWithWhereUniqueWithoutTeamInput_schema();
+
+
+// File: ProjectUpdateManyWithWhereWithoutTeamInput.schema.ts
+const __makeSchema_ProjectUpdateManyWithWhereWithoutTeamInput_schema = () => z.object({
+  where: z.lazy(() => ProjectScalarWhereInputObjectSchema),
+  data: z.union([z.lazy(() => ProjectUpdateManyMutationInputObjectSchema), z.lazy(() => ProjectUncheckedUpdateManyWithoutTeamInputObjectSchema)])
+}).strict();
+export const ProjectUpdateManyWithWhereWithoutTeamInputObjectSchema: z.ZodType<Prisma.ProjectUpdateManyWithWhereWithoutTeamInput> = __makeSchema_ProjectUpdateManyWithWhereWithoutTeamInput_schema() as unknown as z.ZodType<Prisma.ProjectUpdateManyWithWhereWithoutTeamInput>;
+export const ProjectUpdateManyWithWhereWithoutTeamInputObjectZodSchema = __makeSchema_ProjectUpdateManyWithWhereWithoutTeamInput_schema();
+
+
+// File: ProjectScalarWhereInput.schema.ts
+
+const projectscalarwhereinputSchema = z.object({
+  AND: z.union([z.lazy(() => ProjectScalarWhereInputObjectSchema), z.lazy(() => ProjectScalarWhereInputObjectSchema).array()]).optional(),
+  OR: z.lazy(() => ProjectScalarWhereInputObjectSchema).array().optional(),
+  NOT: z.union([z.lazy(() => ProjectScalarWhereInputObjectSchema), z.lazy(() => ProjectScalarWhereInputObjectSchema).array()]).optional(),
+  slug: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
+  position: z.union([z.lazy(() => IntFilterObjectSchema), z.number().int()]).optional(),
+  name: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
+  weeks: z.union([z.lazy(() => IntFilterObjectSchema), z.number().int()]).optional(),
+  link: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
+  image: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
+  video: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
+  coverEffect: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
+  description: z.lazy(() => JsonFilterObjectSchema).optional(),
+  metaDescription: z.lazy(() => JsonFilterObjectSchema).optional(),
+  challenge: z.lazy(() => JsonNullableFilterObjectSchema).optional(),
+  services: z.lazy(() => StringNullableListFilterObjectSchema).optional(),
+  techStack: z.lazy(() => StringNullableListFilterObjectSchema).optional(),
+  date: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
+  gallery: z.lazy(() => StringNullableListFilterObjectSchema).optional(),
+  notes: z.lazy(() => JsonNullableListFilterObjectSchema).optional(),
+  createdAt: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional(),
+  updatedAt: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional()
+}).strict();
+export const ProjectScalarWhereInputObjectSchema: z.ZodType<Prisma.ProjectScalarWhereInput> = projectscalarwhereinputSchema as unknown as z.ZodType<Prisma.ProjectScalarWhereInput>;
+export const ProjectScalarWhereInputObjectZodSchema = projectscalarwhereinputSchema;
+
+
 // File: MediaCreateWithoutAvatarUserInput.schema.ts
 const __makeSchema_MediaCreateWithoutAvatarUserInput_schema = () => z.object({
   id: z.string().optional(),
@@ -5107,6 +7484,133 @@ export const AccountScalarWhereInputObjectSchema: z.ZodType<Prisma.AccountScalar
 export const AccountScalarWhereInputObjectZodSchema = accountscalarwhereinputSchema;
 
 
+// File: StorySectionCreateManyProjectInput.schema.ts
+const __makeSchema_StorySectionCreateManyProjectInput_schema = () => z.object({
+  id: z.string().optional(),
+  position: z.number().int(),
+  title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  by: z.union([z.lazy(() => StorySectionCreatebyInputObjectSchema), z.string().array()]).optional()
+}).strict();
+export const StorySectionCreateManyProjectInputObjectSchema: z.ZodType<Prisma.StorySectionCreateManyProjectInput> = __makeSchema_StorySectionCreateManyProjectInput_schema() as unknown as z.ZodType<Prisma.StorySectionCreateManyProjectInput>;
+export const StorySectionCreateManyProjectInputObjectZodSchema = __makeSchema_StorySectionCreateManyProjectInput_schema();
+
+
+// File: StudioMemberUpdateWithoutTeamOfInput.schema.ts
+const __makeSchema_StudioMemberUpdateWithoutTeamOfInput_schema = () => z.object({
+  slug: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  name: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  role: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  description: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  bio: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  model: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  scale: z.union([z.number(), z.lazy(() => FloatFieldUpdateOperationsInputObjectSchema)]).optional(),
+  roughness: z.union([z.number(), z.lazy(() => FloatFieldUpdateOperationsInputObjectSchema)]).optional(),
+  metalness: z.union([z.number(), z.lazy(() => FloatFieldUpdateOperationsInputObjectSchema)]).optional(),
+  hair: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  rotation: z.union([z.lazy(() => StudioMemberUpdaterotationInputObjectSchema), z.number().array()]).optional(),
+  highlight: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  socials: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  labels: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  projects: z.union([z.lazy(() => StudioMemberUpdateprojectsInputObjectSchema), z.string().array()]).optional(),
+  suite: z.union([z.boolean(), z.lazy(() => BoolFieldUpdateOperationsInputObjectSchema)]).optional(),
+  facts: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  createdAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
+  updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional()
+}).strict();
+export const StudioMemberUpdateWithoutTeamOfInputObjectSchema: z.ZodType<Prisma.StudioMemberUpdateWithoutTeamOfInput> = __makeSchema_StudioMemberUpdateWithoutTeamOfInput_schema() as unknown as z.ZodType<Prisma.StudioMemberUpdateWithoutTeamOfInput>;
+export const StudioMemberUpdateWithoutTeamOfInputObjectZodSchema = __makeSchema_StudioMemberUpdateWithoutTeamOfInput_schema();
+
+
+// File: StudioMemberUncheckedUpdateWithoutTeamOfInput.schema.ts
+const __makeSchema_StudioMemberUncheckedUpdateWithoutTeamOfInput_schema = () => z.object({
+  slug: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  name: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  role: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  description: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  bio: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  model: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  scale: z.union([z.number(), z.lazy(() => FloatFieldUpdateOperationsInputObjectSchema)]).optional(),
+  roughness: z.union([z.number(), z.lazy(() => FloatFieldUpdateOperationsInputObjectSchema)]).optional(),
+  metalness: z.union([z.number(), z.lazy(() => FloatFieldUpdateOperationsInputObjectSchema)]).optional(),
+  hair: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  rotation: z.union([z.lazy(() => StudioMemberUpdaterotationInputObjectSchema), z.number().array()]).optional(),
+  highlight: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  socials: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  labels: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  projects: z.union([z.lazy(() => StudioMemberUpdateprojectsInputObjectSchema), z.string().array()]).optional(),
+  suite: z.union([z.boolean(), z.lazy(() => BoolFieldUpdateOperationsInputObjectSchema)]).optional(),
+  facts: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  createdAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
+  updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional()
+}).strict();
+export const StudioMemberUncheckedUpdateWithoutTeamOfInputObjectSchema: z.ZodType<Prisma.StudioMemberUncheckedUpdateWithoutTeamOfInput> = __makeSchema_StudioMemberUncheckedUpdateWithoutTeamOfInput_schema() as unknown as z.ZodType<Prisma.StudioMemberUncheckedUpdateWithoutTeamOfInput>;
+export const StudioMemberUncheckedUpdateWithoutTeamOfInputObjectZodSchema = __makeSchema_StudioMemberUncheckedUpdateWithoutTeamOfInput_schema();
+
+
+// File: StudioMemberUncheckedUpdateManyWithoutTeamOfInput.schema.ts
+const __makeSchema_StudioMemberUncheckedUpdateManyWithoutTeamOfInput_schema = () => z.object({
+  slug: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  name: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  role: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  description: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  bio: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  model: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  scale: z.union([z.number(), z.lazy(() => FloatFieldUpdateOperationsInputObjectSchema)]).optional(),
+  roughness: z.union([z.number(), z.lazy(() => FloatFieldUpdateOperationsInputObjectSchema)]).optional(),
+  metalness: z.union([z.number(), z.lazy(() => FloatFieldUpdateOperationsInputObjectSchema)]).optional(),
+  hair: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  rotation: z.union([z.lazy(() => StudioMemberUpdaterotationInputObjectSchema), z.number().array()]).optional(),
+  highlight: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  socials: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  labels: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  projects: z.union([z.lazy(() => StudioMemberUpdateprojectsInputObjectSchema), z.string().array()]).optional(),
+  suite: z.union([z.boolean(), z.lazy(() => BoolFieldUpdateOperationsInputObjectSchema)]).optional(),
+  facts: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  createdAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
+  updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional()
+}).strict();
+export const StudioMemberUncheckedUpdateManyWithoutTeamOfInputObjectSchema: z.ZodType<Prisma.StudioMemberUncheckedUpdateManyWithoutTeamOfInput> = __makeSchema_StudioMemberUncheckedUpdateManyWithoutTeamOfInput_schema() as unknown as z.ZodType<Prisma.StudioMemberUncheckedUpdateManyWithoutTeamOfInput>;
+export const StudioMemberUncheckedUpdateManyWithoutTeamOfInputObjectZodSchema = __makeSchema_StudioMemberUncheckedUpdateManyWithoutTeamOfInput_schema();
+
+
+// File: StorySectionUpdateWithoutProjectInput.schema.ts
+const __makeSchema_StorySectionUpdateWithoutProjectInput_schema = () => z.object({
+  id: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  by: z.union([z.lazy(() => StorySectionUpdatebyInputObjectSchema), z.string().array()]).optional(),
+  blocks: z.lazy(() => StoryBlockUpdateManyWithoutSectionNestedInputObjectSchema).optional()
+}).strict();
+export const StorySectionUpdateWithoutProjectInputObjectSchema: z.ZodType<Prisma.StorySectionUpdateWithoutProjectInput> = __makeSchema_StorySectionUpdateWithoutProjectInput_schema() as unknown as z.ZodType<Prisma.StorySectionUpdateWithoutProjectInput>;
+export const StorySectionUpdateWithoutProjectInputObjectZodSchema = __makeSchema_StorySectionUpdateWithoutProjectInput_schema();
+
+
+// File: StorySectionUncheckedUpdateWithoutProjectInput.schema.ts
+const __makeSchema_StorySectionUncheckedUpdateWithoutProjectInput_schema = () => z.object({
+  id: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  by: z.union([z.lazy(() => StorySectionUpdatebyInputObjectSchema), z.string().array()]).optional(),
+  blocks: z.lazy(() => StoryBlockUncheckedUpdateManyWithoutSectionNestedInputObjectSchema).optional()
+}).strict();
+export const StorySectionUncheckedUpdateWithoutProjectInputObjectSchema: z.ZodType<Prisma.StorySectionUncheckedUpdateWithoutProjectInput> = __makeSchema_StorySectionUncheckedUpdateWithoutProjectInput_schema() as unknown as z.ZodType<Prisma.StorySectionUncheckedUpdateWithoutProjectInput>;
+export const StorySectionUncheckedUpdateWithoutProjectInputObjectZodSchema = __makeSchema_StorySectionUncheckedUpdateWithoutProjectInput_schema();
+
+
+// File: StorySectionUncheckedUpdateManyWithoutProjectInput.schema.ts
+const __makeSchema_StorySectionUncheckedUpdateManyWithoutProjectInput_schema = () => z.object({
+  id: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  by: z.union([z.lazy(() => StorySectionUpdatebyInputObjectSchema), z.string().array()]).optional()
+}).strict();
+export const StorySectionUncheckedUpdateManyWithoutProjectInputObjectSchema: z.ZodType<Prisma.StorySectionUncheckedUpdateManyWithoutProjectInput> = __makeSchema_StorySectionUncheckedUpdateManyWithoutProjectInput_schema() as unknown as z.ZodType<Prisma.StorySectionUncheckedUpdateManyWithoutProjectInput>;
+export const StorySectionUncheckedUpdateManyWithoutProjectInputObjectZodSchema = __makeSchema_StorySectionUncheckedUpdateManyWithoutProjectInput_schema();
+
+
 // File: SiteDailyVisitorCreateManyVisitorInput.schema.ts
 const __makeSchema_SiteDailyVisitorCreateManyVisitorInput_schema = () => z.object({
   date: z.coerce.date(),
@@ -5177,6 +7681,199 @@ const __makeSchema_SiteDailyVisitorUncheckedUpdateManyWithoutDayInput_schema = (
 }).strict();
 export const SiteDailyVisitorUncheckedUpdateManyWithoutDayInputObjectSchema: z.ZodType<Prisma.SiteDailyVisitorUncheckedUpdateManyWithoutDayInput> = __makeSchema_SiteDailyVisitorUncheckedUpdateManyWithoutDayInput_schema() as unknown as z.ZodType<Prisma.SiteDailyVisitorUncheckedUpdateManyWithoutDayInput>;
 export const SiteDailyVisitorUncheckedUpdateManyWithoutDayInputObjectZodSchema = __makeSchema_SiteDailyVisitorUncheckedUpdateManyWithoutDayInput_schema();
+
+
+// File: StoryBlockCreateManySectionInput.schema.ts
+const __makeSchema_StoryBlockCreateManySectionInput_schema = () => z.object({
+  id: z.string().optional(),
+  position: z.number().int(),
+  type: z.string(),
+  media: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  eyebrow: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  text: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  tags: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  logos: z.union([z.lazy(() => StoryBlockCreatelogosInputObjectSchema), z.string().array()]).optional(),
+  tiles: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  link: z.string().optional().nullable(),
+  linkLabel: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  effect: z.string().optional().nullable(),
+  smalls: z.string().optional().nullable(),
+  cols: z.number().int().optional().nullable(),
+  font: z.string().optional().nullable(),
+  fontFamily: z.string().optional().nullable(),
+  description: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  secondFont: z.string().optional().nullable(),
+  secondFontFamily: z.string().optional().nullable(),
+  secondDescription: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  swatches: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional()
+}).strict();
+export const StoryBlockCreateManySectionInputObjectSchema: z.ZodType<Prisma.StoryBlockCreateManySectionInput> = __makeSchema_StoryBlockCreateManySectionInput_schema() as unknown as z.ZodType<Prisma.StoryBlockCreateManySectionInput>;
+export const StoryBlockCreateManySectionInputObjectZodSchema = __makeSchema_StoryBlockCreateManySectionInput_schema();
+
+
+// File: StoryBlockUpdateWithoutSectionInput.schema.ts
+const __makeSchema_StoryBlockUpdateWithoutSectionInput_schema = () => z.object({
+  id: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  type: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  media: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  eyebrow: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  text: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  tags: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  logos: z.union([z.lazy(() => StoryBlockUpdatelogosInputObjectSchema), z.string().array()]).optional(),
+  tiles: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  link: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  linkLabel: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  effect: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  smalls: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  cols: z.union([z.number().int(), z.lazy(() => NullableIntFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  font: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  fontFamily: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  description: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  secondFont: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  secondFontFamily: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  secondDescription: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  swatches: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional()
+}).strict();
+export const StoryBlockUpdateWithoutSectionInputObjectSchema: z.ZodType<Prisma.StoryBlockUpdateWithoutSectionInput> = __makeSchema_StoryBlockUpdateWithoutSectionInput_schema() as unknown as z.ZodType<Prisma.StoryBlockUpdateWithoutSectionInput>;
+export const StoryBlockUpdateWithoutSectionInputObjectZodSchema = __makeSchema_StoryBlockUpdateWithoutSectionInput_schema();
+
+
+// File: StoryBlockUncheckedUpdateWithoutSectionInput.schema.ts
+const __makeSchema_StoryBlockUncheckedUpdateWithoutSectionInput_schema = () => z.object({
+  id: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  type: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  media: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  eyebrow: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  text: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  tags: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  logos: z.union([z.lazy(() => StoryBlockUpdatelogosInputObjectSchema), z.string().array()]).optional(),
+  tiles: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  link: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  linkLabel: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  effect: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  smalls: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  cols: z.union([z.number().int(), z.lazy(() => NullableIntFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  font: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  fontFamily: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  description: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  secondFont: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  secondFontFamily: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  secondDescription: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  swatches: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional()
+}).strict();
+export const StoryBlockUncheckedUpdateWithoutSectionInputObjectSchema: z.ZodType<Prisma.StoryBlockUncheckedUpdateWithoutSectionInput> = __makeSchema_StoryBlockUncheckedUpdateWithoutSectionInput_schema() as unknown as z.ZodType<Prisma.StoryBlockUncheckedUpdateWithoutSectionInput>;
+export const StoryBlockUncheckedUpdateWithoutSectionInputObjectZodSchema = __makeSchema_StoryBlockUncheckedUpdateWithoutSectionInput_schema();
+
+
+// File: StoryBlockUncheckedUpdateManyWithoutSectionInput.schema.ts
+const __makeSchema_StoryBlockUncheckedUpdateManyWithoutSectionInput_schema = () => z.object({
+  id: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  type: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  media: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  eyebrow: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  title: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  text: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  tags: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  logos: z.union([z.lazy(() => StoryBlockUpdatelogosInputObjectSchema), z.string().array()]).optional(),
+  tiles: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  link: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  linkLabel: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  effect: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  smalls: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  cols: z.union([z.number().int(), z.lazy(() => NullableIntFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  font: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  fontFamily: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  description: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  secondFont: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  secondFontFamily: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  secondDescription: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  swatches: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional()
+}).strict();
+export const StoryBlockUncheckedUpdateManyWithoutSectionInputObjectSchema: z.ZodType<Prisma.StoryBlockUncheckedUpdateManyWithoutSectionInput> = __makeSchema_StoryBlockUncheckedUpdateManyWithoutSectionInput_schema() as unknown as z.ZodType<Prisma.StoryBlockUncheckedUpdateManyWithoutSectionInput>;
+export const StoryBlockUncheckedUpdateManyWithoutSectionInputObjectZodSchema = __makeSchema_StoryBlockUncheckedUpdateManyWithoutSectionInput_schema();
+
+
+// File: ProjectUpdateWithoutTeamInput.schema.ts
+const __makeSchema_ProjectUpdateWithoutTeamInput_schema = () => z.object({
+  slug: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  name: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  weeks: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  link: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  image: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  video: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  coverEffect: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  description: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  metaDescription: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  challenge: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  services: z.union([z.lazy(() => ProjectUpdateservicesInputObjectSchema), z.string().array()]).optional(),
+  techStack: z.union([z.lazy(() => ProjectUpdatetechStackInputObjectSchema), z.string().array()]).optional(),
+  date: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  gallery: z.union([z.lazy(() => ProjectUpdategalleryInputObjectSchema), z.string().array()]).optional(),
+  notes: z.union([z.lazy(() => ProjectUpdatenotesInputObjectSchema), jsonSchema.array()]).optional(),
+  createdAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
+  updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
+  story: z.lazy(() => StorySectionUpdateManyWithoutProjectNestedInputObjectSchema).optional()
+}).strict();
+export const ProjectUpdateWithoutTeamInputObjectSchema: z.ZodType<Prisma.ProjectUpdateWithoutTeamInput> = __makeSchema_ProjectUpdateWithoutTeamInput_schema() as unknown as z.ZodType<Prisma.ProjectUpdateWithoutTeamInput>;
+export const ProjectUpdateWithoutTeamInputObjectZodSchema = __makeSchema_ProjectUpdateWithoutTeamInput_schema();
+
+
+// File: ProjectUncheckedUpdateWithoutTeamInput.schema.ts
+const __makeSchema_ProjectUncheckedUpdateWithoutTeamInput_schema = () => z.object({
+  slug: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  name: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  weeks: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  link: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  image: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  video: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  coverEffect: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  description: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  metaDescription: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  challenge: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  services: z.union([z.lazy(() => ProjectUpdateservicesInputObjectSchema), z.string().array()]).optional(),
+  techStack: z.union([z.lazy(() => ProjectUpdatetechStackInputObjectSchema), z.string().array()]).optional(),
+  date: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  gallery: z.union([z.lazy(() => ProjectUpdategalleryInputObjectSchema), z.string().array()]).optional(),
+  notes: z.union([z.lazy(() => ProjectUpdatenotesInputObjectSchema), jsonSchema.array()]).optional(),
+  createdAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
+  updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
+  story: z.lazy(() => StorySectionUncheckedUpdateManyWithoutProjectNestedInputObjectSchema).optional()
+}).strict();
+export const ProjectUncheckedUpdateWithoutTeamInputObjectSchema: z.ZodType<Prisma.ProjectUncheckedUpdateWithoutTeamInput> = __makeSchema_ProjectUncheckedUpdateWithoutTeamInput_schema() as unknown as z.ZodType<Prisma.ProjectUncheckedUpdateWithoutTeamInput>;
+export const ProjectUncheckedUpdateWithoutTeamInputObjectZodSchema = __makeSchema_ProjectUncheckedUpdateWithoutTeamInput_schema();
+
+
+// File: ProjectUncheckedUpdateManyWithoutTeamInput.schema.ts
+const __makeSchema_ProjectUncheckedUpdateManyWithoutTeamInput_schema = () => z.object({
+  slug: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  name: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  weeks: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  link: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  image: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  video: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  coverEffect: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  description: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  metaDescription: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  challenge: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  services: z.union([z.lazy(() => ProjectUpdateservicesInputObjectSchema), z.string().array()]).optional(),
+  techStack: z.union([z.lazy(() => ProjectUpdatetechStackInputObjectSchema), z.string().array()]).optional(),
+  date: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  gallery: z.union([z.lazy(() => ProjectUpdategalleryInputObjectSchema), z.string().array()]).optional(),
+  notes: z.union([z.lazy(() => ProjectUpdatenotesInputObjectSchema), jsonSchema.array()]).optional(),
+  createdAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
+  updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional()
+}).strict();
+export const ProjectUncheckedUpdateManyWithoutTeamInputObjectSchema: z.ZodType<Prisma.ProjectUncheckedUpdateManyWithoutTeamInput> = __makeSchema_ProjectUncheckedUpdateManyWithoutTeamInput_schema() as unknown as z.ZodType<Prisma.ProjectUncheckedUpdateManyWithoutTeamInput>;
+export const ProjectUncheckedUpdateManyWithoutTeamInputObjectZodSchema = __makeSchema_ProjectUncheckedUpdateManyWithoutTeamInput_schema();
 
 
 // File: SessionCreateManyUserInput.schema.ts
@@ -5474,6 +8171,86 @@ export const MediaMaxAggregateInputObjectSchema: z.ZodType<Prisma.MediaMaxAggreg
 export const MediaMaxAggregateInputObjectZodSchema = __makeSchema_MediaMaxAggregateInput_schema();
 
 
+// File: ProjectCountAggregateInput.schema.ts
+const __makeSchema_ProjectCountAggregateInput_schema = () => z.object({
+  slug: z.literal(true).optional(),
+  position: z.literal(true).optional(),
+  name: z.literal(true).optional(),
+  weeks: z.literal(true).optional(),
+  link: z.literal(true).optional(),
+  image: z.literal(true).optional(),
+  video: z.literal(true).optional(),
+  coverEffect: z.literal(true).optional(),
+  description: z.literal(true).optional(),
+  metaDescription: z.literal(true).optional(),
+  challenge: z.literal(true).optional(),
+  services: z.literal(true).optional(),
+  techStack: z.literal(true).optional(),
+  date: z.literal(true).optional(),
+  gallery: z.literal(true).optional(),
+  notes: z.literal(true).optional(),
+  createdAt: z.literal(true).optional(),
+  updatedAt: z.literal(true).optional(),
+  _all: z.literal(true).optional()
+}).strict();
+export const ProjectCountAggregateInputObjectSchema: z.ZodType<Prisma.ProjectCountAggregateInputType> = __makeSchema_ProjectCountAggregateInput_schema() as unknown as z.ZodType<Prisma.ProjectCountAggregateInputType>;
+export const ProjectCountAggregateInputObjectZodSchema = __makeSchema_ProjectCountAggregateInput_schema();
+
+
+// File: ProjectAvgAggregateInput.schema.ts
+const __makeSchema_ProjectAvgAggregateInput_schema = () => z.object({
+  position: z.literal(true).optional(),
+  weeks: z.literal(true).optional()
+}).strict();
+export const ProjectAvgAggregateInputObjectSchema: z.ZodType<Prisma.ProjectAvgAggregateInputType> = __makeSchema_ProjectAvgAggregateInput_schema() as unknown as z.ZodType<Prisma.ProjectAvgAggregateInputType>;
+export const ProjectAvgAggregateInputObjectZodSchema = __makeSchema_ProjectAvgAggregateInput_schema();
+
+
+// File: ProjectSumAggregateInput.schema.ts
+const __makeSchema_ProjectSumAggregateInput_schema = () => z.object({
+  position: z.literal(true).optional(),
+  weeks: z.literal(true).optional()
+}).strict();
+export const ProjectSumAggregateInputObjectSchema: z.ZodType<Prisma.ProjectSumAggregateInputType> = __makeSchema_ProjectSumAggregateInput_schema() as unknown as z.ZodType<Prisma.ProjectSumAggregateInputType>;
+export const ProjectSumAggregateInputObjectZodSchema = __makeSchema_ProjectSumAggregateInput_schema();
+
+
+// File: ProjectMinAggregateInput.schema.ts
+const __makeSchema_ProjectMinAggregateInput_schema = () => z.object({
+  slug: z.literal(true).optional(),
+  position: z.literal(true).optional(),
+  name: z.literal(true).optional(),
+  weeks: z.literal(true).optional(),
+  link: z.literal(true).optional(),
+  image: z.literal(true).optional(),
+  video: z.literal(true).optional(),
+  coverEffect: z.literal(true).optional(),
+  date: z.literal(true).optional(),
+  createdAt: z.literal(true).optional(),
+  updatedAt: z.literal(true).optional()
+}).strict();
+export const ProjectMinAggregateInputObjectSchema: z.ZodType<Prisma.ProjectMinAggregateInputType> = __makeSchema_ProjectMinAggregateInput_schema() as unknown as z.ZodType<Prisma.ProjectMinAggregateInputType>;
+export const ProjectMinAggregateInputObjectZodSchema = __makeSchema_ProjectMinAggregateInput_schema();
+
+
+// File: ProjectMaxAggregateInput.schema.ts
+const __makeSchema_ProjectMaxAggregateInput_schema = () => z.object({
+  slug: z.literal(true).optional(),
+  position: z.literal(true).optional(),
+  name: z.literal(true).optional(),
+  weeks: z.literal(true).optional(),
+  link: z.literal(true).optional(),
+  image: z.literal(true).optional(),
+  video: z.literal(true).optional(),
+  coverEffect: z.literal(true).optional(),
+  date: z.literal(true).optional(),
+  createdAt: z.literal(true).optional(),
+  updatedAt: z.literal(true).optional()
+}).strict();
+export const ProjectMaxAggregateInputObjectSchema: z.ZodType<Prisma.ProjectMaxAggregateInputType> = __makeSchema_ProjectMaxAggregateInput_schema() as unknown as z.ZodType<Prisma.ProjectMaxAggregateInputType>;
+export const ProjectMaxAggregateInputObjectZodSchema = __makeSchema_ProjectMaxAggregateInput_schema();
+
+
 // File: SessionCountAggregateInput.schema.ts
 const __makeSchema_SessionCountAggregateInput_schema = () => z.object({
   id: z.literal(true).optional(),
@@ -5638,6 +8415,142 @@ const __makeSchema_SiteDailyVisitorMaxAggregateInput_schema = () => z.object({
 }).strict();
 export const SiteDailyVisitorMaxAggregateInputObjectSchema: z.ZodType<Prisma.SiteDailyVisitorMaxAggregateInputType> = __makeSchema_SiteDailyVisitorMaxAggregateInput_schema() as unknown as z.ZodType<Prisma.SiteDailyVisitorMaxAggregateInputType>;
 export const SiteDailyVisitorMaxAggregateInputObjectZodSchema = __makeSchema_SiteDailyVisitorMaxAggregateInput_schema();
+
+
+// File: StoryBlockCountAggregateInput.schema.ts
+const __makeSchema_StoryBlockCountAggregateInput_schema = () => z.object({
+  id: z.literal(true).optional(),
+  sectionId: z.literal(true).optional(),
+  position: z.literal(true).optional(),
+  type: z.literal(true).optional(),
+  media: z.literal(true).optional(),
+  eyebrow: z.literal(true).optional(),
+  title: z.literal(true).optional(),
+  text: z.literal(true).optional(),
+  tags: z.literal(true).optional(),
+  logos: z.literal(true).optional(),
+  tiles: z.literal(true).optional(),
+  link: z.literal(true).optional(),
+  linkLabel: z.literal(true).optional(),
+  effect: z.literal(true).optional(),
+  smalls: z.literal(true).optional(),
+  cols: z.literal(true).optional(),
+  font: z.literal(true).optional(),
+  fontFamily: z.literal(true).optional(),
+  description: z.literal(true).optional(),
+  secondFont: z.literal(true).optional(),
+  secondFontFamily: z.literal(true).optional(),
+  secondDescription: z.literal(true).optional(),
+  swatches: z.literal(true).optional(),
+  _all: z.literal(true).optional()
+}).strict();
+export const StoryBlockCountAggregateInputObjectSchema: z.ZodType<Prisma.StoryBlockCountAggregateInputType> = __makeSchema_StoryBlockCountAggregateInput_schema() as unknown as z.ZodType<Prisma.StoryBlockCountAggregateInputType>;
+export const StoryBlockCountAggregateInputObjectZodSchema = __makeSchema_StoryBlockCountAggregateInput_schema();
+
+
+// File: StoryBlockAvgAggregateInput.schema.ts
+const __makeSchema_StoryBlockAvgAggregateInput_schema = () => z.object({
+  position: z.literal(true).optional(),
+  cols: z.literal(true).optional()
+}).strict();
+export const StoryBlockAvgAggregateInputObjectSchema: z.ZodType<Prisma.StoryBlockAvgAggregateInputType> = __makeSchema_StoryBlockAvgAggregateInput_schema() as unknown as z.ZodType<Prisma.StoryBlockAvgAggregateInputType>;
+export const StoryBlockAvgAggregateInputObjectZodSchema = __makeSchema_StoryBlockAvgAggregateInput_schema();
+
+
+// File: StoryBlockSumAggregateInput.schema.ts
+const __makeSchema_StoryBlockSumAggregateInput_schema = () => z.object({
+  position: z.literal(true).optional(),
+  cols: z.literal(true).optional()
+}).strict();
+export const StoryBlockSumAggregateInputObjectSchema: z.ZodType<Prisma.StoryBlockSumAggregateInputType> = __makeSchema_StoryBlockSumAggregateInput_schema() as unknown as z.ZodType<Prisma.StoryBlockSumAggregateInputType>;
+export const StoryBlockSumAggregateInputObjectZodSchema = __makeSchema_StoryBlockSumAggregateInput_schema();
+
+
+// File: StoryBlockMinAggregateInput.schema.ts
+const __makeSchema_StoryBlockMinAggregateInput_schema = () => z.object({
+  id: z.literal(true).optional(),
+  sectionId: z.literal(true).optional(),
+  position: z.literal(true).optional(),
+  type: z.literal(true).optional(),
+  link: z.literal(true).optional(),
+  effect: z.literal(true).optional(),
+  smalls: z.literal(true).optional(),
+  cols: z.literal(true).optional(),
+  font: z.literal(true).optional(),
+  fontFamily: z.literal(true).optional(),
+  secondFont: z.literal(true).optional(),
+  secondFontFamily: z.literal(true).optional()
+}).strict();
+export const StoryBlockMinAggregateInputObjectSchema: z.ZodType<Prisma.StoryBlockMinAggregateInputType> = __makeSchema_StoryBlockMinAggregateInput_schema() as unknown as z.ZodType<Prisma.StoryBlockMinAggregateInputType>;
+export const StoryBlockMinAggregateInputObjectZodSchema = __makeSchema_StoryBlockMinAggregateInput_schema();
+
+
+// File: StoryBlockMaxAggregateInput.schema.ts
+const __makeSchema_StoryBlockMaxAggregateInput_schema = () => z.object({
+  id: z.literal(true).optional(),
+  sectionId: z.literal(true).optional(),
+  position: z.literal(true).optional(),
+  type: z.literal(true).optional(),
+  link: z.literal(true).optional(),
+  effect: z.literal(true).optional(),
+  smalls: z.literal(true).optional(),
+  cols: z.literal(true).optional(),
+  font: z.literal(true).optional(),
+  fontFamily: z.literal(true).optional(),
+  secondFont: z.literal(true).optional(),
+  secondFontFamily: z.literal(true).optional()
+}).strict();
+export const StoryBlockMaxAggregateInputObjectSchema: z.ZodType<Prisma.StoryBlockMaxAggregateInputType> = __makeSchema_StoryBlockMaxAggregateInput_schema() as unknown as z.ZodType<Prisma.StoryBlockMaxAggregateInputType>;
+export const StoryBlockMaxAggregateInputObjectZodSchema = __makeSchema_StoryBlockMaxAggregateInput_schema();
+
+
+// File: StorySectionCountAggregateInput.schema.ts
+const __makeSchema_StorySectionCountAggregateInput_schema = () => z.object({
+  id: z.literal(true).optional(),
+  projectSlug: z.literal(true).optional(),
+  position: z.literal(true).optional(),
+  title: z.literal(true).optional(),
+  by: z.literal(true).optional(),
+  _all: z.literal(true).optional()
+}).strict();
+export const StorySectionCountAggregateInputObjectSchema: z.ZodType<Prisma.StorySectionCountAggregateInputType> = __makeSchema_StorySectionCountAggregateInput_schema() as unknown as z.ZodType<Prisma.StorySectionCountAggregateInputType>;
+export const StorySectionCountAggregateInputObjectZodSchema = __makeSchema_StorySectionCountAggregateInput_schema();
+
+
+// File: StorySectionAvgAggregateInput.schema.ts
+const __makeSchema_StorySectionAvgAggregateInput_schema = () => z.object({
+  position: z.literal(true).optional()
+}).strict();
+export const StorySectionAvgAggregateInputObjectSchema: z.ZodType<Prisma.StorySectionAvgAggregateInputType> = __makeSchema_StorySectionAvgAggregateInput_schema() as unknown as z.ZodType<Prisma.StorySectionAvgAggregateInputType>;
+export const StorySectionAvgAggregateInputObjectZodSchema = __makeSchema_StorySectionAvgAggregateInput_schema();
+
+
+// File: StorySectionSumAggregateInput.schema.ts
+const __makeSchema_StorySectionSumAggregateInput_schema = () => z.object({
+  position: z.literal(true).optional()
+}).strict();
+export const StorySectionSumAggregateInputObjectSchema: z.ZodType<Prisma.StorySectionSumAggregateInputType> = __makeSchema_StorySectionSumAggregateInput_schema() as unknown as z.ZodType<Prisma.StorySectionSumAggregateInputType>;
+export const StorySectionSumAggregateInputObjectZodSchema = __makeSchema_StorySectionSumAggregateInput_schema();
+
+
+// File: StorySectionMinAggregateInput.schema.ts
+const __makeSchema_StorySectionMinAggregateInput_schema = () => z.object({
+  id: z.literal(true).optional(),
+  projectSlug: z.literal(true).optional(),
+  position: z.literal(true).optional()
+}).strict();
+export const StorySectionMinAggregateInputObjectSchema: z.ZodType<Prisma.StorySectionMinAggregateInputType> = __makeSchema_StorySectionMinAggregateInput_schema() as unknown as z.ZodType<Prisma.StorySectionMinAggregateInputType>;
+export const StorySectionMinAggregateInputObjectZodSchema = __makeSchema_StorySectionMinAggregateInput_schema();
+
+
+// File: StorySectionMaxAggregateInput.schema.ts
+const __makeSchema_StorySectionMaxAggregateInput_schema = () => z.object({
+  id: z.literal(true).optional(),
+  projectSlug: z.literal(true).optional(),
+  position: z.literal(true).optional()
+}).strict();
+export const StorySectionMaxAggregateInputObjectSchema: z.ZodType<Prisma.StorySectionMaxAggregateInputType> = __makeSchema_StorySectionMaxAggregateInput_schema() as unknown as z.ZodType<Prisma.StorySectionMaxAggregateInputType>;
+export const StorySectionMaxAggregateInputObjectZodSchema = __makeSchema_StorySectionMaxAggregateInput_schema();
 
 
 // File: StudioMemberCountAggregateInput.schema.ts
@@ -5828,6 +8741,15 @@ export const VerificationMaxAggregateInputObjectSchema: z.ZodType<Prisma.Verific
 export const VerificationMaxAggregateInputObjectZodSchema = __makeSchema_VerificationMaxAggregateInput_schema();
 
 
+// File: ProjectCountOutputTypeSelect.schema.ts
+const __makeSchema_ProjectCountOutputTypeSelect_schema = () => z.object({
+  team: z.union([z.boolean(), z.lazy(() => ProjectCountOutputTypeCountTeamArgsObjectSchema)]).optional(),
+  story: z.union([z.boolean(), z.lazy(() => ProjectCountOutputTypeCountStoryArgsObjectSchema)]).optional()
+}).strict();
+export const ProjectCountOutputTypeSelectObjectSchema: z.ZodType<Prisma.ProjectCountOutputTypeSelect> = __makeSchema_ProjectCountOutputTypeSelect_schema() as unknown as z.ZodType<Prisma.ProjectCountOutputTypeSelect>;
+export const ProjectCountOutputTypeSelectObjectZodSchema = __makeSchema_ProjectCountOutputTypeSelect_schema();
+
+
 // File: SiteVisitorCountOutputTypeSelect.schema.ts
 const __makeSchema_SiteVisitorCountOutputTypeSelect_schema = () => z.object({
   dailyVisits: z.union([z.boolean(), z.lazy(() => SiteVisitorCountOutputTypeCountDailyVisitsArgsObjectSchema)]).optional()
@@ -5844,6 +8766,22 @@ export const SiteDailyStatCountOutputTypeSelectObjectSchema: z.ZodType<Prisma.Si
 export const SiteDailyStatCountOutputTypeSelectObjectZodSchema = __makeSchema_SiteDailyStatCountOutputTypeSelect_schema();
 
 
+// File: StorySectionCountOutputTypeSelect.schema.ts
+const __makeSchema_StorySectionCountOutputTypeSelect_schema = () => z.object({
+  blocks: z.union([z.boolean(), z.lazy(() => StorySectionCountOutputTypeCountBlocksArgsObjectSchema)]).optional()
+}).strict();
+export const StorySectionCountOutputTypeSelectObjectSchema: z.ZodType<Prisma.StorySectionCountOutputTypeSelect> = __makeSchema_StorySectionCountOutputTypeSelect_schema() as unknown as z.ZodType<Prisma.StorySectionCountOutputTypeSelect>;
+export const StorySectionCountOutputTypeSelectObjectZodSchema = __makeSchema_StorySectionCountOutputTypeSelect_schema();
+
+
+// File: StudioMemberCountOutputTypeSelect.schema.ts
+const __makeSchema_StudioMemberCountOutputTypeSelect_schema = () => z.object({
+  teamOf: z.union([z.boolean(), z.lazy(() => StudioMemberCountOutputTypeCountTeamOfArgsObjectSchema)]).optional()
+}).strict();
+export const StudioMemberCountOutputTypeSelectObjectSchema: z.ZodType<Prisma.StudioMemberCountOutputTypeSelect> = __makeSchema_StudioMemberCountOutputTypeSelect_schema() as unknown as z.ZodType<Prisma.StudioMemberCountOutputTypeSelect>;
+export const StudioMemberCountOutputTypeSelectObjectZodSchema = __makeSchema_StudioMemberCountOutputTypeSelect_schema();
+
+
 // File: UserCountOutputTypeSelect.schema.ts
 const __makeSchema_UserCountOutputTypeSelect_schema = () => z.object({
   sessions: z.union([z.boolean(), z.lazy(() => UserCountOutputTypeCountSessionsArgsObjectSchema)]).optional(),
@@ -5851,6 +8789,30 @@ const __makeSchema_UserCountOutputTypeSelect_schema = () => z.object({
 }).strict();
 export const UserCountOutputTypeSelectObjectSchema: z.ZodType<Prisma.UserCountOutputTypeSelect> = __makeSchema_UserCountOutputTypeSelect_schema() as unknown as z.ZodType<Prisma.UserCountOutputTypeSelect>;
 export const UserCountOutputTypeSelectObjectZodSchema = __makeSchema_UserCountOutputTypeSelect_schema();
+
+
+// File: ProjectCountOutputTypeArgs.schema.ts
+const __makeSchema_ProjectCountOutputTypeArgs_schema = () => z.object({
+  select: z.lazy(() => ProjectCountOutputTypeSelectObjectSchema).optional()
+}).strict();
+export const ProjectCountOutputTypeArgsObjectSchema = __makeSchema_ProjectCountOutputTypeArgs_schema();
+export const ProjectCountOutputTypeArgsObjectZodSchema = __makeSchema_ProjectCountOutputTypeArgs_schema();
+
+
+// File: ProjectCountOutputTypeCountTeamArgs.schema.ts
+const __makeSchema_ProjectCountOutputTypeCountTeamArgs_schema = () => z.object({
+  where: z.lazy(() => StudioMemberWhereInputObjectSchema).optional()
+}).strict();
+export const ProjectCountOutputTypeCountTeamArgsObjectSchema = __makeSchema_ProjectCountOutputTypeCountTeamArgs_schema();
+export const ProjectCountOutputTypeCountTeamArgsObjectZodSchema = __makeSchema_ProjectCountOutputTypeCountTeamArgs_schema();
+
+
+// File: ProjectCountOutputTypeCountStoryArgs.schema.ts
+const __makeSchema_ProjectCountOutputTypeCountStoryArgs_schema = () => z.object({
+  where: z.lazy(() => StorySectionWhereInputObjectSchema).optional()
+}).strict();
+export const ProjectCountOutputTypeCountStoryArgsObjectSchema = __makeSchema_ProjectCountOutputTypeCountStoryArgs_schema();
+export const ProjectCountOutputTypeCountStoryArgsObjectZodSchema = __makeSchema_ProjectCountOutputTypeCountStoryArgs_schema();
 
 
 // File: SiteVisitorCountOutputTypeArgs.schema.ts
@@ -5883,6 +8845,38 @@ const __makeSchema_SiteDailyStatCountOutputTypeCountVisitorsArgs_schema = () => 
 }).strict();
 export const SiteDailyStatCountOutputTypeCountVisitorsArgsObjectSchema = __makeSchema_SiteDailyStatCountOutputTypeCountVisitorsArgs_schema();
 export const SiteDailyStatCountOutputTypeCountVisitorsArgsObjectZodSchema = __makeSchema_SiteDailyStatCountOutputTypeCountVisitorsArgs_schema();
+
+
+// File: StorySectionCountOutputTypeArgs.schema.ts
+const __makeSchema_StorySectionCountOutputTypeArgs_schema = () => z.object({
+  select: z.lazy(() => StorySectionCountOutputTypeSelectObjectSchema).optional()
+}).strict();
+export const StorySectionCountOutputTypeArgsObjectSchema = __makeSchema_StorySectionCountOutputTypeArgs_schema();
+export const StorySectionCountOutputTypeArgsObjectZodSchema = __makeSchema_StorySectionCountOutputTypeArgs_schema();
+
+
+// File: StorySectionCountOutputTypeCountBlocksArgs.schema.ts
+const __makeSchema_StorySectionCountOutputTypeCountBlocksArgs_schema = () => z.object({
+  where: z.lazy(() => StoryBlockWhereInputObjectSchema).optional()
+}).strict();
+export const StorySectionCountOutputTypeCountBlocksArgsObjectSchema = __makeSchema_StorySectionCountOutputTypeCountBlocksArgs_schema();
+export const StorySectionCountOutputTypeCountBlocksArgsObjectZodSchema = __makeSchema_StorySectionCountOutputTypeCountBlocksArgs_schema();
+
+
+// File: StudioMemberCountOutputTypeArgs.schema.ts
+const __makeSchema_StudioMemberCountOutputTypeArgs_schema = () => z.object({
+  select: z.lazy(() => StudioMemberCountOutputTypeSelectObjectSchema).optional()
+}).strict();
+export const StudioMemberCountOutputTypeArgsObjectSchema = __makeSchema_StudioMemberCountOutputTypeArgs_schema();
+export const StudioMemberCountOutputTypeArgsObjectZodSchema = __makeSchema_StudioMemberCountOutputTypeArgs_schema();
+
+
+// File: StudioMemberCountOutputTypeCountTeamOfArgs.schema.ts
+const __makeSchema_StudioMemberCountOutputTypeCountTeamOfArgs_schema = () => z.object({
+  where: z.lazy(() => ProjectWhereInputObjectSchema).optional()
+}).strict();
+export const StudioMemberCountOutputTypeCountTeamOfArgsObjectSchema = __makeSchema_StudioMemberCountOutputTypeCountTeamOfArgs_schema();
+export const StudioMemberCountOutputTypeCountTeamOfArgsObjectZodSchema = __makeSchema_StudioMemberCountOutputTypeCountTeamOfArgs_schema();
 
 
 // File: UserCountOutputTypeArgs.schema.ts
@@ -5960,6 +8954,34 @@ export const MediaSelectObjectSchema: z.ZodType<Prisma.MediaSelect> = __makeSche
 export const MediaSelectObjectZodSchema = __makeSchema_MediaSelect_schema();
 
 
+// File: ProjectSelect.schema.ts
+const __makeSchema_ProjectSelect_schema = () => z.object({
+  slug: z.boolean().optional(),
+  position: z.boolean().optional(),
+  name: z.boolean().optional(),
+  weeks: z.boolean().optional(),
+  link: z.boolean().optional(),
+  image: z.boolean().optional(),
+  video: z.boolean().optional(),
+  coverEffect: z.boolean().optional(),
+  description: z.boolean().optional(),
+  metaDescription: z.boolean().optional(),
+  challenge: z.boolean().optional(),
+  services: z.boolean().optional(),
+  team: z.union([z.boolean(), z.lazy(() => StudioMemberFindManySchema)]).optional(),
+  techStack: z.boolean().optional(),
+  date: z.boolean().optional(),
+  gallery: z.boolean().optional(),
+  notes: z.boolean().optional(),
+  story: z.union([z.boolean(), z.lazy(() => StorySectionFindManySchema)]).optional(),
+  createdAt: z.boolean().optional(),
+  updatedAt: z.boolean().optional(),
+  _count: z.union([z.boolean(), z.lazy(() => ProjectCountOutputTypeArgsObjectSchema)]).optional()
+}).strict();
+export const ProjectSelectObjectSchema: z.ZodType<Prisma.ProjectSelect> = __makeSchema_ProjectSelect_schema() as unknown as z.ZodType<Prisma.ProjectSelect>;
+export const ProjectSelectObjectZodSchema = __makeSchema_ProjectSelect_schema();
+
+
 // File: SessionSelect.schema.ts
 const __makeSchema_SessionSelect_schema = () => z.object({
   id: z.boolean().optional(),
@@ -6015,6 +9037,52 @@ export const SiteDailyVisitorSelectObjectSchema: z.ZodType<Prisma.SiteDailyVisit
 export const SiteDailyVisitorSelectObjectZodSchema = __makeSchema_SiteDailyVisitorSelect_schema();
 
 
+// File: StoryBlockSelect.schema.ts
+const __makeSchema_StoryBlockSelect_schema = () => z.object({
+  id: z.boolean().optional(),
+  sectionId: z.boolean().optional(),
+  section: z.union([z.boolean(), z.lazy(() => StorySectionArgsObjectSchema)]).optional(),
+  position: z.boolean().optional(),
+  type: z.boolean().optional(),
+  media: z.boolean().optional(),
+  eyebrow: z.boolean().optional(),
+  title: z.boolean().optional(),
+  text: z.boolean().optional(),
+  tags: z.boolean().optional(),
+  logos: z.boolean().optional(),
+  tiles: z.boolean().optional(),
+  link: z.boolean().optional(),
+  linkLabel: z.boolean().optional(),
+  effect: z.boolean().optional(),
+  smalls: z.boolean().optional(),
+  cols: z.boolean().optional(),
+  font: z.boolean().optional(),
+  fontFamily: z.boolean().optional(),
+  description: z.boolean().optional(),
+  secondFont: z.boolean().optional(),
+  secondFontFamily: z.boolean().optional(),
+  secondDescription: z.boolean().optional(),
+  swatches: z.boolean().optional()
+}).strict();
+export const StoryBlockSelectObjectSchema: z.ZodType<Prisma.StoryBlockSelect> = __makeSchema_StoryBlockSelect_schema() as unknown as z.ZodType<Prisma.StoryBlockSelect>;
+export const StoryBlockSelectObjectZodSchema = __makeSchema_StoryBlockSelect_schema();
+
+
+// File: StorySectionSelect.schema.ts
+const __makeSchema_StorySectionSelect_schema = () => z.object({
+  id: z.boolean().optional(),
+  projectSlug: z.boolean().optional(),
+  project: z.union([z.boolean(), z.lazy(() => ProjectArgsObjectSchema)]).optional(),
+  position: z.boolean().optional(),
+  title: z.boolean().optional(),
+  by: z.boolean().optional(),
+  blocks: z.union([z.boolean(), z.lazy(() => StoryBlockFindManySchema)]).optional(),
+  _count: z.union([z.boolean(), z.lazy(() => StorySectionCountOutputTypeArgsObjectSchema)]).optional()
+}).strict();
+export const StorySectionSelectObjectSchema: z.ZodType<Prisma.StorySectionSelect> = __makeSchema_StorySectionSelect_schema() as unknown as z.ZodType<Prisma.StorySectionSelect>;
+export const StorySectionSelectObjectZodSchema = __makeSchema_StorySectionSelect_schema();
+
+
 // File: StudioMemberSelect.schema.ts
 const __makeSchema_StudioMemberSelect_schema = () => z.object({
   slug: z.boolean().optional(),
@@ -6035,8 +9103,10 @@ const __makeSchema_StudioMemberSelect_schema = () => z.object({
   projects: z.boolean().optional(),
   suite: z.boolean().optional(),
   facts: z.boolean().optional(),
+  teamOf: z.union([z.boolean(), z.lazy(() => ProjectFindManySchema)]).optional(),
   createdAt: z.boolean().optional(),
-  updatedAt: z.boolean().optional()
+  updatedAt: z.boolean().optional(),
+  _count: z.union([z.boolean(), z.lazy(() => StudioMemberCountOutputTypeArgsObjectSchema)]).optional()
 }).strict();
 export const StudioMemberSelectObjectSchema: z.ZodType<Prisma.StudioMemberSelect> = __makeSchema_StudioMemberSelect_schema() as unknown as z.ZodType<Prisma.StudioMemberSelect>;
 export const StudioMemberSelectObjectZodSchema = __makeSchema_StudioMemberSelect_schema();
@@ -6105,6 +9175,15 @@ export const MediaArgsObjectSchema = __makeSchema_MediaArgs_schema();
 export const MediaArgsObjectZodSchema = __makeSchema_MediaArgs_schema();
 
 
+// File: ProjectArgs.schema.ts
+const __makeSchema_ProjectArgs_schema = () => z.object({
+  select: z.lazy(() => ProjectSelectObjectSchema).optional(),
+  include: z.lazy(() => ProjectIncludeObjectSchema).optional()
+}).strict();
+export const ProjectArgsObjectSchema = __makeSchema_ProjectArgs_schema();
+export const ProjectArgsObjectZodSchema = __makeSchema_ProjectArgs_schema();
+
+
 // File: SessionArgs.schema.ts
 const __makeSchema_SessionArgs_schema = () => z.object({
   select: z.lazy(() => SessionSelectObjectSchema).optional(),
@@ -6141,9 +9220,28 @@ export const SiteDailyVisitorArgsObjectSchema = __makeSchema_SiteDailyVisitorArg
 export const SiteDailyVisitorArgsObjectZodSchema = __makeSchema_SiteDailyVisitorArgs_schema();
 
 
+// File: StoryBlockArgs.schema.ts
+const __makeSchema_StoryBlockArgs_schema = () => z.object({
+  select: z.lazy(() => StoryBlockSelectObjectSchema).optional(),
+  include: z.lazy(() => StoryBlockIncludeObjectSchema).optional()
+}).strict();
+export const StoryBlockArgsObjectSchema = __makeSchema_StoryBlockArgs_schema();
+export const StoryBlockArgsObjectZodSchema = __makeSchema_StoryBlockArgs_schema();
+
+
+// File: StorySectionArgs.schema.ts
+const __makeSchema_StorySectionArgs_schema = () => z.object({
+  select: z.lazy(() => StorySectionSelectObjectSchema).optional(),
+  include: z.lazy(() => StorySectionIncludeObjectSchema).optional()
+}).strict();
+export const StorySectionArgsObjectSchema = __makeSchema_StorySectionArgs_schema();
+export const StorySectionArgsObjectZodSchema = __makeSchema_StorySectionArgs_schema();
+
+
 // File: StudioMemberArgs.schema.ts
 const __makeSchema_StudioMemberArgs_schema = () => z.object({
-  select: z.lazy(() => StudioMemberSelectObjectSchema).optional()
+  select: z.lazy(() => StudioMemberSelectObjectSchema).optional(),
+  include: z.lazy(() => StudioMemberIncludeObjectSchema).optional()
 }).strict();
 export const StudioMemberArgsObjectSchema = __makeSchema_StudioMemberArgs_schema();
 export const StudioMemberArgsObjectZodSchema = __makeSchema_StudioMemberArgs_schema();
@@ -6183,6 +9281,16 @@ export const MediaIncludeObjectSchema: z.ZodType<Prisma.MediaInclude> = __makeSc
 export const MediaIncludeObjectZodSchema = __makeSchema_MediaInclude_schema();
 
 
+// File: ProjectInclude.schema.ts
+const __makeSchema_ProjectInclude_schema = () => z.object({
+  team: z.union([z.boolean(), z.lazy(() => StudioMemberFindManySchema)]).optional(),
+  story: z.union([z.boolean(), z.lazy(() => StorySectionFindManySchema)]).optional(),
+  _count: z.union([z.boolean(), z.lazy(() => ProjectCountOutputTypeArgsObjectSchema)]).optional()
+}).strict();
+export const ProjectIncludeObjectSchema: z.ZodType<Prisma.ProjectInclude> = __makeSchema_ProjectInclude_schema() as unknown as z.ZodType<Prisma.ProjectInclude>;
+export const ProjectIncludeObjectZodSchema = __makeSchema_ProjectInclude_schema();
+
+
 // File: SessionInclude.schema.ts
 const __makeSchema_SessionInclude_schema = () => z.object({
   user: z.union([z.boolean(), z.lazy(() => UserArgsObjectSchema)]).optional()
@@ -6216,6 +9324,33 @@ const __makeSchema_SiteDailyVisitorInclude_schema = () => z.object({
 }).strict();
 export const SiteDailyVisitorIncludeObjectSchema: z.ZodType<Prisma.SiteDailyVisitorInclude> = __makeSchema_SiteDailyVisitorInclude_schema() as unknown as z.ZodType<Prisma.SiteDailyVisitorInclude>;
 export const SiteDailyVisitorIncludeObjectZodSchema = __makeSchema_SiteDailyVisitorInclude_schema();
+
+
+// File: StoryBlockInclude.schema.ts
+const __makeSchema_StoryBlockInclude_schema = () => z.object({
+  section: z.union([z.boolean(), z.lazy(() => StorySectionArgsObjectSchema)]).optional()
+}).strict();
+export const StoryBlockIncludeObjectSchema: z.ZodType<Prisma.StoryBlockInclude> = __makeSchema_StoryBlockInclude_schema() as unknown as z.ZodType<Prisma.StoryBlockInclude>;
+export const StoryBlockIncludeObjectZodSchema = __makeSchema_StoryBlockInclude_schema();
+
+
+// File: StorySectionInclude.schema.ts
+const __makeSchema_StorySectionInclude_schema = () => z.object({
+  project: z.union([z.boolean(), z.lazy(() => ProjectArgsObjectSchema)]).optional(),
+  blocks: z.union([z.boolean(), z.lazy(() => StoryBlockFindManySchema)]).optional(),
+  _count: z.union([z.boolean(), z.lazy(() => StorySectionCountOutputTypeArgsObjectSchema)]).optional()
+}).strict();
+export const StorySectionIncludeObjectSchema: z.ZodType<Prisma.StorySectionInclude> = __makeSchema_StorySectionInclude_schema() as unknown as z.ZodType<Prisma.StorySectionInclude>;
+export const StorySectionIncludeObjectZodSchema = __makeSchema_StorySectionInclude_schema();
+
+
+// File: StudioMemberInclude.schema.ts
+const __makeSchema_StudioMemberInclude_schema = () => z.object({
+  teamOf: z.union([z.boolean(), z.lazy(() => ProjectFindManySchema)]).optional(),
+  _count: z.union([z.boolean(), z.lazy(() => StudioMemberCountOutputTypeArgsObjectSchema)]).optional()
+}).strict();
+export const StudioMemberIncludeObjectSchema: z.ZodType<Prisma.StudioMemberInclude> = __makeSchema_StudioMemberInclude_schema() as unknown as z.ZodType<Prisma.StudioMemberInclude>;
+export const StudioMemberIncludeObjectZodSchema = __makeSchema_StudioMemberInclude_schema();
 
 
 // File: UserInclude.schema.ts
@@ -6796,6 +9931,261 @@ export const MediaAggregateZodSchema = z.object({ orderBy: z.union([MediaOrderBy
 export const MediaGroupBySchema: z.ZodType<Prisma.MediaGroupByArgs> = z.object({ where: MediaWhereInputObjectSchema.optional(), orderBy: z.union([MediaOrderByWithAggregationInputObjectSchema, MediaOrderByWithAggregationInputObjectSchema.array()]).optional(), having: MediaScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(MediaScalarFieldEnumSchema), _count: z.union([ z.literal(true), MediaCountAggregateInputObjectSchema ]).optional(), _min: MediaMinAggregateInputObjectSchema.optional(), _max: MediaMaxAggregateInputObjectSchema.optional(), _avg: MediaAvgAggregateInputObjectSchema.optional(), _sum: MediaSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.MediaGroupByArgs>;
 
 export const MediaGroupByZodSchema = z.object({ where: MediaWhereInputObjectSchema.optional(), orderBy: z.union([MediaOrderByWithAggregationInputObjectSchema, MediaOrderByWithAggregationInputObjectSchema.array()]).optional(), having: MediaScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(MediaScalarFieldEnumSchema), _count: z.union([ z.literal(true), MediaCountAggregateInputObjectSchema ]).optional(), _min: MediaMinAggregateInputObjectSchema.optional(), _max: MediaMaxAggregateInputObjectSchema.optional(), _avg: MediaAvgAggregateInputObjectSchema.optional(), _sum: MediaSumAggregateInputObjectSchema.optional() }).strict();
+
+// File: findUniqueProject.schema.ts
+
+export const ProjectFindUniqueSchema: z.ZodType<Prisma.ProjectFindUniqueArgs> = z.object({ select: ProjectSelectObjectSchema.optional(), include: ProjectIncludeObjectSchema.optional(), where: ProjectWhereUniqueInputObjectSchema }).strict() as unknown as z.ZodType<Prisma.ProjectFindUniqueArgs>;
+
+export const ProjectFindUniqueZodSchema = z.object({ select: ProjectSelectObjectSchema.optional(), include: ProjectIncludeObjectSchema.optional(), where: ProjectWhereUniqueInputObjectSchema }).strict();
+
+// File: findUniqueOrThrowProject.schema.ts
+
+export const ProjectFindUniqueOrThrowSchema: z.ZodType<Prisma.ProjectFindUniqueOrThrowArgs> = z.object({ select: ProjectSelectObjectSchema.optional(), include: ProjectIncludeObjectSchema.optional(), where: ProjectWhereUniqueInputObjectSchema }).strict() as unknown as z.ZodType<Prisma.ProjectFindUniqueOrThrowArgs>;
+
+export const ProjectFindUniqueOrThrowZodSchema = z.object({ select: ProjectSelectObjectSchema.optional(), include: ProjectIncludeObjectSchema.optional(), where: ProjectWhereUniqueInputObjectSchema }).strict();
+
+// File: findFirstProject.schema.ts
+
+// Select schema needs to be in file to prevent circular imports
+//------------------------------------------------------
+
+export const ProjectFindFirstSelectSchema__findFirstProject_schema: z.ZodType<Prisma.ProjectSelect> = z.object({
+    slug: z.boolean().optional(),
+    position: z.boolean().optional(),
+    name: z.boolean().optional(),
+    weeks: z.boolean().optional(),
+    link: z.boolean().optional(),
+    image: z.boolean().optional(),
+    video: z.boolean().optional(),
+    coverEffect: z.boolean().optional(),
+    description: z.boolean().optional(),
+    metaDescription: z.boolean().optional(),
+    challenge: z.boolean().optional(),
+    services: z.boolean().optional(),
+    team: z.union([z.boolean(), z.lazy(() => StudioMemberFindManySchema)]).optional(),
+    techStack: z.boolean().optional(),
+    date: z.boolean().optional(),
+    gallery: z.boolean().optional(),
+    notes: z.boolean().optional(),
+    story: z.union([z.boolean(), z.lazy(() => StorySectionFindManySchema)]).optional(),
+    createdAt: z.boolean().optional(),
+    updatedAt: z.boolean().optional(),
+    _count: z.union([z.boolean(), z.lazy(() => ProjectCountOutputTypeArgsObjectSchema)]).optional()
+  }).strict() as unknown as z.ZodType<Prisma.ProjectSelect>;
+
+export const ProjectFindFirstSelectZodSchema__findFirstProject_schema = z.object({
+    slug: z.boolean().optional(),
+    position: z.boolean().optional(),
+    name: z.boolean().optional(),
+    weeks: z.boolean().optional(),
+    link: z.boolean().optional(),
+    image: z.boolean().optional(),
+    video: z.boolean().optional(),
+    coverEffect: z.boolean().optional(),
+    description: z.boolean().optional(),
+    metaDescription: z.boolean().optional(),
+    challenge: z.boolean().optional(),
+    services: z.boolean().optional(),
+    team: z.union([z.boolean(), z.lazy(() => StudioMemberFindManySchema)]).optional(),
+    techStack: z.boolean().optional(),
+    date: z.boolean().optional(),
+    gallery: z.boolean().optional(),
+    notes: z.boolean().optional(),
+    story: z.union([z.boolean(), z.lazy(() => StorySectionFindManySchema)]).optional(),
+    createdAt: z.boolean().optional(),
+    updatedAt: z.boolean().optional(),
+    _count: z.union([z.boolean(), z.lazy(() => ProjectCountOutputTypeArgsObjectSchema)]).optional()
+  }).strict();
+
+export const ProjectFindFirstSchema: z.ZodType<Prisma.ProjectFindFirstArgs> = z.object({ select: ProjectFindFirstSelectSchema__findFirstProject_schema.optional(), include: z.lazy(() => ProjectIncludeObjectSchema.optional()), orderBy: z.union([ProjectOrderByWithRelationInputObjectSchema, ProjectOrderByWithRelationInputObjectSchema.array()]).optional(), where: ProjectWhereInputObjectSchema.optional(), cursor: ProjectWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([ProjectScalarFieldEnumSchema, ProjectScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<Prisma.ProjectFindFirstArgs>;
+
+export const ProjectFindFirstZodSchema = z.object({ select: ProjectFindFirstSelectSchema__findFirstProject_schema.optional(), include: z.lazy(() => ProjectIncludeObjectSchema.optional()), orderBy: z.union([ProjectOrderByWithRelationInputObjectSchema, ProjectOrderByWithRelationInputObjectSchema.array()]).optional(), where: ProjectWhereInputObjectSchema.optional(), cursor: ProjectWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([ProjectScalarFieldEnumSchema, ProjectScalarFieldEnumSchema.array()]).optional() }).strict();
+
+// File: findFirstOrThrowProject.schema.ts
+
+// Select schema needs to be in file to prevent circular imports
+//------------------------------------------------------
+
+export const ProjectFindFirstOrThrowSelectSchema__findFirstOrThrowProject_schema: z.ZodType<Prisma.ProjectSelect> = z.object({
+    slug: z.boolean().optional(),
+    position: z.boolean().optional(),
+    name: z.boolean().optional(),
+    weeks: z.boolean().optional(),
+    link: z.boolean().optional(),
+    image: z.boolean().optional(),
+    video: z.boolean().optional(),
+    coverEffect: z.boolean().optional(),
+    description: z.boolean().optional(),
+    metaDescription: z.boolean().optional(),
+    challenge: z.boolean().optional(),
+    services: z.boolean().optional(),
+    team: z.union([z.boolean(), z.lazy(() => StudioMemberFindManySchema)]).optional(),
+    techStack: z.boolean().optional(),
+    date: z.boolean().optional(),
+    gallery: z.boolean().optional(),
+    notes: z.boolean().optional(),
+    story: z.union([z.boolean(), z.lazy(() => StorySectionFindManySchema)]).optional(),
+    createdAt: z.boolean().optional(),
+    updatedAt: z.boolean().optional(),
+    _count: z.union([z.boolean(), z.lazy(() => ProjectCountOutputTypeArgsObjectSchema)]).optional()
+  }).strict() as unknown as z.ZodType<Prisma.ProjectSelect>;
+
+export const ProjectFindFirstOrThrowSelectZodSchema__findFirstOrThrowProject_schema = z.object({
+    slug: z.boolean().optional(),
+    position: z.boolean().optional(),
+    name: z.boolean().optional(),
+    weeks: z.boolean().optional(),
+    link: z.boolean().optional(),
+    image: z.boolean().optional(),
+    video: z.boolean().optional(),
+    coverEffect: z.boolean().optional(),
+    description: z.boolean().optional(),
+    metaDescription: z.boolean().optional(),
+    challenge: z.boolean().optional(),
+    services: z.boolean().optional(),
+    team: z.union([z.boolean(), z.lazy(() => StudioMemberFindManySchema)]).optional(),
+    techStack: z.boolean().optional(),
+    date: z.boolean().optional(),
+    gallery: z.boolean().optional(),
+    notes: z.boolean().optional(),
+    story: z.union([z.boolean(), z.lazy(() => StorySectionFindManySchema)]).optional(),
+    createdAt: z.boolean().optional(),
+    updatedAt: z.boolean().optional(),
+    _count: z.union([z.boolean(), z.lazy(() => ProjectCountOutputTypeArgsObjectSchema)]).optional()
+  }).strict();
+
+export const ProjectFindFirstOrThrowSchema: z.ZodType<Prisma.ProjectFindFirstOrThrowArgs> = z.object({ select: ProjectFindFirstOrThrowSelectSchema__findFirstOrThrowProject_schema.optional(), include: z.lazy(() => ProjectIncludeObjectSchema.optional()), orderBy: z.union([ProjectOrderByWithRelationInputObjectSchema, ProjectOrderByWithRelationInputObjectSchema.array()]).optional(), where: ProjectWhereInputObjectSchema.optional(), cursor: ProjectWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([ProjectScalarFieldEnumSchema, ProjectScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<Prisma.ProjectFindFirstOrThrowArgs>;
+
+export const ProjectFindFirstOrThrowZodSchema = z.object({ select: ProjectFindFirstOrThrowSelectSchema__findFirstOrThrowProject_schema.optional(), include: z.lazy(() => ProjectIncludeObjectSchema.optional()), orderBy: z.union([ProjectOrderByWithRelationInputObjectSchema, ProjectOrderByWithRelationInputObjectSchema.array()]).optional(), where: ProjectWhereInputObjectSchema.optional(), cursor: ProjectWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([ProjectScalarFieldEnumSchema, ProjectScalarFieldEnumSchema.array()]).optional() }).strict();
+
+// File: findManyProject.schema.ts
+
+// Select schema needs to be in file to prevent circular imports
+//------------------------------------------------------
+
+export const ProjectFindManySelectSchema__findManyProject_schema: z.ZodType<Prisma.ProjectSelect> = z.object({
+    slug: z.boolean().optional(),
+    position: z.boolean().optional(),
+    name: z.boolean().optional(),
+    weeks: z.boolean().optional(),
+    link: z.boolean().optional(),
+    image: z.boolean().optional(),
+    video: z.boolean().optional(),
+    coverEffect: z.boolean().optional(),
+    description: z.boolean().optional(),
+    metaDescription: z.boolean().optional(),
+    challenge: z.boolean().optional(),
+    services: z.boolean().optional(),
+    team: z.union([z.boolean(), z.lazy(() => StudioMemberFindManySchema)]).optional(),
+    techStack: z.boolean().optional(),
+    date: z.boolean().optional(),
+    gallery: z.boolean().optional(),
+    notes: z.boolean().optional(),
+    story: z.union([z.boolean(), z.lazy(() => StorySectionFindManySchema)]).optional(),
+    createdAt: z.boolean().optional(),
+    updatedAt: z.boolean().optional(),
+    _count: z.union([z.boolean(), z.lazy(() => ProjectCountOutputTypeArgsObjectSchema)]).optional()
+  }).strict() as unknown as z.ZodType<Prisma.ProjectSelect>;
+
+export const ProjectFindManySelectZodSchema__findManyProject_schema = z.object({
+    slug: z.boolean().optional(),
+    position: z.boolean().optional(),
+    name: z.boolean().optional(),
+    weeks: z.boolean().optional(),
+    link: z.boolean().optional(),
+    image: z.boolean().optional(),
+    video: z.boolean().optional(),
+    coverEffect: z.boolean().optional(),
+    description: z.boolean().optional(),
+    metaDescription: z.boolean().optional(),
+    challenge: z.boolean().optional(),
+    services: z.boolean().optional(),
+    team: z.union([z.boolean(), z.lazy(() => StudioMemberFindManySchema)]).optional(),
+    techStack: z.boolean().optional(),
+    date: z.boolean().optional(),
+    gallery: z.boolean().optional(),
+    notes: z.boolean().optional(),
+    story: z.union([z.boolean(), z.lazy(() => StorySectionFindManySchema)]).optional(),
+    createdAt: z.boolean().optional(),
+    updatedAt: z.boolean().optional(),
+    _count: z.union([z.boolean(), z.lazy(() => ProjectCountOutputTypeArgsObjectSchema)]).optional()
+  }).strict();
+
+export const ProjectFindManySchema: z.ZodType<Prisma.ProjectFindManyArgs> = z.object({ select: ProjectFindManySelectSchema__findManyProject_schema.optional(), include: z.lazy(() => ProjectIncludeObjectSchema.optional()), orderBy: z.union([ProjectOrderByWithRelationInputObjectSchema, ProjectOrderByWithRelationInputObjectSchema.array()]).optional(), where: ProjectWhereInputObjectSchema.optional(), cursor: ProjectWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([ProjectScalarFieldEnumSchema, ProjectScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<Prisma.ProjectFindManyArgs>;
+
+export const ProjectFindManyZodSchema = z.object({ select: ProjectFindManySelectSchema__findManyProject_schema.optional(), include: z.lazy(() => ProjectIncludeObjectSchema.optional()), orderBy: z.union([ProjectOrderByWithRelationInputObjectSchema, ProjectOrderByWithRelationInputObjectSchema.array()]).optional(), where: ProjectWhereInputObjectSchema.optional(), cursor: ProjectWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([ProjectScalarFieldEnumSchema, ProjectScalarFieldEnumSchema.array()]).optional() }).strict();
+
+// File: countProject.schema.ts
+
+export const ProjectCountSchema: z.ZodType<Prisma.ProjectCountArgs> = z.object({ orderBy: z.union([ProjectOrderByWithRelationInputObjectSchema, ProjectOrderByWithRelationInputObjectSchema.array()]).optional(), where: ProjectWhereInputObjectSchema.optional(), cursor: ProjectWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), ProjectCountAggregateInputObjectSchema ]).optional() }).strict() as unknown as z.ZodType<Prisma.ProjectCountArgs>;
+
+export const ProjectCountZodSchema = z.object({ orderBy: z.union([ProjectOrderByWithRelationInputObjectSchema, ProjectOrderByWithRelationInputObjectSchema.array()]).optional(), where: ProjectWhereInputObjectSchema.optional(), cursor: ProjectWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), ProjectCountAggregateInputObjectSchema ]).optional() }).strict();
+
+// File: createOneProject.schema.ts
+
+export const ProjectCreateOneSchema: z.ZodType<Prisma.ProjectCreateArgs> = z.object({ select: ProjectSelectObjectSchema.optional(), include: ProjectIncludeObjectSchema.optional(), data: z.union([ProjectCreateInputObjectSchema, ProjectUncheckedCreateInputObjectSchema]) }).strict() as unknown as z.ZodType<Prisma.ProjectCreateArgs>;
+
+export const ProjectCreateOneZodSchema = z.object({ select: ProjectSelectObjectSchema.optional(), include: ProjectIncludeObjectSchema.optional(), data: z.union([ProjectCreateInputObjectSchema, ProjectUncheckedCreateInputObjectSchema]) }).strict();
+
+// File: createManyProject.schema.ts
+
+export const ProjectCreateManySchema: z.ZodType<Prisma.ProjectCreateManyArgs> = z.object({ data: z.union([ ProjectCreateManyInputObjectSchema, z.array(ProjectCreateManyInputObjectSchema) ]), skipDuplicates: z.boolean().optional() }).strict() as unknown as z.ZodType<Prisma.ProjectCreateManyArgs>;
+
+export const ProjectCreateManyZodSchema = z.object({ data: z.union([ ProjectCreateManyInputObjectSchema, z.array(ProjectCreateManyInputObjectSchema) ]), skipDuplicates: z.boolean().optional() }).strict();
+
+// File: createManyAndReturnProject.schema.ts
+
+export const ProjectCreateManyAndReturnSchema: z.ZodType<Prisma.ProjectCreateManyAndReturnArgs> = z.object({ select: ProjectSelectObjectSchema.optional(), data: z.union([ ProjectCreateManyInputObjectSchema, z.array(ProjectCreateManyInputObjectSchema) ]), skipDuplicates: z.boolean().optional() }).strict() as unknown as z.ZodType<Prisma.ProjectCreateManyAndReturnArgs>;
+
+export const ProjectCreateManyAndReturnZodSchema = z.object({ select: ProjectSelectObjectSchema.optional(), data: z.union([ ProjectCreateManyInputObjectSchema, z.array(ProjectCreateManyInputObjectSchema) ]), skipDuplicates: z.boolean().optional() }).strict();
+
+// File: deleteOneProject.schema.ts
+
+export const ProjectDeleteOneSchema: z.ZodType<Prisma.ProjectDeleteArgs> = z.object({ select: ProjectSelectObjectSchema.optional(), include: ProjectIncludeObjectSchema.optional(), where: ProjectWhereUniqueInputObjectSchema }).strict() as unknown as z.ZodType<Prisma.ProjectDeleteArgs>;
+
+export const ProjectDeleteOneZodSchema = z.object({ select: ProjectSelectObjectSchema.optional(), include: ProjectIncludeObjectSchema.optional(), where: ProjectWhereUniqueInputObjectSchema }).strict();
+
+// File: deleteManyProject.schema.ts
+
+export const ProjectDeleteManySchema: z.ZodType<Prisma.ProjectDeleteManyArgs> = z.object({ where: ProjectWhereInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.ProjectDeleteManyArgs>;
+
+export const ProjectDeleteManyZodSchema = z.object({ where: ProjectWhereInputObjectSchema.optional() }).strict();
+
+// File: updateOneProject.schema.ts
+
+export const ProjectUpdateOneSchema: z.ZodType<Prisma.ProjectUpdateArgs> = z.object({ select: ProjectSelectObjectSchema.optional(), include: ProjectIncludeObjectSchema.optional(), data: z.union([ProjectUpdateInputObjectSchema, ProjectUncheckedUpdateInputObjectSchema]), where: ProjectWhereUniqueInputObjectSchema }).strict() as unknown as z.ZodType<Prisma.ProjectUpdateArgs>;
+
+export const ProjectUpdateOneZodSchema = z.object({ select: ProjectSelectObjectSchema.optional(), include: ProjectIncludeObjectSchema.optional(), data: z.union([ProjectUpdateInputObjectSchema, ProjectUncheckedUpdateInputObjectSchema]), where: ProjectWhereUniqueInputObjectSchema }).strict();
+
+// File: updateManyProject.schema.ts
+
+export const ProjectUpdateManySchema: z.ZodType<Prisma.ProjectUpdateManyArgs> = z.object({ data: ProjectUpdateManyMutationInputObjectSchema, where: ProjectWhereInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.ProjectUpdateManyArgs>;
+
+export const ProjectUpdateManyZodSchema = z.object({ data: ProjectUpdateManyMutationInputObjectSchema, where: ProjectWhereInputObjectSchema.optional() }).strict();
+
+// File: updateManyAndReturnProject.schema.ts
+
+export const ProjectUpdateManyAndReturnSchema: z.ZodType<Prisma.ProjectUpdateManyAndReturnArgs> = z.object({ select: ProjectSelectObjectSchema.optional(), data: ProjectUpdateManyMutationInputObjectSchema, where: ProjectWhereInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.ProjectUpdateManyAndReturnArgs>;
+
+export const ProjectUpdateManyAndReturnZodSchema = z.object({ select: ProjectSelectObjectSchema.optional(), data: ProjectUpdateManyMutationInputObjectSchema, where: ProjectWhereInputObjectSchema.optional() }).strict();
+
+// File: upsertOneProject.schema.ts
+
+export const ProjectUpsertOneSchema: z.ZodType<Prisma.ProjectUpsertArgs> = z.object({ select: ProjectSelectObjectSchema.optional(), include: ProjectIncludeObjectSchema.optional(), where: ProjectWhereUniqueInputObjectSchema, create: z.union([ ProjectCreateInputObjectSchema, ProjectUncheckedCreateInputObjectSchema ]), update: z.union([ ProjectUpdateInputObjectSchema, ProjectUncheckedUpdateInputObjectSchema ]) }).strict() as unknown as z.ZodType<Prisma.ProjectUpsertArgs>;
+
+export const ProjectUpsertOneZodSchema = z.object({ select: ProjectSelectObjectSchema.optional(), include: ProjectIncludeObjectSchema.optional(), where: ProjectWhereUniqueInputObjectSchema, create: z.union([ ProjectCreateInputObjectSchema, ProjectUncheckedCreateInputObjectSchema ]), update: z.union([ ProjectUpdateInputObjectSchema, ProjectUncheckedUpdateInputObjectSchema ]) }).strict();
+
+// File: aggregateProject.schema.ts
+
+export const ProjectAggregateSchema: z.ZodType<Prisma.ProjectAggregateArgs> = z.object({ orderBy: z.union([ProjectOrderByWithRelationInputObjectSchema, ProjectOrderByWithRelationInputObjectSchema.array()]).optional(), where: ProjectWhereInputObjectSchema.optional(), cursor: ProjectWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), ProjectCountAggregateInputObjectSchema ]).optional(), _min: ProjectMinAggregateInputObjectSchema.optional(), _max: ProjectMaxAggregateInputObjectSchema.optional(), _avg: ProjectAvgAggregateInputObjectSchema.optional(), _sum: ProjectSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.ProjectAggregateArgs>;
+
+export const ProjectAggregateZodSchema = z.object({ orderBy: z.union([ProjectOrderByWithRelationInputObjectSchema, ProjectOrderByWithRelationInputObjectSchema.array()]).optional(), where: ProjectWhereInputObjectSchema.optional(), cursor: ProjectWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), ProjectCountAggregateInputObjectSchema ]).optional(), _min: ProjectMinAggregateInputObjectSchema.optional(), _max: ProjectMaxAggregateInputObjectSchema.optional(), _avg: ProjectAvgAggregateInputObjectSchema.optional(), _sum: ProjectSumAggregateInputObjectSchema.optional() }).strict();
+
+// File: groupByProject.schema.ts
+
+export const ProjectGroupBySchema: z.ZodType<Prisma.ProjectGroupByArgs> = z.object({ where: ProjectWhereInputObjectSchema.optional(), orderBy: z.union([ProjectOrderByWithAggregationInputObjectSchema, ProjectOrderByWithAggregationInputObjectSchema.array()]).optional(), having: ProjectScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(ProjectScalarFieldEnumSchema), _count: z.union([ z.literal(true), ProjectCountAggregateInputObjectSchema ]).optional(), _min: ProjectMinAggregateInputObjectSchema.optional(), _max: ProjectMaxAggregateInputObjectSchema.optional(), _avg: ProjectAvgAggregateInputObjectSchema.optional(), _sum: ProjectSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.ProjectGroupByArgs>;
+
+export const ProjectGroupByZodSchema = z.object({ where: ProjectWhereInputObjectSchema.optional(), orderBy: z.union([ProjectOrderByWithAggregationInputObjectSchema, ProjectOrderByWithAggregationInputObjectSchema.array()]).optional(), having: ProjectScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(ProjectScalarFieldEnumSchema), _count: z.union([ z.literal(true), ProjectCountAggregateInputObjectSchema ]).optional(), _min: ProjectMinAggregateInputObjectSchema.optional(), _max: ProjectMaxAggregateInputObjectSchema.optional(), _avg: ProjectAvgAggregateInputObjectSchema.optional(), _sum: ProjectSumAggregateInputObjectSchema.optional() }).strict();
 
 // File: findUniqueSession.schema.ts
 
@@ -7475,17 +10865,467 @@ export const SiteDailyVisitorGroupBySchema: z.ZodType<Prisma.SiteDailyVisitorGro
 
 export const SiteDailyVisitorGroupByZodSchema = z.object({ where: SiteDailyVisitorWhereInputObjectSchema.optional(), orderBy: z.union([SiteDailyVisitorOrderByWithAggregationInputObjectSchema, SiteDailyVisitorOrderByWithAggregationInputObjectSchema.array()]).optional(), having: SiteDailyVisitorScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(SiteDailyVisitorScalarFieldEnumSchema), _count: z.union([ z.literal(true), SiteDailyVisitorCountAggregateInputObjectSchema ]).optional(), _min: SiteDailyVisitorMinAggregateInputObjectSchema.optional(), _max: SiteDailyVisitorMaxAggregateInputObjectSchema.optional() }).strict();
 
+// File: findUniqueStoryBlock.schema.ts
+
+export const StoryBlockFindUniqueSchema: z.ZodType<Prisma.StoryBlockFindUniqueArgs> = z.object({ select: StoryBlockSelectObjectSchema.optional(), include: StoryBlockIncludeObjectSchema.optional(), where: StoryBlockWhereUniqueInputObjectSchema }).strict() as unknown as z.ZodType<Prisma.StoryBlockFindUniqueArgs>;
+
+export const StoryBlockFindUniqueZodSchema = z.object({ select: StoryBlockSelectObjectSchema.optional(), include: StoryBlockIncludeObjectSchema.optional(), where: StoryBlockWhereUniqueInputObjectSchema }).strict();
+
+// File: findUniqueOrThrowStoryBlock.schema.ts
+
+export const StoryBlockFindUniqueOrThrowSchema: z.ZodType<Prisma.StoryBlockFindUniqueOrThrowArgs> = z.object({ select: StoryBlockSelectObjectSchema.optional(), include: StoryBlockIncludeObjectSchema.optional(), where: StoryBlockWhereUniqueInputObjectSchema }).strict() as unknown as z.ZodType<Prisma.StoryBlockFindUniqueOrThrowArgs>;
+
+export const StoryBlockFindUniqueOrThrowZodSchema = z.object({ select: StoryBlockSelectObjectSchema.optional(), include: StoryBlockIncludeObjectSchema.optional(), where: StoryBlockWhereUniqueInputObjectSchema }).strict();
+
+// File: findFirstStoryBlock.schema.ts
+
+// Select schema needs to be in file to prevent circular imports
+//------------------------------------------------------
+
+export const StoryBlockFindFirstSelectSchema__findFirstStoryBlock_schema: z.ZodType<Prisma.StoryBlockSelect> = z.object({
+    id: z.boolean().optional(),
+    sectionId: z.boolean().optional(),
+    section: z.union([z.boolean(), z.lazy(() => StorySectionArgsObjectSchema)]).optional(),
+    position: z.boolean().optional(),
+    type: z.boolean().optional(),
+    media: z.boolean().optional(),
+    eyebrow: z.boolean().optional(),
+    title: z.boolean().optional(),
+    text: z.boolean().optional(),
+    tags: z.boolean().optional(),
+    logos: z.boolean().optional(),
+    tiles: z.boolean().optional(),
+    link: z.boolean().optional(),
+    linkLabel: z.boolean().optional(),
+    effect: z.boolean().optional(),
+    smalls: z.boolean().optional(),
+    cols: z.boolean().optional(),
+    font: z.boolean().optional(),
+    fontFamily: z.boolean().optional(),
+    description: z.boolean().optional(),
+    secondFont: z.boolean().optional(),
+    secondFontFamily: z.boolean().optional(),
+    secondDescription: z.boolean().optional(),
+    swatches: z.boolean().optional()
+  }).strict() as unknown as z.ZodType<Prisma.StoryBlockSelect>;
+
+export const StoryBlockFindFirstSelectZodSchema__findFirstStoryBlock_schema = z.object({
+    id: z.boolean().optional(),
+    sectionId: z.boolean().optional(),
+    section: z.union([z.boolean(), z.lazy(() => StorySectionArgsObjectSchema)]).optional(),
+    position: z.boolean().optional(),
+    type: z.boolean().optional(),
+    media: z.boolean().optional(),
+    eyebrow: z.boolean().optional(),
+    title: z.boolean().optional(),
+    text: z.boolean().optional(),
+    tags: z.boolean().optional(),
+    logos: z.boolean().optional(),
+    tiles: z.boolean().optional(),
+    link: z.boolean().optional(),
+    linkLabel: z.boolean().optional(),
+    effect: z.boolean().optional(),
+    smalls: z.boolean().optional(),
+    cols: z.boolean().optional(),
+    font: z.boolean().optional(),
+    fontFamily: z.boolean().optional(),
+    description: z.boolean().optional(),
+    secondFont: z.boolean().optional(),
+    secondFontFamily: z.boolean().optional(),
+    secondDescription: z.boolean().optional(),
+    swatches: z.boolean().optional()
+  }).strict();
+
+export const StoryBlockFindFirstSchema: z.ZodType<Prisma.StoryBlockFindFirstArgs> = z.object({ select: StoryBlockFindFirstSelectSchema__findFirstStoryBlock_schema.optional(), include: z.lazy(() => StoryBlockIncludeObjectSchema.optional()), orderBy: z.union([StoryBlockOrderByWithRelationInputObjectSchema, StoryBlockOrderByWithRelationInputObjectSchema.array()]).optional(), where: StoryBlockWhereInputObjectSchema.optional(), cursor: StoryBlockWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([StoryBlockScalarFieldEnumSchema, StoryBlockScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<Prisma.StoryBlockFindFirstArgs>;
+
+export const StoryBlockFindFirstZodSchema = z.object({ select: StoryBlockFindFirstSelectSchema__findFirstStoryBlock_schema.optional(), include: z.lazy(() => StoryBlockIncludeObjectSchema.optional()), orderBy: z.union([StoryBlockOrderByWithRelationInputObjectSchema, StoryBlockOrderByWithRelationInputObjectSchema.array()]).optional(), where: StoryBlockWhereInputObjectSchema.optional(), cursor: StoryBlockWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([StoryBlockScalarFieldEnumSchema, StoryBlockScalarFieldEnumSchema.array()]).optional() }).strict();
+
+// File: findFirstOrThrowStoryBlock.schema.ts
+
+// Select schema needs to be in file to prevent circular imports
+//------------------------------------------------------
+
+export const StoryBlockFindFirstOrThrowSelectSchema__findFirstOrThrowStoryBlock_schema: z.ZodType<Prisma.StoryBlockSelect> = z.object({
+    id: z.boolean().optional(),
+    sectionId: z.boolean().optional(),
+    section: z.union([z.boolean(), z.lazy(() => StorySectionArgsObjectSchema)]).optional(),
+    position: z.boolean().optional(),
+    type: z.boolean().optional(),
+    media: z.boolean().optional(),
+    eyebrow: z.boolean().optional(),
+    title: z.boolean().optional(),
+    text: z.boolean().optional(),
+    tags: z.boolean().optional(),
+    logos: z.boolean().optional(),
+    tiles: z.boolean().optional(),
+    link: z.boolean().optional(),
+    linkLabel: z.boolean().optional(),
+    effect: z.boolean().optional(),
+    smalls: z.boolean().optional(),
+    cols: z.boolean().optional(),
+    font: z.boolean().optional(),
+    fontFamily: z.boolean().optional(),
+    description: z.boolean().optional(),
+    secondFont: z.boolean().optional(),
+    secondFontFamily: z.boolean().optional(),
+    secondDescription: z.boolean().optional(),
+    swatches: z.boolean().optional()
+  }).strict() as unknown as z.ZodType<Prisma.StoryBlockSelect>;
+
+export const StoryBlockFindFirstOrThrowSelectZodSchema__findFirstOrThrowStoryBlock_schema = z.object({
+    id: z.boolean().optional(),
+    sectionId: z.boolean().optional(),
+    section: z.union([z.boolean(), z.lazy(() => StorySectionArgsObjectSchema)]).optional(),
+    position: z.boolean().optional(),
+    type: z.boolean().optional(),
+    media: z.boolean().optional(),
+    eyebrow: z.boolean().optional(),
+    title: z.boolean().optional(),
+    text: z.boolean().optional(),
+    tags: z.boolean().optional(),
+    logos: z.boolean().optional(),
+    tiles: z.boolean().optional(),
+    link: z.boolean().optional(),
+    linkLabel: z.boolean().optional(),
+    effect: z.boolean().optional(),
+    smalls: z.boolean().optional(),
+    cols: z.boolean().optional(),
+    font: z.boolean().optional(),
+    fontFamily: z.boolean().optional(),
+    description: z.boolean().optional(),
+    secondFont: z.boolean().optional(),
+    secondFontFamily: z.boolean().optional(),
+    secondDescription: z.boolean().optional(),
+    swatches: z.boolean().optional()
+  }).strict();
+
+export const StoryBlockFindFirstOrThrowSchema: z.ZodType<Prisma.StoryBlockFindFirstOrThrowArgs> = z.object({ select: StoryBlockFindFirstOrThrowSelectSchema__findFirstOrThrowStoryBlock_schema.optional(), include: z.lazy(() => StoryBlockIncludeObjectSchema.optional()), orderBy: z.union([StoryBlockOrderByWithRelationInputObjectSchema, StoryBlockOrderByWithRelationInputObjectSchema.array()]).optional(), where: StoryBlockWhereInputObjectSchema.optional(), cursor: StoryBlockWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([StoryBlockScalarFieldEnumSchema, StoryBlockScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<Prisma.StoryBlockFindFirstOrThrowArgs>;
+
+export const StoryBlockFindFirstOrThrowZodSchema = z.object({ select: StoryBlockFindFirstOrThrowSelectSchema__findFirstOrThrowStoryBlock_schema.optional(), include: z.lazy(() => StoryBlockIncludeObjectSchema.optional()), orderBy: z.union([StoryBlockOrderByWithRelationInputObjectSchema, StoryBlockOrderByWithRelationInputObjectSchema.array()]).optional(), where: StoryBlockWhereInputObjectSchema.optional(), cursor: StoryBlockWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([StoryBlockScalarFieldEnumSchema, StoryBlockScalarFieldEnumSchema.array()]).optional() }).strict();
+
+// File: findManyStoryBlock.schema.ts
+
+// Select schema needs to be in file to prevent circular imports
+//------------------------------------------------------
+
+export const StoryBlockFindManySelectSchema__findManyStoryBlock_schema: z.ZodType<Prisma.StoryBlockSelect> = z.object({
+    id: z.boolean().optional(),
+    sectionId: z.boolean().optional(),
+    section: z.union([z.boolean(), z.lazy(() => StorySectionArgsObjectSchema)]).optional(),
+    position: z.boolean().optional(),
+    type: z.boolean().optional(),
+    media: z.boolean().optional(),
+    eyebrow: z.boolean().optional(),
+    title: z.boolean().optional(),
+    text: z.boolean().optional(),
+    tags: z.boolean().optional(),
+    logos: z.boolean().optional(),
+    tiles: z.boolean().optional(),
+    link: z.boolean().optional(),
+    linkLabel: z.boolean().optional(),
+    effect: z.boolean().optional(),
+    smalls: z.boolean().optional(),
+    cols: z.boolean().optional(),
+    font: z.boolean().optional(),
+    fontFamily: z.boolean().optional(),
+    description: z.boolean().optional(),
+    secondFont: z.boolean().optional(),
+    secondFontFamily: z.boolean().optional(),
+    secondDescription: z.boolean().optional(),
+    swatches: z.boolean().optional()
+  }).strict() as unknown as z.ZodType<Prisma.StoryBlockSelect>;
+
+export const StoryBlockFindManySelectZodSchema__findManyStoryBlock_schema = z.object({
+    id: z.boolean().optional(),
+    sectionId: z.boolean().optional(),
+    section: z.union([z.boolean(), z.lazy(() => StorySectionArgsObjectSchema)]).optional(),
+    position: z.boolean().optional(),
+    type: z.boolean().optional(),
+    media: z.boolean().optional(),
+    eyebrow: z.boolean().optional(),
+    title: z.boolean().optional(),
+    text: z.boolean().optional(),
+    tags: z.boolean().optional(),
+    logos: z.boolean().optional(),
+    tiles: z.boolean().optional(),
+    link: z.boolean().optional(),
+    linkLabel: z.boolean().optional(),
+    effect: z.boolean().optional(),
+    smalls: z.boolean().optional(),
+    cols: z.boolean().optional(),
+    font: z.boolean().optional(),
+    fontFamily: z.boolean().optional(),
+    description: z.boolean().optional(),
+    secondFont: z.boolean().optional(),
+    secondFontFamily: z.boolean().optional(),
+    secondDescription: z.boolean().optional(),
+    swatches: z.boolean().optional()
+  }).strict();
+
+export const StoryBlockFindManySchema: z.ZodType<Prisma.StoryBlockFindManyArgs> = z.object({ select: StoryBlockFindManySelectSchema__findManyStoryBlock_schema.optional(), include: z.lazy(() => StoryBlockIncludeObjectSchema.optional()), orderBy: z.union([StoryBlockOrderByWithRelationInputObjectSchema, StoryBlockOrderByWithRelationInputObjectSchema.array()]).optional(), where: StoryBlockWhereInputObjectSchema.optional(), cursor: StoryBlockWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([StoryBlockScalarFieldEnumSchema, StoryBlockScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<Prisma.StoryBlockFindManyArgs>;
+
+export const StoryBlockFindManyZodSchema = z.object({ select: StoryBlockFindManySelectSchema__findManyStoryBlock_schema.optional(), include: z.lazy(() => StoryBlockIncludeObjectSchema.optional()), orderBy: z.union([StoryBlockOrderByWithRelationInputObjectSchema, StoryBlockOrderByWithRelationInputObjectSchema.array()]).optional(), where: StoryBlockWhereInputObjectSchema.optional(), cursor: StoryBlockWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([StoryBlockScalarFieldEnumSchema, StoryBlockScalarFieldEnumSchema.array()]).optional() }).strict();
+
+// File: countStoryBlock.schema.ts
+
+export const StoryBlockCountSchema: z.ZodType<Prisma.StoryBlockCountArgs> = z.object({ orderBy: z.union([StoryBlockOrderByWithRelationInputObjectSchema, StoryBlockOrderByWithRelationInputObjectSchema.array()]).optional(), where: StoryBlockWhereInputObjectSchema.optional(), cursor: StoryBlockWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), StoryBlockCountAggregateInputObjectSchema ]).optional() }).strict() as unknown as z.ZodType<Prisma.StoryBlockCountArgs>;
+
+export const StoryBlockCountZodSchema = z.object({ orderBy: z.union([StoryBlockOrderByWithRelationInputObjectSchema, StoryBlockOrderByWithRelationInputObjectSchema.array()]).optional(), where: StoryBlockWhereInputObjectSchema.optional(), cursor: StoryBlockWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), StoryBlockCountAggregateInputObjectSchema ]).optional() }).strict();
+
+// File: createOneStoryBlock.schema.ts
+
+export const StoryBlockCreateOneSchema: z.ZodType<Prisma.StoryBlockCreateArgs> = z.object({ select: StoryBlockSelectObjectSchema.optional(), include: StoryBlockIncludeObjectSchema.optional(), data: z.union([StoryBlockCreateInputObjectSchema, StoryBlockUncheckedCreateInputObjectSchema]) }).strict() as unknown as z.ZodType<Prisma.StoryBlockCreateArgs>;
+
+export const StoryBlockCreateOneZodSchema = z.object({ select: StoryBlockSelectObjectSchema.optional(), include: StoryBlockIncludeObjectSchema.optional(), data: z.union([StoryBlockCreateInputObjectSchema, StoryBlockUncheckedCreateInputObjectSchema]) }).strict();
+
+// File: createManyStoryBlock.schema.ts
+
+export const StoryBlockCreateManySchema: z.ZodType<Prisma.StoryBlockCreateManyArgs> = z.object({ data: z.union([ StoryBlockCreateManyInputObjectSchema, z.array(StoryBlockCreateManyInputObjectSchema) ]), skipDuplicates: z.boolean().optional() }).strict() as unknown as z.ZodType<Prisma.StoryBlockCreateManyArgs>;
+
+export const StoryBlockCreateManyZodSchema = z.object({ data: z.union([ StoryBlockCreateManyInputObjectSchema, z.array(StoryBlockCreateManyInputObjectSchema) ]), skipDuplicates: z.boolean().optional() }).strict();
+
+// File: createManyAndReturnStoryBlock.schema.ts
+
+export const StoryBlockCreateManyAndReturnSchema: z.ZodType<Prisma.StoryBlockCreateManyAndReturnArgs> = z.object({ select: StoryBlockSelectObjectSchema.optional(), data: z.union([ StoryBlockCreateManyInputObjectSchema, z.array(StoryBlockCreateManyInputObjectSchema) ]), skipDuplicates: z.boolean().optional() }).strict() as unknown as z.ZodType<Prisma.StoryBlockCreateManyAndReturnArgs>;
+
+export const StoryBlockCreateManyAndReturnZodSchema = z.object({ select: StoryBlockSelectObjectSchema.optional(), data: z.union([ StoryBlockCreateManyInputObjectSchema, z.array(StoryBlockCreateManyInputObjectSchema) ]), skipDuplicates: z.boolean().optional() }).strict();
+
+// File: deleteOneStoryBlock.schema.ts
+
+export const StoryBlockDeleteOneSchema: z.ZodType<Prisma.StoryBlockDeleteArgs> = z.object({ select: StoryBlockSelectObjectSchema.optional(), include: StoryBlockIncludeObjectSchema.optional(), where: StoryBlockWhereUniqueInputObjectSchema }).strict() as unknown as z.ZodType<Prisma.StoryBlockDeleteArgs>;
+
+export const StoryBlockDeleteOneZodSchema = z.object({ select: StoryBlockSelectObjectSchema.optional(), include: StoryBlockIncludeObjectSchema.optional(), where: StoryBlockWhereUniqueInputObjectSchema }).strict();
+
+// File: deleteManyStoryBlock.schema.ts
+
+export const StoryBlockDeleteManySchema: z.ZodType<Prisma.StoryBlockDeleteManyArgs> = z.object({ where: StoryBlockWhereInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.StoryBlockDeleteManyArgs>;
+
+export const StoryBlockDeleteManyZodSchema = z.object({ where: StoryBlockWhereInputObjectSchema.optional() }).strict();
+
+// File: updateOneStoryBlock.schema.ts
+
+export const StoryBlockUpdateOneSchema: z.ZodType<Prisma.StoryBlockUpdateArgs> = z.object({ select: StoryBlockSelectObjectSchema.optional(), include: StoryBlockIncludeObjectSchema.optional(), data: z.union([StoryBlockUpdateInputObjectSchema, StoryBlockUncheckedUpdateInputObjectSchema]), where: StoryBlockWhereUniqueInputObjectSchema }).strict() as unknown as z.ZodType<Prisma.StoryBlockUpdateArgs>;
+
+export const StoryBlockUpdateOneZodSchema = z.object({ select: StoryBlockSelectObjectSchema.optional(), include: StoryBlockIncludeObjectSchema.optional(), data: z.union([StoryBlockUpdateInputObjectSchema, StoryBlockUncheckedUpdateInputObjectSchema]), where: StoryBlockWhereUniqueInputObjectSchema }).strict();
+
+// File: updateManyStoryBlock.schema.ts
+
+export const StoryBlockUpdateManySchema: z.ZodType<Prisma.StoryBlockUpdateManyArgs> = z.object({ data: StoryBlockUpdateManyMutationInputObjectSchema, where: StoryBlockWhereInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.StoryBlockUpdateManyArgs>;
+
+export const StoryBlockUpdateManyZodSchema = z.object({ data: StoryBlockUpdateManyMutationInputObjectSchema, where: StoryBlockWhereInputObjectSchema.optional() }).strict();
+
+// File: updateManyAndReturnStoryBlock.schema.ts
+
+export const StoryBlockUpdateManyAndReturnSchema: z.ZodType<Prisma.StoryBlockUpdateManyAndReturnArgs> = z.object({ select: StoryBlockSelectObjectSchema.optional(), data: StoryBlockUpdateManyMutationInputObjectSchema, where: StoryBlockWhereInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.StoryBlockUpdateManyAndReturnArgs>;
+
+export const StoryBlockUpdateManyAndReturnZodSchema = z.object({ select: StoryBlockSelectObjectSchema.optional(), data: StoryBlockUpdateManyMutationInputObjectSchema, where: StoryBlockWhereInputObjectSchema.optional() }).strict();
+
+// File: upsertOneStoryBlock.schema.ts
+
+export const StoryBlockUpsertOneSchema: z.ZodType<Prisma.StoryBlockUpsertArgs> = z.object({ select: StoryBlockSelectObjectSchema.optional(), include: StoryBlockIncludeObjectSchema.optional(), where: StoryBlockWhereUniqueInputObjectSchema, create: z.union([ StoryBlockCreateInputObjectSchema, StoryBlockUncheckedCreateInputObjectSchema ]), update: z.union([ StoryBlockUpdateInputObjectSchema, StoryBlockUncheckedUpdateInputObjectSchema ]) }).strict() as unknown as z.ZodType<Prisma.StoryBlockUpsertArgs>;
+
+export const StoryBlockUpsertOneZodSchema = z.object({ select: StoryBlockSelectObjectSchema.optional(), include: StoryBlockIncludeObjectSchema.optional(), where: StoryBlockWhereUniqueInputObjectSchema, create: z.union([ StoryBlockCreateInputObjectSchema, StoryBlockUncheckedCreateInputObjectSchema ]), update: z.union([ StoryBlockUpdateInputObjectSchema, StoryBlockUncheckedUpdateInputObjectSchema ]) }).strict();
+
+// File: aggregateStoryBlock.schema.ts
+
+export const StoryBlockAggregateSchema: z.ZodType<Prisma.StoryBlockAggregateArgs> = z.object({ orderBy: z.union([StoryBlockOrderByWithRelationInputObjectSchema, StoryBlockOrderByWithRelationInputObjectSchema.array()]).optional(), where: StoryBlockWhereInputObjectSchema.optional(), cursor: StoryBlockWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), StoryBlockCountAggregateInputObjectSchema ]).optional(), _min: StoryBlockMinAggregateInputObjectSchema.optional(), _max: StoryBlockMaxAggregateInputObjectSchema.optional(), _avg: StoryBlockAvgAggregateInputObjectSchema.optional(), _sum: StoryBlockSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.StoryBlockAggregateArgs>;
+
+export const StoryBlockAggregateZodSchema = z.object({ orderBy: z.union([StoryBlockOrderByWithRelationInputObjectSchema, StoryBlockOrderByWithRelationInputObjectSchema.array()]).optional(), where: StoryBlockWhereInputObjectSchema.optional(), cursor: StoryBlockWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), StoryBlockCountAggregateInputObjectSchema ]).optional(), _min: StoryBlockMinAggregateInputObjectSchema.optional(), _max: StoryBlockMaxAggregateInputObjectSchema.optional(), _avg: StoryBlockAvgAggregateInputObjectSchema.optional(), _sum: StoryBlockSumAggregateInputObjectSchema.optional() }).strict();
+
+// File: groupByStoryBlock.schema.ts
+
+export const StoryBlockGroupBySchema: z.ZodType<Prisma.StoryBlockGroupByArgs> = z.object({ where: StoryBlockWhereInputObjectSchema.optional(), orderBy: z.union([StoryBlockOrderByWithAggregationInputObjectSchema, StoryBlockOrderByWithAggregationInputObjectSchema.array()]).optional(), having: StoryBlockScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(StoryBlockScalarFieldEnumSchema), _count: z.union([ z.literal(true), StoryBlockCountAggregateInputObjectSchema ]).optional(), _min: StoryBlockMinAggregateInputObjectSchema.optional(), _max: StoryBlockMaxAggregateInputObjectSchema.optional(), _avg: StoryBlockAvgAggregateInputObjectSchema.optional(), _sum: StoryBlockSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.StoryBlockGroupByArgs>;
+
+export const StoryBlockGroupByZodSchema = z.object({ where: StoryBlockWhereInputObjectSchema.optional(), orderBy: z.union([StoryBlockOrderByWithAggregationInputObjectSchema, StoryBlockOrderByWithAggregationInputObjectSchema.array()]).optional(), having: StoryBlockScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(StoryBlockScalarFieldEnumSchema), _count: z.union([ z.literal(true), StoryBlockCountAggregateInputObjectSchema ]).optional(), _min: StoryBlockMinAggregateInputObjectSchema.optional(), _max: StoryBlockMaxAggregateInputObjectSchema.optional(), _avg: StoryBlockAvgAggregateInputObjectSchema.optional(), _sum: StoryBlockSumAggregateInputObjectSchema.optional() }).strict();
+
+// File: findUniqueStorySection.schema.ts
+
+export const StorySectionFindUniqueSchema: z.ZodType<Prisma.StorySectionFindUniqueArgs> = z.object({ select: StorySectionSelectObjectSchema.optional(), include: StorySectionIncludeObjectSchema.optional(), where: StorySectionWhereUniqueInputObjectSchema }).strict() as unknown as z.ZodType<Prisma.StorySectionFindUniqueArgs>;
+
+export const StorySectionFindUniqueZodSchema = z.object({ select: StorySectionSelectObjectSchema.optional(), include: StorySectionIncludeObjectSchema.optional(), where: StorySectionWhereUniqueInputObjectSchema }).strict();
+
+// File: findUniqueOrThrowStorySection.schema.ts
+
+export const StorySectionFindUniqueOrThrowSchema: z.ZodType<Prisma.StorySectionFindUniqueOrThrowArgs> = z.object({ select: StorySectionSelectObjectSchema.optional(), include: StorySectionIncludeObjectSchema.optional(), where: StorySectionWhereUniqueInputObjectSchema }).strict() as unknown as z.ZodType<Prisma.StorySectionFindUniqueOrThrowArgs>;
+
+export const StorySectionFindUniqueOrThrowZodSchema = z.object({ select: StorySectionSelectObjectSchema.optional(), include: StorySectionIncludeObjectSchema.optional(), where: StorySectionWhereUniqueInputObjectSchema }).strict();
+
+// File: findFirstStorySection.schema.ts
+
+// Select schema needs to be in file to prevent circular imports
+//------------------------------------------------------
+
+export const StorySectionFindFirstSelectSchema__findFirstStorySection_schema: z.ZodType<Prisma.StorySectionSelect> = z.object({
+    id: z.boolean().optional(),
+    projectSlug: z.boolean().optional(),
+    project: z.union([z.boolean(), z.lazy(() => ProjectArgsObjectSchema)]).optional(),
+    position: z.boolean().optional(),
+    title: z.boolean().optional(),
+    by: z.boolean().optional(),
+    blocks: z.union([z.boolean(), z.lazy(() => StoryBlockFindManySchema)]).optional(),
+    _count: z.union([z.boolean(), z.lazy(() => StorySectionCountOutputTypeArgsObjectSchema)]).optional()
+  }).strict() as unknown as z.ZodType<Prisma.StorySectionSelect>;
+
+export const StorySectionFindFirstSelectZodSchema__findFirstStorySection_schema = z.object({
+    id: z.boolean().optional(),
+    projectSlug: z.boolean().optional(),
+    project: z.union([z.boolean(), z.lazy(() => ProjectArgsObjectSchema)]).optional(),
+    position: z.boolean().optional(),
+    title: z.boolean().optional(),
+    by: z.boolean().optional(),
+    blocks: z.union([z.boolean(), z.lazy(() => StoryBlockFindManySchema)]).optional(),
+    _count: z.union([z.boolean(), z.lazy(() => StorySectionCountOutputTypeArgsObjectSchema)]).optional()
+  }).strict();
+
+export const StorySectionFindFirstSchema: z.ZodType<Prisma.StorySectionFindFirstArgs> = z.object({ select: StorySectionFindFirstSelectSchema__findFirstStorySection_schema.optional(), include: z.lazy(() => StorySectionIncludeObjectSchema.optional()), orderBy: z.union([StorySectionOrderByWithRelationInputObjectSchema, StorySectionOrderByWithRelationInputObjectSchema.array()]).optional(), where: StorySectionWhereInputObjectSchema.optional(), cursor: StorySectionWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([StorySectionScalarFieldEnumSchema, StorySectionScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<Prisma.StorySectionFindFirstArgs>;
+
+export const StorySectionFindFirstZodSchema = z.object({ select: StorySectionFindFirstSelectSchema__findFirstStorySection_schema.optional(), include: z.lazy(() => StorySectionIncludeObjectSchema.optional()), orderBy: z.union([StorySectionOrderByWithRelationInputObjectSchema, StorySectionOrderByWithRelationInputObjectSchema.array()]).optional(), where: StorySectionWhereInputObjectSchema.optional(), cursor: StorySectionWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([StorySectionScalarFieldEnumSchema, StorySectionScalarFieldEnumSchema.array()]).optional() }).strict();
+
+// File: findFirstOrThrowStorySection.schema.ts
+
+// Select schema needs to be in file to prevent circular imports
+//------------------------------------------------------
+
+export const StorySectionFindFirstOrThrowSelectSchema__findFirstOrThrowStorySection_schema: z.ZodType<Prisma.StorySectionSelect> = z.object({
+    id: z.boolean().optional(),
+    projectSlug: z.boolean().optional(),
+    project: z.union([z.boolean(), z.lazy(() => ProjectArgsObjectSchema)]).optional(),
+    position: z.boolean().optional(),
+    title: z.boolean().optional(),
+    by: z.boolean().optional(),
+    blocks: z.union([z.boolean(), z.lazy(() => StoryBlockFindManySchema)]).optional(),
+    _count: z.union([z.boolean(), z.lazy(() => StorySectionCountOutputTypeArgsObjectSchema)]).optional()
+  }).strict() as unknown as z.ZodType<Prisma.StorySectionSelect>;
+
+export const StorySectionFindFirstOrThrowSelectZodSchema__findFirstOrThrowStorySection_schema = z.object({
+    id: z.boolean().optional(),
+    projectSlug: z.boolean().optional(),
+    project: z.union([z.boolean(), z.lazy(() => ProjectArgsObjectSchema)]).optional(),
+    position: z.boolean().optional(),
+    title: z.boolean().optional(),
+    by: z.boolean().optional(),
+    blocks: z.union([z.boolean(), z.lazy(() => StoryBlockFindManySchema)]).optional(),
+    _count: z.union([z.boolean(), z.lazy(() => StorySectionCountOutputTypeArgsObjectSchema)]).optional()
+  }).strict();
+
+export const StorySectionFindFirstOrThrowSchema: z.ZodType<Prisma.StorySectionFindFirstOrThrowArgs> = z.object({ select: StorySectionFindFirstOrThrowSelectSchema__findFirstOrThrowStorySection_schema.optional(), include: z.lazy(() => StorySectionIncludeObjectSchema.optional()), orderBy: z.union([StorySectionOrderByWithRelationInputObjectSchema, StorySectionOrderByWithRelationInputObjectSchema.array()]).optional(), where: StorySectionWhereInputObjectSchema.optional(), cursor: StorySectionWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([StorySectionScalarFieldEnumSchema, StorySectionScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<Prisma.StorySectionFindFirstOrThrowArgs>;
+
+export const StorySectionFindFirstOrThrowZodSchema = z.object({ select: StorySectionFindFirstOrThrowSelectSchema__findFirstOrThrowStorySection_schema.optional(), include: z.lazy(() => StorySectionIncludeObjectSchema.optional()), orderBy: z.union([StorySectionOrderByWithRelationInputObjectSchema, StorySectionOrderByWithRelationInputObjectSchema.array()]).optional(), where: StorySectionWhereInputObjectSchema.optional(), cursor: StorySectionWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([StorySectionScalarFieldEnumSchema, StorySectionScalarFieldEnumSchema.array()]).optional() }).strict();
+
+// File: findManyStorySection.schema.ts
+
+// Select schema needs to be in file to prevent circular imports
+//------------------------------------------------------
+
+export const StorySectionFindManySelectSchema__findManyStorySection_schema: z.ZodType<Prisma.StorySectionSelect> = z.object({
+    id: z.boolean().optional(),
+    projectSlug: z.boolean().optional(),
+    project: z.union([z.boolean(), z.lazy(() => ProjectArgsObjectSchema)]).optional(),
+    position: z.boolean().optional(),
+    title: z.boolean().optional(),
+    by: z.boolean().optional(),
+    blocks: z.union([z.boolean(), z.lazy(() => StoryBlockFindManySchema)]).optional(),
+    _count: z.union([z.boolean(), z.lazy(() => StorySectionCountOutputTypeArgsObjectSchema)]).optional()
+  }).strict() as unknown as z.ZodType<Prisma.StorySectionSelect>;
+
+export const StorySectionFindManySelectZodSchema__findManyStorySection_schema = z.object({
+    id: z.boolean().optional(),
+    projectSlug: z.boolean().optional(),
+    project: z.union([z.boolean(), z.lazy(() => ProjectArgsObjectSchema)]).optional(),
+    position: z.boolean().optional(),
+    title: z.boolean().optional(),
+    by: z.boolean().optional(),
+    blocks: z.union([z.boolean(), z.lazy(() => StoryBlockFindManySchema)]).optional(),
+    _count: z.union([z.boolean(), z.lazy(() => StorySectionCountOutputTypeArgsObjectSchema)]).optional()
+  }).strict();
+
+export const StorySectionFindManySchema: z.ZodType<Prisma.StorySectionFindManyArgs> = z.object({ select: StorySectionFindManySelectSchema__findManyStorySection_schema.optional(), include: z.lazy(() => StorySectionIncludeObjectSchema.optional()), orderBy: z.union([StorySectionOrderByWithRelationInputObjectSchema, StorySectionOrderByWithRelationInputObjectSchema.array()]).optional(), where: StorySectionWhereInputObjectSchema.optional(), cursor: StorySectionWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([StorySectionScalarFieldEnumSchema, StorySectionScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<Prisma.StorySectionFindManyArgs>;
+
+export const StorySectionFindManyZodSchema = z.object({ select: StorySectionFindManySelectSchema__findManyStorySection_schema.optional(), include: z.lazy(() => StorySectionIncludeObjectSchema.optional()), orderBy: z.union([StorySectionOrderByWithRelationInputObjectSchema, StorySectionOrderByWithRelationInputObjectSchema.array()]).optional(), where: StorySectionWhereInputObjectSchema.optional(), cursor: StorySectionWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([StorySectionScalarFieldEnumSchema, StorySectionScalarFieldEnumSchema.array()]).optional() }).strict();
+
+// File: countStorySection.schema.ts
+
+export const StorySectionCountSchema: z.ZodType<Prisma.StorySectionCountArgs> = z.object({ orderBy: z.union([StorySectionOrderByWithRelationInputObjectSchema, StorySectionOrderByWithRelationInputObjectSchema.array()]).optional(), where: StorySectionWhereInputObjectSchema.optional(), cursor: StorySectionWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), StorySectionCountAggregateInputObjectSchema ]).optional() }).strict() as unknown as z.ZodType<Prisma.StorySectionCountArgs>;
+
+export const StorySectionCountZodSchema = z.object({ orderBy: z.union([StorySectionOrderByWithRelationInputObjectSchema, StorySectionOrderByWithRelationInputObjectSchema.array()]).optional(), where: StorySectionWhereInputObjectSchema.optional(), cursor: StorySectionWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), StorySectionCountAggregateInputObjectSchema ]).optional() }).strict();
+
+// File: createOneStorySection.schema.ts
+
+export const StorySectionCreateOneSchema: z.ZodType<Prisma.StorySectionCreateArgs> = z.object({ select: StorySectionSelectObjectSchema.optional(), include: StorySectionIncludeObjectSchema.optional(), data: z.union([StorySectionCreateInputObjectSchema, StorySectionUncheckedCreateInputObjectSchema]) }).strict() as unknown as z.ZodType<Prisma.StorySectionCreateArgs>;
+
+export const StorySectionCreateOneZodSchema = z.object({ select: StorySectionSelectObjectSchema.optional(), include: StorySectionIncludeObjectSchema.optional(), data: z.union([StorySectionCreateInputObjectSchema, StorySectionUncheckedCreateInputObjectSchema]) }).strict();
+
+// File: createManyStorySection.schema.ts
+
+export const StorySectionCreateManySchema: z.ZodType<Prisma.StorySectionCreateManyArgs> = z.object({ data: z.union([ StorySectionCreateManyInputObjectSchema, z.array(StorySectionCreateManyInputObjectSchema) ]), skipDuplicates: z.boolean().optional() }).strict() as unknown as z.ZodType<Prisma.StorySectionCreateManyArgs>;
+
+export const StorySectionCreateManyZodSchema = z.object({ data: z.union([ StorySectionCreateManyInputObjectSchema, z.array(StorySectionCreateManyInputObjectSchema) ]), skipDuplicates: z.boolean().optional() }).strict();
+
+// File: createManyAndReturnStorySection.schema.ts
+
+export const StorySectionCreateManyAndReturnSchema: z.ZodType<Prisma.StorySectionCreateManyAndReturnArgs> = z.object({ select: StorySectionSelectObjectSchema.optional(), data: z.union([ StorySectionCreateManyInputObjectSchema, z.array(StorySectionCreateManyInputObjectSchema) ]), skipDuplicates: z.boolean().optional() }).strict() as unknown as z.ZodType<Prisma.StorySectionCreateManyAndReturnArgs>;
+
+export const StorySectionCreateManyAndReturnZodSchema = z.object({ select: StorySectionSelectObjectSchema.optional(), data: z.union([ StorySectionCreateManyInputObjectSchema, z.array(StorySectionCreateManyInputObjectSchema) ]), skipDuplicates: z.boolean().optional() }).strict();
+
+// File: deleteOneStorySection.schema.ts
+
+export const StorySectionDeleteOneSchema: z.ZodType<Prisma.StorySectionDeleteArgs> = z.object({ select: StorySectionSelectObjectSchema.optional(), include: StorySectionIncludeObjectSchema.optional(), where: StorySectionWhereUniqueInputObjectSchema }).strict() as unknown as z.ZodType<Prisma.StorySectionDeleteArgs>;
+
+export const StorySectionDeleteOneZodSchema = z.object({ select: StorySectionSelectObjectSchema.optional(), include: StorySectionIncludeObjectSchema.optional(), where: StorySectionWhereUniqueInputObjectSchema }).strict();
+
+// File: deleteManyStorySection.schema.ts
+
+export const StorySectionDeleteManySchema: z.ZodType<Prisma.StorySectionDeleteManyArgs> = z.object({ where: StorySectionWhereInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.StorySectionDeleteManyArgs>;
+
+export const StorySectionDeleteManyZodSchema = z.object({ where: StorySectionWhereInputObjectSchema.optional() }).strict();
+
+// File: updateOneStorySection.schema.ts
+
+export const StorySectionUpdateOneSchema: z.ZodType<Prisma.StorySectionUpdateArgs> = z.object({ select: StorySectionSelectObjectSchema.optional(), include: StorySectionIncludeObjectSchema.optional(), data: z.union([StorySectionUpdateInputObjectSchema, StorySectionUncheckedUpdateInputObjectSchema]), where: StorySectionWhereUniqueInputObjectSchema }).strict() as unknown as z.ZodType<Prisma.StorySectionUpdateArgs>;
+
+export const StorySectionUpdateOneZodSchema = z.object({ select: StorySectionSelectObjectSchema.optional(), include: StorySectionIncludeObjectSchema.optional(), data: z.union([StorySectionUpdateInputObjectSchema, StorySectionUncheckedUpdateInputObjectSchema]), where: StorySectionWhereUniqueInputObjectSchema }).strict();
+
+// File: updateManyStorySection.schema.ts
+
+export const StorySectionUpdateManySchema: z.ZodType<Prisma.StorySectionUpdateManyArgs> = z.object({ data: StorySectionUpdateManyMutationInputObjectSchema, where: StorySectionWhereInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.StorySectionUpdateManyArgs>;
+
+export const StorySectionUpdateManyZodSchema = z.object({ data: StorySectionUpdateManyMutationInputObjectSchema, where: StorySectionWhereInputObjectSchema.optional() }).strict();
+
+// File: updateManyAndReturnStorySection.schema.ts
+
+export const StorySectionUpdateManyAndReturnSchema: z.ZodType<Prisma.StorySectionUpdateManyAndReturnArgs> = z.object({ select: StorySectionSelectObjectSchema.optional(), data: StorySectionUpdateManyMutationInputObjectSchema, where: StorySectionWhereInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.StorySectionUpdateManyAndReturnArgs>;
+
+export const StorySectionUpdateManyAndReturnZodSchema = z.object({ select: StorySectionSelectObjectSchema.optional(), data: StorySectionUpdateManyMutationInputObjectSchema, where: StorySectionWhereInputObjectSchema.optional() }).strict();
+
+// File: upsertOneStorySection.schema.ts
+
+export const StorySectionUpsertOneSchema: z.ZodType<Prisma.StorySectionUpsertArgs> = z.object({ select: StorySectionSelectObjectSchema.optional(), include: StorySectionIncludeObjectSchema.optional(), where: StorySectionWhereUniqueInputObjectSchema, create: z.union([ StorySectionCreateInputObjectSchema, StorySectionUncheckedCreateInputObjectSchema ]), update: z.union([ StorySectionUpdateInputObjectSchema, StorySectionUncheckedUpdateInputObjectSchema ]) }).strict() as unknown as z.ZodType<Prisma.StorySectionUpsertArgs>;
+
+export const StorySectionUpsertOneZodSchema = z.object({ select: StorySectionSelectObjectSchema.optional(), include: StorySectionIncludeObjectSchema.optional(), where: StorySectionWhereUniqueInputObjectSchema, create: z.union([ StorySectionCreateInputObjectSchema, StorySectionUncheckedCreateInputObjectSchema ]), update: z.union([ StorySectionUpdateInputObjectSchema, StorySectionUncheckedUpdateInputObjectSchema ]) }).strict();
+
+// File: aggregateStorySection.schema.ts
+
+export const StorySectionAggregateSchema: z.ZodType<Prisma.StorySectionAggregateArgs> = z.object({ orderBy: z.union([StorySectionOrderByWithRelationInputObjectSchema, StorySectionOrderByWithRelationInputObjectSchema.array()]).optional(), where: StorySectionWhereInputObjectSchema.optional(), cursor: StorySectionWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), StorySectionCountAggregateInputObjectSchema ]).optional(), _min: StorySectionMinAggregateInputObjectSchema.optional(), _max: StorySectionMaxAggregateInputObjectSchema.optional(), _avg: StorySectionAvgAggregateInputObjectSchema.optional(), _sum: StorySectionSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.StorySectionAggregateArgs>;
+
+export const StorySectionAggregateZodSchema = z.object({ orderBy: z.union([StorySectionOrderByWithRelationInputObjectSchema, StorySectionOrderByWithRelationInputObjectSchema.array()]).optional(), where: StorySectionWhereInputObjectSchema.optional(), cursor: StorySectionWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), StorySectionCountAggregateInputObjectSchema ]).optional(), _min: StorySectionMinAggregateInputObjectSchema.optional(), _max: StorySectionMaxAggregateInputObjectSchema.optional(), _avg: StorySectionAvgAggregateInputObjectSchema.optional(), _sum: StorySectionSumAggregateInputObjectSchema.optional() }).strict();
+
+// File: groupByStorySection.schema.ts
+
+export const StorySectionGroupBySchema: z.ZodType<Prisma.StorySectionGroupByArgs> = z.object({ where: StorySectionWhereInputObjectSchema.optional(), orderBy: z.union([StorySectionOrderByWithAggregationInputObjectSchema, StorySectionOrderByWithAggregationInputObjectSchema.array()]).optional(), having: StorySectionScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(StorySectionScalarFieldEnumSchema), _count: z.union([ z.literal(true), StorySectionCountAggregateInputObjectSchema ]).optional(), _min: StorySectionMinAggregateInputObjectSchema.optional(), _max: StorySectionMaxAggregateInputObjectSchema.optional(), _avg: StorySectionAvgAggregateInputObjectSchema.optional(), _sum: StorySectionSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.StorySectionGroupByArgs>;
+
+export const StorySectionGroupByZodSchema = z.object({ where: StorySectionWhereInputObjectSchema.optional(), orderBy: z.union([StorySectionOrderByWithAggregationInputObjectSchema, StorySectionOrderByWithAggregationInputObjectSchema.array()]).optional(), having: StorySectionScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(StorySectionScalarFieldEnumSchema), _count: z.union([ z.literal(true), StorySectionCountAggregateInputObjectSchema ]).optional(), _min: StorySectionMinAggregateInputObjectSchema.optional(), _max: StorySectionMaxAggregateInputObjectSchema.optional(), _avg: StorySectionAvgAggregateInputObjectSchema.optional(), _sum: StorySectionSumAggregateInputObjectSchema.optional() }).strict();
+
 // File: findUniqueStudioMember.schema.ts
 
-export const StudioMemberFindUniqueSchema: z.ZodType<Prisma.StudioMemberFindUniqueArgs> = z.object({ select: StudioMemberSelectObjectSchema.optional(),  where: StudioMemberWhereUniqueInputObjectSchema }).strict() as unknown as z.ZodType<Prisma.StudioMemberFindUniqueArgs>;
+export const StudioMemberFindUniqueSchema: z.ZodType<Prisma.StudioMemberFindUniqueArgs> = z.object({ select: StudioMemberSelectObjectSchema.optional(), include: StudioMemberIncludeObjectSchema.optional(), where: StudioMemberWhereUniqueInputObjectSchema }).strict() as unknown as z.ZodType<Prisma.StudioMemberFindUniqueArgs>;
 
-export const StudioMemberFindUniqueZodSchema = z.object({ select: StudioMemberSelectObjectSchema.optional(),  where: StudioMemberWhereUniqueInputObjectSchema }).strict();
+export const StudioMemberFindUniqueZodSchema = z.object({ select: StudioMemberSelectObjectSchema.optional(), include: StudioMemberIncludeObjectSchema.optional(), where: StudioMemberWhereUniqueInputObjectSchema }).strict();
 
 // File: findUniqueOrThrowStudioMember.schema.ts
 
-export const StudioMemberFindUniqueOrThrowSchema: z.ZodType<Prisma.StudioMemberFindUniqueOrThrowArgs> = z.object({ select: StudioMemberSelectObjectSchema.optional(),  where: StudioMemberWhereUniqueInputObjectSchema }).strict() as unknown as z.ZodType<Prisma.StudioMemberFindUniqueOrThrowArgs>;
+export const StudioMemberFindUniqueOrThrowSchema: z.ZodType<Prisma.StudioMemberFindUniqueOrThrowArgs> = z.object({ select: StudioMemberSelectObjectSchema.optional(), include: StudioMemberIncludeObjectSchema.optional(), where: StudioMemberWhereUniqueInputObjectSchema }).strict() as unknown as z.ZodType<Prisma.StudioMemberFindUniqueOrThrowArgs>;
 
-export const StudioMemberFindUniqueOrThrowZodSchema = z.object({ select: StudioMemberSelectObjectSchema.optional(),  where: StudioMemberWhereUniqueInputObjectSchema }).strict();
+export const StudioMemberFindUniqueOrThrowZodSchema = z.object({ select: StudioMemberSelectObjectSchema.optional(), include: StudioMemberIncludeObjectSchema.optional(), where: StudioMemberWhereUniqueInputObjectSchema }).strict();
 
 // File: findFirstStudioMember.schema.ts
 
@@ -7511,8 +11351,10 @@ export const StudioMemberFindFirstSelectSchema__findFirstStudioMember_schema: z.
     projects: z.boolean().optional(),
     suite: z.boolean().optional(),
     facts: z.boolean().optional(),
+    teamOf: z.union([z.boolean(), z.lazy(() => ProjectFindManySchema)]).optional(),
     createdAt: z.boolean().optional(),
-    updatedAt: z.boolean().optional()
+    updatedAt: z.boolean().optional(),
+    _count: z.union([z.boolean(), z.lazy(() => StudioMemberCountOutputTypeArgsObjectSchema)]).optional()
   }).strict() as unknown as z.ZodType<Prisma.StudioMemberSelect>;
 
 export const StudioMemberFindFirstSelectZodSchema__findFirstStudioMember_schema = z.object({
@@ -7534,13 +11376,15 @@ export const StudioMemberFindFirstSelectZodSchema__findFirstStudioMember_schema 
     projects: z.boolean().optional(),
     suite: z.boolean().optional(),
     facts: z.boolean().optional(),
+    teamOf: z.union([z.boolean(), z.lazy(() => ProjectFindManySchema)]).optional(),
     createdAt: z.boolean().optional(),
-    updatedAt: z.boolean().optional()
+    updatedAt: z.boolean().optional(),
+    _count: z.union([z.boolean(), z.lazy(() => StudioMemberCountOutputTypeArgsObjectSchema)]).optional()
   }).strict();
 
-export const StudioMemberFindFirstSchema: z.ZodType<Prisma.StudioMemberFindFirstArgs> = z.object({ select: StudioMemberFindFirstSelectSchema__findFirstStudioMember_schema.optional(),  orderBy: z.union([StudioMemberOrderByWithRelationInputObjectSchema, StudioMemberOrderByWithRelationInputObjectSchema.array()]).optional(), where: StudioMemberWhereInputObjectSchema.optional(), cursor: StudioMemberWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([StudioMemberScalarFieldEnumSchema, StudioMemberScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<Prisma.StudioMemberFindFirstArgs>;
+export const StudioMemberFindFirstSchema: z.ZodType<Prisma.StudioMemberFindFirstArgs> = z.object({ select: StudioMemberFindFirstSelectSchema__findFirstStudioMember_schema.optional(), include: z.lazy(() => StudioMemberIncludeObjectSchema.optional()), orderBy: z.union([StudioMemberOrderByWithRelationInputObjectSchema, StudioMemberOrderByWithRelationInputObjectSchema.array()]).optional(), where: StudioMemberWhereInputObjectSchema.optional(), cursor: StudioMemberWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([StudioMemberScalarFieldEnumSchema, StudioMemberScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<Prisma.StudioMemberFindFirstArgs>;
 
-export const StudioMemberFindFirstZodSchema = z.object({ select: StudioMemberFindFirstSelectSchema__findFirstStudioMember_schema.optional(),  orderBy: z.union([StudioMemberOrderByWithRelationInputObjectSchema, StudioMemberOrderByWithRelationInputObjectSchema.array()]).optional(), where: StudioMemberWhereInputObjectSchema.optional(), cursor: StudioMemberWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([StudioMemberScalarFieldEnumSchema, StudioMemberScalarFieldEnumSchema.array()]).optional() }).strict();
+export const StudioMemberFindFirstZodSchema = z.object({ select: StudioMemberFindFirstSelectSchema__findFirstStudioMember_schema.optional(), include: z.lazy(() => StudioMemberIncludeObjectSchema.optional()), orderBy: z.union([StudioMemberOrderByWithRelationInputObjectSchema, StudioMemberOrderByWithRelationInputObjectSchema.array()]).optional(), where: StudioMemberWhereInputObjectSchema.optional(), cursor: StudioMemberWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([StudioMemberScalarFieldEnumSchema, StudioMemberScalarFieldEnumSchema.array()]).optional() }).strict();
 
 // File: findFirstOrThrowStudioMember.schema.ts
 
@@ -7566,8 +11410,10 @@ export const StudioMemberFindFirstOrThrowSelectSchema__findFirstOrThrowStudioMem
     projects: z.boolean().optional(),
     suite: z.boolean().optional(),
     facts: z.boolean().optional(),
+    teamOf: z.union([z.boolean(), z.lazy(() => ProjectFindManySchema)]).optional(),
     createdAt: z.boolean().optional(),
-    updatedAt: z.boolean().optional()
+    updatedAt: z.boolean().optional(),
+    _count: z.union([z.boolean(), z.lazy(() => StudioMemberCountOutputTypeArgsObjectSchema)]).optional()
   }).strict() as unknown as z.ZodType<Prisma.StudioMemberSelect>;
 
 export const StudioMemberFindFirstOrThrowSelectZodSchema__findFirstOrThrowStudioMember_schema = z.object({
@@ -7589,13 +11435,15 @@ export const StudioMemberFindFirstOrThrowSelectZodSchema__findFirstOrThrowStudio
     projects: z.boolean().optional(),
     suite: z.boolean().optional(),
     facts: z.boolean().optional(),
+    teamOf: z.union([z.boolean(), z.lazy(() => ProjectFindManySchema)]).optional(),
     createdAt: z.boolean().optional(),
-    updatedAt: z.boolean().optional()
+    updatedAt: z.boolean().optional(),
+    _count: z.union([z.boolean(), z.lazy(() => StudioMemberCountOutputTypeArgsObjectSchema)]).optional()
   }).strict();
 
-export const StudioMemberFindFirstOrThrowSchema: z.ZodType<Prisma.StudioMemberFindFirstOrThrowArgs> = z.object({ select: StudioMemberFindFirstOrThrowSelectSchema__findFirstOrThrowStudioMember_schema.optional(),  orderBy: z.union([StudioMemberOrderByWithRelationInputObjectSchema, StudioMemberOrderByWithRelationInputObjectSchema.array()]).optional(), where: StudioMemberWhereInputObjectSchema.optional(), cursor: StudioMemberWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([StudioMemberScalarFieldEnumSchema, StudioMemberScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<Prisma.StudioMemberFindFirstOrThrowArgs>;
+export const StudioMemberFindFirstOrThrowSchema: z.ZodType<Prisma.StudioMemberFindFirstOrThrowArgs> = z.object({ select: StudioMemberFindFirstOrThrowSelectSchema__findFirstOrThrowStudioMember_schema.optional(), include: z.lazy(() => StudioMemberIncludeObjectSchema.optional()), orderBy: z.union([StudioMemberOrderByWithRelationInputObjectSchema, StudioMemberOrderByWithRelationInputObjectSchema.array()]).optional(), where: StudioMemberWhereInputObjectSchema.optional(), cursor: StudioMemberWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([StudioMemberScalarFieldEnumSchema, StudioMemberScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<Prisma.StudioMemberFindFirstOrThrowArgs>;
 
-export const StudioMemberFindFirstOrThrowZodSchema = z.object({ select: StudioMemberFindFirstOrThrowSelectSchema__findFirstOrThrowStudioMember_schema.optional(),  orderBy: z.union([StudioMemberOrderByWithRelationInputObjectSchema, StudioMemberOrderByWithRelationInputObjectSchema.array()]).optional(), where: StudioMemberWhereInputObjectSchema.optional(), cursor: StudioMemberWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([StudioMemberScalarFieldEnumSchema, StudioMemberScalarFieldEnumSchema.array()]).optional() }).strict();
+export const StudioMemberFindFirstOrThrowZodSchema = z.object({ select: StudioMemberFindFirstOrThrowSelectSchema__findFirstOrThrowStudioMember_schema.optional(), include: z.lazy(() => StudioMemberIncludeObjectSchema.optional()), orderBy: z.union([StudioMemberOrderByWithRelationInputObjectSchema, StudioMemberOrderByWithRelationInputObjectSchema.array()]).optional(), where: StudioMemberWhereInputObjectSchema.optional(), cursor: StudioMemberWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([StudioMemberScalarFieldEnumSchema, StudioMemberScalarFieldEnumSchema.array()]).optional() }).strict();
 
 // File: findManyStudioMember.schema.ts
 
@@ -7621,8 +11469,10 @@ export const StudioMemberFindManySelectSchema__findManyStudioMember_schema: z.Zo
     projects: z.boolean().optional(),
     suite: z.boolean().optional(),
     facts: z.boolean().optional(),
+    teamOf: z.union([z.boolean(), z.lazy(() => ProjectFindManySchema)]).optional(),
     createdAt: z.boolean().optional(),
-    updatedAt: z.boolean().optional()
+    updatedAt: z.boolean().optional(),
+    _count: z.union([z.boolean(), z.lazy(() => StudioMemberCountOutputTypeArgsObjectSchema)]).optional()
   }).strict() as unknown as z.ZodType<Prisma.StudioMemberSelect>;
 
 export const StudioMemberFindManySelectZodSchema__findManyStudioMember_schema = z.object({
@@ -7644,13 +11494,15 @@ export const StudioMemberFindManySelectZodSchema__findManyStudioMember_schema = 
     projects: z.boolean().optional(),
     suite: z.boolean().optional(),
     facts: z.boolean().optional(),
+    teamOf: z.union([z.boolean(), z.lazy(() => ProjectFindManySchema)]).optional(),
     createdAt: z.boolean().optional(),
-    updatedAt: z.boolean().optional()
+    updatedAt: z.boolean().optional(),
+    _count: z.union([z.boolean(), z.lazy(() => StudioMemberCountOutputTypeArgsObjectSchema)]).optional()
   }).strict();
 
-export const StudioMemberFindManySchema: z.ZodType<Prisma.StudioMemberFindManyArgs> = z.object({ select: StudioMemberFindManySelectSchema__findManyStudioMember_schema.optional(),  orderBy: z.union([StudioMemberOrderByWithRelationInputObjectSchema, StudioMemberOrderByWithRelationInputObjectSchema.array()]).optional(), where: StudioMemberWhereInputObjectSchema.optional(), cursor: StudioMemberWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([StudioMemberScalarFieldEnumSchema, StudioMemberScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<Prisma.StudioMemberFindManyArgs>;
+export const StudioMemberFindManySchema: z.ZodType<Prisma.StudioMemberFindManyArgs> = z.object({ select: StudioMemberFindManySelectSchema__findManyStudioMember_schema.optional(), include: z.lazy(() => StudioMemberIncludeObjectSchema.optional()), orderBy: z.union([StudioMemberOrderByWithRelationInputObjectSchema, StudioMemberOrderByWithRelationInputObjectSchema.array()]).optional(), where: StudioMemberWhereInputObjectSchema.optional(), cursor: StudioMemberWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([StudioMemberScalarFieldEnumSchema, StudioMemberScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<Prisma.StudioMemberFindManyArgs>;
 
-export const StudioMemberFindManyZodSchema = z.object({ select: StudioMemberFindManySelectSchema__findManyStudioMember_schema.optional(),  orderBy: z.union([StudioMemberOrderByWithRelationInputObjectSchema, StudioMemberOrderByWithRelationInputObjectSchema.array()]).optional(), where: StudioMemberWhereInputObjectSchema.optional(), cursor: StudioMemberWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([StudioMemberScalarFieldEnumSchema, StudioMemberScalarFieldEnumSchema.array()]).optional() }).strict();
+export const StudioMemberFindManyZodSchema = z.object({ select: StudioMemberFindManySelectSchema__findManyStudioMember_schema.optional(), include: z.lazy(() => StudioMemberIncludeObjectSchema.optional()), orderBy: z.union([StudioMemberOrderByWithRelationInputObjectSchema, StudioMemberOrderByWithRelationInputObjectSchema.array()]).optional(), where: StudioMemberWhereInputObjectSchema.optional(), cursor: StudioMemberWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([StudioMemberScalarFieldEnumSchema, StudioMemberScalarFieldEnumSchema.array()]).optional() }).strict();
 
 // File: countStudioMember.schema.ts
 
@@ -7660,9 +11512,9 @@ export const StudioMemberCountZodSchema = z.object({ orderBy: z.union([StudioMem
 
 // File: createOneStudioMember.schema.ts
 
-export const StudioMemberCreateOneSchema: z.ZodType<Prisma.StudioMemberCreateArgs> = z.object({ select: StudioMemberSelectObjectSchema.optional(),  data: z.union([StudioMemberCreateInputObjectSchema, StudioMemberUncheckedCreateInputObjectSchema]) }).strict() as unknown as z.ZodType<Prisma.StudioMemberCreateArgs>;
+export const StudioMemberCreateOneSchema: z.ZodType<Prisma.StudioMemberCreateArgs> = z.object({ select: StudioMemberSelectObjectSchema.optional(), include: StudioMemberIncludeObjectSchema.optional(), data: z.union([StudioMemberCreateInputObjectSchema, StudioMemberUncheckedCreateInputObjectSchema]) }).strict() as unknown as z.ZodType<Prisma.StudioMemberCreateArgs>;
 
-export const StudioMemberCreateOneZodSchema = z.object({ select: StudioMemberSelectObjectSchema.optional(),  data: z.union([StudioMemberCreateInputObjectSchema, StudioMemberUncheckedCreateInputObjectSchema]) }).strict();
+export const StudioMemberCreateOneZodSchema = z.object({ select: StudioMemberSelectObjectSchema.optional(), include: StudioMemberIncludeObjectSchema.optional(), data: z.union([StudioMemberCreateInputObjectSchema, StudioMemberUncheckedCreateInputObjectSchema]) }).strict();
 
 // File: createManyStudioMember.schema.ts
 
@@ -7678,9 +11530,9 @@ export const StudioMemberCreateManyAndReturnZodSchema = z.object({ select: Studi
 
 // File: deleteOneStudioMember.schema.ts
 
-export const StudioMemberDeleteOneSchema: z.ZodType<Prisma.StudioMemberDeleteArgs> = z.object({ select: StudioMemberSelectObjectSchema.optional(),  where: StudioMemberWhereUniqueInputObjectSchema }).strict() as unknown as z.ZodType<Prisma.StudioMemberDeleteArgs>;
+export const StudioMemberDeleteOneSchema: z.ZodType<Prisma.StudioMemberDeleteArgs> = z.object({ select: StudioMemberSelectObjectSchema.optional(), include: StudioMemberIncludeObjectSchema.optional(), where: StudioMemberWhereUniqueInputObjectSchema }).strict() as unknown as z.ZodType<Prisma.StudioMemberDeleteArgs>;
 
-export const StudioMemberDeleteOneZodSchema = z.object({ select: StudioMemberSelectObjectSchema.optional(),  where: StudioMemberWhereUniqueInputObjectSchema }).strict();
+export const StudioMemberDeleteOneZodSchema = z.object({ select: StudioMemberSelectObjectSchema.optional(), include: StudioMemberIncludeObjectSchema.optional(), where: StudioMemberWhereUniqueInputObjectSchema }).strict();
 
 // File: deleteManyStudioMember.schema.ts
 
@@ -7690,9 +11542,9 @@ export const StudioMemberDeleteManyZodSchema = z.object({ where: StudioMemberWhe
 
 // File: updateOneStudioMember.schema.ts
 
-export const StudioMemberUpdateOneSchema: z.ZodType<Prisma.StudioMemberUpdateArgs> = z.object({ select: StudioMemberSelectObjectSchema.optional(),  data: z.union([StudioMemberUpdateInputObjectSchema, StudioMemberUncheckedUpdateInputObjectSchema]), where: StudioMemberWhereUniqueInputObjectSchema }).strict() as unknown as z.ZodType<Prisma.StudioMemberUpdateArgs>;
+export const StudioMemberUpdateOneSchema: z.ZodType<Prisma.StudioMemberUpdateArgs> = z.object({ select: StudioMemberSelectObjectSchema.optional(), include: StudioMemberIncludeObjectSchema.optional(), data: z.union([StudioMemberUpdateInputObjectSchema, StudioMemberUncheckedUpdateInputObjectSchema]), where: StudioMemberWhereUniqueInputObjectSchema }).strict() as unknown as z.ZodType<Prisma.StudioMemberUpdateArgs>;
 
-export const StudioMemberUpdateOneZodSchema = z.object({ select: StudioMemberSelectObjectSchema.optional(),  data: z.union([StudioMemberUpdateInputObjectSchema, StudioMemberUncheckedUpdateInputObjectSchema]), where: StudioMemberWhereUniqueInputObjectSchema }).strict();
+export const StudioMemberUpdateOneZodSchema = z.object({ select: StudioMemberSelectObjectSchema.optional(), include: StudioMemberIncludeObjectSchema.optional(), data: z.union([StudioMemberUpdateInputObjectSchema, StudioMemberUncheckedUpdateInputObjectSchema]), where: StudioMemberWhereUniqueInputObjectSchema }).strict();
 
 // File: updateManyStudioMember.schema.ts
 
@@ -7708,9 +11560,9 @@ export const StudioMemberUpdateManyAndReturnZodSchema = z.object({ select: Studi
 
 // File: upsertOneStudioMember.schema.ts
 
-export const StudioMemberUpsertOneSchema: z.ZodType<Prisma.StudioMemberUpsertArgs> = z.object({ select: StudioMemberSelectObjectSchema.optional(),  where: StudioMemberWhereUniqueInputObjectSchema, create: z.union([ StudioMemberCreateInputObjectSchema, StudioMemberUncheckedCreateInputObjectSchema ]), update: z.union([ StudioMemberUpdateInputObjectSchema, StudioMemberUncheckedUpdateInputObjectSchema ]) }).strict() as unknown as z.ZodType<Prisma.StudioMemberUpsertArgs>;
+export const StudioMemberUpsertOneSchema: z.ZodType<Prisma.StudioMemberUpsertArgs> = z.object({ select: StudioMemberSelectObjectSchema.optional(), include: StudioMemberIncludeObjectSchema.optional(), where: StudioMemberWhereUniqueInputObjectSchema, create: z.union([ StudioMemberCreateInputObjectSchema, StudioMemberUncheckedCreateInputObjectSchema ]), update: z.union([ StudioMemberUpdateInputObjectSchema, StudioMemberUncheckedUpdateInputObjectSchema ]) }).strict() as unknown as z.ZodType<Prisma.StudioMemberUpsertArgs>;
 
-export const StudioMemberUpsertOneZodSchema = z.object({ select: StudioMemberSelectObjectSchema.optional(),  where: StudioMemberWhereUniqueInputObjectSchema, create: z.union([ StudioMemberCreateInputObjectSchema, StudioMemberUncheckedCreateInputObjectSchema ]), update: z.union([ StudioMemberUpdateInputObjectSchema, StudioMemberUncheckedUpdateInputObjectSchema ]) }).strict();
+export const StudioMemberUpsertOneZodSchema = z.object({ select: StudioMemberSelectObjectSchema.optional(), include: StudioMemberIncludeObjectSchema.optional(), where: StudioMemberWhereUniqueInputObjectSchema, create: z.union([ StudioMemberCreateInputObjectSchema, StudioMemberUncheckedCreateInputObjectSchema ]), update: z.union([ StudioMemberUpdateInputObjectSchema, StudioMemberUncheckedUpdateInputObjectSchema ]) }).strict();
 
 // File: aggregateStudioMember.schema.ts
 
@@ -8183,6 +12035,35 @@ export type Media = z.infer<typeof Media>;
 export const MediaSchema = Media;
 export type MediaType = z.infer<typeof Media>;
 
+// File: Project.schema.ts
+
+export const Project = z.object({
+  slug: z.string(),
+  position: z.number().int(),
+  name: z.string(),
+  weeks: z.number().int(),
+  link: z.string().nullish(),
+  image: z.string(),
+  video: z.string().nullish(),
+  coverEffect: z.string().nullish(),
+  description: z.unknown().refine((val) => { const getDepth = (obj: unknown, depth: number = 0): number => { if (depth > 10) return depth; if (obj === null || typeof obj !== 'object') return depth; const values = Object.values(obj as Record<string, unknown>); if (values.length === 0) return depth; return Math.max(...values.map(v => getDepth(v, depth + 1))); }; return getDepth(val) <= 10; }, "JSON nesting depth exceeds maximum of 10"),
+  metaDescription: z.unknown().refine((val) => { const getDepth = (obj: unknown, depth: number = 0): number => { if (depth > 10) return depth; if (obj === null || typeof obj !== 'object') return depth; const values = Object.values(obj as Record<string, unknown>); if (values.length === 0) return depth; return Math.max(...values.map(v => getDepth(v, depth + 1))); }; return getDepth(val) <= 10; }, "JSON nesting depth exceeds maximum of 10"),
+  challenge: z.unknown().refine((val) => { const getDepth = (obj: unknown, depth: number = 0): number => { if (depth > 10) return depth; if (obj === null || typeof obj !== 'object') return depth; const values = Object.values(obj as Record<string, unknown>); if (values.length === 0) return depth; return Math.max(...values.map(v => getDepth(v, depth + 1))); }; return getDepth(val) <= 10; }, "JSON nesting depth exceeds maximum of 10").nullish(),
+  services: z.array(z.string()),
+  techStack: z.array(z.string()),
+  date: z.string(),
+  gallery: z.array(z.string()),
+  notes: z.array(z.unknown().refine((val) => { const getDepth = (obj: unknown, depth: number = 0): number => { if (depth > 10) return depth; if (obj === null || typeof obj !== 'object') return depth; const values = Object.values(obj as Record<string, unknown>); if (values.length === 0) return depth; return Math.max(...values.map(v => getDepth(v, depth + 1))); }; return getDepth(val) <= 10; }, "JSON nesting depth exceeds maximum of 10")),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+});
+
+export type Project = z.infer<typeof Project>;
+
+// Legacy aliases
+export const ProjectSchema = Project;
+export type ProjectType = z.infer<typeof Project>;
+
 // File: Session.schema.ts
 
 export const Session = z.object({
@@ -8246,6 +12127,56 @@ export type SiteDailyVisitor = z.infer<typeof SiteDailyVisitor>;
 // Legacy aliases
 export const SiteDailyVisitorSchema = SiteDailyVisitor;
 export type SiteDailyVisitorType = z.infer<typeof SiteDailyVisitor>;
+
+// File: StoryBlock.schema.ts
+
+export const StoryBlock = z.object({
+  id: z.string(),
+  sectionId: z.string(),
+  position: z.number().int(),
+  type: z.string(),
+  media: z.unknown().refine((val) => { const getDepth = (obj: unknown, depth: number = 0): number => { if (depth > 10) return depth; if (obj === null || typeof obj !== 'object') return depth; const values = Object.values(obj as Record<string, unknown>); if (values.length === 0) return depth; return Math.max(...values.map(v => getDepth(v, depth + 1))); }; return getDepth(val) <= 10; }, "JSON nesting depth exceeds maximum of 10").nullish(),
+  eyebrow: z.unknown().refine((val) => { const getDepth = (obj: unknown, depth: number = 0): number => { if (depth > 10) return depth; if (obj === null || typeof obj !== 'object') return depth; const values = Object.values(obj as Record<string, unknown>); if (values.length === 0) return depth; return Math.max(...values.map(v => getDepth(v, depth + 1))); }; return getDepth(val) <= 10; }, "JSON nesting depth exceeds maximum of 10").nullish(),
+  title: z.unknown().refine((val) => { const getDepth = (obj: unknown, depth: number = 0): number => { if (depth > 10) return depth; if (obj === null || typeof obj !== 'object') return depth; const values = Object.values(obj as Record<string, unknown>); if (values.length === 0) return depth; return Math.max(...values.map(v => getDepth(v, depth + 1))); }; return getDepth(val) <= 10; }, "JSON nesting depth exceeds maximum of 10").nullish(),
+  text: z.unknown().refine((val) => { const getDepth = (obj: unknown, depth: number = 0): number => { if (depth > 10) return depth; if (obj === null || typeof obj !== 'object') return depth; const values = Object.values(obj as Record<string, unknown>); if (values.length === 0) return depth; return Math.max(...values.map(v => getDepth(v, depth + 1))); }; return getDepth(val) <= 10; }, "JSON nesting depth exceeds maximum of 10").nullish(),
+  tags: z.unknown().refine((val) => { const getDepth = (obj: unknown, depth: number = 0): number => { if (depth > 10) return depth; if (obj === null || typeof obj !== 'object') return depth; const values = Object.values(obj as Record<string, unknown>); if (values.length === 0) return depth; return Math.max(...values.map(v => getDepth(v, depth + 1))); }; return getDepth(val) <= 10; }, "JSON nesting depth exceeds maximum of 10").nullish(),
+  logos: z.array(z.string()),
+  tiles: z.unknown().refine((val) => { const getDepth = (obj: unknown, depth: number = 0): number => { if (depth > 10) return depth; if (obj === null || typeof obj !== 'object') return depth; const values = Object.values(obj as Record<string, unknown>); if (values.length === 0) return depth; return Math.max(...values.map(v => getDepth(v, depth + 1))); }; return getDepth(val) <= 10; }, "JSON nesting depth exceeds maximum of 10").nullish(),
+  link: z.string().nullish(),
+  linkLabel: z.unknown().refine((val) => { const getDepth = (obj: unknown, depth: number = 0): number => { if (depth > 10) return depth; if (obj === null || typeof obj !== 'object') return depth; const values = Object.values(obj as Record<string, unknown>); if (values.length === 0) return depth; return Math.max(...values.map(v => getDepth(v, depth + 1))); }; return getDepth(val) <= 10; }, "JSON nesting depth exceeds maximum of 10").nullish(),
+  effect: z.string().nullish(),
+  smalls: z.string().nullish(),
+  cols: z.number().int().nullish(),
+  font: z.string().nullish(),
+  fontFamily: z.string().nullish(),
+  description: z.unknown().refine((val) => { const getDepth = (obj: unknown, depth: number = 0): number => { if (depth > 10) return depth; if (obj === null || typeof obj !== 'object') return depth; const values = Object.values(obj as Record<string, unknown>); if (values.length === 0) return depth; return Math.max(...values.map(v => getDepth(v, depth + 1))); }; return getDepth(val) <= 10; }, "JSON nesting depth exceeds maximum of 10").nullish(),
+  secondFont: z.string().nullish(),
+  secondFontFamily: z.string().nullish(),
+  secondDescription: z.unknown().refine((val) => { const getDepth = (obj: unknown, depth: number = 0): number => { if (depth > 10) return depth; if (obj === null || typeof obj !== 'object') return depth; const values = Object.values(obj as Record<string, unknown>); if (values.length === 0) return depth; return Math.max(...values.map(v => getDepth(v, depth + 1))); }; return getDepth(val) <= 10; }, "JSON nesting depth exceeds maximum of 10").nullish(),
+  swatches: z.unknown().refine((val) => { const getDepth = (obj: unknown, depth: number = 0): number => { if (depth > 10) return depth; if (obj === null || typeof obj !== 'object') return depth; const values = Object.values(obj as Record<string, unknown>); if (values.length === 0) return depth; return Math.max(...values.map(v => getDepth(v, depth + 1))); }; return getDepth(val) <= 10; }, "JSON nesting depth exceeds maximum of 10").nullish(),
+});
+
+export type StoryBlock = z.infer<typeof StoryBlock>;
+
+// Legacy aliases
+export const StoryBlockSchema = StoryBlock;
+export type StoryBlockType = z.infer<typeof StoryBlock>;
+
+// File: StorySection.schema.ts
+
+export const StorySection = z.object({
+  id: z.string(),
+  projectSlug: z.string(),
+  position: z.number().int(),
+  title: z.unknown().refine((val) => { const getDepth = (obj: unknown, depth: number = 0): number => { if (depth > 10) return depth; if (obj === null || typeof obj !== 'object') return depth; const values = Object.values(obj as Record<string, unknown>); if (values.length === 0) return depth; return Math.max(...values.map(v => getDepth(v, depth + 1))); }; return getDepth(val) <= 10; }, "JSON nesting depth exceeds maximum of 10").nullish(),
+  by: z.array(z.string()),
+});
+
+export type StorySection = z.infer<typeof StorySection>;
+
+// Legacy aliases
+export const StorySectionSchema = StorySection;
+export type StorySectionType = z.infer<typeof StorySection>;
 
 // File: StudioMember.schema.ts
 

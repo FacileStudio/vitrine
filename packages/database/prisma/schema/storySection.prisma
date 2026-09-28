@@ -1,0 +1,11 @@
+model StorySection {
+  id          String       @id @default(uuid())
+  projectSlug String
+  project     Project      @relation(fields: [projectSlug], references: [slug], onDelete: Cascade)
+  position    Int
+  title       Json?
+  by          String[]
+  blocks      StoryBlock[]
+
+  @@unique([projectSlug, position])
+}
