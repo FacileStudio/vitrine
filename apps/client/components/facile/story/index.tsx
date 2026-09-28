@@ -70,7 +70,7 @@ export default function Story({ sections, name, index, total, backLabel, delay =
 
         const tl = gsap.timeline({ delay: delay / 1000 });
         tl.set(rootRef.current, { autoAlpha: 1 })
-            .fromTo(bgRef.current, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: EASE.out }, 0)
+            .fromTo(bgRef.current, { opacity: 0 }, { opacity: 0.5, duration: 0.5, ease: EASE.out }, 0)
             .fromTo(blocks, from, { ...to, opacity: 1, duration: 0.9, ease: EASE.out, stagger: 0.07 }, 0.15)
             .add(() => run(chrome(), slideY(true, false, { stagger: 0.06, duration: 0.6 })), 0.35);
 

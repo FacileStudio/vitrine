@@ -938,56 +938,69 @@
         ]
     },
     {
-        "slug": "mont-k",
-        "name": "Mont-k",
-        "tier": 3,
-        "weeks": 1,
-        "image": "/images/projects/Mont-k.webp",
-        "link": "https://dribbble.com/shots/26711277-MONT-K-UI-UX-DESIGN",
+        "slug": "handvision",
+        "name": "HandVision",
+        "weeks": 3,
+        "image": "/images/projects/HandVision_cover.webp",
         "description": {
-            "en": "A UI/UX design exploration — clean, considered, and built to be handed straight to development.",
-            "fr": "Une exploration UI/UX, épurée, réfléchie et prête à passer directement en développement.",
-            "es": "Una exploración de diseño UI/UX: limpia, pensada y lista para pasar directamente a desarrollo.",
-            "de": "Eine UI/UX-Designstudie: klar, durchdacht und bereit für die direkte Übergabe an die Entwicklung."
+            "en": "HandVision is a handball video analysis app: upload a match, the AI finds every goal, cuts the clips and turns the match sheet into statistics the whole team can read.",
+            "fr": "HandVision est une application d'analyse vidéo pour le handball : on envoie un match, l'IA trouve chaque but, découpe les clips et transforme la feuille de match en statistiques lisibles par toute l'équipe.",
+            "es": "HandVision es una aplicación de análisis de vídeo de balonmano: subes un partido, la IA encuentra cada gol, corta los clips y convierte el acta del partido en estadísticas que todo el equipo puede leer.",
+            "de": "HandVision ist eine App zur Videoanalyse im Handball: Man lädt ein Spiel hoch, die KI findet jedes Tor, schneidet die Clips und macht aus dem Spielbericht Statistiken, die das ganze Team lesen kann."
         },
         "metaDescription": {
-            "en": "Mont-k is a UI/UX design exploration by Facile Studio — a clean, considered interface built to be handed straight to development.",
-            "fr": "Mont-k est une exploration UI/UX de Facile Studio : une interface épurée et réfléchie, prête à passer directement en développement.",
-            "es": "Mont-k es una exploración de diseño UI/UX de Facile Studio: una interfaz limpia y pensada, lista para pasar directamente a desarrollo.",
-            "de": "Mont-k ist eine UI/UX-Designstudie von Facile Studio: eine klare, durchdachte Oberfläche, bereit für die direkte Übergabe an die Entwicklung."
+            "en": "HandVision is a handball video analysis app. Branding, web design and frontend by Facile Studio, built with SvelteKit, shadcn-svelte and GSAP.",
+            "fr": "HandVision est une application d'analyse vidéo pour le handball. Identité, web design et frontend par Facile Studio, développés avec SvelteKit, shadcn-svelte et GSAP.",
+            "es": "HandVision es una aplicación de análisis de vídeo de balonmano. Identidad, diseño web y frontend de Facile Studio, desarrollados con SvelteKit, shadcn-svelte y GSAP.",
+            "de": "HandVision ist eine App zur Videoanalyse im Handball. Branding, Webdesign und Frontend von Facile Studio, entwickelt mit SvelteKit, shadcn-svelte und GSAP."
         },
         "techStack": [
+            "SvelteKit",
+            "shadcn-svelte",
+            "GSAP",
+            "Tailwind",
             "Figma"
         ],
-        "date": "2025",
+        "date": "2026",
         "challenge": {
-            "en": "Design an interface complete enough to be handed straight to development, with no open questions left.",
-            "fr": "Concevoir une interface assez complète pour passer directement en développement, sans aucune question en suspens.",
-            "es": "Diseñar una interfaz tan completa que pase directamente a desarrollo, sin ninguna pregunta abierta.",
-            "de": "Eine Oberfläche so vollständig gestalten, dass sie ohne offene Fragen direkt an die Entwicklung gehen kann."
+            "en": "Make an AI analysis tool feel as simple as uploading a video: coaches should go from a match recording to clips and numbers without reading a manual.",
+            "fr": "Rendre un outil d'analyse par IA aussi simple que l'envoi d'une vidéo : un coach doit passer de l'enregistrement du match aux clips et aux chiffres sans lire de mode d'emploi.",
+            "es": "Hacer que una herramienta de análisis con IA sea tan sencilla como subir un vídeo: un entrenador debe pasar de la grabación del partido a los clips y los números sin leer ningún manual.",
+            "de": "Ein KI-Analysetool so einfach machen wie das Hochladen eines Videos: Trainer sollen ohne Anleitung von der Spielaufnahme zu Clips und Zahlen kommen."
         },
         "services": [
+            "brandIdentity",
             "uiUxDesign",
-            "designSystem"
+            "frontendDevelopment"
         ],
         "team": [
-            "camille",
             "noah"
         ],
         "notes": [
             {
-                "en": "Every component ships with its states, so the handoff is a file, not a conversation.",
-                "fr": "Chaque composant est livré avec tous ses états : la passation tient dans un fichier, pas dans une conversation.",
-                "es": "Cada componente se entrega con sus estados, así que el traspaso es un archivo, no una conversación.",
-                "de": "Jede Komponente kommt mit all ihren Zuständen, die Übergabe ist also eine Datei, kein Gespräch."
+                "en": "One person carried the whole front of the product: logo, font, colours, every screen in Figma, then the SvelteKit build.",
+                "fr": "Une seule personne a porté toute la façade du produit : logo, typo, couleurs, chaque écran dans Figma, puis le développement SvelteKit.",
+                "es": "Una sola persona llevó toda la cara visible del producto: logo, tipografía, colores, cada pantalla en Figma y después el desarrollo en SvelteKit.",
+                "de": "Eine Person hat die gesamte Oberfläche des Produkts getragen: Logo, Schrift, Farben, jeder Screen in Figma und danach der SvelteKit-Build."
             }
         ],
         "gallery": [
-            "https://picsum.photos/seed/montk-a/1700/1100",
-            "https://picsum.photos/seed/montk-c/1800/1000",
-            "https://picsum.photos/seed/mont-k-x0/1500/1000",
-            "https://media.w3.org/2010/05/bunny/trailer.mp4",
-            "https://picsum.photos/seed/mont-k-x2/1500/1400"
+            "/images/projects/HandVision_0.webp",
+            "/images/projects/HandVision_1.webp",
+            "/images/projects/HandVision_2.webp",
+            "/images/projects/HandVision_3.webp",
+            "/images/projects/HandVision_4.webp",
+            "/images/projects/HandVision_5.webp",
+            "/images/projects/HandVision_6.webp",
+            "/images/projects/HandVision_7.webp",
+            "/images/projects/HandVision_8.webp",
+            "/images/projects/HandVision_9.webp",
+            "/images/projects/HandVision_10.webp",
+            "/images/projects/HandVision_11.webp",
+            "/images/projects/HandVision_12.webp",
+            "/images/projects/HandVision_13.webp",
+            "/images/projects/HandVision_14.webp",
+            "/images/projects/HandVision_15.webp"
         ],
         "story": [
             {
@@ -1002,42 +1015,232 @@
             },
             {
                 "title": {
-                    "en": "UI/UX design",
-                    "fr": "Design UI/UX",
-                    "es": "Diseño UI/UX",
-                    "de": "UI/UX-Design"
+                    "en": "How it works",
+                    "fr": "Comment ça marche",
+                    "es": "Cómo funciona",
+                    "de": "So funktioniert es"
                 },
+                "by": "noah",
                 "blocks": [
                     {
                         "type": "note",
                         "title": {
-                            "en": "UI/UX design",
-                            "fr": "Design UI/UX",
-                            "es": "Diseño UI/UX",
-                            "de": "UI/UX-Design"
+                            "en": "How it works",
+                            "fr": "Comment ça marche",
+                            "es": "Cómo funciona",
+                            "de": "So funktioniert es"
                         },
                         "text": {
-                            "en": "Every component ships with its states, so the handoff is a file, not a conversation.",
-                            "fr": "Chaque composant est livré avec tous ses états : la passation tient dans un fichier, pas dans une conversation.",
-                            "es": "Cada componente se entrega con sus estados, así que el traspaso es un archivo, no una conversación.",
-                            "de": "Jede Komponente kommt mit all ihren Zuständen, die Übergabe ist also eine Datei, kein Gespräch."
+                            "en": "Three steps, no manual tagging. The coach uploads the match video, a detection model trained on handball marks every goal with its timecode, then the coach jumps from clip to clip and reads player and team statistics from the match sheet, all on one page.",
+                            "fr": "Trois étapes, aucun marquage à la main. Le coach envoie la vidéo du match, un modèle de détection entraîné sur le handball repère chaque but avec son timecode, puis le coach passe d'un clip à l'autre et lit les statistiques des joueurs et de l'équipe tirées de la feuille de match, le tout sur une seule page.",
+                            "es": "Tres pasos, sin etiquetar nada a mano. El entrenador sube el vídeo del partido, un modelo de detección entrenado con balonmano marca cada gol con su timecode, y después el entrenador salta de clip en clip y lee las estadísticas de jugadores y equipo sacadas del acta, todo en una sola página.",
+                            "de": "Drei Schritte, kein manuelles Taggen. Der Trainer lädt das Spielvideo hoch, ein auf Handball trainiertes Erkennungsmodell markiert jedes Tor mit Timecode, dann springt der Trainer von Clip zu Clip und liest Spieler- und Teamstatistiken aus dem Spielbericht, alles auf einer Seite."
                         },
                         "media": [
                             0
                         ]
                     },
                     {
-                        "type": "col",
+                        "type": "big",
                         "media": [
+                            3,
                             1,
-                            2,
-                            3
+                            2
+                        ],
+                        "smalls": "top"
+                    }
+                ]
+            },
+            {
+                "title": {
+                    "en": "Branding",
+                    "fr": "Identité",
+                    "es": "Identidad",
+                    "de": "Branding"
+                },
+                "by": "noah",
+                "blocks": [
+                    {
+                        "type": "note",
+                        "title": {
+                            "en": "Branding",
+                            "fr": "Identité",
+                            "es": "Identidad",
+                            "de": "Branding"
+                        },
+                        "text": {
+                            "en": "Noah drew the logo, picked the font and set the colours. A deep black lets match footage stay the brightest thing on screen, and a single violet gradient marks everything the AI does for you.",
+                            "fr": "Noah a dessiné le logo, choisi la typo et fixé les couleurs. Un noir profond laisse les images du match rester l'élément le plus lumineux de l'écran, et un seul dégradé violet signale tout ce que l'IA fait pour vous.",
+                            "es": "Noah dibujó el logo, eligió la tipografía y definió los colores. Un negro profundo deja que las imágenes del partido sean lo más brillante de la pantalla, y un único degradado violeta marca todo lo que la IA hace por ti.",
+                            "de": "Noah hat das Logo gezeichnet, die Schrift gewählt und die Farben festgelegt. Ein tiefes Schwarz lässt das Spielmaterial das Hellste auf dem Bildschirm bleiben, und ein einziger violetter Verlauf markiert alles, was die KI für dich erledigt."
+                        },
+                        "media": [
+                            4
                         ]
+                    },
+                    {
+                        "type": "palette",
+                        "swatches": [
+                            {
+                                "label": {
+                                    "en": "Background",
+                                    "fr": "Fond",
+                                    "es": "Fondo",
+                                    "de": "Hintergrund"
+                                },
+                                "hex": "#0A0A0A"
+                            },
+                            {
+                                "label": {
+                                    "en": "Component",
+                                    "fr": "Composant",
+                                    "es": "Componente",
+                                    "de": "Komponente"
+                                },
+                                "hex": "#161616",
+                                "note": {
+                                    "en": "#FFFFFF (opacity 5%)",
+                                    "fr": "#FFFFFF (opacité 5 %)",
+                                    "es": "#FFFFFF (opacidad 5 %)",
+                                    "de": "#FFFFFF (Deckkraft 5 %)"
+                                }
+                            },
+                            {
+                                "label": {
+                                    "en": "Gradient",
+                                    "fr": "Dégradé",
+                                    "es": "Degradado",
+                                    "de": "Verlauf"
+                                },
+                                "hex": "linear-gradient(30deg, #6354E0 0%, #B12DDD 100%)",
+                                "note": {
+                                    "en": "Gradient: #6354E0 → #B12DDD",
+                                    "fr": "Dégradé : #6354E0 → #B12DDD",
+                                    "es": "Degradado: #6354E0 → #B12DDD",
+                                    "de": "Verlauf: #6354E0 → #B12DDD"
+                                },
+                                "textColor": "#FFFFFF",
+                                "rgb": "—",
+                                "hsv": "—",
+                                "cmyk": "—"
+                            },
+                            {
+                                "label": {
+                                    "en": "Text",
+                                    "fr": "Texte",
+                                    "es": "Texto",
+                                    "de": "Text"
+                                },
+                                "hex": "#FFFFFF"
+                            },
+                            {
+                                "label": {
+                                    "en": "Subtext",
+                                    "fr": "Sous-texte",
+                                    "es": "Subtexto",
+                                    "de": "Nebentext"
+                                },
+                                "hex": "#858585",
+                                "note": {
+                                    "en": "#FFFFFF (opacity 50%)",
+                                    "fr": "#FFFFFF (opacité 50 %)",
+                                    "es": "#FFFFFF (opacidad 50 %)",
+                                    "de": "#FFFFFF (Deckkraft 50 %)"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "typography",
+                        "font": "SF Pro Display",
+                        "fontFamily": "'SF Pro Display', -apple-system, sans-serif",
+                        "description": {
+                            "en": "PLACEHOLDER — explain why SF Pro Display was chosen: a neutral, sporty sans that stays readable in dense stat tables and still holds up in big landing titles.",
+                            "fr": "PLACEHOLDER : expliquer pourquoi SF Pro Display a été choisie, une linéale neutre et sportive qui reste lisible dans les tableaux de stats denses et tient la route dans les grands titres de la landing.",
+                            "es": "PLACEHOLDER: explicar por qué se eligió SF Pro Display, una sans neutra y deportiva que sigue siendo legible en tablas de estadísticas densas y aguanta bien en los grandes títulos de la landing.",
+                            "de": "PLACEHOLDER: erklären, warum SF Pro Display gewählt wurde, eine neutrale, sportliche Grotesk, die in dichten Statistiktabellen lesbar bleibt und auch in großen Landing-Titeln trägt."
+                        }
                     },
                     {
                         "type": "full",
                         "media": [
-                            4
+                            5
+                        ]
+                    }
+                ]
+            },
+            {
+                "title": {
+                    "en": "Web Design",
+                    "fr": "Web design",
+                    "es": "Diseño web",
+                    "de": "Webdesign"
+                },
+                "by": "noah",
+                "blocks": [
+                    {
+                        "type": "note",
+                        "title": {
+                            "en": "Web Design",
+                            "fr": "Web design",
+                            "es": "Diseño web",
+                            "de": "Webdesign"
+                        },
+                        "text": {
+                            "en": "Noah designed every screen in Figma: the landing, the analysis, statistics and pricing pages, then the app itself. The landing shows the product instead of describing it, with a bento of live-looking visuals for detection, clips, stats and credits.",
+                            "fr": "Noah a conçu chaque écran dans Figma : la landing, les pages analyse, statistiques et tarifs, puis l'application elle-même. La landing montre le produit au lieu de le décrire, avec un bento de visuels qui semblent vivants pour la détection, les clips, les stats et les crédits.",
+                            "es": "Noah diseñó cada pantalla en Figma: la landing, las páginas de análisis, estadísticas y precios, y después la propia aplicación. La landing muestra el producto en lugar de describirlo, con un bento de visuales que parecen en vivo para la detección, los clips, las estadísticas y los créditos.",
+                            "de": "Noah hat jeden Screen in Figma entworfen: die Landing, die Seiten für Analyse, Statistiken und Preise und danach die App selbst. Die Landing zeigt das Produkt, statt es zu beschreiben, mit einem Bento aus lebendig wirkenden Visuals für Erkennung, Clips, Statistiken und Credits."
+                        },
+                        "media": [
+                            6
+                        ]
+                    },
+                    {
+                        "type": "mosaic",
+                        "media": [
+                            7,
+                            8,
+                            9,
+                            10,
+                            11
+                        ]
+                    }
+                ]
+            },
+            {
+                "title": {
+                    "en": "Frontend",
+                    "fr": "Frontend",
+                    "es": "Frontend",
+                    "de": "Frontend"
+                },
+                "by": "noah",
+                "blocks": [
+                    {
+                        "type": "note",
+                        "title": {
+                            "en": "Frontend",
+                            "fr": "Frontend",
+                            "es": "Frontend",
+                            "de": "Frontend"
+                        },
+                        "text": {
+                            "en": "Noah built the frontend in SvelteKit on top of shadcn-svelte components, restyled to the HandVision tokens so forms, tables, dialogs and menus all share one look. Every animation, from the landing reveals to the moving visuals, runs on GSAP.",
+                            "fr": "Noah a développé le frontend en SvelteKit sur la base des composants shadcn-svelte, restylés avec les tokens de HandVision pour que formulaires, tableaux, fenêtres et menus partagent le même style. Chaque animation, des apparitions de la landing aux visuels animés, tourne sur GSAP.",
+                            "es": "Noah desarrolló el frontend en SvelteKit sobre componentes de shadcn-svelte, adaptados a los tokens de HandVision para que formularios, tablas, diálogos y menús compartan el mismo estilo. Cada animación, desde las apariciones de la landing hasta los visuales en movimiento, funciona con GSAP.",
+                            "de": "Noah hat das Frontend in SvelteKit auf Basis von shadcn-svelte-Komponenten gebaut, angepasst an die HandVision-Tokens, damit Formulare, Tabellen, Dialoge und Menüs einen gemeinsamen Look haben. Jede Animation, von den Reveals der Landing bis zu den bewegten Visuals, läuft mit GSAP."
+                        },
+                        "media": [
+                            12
+                        ]
+                    },
+                    {
+                        "type": "col",
+                        "media": [
+                            13,
+                            14,
+                            15
                         ]
                     }
                 ]
@@ -1052,57 +1255,52 @@
         ]
     },
     {
-        "slug": "waves",
-        "name": "Waves",
+        "slug": "vidoq",
+        "name": "Vidoq",
         "weeks": 1,
-        "link": "https://github.com/saravenpi/waves",
+        "link": "https://vidoq.fr",
         "description": {
-            "en": "A native desktop audio visualiser that turns sound into real-time waveforms with an FFT engine at its core.",
-            "fr": "Un visualiseur audio natif pour ordinateur, qui transforme le son en formes d'onde en temps réel grâce à un moteur FFT.",
-            "es": "Un visualizador de audio nativo de escritorio que convierte el sonido en ondas en tiempo real, con un motor FFT en su núcleo.",
-            "de": "Ein nativer Desktop-Audiovisualisierer, der Klang in Echtzeit in Wellenformen verwandelt, mit einer FFT-Engine im Kern."
+            "en": "Vidoq is a platform for auditing your digital footprint: search an email, phone, username, name, IP or address and see where it shows up in public data and known breaches.",
+            "fr": "Vidoq est une plateforme d'audit d'empreinte numérique : cherchez un e-mail, un téléphone, un pseudo, un nom, une IP ou une adresse et voyez où ils apparaissent dans les données publiques et les fuites connues.",
+            "es": "Vidoq es una plataforma para auditar tu huella digital: busca un correo, un teléfono, un usuario, un nombre, una IP o una dirección y descubre dónde aparece en datos públicos y filtraciones conocidas.",
+            "de": "Vidoq ist eine Plattform zur Prüfung des digitalen Fußabdrucks: Suche nach E-Mail, Telefonnummer, Benutzername, Name, IP oder Adresse und sieh, wo sie in öffentlichen Daten und bekannten Datenlecks auftauchen."
         },
         "metaDescription": {
-            "en": "Waves is a cross-platform music player built in Rust by Facile Studio. Real-time FFT audio visualization, Miller Column browser, and vim keybindings.",
-            "fr": "Waves est un lecteur de musique multiplateforme développé en Rust par Facile Studio. Visualisation audio FFT en temps réel, navigateur en colonnes de Miller et raccourcis clavier vim.",
-            "es": "Waves es un reproductor de música multiplataforma desarrollado en Rust por Facile Studio. Visualización de audio FFT en tiempo real, navegador de columnas Miller y atajos de teclado de vim.",
-            "de": "Waves ist ein plattformübergreifender Musikplayer von Facile Studio, entwickelt in Rust. FFT-Audiovisualisierung in Echtzeit, Miller-Columns-Browser und vim-Tastenkürzel."
+            "en": "Vidoq is a digital footprint auditing platform by Facile Studio: breach search over 1B+ indexed records, OSINT investigation, breach graphs and passive alerting.",
+            "fr": "Vidoq est une plateforme d'audit d'empreinte numérique signée Facile Studio : recherche dans plus d'un milliard d'enregistrements de fuites, investigation OSINT, graphes de fuites et alertes passives.",
+            "es": "Vidoq es una plataforma de auditoría de huella digital de Facile Studio: búsqueda en más de mil millones de registros filtrados, investigación OSINT, grafos de filtraciones y alertas pasivas.",
+            "de": "Vidoq ist eine Plattform zur Prüfung des digitalen Fußabdrucks von Facile Studio: Suche in über 1 Mrd. indexierten Leak-Datensätzen, OSINT-Recherche, Leak-Graphen und passive Benachrichtigungen."
         },
-        "techStack": [
-            "Rust",
-            "Tauri",
-            "Egui",
-            "FTT"
-        ],
-        "image": "/images/projects/Waves.webp",
-        "date": "2025",
+        "techStack": [],
+        "image": "/images/projects/Vidoq_cover.webp",
+        "date": "2026",
         "challenge": {
-            "en": "Render sound as it happens — an FFT engine fast enough that the waveform never lags behind what you hear.",
-            "fr": "Afficher le son à l'instant où il se produit : un moteur FFT assez rapide pour que l'onde ne soit jamais en retard sur ce que vous entendez.",
-            "es": "Mostrar el sonido en el momento en que suena: un motor FFT tan rápido que la onda nunca va por detrás de lo que oyes.",
-            "de": "Klang in dem Moment darstellen, in dem er entsteht: eine FFT-Engine, schnell genug, dass die Wellenform nie hinter dem Gehörten zurückbleibt."
+            "en": "Search more than a billion breach records by exact value, wildcard or several fields at once, and keep the answer fast enough to feel instant.",
+            "fr": "Chercher dans plus d'un milliard d'enregistrements de fuites par valeur exacte, joker ou plusieurs champs à la fois, avec une réponse assez rapide pour sembler instantanée.",
+            "es": "Buscar en más de mil millones de registros filtrados por valor exacto, comodín o varios campos a la vez, con una respuesta tan rápida que parezca instantánea.",
+            "de": "Über eine Milliarde Leak-Datensätze nach exaktem Wert, Platzhalter oder mehreren Feldern zugleich durchsuchen, und die Antwort trotzdem so schnell liefern, dass sie sofort wirkt."
         },
         "services": [
-            "productDesign",
-            "desktopDevelopment"
+            "appDevelopment",
+            "webDevelopment"
         ],
         "team": [
-            "fanga"
+            "mazouz"
         ],
         "notes": [
             {
-                "en": "Native was the only honest answer: anything running in a browser would have cost the frames the visualiser lives on.",
-                "fr": "Le natif était la seule réponse honnête : tout ce qui tourne dans un navigateur aurait coûté les images dont le visualiseur vit.",
-                "es": "Lo nativo era la única respuesta honesta: cualquier cosa en un navegador habría costado los fotogramas de los que vive el visualizador.",
-                "de": "Nativ war die einzig ehrliche Antwort: Alles im Browser hätte genau die Frames gekostet, von denen der Visualisierer lebt."
+                "en": "Monitored fields are checked against every new breach version daily, and new records stay locked until the user chooses to unlock them.",
+                "fr": "Les champs surveillés sont comparés chaque jour à chaque nouvelle version des fuites, et les nouveaux enregistrements restent verrouillés jusqu'à ce que l'utilisateur choisisse de les débloquer.",
+                "es": "Los campos vigilados se comparan cada día con cada nueva versión de las filtraciones, y los registros nuevos quedan bloqueados hasta que el usuario decide desbloquearlos.",
+                "de": "Überwachte Felder werden täglich mit jeder neuen Leak-Version abgeglichen, und neue Datensätze bleiben gesperrt, bis der Nutzer sie freischaltet."
             }
         ],
         "gallery": [
-            "https://picsum.photos/seed/waves-a/1800/1000",
-            "https://picsum.photos/seed/waves-b/1400/1500",
-            "https://picsum.photos/seed/waves-x0/1500/1000",
-            "https://media.w3.org/2010/05/video/movie_300.mp4",
-            "https://picsum.photos/seed/waves-x2/1500/1400"
+            "/images/projects/Vidoq_0.webp",
+            "/images/projects/Vidoq_1.webp",
+            "/images/projects/Vidoq_2.webp",
+            "/images/projects/Vidoq_3.webp",
+            "/images/projects/Vidoq_4.webp"
         ],
         "story": [
             {
@@ -1132,10 +1330,122 @@
                             "de": "Produktdesign"
                         },
                         "text": {
-                            "en": "Native was the only honest answer: anything running in a browser would have cost the frames the visualiser lives on.",
-                            "fr": "Le natif était la seule réponse honnête : tout ce qui tourne dans un navigateur aurait coûté les images dont le visualiseur vit.",
-                            "es": "Lo nativo era la única respuesta honesta: cualquier cosa en un navegador habría costado los fotogramas de los que vive el visualizador.",
-                            "de": "Nativ war die einzig ehrliche Antwort: Alles im Browser hätte genau die Frames gekostet, von denen der Visualisierer lebt."
+                            "en": "Mazouz built Vidoq around three tools: a breach search on six identifiers, a graph that groups leaked records and links matching fields across sources, and passive alerts when a watched field appears in a new breach.",
+                            "fr": "Mazouz a construit Vidoq autour de trois outils : une recherche de fuites sur six identifiants, un graphe qui regroupe les enregistrements et relie les champs identiques entre les sources, et des alertes passives quand un champ surveillé apparaît dans une nouvelle fuite.",
+                            "es": "Mazouz construyó Vidoq en torno a tres herramientas: una búsqueda de filtraciones sobre seis identificadores, un grafo que agrupa los registros y enlaza los campos coincidentes entre fuentes, y alertas pasivas cuando un campo vigilado aparece en una nueva filtración.",
+                            "de": "Mazouz hat Vidoq um drei Werkzeuge gebaut: eine Leak-Suche über sechs Identifikatoren, einen Graphen, der Datensätze gruppiert und gleiche Felder quellenübergreifend verknüpft, und passive Benachrichtigungen, wenn ein überwachtes Feld in einem neuen Leak auftaucht."
+                        },
+                        "media": [
+                            0
+                        ]
+                    },
+                    {
+                        "type": "big",
+                        "media": [
+                            1,
+                            2,
+                            3
+                        ],
+                        "smalls": "top"
+                    },
+                    {
+                        "type": "full",
+                        "media": [
+                            4
+                        ]
+                    }
+                ]
+            },
+            {
+                "blocks": [
+                    {
+                        "type": "end"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "slug": "benky",
+        "name": "Benky",
+        "weeks": 1,
+        "link": "https://benky.space",
+        "description": {
+            "en": "Benky is a study app: bring your course notes, ask AI questions about them, and turn what you learn into flashcards, quizzes and a study plan.",
+            "fr": "Benky est une application de révision : on y dépose ses notes de cours, on pose des questions à l'IA, et on transforme ce qu'on apprend en flashcards, quiz et planning de révision.",
+            "es": "Benky es una app de estudio: subes tus apuntes, le haces preguntas a la IA y conviertes lo que aprendes en flashcards, cuestionarios y un plan de estudio.",
+            "de": "Benky ist eine Lern-App: Kursnotizen hochladen, der KI Fragen dazu stellen und das Gelernte in Karteikarten, Quiz und einen Lernplan verwandeln."
+        },
+        "metaDescription": {
+            "en": "Benky is a study app by Facile Studio. Course materials, AI explanations, flashcards, quizzes and study planning in one place, on the web and on Mac.",
+            "fr": "Benky est une application de révision signée Facile Studio. Supports de cours, explications par IA, flashcards, quiz et planning réunis au même endroit, sur le web et sur Mac.",
+            "es": "Benky es una app de estudio de Facile Studio. Materiales, explicaciones con IA, flashcards, cuestionarios y planificación en un solo lugar, en la web y en Mac.",
+            "de": "Benky ist eine Lern-App von Facile Studio. Kursmaterial, KI-Erklärungen, Karteikarten, Quiz und Lernplanung an einem Ort, im Web und auf dem Mac."
+        },
+        "techStack": [],
+        "image": "/images/projects/Benky_cover.webp",
+        "date": "2026",
+        "challenge": {
+            "en": "Replace the scattered tabs of a study session with one place where materials, questions, notes and practice follow each other.",
+            "fr": "Remplacer les onglets éparpillés d'une session de révision par un seul endroit où supports, questions, notes et entraînement s'enchaînent.",
+            "es": "Sustituir las pestañas dispersas de una sesión de estudio por un único lugar donde materiales, preguntas, notas y práctica se suceden.",
+            "de": "Die verstreuten Tabs einer Lernsession durch einen Ort ersetzen, an dem Material, Fragen, Notizen und Übung aufeinander folgen."
+        },
+        "services": [
+            "appDevelopment",
+            "desktopDevelopment"
+        ],
+        "team": [
+            "fanga"
+        ],
+        "notes": [
+            {
+                "en": "Every answer points back to your own materials, so a follow-up question turns into a note and then into a flashcard.",
+                "fr": "Chaque réponse renvoie à vos propres supports : une question de suivi devient une note, puis une flashcard.",
+                "es": "Cada respuesta remite a tus propios materiales, así que una pregunta de seguimiento se convierte en una nota y después en una flashcard.",
+                "de": "Jede Antwort verweist auf dein eigenes Material, so wird aus einer Nachfrage eine Notiz und daraus eine Karteikarte."
+            }
+        ],
+        "gallery": [
+            "/images/projects/Benky_0.webp",
+            "/images/projects/Benky_1.webp",
+            "/images/projects/Benky_2.webp",
+            "/images/projects/Benky_3.webp",
+            "/images/projects/Benky_4.webp"
+        ],
+        "story": [
+            {
+                "blocks": [
+                    {
+                        "type": "cover"
+                    },
+                    {
+                        "type": "intro"
+                    }
+                ]
+            },
+            {
+                "title": {
+                    "en": "Study session",
+                    "fr": "Session de révision",
+                    "es": "Sesión de estudio",
+                    "de": "Lernsession"
+                },
+                "by": "fanga",
+                "blocks": [
+                    {
+                        "type": "note",
+                        "title": {
+                            "en": "Study session",
+                            "fr": "Session de révision",
+                            "es": "Sesión de estudio",
+                            "de": "Lernsession"
+                        },
+                        "text": {
+                            "en": "A session runs in three steps: gather PDFs, images and notes by subject, ask Benky until the idea makes sense, then come back to it with flashcards, quizzes and a slot on the weekly calendar.",
+                            "fr": "Une session se déroule en trois étapes : rassembler PDF, images et notes par matière, questionner Benky jusqu'à ce que l'idée soit claire, puis y revenir avec des flashcards, des quiz et un créneau dans le calendrier de la semaine.",
+                            "es": "Una sesión sigue tres pasos: reunir PDF, imágenes y apuntes por asignatura, preguntar a Benky hasta que la idea quede clara y volver a ella con flashcards, cuestionarios y un hueco en el calendario semanal.",
+                            "de": "Eine Session hat drei Schritte: PDFs, Bilder und Notizen nach Fach sammeln, Benky fragen, bis die Idee sitzt, und dann mit Karteikarten, Quiz und einem Termin im Wochenkalender darauf zurückkommen."
                         },
                         "media": [
                             0

@@ -31,7 +31,7 @@ export default function Intro({ block }: BlockProps) {
                         ) : null}
 
                         <Line as="h2" className="capitalize whitespace-pre-line">
-                            <Emphasis text={block.title ?? ""} />
+                            <Emphasis text={'*' + (block.title ?? "") + '*'} />
                         </Line>
 
                         {block.text ? (
