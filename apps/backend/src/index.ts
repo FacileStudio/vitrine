@@ -7,6 +7,7 @@ import { createStorage } from '@repo/storage';
 import { serverEnvSchema } from '@repo/env';
 import { logger } from '@/lib/logger';
 import { loggerMiddleware } from './middleware/logger.middleware';
+import { rateLimit } from './middleware/rate-limit.middleware';
 
 const env = serverEnvSchema.parse(process.env);
 
@@ -43,6 +44,8 @@ app.use(
   })
 );
 app.use('*', loggerMiddleware);
+// one visit per page load is normal, anything far above that is someone inflating the stats
+app.use('/trpc/*', rateLimit({ procedure: 'statistics.trackVisit', max: 30, windowMs: 10 * 60 * 1000 }));
 
 app.use(
   '/trpc/*',
