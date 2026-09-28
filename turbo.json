@@ -11,6 +11,7 @@
     "STORAGE_PATH",
     "NEXT_PUBLIC_API_URL",
     "VITE_API_URL",
+    "VITE_SITE_URL",
     "NODE_ENV"
   ],
   "tasks": {

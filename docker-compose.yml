@@ -95,6 +95,7 @@ services:
       dockerfile: apps/backoffice/Dockerfile
       args:
         VITE_API_URL: ${VITE_API_URL:-http://localhost:3001/trpc}
+        VITE_SITE_URL: ${VITE_SITE_URL:-http://localhost:3000}
     container_name: vitrine-backoffice
     environment:
       PORT: 3002

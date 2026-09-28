@@ -31,7 +31,9 @@ FROM base AS builder
 WORKDIR /app
 
 ARG VITE_API_URL
+ARG VITE_SITE_URL
 ENV VITE_API_URL=$VITE_API_URL
+ENV VITE_SITE_URL=$VITE_SITE_URL
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
