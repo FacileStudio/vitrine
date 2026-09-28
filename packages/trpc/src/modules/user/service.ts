@@ -186,7 +186,7 @@ export const userService = {
     currentPassword: string,
     newPassword: string
   ) => {
-    const user = await db.user.findUnique({ where: { id: userId } });
+    const user = await db.user.findUnique({ where: { id: userId }, select: { password: true } });
 
     if (!user) {
       throw new TRPCError({

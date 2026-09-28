@@ -1,4 +1,4 @@
-import { PrismaClient } from '@repo/database';
+import { PrismaClient } from '../src/generated/client/index.js';
 import { PrismaPg } from '@prisma/adapter-pg';
 import pg from 'pg';
 import { CryptoService } from '@repo/crypto';
