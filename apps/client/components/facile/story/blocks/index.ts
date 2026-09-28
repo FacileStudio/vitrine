@@ -13,6 +13,7 @@ import Mosaic from "./mosaic";
 import Collage from "./collage";
 import Full from "./full";
 import End from "./end";
+import Grid from "./grid";
 
 export const BLOCKS: Record<BlockKind, (props: BlockProps) => ReactNode> = {
     cover: Cover,
@@ -28,4 +29,5 @@ export const BLOCKS: Record<BlockKind, (props: BlockProps) => ReactNode> = {
     collage: Collage,
     full: Full,
     end: End,
+    grid: Grid,
 };

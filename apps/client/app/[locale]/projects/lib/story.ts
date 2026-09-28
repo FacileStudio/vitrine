@@ -1,5 +1,5 @@
 import type { useTranslations } from "next-intl";
-import { buildStory, type Chapter, type Person, type StoryBlock, type StorySection } from "@/components/facile/story/types";
+import { buildStory, type BlockKind, type Chapter, type GridItem, type Person, type StoryBlock, type StorySection } from "@/components/facile/story/types";
 import { localize, type Resolved } from "@/lib/i18n/localize";
 import type { Locale } from "@/lib/i18n/locales";
 import type { Project, Service } from "@/lib/content/projects";
@@ -32,6 +32,63 @@ function hydrate(p: Resolved<Project>, b: StoryBlock, people: Person[], { t, ser
     return b;
 }
 
+// what each grid item draws, as the block the existing components already render
+function itemBlock(item: GridItem): StoryBlock {
+    switch (item.kind) {
+        case "image":
+        case "video":
+            return { type: "full", media: [item.src ?? ""] };
+        case "note":
+        case "text":
+            return { type: "note", title: item.title, text: item.text };
+        case "typography":
+            return {
+                type: item.secondFont ? "typographyPair" : "typography",
+                font: item.font,
+                fontFamily: item.fontFamily,
+                description: item.description,
+                secondFont: item.secondFont,
+                secondFontFamily: item.secondFontFamily,
+                secondDescription: item.secondDescription,
+            };
+        case "palette":
+            return { type: "palette", swatches: item.swatches };
+        case "tiles":
+            return { type: "tiles", tiles: item.tiles };
+        default:
+            return { type: item.kind as BlockKind };
+    }
+}
+
+// cut after a column no item straddles, so on phones each piece stacks like one of the old blocks
+function layoutBlocks(layout: NonNullable<StorySection["layout"]>, fill: (b: StoryBlock) => StoryBlock): StoryBlock[] {
+    const items = layout.items.filter((item) => !((item.kind === "image" || item.kind === "video") && !item.src));
+    const blocks: StoryBlock[] = [];
+    let start = 1;
+
+    for (let col = 1; col <= layout.cols; col++) {
+        const straddles = items.some((item) => item.x <= col && item.x + item.w - 1 > col);
+
+        if (straddles && col < layout.cols)
+            continue;
+
+        const cells = items
+            .filter((item) => item.x >= start && item.x <= col)
+            .map((item) => ({
+                x: item.x - start + 1,
+                y: item.y,
+                w: item.w,
+                h: item.h,
+                block: fill({ ...itemBlock(item), cols: item.w }),
+            }));
+
+        blocks.push({ type: "grid", cols: col - start + 1, cells });
+        start = col + 1;
+    }
+
+    return blocks;
+}
+
 export function projectStory(p: Project, locale: Locale, copy: Copy, members: AuthoredMember[]): Chapter[] {
     const localized = localize(p, locale);
     const story = localized.story?.length ? localized.story : autoStory(localized, copy.services);
@@ -41,8 +98,13 @@ export function projectStory(p: Project, locale: Locale, copy: Copy, members: Au
         .map(person)
         .filter((m): m is Person => Boolean(m));
 
+    const fill = (b: StoryBlock) => hydrate(localized, b, people, copy);
+
     return buildStory(
-        story.map((section) => ({ ...section, blocks: section.blocks.map((b) => hydrate(localized, b, people, copy)) })),
+        story.map((section) => ({
+            ...section,
+            blocks: section.hasLayout && section.layout ? layoutBlocks(section.layout, fill) : section.blocks.map(fill),
+        })),
         localized.gallery,
         person,
     );

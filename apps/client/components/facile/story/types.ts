@@ -12,6 +12,7 @@ export const BLOCK_SPECS = {
     collage: { media: 4, cols: 3 },
     full: { media: 1, cols: 2 },
     end: { media: 0, cols: 2 },
+    grid: { media: 0, cols: 1 },
 } as const;
 
 export type BlockKind = keyof typeof BLOCK_SPECS;
@@ -66,12 +67,45 @@ export interface StoryBlock {
     secondFontFamily?: string;
     secondDescription?: string;
     swatches?: Swatch[];
+    cells?: GridCell[];
+}
+
+// one placed element of a grid block, with the block it draws already built for the site
+export interface GridCell {
+    x: number;
+    y: number;
+    w: number;
+    h: number;
+    block: StoryBlock;
+}
+
+// what the backoffice saves in a section's layout, texts already localized by the time the site reads them
+export interface GridItem {
+    id: string;
+    kind: string;
+    x: number;
+    y: number;
+    w: number;
+    h: number;
+    src?: string;
+    title?: string;
+    text?: string;
+    swatches?: Swatch[];
+    tiles?: Tile[];
+    font?: string;
+    fontFamily?: string;
+    description?: string;
+    secondFont?: string;
+    secondFontFamily?: string;
+    secondDescription?: string;
 }
 
 export interface StorySection {
     title?: string;
     by?: string | string[];
     blocks: StoryBlock[];
+    layout?: { cols: number; items: GridItem[] };
+    hasLayout?: boolean;
 }
 
 export interface Block extends StoryBlock {
