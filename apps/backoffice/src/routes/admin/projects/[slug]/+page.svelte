@@ -132,7 +132,7 @@
 </script>
 
 <div class="space-y-6">
-	<a href="/admin/projects" class="p inline-flex items-center gap-2 text-muted hover:text-white">
+	<a href="/admin/projects" class="p inline-flex items-center gap-2 text-muted hover:text-ink">
 		<iconify-icon icon="lucide:arrow-left" width="16"></iconify-icon>
 		Projects
 	</a>
@@ -153,7 +153,7 @@
 				{#if isEndSection(section)}
                     <span class="hidden" aria-label="Last section"></span>
 				{:else if isInfoSection(section)}
-					<div use:enter class="mb-12">
+					<div use:enter={{ fade: false }} class="mb-12">
 						<ProjectInfoCard bind:project {options} />
 					</div>
 				{:else}
@@ -185,14 +185,14 @@
 						ondragend={() => (dragged = over = null)}
 					>
 						{#if dragged !== null && over === i && dragged !== i}
-							<span class="absolute inset-x-0 h-0.5 rounded-full bg-white z-10 {dragged < i ? '-bottom-0.5' : '-top-0.5'}"></span>
+							<span class="absolute inset-x-0 h-0.5 rounded-full bg-ink z-10 {dragged < i ? '-bottom-0.5' : '-top-0.5'}"></span>
 						{/if}
 						<SectionRow slug={project.slug} {section} index={i} {members} />
 						<button
 							type="button"
 							aria-label="Delete section"
 							onclick={(e) => removeSection(i, e.currentTarget.parentElement)}
-							class="absolute top-1/2 -translate-y-1/2 right-2 lg:right-4 flex items-center p-2 rounded-md text-ghost hover:bg-red-500/20 hover:text-danger"
+							class="absolute top-1/2 -translate-y-1/2 right-2 lg:right-4 flex items-center p-2 rounded-project text-ghost hover:bg-red-500/20 hover:text-danger"
 						>
 							<iconify-icon icon="lucide:trash-2" width="16"></iconify-icon>
 						</button>
@@ -204,7 +204,7 @@
 				type="button"
 				onclick={addSection}
 				disabled={saving}
-				class="p disabled:opacity-50 bg-raised p-6 rounded-md flex items-center gap-3 text-muted hover:bg-surface-hover hover:text-white"
+				class="p disabled:opacity-50 bg-raised p-6 rounded-project flex items-center gap-3 text-muted hover:bg-surface-hover hover:text-ink"
 			>
 				<iconify-icon icon="lucide:plus" width="18"></iconify-icon>
 				Add a section

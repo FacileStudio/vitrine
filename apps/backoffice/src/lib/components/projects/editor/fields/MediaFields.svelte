@@ -26,7 +26,7 @@
 					<button
 						type="button"
 						onclick={() => (item.src = src)}
-						class="relative aspect-[5/4] rounded-sm overflow-hidden {item.src === src ? 'outline-2 outline-white' : ''}"
+						class="relative aspect-[5/4] rounded-project overflow-hidden {item.src === src ? 'outline-2 outline-ink' : ''}"
 					>
 						{#if item.kind === 'video'}
 							<video src={siteAsset(src)} muted class="absolute inset-0 w-full h-full object-cover"></video>

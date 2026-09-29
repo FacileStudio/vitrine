@@ -36,7 +36,7 @@
 		<TeamDots team={section.by ?? []} {members} />
 		<span class="hidden sm:flex justify-end gap-1 lg:ml-0 ml-auto">
 			{#each thumbnails as src (src)}
-				<img {src} alt="" class="w-12 aspect-[5/4] rounded-sm object-cover" />
+				<img {src} alt="" class="w-12 aspect-[5/4] rounded-project object-cover" />
 			{/each}
 		</span>
 	</span>

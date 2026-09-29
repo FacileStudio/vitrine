@@ -22,11 +22,11 @@
 						w = cols;
 						h = rows;
 					}}
-					class="subtext w-14 h-11 rounded-md {w === cols && h === rows
+					class="subtext w-14 h-11 rounded-project {w === cols && h === rows
 						? 'bg-pressed text-ink'
 						: fits
-							? 'bg-white/[0.05] text-soft hover:bg-white/10'
-							: 'bg-white/[0.02] text-white/20 cursor-not-allowed'}"
+							? 'bg-wash text-soft hover:bg-ink/10'
+							: 'bg-surface-hover text-ink/20 cursor-not-allowed'}"
 				>
 					{cols}×{rows}
 				</button>

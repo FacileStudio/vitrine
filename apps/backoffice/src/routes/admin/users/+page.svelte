@@ -105,8 +105,8 @@
 
 	const STATUS: Record<string, { label: string; tone: string }> = {
 		ACTIVE: { label: 'Active', tone: 'bg-success-surface text-success' },
-		PENDING: { label: 'Pending', tone: 'bg-white/10 text-soft' },
-		SUSPENDED: { label: 'Suspended', tone: 'bg-white/10 text-warning' },
+		PENDING: { label: 'Pending', tone: 'bg-ink/10 text-soft' },
+		SUSPENDED: { label: 'Suspended', tone: 'bg-ink/10 text-warning' },
 		BANNED: { label: 'Banned', tone: 'bg-danger-surface text-danger' },
 	};
 
@@ -171,7 +171,7 @@
 					<p class="p text-muted">{stat.label}</p>
 					<p class="title text-ink tabular-nums mt-1">{stat.value}</p>
 				</div>
-				<span class="size-10 rounded-md bg-raised-hover flex items-center justify-center text-soft">
+				<span class="size-10 rounded-project bg-raised-hover flex items-center justify-center text-soft">
 					<iconify-icon icon={stat.icon} width="18"></iconify-icon>
 				</span>
 			</div>
@@ -199,9 +199,9 @@
 				<div class="grid grid-cols-[minmax(0,1fr)_8rem_7rem_8rem_11rem] items-center gap-5 p-3 pr-5">
 					<div class="flex items-center gap-3 min-w-0">
 						{#if user.avatar?.url}
-							<img src={user.avatar.url} alt="" class="size-10 rounded-md object-cover" />
+							<img src={user.avatar.url} alt="" class="size-10 rounded-project object-cover" />
 						{:else}
-							<span class="size-10 shrink-0 rounded-md bg-raised-hover flex items-center justify-center lead text-soft">
+							<span class="size-10 shrink-0 rounded-project bg-raised-hover flex items-center justify-center lead text-soft">
 								{user.firstName[0]}
 							</span>
 						{/if}
@@ -216,7 +216,7 @@
 						</div>
 					</div>
 
-					<span class="subtext w-fit rounded-sm px-2 py-1 {status.tone}">{status.label}</span>
+					<span class="subtext w-fit rounded-project px-2 py-1 {status.tone}">{status.label}</span>
 
 					<button
 						type="button"

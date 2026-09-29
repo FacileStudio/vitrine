@@ -107,7 +107,7 @@
 					onclick={() => (expandedId = open ? null : contact.id)}
 					class="w-full grid grid-cols-[2.5rem_14rem_minmax(0,1fr)_7rem_1rem] items-center gap-5 p-3 pr-5 text-left"
 				>
-					<span class="size-10 rounded-md bg-raised-hover flex items-center justify-center lead text-soft">
+					<span class="size-10 rounded-project bg-raised-hover flex items-center justify-center lead text-soft">
 						{contact.firstName.charAt(0).toUpperCase()}
 					</span>
 					<span class="min-w-0">

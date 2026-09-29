@@ -33,7 +33,7 @@
 <main class="min-h-screen flex items-center justify-center px-4">
   <div class="w-full max-w-sm space-y-8">
     <div class="flex flex-col items-center gap-4 text-center">
-      <img src="/logo.png" alt="Facile." class="size-12 rounded-md" />
+      <img src="/logo.png" alt="Facile." class="size-12 rounded-project" />
       <div>
         <h1 class="title text-ink">Facile. backoffice</h1>
         <p class="page-description">Sign in to manage the site</p>

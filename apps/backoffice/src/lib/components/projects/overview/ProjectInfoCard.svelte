@@ -27,7 +27,7 @@
 			bind:value={project.name}
 			placeholder="Project name"
 			aria-label="Project name"
-			class="title flex-1 min-w-64 bg-transparent text-ink outline-none rounded-md px-3 -mx-2 py-1 placeholder:text-ghost hover:bg-white/[0.03] focus:bg-raised-hover"
+			class="title flex-1 min-w-64 bg-transparent text-ink outline-none rounded-project px-3 -mx-2 py-1 placeholder:text-ghost hover:bg-surface-hover focus:bg-raised-hover"
 		/>
 
 		<div class="flex flex-wrap items-center gap-1">
@@ -51,14 +51,16 @@
 		<ImageUpload bind:value={project.image} />
 
 		<div class="flex flex-col gap-1 min-w-0">
-			<div class="relative isolate overflow-hidden flex-1 flex flex-col rounded-md bg-raised">
+			<div class="relative isolate overflow-hidden flex-1 flex flex-col rounded-project bg-raised">
 				<img
 					src={siteAsset(project.image)}
 					alt=""
 					aria-hidden="true"
-					class="absolute -z-10 -top-1/3 left-0 -translate-x-1/2 w-full h-full pointer-events-none object-cover saturate-150 opacity-15 blur-[200px]"
+					class="absolute -z-20 -top-10 -left-10 w-full h-full scale-120 pointer-events-none blur-3xl object-cover saturate-150 opacity-30 [mask-image:radial-gradient(circle_at_0%_0%,black_0%,transparent_100%)]"
 					onerror={(e) => e.currentTarget.remove()}
 				/>
+				<!-- a backdrop blur extends the image's edges instead of fading them, so the radius can grow without the glow vanishing -->
+				<div aria-hidden="true" class="absolute -z-10 inset-0 pointer-events-none backdrop-blur-3xl"></div>
 				<div class="flex items-center justify-between gap-3 p-2 pb-0">
 					<div class="segmented w-fit bg-transparent">
 						{#each LOCALES as code (code)}
@@ -86,7 +88,7 @@
 				></textarea>
 			</div>
 
-			<div class="rounded-md bg-raised px-8 py-4 flex items-center gap-3" title="Tags">
+			<div class="rounded-project bg-raised px-8 py-4 flex items-center gap-3" title="Tags">
 				<iconify-icon icon="lucide:tags" width="16" class="text-faint shrink-0"></iconify-icon>
 				<div class="flex-1 min-w-0">
 					<MultiSelect
@@ -105,7 +107,7 @@
 				</div>
 			</div>
 
-			<div class="rounded-md bg-raised px-8 py-4 flex items-center gap-3" title="Tech stack">
+			<div class="rounded-project bg-raised px-8 py-4 flex items-center gap-3" title="Tech stack">
 				<iconify-icon icon="lucide:code-xml" width="16" class="text-faint shrink-0"></iconify-icon>
 				<div class="flex-1 min-w-0">
 					<MultiSelect
@@ -122,7 +124,7 @@
 				</div>
 			</div>
 
-			<div class="rounded-md bg-raised px-8 py-4 flex items-center gap-3" title="Team">
+			<div class="rounded-project bg-raised px-8 py-4 flex items-center gap-3" title="Team">
 				<iconify-icon icon="lucide:users-round" width="16" class="text-faint shrink-0"></iconify-icon>
 				<div class="flex-1 min-w-0">
 					<MultiSelect

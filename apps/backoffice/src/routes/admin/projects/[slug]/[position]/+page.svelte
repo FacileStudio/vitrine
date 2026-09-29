@@ -144,9 +144,9 @@
 <div class="space-y-6">
 	<nav aria-label="Breadcrumb" class="p flex items-center gap-2 text-faint">
 		<a href="/admin/projects" class="hover:text-ink">Projects</a>
-		<iconify-icon icon="lucide:chevron-right" width="14" class="text-white/25"></iconify-icon>
+		<iconify-icon icon="lucide:chevron-right" width="14" class="text-ink/25"></iconify-icon>
 		<a href="/admin/projects/{slug}" class="hover:text-ink">{project?.name ?? 'Projet'}</a>
-		<iconify-icon icon="lucide:chevron-right" width="14" class="text-white/25"></iconify-icon>
+		<iconify-icon icon="lucide:chevron-right" width="14" class="text-ink/25"></iconify-icon>
 		<span class="text-soft">Section {position + 1}</span>
 	</nav>
 
@@ -170,7 +170,7 @@
 			</div>
 
 			<div class="flex items-center gap-3">
-				<div class="flex items-center gap-2 min-w-64 rounded-md bg-raised pl-4 pr-2 py-1">
+				<div class="flex items-center gap-2 min-w-64 rounded-project bg-raised pl-4 pr-2 py-1">
 					<iconify-icon icon="lucide:users-round" width="16" class="text-faint"></iconify-icon>
 					<MultiSelect
 						bind:selected={project.story[position].by!}
@@ -179,7 +179,7 @@
 					/>
 				</div>
 
-				<div class="flex items-center rounded-md bg-raised p-1">
+				<div class="flex items-center rounded-project bg-raised p-1">
 					{#each [{ to: position - 1, icon: 'lucide:chevron-left', label: 'Previous section' }, { to: position + 1, icon: 'lucide:chevron-right', label: 'Next section' }] as nav, n (nav.icon)}
 						{#if n === 1}
 							<span class="subtext px-2 text-muted tabular-nums">{position + 1} / {project.story.length}</span>
@@ -189,12 +189,12 @@
 								href="/admin/projects/{slug}/{nav.to}"
 								aria-label={nav.label}
 								title="{nav.label} (Alt {nav.to < position ? '←' : '→'})"
-								class="flex items-center p-2 rounded-sm text-muted hover:bg-white/[0.06] hover:text-ink"
+								class="flex items-center p-2 rounded-project text-muted hover:bg-wash hover:text-ink"
 							>
 								<iconify-icon icon={nav.icon} width="16"></iconify-icon>
 							</a>
 						{:else}
-							<span class="flex items-center p-2 text-white/15">
+							<span class="flex items-center p-2 text-ink/15">
 								<iconify-icon icon={nav.icon} width="16"></iconify-icon>
 							</span>
 						{/if}
@@ -204,7 +204,7 @@
 		</header>
 
 		{#key position}
-		<div use:enter>
+		<div use:enter={{ fade: false }}>
 		{#if isInfoSection(section)}
 			<div>
 				<ProjectInfoCard bind:project {options} />

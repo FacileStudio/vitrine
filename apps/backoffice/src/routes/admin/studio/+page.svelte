@@ -66,9 +66,9 @@
                 ></div>
 				<div class="flex items-start z-10 justify-between">
 					<span
-						class="subtitle size-14 rounded-md flex items-center justify-center"
+						class="subtitle size-14 rounded-project flex items-center justify-center"
 						style:background-color="{member.highlight}20"
-						style:color="color-mix(in srgb, {member.highlight}, #fff 20%)"
+						style:color="color-mix(in srgb, {member.highlight}, var(--theme-ink) 20%)"
 					>
 						{member.name.charAt(0)}
 					</span>

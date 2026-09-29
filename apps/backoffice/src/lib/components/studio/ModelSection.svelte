@@ -50,7 +50,7 @@
 		</button>
 		{#if member.hair !== null}
 			<label class="field" title="Hair colour">
-				<input type="color" bind:value={member.hair} class="size-5 shrink-0 cursor-pointer rounded-sm bg-transparent" />
+				<input type="color" bind:value={member.hair} class="size-5 shrink-0 cursor-pointer rounded-project bg-transparent" />
 				<input bind:value={member.hair} class="field-input uppercase" />
 			</label>
 		{/if}

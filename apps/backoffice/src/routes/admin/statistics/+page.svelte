@@ -53,7 +53,7 @@
 			<div use:enter class="panel p-5 space-y-4">
 				<div class="flex items-center justify-between">
 					<span class="p text-muted">{stat.label}</span>
-					<span class="size-8 rounded-md bg-raised-hover flex items-center justify-center text-soft">
+					<span class="size-8 rounded-project bg-raised-hover flex items-center justify-center text-soft">
 						<iconify-icon icon={stat.icon} width="16"></iconify-icon>
 					</span>
 				</div>
@@ -73,7 +73,7 @@
 				<span class="subtext text-faint">per day</span>
 			</header>
 			<div class="px-3 pb-3">
-				<AreaChart data={overview.series} x="label" y="visits" color="#ffffff" height={280} />
+				<AreaChart data={overview.series} x="label" y="visits" color="currentColor" height={280} />
 			</div>
 		</section>
 
@@ -84,7 +84,7 @@
 				<span class="subtext text-faint">per day</span>
 			</header>
 			<div class="px-3 pb-3">
-				<BarChart data={overview.series} x="label" y="uniqueVisitors" color="#ffffff" height={280} />
+				<BarChart data={overview.series} x="label" y="uniqueVisitors" color="currentColor" height={280} />
 			</div>
 		</section>
 	</div>

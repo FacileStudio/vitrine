@@ -8,14 +8,15 @@ export const EASE = {
 let batch = 0;
 
 // elements mounted in the same frame stagger in, a lone element added later appears without waiting
-export function enter(node: HTMLElement) {
+// fade: false for anything holding a backdrop blur, Chrome skips backdrop-filter under an ancestor below opacity 1
+export function enter(node: HTMLElement, { fade = true }: { fade?: boolean } = {}) {
 	const index = batch++;
 
 	if (index === 0)
 		requestAnimationFrame(() => (batch = 0));
 
 	const tween = gsap.from(node, {
-		opacity: 0,
+		opacity: fade ? 0 : 1,
 		y: 12,
 		duration: 0.5,
 		delay: Math.min(index, 12) * 0.04,

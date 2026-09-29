@@ -46,7 +46,7 @@
   {:else if user}
     <header class="page-header">
       <div class="flex items-center gap-4">
-        <span class="subtitle size-14 rounded-md bg-raised-hover flex items-center justify-center text-soft">
+        <span class="subtitle size-14 rounded-project bg-raised-hover flex items-center justify-center text-soft">
           {user.firstName?.[0] ?? '?'}
         </span>
         <div>
@@ -74,7 +74,7 @@
           // auth.me only returns identity fields, so the account dates only show when present
           { label: 'Member since', value: user.createdAt ? new Intl.DateTimeFormat('en-GB', { dateStyle: 'long' }).format(new Date(user.createdAt)) : '' },
         ].filter((row) => row.value) as row (row.label)}
-          <div class="rounded-md bg-raised p-4">
+          <div class="rounded-project bg-raised p-4">
             <dt class="subtext text-faint">{row.label}</dt>
             <dd class="p text-ink mt-1">{row.value}</dd>
           </div>

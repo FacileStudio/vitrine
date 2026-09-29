@@ -16,7 +16,7 @@
 
 	{#each item.swatches as swatch, i (i)}
 		<div class="flex items-center gap-2">
-			<input type="color" bind:value={swatch.hex} class="size-10 rounded-md bg-transparent shrink-0 cursor-pointer" />
+			<input type="color" bind:value={swatch.hex} class="size-10 rounded-project bg-transparent shrink-0 cursor-pointer" />
 			<input bind:value={swatch.hex} placeholder="#000000" class="{inputClass} w-28 shrink-0" />
 			<input bind:value={swatch.label[locale]} placeholder="Name" class={inputClass} />
 			<input

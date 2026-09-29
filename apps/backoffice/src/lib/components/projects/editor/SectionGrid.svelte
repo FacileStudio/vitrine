@@ -66,7 +66,7 @@
 	}
 </script>
 
-<section class="bg-raised rounded-md overflow-hidden">
+<section class="bg-raised rounded-project overflow-hidden">
 	<header class="flex items-center justify-between gap-4 px-5 py-5">
 		<span class="flex items-center gap-2">
 			<iconify-icon icon="lucide:layout-dashboard" width="16" class="text-faint"></iconify-icon>
@@ -80,7 +80,7 @@
 	>
 	<div class="grid gap-1 w-max mb-1" style:grid-template-columns="repeat({cols}, 12rem)">
 		{#each Array.from({ length: cols }, (_, i) => i + 1) as col (col)}
-			<span class="subtext text-center {col > layout.cols ? 'text-white/15' : 'text-white/35'}">{col}</span>
+			<span class="subtext text-center {col > layout.cols ? 'text-ink/15' : 'text-ink/35'}">{col}</span>
 		{/each}
 	</div>
 
@@ -92,7 +92,7 @@
 		{#each cells as { col, row } (`${col}:${row}`)}
 			{#if !covered.has(`${col}:${row}`)}
 				<div
-					class="rounded-sm backdrop-blur-2xl {col > layout.cols ? 'bg-white/[0.015]' : 'bg-surface-hover'}"
+					class="rounded-project backdrop-blur-2xl {col > layout.cols ? 'bg-ink/[0.015]' : 'bg-surface-hover'}"
 					style:grid-column={col}
 					style:grid-row={row}
 				></div>
@@ -116,7 +116,7 @@
 						onedit?.(item.id);
 				}}
 				tabindex={locked(item.kind) ? -1 : 0}
-				class="group relative rounded-sm overflow-hidden bg-raised {locked(item.kind) ? '' : 'cursor-grab'}"
+				class="group relative rounded-project overflow-hidden bg-raised {locked(item.kind) ? '' : 'cursor-grab'}"
 				style:grid-column="{item.x} / span {item.w}"
 				style:grid-row="{item.y} / span {item.h}"
 			>
@@ -124,9 +124,9 @@
 				{#if !locked(item.kind)}
 					<span class="absolute inset-0 bg-black/55 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 flex flex-col justify-between p-2">
 						<span class="flex items-center justify-end">
-							<span class="subtext rounded-sm bg-black/60 px-1.5 py-1 text-white/70">{item.w}×{item.h}</span>
+							<span class="subtext rounded-project bg-black/60 px-1.5 py-1 text-on-media/70">{item.w}×{item.h}</span>
 						</span>
-						<span class="self-center flex items-center gap-1.5 rounded-md bg-white text-black px-3 py-1.5 subtext">
+						<span class="self-center flex items-center gap-1.5 rounded-project bg-ink text-page px-3 py-1.5 subtext">
 							<iconify-icon icon="lucide:pencil" width="12"></iconify-icon>
 							Edit
 						</span>
@@ -142,7 +142,7 @@
 				<div
 					role="gridcell"
 					tabindex="-1"
-					class="z-10 rounded-sm {inPreview(col, row) ? (valid ? 'bg-green-500/35' : 'bg-red-500/30') : ''}"
+					class="z-10 rounded-project {inPreview(col, row) ? (valid ? 'bg-green-500/35' : 'bg-red-500/30') : ''}"
 					style:grid-column={col}
 					style:grid-row={row}
 					ondragover={(e) => {

@@ -42,7 +42,7 @@
 </script>
 
 <div class="flex flex-col gap-1.5 w-full">
-	<div class="group relative w-full aspect-[5/4] rounded-md overflow-hidden bg-surface-hover">
+	<div class="group relative w-full aspect-[5/4] rounded-project overflow-hidden bg-surface-hover">
 		{#if shown}
 			{#if video}
 				<video src={shown} muted loop playsinline class="w-full h-full object-cover {uploading ? 'opacity-40' : ''}"></video>
@@ -58,7 +58,7 @@
 
 		{#if uploading}
 			<div class="absolute inset-0 flex items-center justify-center">
-				<span class="subtext rounded-md bg-black/70 px-3 py-1.5 text-ink">Uploading…</span>
+				<span class="subtext rounded-project bg-black/70 px-3 py-1.5 text-on-media/80">Uploading…</span>
 			</div>
 		{/if}
 
@@ -67,14 +67,14 @@
 				type="button"
 				onclick={() => (value = '')}
 				aria-label="Remove file"
-				class="absolute top-2 right-2 z-10 rounded-full bg-black/70 p-2 text-soft opacity-0 group-hover:opacity-100 hover:text-danger"
+				class="absolute top-2 right-2 z-10 rounded-full bg-black/70 p-2 text-on-media/80 opacity-0 group-hover:opacity-100 hover:text-danger"
 			>
 				<iconify-icon icon="lucide:trash-2" width="16"></iconify-icon>
 			</button>
 		{/if}
 
 		{#if error}
-			<span class="absolute bottom-2 left-2 right-2 subtext rounded-md bg-red-500/20 px-3 py-1.5 text-danger">{error}</span>
+			<span class="absolute bottom-2 left-2 right-2 subtext rounded-project bg-red-500/20 px-3 py-1.5 text-danger">{error}</span>
 		{/if}
 
 		<input type="file" {accept} onchange={upload} disabled={uploading} class="absolute inset-0 opacity-0 cursor-pointer" />

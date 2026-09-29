@@ -37,7 +37,7 @@
 <aside class="space-y-1">
 	{#each ELEMENTS as element (element.kind)}
 		{@const sized = SIZED.includes(element.kind)}
-		<div class="rounded-md {open === element.kind ? 'bg-surface-hover' : ''}">
+		<div class="rounded-project {open === element.kind ? 'bg-surface-hover' : ''}">
 			<div
 				role="button"
 				tabindex="0"
@@ -53,18 +53,18 @@
 					if (e.key === 'Enter')
 						activate(element.kind, element.w, element.h);
 				}}
-				class="group flex items-center gap-3 pr-6 rounded-md cursor-grab hover:bg-white/[0.04]"
+				class="group flex items-center gap-3 pr-6 rounded-project cursor-grab hover:bg-wash"
 			>
-				<span class="size-16 shrink-0 rounded-md bg-raised-hover flex items-center justify-center text-muted group-hover:text-ink">
+				<span class="size-16 shrink-0 rounded-project bg-raised-hover flex items-center justify-center text-muted group-hover:text-ink">
 					<iconify-icon icon={element.icon} width="18"></iconify-icon>
 				</span>
 				<span class="flex-1 min-w-0">
-					<span class="block p text-white/90">{element.label}</span>
+					<span class="block p text-ink/90">{element.label}</span>
 				</span>
 				<iconify-icon
 					icon={sized ? 'lucide:chevron-down' : 'lucide:plus'}
 					width="14"
-					class="text-ghost group-hover:text-white/70 {open === element.kind ? 'rotate-180' : ''}"
+					class="text-ghost group-hover:text-ink/70 {open === element.kind ? 'rotate-180' : ''}"
 				></iconify-icon>
 			</div>
 
@@ -81,7 +81,7 @@
 									onmouseenter={() => (hover = { w: cols, h: rows })}
 									onfocus={() => (hover = { w: cols, h: rows })}
 									onclick={() => pick(element.kind, cols, rows)}
-									class="w-10 h-8 rounded-sm {lit ? 'bg-white' : 'bg-stone-700/25'}"
+									class="w-10 h-8 rounded-project {lit ? 'bg-ink' : 'bg-stone-700/25'}"
 								></button>
 							{/each}
 						{/each}

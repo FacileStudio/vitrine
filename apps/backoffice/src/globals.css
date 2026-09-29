@@ -23,31 +23,39 @@
   --font-title: 'Goga', Helvetica, 'Helvetica Neue', Arial, sans-serif;
   --font-body: 'Goga', Helvetica, 'Helvetica Neue', Arial, sans-serif;
 
-  --color-page: #050505;
-  --color-popover: #111111;
+  /* each theme only sets the few base values below, every other colour is derived from them */
+  --color-page: var(--theme-page);
+  --color-popover: var(--theme-popover);
+  --color-ink: var(--theme-ink);
+  --color-brand: var(--theme-brand);
+  --color-on-media: #ffffff;
+
+  --color-soft: color-mix(in srgb, var(--theme-ink) 80%, transparent);
+  --color-muted: color-mix(in srgb, var(--theme-ink) 55%, transparent);
+  --color-faint: color-mix(in srgb, var(--theme-ink) 45%, transparent);
+  --color-ghost: color-mix(in srgb, var(--theme-ink) 30%, transparent);
+  --color-wash: color-mix(in srgb, var(--theme-ink) 5%, transparent);
+
   --color-surface: rgb(68 64 60 / 0.05);
-  --color-surface-hover: rgb(255 255 255 / 0.03);
+  --color-surface-hover: color-mix(in srgb, var(--theme-ink) 3%, transparent);
   --color-raised: rgb(68 64 60 / 0.1);
   --color-raised-hover: rgb(68 64 60 / 0.2);
-  --color-pressed: rgb(68 64 60 / 0.5);
+  --color-pressed: var(--theme-pressed);
   /* the raised tint already mixed onto the page, for surfaces that move over their neighbours */
-  --color-card: color-mix(in srgb, #44403c 10%, #050505);
-  --color-card-hover: color-mix(in srgb, #ffffff 3%, var(--color-card));
-
-  --duration-hover: 200ms;
+  --color-card: color-mix(in srgb, #44403c 10%, var(--theme-page));
+  --color-card-hover: color-mix(in srgb, var(--theme-ink) 3%, var(--color-card));
   --color-overlay: rgb(0 0 0 / 0.6);
 
-  --color-ink: #ffffff;
-  --color-soft: rgb(255 255 255 / 0.8);
-  --color-muted: rgb(255 255 255 / 0.5);
-  --color-faint: rgb(255 255 255 / 0.45);
-  --color-ghost: rgb(255 255 255 / 0.3);
+  --duration-hover: 200ms;
 
-  --color-danger: #fca5a5;
+  /* one corner radius for every surface, button and field, rounded-full stays for circles */
+  --radius-project: 0.5rem;
+
+  --color-danger: var(--theme-danger);
   --color-danger-surface: rgb(239 68 68 / 0.1);
-  --color-success: #4ade80;
+  --color-success: var(--theme-success);
   --color-success-surface: rgb(34 197 94 / 0.15);
-  --color-warning: #fbbf24;
+  --color-warning: var(--theme-warning);
 
   /* one accent per section of the sidebar, used by the glow behind the active link */
   --color-accent-projects: #3ddc97;
@@ -58,7 +66,42 @@
 }
 
 :root {
+  --theme-page: #050505;
+  --theme-popover: #111111;
+  --theme-ink: #ffffff;
+  --theme-brand: #c8e5d7;
+  --theme-pressed: rgb(68 64 60 / 0.5);
+  --theme-danger: #fca5a5;
+  --theme-success: #4ade80;
+  --theme-warning: #fbbf24;
   color-scheme: dark;
+}
+
+/* the system decides unless the viewer picked a theme in the sidebar */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme='dark']) {
+    --theme-page: #f6f5f3;
+    --theme-popover: #ffffff;
+    --theme-ink: #0c0a09;
+    --theme-brand: #2f6b55;
+    --theme-pressed: rgb(68 64 60 / 0.18);
+    --theme-danger: #b91c1c;
+    --theme-success: #15803d;
+    --theme-warning: #b45309;
+    color-scheme: light;
+  }
+}
+
+:root[data-theme='light'] {
+  --theme-page: #f6f5f3;
+  --theme-popover: #ffffff;
+  --theme-ink: #0c0a09;
+  --theme-brand: #2f6b55;
+  --theme-pressed: rgb(68 64 60 / 0.18);
+  --theme-danger: #b91c1c;
+  --theme-success: #15803d;
+  --theme-warning: #b45309;
+  color-scheme: light;
 }
 
 @layer base {
@@ -135,11 +178,11 @@
 
 /* surfaces */
 @utility panel {
-  @apply bg-raised rounded-md;
+  @apply bg-raised rounded-project;
 }
 
 @utility panel-link {
-  @apply bg-raised rounded-md hover:bg-surface-hover;
+  @apply bg-raised rounded-project hover:bg-surface-hover;
 }
 
 @utility panel-header {
@@ -148,24 +191,24 @@
 
 /* small labels */
 @utility badge {
-  @apply subtext rounded-sm bg-white/10 px-1.5 py-0.5 text-soft;
+  @apply subtext rounded-project bg-ink/10 px-1.5 py-0.5 text-soft;
 }
 
 @utility chip {
-  @apply subtext flex items-center gap-1.5 rounded-md bg-raised px-2.5 py-1.5 text-muted;
+  @apply subtext flex items-center gap-1.5 rounded-project bg-raised px-2.5 py-1.5 text-muted;
 }
 
 @utility kbd {
-  @apply subtext rounded-sm bg-white/10 px-1.5 text-faint;
+  @apply subtext rounded-project bg-ink/10 px-1.5 text-faint;
 }
 
 /* buttons */
 @utility btn {
-  @apply p flex items-center justify-center gap-2 px-4 py-2.5 rounded-md bg-raised text-soft hover:bg-white/[0.05] hover:text-ink disabled:opacity-50 disabled:cursor-default;
+  @apply p flex items-center justify-center gap-2 px-4 py-2.5 rounded-project bg-raised text-soft hover:bg-wash hover:text-ink disabled:opacity-50 disabled:cursor-default;
 }
 
 @utility btn-primary {
-  @apply bg-white text-black hover:bg-white/90 hover:text-black;
+  @apply bg-ink text-page hover:bg-ink/90 hover:text-page;
 }
 
 @utility btn-danger {
@@ -173,7 +216,7 @@
 }
 
 @utility btn-icon {
-  @apply flex items-center justify-center p-2 rounded-md text-muted hover:bg-white/[0.06] hover:text-ink disabled:opacity-40;
+  @apply flex items-center justify-center p-2 rounded-project text-muted hover:bg-wash hover:text-ink disabled:opacity-40;
 }
 
 @utility btn-icon-danger {
@@ -182,11 +225,11 @@
 
 /* form controls */
 @utility input {
-  @apply w-full rounded-md bg-raised px-4 py-2.5 p text-ink placeholder:text-ghost focus:outline-2 focus:outline-white/10 disabled:text-faint;
+  @apply w-full rounded-project bg-raised px-4 py-2.5 p text-ink placeholder:text-ghost focus:outline-2 focus:outline-ink/10 disabled:text-faint;
 }
 
 @utility field {
-  @apply flex items-center gap-2 rounded-md bg-raised px-3 py-2.5 focus-within:bg-raised-hover;
+  @apply flex items-center gap-2 rounded-project bg-raised px-3 py-2.5 focus-within:bg-raised-hover;
 }
 
 @utility field-input {
@@ -198,16 +241,16 @@
 }
 
 @utility segmented {
-  @apply flex items-center rounded-md bg-raised p-1;
+  @apply flex items-center rounded-project bg-raised p-1;
 }
 
 @utility segmented-item {
-  @apply flex items-center gap-2 px-2 py-2 rounded-sm text-muted hover:text-ink aria-pressed:bg-pressed aria-pressed:text-ink;
+  @apply flex items-center gap-2 px-2 py-2 rounded-project text-muted hover:text-ink aria-pressed:bg-pressed aria-pressed:text-ink;
 }
 
 /* feedback */
 @utility alert {
-  @apply p flex items-center gap-2 bg-danger-surface text-danger px-4 py-3 rounded-md;
+  @apply p flex items-center gap-2 bg-danger-surface text-danger px-4 py-3 rounded-project;
 }
 
 @utility empty-state {

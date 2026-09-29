@@ -124,9 +124,9 @@
 		<div class="space-y-6">
 			<div class="flex items-start gap-4">
 				{#if user.avatar?.url}
-					<img src={user.avatar.url} alt={user.firstName} class="w-20 h-20 rounded-md object-cover" />
+					<img src={user.avatar.url} alt={user.firstName} class="w-20 h-20 rounded-project object-cover" />
 				{:else}
-					<div class="w-20 h-20 rounded-md bg-white/[0.05] flex items-center justify-center title text-faint">
+					<div class="w-20 h-20 rounded-project bg-wash flex items-center justify-center title text-faint">
 						{user.firstName[0]}
 					</div>
 				{/if}
@@ -161,19 +161,19 @@
 
 			{#if activeTab === 'overview'}
 				<div class="grid grid-cols-2 gap-4">
-					<div class="rounded-md bg-raised p-4">
+					<div class="rounded-project bg-raised p-4">
 						<div class="subtext text-faint mb-1">Messages</div>
 						<div class="title text-ink">{user.messages?.length || 0}</div>
 					</div>
-					<div class="rounded-md bg-raised p-4">
+					<div class="rounded-project bg-raised p-4">
 						<div class="subtext text-faint mb-1">Rooms</div>
 						<div class="title text-ink">{user.rooms?.length || 0}</div>
 					</div>
-					<div class="rounded-md bg-raised p-4">
+					<div class="rounded-project bg-raised p-4">
 						<div class="subtext text-faint mb-1">Joined</div>
 						<div class="p text-soft">{formatDate(user.createdAt)}</div>
 					</div>
-					<div class="rounded-md bg-raised p-4">
+					<div class="rounded-project bg-raised p-4">
 						<div class="subtext text-faint mb-1">Last Login</div>
 						<div class="p text-soft">{formatDate(user.lastLoginAt)}</div>
 					</div>
@@ -184,7 +184,7 @@
 						<h3 class="p text-faint mb-3">Recent Messages</h3>
 						<div class="space-y-2 max-h-60 overflow-y-auto">
 							{#each user.messages.slice(0, 5) as message (message.id ?? message.createdAt ?? message.text)}
-								<div class="rounded-md bg-raised p-3 p">
+								<div class="rounded-project bg-raised p-3 p">
 									<div class="text-soft mb-1">{message.text}</div>
 									<div class="subtext text-faint">{formatDate(message.createdAt)}</div>
 								</div>
@@ -196,7 +196,7 @@
 				<div class="space-y-3 max-h-96 overflow-y-auto">
 					{#if user.auditLogs && user.auditLogs.length > 0}
 						{#each user.auditLogs as log (log.id ?? `${log.action}-${log.createdAt}`)}
-							<div class="rounded-md bg-raised p-4">
+							<div class="rounded-project bg-raised p-4">
 								<div class="flex items-center justify-between mb-2">
 									<Badge variant="slate">
 										{log.action}
@@ -219,7 +219,7 @@
 			{:else if activeTab === 'moderation'}
 				<div class="space-y-4">
 					{#if user.status === 'BANNED'}
-						<div class="rounded-md bg-raised p-4">
+						<div class="rounded-project bg-raised p-4">
 							<div class="flex items-center gap-2 mb-2">
 								<iconify-icon icon="lucide:shield-alert" class="text-muted"></iconify-icon>
 								<h3 class="lead text-ink">User is Banned</h3>
@@ -233,7 +233,7 @@
 							</button>
 						</div>
 					{:else if user.status === 'SUSPENDED'}
-						<div class="rounded-md bg-raised p-4">
+						<div class="rounded-project bg-raised p-4">
 							<div class="flex items-center gap-2 mb-2">
 								<iconify-icon icon="lucide:clock" class="text-muted"></iconify-icon>
 								<h3 class="lead text-ink">User is Suspended</h3>
@@ -249,7 +249,7 @@
 					{/if}
 
 					{#if !user.emailVerified}
-						<div class="rounded-md bg-raised p-4">
+						<div class="rounded-project bg-raised p-4">
 							<div class="flex items-center justify-between">
 								<div>
 									<h3 class="lead text-ink mb-1">Email Not Verified</h3>
@@ -267,7 +267,7 @@
 					{/if}
 
 					{#if user.status !== 'BANNED'}
-						<div class="rounded-md bg-raised p-4">
+						<div class="rounded-project bg-raised p-4">
 							<h3 class="lead text-ink mb-3">Ban User</h3>
 							<button
 								onclick={handleBan}
@@ -280,7 +280,7 @@
 					{/if}
 
 					{#if user.status !== 'SUSPENDED' && user.status !== 'BANNED'}
-						<div class="rounded-md bg-raised p-4">
+						<div class="rounded-project bg-raised p-4">
 							<h3 class="lead text-ink mb-3">Suspend User</h3>
 							<button
 								onclick={handleSuspend}

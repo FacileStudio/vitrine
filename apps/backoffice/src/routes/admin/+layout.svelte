@@ -4,6 +4,7 @@
 	import { goto } from '$app/navigation';
 	import 'iconify-icon';
 	import { slideIn } from '$lib/motion';
+	import ThemeSwitch from '$lib/components/ThemeSwitch.svelte';
 
 	let { children } = $props();
 
@@ -40,8 +41,8 @@
 {#snippet sidebar()}
 	<div class="p-5">
 		<a href="/admin/projects" class="flex items-center gap-2.5">
-			<img src="/logo.png" alt="" class="size-8 rounded-sm" />
-			<span class="lead text-[#c8e5d7]">Facile.</span>
+			<img src="/logo.png" alt="" class="size-8 rounded-project" />
+			<span class="lead text-brand">Facile.</span>
 		</a>
 	</div>
 
@@ -51,7 +52,7 @@
 			<a
 				href={item.href}
 				aria-current={active ? 'page' : undefined}
-				class="p flex items-center gap-3 px-6 py-4 relative overflow-hidden rounded-sm {active ? 'bg-stone-700/50 text-white' : 'text-muted hover:bg-white/[0.05] hover:text-white'}"
+				class="p flex items-center gap-3 px-6 py-4 relative overflow-hidden rounded-project {active ? 'bg-pressed text-ink' : 'text-muted hover:bg-wash hover:text-ink'}"
 			>
 				<iconify-icon icon={item.icon} width="18"></iconify-icon>
 				{item.label}
@@ -60,7 +61,8 @@
 	</nav>
 
 	<div class="p-3 space-y-1">
-		<a href="/profile" class="p flex items-center gap-3 px-3 py-2.5 rounded-md text-muted hover:bg-white/[0.05] hover:text-ink">
+		<ThemeSwitch />
+		<a href="/profile" class="p flex items-center gap-3 px-3 py-2.5 rounded-project text-muted hover:bg-wash hover:text-ink">
 			<iconify-icon icon="lucide:circle-user-round" width="18"></iconify-icon>
 			Profile
 		</a>
@@ -70,7 +72,7 @@
 				localStorage.removeItem('token');
 				goto('/');
 			}}
-			class="p w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-faint hover:bg-danger-surface hover:text-danger"
+			class="p w-full flex items-center gap-3 px-3 py-2.5 rounded-project text-faint hover:bg-danger-surface hover:text-danger"
 		>
 			<iconify-icon icon="lucide:log-out" width="18"></iconify-icon>
 			Sign out
@@ -81,8 +83,8 @@
 {#if ready}
 	<header class="lg:hidden sticky top-0 z-40 flex items-center justify-between px-4 py-3 bg-page">
 		<a href="/admin/projects" class="flex items-center gap-2.5">
-			<img src="/logo.png" alt="" class="size-8 rounded-sm" />
-			<span class="lead text-[#c8e5d7]">Facile.</span>
+			<img src="/logo.png" alt="" class="size-8 rounded-project" />
+			<span class="lead text-brand">Facile.</span>
 		</a>
 		<button type="button" onclick={() => (menuOpen = true)} aria-label="Open menu" class="btn-icon size-10">
 			<iconify-icon icon="lucide:menu" width="20"></iconify-icon>

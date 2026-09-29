@@ -22,9 +22,9 @@
 <header class="flex flex-wrap items-center gap-4">
 	<label
 		title="Member colour"
-		class="subtitle relative size-14 shrink-0 rounded-md flex items-center justify-center cursor-pointer"
+		class="subtitle relative size-14 shrink-0 rounded-project flex items-center justify-center cursor-pointer"
 		style:background-color="{member.highlight}20"
-		style:color="color-mix(in srgb, {member.highlight}, #fff 20%)"
+		style:color="color-mix(in srgb, {member.highlight}, var(--theme-ink) 20%)"
 	>
 		{member.name.charAt(0)}
 		<input type="color" bind:value={member.highlight} class="absolute inset-0 opacity-0 cursor-pointer" />
@@ -35,7 +35,7 @@
 		rows="1"
 		placeholder="Name"
 		aria-label="Name"
-		class="title flex-1 min-w-48 resize-none [field-sizing:content] bg-transparent text-ink outline-none rounded-md px-2 py-1 placeholder:text-ghost hover:bg-white/[0.03] focus:bg-raised-hover"
+		class="title flex-1 min-w-48 resize-none [field-sizing:content] bg-transparent text-ink outline-none rounded-project px-2 py-1 placeholder:text-ghost hover:bg-surface-hover focus:bg-raised-hover"
 	></textarea>
 
 	<div class="flex flex-wrap items-center gap-1">
@@ -53,7 +53,7 @@
 		</div>
 
 		<label class="field w-32" title="Member colour">
-			<span class="size-3 rounded-sm shrink-0" style:background-color={member.highlight}></span>
+			<span class="size-3 rounded-project shrink-0" style:background-color={member.highlight}></span>
 			<input bind:value={member.highlight} class="field-input uppercase" />
 		</label>
 
