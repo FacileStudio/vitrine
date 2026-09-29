@@ -5,7 +5,6 @@
     import 'iconify-icon';
 
     export let value: string = "";
-    export let label = "Image de couverture";
 
     export let getPresignedUrl: (filename: string, folder: string) => Promise<string>;
 
@@ -37,9 +36,6 @@
 </script>
 
 <div class="flex flex-col gap-2 w-full">
-    <span class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">
-        {label}
-    </span>
 
     <div
         class="relative h-48 w-full rounded-[32px] border-2 border-dashed border-slate-100 bg-slate-50/50 overflow-hidden group hover:border-indigo-200 transition-all"

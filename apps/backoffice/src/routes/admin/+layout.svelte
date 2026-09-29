@@ -22,7 +22,7 @@
 		{ href: '/admin/contacts', icon: 'lucide:mail', label: 'Contacts' },
 		{ href: '/admin/studio', icon: 'lucide:users-round', label: 'Studio' },
 		{ href: '/admin/users', icon: 'lucide:users', label: 'Membres' },
-        { href: '/admin/projects', icon: 'lucide:users', label: 'Projects'}
+        { href: '/admin/projects', icon: 'lucide:folder-kanban', label: 'Projects' }
 	];
 
 	let currentPath = $derived($page.url.pathname);

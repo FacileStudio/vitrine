@@ -9,17 +9,26 @@
 	import SocialsSection from '$lib/components/studio/SocialsSection.svelte';
 	import ProjectsSection from '$lib/components/studio/ProjectsSection.svelte';
 	import ModelSection from '$lib/components/studio/ModelSection.svelte';
+	import SaveBar from '$lib/components/SaveBar.svelte';
 	import type { ProjectOption, StudioMember } from '$lib/components/studio/types';
 
 	let member = $state<StudioMember | null>(null);
 	let options = $state<ProjectOption[]>([]);
 	let error = $state('');
 	let saving = $state(false);
-	let saved = $state(false);
+	let saveError = $state('');
+	let baseline = $state('');
+
+	const dirty = $derived(member !== null && JSON.stringify(member) !== baseline);
+
+	function load(result: StudioMember) {
+		member = result;
+		baseline = JSON.stringify(member);
+	}
 
 	onMount(async () => {
 		try {
-			member = await trpc.studio.get.query({ slug: page.params.slug! });
+			load(await trpc.studio.get.query({ slug: page.params.slug! }));
 		} catch (err) {
 			logger.error({ err }, 'Failed to load studio member');
 			error = 'Membre introuvable';
@@ -48,15 +57,13 @@
 			return;
 
 		saving = true;
-		saved = false;
-		error = '';
+		saveError = '';
 
 		try {
-			member = await trpc.studio.update.mutate($state.snapshot(member));
-			saved = true;
+			load(await trpc.studio.update.mutate($state.snapshot(member)));
 		} catch (err) {
 			logger.error({ err }, 'Failed to save studio member');
-			error = describe(err);
+			saveError = describe(err);
 		} finally {
 			saving = false;
 		}
@@ -78,6 +85,8 @@
 			</div>
 		{/if}
 	{:else}
+		<SaveBar {dirty} {saving} error={saveError} onsave={save} />
+
 		<header class="flex items-center gap-4">
 			<div class="w-3 h-12 rounded-full" style:background-color={member.highlight}></div>
 			<div>
@@ -91,20 +100,5 @@
 		<SocialsSection bind:member />
 		<ProjectsSection bind:member {options} />
 		<ModelSection bind:member />
-
-		<div class="sticky bottom-4 bg-stone-700/5 backdrop-blur-xl rounded-2xl shadow-lg p-4 flex items-center justify-between gap-4">
-			<p class="p {error ? 'text-red-400' : 'text-white/58'}">
-				{error || (saved ? 'Enregistré' : 'Modifications non enregistrées')}
-			</p>
-			<button
-				type="button"
-				onclick={save}
-				disabled={saving}
-				class="lead flex items-center gap-2 bg-white text-black px-5 py-2.5 rounded-xl hover:bg-white/90 disabled:opacity-50"
-			>
-				<iconify-icon icon="lucide:save" width="18"></iconify-icon>
-				{saving ? 'Enregistrement...' : 'Enregistrer'}
-			</button>
-		</div>
 	{/if}
 </div>

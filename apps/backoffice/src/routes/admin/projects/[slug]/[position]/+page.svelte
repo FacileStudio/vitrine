@@ -12,6 +12,10 @@
 	import ItemDialog from '$lib/components/projects/ItemDialog.svelte';
 	import MultiSelect from '$lib/components/projects/MultiSelect.svelte';
 	import { addToBucket, fits, moveToBucket, removeItem, trimmed } from '$lib/components/projects/gridOps';
+	import { describe, infoInput, prepare } from '$lib/components/projects/project';
+	import { goto } from '$app/navigation';
+	import { enter } from '$lib/motion';
+	import SaveBar from '$lib/components/SaveBar.svelte';
 
 	let project = $state<Project | null>(null);
 	let options = $state<ProjectOptions | null>(null);
@@ -21,12 +25,14 @@
 	const position = $derived(Number(page.params.position));
 	const section = $derived(project?.story[position]);
 
-	// the API leaves an empty credit list out, the section's people dropdown needs an array to bind to
-	const withCredits = (result: Project) => {
-		result.story.forEach((s) => (s.by ??= []));
-		result.bucket = [...new Map(result.bucket.map((item) => [item.id, item])).values()];
-		return result;
-	};
+	let baseline = $state('');
+
+	const dirty = $derived(project !== null && JSON.stringify(project) !== baseline);
+
+	function load(result: Project) {
+		project = prepare(result);
+		baseline = JSON.stringify(project);
+	}
 
 	let editingId = $state<string | null>(null);
 
@@ -52,7 +58,7 @@
 	$effect(() => {
 		trpc.projects.get
 			.query({ slug })
-			.then((result) => (project = withCredits(result)))
+			.then(load)
 			.catch((err) => {
 				logger.error({ err }, 'Failed to load project');
 				error = 'Projet introuvable';
@@ -60,44 +66,48 @@
 	});
 
 	let saving = $state(false);
-	let saved = $state(false);
 	let saveError = $state('');
 
-	// zod input errors arrive as a JSON list of issues, the API's own checks as a plain sentence
-	function describe(err: unknown) {
-		const message = (err as Error).message;
+	const chips = $derived.by(() => {
+		if (!section || !project || isInfoSection(section))
+			return [];
 
-		try {
-			const issues: Array<{ path: (string | number)[] }> = JSON.parse(message);
-			return `Champs invalides : ${issues.map((issue) => issue.path.join('.')).join(', ')}`;
-		} catch {
-			return message || "Erreur lors de l'enregistrement";
-		}
-	}
+		const items = section.layout.items.length;
+		const media = section.layout.items.filter((item) => item.kind === 'image' || item.kind === 'video').length;
+
+		return [
+			{ icon: 'lucide:columns-3', label: `${Math.max(1, trimmed(section.layout).cols)} colonnes` },
+			{ icon: 'lucide:layers', label: `${items} élément${items > 1 ? 's' : ''}` },
+			{ icon: 'lucide:image', label: `${media} média${media > 1 ? 's' : ''}` },
+			{ icon: 'lucide:inbox', label: `${project.bucket.length} dans le bucket` },
+		];
+	});
 
 	async function saveStory() {
 		if (!project)
 			return;
 
 		saving = true;
-		saved = false;
 		saveError = '';
 
 		try {
-			const snapshot = $state.snapshot(project);
+			const snapshot = $state.snapshot(project) as Project;
+
+			if (section && isInfoSection(section))
+				await trpc.projects.updateInfo.mutate(infoInput(snapshot));
+
 			const sections = snapshot.story.map((s, position) => ({
 				position,
 				layout: trimmed(s.layout),
 				by: s.by ?? [],
 			}));
-			project = withCredits(
+			load(
 				await trpc.projects.updateStory.mutate({
 					slug,
 					sections,
 					bucket: snapshot.bucket,
 				})
 			);
-			saved = true;
 		} catch (err) {
 			logger.error({ err }, 'Failed to save story');
 			saveError = describe(err);
@@ -113,13 +123,32 @@
 			.then((available) => (options = available))
 			.catch((err) => logger.error({ err }, 'Failed to load project options'));
 	});
+
+	// alt+arrows walk the sections, typing in a field keeps the arrows for the caret
+	function walk(e: KeyboardEvent) {
+		if (!e.altKey || !project || (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight'))
+			return;
+
+		const next = position + (e.key === 'ArrowLeft' ? -1 : 1);
+
+		if (next < 0 || next >= project.story.length)
+			return;
+
+		e.preventDefault();
+		goto(`/admin/projects/${slug}/${next}`);
+	}
 </script>
 
-<div class="p-8 mx-auto space-y-12">
-	<a href="/admin/projects/{slug}" class="p inline-flex items-center gap-2 text-white/58 hover:text-white">
-		<iconify-icon icon="lucide:arrow-left" width="16"></iconify-icon>
-		{project?.name ?? 'Projet'}
-	</a>
+<svelte:window onkeydown={walk} />
+
+<div class="p-8 mx-auto space-y-6">
+	<nav aria-label="Fil d'Ariane" class="p flex items-center gap-2 text-white/45">
+		<a href="/admin/projects" class="hover:text-white">Projects</a>
+		<iconify-icon icon="lucide:chevron-right" width="14" class="text-white/25"></iconify-icon>
+		<a href="/admin/projects/{slug}" class="hover:text-white">{project?.name ?? 'Projet'}</a>
+		<iconify-icon icon="lucide:chevron-right" width="14" class="text-white/25"></iconify-icon>
+		<span class="text-white/80">Section {position + 1}</span>
+	</nav>
 
 	{#if error}
 		<p class="p bg-red-500/10 text-red-300 px-4 py-3 rounded-xl">{error}</p>
@@ -130,41 +159,70 @@
 	{:else if !section}
 		<p class="p bg-red-500/10 text-red-300 px-4 py-3 rounded-xl">Section introuvable</p>
 	{:else}
-		<div class="w-full flex justify-between items-center gap-4">
-			<div class="flex items-baseline gap-3 min-w-0">
-				<span class="subtext text-white/45">{position + 1} / {project.story.length}</span>
-				<h1 class="title text-white truncate">{section.title?.en ?? 'Sans titre'}</h1>
+		<SaveBar {dirty} {saving} error={saveError} onsave={saveStory} />
+
+		<header class="flex flex-wrap items-end justify-between gap-6">
+			<div class="min-w-0 space-y-3">
+				<h1 class="title text-white truncate">
+					{isInfoSection(section) ? 'Couverture & intro' : (section.title?.en ?? 'Sans titre')}
+				</h1>
+				<div class="flex flex-wrap items-center gap-1.5">
+					{#each chips as chip (chip.icon)}
+						<span class="subtext flex items-center gap-1.5 rounded-md bg-stone-700/10 px-2.5 py-1.5 text-white/58">
+							<iconify-icon icon={chip.icon} width="12"></iconify-icon>
+							{chip.label}
+						</span>
+					{/each}
+				</div>
 			</div>
 
-            <div class="flex  gap-2 items-center ">
-					<span class="lead text-white/80">Équipe</span>
+			<div class="flex items-center gap-3">
+				<div class="flex items-center gap-2 min-w-64 rounded-md bg-stone-700/10 pl-4 pr-2 py-1">
+					<iconify-icon icon="lucide:users-round" width="16" class="text-white/45"></iconify-icon>
 					<MultiSelect
 						bind:selected={project.story[position].by!}
 						options={(options?.members ?? []).map((m) => ({ value: m.slug, label: m.name }))}
-						placeholder="Personne"
+						placeholder="Aucune équipe"
 					/>
 				</div>
 
-			<div class="flex gap-4 p-4 shrink-0">
-				{#if position > 0}
-					<a href="/admin/projects/{slug}/{position - 1}">
-						<iconify-icon icon="lucide:chevron-left" width="16"></iconify-icon>
-					</a>
-				{/if}
-				{#if position < project.story.length - 1}
-					<a href="/admin/projects/{slug}/{position + 1}">
-						<iconify-icon icon="lucide:chevron-right" width="16"></iconify-icon>
-					</a>
-				{/if}
+				<div class="flex items-center rounded-md bg-stone-700/10 p-1">
+					{#each [{ to: position - 1, icon: 'lucide:chevron-left', label: 'Section précédente' }, { to: position + 1, icon: 'lucide:chevron-right', label: 'Section suivante' }] as nav, n (nav.icon)}
+						{#if n === 1}
+							<span class="subtext px-2 text-white/58 tabular-nums">{position + 1} / {project.story.length}</span>
+						{/if}
+						{#if nav.to >= 0 && nav.to < project.story.length}
+							<a
+								href="/admin/projects/{slug}/{nav.to}"
+								aria-label={nav.label}
+								title="{nav.label} (Alt {nav.to < position ? '←' : '→'})"
+								class="flex items-center p-2 rounded-sm text-white/58 hover:bg-white/[0.06] hover:text-white"
+							>
+								<iconify-icon icon={nav.icon} width="16"></iconify-icon>
+							</a>
+						{:else}
+							<span class="flex items-center p-2 text-white/15">
+								<iconify-icon icon={nav.icon} width="16"></iconify-icon>
+							</span>
+						{/if}
+					{/each}
+				</div>
 			</div>
-		</div>
+		</header>
 
+		{#key position}
+		<div use:enter>
 		{#if isInfoSection(section)}
-			<ProjectInfoCard bind:project {options} />
+			<div class="bg-stone-700/10 p-6 rounded-md">
+				<ProjectInfoCard bind:project {options} />
+			</div>
 		{:else}
-			<ElementLibrary onadd={(kind, w, h) => project && addToBucket(project.bucket, kind, w, h)} />
+			<div class="grid gap-4 items-start lg:grid-cols-[16rem_minmax(0,1fr)]">
+			<div class="lg:sticky lg:top-28">
+				<ElementLibrary onadd={(kind, w, h) => project && addToBucket(project.bucket, kind, w, h)} />
+			</div>
 
-			<div class="space-y-8">
+			<div class="space-y-4 min-w-0">
 
 				<SectionGrid bind:layout={project.story[position].layout} bucket={project.bucket} onedit={(id) => (editingId = id)} />
 				<SectionBucket layout={project.story[position].layout} bind:bucket={project.bucket} onedit={(id) => (editingId = id)} />
@@ -201,22 +259,10 @@
 						/>
 					{/if}
 				{/if}
-
-				<div class="flex items-center justify-end gap-4">
-					<p class="p {saveError ? 'text-red-400' : 'text-white/58'}">
-						{saveError || (saved ? 'Enregistré' : '')}
-					</p>
-					<button
-						type="button"
-						onclick={saveStory}
-						disabled={saving}
-						class="lead flex items-center gap-2 bg-white text-black px-5 py-2.5 rounded-xl hover:bg-white/90 disabled:opacity-50"
-					>
-						<iconify-icon icon="lucide:save" width="18"></iconify-icon>
-						{saving ? 'Enregistrement...' : 'Enregistrer'}
-					</button>
-				</div>
+			</div>
 			</div>
 		{/if}
+		</div>
+		{/key}
 	{/if}
 </div>

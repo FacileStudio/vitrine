@@ -1,8 +1,8 @@
 <script lang="ts">
-	import Field from '../studio/Field.svelte';
 	import { siteAsset } from '$lib/site';
+	import ImageUpload from './ImageUpload.svelte';
 	import { isVideo } from './media';
-	import { inputClass, type Project } from './types';
+	import type { Project } from './types';
 
 	type Item = Extract<Project['story'][number]['layout']['items'][number], { kind: 'image' | 'video' }>;
 
@@ -12,17 +12,11 @@
 </script>
 
 <div class="space-y-4">
-	{#if item.src}
-		{#if item.kind === 'video'}
-			<video src={siteAsset(item.src)} muted loop playsinline controls class="w-full aspect-[5/4] rounded-md object-cover bg-white/[0.03]"></video>
-		{:else}
-			<img src={siteAsset(item.src)} alt="" class="w-full aspect-[5/4] rounded-md object-cover bg-white/[0.03]" />
-		{/if}
-	{/if}
-
-	<Field label="Fichier" hint="Chemin depuis /public du site, ou une URL complète">
-		<input bind:value={item.src} placeholder="/images/projects/…" class={inputClass} />
-	</Field>
+	<ImageUpload
+		bind:value={item.src}
+		label={item.kind === 'video' ? 'Vidéo' : 'Image'}
+		accept={item.kind === 'video' ? 'video/*' : 'image/*'}
+	/>
 
 	{#if choices.length}
 		<div class="space-y-2">

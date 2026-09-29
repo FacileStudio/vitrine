@@ -2,7 +2,7 @@
 	import ItemPreview from './ItemPreview.svelte';
 	import { drag, endDrag, startDrag } from './drag.svelte';
 	import { ROWS, addToGrid, fits, moveToGrid, shownCols } from './gridOps';
-	import { LOCKED_ELEMENTS } from './elements';
+	import { LOCKED_ELEMENTS, elementOf } from './elements';
 	import type { Project } from './types';
 
 	type Layout = Project['story'][number]['layout'];
@@ -66,7 +66,26 @@
 	}
 </script>
 
-<div class="overflow-x-auto">
+<section class="bg-stone-700/10 rounded-md overflow-hidden">
+	<header class="flex items-center justify-between gap-4 px-5 py-3">
+		<span class="flex items-center gap-2">
+			<iconify-icon icon="lucide:layout-dashboard" width="16" class="text-white/45"></iconify-icon>
+			<span class="lead text-white">Grille</span>
+		</span>
+
+	</header>
+
+	<div
+		class="overflow-x-auto p-5 pt-3"
+		style:background-image="radial-gradient(rgb(255 255 255 / 0.06) 1px, transparent 1px)"
+		style:background-size="16px 16px"
+	>
+	<div class="grid gap-1 w-max mb-1" style:grid-template-columns="repeat({cols}, 8rem)">
+		{#each Array.from({ length: cols }, (_, i) => i + 1) as col (col)}
+			<span class="subtext text-center {col > layout.cols ? 'text-white/15' : 'text-white/35'}">{col}</span>
+		{/each}
+	</div>
+
 	<div
 		class="grid gap-1 w-max"
 		style:grid-template-columns="repeat({cols}, 8rem)"
@@ -75,12 +94,10 @@
 		{#each cells as { col, row } (`${col}:${row}`)}
 			{#if !covered.has(`${col}:${row}`)}
 				<div
-					class="rounded-sm bg-white/[0.03] flex items-start justify-start p-1.5"
+					class="rounded-sm {col > layout.cols ? 'bg-white/[0.015]' : 'bg-white/[0.03]'}"
 					style:grid-column={col}
 					style:grid-row={row}
-				>
-					<span class="subtext text-white/20">{col}·{row}</span>
-				</div>
+				></div>
 			{/if}
 		{/each}
 
@@ -101,11 +118,27 @@
 						onedit?.(item.id);
 				}}
 				tabindex={locked(item.kind) ? -1 : 0}
-				class="relative rounded-sm overflow-hidden bg-stone-700/10 {locked(item.kind) ? '' : 'cursor-grab'}"
+				class="group relative rounded-sm overflow-hidden bg-stone-700/10 {locked(item.kind) ? '' : 'cursor-grab'}"
 				style:grid-column="{item.x} / span {item.w}"
 				style:grid-row="{item.y} / span {item.h}"
 			>
 				<ItemPreview {item} />
+				{#if !locked(item.kind)}
+					<span class="absolute inset-0 bg-black/55 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 flex flex-col justify-between p-2">
+						<span class="flex items-center justify-between">
+							<span class="subtext flex items-center gap-1.5 rounded-sm bg-black/60 px-2 py-1 text-white">
+								<iconify-icon icon={elementOf(item.kind)?.icon} width="12"></iconify-icon>
+								{elementOf(item.kind)?.label ?? item.kind}
+							</span>
+							<span class="subtext rounded-sm bg-black/60 px-1.5 py-1 text-white/70">{item.w}×{item.h}</span>
+						</span>
+						<span class="self-center flex items-center gap-1.5 rounded-md bg-white text-black px-3 py-1.5 subtext">
+							<iconify-icon icon="lucide:pencil" width="12"></iconify-icon>
+							Modifier
+						</span>
+						<span></span>
+					</span>
+				{/if}
 			</div>
 		{/each}
 
@@ -132,4 +165,5 @@
 			{/each}
 		{/if}
 	</div>
-</div>
+	</div>
+</section>

@@ -22,16 +22,18 @@
 	const trashable = $derived(drag.current !== null && drag.current.from !== 'library');
 </script>
 
-<div class="space-y-3">
-	<div class="flex items-baseline gap-3">
+<section class="bg-stone-700/10 rounded-md p-5 pt-3 space-y-3">
+	<header class="flex items-center gap-2">
+		<iconify-icon icon="lucide:inbox" width="16" class="text-white/45"></iconify-icon>
 		<span class="lead text-white">Bucket</span>
-		<span class="subtext text-white/45">Les éléments sans place attendent ici, rien n'est perdu</span>
-	</div>
+		<span class="subtext rounded-sm bg-white/10 px-1.5 py-0.5 text-white/70">{bucket.length}</span>
+		<span class="subtext text-white/45">Partagé entre les sections, rien n'est perdu</span>
+	</header>
 
 	<div class="flex gap-1">
 	<div
 		role="list"
-		class="flex-1 min-h-24 rounded-md p-1 flex flex-wrap gap-1 duration-75 transition-border {over && accepts ? 'border border-2 border-stone-700/50' : 'border border-stone-700/20'}"
+		class="flex-1 min-h-28 rounded-md p-1 flex flex-wrap gap-1 {over && accepts ? 'bg-white/[0.07]' : accepts ? 'bg-white/[0.04]' : 'bg-white/[0.02]'}"
 		ondragover={(e) => {
 			if (!accepts)
 				return;
@@ -60,13 +62,19 @@
 						onedit?.(item.id);
 				}}
 				tabindex="0"
-				class="relative w-32 aspect-[5/4] rounded-sm overflow-hidden bg-white/[0.05] cursor-grab"
+				class="group relative w-32 aspect-[5/4] rounded-sm overflow-hidden bg-white/[0.05] cursor-grab"
 			>
 				<ItemPreview {item} />
+				<span class="absolute inset-0 bg-black/55 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 flex items-center justify-center">
+					<iconify-icon icon="lucide:pencil" width="16" class="text-white"></iconify-icon>
+				</span>
 				<span class="absolute bottom-1 right-1 subtext rounded bg-black/60 px-1.5 text-white/80">{item.w}×{item.h}</span>
 			</div>
 		{:else}
-			<span class="m-auto subtext text-white/30">Glissez ici un élément de la grille pour le mettre de côté</span>
+			<span class="m-auto subtext text-white/30 flex items-center gap-2">
+				<iconify-icon icon="lucide:arrow-down-to-line" width="14"></iconify-icon>
+				Glissez ici un élément de la grille pour le mettre de côté
+			</span>
 		{/each}
 	</div>
 
@@ -95,4 +103,4 @@
 		<span class="subtext">Supprimer</span>
 	</div>
 	</div>
-</div>
+</section>

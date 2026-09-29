@@ -8,7 +8,14 @@
 		selected = $bindable(),
 		placeholder = 'Aucun',
 		allowNew = false,
-	}: { options: Option[]; selected: string[]; placeholder?: string; allowNew?: boolean } = $props();
+		icon,
+	}: {
+		options: Option[];
+		selected: string[];
+		placeholder?: string;
+		allowNew?: boolean;
+		icon?: (value: string) => string;
+	} = $props();
 
 	let draft = $state('');
 
@@ -34,10 +41,20 @@
 	}
 </script>
 
+{#snippet logo(value: string)}
+	{#if icon}
+		<!-- a value added by hand may have no logo yet, the label alone is enough then -->
+		<img src={icon(value)} alt="" class="size-4 object-contain" onerror={(e) => e.currentTarget.remove()} />
+	{/if}
+{/snippet}
+
 <details class="group relative">
-	<summary class="list-none cursor-pointer rounded-xl bg-white/[0.05] px-3 py-2 flex flex-wrap items-center gap-1.5 min-h-10">
+	<summary class="list-none cursor-pointer rounded-xl flex flex-wrap items-center gap-1.5 min-h-10">
 		{#each selected as value (value)}
-			<span class="subtext rounded-md bg-white/10 px-2 py-1 text-white">{labelOf(value)}</span>
+			<span class="subtext flex items-center gap-1.5 rounded-sm bg-white/10 px-2 py-1 text-white">
+				{@render logo(value)}
+				{labelOf(value)}
+			</span>
 		{:else}
 			<span class="p text-white/45">{placeholder}</span>
 		{/each}
@@ -53,6 +70,7 @@
 					onchange={() => toggle(option.value)}
 					class="w-4 h-4 accent-white"
 				/>
+				{@render logo(option.value)}
 				<span class="p text-white/80">{option.label}</span>
 			</label>
 		{/each}

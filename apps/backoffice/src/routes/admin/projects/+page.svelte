@@ -4,6 +4,7 @@
 	import { Spinner } from '@repo/ui';
 	import { logger } from '@repo/logger';
 	import { siteAsset } from '$lib/site';
+	import { enter } from '$lib/motion';
 
 	type Project = Awaited<ReturnType<typeof trpc.projects.list.query>>[number];
 
@@ -36,8 +37,9 @@
 		<div class="gap-1 flex flex-col">
 			{#each projects as project (project.slug)}
 				<a
+					use:enter
 					href="/admin/projects/{project.slug}"
-					class="group bg-white/[0.03] rounded-md overflow-hidden"
+					class="group bg-white/[0.03] rounded-md overflow-hidden hover:bg-white/[0.05]"
 				>
 					<div class="flex items-start ">
 						<img src={siteAsset(project.image)} alt={project.slug} class="w-80 aspect-16/10 rounded-sm object-cover" />

@@ -12,17 +12,17 @@
     "typecheck": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json"
   },
   "dependencies": {
-    "@fontsource-variable/inter": "^5.2.8",
-    "@fontsource/poppins": "^5.2.7",
+    "@repo/auth-shared": "workspace:*",
+    "@repo/logger": "workspace:*",
+    "@repo/storage-client": "workspace:*",
     "@repo/trpc": "workspace:*",
     "@repo/trpc-client": "workspace:*",
     "@repo/types": "workspace:*",
+    "@repo/ui": "workspace:*",
     "@repo/validators": "workspace:*",
     "@trpc/client": "^11.0.0",
-    "iconify-icon": "^3.0.2",
-    "@repo/auth-shared": "workspace:*",
-    "@repo/logger": "workspace:*",
-    "@repo/ui": "workspace:*"
+    "gsap": "^3.15.0",
+    "iconify-icon": "^3.0.2"
   },
   "devDependencies": {
     "@repo/tsconfig": "workspace:*",
