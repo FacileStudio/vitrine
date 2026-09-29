@@ -7,7 +7,12 @@ export const mediaService = {
     userId: string,
     data: { fileName: string; fileType: string }
   ) => {
-    const fileKey = `uploads/${userId}/${Date.now()}-${data.fileName}`;
+    // the key ends up in public URLs, so spaces, accents and quotes from a real file name are replaced
+    const safeName = data.fileName
+      .normalize('NFKD')
+      .replace(/[̀-ͯ]/g, '')
+      .replace(/[^a-zA-Z0-9._-]/g, '-');
+    const fileKey = `uploads/${userId}/${Date.now()}-${safeName}`;
 
     const uploadUrl = await storage.getUploadUrl(fileKey, { expiresIn: 900 });
 
