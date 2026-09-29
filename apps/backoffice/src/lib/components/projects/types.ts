@@ -8,3 +8,6 @@ export type Locale = (typeof LOCALES)[number];
 
 export const inputClass =
     'w-full rounded-md bg-stone-700/10 px-4 py-2.5 p text-white focus:outline-2 focus:outline-white/10';
+
+export type ProjectSummary = RouterOutputs['projects']['list'][number];
+export type StudioMemberSummary = RouterOutputs['studio']['list'][number];

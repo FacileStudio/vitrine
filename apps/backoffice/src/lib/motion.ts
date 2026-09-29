@@ -71,3 +71,24 @@ export function settle(node: Element, fromY: number) {
 		clearProps: 'opacity,transform',
 	});
 }
+
+// the image grows while its link is hovered, the card itself stays put
+export function zoom(node: HTMLElement) {
+	const host = node.closest('a') ?? node;
+	const scale = gsap.quickTo(node, 'scale', {
+		duration: 0.6,
+		ease: EASE.out,
+	});
+	const grow = () => scale(1.05);
+	const shrink = () => scale(1);
+
+	host.addEventListener('mouseenter', grow);
+	host.addEventListener('mouseleave', shrink);
+
+	return {
+		destroy: () => {
+			host.removeEventListener('mouseenter', grow);
+			host.removeEventListener('mouseleave', shrink);
+		},
+	};
+}

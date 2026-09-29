@@ -15,7 +15,7 @@
 	href="/admin/projects/{slug}/{index}"
 	class="bg-stone-700/10 p-6 pl-3 pr-18 rounded-md cursor-grab active:cursor-grabbing flex items-center justify-between gap-6 hover:bg-white/[0.03]"
 >
-	<span class="flex items-baseline gap-3 min-w-0">
+	<span class="flex items-baseline gap-1 min-w-0">
 		<iconify-icon icon="lucide:grip-vertical" width="16" class="self-center text-white/30"></iconify-icon>
 		<span class="subtext text-white/45">{index + 1}</span>
 		<span class="subtitle text-white truncate">{section.title?.en ?? 'Sans titre'}</span>
