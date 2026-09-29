@@ -1,34 +1,39 @@
 <script lang="ts">
 	import { siteAsset } from '$lib/site';
-	import type { Project } from './types';
+	import { trimmed, ROWS } from './gridOps';
+	import TeamDots from './TeamDots.svelte';
+	import type { Project, StudioMemberSummary } from './types';
 
 	type Section = Project['story'][number];
 
-	let { slug, section, index }: { slug: string; section: Section; index: number } = $props();
+	let {
+		slug,
+		section,
+		index,
+		members,
+	}: { slug: string; section: Section; index: number; members: Map<string, StudioMemberSummary> } = $props();
 
 	const thumbnails = $derived(
-		section.layout.items.flatMap((item) => (item.kind === 'image' ? [siteAsset(item.src)] : [])).slice(0, 4)
+		section.layout.items.flatMap((item) => (item.kind === 'image' && item.src ? [siteAsset(item.src)] : [])).slice(0, 4)
 	);
 </script>
 
 <a
 	href="/admin/projects/{slug}/{index}"
-	class="bg-raised p-6 pl-3 pr-18 rounded-md cursor-grab active:cursor-grabbing flex items-center justify-between gap-1 hover:bg-surface-hover"
+	class="panel-link cursor-grab active:cursor-grabbing grid grid-cols-[1rem_1.5rem_minmax(0,1fr)_4rem_7rem_8rem_13rem] items-center gap-4 px-8 py-8 pr-18"
 >
-	<span class="flex items-baseline gap-6 min-w-0">
-		<iconify-icon icon="lucide:grip-vertical" width="16" class="self-center text-ghost"></iconify-icon>
-		<span class="subtext text-faint">{index + 1}</span>
-		<span class="subtitle text-ink truncate">{section.title?.en ?? 'Sans titre'}</span>
-		<span class="subtext text-faint shrink-0">
-			{section.layout.cols} colonnes × 3 lignes · {section.layout.items.length} éléments
-		</span>
+	<iconify-icon icon="lucide:grip-vertical" width="16" class="text-ghost"></iconify-icon>
+	<span class="subtext text-faint tabular-nums">{index + 1}</span>
+	<span class="subtitle text-ink truncate">{section.title?.en ?? 'Sans titre'}</span>
+	<span class="chip w-fit tabular-nums" title="Colonnes × lignes">{trimmed(section.layout).cols}×{ROWS}</span>
+	<span class="chip w-fit">
+		<iconify-icon icon="lucide:layers" width="12"></iconify-icon>
+		{section.layout.items.length} élément{section.layout.items.length > 1 ? 's' : ''}
 	</span>
-
-	<span class="flex items-center gap-4 shrink-0">
-		<span class="flex gap-1">
-			{#each thumbnails as src (src)}
-				<img {src} alt="" class="w-12 aspect-[5/4] rounded-sm object-cover" />
-			{/each}
-		</span>
+	<TeamDots team={section.by ?? []} {members} />
+	<span class="flex justify-end gap-1">
+		{#each thumbnails as src (src)}
+			<img {src} alt="" class="w-12 aspect-[5/4] rounded-sm object-cover" />
+		{/each}
 	</span>
 </a>

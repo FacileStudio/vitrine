@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Snippet } from 'svelte';
 	import { inputClass } from './types';
 
 	type Option = { value: string; label: string };
@@ -9,12 +10,14 @@
 		placeholder = 'Aucun',
 		allowNew = false,
 		icon,
+		display,
 	}: {
 		options: Option[];
 		selected: string[];
 		placeholder?: string;
 		allowNew?: boolean;
 		icon?: (value: string) => string;
+		display?: Snippet<[string[]]>;
 	} = $props();
 
 	let draft = $state('');
@@ -50,18 +53,22 @@
 
 <details class="group relative">
 	<summary class="list-none cursor-pointer rounded-md flex flex-wrap items-center gap-1.5 min-h-10">
-		{#each selected as value (value)}
-			<span class="subtext flex items-center gap-1.5 rounded-sm bg-white/10 px-2 py-1 text-ink">
-				{@render logo(value)}
-				{labelOf(value)}
-			</span>
-		{:else}
+		{#if selected.length === 0}
 			<span class="p text-faint">{placeholder}</span>
-		{/each}
+		{:else if display}
+			{@render display(selected)}
+		{:else}
+			{#each selected as value (value)}
+				<span class="subtext flex items-center gap-1.5 rounded-sm bg-white/10 px-2 py-1 text-ink">
+					{@render logo(value)}
+					{labelOf(value)}
+				</span>
+			{/each}
+		{/if}
 		<iconify-icon icon="lucide:chevron-down" width="14" class="ml-auto text-faint group-open:rotate-180"></iconify-icon>
 	</summary>
 
-	<div class="absolute z-20 mt-1 w-full max-h-72 overflow-y-auto rounded-md bg-popover p-2 shadow-lg space-y-1">
+	<div class="absolute z-20 mt-1 w-full min-w-56 max-h-72 overflow-y-auto rounded-md bg-popover p-2 shadow-lg space-y-1">
 		{#each all as option (option.value)}
 			<label class="flex items-center gap-3 rounded-lg px-2 py-1.5 hover:bg-white/[0.05] cursor-pointer">
 				<input

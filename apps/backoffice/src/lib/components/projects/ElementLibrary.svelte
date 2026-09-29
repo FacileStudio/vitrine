@@ -34,11 +34,7 @@
 	}}
 />
 
-<aside class="bg-raised rounded-md p-3 space-y-1">
-	<div class="px-2 pt-1 pb-2">
-		<p class="lead text-ink">Insérer</p>
-	</div>
-
+<aside class="space-y-1">
 	{#each ELEMENTS as element (element.kind)}
 		{@const sized = SIZED.includes(element.kind)}
 		<div class="rounded-md {open === element.kind ? 'bg-surface-hover' : ''}">
@@ -57,9 +53,9 @@
 					if (e.key === 'Enter')
 						activate(element.kind, element.w, element.h);
 				}}
-				class="group flex items-center gap-3 p-2 rounded-md cursor-grab hover:bg-white/[0.04]"
+				class="group flex items-center gap-3 pr-6 rounded-md cursor-grab hover:bg-white/[0.04]"
 			>
-				<span class="size-9 shrink-0 rounded-md bg-raised-hover flex items-center justify-center text-muted group-hover:text-ink">
+				<span class="size-16 shrink-0 rounded-md bg-raised-hover flex items-center justify-center text-muted group-hover:text-ink">
 					<iconify-icon icon={element.icon} width="18"></iconify-icon>
 				</span>
 				<span class="flex-1 min-w-0">

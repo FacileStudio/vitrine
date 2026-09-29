@@ -42,8 +42,6 @@
 </script>
 
 <div class="flex flex-col gap-1.5 w-full">
-	<span class="lead text-soft">{label}</span>
-
 	<div class="group relative w-full aspect-[5/4] rounded-md overflow-hidden bg-surface-hover">
 		{#if shown}
 			{#if video}

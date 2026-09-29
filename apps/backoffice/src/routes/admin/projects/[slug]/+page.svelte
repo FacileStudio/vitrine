@@ -11,9 +11,12 @@
 	import SectionRow from '$lib/components/projects/SectionRow.svelte';
 	import ProjectInfoCard from '$lib/components/projects/ProjectInfoCard.svelte';
 	import SaveBar from '$lib/components/SaveBar.svelte';
+	import { loadMembers } from '$lib/members';
+	import type { StudioMemberSummary } from '$lib/components/projects/types';
 
 	let project = $state<Project | null>(null);
 	let options = $state<ProjectOptions | null>(null);
+	let members = $state(new Map<string, StudioMemberSummary>());
 	let error = $state('');
 	let saving = $state(false);
 	let saveError = $state('');
@@ -37,6 +40,10 @@
 				.query()
 				.then((available) => (options = available))
 				.catch((err) => logger.error({ err }, 'Failed to load project options'));
+
+			loadMembers()
+				.then((loaded) => (members = loaded))
+				.catch((err) => logger.error({ err }, 'Failed to load studio members'));
 
 			load(await trpc.projects.get.query({ slug: page.params.slug! }));
 		} catch (err) {
@@ -125,7 +132,7 @@
 </script>
 
 <div class="space-y-6">
-	<a href="/admin/projects" class="p inline-flex items-center gap-2 text-muted hover:text-ink">
+	<a href="/admin/projects" class="p inline-flex items-center gap-2 text-muted hover:text-white">
 		<iconify-icon icon="lucide:arrow-left" width="16"></iconify-icon>
 		Projects
 	</a>
@@ -141,19 +148,12 @@
 	{:else}
 		<SaveBar {dirty} {saving} error={saveError} onsave={saveProject} />
 
-		<div class="flex items-baseline gap-3">
-			<h1 class="title text-ink">{project.name}</h1>
-			<span class="subtext text-faint">{sections.length} sections</span>
-		</div>
-
 		<div bind:this={list} class="flex flex-col gap-1">
 			{#each sections as section, i (i)}
 				{#if isEndSection(section)}
-					<div use:enter class="bg-raised p-6 rounded-md flex items-center gap-6">
-						<span class="subtext text-ghost">Fin (généré automatiquement)</span>
-					</div>
+                    <span class="hidden" aria-label="Last section"></span>
 				{:else if isInfoSection(section)}
-					<div use:enter class="bg-raised p-6 rounded-md">
+					<div use:enter class="mb-12">
 						<ProjectInfoCard bind:project {options} />
 					</div>
 				{:else}
@@ -187,7 +187,7 @@
 						{#if dragged !== null && over === i && dragged !== i}
 							<span class="absolute inset-x-0 h-0.5 rounded-full bg-white z-10 {dragged < i ? '-bottom-0.5' : '-top-0.5'}"></span>
 						{/if}
-						<SectionRow slug={project.slug} {section} index={i} />
+						<SectionRow slug={project.slug} {section} index={i} {members} />
 						<button
 							type="button"
 							aria-label="Supprimer la section"
@@ -204,7 +204,7 @@
 				type="button"
 				onclick={addSection}
 				disabled={saving}
-				class="p disabled:opacity-50 bg-raised p-6 rounded-md flex items-center gap-3 text-muted hover:bg-surface-hover hover:text-ink"
+				class="p disabled:opacity-50 bg-raised p-6 rounded-md flex items-center gap-3 text-muted hover:bg-surface-hover hover:text-white"
 			>
 				<iconify-icon icon="lucide:plus" width="18"></iconify-icon>
 				Ajouter une section

@@ -44,7 +44,7 @@
 					<a
 						href={item.href}
 						aria-current={active ? 'page' : undefined}
-						class="p flex items-center gap-3 px-3 py-2.5 relative overflow-hidden rounded-sm {active ? 'bg-stone-700/10 text-white' : 'text-muted hover:bg-white/[0.05] hover:text-ink'}"
+						class="p flex items-center gap-3 px-3 py-2.5 relative overflow-hidden rounded-sm {active ? 'bg-stone-700/10 text-white' : 'text-muted hover:bg-white/[0.05] hover:text-white'}"
 					>
                         <div
                             style:background-color={item.highlight}

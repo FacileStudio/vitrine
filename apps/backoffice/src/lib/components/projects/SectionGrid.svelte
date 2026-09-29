@@ -67,7 +67,7 @@
 </script>
 
 <section class="bg-raised rounded-md overflow-hidden">
-	<header class="flex items-center justify-between gap-4 px-5 py-3">
+	<header class="flex items-center justify-between gap-4 px-5 py-5">
 		<span class="flex items-center gap-2">
 			<iconify-icon icon="lucide:layout-dashboard" width="16" class="text-faint"></iconify-icon>
 			<span class="lead text-ink">Grille</span>
@@ -77,10 +77,8 @@
 
 	<div
 		class="overflow-x-auto p-5 pt-3"
-		style:background-image="radial-gradient(rgb(255 255 255 / 0.06) 1px, transparent 1px)"
-		style:background-size="16px 16px"
 	>
-	<div class="grid gap-1 w-max mb-1" style:grid-template-columns="repeat({cols}, 8rem)">
+	<div class="grid gap-1 w-max mb-1" style:grid-template-columns="repeat({cols}, 12rem)">
 		{#each Array.from({ length: cols }, (_, i) => i + 1) as col (col)}
 			<span class="subtext text-center {col > layout.cols ? 'text-white/15' : 'text-white/35'}">{col}</span>
 		{/each}
@@ -88,13 +86,13 @@
 
 	<div
 		class="grid gap-1 w-max"
-		style:grid-template-columns="repeat({cols}, 8rem)"
-		style:grid-template-rows="repeat({ROWS}, 6.4rem)"
+		style:grid-template-columns="repeat({cols}, 12rem)"
+		style:grid-template-rows="repeat({ROWS}, 9.6rem)"
 	>
 		{#each cells as { col, row } (`${col}:${row}`)}
 			{#if !covered.has(`${col}:${row}`)}
 				<div
-					class="rounded-sm {col > layout.cols ? 'bg-white/[0.015]' : 'bg-surface-hover'}"
+					class="rounded-sm backdrop-blur-2xl {col > layout.cols ? 'bg-white/[0.015]' : 'bg-surface-hover'}"
 					style:grid-column={col}
 					style:grid-row={row}
 				></div>
@@ -125,11 +123,7 @@
 				<ItemPreview {item} />
 				{#if !locked(item.kind)}
 					<span class="absolute inset-0 bg-black/55 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 flex flex-col justify-between p-2">
-						<span class="flex items-center justify-between">
-							<span class="subtext flex items-center gap-1.5 rounded-sm bg-black/60 px-2 py-1 text-ink">
-								<iconify-icon icon={elementOf(item.kind)?.icon} width="12"></iconify-icon>
-								{elementOf(item.kind)?.label ?? item.kind}
-							</span>
+						<span class="flex items-center justify-end">
 							<span class="subtext rounded-sm bg-black/60 px-1.5 py-1 text-white/70">{item.w}×{item.h}</span>
 						</span>
 						<span class="self-center flex items-center gap-1.5 rounded-md bg-white text-black px-3 py-1.5 subtext">

@@ -22,8 +22,8 @@
 	const trashable = $derived(drag.current !== null && drag.current.from !== 'library');
 </script>
 
-<section class="bg-raised rounded-md p-5 pt-3 space-y-3">
-	<header class="flex items-center gap-2">
+<section class="bg-raised rounded-md p-5 space-y-3">
+	<header class="flex items-center gap-2 py-2">
 		<iconify-icon icon="lucide:inbox" width="16" class="text-faint"></iconify-icon>
 		<span class="lead text-ink">Bucket</span>
 		<span class="subtext rounded-sm bg-white/10 px-1.5 py-0.5 text-white/70">{bucket.length}</span>

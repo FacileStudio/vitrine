@@ -11,7 +11,7 @@
 	import ProjectInfoCard from '$lib/components/projects/ProjectInfoCard.svelte';
 	import ItemDialog from '$lib/components/projects/ItemDialog.svelte';
 	import MultiSelect from '$lib/components/projects/MultiSelect.svelte';
-	import { addToBucket, fits, moveToBucket, removeItem, trimmed } from '$lib/components/projects/gridOps';
+	import { ROWS, addToBucket, fits, moveToBucket, removeItem, trimmed } from '$lib/components/projects/gridOps';
 	import { describe, infoInput, prepare } from '$lib/components/projects/project';
 	import { goto } from '$app/navigation';
 	import { enter } from '$lib/motion';
@@ -76,7 +76,7 @@
 		const media = section.layout.items.filter((item) => item.kind === 'image' || item.kind === 'video').length;
 
 		return [
-			{ icon: 'lucide:columns-3', label: `${Math.max(1, trimmed(section.layout).cols)} colonnes` },
+			{ icon: 'lucide:grid-2x2', label: `${Math.max(1, trimmed(section.layout).cols)}×${ROWS}` },
 			{ icon: 'lucide:layers', label: `${items} élément${items > 1 ? 's' : ''}` },
 			{ icon: 'lucide:image', label: `${media} média${media > 1 ? 's' : ''}` },
 			{ icon: 'lucide:inbox', label: `${project.bucket.length} dans le bucket` },
@@ -166,14 +166,7 @@
 				<h1 class="title text-ink truncate">
 					{isInfoSection(section) ? 'Couverture & intro' : (section.title?.en ?? 'Sans titre')}
 				</h1>
-				<div class="flex flex-wrap items-center gap-1.5">
-					{#each chips as chip (chip.icon)}
-						<span class="subtext flex items-center gap-1.5 rounded-md bg-raised px-2.5 py-1.5 text-muted">
-							<iconify-icon icon={chip.icon} width="12"></iconify-icon>
-							{chip.label}
-						</span>
-					{/each}
-				</div>
+				
 			</div>
 
 			<div class="flex items-center gap-3">
@@ -213,16 +206,16 @@
 		{#key position}
 		<div use:enter>
 		{#if isInfoSection(section)}
-			<div class="bg-raised p-6 rounded-md">
+			<div>
 				<ProjectInfoCard bind:project {options} />
 			</div>
 		{:else}
-			<div class="grid gap-4 items-start lg:grid-cols-[16rem_minmax(0,1fr)]">
+			<div class="grid gap-1 items-start lg:grid-cols-[16rem_minmax(0,1fr)]">
 			<div class="lg:sticky lg:top-28">
 				<ElementLibrary onadd={(kind, w, h) => project && addToBucket(project.bucket, kind, w, h)} />
 			</div>
 
-			<div class="space-y-4 min-w-0">
+			<div class="space-y-1 min-w-0">
 
 				<SectionGrid bind:layout={project.story[position].layout} bucket={project.bucket} onedit={(id) => (editingId = id)} />
 				<SectionBucket layout={project.story[position].layout} bind:bucket={project.bucket} onedit={(id) => (editingId = id)} />
