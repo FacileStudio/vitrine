@@ -67,7 +67,7 @@
                     y1={yScale(tick)}
                     x2={chartWidth}
                     y2={yScale(tick)}
-                    stroke="rgb(255 255 255 / 0.1)"
+                    stroke="currentColor" stroke-opacity="0.1"
                     stroke-dasharray="3 3"
                 />
                 <text
@@ -75,7 +75,7 @@
                     y={yScale(tick)}
                     text-anchor="end"
                     dominant-baseline="middle"
-                    class="text-[10px] fill-white/45"
+                    class="text-[10px] fill-current opacity-45"
                 >
                     {formatNumber(tick)}
                 </text>
@@ -110,7 +110,7 @@
                     x={pointX}
                     y={chartHeight + 20}
                     text-anchor="middle"
-                    class="text-[10px] fill-white/45"
+                    class="text-[10px] fill-current opacity-45"
                 >
                     {String(item[x])}
                 </text>
@@ -125,7 +125,7 @@
             style="left: {tooltipX + 10}px; top: {tooltipY - 10}px;"
         >
             <div class="font-medium">{String(item[x])}</div>
-            <div class="text-white/30">{y}: {item[y]}</div>
+            <div class="text-black/50">{y}: {item[y]}</div>
         </div>
     {/if}
 </Chart>
