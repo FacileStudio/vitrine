@@ -23,6 +23,10 @@ export const projectRouter = router({
   updateStory: adminProcedure
     .input(storyLayoutSchema)
     .mutation(({ ctx, input }) => projectService.updateStory(ctx.db, input.slug, input.sections, input.bucket)),
+
+  reorder: adminProcedure
+    .input(z.object({ slugs: z.array(z.string()).min(1) }))
+    .mutation(({ ctx, input }) => projectService.reorder(ctx.db, input.slugs)),
 });
 
 export default projectRouter;

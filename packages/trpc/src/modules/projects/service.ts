@@ -220,6 +220,22 @@ export const projectService = {
 
     return projectService.get(db, slug);
   },
+
+  reorder: async (db: PrismaClient, slugs: string[]) => {
+    const existing = await db.project.findMany({ select: { slug: true } });
+    const known = new Set(existing.map((project) => project.slug));
+
+    if (slugs.length !== known.size || new Set(slugs).size !== slugs.length || !slugs.every((slug) => known.has(slug)))
+      throw new TRPCError({ code: 'BAD_REQUEST', message: 'The order must list every project exactly once' });
+
+    // position is unique, so every project steps aside to a negative slot before taking its new one
+    await db.$transaction([
+      ...slugs.map((slug, index) => db.project.update({ where: { slug }, data: { position: -(index + 1) } })),
+      ...slugs.map((slug, index) => db.project.update({ where: { slug }, data: { position: index } })),
+    ]);
+
+    return projectService.list(db);
+  },
 };
 
 export default projectService;
