@@ -86,7 +86,7 @@
   --theme-ink: #ffffff;
   /* the Facile green; main's page background is oklch(90.056% 0.03508 164.238), this is a stronger take for dark */
   --theme-brand: oklch(77.137% 0.13747 158.845);
-  --glow-strength: 5%;
+  --glow-strength: 0%;
   --theme-danger: #fca5a5;
   --theme-success: #4ade80;
   --theme-warning: #fbbf24;
