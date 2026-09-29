@@ -38,7 +38,7 @@ const toProject = ({
   bucket,
   ...project
 }: ProjectRow): ProjectEntry =>
-  // Prisma cannot see inside Json columns, only import-projects.ts and the backoffice write them, in this shape
+  // Prisma cannot see inside Json columns, only the project_content migration and the backoffice write them, in this shape
   ({
     ...project,
     ...present({ link, video, coverEffect, challenge }),
