@@ -232,7 +232,7 @@
 								<td class="px-6 py-4">
 									<button
 										onclick={() => handleToggleRole(user.id, user.role)}
-										class="px-3 py-1 rounded-lg text-xs font-bold transition-colors {user.role === 'ADMIN' ? 'bg-stone-700/5 text-white hover:bg-stone-700/5' : 'bg-white/[0.05] text-white/80 hover:bg-stone-700/5'}"
+										class="px-3 py-1 rounded-lg text-xs font-bold transition-colors {user.role === 'ADMIN' ? 'bg-stone-700/10 text-white hover:bg-stone-700/10' : 'bg-white/[0.05] text-white/80 hover:bg-stone-700/10'}"
 									>
 										{user.role}
 									</button>

@@ -24,7 +24,7 @@
 	<button
 		type="button"
 		onclick={() => member.socials.push({ label: '', href: '' })}
-		class="p flex items-center gap-2 px-4 py-2 rounded-xl bg-white/[0.05] text-white/80 hover:bg-stone-700/5"
+		class="p flex items-center gap-2 px-4 py-2 rounded-xl bg-white/[0.05] text-white/80 hover:bg-stone-700/10"
 	>
 		<iconify-icon icon="lucide:circle-plus" width="16"></iconify-icon>
 		Ajouter un réseau

@@ -68,7 +68,7 @@ export default function Heading({ lines, filter = null, count = 0, onFilter }: H
                                         type="button"
                                         onClick={() => onFilter(e.value)}
                                         aria-pressed={on}
-                                        className={`chip flex w-fit shrink-0 items-center gap-2 whitespace-nowrap font-bb-mono tracking-tight font-medium uppercase transition-colors duration-300 ${on ? "bg-white/15 text-white" : "text-white/60 hover:bg-stone-700/5 hover:text-white"}`}
+                                        className={`chip flex w-fit shrink-0 items-center gap-2 whitespace-nowrap font-bb-mono tracking-tight font-medium uppercase transition-colors duration-300 ${on ? "bg-white/15 text-white" : "text-white/60 hover:bg-stone-700/10 hover:text-white"}`}
                                     >
                                         {e.label}
                                     </button>
