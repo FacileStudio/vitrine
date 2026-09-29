@@ -4,6 +4,7 @@
 	import { goto } from '$app/navigation';
 	import 'iconify-icon';
 	import { MobileNav, SideBar } from '$lib/muse';
+	import Glow from '$lib/components/Glow.svelte';
 	import { icons } from '$lib/icons';
 	import { logger } from '@repo/logger';
 	import { trpc } from '$lib/trpc';
@@ -59,6 +60,8 @@
 </script>
 
 {#if ready}
+	<Glow />
+
 	<div class="min-h-dvh md:flex">
 		<aside class="hidden md:block sticky top-0 h-dvh shrink-0">
 			<SideBar

@@ -84,8 +84,9 @@
   --theme-page: #050505;
   --theme-popover: #111111;
   --theme-ink: #ffffff;
-  /* the Facile green, the vitrine's own page background on main */
+  /* the Facile green; main's page background is oklch(90.056% 0.03508 164.238), this is a stronger take for dark */
   --theme-brand: oklch(77.137% 0.13747 158.845);
+  --glow-strength: 5%;
   --theme-danger: #fca5a5;
   --theme-success: #4ade80;
   --theme-warning: #fbbf24;
@@ -99,6 +100,7 @@
     --theme-popover: #ffffff;
     --theme-ink: #0c0a09;
     --theme-brand: oklch(45% 0.07 164.238);
+    --glow-strength: 22%;
     --theme-danger: #b91c1c;
     --theme-success: #15803d;
     --theme-warning: #b45309;
@@ -111,6 +113,7 @@
   --theme-popover: #ffffff;
   --theme-ink: #0c0a09;
   --theme-brand: oklch(45% 0.07 164.238);
+  --glow-strength: 22%;
   --theme-danger: #b91c1c;
   --theme-success: #15803d;
   --theme-warning: #b45309;
@@ -122,9 +125,13 @@
   body {
     min-height: 100%;
     margin: 0;
-    background: var(--color-page);
     color: var(--color-ink);
     font-family: var(--font-body);
+  }
+
+  /* only html paints the page, a painted body would cover the fixed glow that sits behind the content */
+  html {
+    background: var(--color-page);
   }
 
   html {
