@@ -149,7 +149,7 @@
 							<h4 class="text-xs font-black uppercase tracking-tighter text-slate-400 mb-2 px-3">
 								{category}
 							</h4>
-							<div class="space-y-1">
+							<div class="space-y-8">
 								{#each commands as command (command.id)}
 									{@const globalIndex = filteredCommands.indexOf(command)}
 									<button

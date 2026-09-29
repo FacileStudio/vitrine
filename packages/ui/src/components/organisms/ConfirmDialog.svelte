@@ -27,7 +27,7 @@
 </script>
 
 <Modal open={isOpen} title={title} onClose={handleCancel} class={className}>
-    <div class="text-center space-y-6">
+    <div class="text-center space-y-8">
         <div class={`w-16 h-16 rounded-2xl flex items-center justify-center mx-auto ${accentBgClass}`}>
             <iconify-icon
                 icon={variant === 'danger' ? 'lucide:triangle-alert' : 'lucide:circle-help'}
