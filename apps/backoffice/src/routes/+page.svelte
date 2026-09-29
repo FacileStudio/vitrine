@@ -24,7 +24,7 @@
       localStorage.setItem('token', result.token);
       await goto('/admin/projects');
     } catch (err) {
-      error = 'E-mail ou mot de passe incorrect';
+      error = 'Wrong email or password';
     }
     loading = false;
   }
@@ -36,14 +36,14 @@
       <img src="/logo.png" alt="Facile." class="size-12 rounded-md" />
       <div>
         <h1 class="title text-ink">Facile. backoffice</h1>
-        <p class="page-description">Connectez-vous pour gérer le site</p>
+        <p class="page-description">Sign in to manage the site</p>
       </div>
     </div>
 
     <form on:submit|preventDefault={handleLogin} class="panel p-6 space-y-3">
       <label class="field">
         <iconify-icon icon="lucide:mail" width="16" class="text-faint"></iconify-icon>
-        <input type="email" bind:value={email} placeholder="E-mail" autocomplete="email" required class="field-input" />
+        <input type="email" bind:value={email} placeholder="Email" autocomplete="email" required class="field-input" />
       </label>
 
       <label class="field">
@@ -51,7 +51,7 @@
         <input
           type="password"
           bind:value={password}
-          placeholder="Mot de passe"
+          placeholder="Password"
           autocomplete="current-password"
           required
           class="field-input"
@@ -64,7 +64,7 @@
 
       <button type="submit" disabled={loading} class="btn btn-primary w-full">
         <iconify-icon icon="lucide:log-in" width="16"></iconify-icon>
-        {loading ? 'Connexion...' : 'Se connecter'}
+        {loading ? 'Signing in...' : 'Sign in'}
       </button>
     </form>
   </div>

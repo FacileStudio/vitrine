@@ -11,7 +11,7 @@
 	const missing = (code: Locale) => ![member.description[code], member.bio[code]].every((text) => text?.trim());
 </script>
 
-<Section title="Textes" icon="lucide:languages">
+<Section title="Texts" icon="lucide:languages">
 	{#snippet actions()}
 		<div class="segmented w-fit">
 			{#each LOCALES as code (code)}
@@ -19,7 +19,7 @@
 					type="button"
 					onclick={() => (locale = code)}
 					aria-pressed={locale === code}
-					title={missing(code) ? 'Traduction incomplète' : undefined}
+					title={missing(code) ? 'Translation incomplete' : undefined}
 					class="segmented-item subtext uppercase px-3 gap-1.5"
 				>
 					{code}
@@ -34,22 +34,22 @@
 	<textarea
 		bind:value={member.description[locale]}
 		rows="3"
-		placeholder="Description courte, affichée sur la page studio"
+		placeholder="Short description, shown on the studio page"
 		title="Description"
 		class="{inputClass} block resize-none"
 	></textarea>
 	<textarea
 		bind:value={member.bio[locale]}
 		rows="5"
-		placeholder="Bio, affichée sur la page du membre"
+		placeholder="Bio, shown on the member page"
 		title="Bio"
 		class="{inputClass} block resize-none"
 	></textarea>
 
 	{#key locale}
 		<div class="grid gap-1 sm:grid-cols-2">
-			<LinesInput bind:value={member.labels[locale]} placeholder="Compétences, une par ligne" />
-			<LinesInput bind:value={member.facts[locale]} placeholder="Anecdotes, une par ligne" />
+			<LinesInput bind:value={member.labels[locale]} placeholder="Skills, one per line" />
+			<LinesInput bind:value={member.facts[locale]} placeholder="Fun facts, one per line" />
 		</div>
 	{/key}
 </Section>

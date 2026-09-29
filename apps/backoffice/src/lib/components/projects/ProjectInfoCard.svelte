@@ -25,24 +25,24 @@
 	<header class="flex flex-wrap items-center justify-between gap-4">
 		<input
 			bind:value={project.name}
-			placeholder="Nom du projet"
-			aria-label="Nom du projet"
+			placeholder="Project name"
+			aria-label="Project name"
 			class="title flex-1 min-w-64 bg-transparent text-ink outline-none rounded-md px-3 -mx-2 py-1 placeholder:text-ghost hover:bg-white/[0.03] focus:bg-raised-hover"
 		/>
 
 		<div class="flex flex-wrap items-center gap-1">
-			<label class="field w-64" title="Lien du projet">
+			<label class="field w-64" title="Project link">
 				<iconify-icon icon="lucide:link" width="14" class="text-faint"></iconify-icon>
 				<input bind:value={project.link} placeholder="https://" class="field-input" />
 			</label>
-			<label class="field w-28" title="Année">
+			<label class="field w-28" title="Year">
 				<iconify-icon icon="lucide:calendar" width="14" class="text-faint"></iconify-icon>
 				<input bind:value={project.date} placeholder="2026" class="field-input" />
 			</label>
-			<label class="field w-32" title="Durée en semaines">
+			<label class="field w-32" title="Duration in weeks">
 				<iconify-icon icon="lucide:clock" width="14" class="text-faint"></iconify-icon>
 				<input type="number" min="1" bind:value={project.weeks} class="p w-12 bg-transparent text-ink outline-none" />
-				<span class="subtext text-faint">sem.</span>
+				<span class="subtext text-faint">wk</span>
 			</label>
 		</div>
 	</header>
@@ -51,7 +51,14 @@
 		<ImageUpload bind:value={project.image} />
 
 		<div class="flex flex-col gap-1 min-w-0">
-			<div class="flex-1 flex flex-col rounded-md bg-raised">
+			<div class="relative isolate overflow-hidden flex-1 flex flex-col rounded-md bg-raised">
+				<img
+					src={siteAsset(project.image)}
+					alt=""
+					aria-hidden="true"
+					class="absolute -z-10 -top-1/3 left-0 w-full h-full pointer-events-none object-cover saturate-150 opacity-40 blur-[100px]"
+					onerror={(e) => e.currentTarget.remove()}
+				/>
 				<div class="flex items-center justify-between gap-3 p-2 pb-0">
 					<div class="segmented w-fit bg-transparent">
 						{#each LOCALES as code (code)}
@@ -59,7 +66,7 @@
 								type="button"
 								onclick={() => (locale = code)}
 								aria-pressed={locale === code}
-								title={project.description[code]?.trim() ? undefined : 'Pas encore traduit'}
+								title={project.description[code]?.trim() ? undefined : 'Not translated yet'}
 								class="segmented-item subtext uppercase px-3 gap-1.5"
 							>
 								{code}
@@ -69,11 +76,11 @@
 							</button>
 						{/each}
 					</div>
-					<span class="subtext text-faint pr-2">{project.description[locale]?.length ?? 0} caractères</span>
+					<span class="subtext text-faint pr-2">{project.description[locale]?.length ?? 0} characters</span>
 				</div>
 				<textarea
 					bind:value={project.description[locale]}
-					placeholder="Description du projet..."
+					placeholder="Project description..."
 					aria-label="Description"
 					class="p flex-1 min-h-40 w-full resize-none bg-transparent text-ink outline-none px-4 py-3 placeholder:text-ghost"
 				></textarea>
@@ -85,7 +92,7 @@
 					<MultiSelect
 						bind:selected={project.services}
 						options={(options?.services ?? []).map((value) => ({ value, label: value }))}
-						placeholder="Ajouter des tags"
+						placeholder="Add tags"
 					>
 						{#snippet display(values)}
 							<span class="flex flex-wrap gap-1">
@@ -106,7 +113,7 @@
 						options={(options?.techStack ?? []).map((value) => ({ value, label: value }))}
 						allowNew
 						icon={(name) => siteAsset(`/images/logo/${name}.png`)}
-						placeholder="Ajouter des technos"
+						placeholder="Add tech"
 					>
 						{#snippet display(values)}
 							<TechLogos stack={values} max={12} />
@@ -115,13 +122,13 @@
 				</div>
 			</div>
 
-			<div class="rounded-md bg-raised px-8 py-4 flex items-center gap-3" title="Équipe">
+			<div class="rounded-md bg-raised px-8 py-4 flex items-center gap-3" title="Team">
 				<iconify-icon icon="lucide:users-round" width="16" class="text-faint shrink-0"></iconify-icon>
 				<div class="flex-1 min-w-0">
 					<MultiSelect
 						bind:selected={project.team}
 						options={(options?.members ?? []).map((m) => ({ value: m.slug, label: m.name }))}
-						placeholder="Ajouter l'équipe"
+						placeholder="Add the team"
 					>
 						{#snippet display(values)}
 							<TeamDots team={values} {members} />

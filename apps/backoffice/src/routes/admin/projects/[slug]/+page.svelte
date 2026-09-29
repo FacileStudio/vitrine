@@ -48,7 +48,7 @@
 			load(await trpc.projects.get.query({ slug: page.params.slug! }));
 		} catch (err) {
 			logger.error({ err }, 'Failed to load project');
-			error = 'Projet introuvable';
+			error = 'Project not found';
 		}
 	});
 
@@ -190,7 +190,7 @@
 						<SectionRow slug={project.slug} {section} index={i} {members} />
 						<button
 							type="button"
-							aria-label="Supprimer la section"
+							aria-label="Delete section"
 							onclick={(e) => removeSection(i, e.currentTarget.parentElement)}
 							class="absolute top-1/2 -translate-y-1/2 right-4 flex items-center p-2 rounded-md text-ghost hover:bg-red-500/20 hover:text-danger"
 						>
@@ -207,7 +207,7 @@
 				class="p disabled:opacity-50 bg-raised p-6 rounded-md flex items-center gap-3 text-muted hover:bg-surface-hover hover:text-white"
 			>
 				<iconify-icon icon="lucide:plus" width="18"></iconify-icon>
-				Ajouter une section
+				Add a section
 			</button>
 		</div>
 	{/if}

@@ -49,7 +49,7 @@
 		{#if open}
 			{@render actions?.()}
 		{/if}
-		<button type="button" onclick={toggle} aria-label={open ? 'Replier' : 'Déplier'} class="btn-icon">
+		<button type="button" onclick={toggle} aria-label={open ? 'Collapse' : 'Expand'} class="btn-icon">
 			<iconify-icon icon="lucide:chevron-down" width="16" class={open ? 'rotate-180' : ''}></iconify-icon>
 		</button>
 	</div>

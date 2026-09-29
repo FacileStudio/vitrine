@@ -25,7 +25,7 @@
 		{#if item.kind === 'note' && item.title?.en}
 			<span class="subtext text-muted line-clamp-2">{item.title.en}</span>
 		{:else if (item.kind === 'image' || item.kind === 'video') && !item.src}
-			<span class="subtext text-faint">Aucun fichier</span>
+			<span class="subtext text-faint">No file</span>
 		{/if}
 	</div>
 {/if}

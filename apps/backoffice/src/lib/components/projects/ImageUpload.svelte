@@ -33,7 +33,7 @@
 			value = await uploadFileSimple(file, uploadUrl);
 		} catch (err) {
 			logger.error({ err }, 'Upload failed');
-			error = "Erreur lors de l'upload";
+			error = 'Upload failed';
 		} finally {
 			uploading = false;
 			preview = null;
@@ -52,13 +52,13 @@
 		{:else}
 			<div class="flex flex-col items-center justify-center h-full gap-2 text-faint">
 				<iconify-icon icon="lucide:cloud-upload" width="36"></iconify-icon>
-				<span class="subtext">Cliquez ou déposez un fichier</span>
+				<span class="subtext">Click or drop a file</span>
 			</div>
 		{/if}
 
 		{#if uploading}
 			<div class="absolute inset-0 flex items-center justify-center">
-				<span class="subtext rounded-md bg-black/70 px-3 py-1.5 text-ink">Envoi…</span>
+				<span class="subtext rounded-md bg-black/70 px-3 py-1.5 text-ink">Uploading…</span>
 			</div>
 		{/if}
 
@@ -66,7 +66,7 @@
 			<button
 				type="button"
 				onclick={() => (value = '')}
-				aria-label="Retirer le fichier"
+				aria-label="Remove file"
 				class="absolute top-2 right-2 z-10 rounded-full bg-black/70 p-2 text-soft opacity-0 group-hover:opacity-100 hover:text-danger"
 			>
 				<iconify-icon icon="lucide:trash-2" width="16"></iconify-icon>

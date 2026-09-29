@@ -31,7 +31,7 @@
 			load(await trpc.studio.get.query({ slug: page.params.slug! }));
 		} catch (err) {
 			logger.error({ err }, 'Failed to load studio member');
-			error = 'Membre introuvable';
+			error = 'Member not found';
 			return;
 		}
 
@@ -48,7 +48,7 @@
 			const issues: Array<{ path: (string | number)[] }> = JSON.parse((err as Error).message);
 			return `Champs invalides : ${issues.map((issue) => issue.path.join('.')).join(', ')}`;
 		} catch {
-			return "Erreur lors de l'enregistrement";
+			return "Could not save";
 		}
 	}
 
@@ -70,10 +70,10 @@
 	}
 </script>
 
-<nav aria-label="Fil d'Ariane" class="p flex items-center gap-2 text-faint">
+<nav aria-label="Breadcrumb" class="p flex items-center gap-2 text-faint">
 	<a href="/admin/studio" class="hover:text-ink">Studio</a>
 	<iconify-icon icon="lucide:chevron-right" width="14" class="text-ghost"></iconify-icon>
-	<span class="text-soft">{member?.name ?? 'Membre'}</span>
+	<span class="text-soft">{member?.name ?? 'Member'}</span>
 </nav>
 
 {#if !member}

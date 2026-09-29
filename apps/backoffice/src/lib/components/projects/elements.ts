@@ -1,20 +1,20 @@
 export const ELEMENTS = [
 	{ kind: 'image', label: 'Image', icon: 'lucide:image', w: 1, h: 1 },
-	{ kind: 'video', label: 'Vidéo', icon: 'lucide:video', w: 1, h: 1 },
+	{ kind: 'video', label: 'Video', icon: 'lucide:video', w: 1, h: 1 },
 	{ kind: 'note', label: 'Note', icon: 'lucide:sticky-note', w: 2, h: 1 },
-	{ kind: 'text', label: 'Texte', icon: 'lucide:text-cursor-input', w: 1, h: 1 },
+	{ kind: 'text', label: 'Text', icon: 'lucide:text-cursor-input', w: 1, h: 1 },
 	{ kind: 'palette', label: 'Palette', icon: 'lucide:palette', w: 2, h: 3 },
-	{ kind: 'typography', label: 'Typographie', icon: 'lucide:type', w: 2, h: 3 },
-	{ kind: 'tiles', label: 'Tuiles', icon: 'lucide:layout-grid', w: 2, h: 3 },
+	{ kind: 'typography', label: 'Typography', icon: 'lucide:type', w: 2, h: 3 },
+	{ kind: 'tiles', label: 'Tiles', icon: 'lucide:layout-grid', w: 2, h: 3 },
 ] as const;
 
 export type ElementKind = (typeof ELEMENTS)[number]['kind'];
 
 // edited from the project info at the top of the page, so they never appear in the library
 export const LOCKED_ELEMENTS = [
-	{ kind: 'cover', label: 'Couverture', icon: 'lucide:star' },
+	{ kind: 'cover', label: 'Cover', icon: 'lucide:star' },
 	{ kind: 'intro', label: 'Intro', icon: 'lucide:file-text' },
-	{ kind: 'end', label: 'Fin', icon: 'lucide:flag' },
+	{ kind: 'end', label: 'End', icon: 'lucide:flag' },
 ] as const;
 
 // the cover and intro only show project info, so their section is edited as a form, not a grid

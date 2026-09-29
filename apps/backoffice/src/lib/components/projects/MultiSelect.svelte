@@ -7,7 +7,7 @@
 	let {
 		options,
 		selected = $bindable(),
-		placeholder = 'Aucun',
+		placeholder = 'None',
 		allowNew = false,
 		icon,
 		display,
@@ -86,7 +86,7 @@
 			<div class="flex gap-2 pt-1">
 				<input
 					bind:value={draft}
-					placeholder="Ajouter…"
+					placeholder="Add…"
 					class={inputClass}
 					onkeydown={(e) => {
 						if (e.key === 'Enter') {
@@ -95,7 +95,7 @@
 						}
 					}}
 				/>
-				<button type="button" onclick={add} class="btn btn-primary px-3" aria-label="Ajouter">+</button>
+				<button type="button" onclick={add} class="btn btn-primary px-3" aria-label="Add">+</button>
 			</div>
 		{/if}
 	</div>

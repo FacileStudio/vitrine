@@ -14,13 +14,13 @@
 <div class="space-y-4">
 	<ImageUpload
 		bind:value={item.src}
-		label={item.kind === 'video' ? 'Vidéo' : 'Image'}
+		label={item.kind === 'video' ? 'Video' : 'Image'}
 		accept={item.kind === 'video' ? 'video/*' : 'image/*'}
 	/>
 
 	{#if choices.length}
 		<div class="space-y-2">
-			<span class="lead text-soft">Galerie du projet</span>
+			<span class="lead text-soft">Project gallery</span>
 			<div class="grid grid-cols-4 gap-1">
 				{#each choices as src (src)}
 					<button

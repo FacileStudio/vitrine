@@ -10,7 +10,7 @@
 </script>
 
 <div class="space-y-2">
-	<span class="lead text-soft">Taille</span>
+	<span class="lead text-soft">Size</span>
 	<div class="grid grid-cols-4 gap-1 w-max">
 		{#each ROWS as rows (rows)}
 			{#each COLS as cols (cols)}
@@ -33,5 +33,5 @@
 			{/each}
 		{/each}
 	</div>
-	<span class="block subtext text-faint">Grisée : la taille déborderait ou couvrirait un autre élément</span>
+	<span class="block subtext text-faint">Greyed: the size would overflow or cover another item</span>
 </div>

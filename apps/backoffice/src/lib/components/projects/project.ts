@@ -27,6 +27,6 @@ export function describe(err: unknown) {
 		const issues: Array<{ path: (string | number)[] }> = JSON.parse(message);
 		return `Champs invalides : ${issues.map((issue) => issue.path.join('.')).join(', ')}`;
 	} catch {
-		return message || "Erreur lors de l'enregistrement";
+		return message || "Could not save";
 	}
 }

@@ -14,10 +14,10 @@
 	<LocaleTabs bind:locale />
 
 	<div class="grid gap-4 sm:grid-cols-2">
-		<Field label="Police">
+		<Field label="Font">
 			<input bind:value={item.font} placeholder="Poppins" class={inputClass} />
 		</Field>
-		<Field label="Famille CSS" hint="Ce que le site applique au texte d'exemple">
+		<Field label="CSS family" hint="What the site applies to the sample text">
 			<input bind:value={item.fontFamily} placeholder="var(--font-poppins), sans-serif" class={inputClass} />
 		</Field>
 	</div>
@@ -29,16 +29,16 @@
 	{/if}
 
 	<div class="grid gap-4 sm:grid-cols-2">
-		<Field label="Seconde police" hint="Remplie, le site affiche une paire de polices">
+		<Field label="Second font" hint="When filled, the site shows a font pair">
 			<input bind:value={item.secondFont} class={inputClass} />
 		</Field>
-		<Field label="Seconde famille CSS">
+		<Field label="Second CSS family">
 			<input bind:value={item.secondFontFamily} class={inputClass} />
 		</Field>
 	</div>
 
 	{#if item.secondFont && item.secondDescription}
-		<Field label="Seconde description">
+		<Field label="Second description">
 			<textarea bind:value={item.secondDescription[locale]} rows="3" class={inputClass}></textarea>
 		</Field>
 	{/if}

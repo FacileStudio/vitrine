@@ -14,13 +14,13 @@
 	<LocaleTabs bind:locale />
 
 	{#if item.kind === 'note' && item.title}
-		<Field label="Titre">
+		<Field label="Title">
 			<input bind:value={item.title[locale]} class={inputClass} />
 		</Field>
 	{/if}
 
 	{#if item.text}
-		<Field label="Texte">
+		<Field label="Text">
 			<textarea bind:value={item.text[locale]} rows="5" class={inputClass}></textarea>
 		</Field>
 	{/if}

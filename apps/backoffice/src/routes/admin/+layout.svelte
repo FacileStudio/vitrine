@@ -21,8 +21,8 @@
 		{ href: '/admin/projects', icon: 'lucide:folder-kanban', label: 'Projects', highlight: 'var(--color-accent-projects)' },
 		{ href: '/admin/studio', icon: 'lucide:users-round', label: 'Studio', highlight: 'var(--color-accent-studio)' },
 		{ href: '/admin/contacts', icon: 'lucide:mail', label: 'Contacts', highlight: 'var(--color-accent-contacts)' },
-		{ href: '/admin/statistics', icon: 'lucide:chart-column', label: 'Statistiques', highlight: 'var(--color-accent-statistics)' },
-		{ href: '/admin/users', icon: 'lucide:shield-user', label: 'Comptes', highlight: 'var(--color-accent-users)' },
+		{ href: '/admin/statistics', icon: 'lucide:chart-column', label: 'Statistics', highlight: 'var(--color-accent-statistics)' },
+		{ href: '/admin/users', icon: 'lucide:shield-user', label: 'Accounts', highlight: 'var(--color-accent-users)' },
 	];
 
 	let currentPath = $derived($page.url.pathname);
@@ -44,12 +44,8 @@
 					<a
 						href={item.href}
 						aria-current={active ? 'page' : undefined}
-						class="p flex items-center gap-3 px-3 py-2.5 relative overflow-hidden rounded-sm {active ? 'bg-stone-700/10 text-white' : 'text-muted hover:bg-white/[0.05] hover:text-white'}"
+						class="p flex items-center gap-3 px-6 py-4 relative overflow-hidden rounded-sm {active ? 'bg-stone-700/50 text-white' : 'text-muted hover:bg-white/[0.05] hover:text-white'}"
 					>
-                        <div
-                            style:background-color={item.highlight}
-                            class="{active ? 'opacity-15' : 'opacity-0'} absolute top-0 -translate-1/2  left-0 w-80 rounded-full blur-3xl z-0 aspect-square"
-                        ></div> 
 						<iconify-icon icon={item.icon} width="18"></iconify-icon>
 						{item.label}
 					</a>
@@ -59,7 +55,7 @@
 			<div class="p-3 space-y-1">
 				<a href="/profile" class="p flex items-center gap-3 px-3 py-2.5 rounded-md text-muted hover:bg-white/[0.05] hover:text-ink">
 					<iconify-icon icon="lucide:circle-user-round" width="18"></iconify-icon>
-					Profil
+					Profile
 				</a>
 				<button
 					type="button"
@@ -70,7 +66,7 @@
 					class="p w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-faint hover:bg-danger-surface hover:text-danger"
 				>
 					<iconify-icon icon="lucide:log-out" width="18"></iconify-icon>
-					Déconnexion
+					Sign out
 				</button>
 			</div>
 		</aside>

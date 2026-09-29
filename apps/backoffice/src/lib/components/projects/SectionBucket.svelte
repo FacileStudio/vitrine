@@ -27,7 +27,7 @@
 		<iconify-icon icon="lucide:inbox" width="16" class="text-faint"></iconify-icon>
 		<span class="lead text-ink">Bucket</span>
 		<span class="subtext rounded-sm bg-white/10 px-1.5 py-0.5 text-white/70">{bucket.length}</span>
-		<span class="subtext text-faint">Partagé entre les sections, rien n'est perdu</span>
+		<span class="subtext text-faint">Shared between sections, nothing is lost</span>
 	</header>
 
 	<div class="flex gap-1">
@@ -52,7 +52,7 @@
 		{#each bucket as item (item.id)}
 			<div
 				role="button"
-				aria-label="Modifier {item.kind}"
+				aria-label="Edit {item.kind}"
 				draggable="true"
 				ondragstart={(e) => startDrag(e, { from: 'bucket', id: item.id, w: item.w, h: item.h })}
 				ondragend={endDrag}
@@ -73,14 +73,14 @@
 		{:else}
 			<span class="m-auto subtext text-ghost flex items-center gap-2">
 				<iconify-icon icon="lucide:arrow-down-to-line" width="14"></iconify-icon>
-				Glissez ici un élément de la grille pour le mettre de côté
+				Drop a grid item here to set it aside
 			</span>
 		{/each}
 	</div>
 
 	<div
 		role="region"
-		aria-label="Corbeille"
+		aria-label="Trash"
 		class="w-28 shrink-0 rounded-md flex flex-col items-center justify-center gap-1 {overTrash && trashable
 			? 'bg-red-500/20 text-danger'
 			: 'bg-surface-hover text-ghost'}"
@@ -100,7 +100,7 @@
 		}}
 	>
 		<iconify-icon icon="lucide:trash-2" width="24"></iconify-icon>
-		<span class="subtext">Supprimer</span>
+		<span class="subtext">Delete</span>
 	</div>
 	</div>
 </section>

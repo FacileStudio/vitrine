@@ -15,7 +15,7 @@
 			overview = await trpc.statistics.overview.query();
 		} catch (err) {
 			logger.error({ err }, 'Failed to load statistics');
-			error = 'Erreur chargement des statistiques';
+			error = 'Could not load the statistics';
 		}
 	});
 
@@ -24,10 +24,10 @@
 	const stats = $derived(
 		overview
 			? [
-					{ label: 'Visites', value: overview.counters.totalVisits, icon: 'lucide:eye', note: `${today?.visits ?? 0} aujourd'hui` },
-					{ label: 'Visiteurs uniques', value: overview.counters.totalUniqueVisitors, icon: 'lucide:users-round', note: `${today?.uniqueVisitors ?? 0} aujourd'hui` },
-					{ label: 'Visiteurs par jour', value: overview.counters.avgVisitorsPerDay, icon: 'lucide:calendar', note: 'Moyenne sur 14 jours' },
-					{ label: 'Messages reçus', value: overview.counters.totalContacts, icon: 'lucide:mail', note: 'Depuis le formulaire' },
+					{ label: 'Visits', value: overview.counters.totalVisits, icon: 'lucide:eye', note: `${today?.visits ?? 0} today` },
+					{ label: 'Unique visitors', value: overview.counters.totalUniqueVisitors, icon: 'lucide:users-round', note: `${today?.uniqueVisitors ?? 0} today` },
+					{ label: 'Visitors per day', value: overview.counters.avgVisitorsPerDay, icon: 'lucide:calendar', note: 'Average over 14 days' },
+					{ label: 'Messages received', value: overview.counters.totalContacts, icon: 'lucide:mail', note: 'From the contact form' },
 				]
 			: []
 	);
@@ -35,10 +35,10 @@
 
 <header class="page-header">
 	<div>
-		<h1 class="title text-ink">Statistiques</h1>
-		<p class="page-description">Fréquentation du site vitrine</p>
+		<h1 class="title text-ink">Statistics</h1>
+		<p class="page-description">Traffic on the showcase site</p>
 	</div>
-	<span class="chip"><iconify-icon icon="lucide:calendar-range" width="12"></iconify-icon>14 derniers jours</span>
+	<span class="chip"><iconify-icon icon="lucide:calendar-range" width="12"></iconify-icon>Last 14 days</span>
 </header>
 
 {#if error}
@@ -69,8 +69,8 @@
 		<section use:enter class="panel">
 			<header class="panel-header pt-4">
 				<iconify-icon icon="lucide:chart-area" width="16" class="text-faint"></iconify-icon>
-				<h2 class="lead text-ink">Visites</h2>
-				<span class="subtext text-faint">par jour</span>
+				<h2 class="lead text-ink">Visits</h2>
+				<span class="subtext text-faint">per day</span>
 			</header>
 			<div class="px-3 pb-3">
 				<AreaChart data={overview.series} x="label" y="visits" color="#ffffff" height={280} />
@@ -80,8 +80,8 @@
 		<section use:enter class="panel">
 			<header class="panel-header pt-4">
 				<iconify-icon icon="lucide:chart-column" width="16" class="text-faint"></iconify-icon>
-				<h2 class="lead text-ink">Visiteurs uniques</h2>
-				<span class="subtext text-faint">par jour</span>
+				<h2 class="lead text-ink">Unique visitors</h2>
+				<span class="subtext text-faint">per day</span>
 			</header>
 			<div class="px-3 pb-3">
 				<BarChart data={overview.series} x="label" y="uniqueVisitors" color="#ffffff" height={280} />

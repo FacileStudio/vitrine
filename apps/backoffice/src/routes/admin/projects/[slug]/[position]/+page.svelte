@@ -61,7 +61,7 @@
 			.then(load)
 			.catch((err) => {
 				logger.error({ err }, 'Failed to load project');
-				error = 'Projet introuvable';
+				error = 'Project not found';
 			});
 	});
 
@@ -77,9 +77,9 @@
 
 		return [
 			{ icon: 'lucide:grid-2x2', label: `${Math.max(1, trimmed(section.layout).cols)}×${ROWS}` },
-			{ icon: 'lucide:layers', label: `${items} élément${items > 1 ? 's' : ''}` },
-			{ icon: 'lucide:image', label: `${media} média${media > 1 ? 's' : ''}` },
-			{ icon: 'lucide:inbox', label: `${project.bucket.length} dans le bucket` },
+			{ icon: 'lucide:layers', label: `${items} item${items > 1 ? 's' : ''}` },
+			{ icon: 'lucide:image', label: `${media} media` },
+			{ icon: 'lucide:inbox', label: `${project.bucket.length} in the bucket` },
 		];
 	});
 
@@ -142,7 +142,7 @@
 <svelte:window onkeydown={walk} />
 
 <div class="space-y-6">
-	<nav aria-label="Fil d'Ariane" class="p flex items-center gap-2 text-faint">
+	<nav aria-label="Breadcrumb" class="p flex items-center gap-2 text-faint">
 		<a href="/admin/projects" class="hover:text-ink">Projects</a>
 		<iconify-icon icon="lucide:chevron-right" width="14" class="text-white/25"></iconify-icon>
 		<a href="/admin/projects/{slug}" class="hover:text-ink">{project?.name ?? 'Projet'}</a>
@@ -157,14 +157,14 @@
 			<Spinner size="xl" />
 		</div>
 	{:else if !section}
-		<p class="alert"><iconify-icon icon="lucide:circle-alert" width="16"></iconify-icon>Section introuvable</p>
+		<p class="alert"><iconify-icon icon="lucide:circle-alert" width="16"></iconify-icon>Section not found</p>
 	{:else}
 		<SaveBar {dirty} {saving} error={saveError} onsave={saveStory} />
 
 		<header class="flex flex-wrap items-end justify-between gap-6">
 			<div class="min-w-0 space-y-3">
 				<h1 class="title text-ink truncate">
-					{isInfoSection(section) ? 'Couverture & intro' : (section.title?.en ?? 'Sans titre')}
+					{isInfoSection(section) ? 'Cover & intro' : (section.title?.en ?? 'Untitled')}
 				</h1>
 				
 			</div>
@@ -175,12 +175,12 @@
 					<MultiSelect
 						bind:selected={project.story[position].by!}
 						options={(options?.members ?? []).map((m) => ({ value: m.slug, label: m.name }))}
-						placeholder="Aucune équipe"
+						placeholder="No team"
 					/>
 				</div>
 
 				<div class="flex items-center rounded-md bg-raised p-1">
-					{#each [{ to: position - 1, icon: 'lucide:chevron-left', label: 'Section précédente' }, { to: position + 1, icon: 'lucide:chevron-right', label: 'Section suivante' }] as nav, n (nav.icon)}
+					{#each [{ to: position - 1, icon: 'lucide:chevron-left', label: 'Previous section' }, { to: position + 1, icon: 'lucide:chevron-right', label: 'Next section' }] as nav, n (nav.icon)}
 						{#if n === 1}
 							<span class="subtext px-2 text-muted tabular-nums">{position + 1} / {project.story.length}</span>
 						{/if}

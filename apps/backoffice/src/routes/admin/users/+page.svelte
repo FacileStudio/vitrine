@@ -47,7 +47,7 @@
 	});
 
 	const handleDelete = async (id: string, name: string) => {
-		if (!confirm(`Supprimer ${name} ? Cette action est définitive.`)) return;
+		if (!confirm(`Delete ${name}? This cannot be undone.`)) return;
 		try {
 			await trpc.user.delete.mutate({ id });
 			users = users.filter(u => u.id !== id);
@@ -82,7 +82,7 @@
 	};
 
 	const handleUnban = async (id: string) => {
-		if (!confirm('Rétablir ce compte ?')) return;
+		if (!confirm('Restore this account?')) return;
 		try {
 			await trpc.user.unban.mutate({ id });
 			await fetchUsers();
@@ -104,15 +104,15 @@
 	};
 
 	const STATUS: Record<string, { label: string; tone: string }> = {
-		ACTIVE: { label: 'Actif', tone: 'bg-success-surface text-success' },
-		PENDING: { label: 'En attente', tone: 'bg-white/10 text-soft' },
-		SUSPENDED: { label: 'Suspendu', tone: 'bg-white/10 text-warning' },
-		BANNED: { label: 'Banni', tone: 'bg-danger-surface text-danger' },
+		ACTIVE: { label: 'Active', tone: 'bg-success-surface text-success' },
+		PENDING: { label: 'Pending', tone: 'bg-white/10 text-soft' },
+		SUSPENDED: { label: 'Suspended', tone: 'bg-white/10 text-warning' },
+		BANNED: { label: 'Banned', tone: 'bg-danger-surface text-danger' },
 	};
 
 	function formatDate(date: Date | string | null) {
 		if (!date) return '-';
-		return new Intl.DateTimeFormat('fr-FR', { day: '2-digit', month: 'short', year: 'numeric' }).format(new Date(date));
+		return new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }).format(new Date(date));
 	}
 
 	let searchTerm = $derived(searchQuery.toLowerCase().trim());
@@ -126,33 +126,33 @@
 <header class="page-header">
 	<div>
 		<div class="flex items-baseline gap-3">
-			<h1 class="title text-ink">Comptes</h1>
+			<h1 class="title text-ink">Accounts</h1>
 			<span class="badge">{users.length}</span>
 		</div>
-		<p class="page-description">Les personnes qui peuvent se connecter au backoffice</p>
+		<p class="page-description">The people who can sign in to the backoffice</p>
 	</div>
 
 	<div class="flex flex-wrap items-center gap-1">
 		<label class="field w-72">
 			<iconify-icon icon="lucide:search" width="16" class="text-faint"></iconify-icon>
-			<input bind:value={searchQuery} placeholder="Nom, e-mail..." class="field-input" />
+			<input bind:value={searchQuery} placeholder="Name, email..." class="field-input" />
 		</label>
 		<label class="field">
 			<iconify-icon icon="lucide:activity" width="14" class="text-faint"></iconify-icon>
 			<select bind:value={filters.status} class="field-select">
-				<option value="all">Tous les statuts</option>
-				<option value="active">Actifs</option>
-				<option value="suspended">Suspendus</option>
-				<option value="banned">Bannis</option>
-				<option value="pending">En attente</option>
+				<option value="all">All statuses</option>
+				<option value="active">Active</option>
+				<option value="suspended">Suspended</option>
+				<option value="banned">Banned</option>
+				<option value="pending">Pending</option>
 			</select>
 		</label>
 		<label class="field">
 			<iconify-icon icon="lucide:shield" width="14" class="text-faint"></iconify-icon>
 			<select bind:value={filters.role} class="field-select">
-				<option value="all">Tous les rôles</option>
+				<option value="all">All roles</option>
 				<option value="admin">Admins</option>
-				<option value="user">Utilisateurs</option>
+				<option value="user">Users</option>
 			</select>
 		</label>
 	</div>
@@ -162,9 +162,9 @@
 	<div class="grid gap-1 sm:grid-cols-2 xl:grid-cols-4">
 		{#each [
 			{ label: 'Total', value: stats.totalUsers, icon: 'lucide:users' },
-			{ label: 'Actifs', value: stats.activeUsers, icon: 'lucide:user-check' },
-			{ label: 'Suspendus', value: stats.suspendedUsers, icon: 'lucide:clock' },
-			{ label: 'Bannis', value: stats.bannedUsers, icon: 'lucide:user-x' },
+			{ label: 'Active', value: stats.activeUsers, icon: 'lucide:user-check' },
+			{ label: 'Suspended', value: stats.suspendedUsers, icon: 'lucide:clock' },
+			{ label: 'Banned', value: stats.bannedUsers, icon: 'lucide:user-x' },
 		] as stat (stat.label)}
 			<div use:enter class="panel p-5 flex items-center justify-between">
 				<div>
@@ -186,10 +186,10 @@
 {:else if filteredUsers.length > 0}
 	<div class="flex flex-col gap-1">
 		<div class="grid grid-cols-[minmax(0,1fr)_8rem_7rem_8rem_11rem] gap-5 px-3 pr-5">
-			<span class="column-label">Compte</span>
-			<span class="column-label">Statut</span>
-			<span class="column-label">Rôle</span>
-			<span class="column-label">Inscrit le</span>
+			<span class="column-label">Account</span>
+			<span class="column-label">Status</span>
+			<span class="column-label">Role</span>
+			<span class="column-label">Joined</span>
 			<span class="column-label text-right">Actions</span>
 		</div>
 
@@ -209,7 +209,7 @@
 							<p class="lead text-ink flex items-center gap-1.5 truncate">
 								{user.firstName} {user.lastName}
 								{#if user.emailVerified}
-									<iconify-icon icon="lucide:badge-check" width="14" class="text-muted" title="E-mail vérifié"></iconify-icon>
+									<iconify-icon icon="lucide:badge-check" width="14" class="text-muted" title="Email verified"></iconify-icon>
 								{/if}
 							</p>
 							<p class="subtext text-faint truncate">{user.email}</p>
@@ -220,31 +220,31 @@
 
 					<button
 						type="button"
-						title="Changer le rôle"
+						title="Change role"
 						onclick={() => handleToggleRole(user.id, user.role)}
 						class="chip w-fit hover:text-ink {user.role === 'ADMIN' ? 'text-ink' : ''}"
 					>
 						<iconify-icon icon={user.role === 'ADMIN' ? 'lucide:shield-check' : 'lucide:user'} width="12"></iconify-icon>
-						{user.role === 'ADMIN' ? 'Admin' : 'Utilisateur'}
+						{user.role === 'ADMIN' ? 'Admin' : 'User'}
 					</button>
 
 					<span class="p text-muted">{formatDate(user.createdAt)}</span>
 
 					<div class="flex items-center justify-end gap-1">
-						<button type="button" onclick={() => (selectedUserId = user.id)} class="btn-icon" title="Détails" aria-label="Détails">
+						<button type="button" onclick={() => (selectedUserId = user.id)} class="btn-icon" title="Details" aria-label="Details">
 							<iconify-icon icon="lucide:eye" width="16"></iconify-icon>
 						</button>
 						{#if !user.emailVerified}
-							<button type="button" onclick={() => handleVerifyEmail(user.id)} class="btn-icon" title="Vérifier l'e-mail" aria-label="Vérifier l'e-mail">
+							<button type="button" onclick={() => handleVerifyEmail(user.id)} class="btn-icon" title="Verify email" aria-label="Verify email">
 								<iconify-icon icon="lucide:mail-check" width="16"></iconify-icon>
 							</button>
 						{/if}
 						{#if user.status === 'BANNED'}
-							<button type="button" onclick={() => handleUnban(user.id)} class="btn-icon" title="Rétablir" aria-label="Rétablir">
+							<button type="button" onclick={() => handleUnban(user.id)} class="btn-icon" title="Restore" aria-label="Restore">
 								<iconify-icon icon="lucide:shield-check" width="16"></iconify-icon>
 							</button>
 						{:else}
-							<button type="button" onclick={() => (banningUserId = user.id)} class="btn-icon btn-icon-danger" title="Bannir" aria-label="Bannir">
+							<button type="button" onclick={() => (banningUserId = user.id)} class="btn-icon btn-icon-danger" title="Ban" aria-label="Ban">
 								<iconify-icon icon="lucide:shield-alert" width="16"></iconify-icon>
 							</button>
 						{/if}
@@ -252,8 +252,8 @@
 							type="button"
 							onclick={() => handleDelete(user.id, `${user.firstName} ${user.lastName}`)}
 							class="btn-icon btn-icon-danger"
-							title="Supprimer"
-							aria-label="Supprimer"
+							title="Delete"
+							aria-label="Delete"
 						>
 							<iconify-icon icon="lucide:trash-2" width="16"></iconify-icon>
 						</button>
@@ -263,21 +263,21 @@
 				{#if banningUserId === user.id}
 					<div use:enter class="flex items-center gap-3 px-5 pb-4">
 						<iconify-icon icon="lucide:shield-alert" width="18" class="text-danger"></iconify-icon>
-						<p class="p flex-1 text-soft">Bannir ce compte ? Il perd l'accès jusqu'à ce qu'il soit rétabli.</p>
-						<button type="button" onclick={() => handleBan(user.id)} class="btn btn-primary">Bannir</button>
-						<button type="button" onclick={() => (banningUserId = '')} class="btn">Annuler</button>
+						<p class="p flex-1 text-soft">Ban this account? It loses access until it is restored.</p>
+						<button type="button" onclick={() => handleBan(user.id)} class="btn btn-primary">Ban</button>
+						<button type="button" onclick={() => (banningUserId = '')} class="btn">Cancel</button>
 					</div>
 				{/if}
 			</div>
 		{/each}
 
-		<p class="subtext text-faint text-center pt-3">{filteredUsers.length} sur {users.length} comptes</p>
+		<p class="subtext text-faint text-center pt-3">{filteredUsers.length} of {users.length} accounts</p>
 	</div>
 {:else}
 	<div use:enter class="empty-state">
 		<iconify-icon icon="lucide:users" width="28" class="text-ghost"></iconify-icon>
-		<p class="lead text-ink">Aucun compte trouvé</p>
-		<p class="p text-muted">Essayez d'autres filtres ou une autre recherche</p>
+		<p class="lead text-ink">No account found</p>
+		<p class="p text-muted">Try other filters or another search</p>
 	</div>
 {/if}
 

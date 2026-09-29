@@ -22,7 +22,7 @@
 			members = await trpc.studio.list.query();
 		} catch (err) {
 			logger.error({ err }, 'Failed to load studio members');
-			error = 'Erreur chargement du studio';
+			error = 'Could not load the studio';
 		}
 	});
 </script>
@@ -35,12 +35,12 @@
 				<span class="badge">{members.length}</span>
 			{/if}
 		</div>
-		<p class="page-description">Les membres affichés sur la page studio du site</p>
+		<p class="page-description">The members shown on the site's studio page</p>
 	</div>
 
 	<label class="field w-72">
 		<iconify-icon icon="lucide:search" width="16" class="text-faint"></iconify-icon>
-		<input bind:value={query} placeholder="Rechercher un membre..." class="field-input" />
+		<input bind:value={query} placeholder="Search a member..." class="field-input" />
 	</label>
 </header>
 
@@ -53,8 +53,8 @@
 {:else if shown.length === 0}
 	<div use:enter class="empty-state">
 		<iconify-icon icon="lucide:search-x" width="28" class="text-ghost"></iconify-icon>
-		<p class="lead text-ink">Aucun membre ne correspond à « {query} »</p>
-		<button type="button" onclick={() => (query = '')} class="p text-muted hover:text-ink">Effacer la recherche</button>
+		<p class="lead text-ink">No member matches “{query}”</p>
+		<button type="button" onclick={() => (query = '')} class="p text-muted hover:text-ink">Clear search</button>
 	</div>
 {:else}
 	<div class="grid gap-1 sm:grid-cols-2 xl:grid-cols-4">
@@ -80,8 +80,8 @@
                     </div>
     
                     <div class="mt-auto flex justify-end flex-wrap gap-1.5">
-                        <span class="chip"><iconify-icon icon="lucide:folder-kanban" width="12"></iconify-icon>{member.projects.length} projets</span>
-                        <span class="chip"><iconify-icon icon="lucide:link" width="12"></iconify-icon>{member.socials.length} réseaux</span>
+                        <span class="chip"><iconify-icon icon="lucide:folder-kanban" width="12"></iconify-icon>{member.projects.length} projects</span>
+                        <span class="chip"><iconify-icon icon="lucide:link" width="12"></iconify-icon>{member.socials.length} links</span>
                         {#if member.suite}
                             <span class="chip"><iconify-icon icon="lucide:sparkles" width="12"></iconify-icon>Suite</span>
                         {/if}

@@ -30,6 +30,11 @@
   --color-raised: rgb(68 64 60 / 0.1);
   --color-raised-hover: rgb(68 64 60 / 0.2);
   --color-pressed: rgb(68 64 60 / 0.5);
+  /* the raised tint already mixed onto the page, for surfaces that move over their neighbours */
+  --color-card: color-mix(in srgb, #44403c 10%, #050505);
+  --color-card-hover: color-mix(in srgb, #ffffff 3%, var(--color-card));
+
+  --duration-hover: 200ms;
   --color-overlay: rgb(0 0 0 / 0.6);
 
   --color-ink: #ffffff;
@@ -76,6 +81,15 @@
 
   option {
     background: var(--color-popover);
+  }
+
+  /* hover colour changes ease in; transform and opacity are left to GSAP, a CSS transition there would fight its tweens */
+  *,
+  ::before,
+  ::after {
+    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke;
+    transition-duration: var(--duration-hover);
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
   }
 }
 

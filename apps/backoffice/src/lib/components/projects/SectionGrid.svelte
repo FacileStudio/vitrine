@@ -70,7 +70,7 @@
 	<header class="flex items-center justify-between gap-4 px-5 py-5">
 		<span class="flex items-center gap-2">
 			<iconify-icon icon="lucide:layout-dashboard" width="16" class="text-faint"></iconify-icon>
-			<span class="lead text-ink">Grille</span>
+			<span class="lead text-ink">Grid</span>
 		</span>
 
 	</header>
@@ -103,7 +103,7 @@
 			<!-- svelte-ignore a11y_no_noninteractive_tabindex: the role is a button exactly when the item is focusable, the check cannot read a conditional role -->
 			<div
 				role={locked(item.kind) ? 'listitem' : 'button'}
-				aria-label={locked(item.kind) ? undefined : `Modifier ${item.kind}`}
+				aria-label={locked(item.kind) ? undefined : `Edit ${item.kind}`}
 				draggable={!locked(item.kind)}
 				ondragstart={(e) => startDrag(e, { from: 'grid', id: item.id, w: item.w, h: item.h })}
 				ondragend={endDrag}
@@ -128,7 +128,7 @@
 						</span>
 						<span class="self-center flex items-center gap-1.5 rounded-md bg-white text-black px-3 py-1.5 subtext">
 							<iconify-icon icon="lucide:pencil" width="12"></iconify-icon>
-							Modifier
+							Edit
 						</span>
 						<span></span>
 					</span>

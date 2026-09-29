@@ -23,7 +23,7 @@
 		if (!dirty || sameEditor || type === 'leave')
 			return;
 
-		if (!confirm('Des modifications ne sont pas enregistrées. Quitter quand même ?'))
+		if (!confirm('Some changes are not saved. Leave anyway?'))
 			cancel();
 	});
 
@@ -57,12 +57,12 @@
 				{error}
 			{:else if status === 'saving'}
 				<iconify-icon use:spin icon="lucide:loader-circle" width="16"></iconify-icon>
-				Enregistrement en cours...
+				Saving...
 			{:else if status === 'dirty'}
 				<span class="size-2 rounded-full bg-amber-400"></span>
-				Modifications non enregistrées
+				Unsaved changes
 			{:else}
-				Aucune modification en attente
+				No pending changes
 			{/if}
 		</span>
 	{/key}
@@ -78,10 +78,10 @@
 		{#key status === 'clean'}
 			{#if status === 'clean'}
 				<iconify-icon use:pop icon="lucide:circle-check" width="16"></iconify-icon>
-				Enregistré
+				Saved
 			{:else}
 				<iconify-icon icon="lucide:save" width="16"></iconify-icon>
-				Enregistrer
+				Save
 				<span class="subtext text-black/45">{mac ? '⌘' : 'Ctrl'} S</span>
 			{/if}
 		{/key}

@@ -102,3 +102,28 @@ export function fold(node: HTMLElement, open: boolean, instant = false) {
 		ease: EASE.sharp,
 	});
 }
+
+// eases between a resting and a hovered look while the enclosing link is hovered
+export function hoverTo(node: HTMLElement, { rest, hover }: { rest: gsap.TweenVars; hover: gsap.TweenVars }) {
+	const host = node.closest('a') ?? node;
+	const go = (vars: gsap.TweenVars) =>
+		gsap.to(node, {
+			...vars,
+			duration: 0.6,
+			ease: EASE.out,
+			overwrite: 'auto',
+		});
+	const enter = () => go(hover);
+	const leave = () => go(rest);
+
+	gsap.set(node, rest);
+	host.addEventListener('mouseenter', enter);
+	host.addEventListener('mouseleave', leave);
+
+	return {
+		destroy: () => {
+			host.removeEventListener('mouseenter', enter);
+			host.removeEventListener('mouseleave', leave);
+		},
+	};
+}

@@ -77,7 +77,7 @@
 								{@const lit = hover !== null && cols <= hover.w && rows <= hover.h}
 								<button
 									type="button"
-									aria-label="{cols} colonnes × {rows} lignes"
+									aria-label="{cols} columns × {rows} rows"
 									onmouseenter={() => (hover = { w: cols, h: rows })}
 									onfocus={() => (hover = { w: cols, h: rows })}
 									onclick={() => pick(element.kind, cols, rows)}
@@ -87,7 +87,7 @@
 						{/each}
 					</div>
 					<p class="subtext text-muted">
-						{hover ? `${hover.w} colonne${hover.w > 1 ? 's' : ''} × ${hover.h} ligne${hover.h > 1 ? 's' : ''}` : 'Survolez pour choisir la taille'}
+						{hover ? `${hover.w} column${hover.w > 1 ? 's' : ''} × ${hover.h} row${hover.h > 1 ? 's' : ''}` : 'Hover to pick a size'}
 					</p>
 				</div>
 			{/if}

@@ -56,7 +56,7 @@
 				<span class="subtitle text-ink">{element?.label ?? item.kind}</span>
 				<span class="subtext text-faint">{item.w}×{item.h}</span>
 			</span>
-			<button type="button" onclick={() => dialog.close()} aria-label="Fermer" class="text-faint hover:text-ink">
+			<button type="button" onclick={() => dialog.close()} aria-label="Close" class="text-faint hover:text-ink">
 				<iconify-icon icon="lucide:circle-x" width="26"></iconify-icon>
 			</button>
 		</header>
@@ -84,7 +84,7 @@
 				class="btn btn-danger"
 			>
 				<iconify-icon icon="lucide:trash-2" width="16"></iconify-icon>
-				Supprimer
+				Delete
 			</button>
 
 			<span class="flex gap-2">
@@ -97,7 +97,7 @@
 						}}
 						class="btn"
 					>
-						Mettre de côté
+						Set aside
 					</button>
 				{/if}
 				<button type="button" onclick={() => dialog.close()} class="btn btn-primary px-6">

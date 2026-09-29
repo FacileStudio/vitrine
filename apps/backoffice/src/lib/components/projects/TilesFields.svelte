@@ -16,20 +16,20 @@
 
 	{#each item.tiles as tile, i (i)}
 		<div class="flex items-center gap-2">
-			<input bind:value={tile.label[locale]} placeholder="Titre" class={inputClass} />
+			<input bind:value={tile.label[locale]} placeholder="Title" class={inputClass} />
 			<input
 				value={tile.text?.[locale] ?? ''}
 				oninput={(e) => {
 					tile.text ??= empty();
 					tile.text[locale] = e.currentTarget.value;
 				}}
-				placeholder="Texte"
+				placeholder="Text"
 				class={inputClass}
 			/>
-			<input bind:value={tile.icon} placeholder="Icône" class="{inputClass} w-40 shrink-0" />
+			<input bind:value={tile.icon} placeholder="Icon" class="{inputClass} w-40 shrink-0" />
 			<button
 				type="button"
-				aria-label="Supprimer la tuile"
+				aria-label="Delete tile"
 				onclick={() => item.tiles.splice(i, 1)}
 				class="btn-icon btn-icon-danger size-10 shrink-0"
 			>
@@ -44,6 +44,6 @@
 		class="btn w-fit"
 	>
 		<iconify-icon icon="lucide:circle-plus" width="16"></iconify-icon>
-		Ajouter une tuile
+		Add a tile
 	</button>
 </div>

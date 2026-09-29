@@ -24,12 +24,12 @@
 			contacts = await trpc.contact.list.query();
 		} catch (err) {
 			logger.error({ err }, 'Failed to load contacts');
-			error = 'Erreur chargement des contacts';
+			error = 'Could not load the contacts';
 		}
 	});
 
 	async function remove(contact: Contact, row: HTMLElement | null) {
-		if (!confirm(`Supprimer le message de ${contact.firstName} ${contact.lastName} ?`))
+		if (!confirm(`Delete the message from ${contact.firstName} ${contact.lastName}?`))
 			return;
 
 		try {
@@ -43,7 +43,7 @@
 				drop();
 		} catch (err) {
 			logger.error({ err }, 'Failed to delete contact');
-			error = 'Erreur lors de la suppression';
+			error = 'Could not delete';
 		}
 	}
 
@@ -54,7 +54,7 @@
 	}
 
 	const formatDate = (date: Date | string) =>
-		new Intl.DateTimeFormat('fr-FR', { day: '2-digit', month: 'short', year: 'numeric' }).format(new Date(date));
+		new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }).format(new Date(date));
 </script>
 
 <header class="page-header">
@@ -65,12 +65,12 @@
 				<span class="badge">{contacts.length}</span>
 			{/if}
 		</div>
-		<p class="page-description">Messages reçus depuis le formulaire du site</p>
+		<p class="page-description">Messages sent through the site's contact form</p>
 	</div>
 
 	<label class="field w-72">
 		<iconify-icon icon="lucide:search" width="16" class="text-faint"></iconify-icon>
-		<input bind:value={query} placeholder="Rechercher un message..." class="field-input" />
+		<input bind:value={query} placeholder="Search a message..." class="field-input" />
 	</label>
 </header>
 
@@ -87,14 +87,14 @@
 {:else if contacts.length === 0}
 	<div use:enter class="empty-state">
 		<iconify-icon icon="lucide:inbox" width="28" class="text-ghost"></iconify-icon>
-		<p class="lead text-ink">Aucun message pour l'instant</p>
-		<p class="p text-muted">Les messages envoyés via le formulaire du site apparaîtront ici.</p>
+		<p class="lead text-ink">No messages yet</p>
+		<p class="p text-muted">Messages sent through the site's form will show up here.</p>
 	</div>
 {:else if shown.length === 0}
 	<div use:enter class="empty-state">
 		<iconify-icon icon="lucide:search-x" width="28" class="text-ghost"></iconify-icon>
-		<p class="lead text-ink">Aucun message ne correspond à « {query} »</p>
-		<button type="button" onclick={() => (query = '')} class="p text-muted hover:text-ink">Effacer la recherche</button>
+		<p class="lead text-ink">No message matches “{query}”</p>
+		<button type="button" onclick={() => (query = '')} class="p text-muted hover:text-ink">Clear search</button>
 	</div>
 {:else}
 	<div class="flex flex-col gap-1">
@@ -125,11 +125,11 @@
 						<div class="flex flex-wrap items-center gap-2">
 							<a href="mailto:{contact.email}" class="btn btn-primary">
 								<iconify-icon icon="lucide:reply" width="16"></iconify-icon>
-								Répondre
+								Reply
 							</a>
 							<button type="button" onclick={() => copy(contact)} class="btn">
 								<iconify-icon icon={copiedId === contact.id ? 'lucide:check' : 'lucide:copy'} width="16"></iconify-icon>
-								{copiedId === contact.id ? 'Copié' : "Copier l'e-mail"}
+								{copiedId === contact.id ? 'Copied' : 'Copy email'}
 							</button>
 							<button
 								type="button"
@@ -137,7 +137,7 @@
 								class="btn btn-danger"
 							>
 								<iconify-icon icon="lucide:trash-2" width="16"></iconify-icon>
-								Supprimer
+								Delete
 							</button>
 						</div>
 					</div>

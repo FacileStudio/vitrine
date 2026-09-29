@@ -18,7 +18,7 @@
 		<div class="flex items-center gap-2">
 			<input type="color" bind:value={swatch.hex} class="size-10 rounded-md bg-transparent shrink-0 cursor-pointer" />
 			<input bind:value={swatch.hex} placeholder="#000000" class="{inputClass} w-28 shrink-0" />
-			<input bind:value={swatch.label[locale]} placeholder="Nom" class={inputClass} />
+			<input bind:value={swatch.label[locale]} placeholder="Name" class={inputClass} />
 			<input
 				value={swatch.note?.[locale] ?? ''}
 				oninput={(e) => {
@@ -30,7 +30,7 @@
 			/>
 			<button
 				type="button"
-				aria-label="Supprimer la couleur"
+				aria-label="Delete colour"
 				onclick={() => item.swatches.splice(i, 1)}
 				class="btn-icon btn-icon-danger size-10 shrink-0"
 			>
@@ -45,6 +45,6 @@
 		class="btn w-fit"
 	>
 		<iconify-icon icon="lucide:circle-plus" width="16"></iconify-icon>
-		Ajouter une couleur
+		Add a colour
 	</button>
 </div>

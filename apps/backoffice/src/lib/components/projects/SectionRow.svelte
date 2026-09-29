@@ -24,11 +24,11 @@
 >
 	<iconify-icon icon="lucide:grip-vertical" width="16" class="text-ghost"></iconify-icon>
 	<span class="subtext text-faint tabular-nums">{index + 1}</span>
-	<span class="subtitle text-ink truncate">{section.title?.en ?? 'Sans titre'}</span>
-	<span class="chip w-fit tabular-nums" title="Colonnes × lignes">{trimmed(section.layout).cols}×{ROWS}</span>
+	<span class="subtitle text-ink truncate">{section.title?.en ?? 'Untitled'}</span>
+	<span class="chip w-fit tabular-nums" title="Columns × rows">{trimmed(section.layout).cols}×{ROWS}</span>
 	<span class="chip w-fit">
 		<iconify-icon icon="lucide:layers" width="12"></iconify-icon>
-		{section.layout.items.length} élément{section.layout.items.length > 1 ? 's' : ''}
+		{section.layout.items.length} item{section.layout.items.length > 1 ? 's' : ''}
 	</span>
 	<TeamDots team={section.by ?? []} {members} />
 	<span class="flex justify-end gap-1">

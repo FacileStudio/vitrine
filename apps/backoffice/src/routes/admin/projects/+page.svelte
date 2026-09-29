@@ -9,14 +9,14 @@
 	import type { ProjectSummary, StudioMemberSummary } from '$lib/components/projects/types';
 
 	const SORTS = [
-		{ value: 'site', label: 'Ordre du site' },
-		{ value: 'recent', label: 'Plus récents' },
-		{ value: 'name', label: 'Nom' },
+		{ value: 'site', label: 'Site order' },
+		{ value: 'recent', label: 'Newest' },
+		{ value: 'name', label: 'Name' },
 	] as const;
 
 	const VIEWS = [
-		{ value: 'grid', icon: 'lucide:layout-grid', label: 'Grille' },
-		{ value: 'list', icon: 'lucide:list', label: 'Liste' },
+		{ value: 'grid', icon: 'lucide:layout-grid', label: 'Grid' },
+		{ value: 'list', icon: 'lucide:list', label: 'List' },
 	] as const;
 
 	let projects = $state<ProjectSummary[] | null>(null);
@@ -62,7 +62,7 @@
 			projects = await trpc.projects.list.query();
 		} catch (err) {
 			logger.error({ err }, 'Failed to load projects');
-			error = 'Erreur chargement des projets';
+			error = 'Could not load the projects';
 		}
 	});
 
@@ -97,7 +97,7 @@
 					<span class="badge">{projects.length}</span>
 				{/if}
 			</div>
-			<p class="page-description">Les projets affichés sur la page projets du site</p>
+			<p class="page-description">The projects shown on the site's projects page</p>
 		</div>
 
 		<div class="flex flex-wrap items-center gap-1">
@@ -106,7 +106,7 @@
 				<input
 					bind:this={search}
 					bind:value={query}
-					placeholder="Rechercher un projet, une techno..."
+					placeholder="Search a project or a tech..."
 					class="field-input"
 					onkeydown={(e) => {
 						if (e.key === 'Escape') {
@@ -153,8 +153,8 @@
 	{:else if shown.length === 0}
 		<div use:enter class="empty-state">
 			<iconify-icon icon="lucide:search-x" width="28" class="text-ghost"></iconify-icon>
-			<p class="lead text-ink">Aucun projet ne correspond à « {query} »</p>
-			<button type="button" onclick={() => (query = '')} class="p text-muted hover:text-ink">Effacer la recherche</button>
+			<p class="lead text-ink">No project matches “{query}”</p>
+			<button type="button" onclick={() => (query = '')} class="p text-muted hover:text-ink">Clear search</button>
 		</div>
 	{:else if view === 'grid'}
 		<div class="grid gap-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
