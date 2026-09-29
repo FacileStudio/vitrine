@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { trpc } from '$lib/trpc';
-	import { onMount } from 'svelte';
+	import { onMount, tick } from 'svelte';
 	import { Spinner } from '@repo/ui';
 	import { logger } from '@repo/logger';
-	import { enter } from '$lib/motion';
+	import { enter, flip } from '$lib/motion';
+	import { describe } from '$lib/components/projects/project';
 	import ProjectCard from '$lib/components/projects/list/ProjectCard.svelte';
 	import ProjectRow from '$lib/components/projects/list/ProjectRow.svelte';
 	import type { ProjectSummary, StudioMemberSummary } from '$lib/components/projects/types';
@@ -28,6 +29,78 @@
 	let search = $state<HTMLInputElement>();
 
 	// name, description, tags, stack and team all answer a search
+	let reorderError = $state('');
+	let dragged = $state<string | null>(null);
+	let over = $state<string | null>(null);
+	let list = $state<HTMLElement>();
+
+	// dragging only means something in the site's own order with nothing filtered out
+	const canReorder = $derived(sort === 'site' && !query.trim());
+
+	const indexOf = (slug: string) => projects?.findIndex((project) => project.slug === slug) ?? -1;
+
+	async function move(from: string, to: string) {
+		if (!projects || !list || from === to)
+			return;
+
+		const previous = projects;
+		const next = [...projects];
+		const [item] = next.splice(indexOf(from), 1);
+
+		next.splice(previous.findIndex((project) => project.slug === to), 0, item);
+
+		await flip([...list.children], async () => {
+			projects = next;
+			await tick();
+		});
+
+		try {
+			projects = await trpc.projects.reorder.mutate({ slugs: next.map((project) => project.slug) });
+			reorderError = '';
+		} catch (err) {
+			logger.error({ err }, 'Failed to reorder projects');
+			projects = previous;
+			reorderError = describe(err);
+		}
+	}
+
+	function dragProps(slug: string) {
+		return {
+			draggable: canReorder,
+			ondragstart: (e: DragEvent) => {
+				if (!canReorder)
+					return e.preventDefault();
+
+				dragged = slug;
+				e.dataTransfer?.setData('text/plain', slug);
+
+				if (e.dataTransfer) {
+					e.dataTransfer.effectAllowed = 'move';
+					e.dataTransfer.setDragImage(e.currentTarget as Element, 24, 24);
+				}
+			},
+			ondragover: (e: DragEvent) => {
+				if (!dragged)
+					return;
+
+				e.preventDefault();
+				over = slug;
+			},
+			ondrop: (e: DragEvent) => {
+				e.preventDefault();
+
+				if (dragged)
+					move(dragged, slug);
+
+				dragged = over = null;
+			},
+			ondragend: () => (dragged = over = null),
+		};
+	}
+
+	// the bar sits on the side the dragged item will land: after the target when moving forward
+	const landsAfter = (slug: string) => dragged !== null && indexOf(dragged) < indexOf(slug);
+
 	const shown = $derived.by(() => {
 		const needle = query.trim().toLowerCase();
 		const matches = (projects ?? []).filter((p) =>
@@ -97,7 +170,10 @@
 					<span class="badge">{projects.length}</span>
 				{/if}
 			</div>
-			<p class="page-description">The projects shown on the site's projects page</p>
+			<p class="page-description">
+				The projects shown on the site's projects page
+				<span class="text-faint">· {canReorder ? 'drag to reorder' : 'switch to site order and clear the search to reorder'}</span>
+			</p>
 		</div>
 
 		<div class="flex flex-wrap items-center gap-1">
@@ -144,6 +220,9 @@
 		</div>
 	</header>
 
+	{#if reorderError}
+		<p class="alert"><iconify-icon icon="lucide:circle-alert" width="16"></iconify-icon>{reorderError}</p>
+	{/if}
 	{#if error}
 		<p class="alert"><iconify-icon icon="lucide:circle-alert" width="16"></iconify-icon>{error}</p>
 	{:else if !projects}
@@ -157,17 +236,23 @@
 			<button type="button" onclick={() => (query = '')} class="p text-muted hover:text-ink">Clear search</button>
 		</div>
 	{:else if view === 'grid'}
-		<div class="grid gap-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+		<div bind:this={list} class="grid gap-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
 			{#each shown as project (project.slug)}
-				<div use:enter class="flex">
+				<div use:enter {...dragProps(project.slug)} role="listitem" class="relative flex {dragged === project.slug ? 'opacity-40' : ''}">
+					{#if over === project.slug && dragged && dragged !== project.slug}
+						<span class="absolute inset-y-0 z-10 w-0.5 rounded-full bg-ink {landsAfter(project.slug) ? '-right-[3px]' : '-left-[3px]'}"></span>
+					{/if}
 					<ProjectCard {project} {members} />
 				</div>
 			{/each}
 		</div>
 	{:else}
-		<div class="flex flex-col gap-1">
+		<div bind:this={list} class="flex flex-col gap-1">
 			{#each shown as project (project.slug)}
-				<div use:enter>
+				<div use:enter {...dragProps(project.slug)} role="listitem" class="relative {dragged === project.slug ? 'opacity-40' : ''}">
+					{#if over === project.slug && dragged && dragged !== project.slug}
+						<span class="absolute inset-x-0 z-10 h-0.5 rounded-full bg-ink {landsAfter(project.slug) ? '-bottom-[3px]' : '-top-[3px]'}"></span>
+					{/if}
 					<ProjectRow {project} {members} />
 				</div>
 			{/each}
