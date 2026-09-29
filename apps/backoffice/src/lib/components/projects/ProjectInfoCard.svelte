@@ -56,7 +56,7 @@
 					src={siteAsset(project.image)}
 					alt=""
 					aria-hidden="true"
-					class="absolute -z-10 -top-1/3 left-0 w-full h-full pointer-events-none object-cover saturate-150 opacity-40 blur-[100px]"
+					class="absolute -z-10 -top-1/3 left-0 -translate-x-1/2 w-full h-full pointer-events-none object-cover saturate-150 opacity-15 blur-[200px]"
 					onerror={(e) => e.currentTarget.remove()}
 				/>
 				<div class="flex items-center justify-between gap-3 p-2 pb-0">
