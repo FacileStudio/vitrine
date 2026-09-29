@@ -68,7 +68,7 @@
 		<iconify-icon icon="lucide:chevron-down" width="14" class="ml-auto text-faint group-open:rotate-180"></iconify-icon>
 	</summary>
 
-	<div class="absolute z-20 mt-1 w-full min-w-56 max-h-72 overflow-y-auto rounded-project bg-popover p-2 shadow-lg space-y-1">
+	<div class="absolute z-20 mt-1 w-full min-w-56 max-h-72 overflow-y-auto rounded-project bg-popover p-2 shadow-lg space-y-8">
 		{#each all as option (option.value)}
 			<label class="flex items-center gap-3 rounded-project px-2 py-1.5 hover:bg-wash cursor-pointer">
 				<input

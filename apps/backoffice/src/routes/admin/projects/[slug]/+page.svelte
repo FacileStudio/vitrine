@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { trpc } from '$lib/trpc';
+	import Header from '$lib/components/Header.svelte';
 	import { page } from '$app/state';
 	import { onMount, tick } from 'svelte';
 	import { Spinner } from '@repo/ui';
@@ -131,11 +132,8 @@
 	}
 </script>
 
-<div class="space-y-6">
-	<a href="/admin/projects" class="p inline-flex items-center gap-2 text-muted hover:text-ink">
-		<iconify-icon icon="lucide:arrow-left" width="16"></iconify-icon>
-		Projects
-	</a>
+<div class="space-y-8">
+	<Header back={{ href: '/admin/projects', label: 'Projects' }} />
 
 	{#if !project}
 		{#if error}
@@ -185,7 +183,7 @@
 						ondragend={() => (dragged = over = null)}
 					>
 						{#if dragged !== null && over === i && dragged !== i}
-							<span class="absolute inset-x-0 h-0.5 rounded-full bg-ink z-10 {dragged < i ? '-bottom-0.5' : '-top-0.5'}"></span>
+							<span class="absolute inset-x-0 h-0.5 rounded-full bg-brand z-10 {dragged < i ? '-bottom-0.5' : '-top-0.5'}"></span>
 						{/if}
 						<SectionRow slug={project.slug} {section} index={i} {members} />
 						<button

@@ -18,7 +18,7 @@
 				type="button"
 				onclick={() => toggle(project.slug)}
 				aria-pressed={member.projects.includes(project.slug)}
-				class="btn aria-pressed:bg-pressed aria-pressed:text-ink"
+				class="btn aria-pressed:bg-pressed aria-pressed:text-on-pressed"
 			>
 				{project.name}
 			</button>

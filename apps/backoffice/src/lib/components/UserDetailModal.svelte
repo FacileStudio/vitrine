@@ -121,7 +121,7 @@
 			<Spinner size="xl" />
 		</div>
 	{:else if user}
-		<div class="space-y-6">
+		<div class="space-y-8">
 			<div class="flex items-start gap-4">
 				{#if user.avatar?.url}
 					<img src={user.avatar.url} alt={user.firstName} class="w-20 h-20 rounded-project object-cover" />

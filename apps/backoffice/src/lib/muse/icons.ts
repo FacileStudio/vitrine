@@ -1,0 +1,79 @@
+export const icons = {
+  collapse:      'solar:sidebar-minimalistic-linear',
+  search:        'solar:magnifer-linear',
+  settings:      'solar:settings-linear',
+  edit:          'solar:pen-new-square-linear',
+  remove:        'solar:trash-bin-2-linear',
+  calendar:      'solar:calendar-linear',
+  home:          'solar:home-2-linear',
+  notification:  'solar:bell-linear',
+  dashboard:     'solar:chart-2-linear',
+  folder:        'solar:folder-linear',
+  usersGroup:    'solar:users-group-rounded-linear',
+  userCircle:    'solar:user-circle-linear',
+  logout:        'solar:logout-2-linear',
+  warning:       'solar:danger-triangle-linear',
+  error:         'solar:close-circle-linear',
+  info:          'solar:info-circle-linear',
+  upload:        'solar:cloud-upload-linear',
+  clock:         'solar:clock-circle-linear',
+  refresh:       'solar:refresh-linear',
+  eye:           'solar:eye-linear',
+  eyeClosed:     'solar:eye-closed-linear',
+  copy:          'solar:copy-linear',
+  check:         'solar:check-circle-linear',
+  key:           'solar:key-linear',
+  revoke:        'solar:forbidden-circle-linear',
+  shield:        'solar:shield-check-linear',
+  palette:       'solar:pallete-2-linear',
+  sun:           'solar:sun-linear',
+  moon:          'solar:moon-linear',
+  monitor:       'solar:monitor-linear',
+  globe:         'solar:global-linear',
+  plug:          'solar:plug-circle-linear',
+  bolt:          'solar:bolt-linear',
+  server:        'solar:server-linear',
+  code:          'solar:code-linear',
+  history:       'solar:history-linear',
+  card:          'solar:card-linear',
+  download:      'solar:download-linear',
+  filter:        'solar:filter-linear',
+  mail:          'solar:letter-linear',
+  close:         'mdi:close',
+  plus:          'mdi:plus',
+  minus:         'mdi:minus',
+  arrow:         'mdi:chevron-right',
+  chevronDown:   'mdi:chevron-down',
+  chevronUp:     'mdi:chevron-up',
+  chevronLeft:   'mdi:chevron-left',
+  paletteMark:   'solar:pallete-2-bold-duotone',
+  compass:       'solar:compass-linear',
+  ruler:         'solar:ruler-linear',
+  text:          'solar:text-linear',
+  widget:        'solar:widget-linear',
+  layers:        'solar:layers-linear',
+} as const;
+
+export type IconKey = keyof typeof icons;
+
+/*
+ * Icons a consuming app bundles for itself.
+ *
+ * muse ships the paths for every name above, so nothing it draws touches the network. An app
+ * that needs a glyph muse does not carry — Sablier's transport controls, Agenda's calendar
+ * set — bundles its own rather than falling back to api.iconify.design:
+ *
+ *   import { registerIcons } from '@facile/muse';
+ *   import data from './icons-data.json';   // generated the same way muse generates its own
+ *   registerIcons(data);
+ *
+ * Call it once, before the first render. Adding the key upstream to `icons` is still the
+ * better answer when the glyph is one the whole suite will want.
+ */
+export type IconData = { body: string; width: number; height: number };
+
+export const extraIcons: Record<string, IconData> = {};
+
+export function registerIcons(data: Record<string, IconData>): void {
+    Object.assign(extraIcons, data);
+}

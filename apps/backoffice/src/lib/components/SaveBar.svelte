@@ -48,7 +48,7 @@
 
 <div
 	use:enter
-	class="sticky top-20 lg:top-4 z-30 bg-page/50 backdrop-blur-xl p-4 pl-6 rounded-project flex items-center justify-between gap-6"
+	class="sticky top-4 z-30 bg-page/50 backdrop-blur-xl p-4 pl-6 rounded-project flex items-center justify-between gap-6"
 >
 	{#key status}
 		<span use:enter class="p flex items-center gap-2 {status === 'error' ? 'text-danger' : 'text-muted'}">
@@ -73,7 +73,7 @@
 		disabled={!dirty || saving}
 		class="p flex items-center gap-3 px-5 py-2.5 rounded-project disabled:cursor-default {status === 'clean'
 			? 'bg-success-surface text-success'
-			: 'bg-ink text-page hover:bg-ink/90 disabled:opacity-60'}"
+			: 'bg-pressed text-on-pressed hover:bg-pressed-hover disabled:opacity-60'}"
 	>
 		{#key status === 'clean'}
 			{#if status === 'clean'}
@@ -82,7 +82,7 @@
 			{:else}
 				<iconify-icon icon="lucide:save" width="16"></iconify-icon>
 				Save
-				<span class="subtext text-page/45">{mac ? '⌘' : 'Ctrl'} S</span>
+				<span class="subtext text-on-pressed/60">{mac ? '⌘' : 'Ctrl'} S</span>
 			{/if}
 		{/key}
 	</button>

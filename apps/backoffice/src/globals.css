@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import './lib/muse/styles/tokens.css';
 
 @source "../../../packages/ui/src";
 
@@ -18,10 +19,27 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Magnetik';
+  src: url('/fonts/Magnetik-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Magnetik';
+  src: url('/fonts/Magnetik-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+
 /* every colour of the backoffice, each one becomes a utility: bg-surface, text-muted, ... */
 @theme {
-  --font-title: 'Goga', Helvetica, 'Helvetica Neue', Arial, sans-serif;
-  --font-body: 'Goga', Helvetica, 'Helvetica Neue', Arial, sans-serif;
+  --font-title: 'Magnetik', 'Goga', Helvetica, 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'Magnetik', 'Goga', Helvetica, 'Helvetica Neue', Arial, sans-serif;
 
   /* each theme only sets the few base values below, every other colour is derived from them */
   --color-page: var(--theme-page);
@@ -40,7 +58,10 @@
   --color-surface-hover: color-mix(in srgb, var(--theme-ink) 3%, transparent);
   --color-raised: rgb(68 64 60 / 0.1);
   --color-raised-hover: rgb(68 64 60 / 0.2);
-  --color-pressed: var(--theme-pressed);
+  /* THE project colour marks whatever is selected or primary: a 20% wash behind, the colour itself for text and icons */
+  --color-pressed: color-mix(in srgb, var(--theme-brand) 20%, transparent);
+  --color-pressed-hover: color-mix(in srgb, var(--theme-brand) 30%, transparent);
+  --color-on-pressed: var(--theme-brand);
   /* the raised tint already mixed onto the page, for surfaces that move over their neighbours */
   --color-card: color-mix(in srgb, #44403c 10%, var(--theme-page));
   --color-card-hover: color-mix(in srgb, var(--theme-ink) 3%, var(--color-card));
@@ -57,20 +78,14 @@
   --color-success-surface: rgb(34 197 94 / 0.15);
   --color-warning: var(--theme-warning);
 
-  /* one accent per section of the sidebar, used by the glow behind the active link */
-  --color-accent-projects: #3ddc97;
-  --color-accent-studio: #5b8cff;
-  --color-accent-contacts: #ffb547;
-  --color-accent-statistics: #b38cff;
-  --color-accent-users: #ff6b8b;
 }
 
 :root {
   --theme-page: #050505;
   --theme-popover: #111111;
   --theme-ink: #ffffff;
-  --theme-brand: #c8e5d7;
-  --theme-pressed: rgb(68 64 60 / 0.5);
+  /* the Facile green, the vitrine's own page background on main */
+  --theme-brand: oklch(77.137% 0.13747 158.845);
   --theme-danger: #fca5a5;
   --theme-success: #4ade80;
   --theme-warning: #fbbf24;
@@ -83,8 +98,7 @@
     --theme-page: #f6f5f3;
     --theme-popover: #ffffff;
     --theme-ink: #0c0a09;
-    --theme-brand: #2f6b55;
-    --theme-pressed: rgb(68 64 60 / 0.18);
+    --theme-brand: oklch(45% 0.07 164.238);
     --theme-danger: #b91c1c;
     --theme-success: #15803d;
     --theme-warning: #b45309;
@@ -96,8 +110,7 @@
   --theme-page: #f6f5f3;
   --theme-popover: #ffffff;
   --theme-ink: #0c0a09;
-  --theme-brand: #2f6b55;
-  --theme-pressed: rgb(68 64 60 / 0.18);
+  --theme-brand: oklch(45% 0.07 164.238);
   --theme-danger: #b91c1c;
   --theme-success: #15803d;
   --theme-warning: #b45309;
@@ -140,20 +153,17 @@
 @utility title {
   font-family: var(--font-title);
   font-size: 1.875rem;
-  font-weight: 500;
   line-height: 1.15;
 }
 
 @utility subtitle {
   font-family: var(--font-title);
   font-size: 1.25rem;
-  font-weight: 500;
   line-height: 1.3;
 }
 
 @utility lead {
   font-size: 1.125rem;
-  font-weight: 600;
   line-height: 1.4;
 }
 
@@ -208,7 +218,7 @@
 }
 
 @utility btn-primary {
-  @apply bg-ink text-page hover:bg-ink/90 hover:text-page;
+  @apply bg-pressed text-on-pressed hover:bg-pressed-hover hover:text-on-pressed;
 }
 
 @utility btn-danger {
@@ -245,7 +255,7 @@
 }
 
 @utility segmented-item {
-  @apply flex items-center gap-2 px-2 py-2 rounded-project text-muted hover:text-ink aria-pressed:bg-pressed aria-pressed:text-ink;
+  @apply flex items-center gap-2 px-2 py-2 rounded-project text-muted hover:text-ink aria-pressed:bg-pressed aria-pressed:text-on-pressed;
 }
 
 /* feedback */

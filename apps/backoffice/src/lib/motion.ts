@@ -132,13 +132,6 @@ export function hoverTo(node: HTMLElement, { rest, hover }: { rest: gsap.TweenVa
 	};
 }
 
-export function slideIn(node: HTMLElement) {
-	gsap.from(node, {
-		xPercent: -100,
-		duration: 0.4,
-		ease: EASE.out,
-	});
-}
 
 // the targets glide from where they were to where the change put them
 export async function flip(targets: Element[], change: () => Promise<void> | void) {

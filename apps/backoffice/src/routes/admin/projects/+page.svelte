@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { trpc } from '$lib/trpc';
+	import Header from '$lib/components/Header.svelte';
 	import { onMount, tick } from 'svelte';
 	import { Spinner } from '@repo/ui';
 	import { logger } from '@repo/logger';
@@ -162,21 +163,12 @@
 />
 
 <div class="mx-auto space-y-8">
-	<header class="page-header">
-		<div>
-			<div class="flex items-baseline gap-3">
-				<h1 class="title text-ink">Projects</h1>
-				{#if projects}
-					<span class="badge">{projects.length}</span>
-				{/if}
-			</div>
-			<p class="page-description">
-				The projects shown on the site's projects page
-				<span class="text-faint">· {canReorder ? 'drag to reorder' : 'switch to site order and clear the search to reorder'}</span>
-			</p>
-		</div>
-
-		<div class="flex flex-wrap items-center gap-1">
+	<Header title="Projects" count={projects?.length} description="The projects shown on the site's projects page">
+		{#snippet details()}
+			<span class="text-faint">· {canReorder ? 'drag to reorder' : 'switch to site order and clear the search to reorder'}</span>
+		{/snippet}
+	
+		{#snippet actions()}
 			<label class="field w-72">
 				<iconify-icon icon="lucide:search" width="16" class="text-faint"></iconify-icon>
 				<input
@@ -193,7 +185,7 @@
 				/>
 				<kbd class="kbd">/</kbd>
 			</label>
-
+	
 			<label class="field">
 				<iconify-icon icon="lucide:arrow-up-down" width="14" class="text-faint"></iconify-icon>
 				<select bind:value={sort} class="field-select">
@@ -202,7 +194,7 @@
 					{/each}
 				</select>
 			</label>
-
+	
 			<div class="segmented">
 				{#each VIEWS as option (option.value)}
 					<button
@@ -217,8 +209,8 @@
 					</button>
 				{/each}
 			</div>
-		</div>
-	</header>
+		{/snippet}
+	</Header>
 
 	{#if reorderError}
 		<p class="alert"><iconify-icon icon="lucide:circle-alert" width="16"></iconify-icon>{reorderError}</p>
@@ -240,7 +232,7 @@
 			{#each shown as project (project.slug)}
 				<div use:enter {...dragProps(project.slug)} role="listitem" class="relative flex {dragged === project.slug ? 'opacity-40' : ''}">
 					{#if over === project.slug && dragged && dragged !== project.slug}
-						<span class="absolute inset-y-0 z-10 w-0.5 rounded-full bg-ink {landsAfter(project.slug) ? '-right-[3px]' : '-left-[3px]'}"></span>
+						<span class="absolute inset-y-0 z-10 w-0.5 rounded-full bg-brand {landsAfter(project.slug) ? '-right-[3px]' : '-left-[3px]'}"></span>
 					{/if}
 					<ProjectCard {project} {members} />
 				</div>
@@ -251,7 +243,7 @@
 			{#each shown as project (project.slug)}
 				<div use:enter {...dragProps(project.slug)} role="listitem" class="relative {dragged === project.slug ? 'opacity-40' : ''}">
 					{#if over === project.slug && dragged && dragged !== project.slug}
-						<span class="absolute inset-x-0 z-10 h-0.5 rounded-full bg-ink {landsAfter(project.slug) ? '-bottom-[3px]' : '-top-[3px]'}"></span>
+						<span class="absolute inset-x-0 z-10 h-0.5 rounded-full bg-brand {landsAfter(project.slug) ? '-bottom-[3px]' : '-top-[3px]'}"></span>
 					{/if}
 					<ProjectRow {project} {members} />
 				</div>

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { trpc } from '$lib/trpc';
+	import Header from '$lib/components/Header.svelte';
 	import { onMount } from 'svelte';
 	import { AreaChart, BarChart, Spinner } from '@repo/ui';
 	import { logger } from '@repo/logger';
@@ -33,13 +34,11 @@
 	);
 </script>
 
-<header class="page-header">
-	<div>
-		<h1 class="title text-ink">Statistics</h1>
-		<p class="page-description">Traffic on the showcase site</p>
-	</div>
-	<span class="chip"><iconify-icon icon="lucide:calendar-range" width="12"></iconify-icon>Last 14 days</span>
-</header>
+<Header title="Statistics" description="Traffic on the showcase site">
+	{#snippet actions()}
+		<span class="chip"><iconify-icon icon="lucide:calendar-range" width="12"></iconify-icon>Last 14 days</span>
+	{/snippet}
+</Header>
 
 {#if error}
 	<p class="alert"><iconify-icon icon="lucide:circle-alert" width="16"></iconify-icon>{error}</p>

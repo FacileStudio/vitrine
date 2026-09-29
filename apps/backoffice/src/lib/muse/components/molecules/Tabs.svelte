@@ -1,0 +1,186 @@
+<script module lang="ts">
+    import type { HTMLAttributes } from 'svelte/elements';
+
+    export type Item = {
+        id: string;
+        label: string;
+        icon?: string;
+        badge?: string | number;
+        href?: string;
+        disabled?: boolean;
+    };
+
+    export interface TabsProps extends HTMLAttributes<HTMLDivElement> {
+        items?: Item[];
+        value?: string;
+        onChange?: (id: string) => void;
+        panelId?: string;
+        label?: string;
+        class?: string;
+
+    }
+</script>
+
+<script lang="ts">
+    import { gsap } from 'gsap';
+    import { twMerge } from '../../utils/cn.js';
+    import Icon from '../atoms/Icon.svelte';
+    import { prefersReducedMotion } from '../../utils/motion.js';
+    import { resize } from '../../utils/chart.js';
+
+    let {
+        items = [],
+        value = $bindable(''),
+        onChange,
+        panelId,
+        label = 'Sections',
+        class: className = '',
+        ...rest
+    }: TabsProps = $props();
+
+    const uid = $props.id();
+
+    let indicator: HTMLElement | null = $state(null);
+    let placed = false;
+
+    const tabs: Record<string, HTMLElement> = {};
+    const routed = $derived(items.some((i) => i.href));
+    const enabled = $derived(items.filter((i) => !i.disabled));
+
+    function select(item: Item, scroll = true) {
+        if (item.disabled) return;
+        value = item.id;
+        onChange?.(item.id);
+        if (scroll) tabs[item.id]?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    }
+
+    /*
+     * The pill is one element sliding between tabs rather than a background per tab: with
+     * per-tab backgrounds the old one has to fade out while the new fades in, which reads as
+     * a blink. Position comes from offsetLeft inside the scrolling strip, so it stays put
+     * when the strip is scrolled horizontally on a narrow screen.
+     *
+     * Every tab is measured through a ResizeObserver, not just once on mount. Icons
+     * is a custom element that upgrades asynchronously and the icon fetch lands after first
+     * paint, so a tab measured at mount is one icon too narrow — the pill renders clipped
+     * through the label and never corrects itself. Same story for the Goga swap.
+     */
+    function place(animate = true) {
+        const el = tabs[value];
+        if (!el || !indicator) return;
+        const to = { x: el.offsetLeft, width: el.offsetWidth };
+        if (!placed || !animate || prefersReducedMotion()) {
+            gsap.set(indicator, { ...to, autoAlpha: 1 });
+            placed = true;
+            return;
+        }
+        gsap.to(indicator, { ...to, duration: 0.3, ease: 'power3.inOut' });
+    }
+
+    /*
+     * The pill follows the rendered width of a tab, so the dependency has to be everything
+     * that changes that width — a relabelled tab or a badge appearing moves the target
+     * without moving `items.length`, which is what the old effect watched and why the pill
+     * went stale on any in-place edit.
+     */
+    const layout = $derived(
+        `${value}#${items.map((i) => `${i.id}:${i.label}:${i.icon ?? ''}:${i.badge ?? ''}`).join('|')}`
+    );
+
+    let lastLayout = '';
+
+    $effect(() => {
+        if (layout === lastLayout) return;
+        lastLayout = layout;
+        place();
+    });
+
+    function keydown(e: KeyboardEvent) {
+        const keys = ['ArrowRight', 'ArrowLeft', 'Home', 'End'];
+        if (!keys.includes(e.key) || enabled.length === 0) return;
+        e.preventDefault();
+        const i = enabled.findIndex((t) => t.id === value);
+        const next =
+            e.key === 'Home'
+                ? 0
+                : e.key === 'End'
+                  ? enabled.length - 1
+                  : (i + (e.key === 'ArrowRight' ? 1 : -1) + enabled.length) % enabled.length;
+        const item = enabled[next];
+        select(item);
+        tabs[item.id]?.focus();
+    }
+</script>
+
+<!--
+@component
+Le passage d'une section à l'autre, par une pastille inversée qui glisse. Avec des `href`, l'URL devient la source de vérité.
+-->
+
+<div
+    use:resize={() => place(false)}
+    class={twMerge('relative flex w-full items-center gap-1 overflow-x-auto', className)}
+    {...rest}
+    role={routed ? undefined : 'tablist'}
+    aria-label={routed ? undefined : label}
+    aria-orientation={routed ? undefined : 'horizontal'}
+    onkeydown={routed ? undefined : keydown}
+>
+    <span
+        bind:this={indicator}
+        aria-hidden="true"
+        class="pointer-events-none absolute inset-y-0 left-0 -z-0 rounded-fc-pill bg-fc-accent opacity-0"
+    ></span>
+
+    {#snippet content(item: Item, active: boolean)}
+        {#if item.icon}
+            <Icon icon={item.icon} size={16} />
+        {/if}
+        {item.label}
+        {#if item.badge !== undefined}
+            <span
+                class={twMerge(
+                    'rounded-fc-pill px-1.5 text-fc-xs',
+                    active ? 'bg-fc-accent-fg/15' : 'bg-fc-surface'
+                )}>{item.badge}</span
+            >
+        {/if}
+    {/snippet}
+
+    {#each items as item (item.id)}
+        {@const active = item.id === value}
+        {@const inner = twMerge(
+            'relative z-10 inline-flex min-h-11 shrink-0 items-center gap-2 rounded-fc-pill px-4 text-fc-sm font-medium whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fc-ring',
+            active ? 'text-fc-accent-fg' : 'text-fc-fg-muted hover:bg-fc-surface hover:text-fc-fg',
+            item.disabled && 'pointer-events-none opacity-50'
+        )}
+
+        {#if item.href}
+            <a
+                bind:this={tabs[item.id]}
+                href={item.href}
+                aria-current={active ? 'page' : undefined}
+                use:resize={() => place(false)}
+                class={inner}
+            >
+                {@render content(item, active)}
+            </a>
+        {:else}
+            <button
+                bind:this={tabs[item.id]}
+                type="button"
+                role="tab"
+                id="{uid}-{item.id}-tab"
+                aria-selected={active}
+                aria-controls={panelId}
+                tabindex={active ? 0 : -1}
+                disabled={item.disabled}
+                onclick={() => select(item)}
+                use:resize={() => place(false)}
+                class={inner}
+            >
+                {@render content(item, active)}
+            </button>
+        {/if}
+    {/each}
+</div>

@@ -3,6 +3,7 @@
   import { goto } from '$app/navigation';
   import { onMount } from 'svelte';
   import 'iconify-icon';
+  import ThemeSwitch from '$lib/components/ThemeSwitch.svelte';
 
   let loading = true;
   let user: any = null;
@@ -32,7 +33,7 @@
   }
 </script>
 
-<main class="max-w-3xl mx-auto px-8 py-12 space-y-6">
+<main class="max-w-3xl mx-auto px-8 py-12 space-y-8">
   <nav aria-label="Breadcrumb" class="p flex items-center gap-2 text-faint">
     <a href="/admin/projects" class="hover:text-ink">Backoffice</a>
     <iconify-icon icon="lucide:chevron-right" width="14" class="text-ghost"></iconify-icon>
@@ -54,10 +55,13 @@
           <p class="p text-muted">{user.email}</p>
         </div>
       </div>
+      <div class="flex items-center gap-1">
+        <div class="w-40"><ThemeSwitch /></div>
       <button on:click={handleLogout} class="btn btn-danger">
         <iconify-icon icon="lucide:log-out" width="16"></iconify-icon>
         Sign out
       </button>
+      </div>
     </header>
 
     <section class="panel">

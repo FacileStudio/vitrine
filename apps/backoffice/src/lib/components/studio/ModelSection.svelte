@@ -43,7 +43,7 @@
 			aria-pressed={member.hair !== null}
 			onclick={() => (member.hair = member.hair === null ? '#6E5A4E' : null)}
 			title="Custom hair colour"
-			class="btn aria-pressed:bg-pressed aria-pressed:text-ink"
+			class="btn aria-pressed:bg-pressed aria-pressed:text-on-pressed"
 		>
 			<iconify-icon icon="lucide:brush" width="14"></iconify-icon>
 			Hair

@@ -67,7 +67,7 @@
 			aria-pressed={member.suite}
 			onclick={() => (member.suite = !member.suite)}
 			title="Works on the Facile Suite"
-			class="btn aria-pressed:bg-pressed aria-pressed:text-ink"
+			class="btn aria-pressed:bg-pressed aria-pressed:text-on-pressed"
 		>
 			<iconify-icon icon="lucide:sparkles" width="14"></iconify-icon>
 			Suite

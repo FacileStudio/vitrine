@@ -49,7 +49,7 @@
 	}}
 	class="m-auto w-full max-w-2xl rounded-project bg-popover text-ink p-0 backdrop:bg-black/60 backdrop:backdrop-blur-sm"
 >
-	<div class="p-6 space-y-6 max-h-[85vh] overflow-y-auto">
+	<div class="p-6 space-y-8 max-h-[85vh] overflow-y-auto">
 		<header class="flex items-center justify-between gap-4">
 			<span class="flex items-center gap-3">
 				<iconify-icon icon={element?.icon} width="22" class="text-muted"></iconify-icon>

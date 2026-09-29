@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { trpc } from '$lib/trpc';
+	import Header from '$lib/components/Header.svelte';
 	import { onMount } from 'svelte';
 	import { Spinner } from '@repo/ui';
 	import { logger } from '@repo/logger';
@@ -27,22 +28,14 @@
 	});
 </script>
 
-<header class="page-header">
-	<div>
-		<div class="flex items-baseline gap-3">
-			<h1 class="title text-ink">Studio</h1>
-			{#if members}
-				<span class="badge">{members.length}</span>
-			{/if}
-		</div>
-		<p class="page-description">The members shown on the site's studio page</p>
-	</div>
-
-	<label class="field w-72">
-		<iconify-icon icon="lucide:search" width="16" class="text-faint"></iconify-icon>
-		<input bind:value={query} placeholder="Search a member..." class="field-input" />
-	</label>
-</header>
+<Header title="Studio" count={members?.length} description="The members shown on the site's studio page">
+	{#snippet actions()}
+		<label class="field w-72">
+			<iconify-icon icon="lucide:search" width="16" class="text-faint"></iconify-icon>
+			<input bind:value={query} placeholder="Search a member..." class="field-input" />
+		</label>
+	{/snippet}
+</Header>
 
 {#if error}
 	<p class="alert"><iconify-icon icon="lucide:circle-alert" width="16"></iconify-icon>{error}</p>

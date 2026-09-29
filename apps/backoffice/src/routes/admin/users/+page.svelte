@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { trpc } from '$lib/trpc';
+	import Header from '$lib/components/Header.svelte';
 	import { onMount } from 'svelte';
 	import UserDetailModal from '$lib/components/UserDetailModal.svelte';
 	import { Spinner } from '@repo/ui';
@@ -123,16 +124,8 @@
 	}));
 </script>
 
-<header class="page-header">
-	<div>
-		<div class="flex items-baseline gap-3">
-			<h1 class="title text-ink">Accounts</h1>
-			<span class="badge">{users.length}</span>
-		</div>
-		<p class="page-description">The people who can sign in to the backoffice</p>
-	</div>
-
-	<div class="flex flex-wrap items-center gap-1">
+<Header title="Accounts" count={users.length} description="The people who can sign in to the backoffice">
+	{#snippet actions()}
 		<label class="field w-72">
 			<iconify-icon icon="lucide:search" width="16" class="text-faint"></iconify-icon>
 			<input bind:value={searchQuery} placeholder="Name, email..." class="field-input" />
@@ -155,8 +148,8 @@
 				<option value="user">Users</option>
 			</select>
 		</label>
-	</div>
-</header>
+	{/snippet}
+</Header>
 
 {#if stats}
 	<div class="grid gap-1 sm:grid-cols-2 xl:grid-cols-4">
@@ -209,7 +202,7 @@
 							<p class="lead text-ink flex items-center gap-1.5 truncate">
 								{user.firstName} {user.lastName}
 								{#if user.emailVerified}
-									<iconify-icon icon="lucide:badge-check" width="14" class="text-muted" title="Email verified"></iconify-icon>
+									<iconify-icon icon="lucide:badge-check" width="14" class="text-muted" aria-label="Email verified"></iconify-icon>
 								{/if}
 							</p>
 							<p class="subtext text-faint truncate">{user.email}</p>

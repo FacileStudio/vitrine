@@ -21,7 +21,7 @@
 	});
 </script>
 
-<div class="space-y-6">
+<div class="space-y-8">
 	<header class="flex flex-wrap items-center justify-between gap-4">
 		<input
 			bind:value={project.name}

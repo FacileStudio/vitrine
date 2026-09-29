@@ -1,0 +1,127 @@
+/*
+ * muse's tokens, adapted for the backoffice: imported once from globals.css, so this is the one
+ * place to tune them. Unlike upstream it does not reset Tailwind's palette, touch body or fonts,
+ * or use a .dark class: the theme follows globals.css (dark by default, light through
+ * prefers-color-scheme or data-theme).
+ */
+
+@theme {
+  /* muse's colours point at the backoffice tokens, so the rail, its rows and its buttons share one palette with the pages */
+  --color-fc-page: var(--color-page);
+  --color-fc-bg: var(--color-page);
+  --color-fc-component: var(--color-card);
+  --color-fc-surface: var(--color-wash);
+  --color-fc-fg: var(--color-ink);
+  --color-fc-fg-muted: var(--color-muted);
+  --color-fc-accent: var(--color-pressed);
+  --color-fc-accent-fg: var(--color-on-pressed);
+  --color-fc-border: color-mix(in srgb, var(--theme-ink) 10%, transparent);
+  --color-fc-ring: color-mix(in srgb, var(--theme-ink) 40%, transparent);
+  --color-fc-danger: var(--color-danger);
+  --color-fc-danger-fg: var(--color-page);
+  --color-fc-success: var(--color-success);
+  --color-fc-warning: var(--color-warning);
+  --color-fc-scrim: var(--color-overlay);
+  /* no backoffice equivalent, muse's own values */
+  --color-fc-info: oklch(0.52 0.14 255);
+  --color-fc-owner: oklch(0.55 0.13 64);
+  --color-fc-admin: oklch(0.5 0.16 292);
+
+  --radius-fc-xs: var(--radius-project);
+  --radius-fc-sm: var(--radius-project);
+  --radius-fc-md: var(--radius-project);
+  --radius-fc-lg: var(--radius-project);
+  --radius-fc-pill: 999px;
+  --radius-fc-full: 999px;
+
+  --text-fc-xs: 0.75rem;
+  --text-fc-xs--line-height: 1rem;
+  --text-fc-sm: 0.875rem;
+  --text-fc-sm--line-height: 1.25rem;
+  --text-fc-md: 1rem;
+  --text-fc-md--line-height: 1.5rem;
+  --text-fc-lg: 1.125rem;
+  --text-fc-lg--line-height: 1.75rem;
+  --text-fc-xl: 1.375rem;
+  --text-fc-xl--line-height: 1.75rem;
+  --text-fc-2xl: 1.75rem;
+  --text-fc-2xl--line-height: 2.125rem;
+  --text-fc-3xl: 2.25rem;
+  --text-fc-3xl--line-height: 2.5rem;
+
+  --font-fc-mono: ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+  --ease-fc: cubic-bezier(0.77, 0, 0.175, 1);
+
+  --container-fc-sm: 600px;
+  --container-fc-md: 720px;
+  --container-fc-lg: 960px;
+  --container-fc-xl: 1200px;
+
+  /* the rail's geometry is one system: collapsed = item + the rail's side padding (px-1, 4px) twice, content = expanded - the same */
+  --width-fc-nav-expanded: 240px;
+  --width-fc-nav-collapsed: 60px;
+  --spacing-fc-nav-item: 52px;
+  --spacing-fc-nav-content: 312px;
+}
+
+/* static because chartColor() builds these names at runtime, so Tailwind never sees them used */
+@theme static {
+  --color-fc-chart-1: oklch(0.7 0.15 292);
+  --color-fc-chart-2: oklch(0.755 0.13 64);
+  --color-fc-chart-3: oklch(0.72 0.11 190);
+  --color-fc-chart-4: oklch(0.68 0.15 15);
+  --color-fc-chart-5: oklch(0.76 0.16 135);
+  --color-fc-chart-6: oklch(0.73 0.14 339);
+}
+
+/* dark is the backoffice default */
+:root {
+  --color-fc-info: oklch(0.72 0.13 255);
+  --color-fc-owner: oklch(0.78 0.13 64);
+  --color-fc-admin: oklch(0.75 0.14 292);
+  --color-fc-chart-1: oklch(0.58 0.15 292);
+  --color-fc-chart-2: oklch(0.66 0.14 64);
+  --color-fc-chart-3: oklch(0.6 0.12 195);
+  --color-fc-chart-4: oklch(0.55 0.16 15);
+  --color-fc-chart-5: oklch(0.64 0.15 135);
+  --color-fc-chart-6: oklch(0.62 0.14 339);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme='dark']) {
+    --color-fc-info: oklch(0.52 0.14 255);
+    --color-fc-owner: oklch(0.55 0.13 64);
+    --color-fc-admin: oklch(0.5 0.16 292);
+    --color-fc-chart-1: oklch(0.7 0.15 292);
+    --color-fc-chart-2: oklch(0.755 0.13 64);
+    --color-fc-chart-3: oklch(0.72 0.11 190);
+    --color-fc-chart-4: oklch(0.68 0.15 15);
+    --color-fc-chart-5: oklch(0.76 0.16 135);
+    --color-fc-chart-6: oklch(0.73 0.14 339);
+  }
+}
+
+:root[data-theme='light'] {
+  --color-fc-info: oklch(0.52 0.14 255);
+  --color-fc-owner: oklch(0.55 0.13 64);
+  --color-fc-admin: oklch(0.5 0.16 292);
+  --color-fc-chart-1: oklch(0.7 0.15 292);
+  --color-fc-chart-2: oklch(0.755 0.13 64);
+  --color-fc-chart-3: oklch(0.72 0.11 190);
+  --color-fc-chart-4: oklch(0.68 0.15 15);
+  --color-fc-chart-5: oklch(0.76 0.16 135);
+  --color-fc-chart-6: oklch(0.73 0.14 339);
+}
+
+@layer base {
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

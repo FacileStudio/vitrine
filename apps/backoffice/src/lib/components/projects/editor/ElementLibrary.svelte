@@ -34,7 +34,7 @@
 	}}
 />
 
-<aside class="space-y-1">
+<aside class="space-y-8">
 	{#each ELEMENTS as element (element.kind)}
 		{@const sized = SIZED.includes(element.kind)}
 		<div class="rounded-project {open === element.kind ? 'bg-surface-hover' : ''}">
@@ -81,7 +81,7 @@
 									onmouseenter={() => (hover = { w: cols, h: rows })}
 									onfocus={() => (hover = { w: cols, h: rows })}
 									onclick={() => pick(element.kind, cols, rows)}
-									class="w-10 h-8 rounded-project {lit ? 'bg-ink' : 'bg-stone-700/25'}"
+									class="w-10 h-8 rounded-project {lit ? 'bg-brand' : 'bg-stone-700/25'}"
 								></button>
 							{/each}
 						{/each}

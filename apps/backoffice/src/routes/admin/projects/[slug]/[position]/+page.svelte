@@ -141,7 +141,7 @@
 
 <svelte:window onkeydown={walk} />
 
-<div class="space-y-6">
+<div class="space-y-8">
 	<nav aria-label="Breadcrumb" class="p flex items-center gap-2 text-faint">
 		<a href="/admin/projects" class="hover:text-ink">Projects</a>
 		<iconify-icon icon="lucide:chevron-right" width="14" class="text-ink/25"></iconify-icon>
@@ -215,7 +215,7 @@
 				<ElementLibrary onadd={(kind, w, h) => project && addToBucket(project.bucket, kind, w, h)} />
 			</div>
 
-			<div class="space-y-1 min-w-0">
+			<div class="space-y-8 min-w-0">
 
 				<SectionGrid bind:layout={project.story[position].layout} bucket={project.bucket} onedit={(id) => (editingId = id)} />
 				<SectionBucket layout={project.story[position].layout} bind:bucket={project.bucket} onedit={(id) => (editingId = id)} />
