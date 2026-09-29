@@ -6,8 +6,8 @@ type Bucket = Project['bucket'];
 
 export const ROWS = 3;
 
-// empty columns kept after the last filled one, a free 3x3 area for the next blocks
-export const SPARE_COLS = 3;
+// empty columns kept after the last filled one, room for the widest block (4x3)
+export const SPARE_COLS = 4;
 
 const localized = () => ({ en: '', fr: '', es: '', de: '' });
 

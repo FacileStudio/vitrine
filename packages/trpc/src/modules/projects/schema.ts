@@ -56,7 +56,7 @@ const box = {
   id: z.string().min(1),
   x: z.number().int().min(0),
   y: z.number().int().min(0),
-  w: z.number().int().min(1).max(3),
+  w: z.number().int().min(1).max(4),
   h: z.number().int().min(1).max(3),
 };
 

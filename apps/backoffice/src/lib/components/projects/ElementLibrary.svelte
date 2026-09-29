@@ -7,7 +7,8 @@
 
 	// these can be sized before they exist, the others use their default size
 	const SIZED = ['image', 'video', 'note', 'text'];
-	const SIZES = [1, 2, 3];
+	const ROWS = [1, 2, 3];
+	const COLS = [1, 2, 3, 4];
 
 	let open = $state<string | null>(null);
 	let hover = $state<{ w: number; h: number } | null>(null);
@@ -74,9 +75,9 @@
 			{#if open === element.kind}
 				<!-- a table-insert picker: hovering a cell previews that many columns and rows -->
 				<div use:enter class="px-2 pb-3 pt-1 space-y-2">
-					<div class="grid grid-cols-3 gap-1 w-max" role="grid" tabindex="-1" onmouseleave={() => (hover = null)}>
-						{#each SIZES as rows (rows)}
-							{#each SIZES as cols (cols)}
+					<div class="grid grid-cols-4 gap-1 w-max" role="grid" tabindex="-1" onmouseleave={() => (hover = null)}>
+						{#each ROWS as rows (rows)}
+							{#each COLS as cols (cols)}
 								{@const lit = hover !== null && cols <= hover.w && rows <= hover.h}
 								<button
 									type="button"

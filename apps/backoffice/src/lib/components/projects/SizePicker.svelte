@@ -1,5 +1,6 @@
 <script lang="ts">
-	const SIZES = [1, 2, 3];
+	const ROWS = [1, 2, 3];
+	const COLS = [1, 2, 3, 4];
 
 	let {
 		w = $bindable(),
@@ -10,9 +11,9 @@
 
 <div class="space-y-2">
 	<span class="lead text-white/80">Taille</span>
-	<div class="grid grid-cols-3 gap-1 w-max">
-		{#each SIZES as rows (rows)}
-			{#each SIZES as cols (cols)}
+	<div class="grid grid-cols-4 gap-1 w-max">
+		{#each ROWS as rows (rows)}
+			{#each COLS as cols (cols)}
 				{@const fits = allowed(cols, rows)}
 				<button
 					type="button"
