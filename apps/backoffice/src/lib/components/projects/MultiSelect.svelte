@@ -49,19 +49,19 @@
 {/snippet}
 
 <details class="group relative">
-	<summary class="list-none cursor-pointer rounded-xl flex flex-wrap items-center gap-1.5 min-h-10">
+	<summary class="list-none cursor-pointer rounded-md flex flex-wrap items-center gap-1.5 min-h-10">
 		{#each selected as value (value)}
-			<span class="subtext flex items-center gap-1.5 rounded-sm bg-white/10 px-2 py-1 text-white">
+			<span class="subtext flex items-center gap-1.5 rounded-sm bg-white/10 px-2 py-1 text-ink">
 				{@render logo(value)}
 				{labelOf(value)}
 			</span>
 		{:else}
-			<span class="p text-white/45">{placeholder}</span>
+			<span class="p text-faint">{placeholder}</span>
 		{/each}
-		<iconify-icon icon="lucide:chevron-down" width="14" class="ml-auto text-white/45 group-open:rotate-180"></iconify-icon>
+		<iconify-icon icon="lucide:chevron-down" width="14" class="ml-auto text-faint group-open:rotate-180"></iconify-icon>
 	</summary>
 
-	<div class="absolute z-20 mt-1 w-full max-h-72 overflow-y-auto rounded-xl bg-[#111] p-2 shadow-lg space-y-1">
+	<div class="absolute z-20 mt-1 w-full max-h-72 overflow-y-auto rounded-md bg-popover p-2 shadow-lg space-y-1">
 		{#each all as option (option.value)}
 			<label class="flex items-center gap-3 rounded-lg px-2 py-1.5 hover:bg-white/[0.05] cursor-pointer">
 				<input
@@ -71,7 +71,7 @@
 					class="w-4 h-4 accent-white"
 				/>
 				{@render logo(option.value)}
-				<span class="p text-white/80">{option.label}</span>
+				<span class="p text-soft">{option.label}</span>
 			</label>
 		{/each}
 
@@ -88,7 +88,7 @@
 						}
 					}}
 				/>
-				<button type="button" onclick={add} class="p rounded-xl bg-white text-black px-3">+</button>
+				<button type="button" onclick={add} class="btn btn-primary px-3" aria-label="Ajouter">+</button>
 			</div>
 		{/if}
 	</div>

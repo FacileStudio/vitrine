@@ -141,34 +141,34 @@
 
 <svelte:window onkeydown={walk} />
 
-<div class="p-8 mx-auto space-y-6">
-	<nav aria-label="Fil d'Ariane" class="p flex items-center gap-2 text-white/45">
-		<a href="/admin/projects" class="hover:text-white">Projects</a>
+<div class="space-y-6">
+	<nav aria-label="Fil d'Ariane" class="p flex items-center gap-2 text-faint">
+		<a href="/admin/projects" class="hover:text-ink">Projects</a>
 		<iconify-icon icon="lucide:chevron-right" width="14" class="text-white/25"></iconify-icon>
-		<a href="/admin/projects/{slug}" class="hover:text-white">{project?.name ?? 'Projet'}</a>
+		<a href="/admin/projects/{slug}" class="hover:text-ink">{project?.name ?? 'Projet'}</a>
 		<iconify-icon icon="lucide:chevron-right" width="14" class="text-white/25"></iconify-icon>
-		<span class="text-white/80">Section {position + 1}</span>
+		<span class="text-soft">Section {position + 1}</span>
 	</nav>
 
 	{#if error}
-		<p class="p bg-red-500/10 text-red-300 px-4 py-3 rounded-xl">{error}</p>
+		<p class="alert"><iconify-icon icon="lucide:circle-alert" width="16"></iconify-icon>{error}</p>
 	{:else if !project}
 		<div class="py-20 flex justify-center">
 			<Spinner size="xl" />
 		</div>
 	{:else if !section}
-		<p class="p bg-red-500/10 text-red-300 px-4 py-3 rounded-xl">Section introuvable</p>
+		<p class="alert"><iconify-icon icon="lucide:circle-alert" width="16"></iconify-icon>Section introuvable</p>
 	{:else}
 		<SaveBar {dirty} {saving} error={saveError} onsave={saveStory} />
 
 		<header class="flex flex-wrap items-end justify-between gap-6">
 			<div class="min-w-0 space-y-3">
-				<h1 class="title text-white truncate">
+				<h1 class="title text-ink truncate">
 					{isInfoSection(section) ? 'Couverture & intro' : (section.title?.en ?? 'Sans titre')}
 				</h1>
 				<div class="flex flex-wrap items-center gap-1.5">
 					{#each chips as chip (chip.icon)}
-						<span class="subtext flex items-center gap-1.5 rounded-md bg-stone-700/10 px-2.5 py-1.5 text-white/58">
+						<span class="subtext flex items-center gap-1.5 rounded-md bg-raised px-2.5 py-1.5 text-muted">
 							<iconify-icon icon={chip.icon} width="12"></iconify-icon>
 							{chip.label}
 						</span>
@@ -177,8 +177,8 @@
 			</div>
 
 			<div class="flex items-center gap-3">
-				<div class="flex items-center gap-2 min-w-64 rounded-md bg-stone-700/10 pl-4 pr-2 py-1">
-					<iconify-icon icon="lucide:users-round" width="16" class="text-white/45"></iconify-icon>
+				<div class="flex items-center gap-2 min-w-64 rounded-md bg-raised pl-4 pr-2 py-1">
+					<iconify-icon icon="lucide:users-round" width="16" class="text-faint"></iconify-icon>
 					<MultiSelect
 						bind:selected={project.story[position].by!}
 						options={(options?.members ?? []).map((m) => ({ value: m.slug, label: m.name }))}
@@ -186,17 +186,17 @@
 					/>
 				</div>
 
-				<div class="flex items-center rounded-md bg-stone-700/10 p-1">
+				<div class="flex items-center rounded-md bg-raised p-1">
 					{#each [{ to: position - 1, icon: 'lucide:chevron-left', label: 'Section précédente' }, { to: position + 1, icon: 'lucide:chevron-right', label: 'Section suivante' }] as nav, n (nav.icon)}
 						{#if n === 1}
-							<span class="subtext px-2 text-white/58 tabular-nums">{position + 1} / {project.story.length}</span>
+							<span class="subtext px-2 text-muted tabular-nums">{position + 1} / {project.story.length}</span>
 						{/if}
 						{#if nav.to >= 0 && nav.to < project.story.length}
 							<a
 								href="/admin/projects/{slug}/{nav.to}"
 								aria-label={nav.label}
 								title="{nav.label} (Alt {nav.to < position ? '←' : '→'})"
-								class="flex items-center p-2 rounded-sm text-white/58 hover:bg-white/[0.06] hover:text-white"
+								class="flex items-center p-2 rounded-sm text-muted hover:bg-white/[0.06] hover:text-ink"
 							>
 								<iconify-icon icon={nav.icon} width="16"></iconify-icon>
 							</a>
@@ -213,7 +213,7 @@
 		{#key position}
 		<div use:enter>
 		{#if isInfoSection(section)}
-			<div class="bg-stone-700/10 p-6 rounded-md">
+			<div class="bg-raised p-6 rounded-md">
 				<ProjectInfoCard bind:project {options} />
 			</div>
 		{:else}

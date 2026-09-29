@@ -1,11 +1,24 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 
-	let { label, className, children }: { label?: string; className?: string; children: Snippet } = $props();
+	let {
+		label,
+		hint,
+		className,
+		children,
+	}: { label?: string; hint?: string; className?: string; children: Snippet } = $props();
 </script>
 
-<label class="block space-y-4 {className}">
-	<span class="text-sm text-white/80">{label}</span>
+<label class="block space-y-2 {className}">
+	{#if label || hint}
+		<span class="flex items-baseline gap-2">
+			{#if label}
+				<span class="p text-soft">{label}</span>
+			{/if}
+			{#if hint}
+				<span class="subtext text-faint">{hint}</span>
+			{/if}
+		</span>
+	{/if}
 	{@render children()}
-	
 </label>

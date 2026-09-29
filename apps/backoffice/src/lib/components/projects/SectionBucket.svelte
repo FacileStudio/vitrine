@@ -22,12 +22,12 @@
 	const trashable = $derived(drag.current !== null && drag.current.from !== 'library');
 </script>
 
-<section class="bg-stone-700/10 rounded-md p-5 pt-3 space-y-3">
+<section class="bg-raised rounded-md p-5 pt-3 space-y-3">
 	<header class="flex items-center gap-2">
-		<iconify-icon icon="lucide:inbox" width="16" class="text-white/45"></iconify-icon>
-		<span class="lead text-white">Bucket</span>
+		<iconify-icon icon="lucide:inbox" width="16" class="text-faint"></iconify-icon>
+		<span class="lead text-ink">Bucket</span>
 		<span class="subtext rounded-sm bg-white/10 px-1.5 py-0.5 text-white/70">{bucket.length}</span>
-		<span class="subtext text-white/45">Partagé entre les sections, rien n'est perdu</span>
+		<span class="subtext text-faint">Partagé entre les sections, rien n'est perdu</span>
 	</header>
 
 	<div class="flex gap-1">
@@ -66,12 +66,12 @@
 			>
 				<ItemPreview {item} />
 				<span class="absolute inset-0 bg-black/55 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 flex items-center justify-center">
-					<iconify-icon icon="lucide:pencil" width="16" class="text-white"></iconify-icon>
+					<iconify-icon icon="lucide:pencil" width="16" class="text-ink"></iconify-icon>
 				</span>
-				<span class="absolute bottom-1 right-1 subtext rounded bg-black/60 px-1.5 text-white/80">{item.w}×{item.h}</span>
+				<span class="absolute bottom-1 right-1 subtext rounded bg-black/60 px-1.5 text-soft">{item.w}×{item.h}</span>
 			</div>
 		{:else}
-			<span class="m-auto subtext text-white/30 flex items-center gap-2">
+			<span class="m-auto subtext text-ghost flex items-center gap-2">
 				<iconify-icon icon="lucide:arrow-down-to-line" width="14"></iconify-icon>
 				Glissez ici un élément de la grille pour le mettre de côté
 			</span>
@@ -82,8 +82,8 @@
 		role="region"
 		aria-label="Corbeille"
 		class="w-28 shrink-0 rounded-md flex flex-col items-center justify-center gap-1 {overTrash && trashable
-			? 'bg-red-500/20 text-red-300'
-			: 'bg-white/[0.03] text-white/30'}"
+			? 'bg-red-500/20 text-danger'
+			: 'bg-surface-hover text-ghost'}"
 		ondragover={(e) => {
 			if (!trashable)
 				return;

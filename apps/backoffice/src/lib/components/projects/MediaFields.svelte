@@ -20,7 +20,7 @@
 
 	{#if choices.length}
 		<div class="space-y-2">
-			<span class="lead text-white/80">Galerie du projet</span>
+			<span class="lead text-soft">Galerie du projet</span>
 			<div class="grid grid-cols-4 gap-1">
 				{#each choices as src (src)}
 					<button

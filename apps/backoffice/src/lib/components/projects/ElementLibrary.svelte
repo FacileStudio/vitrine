@@ -34,14 +34,14 @@
 	}}
 />
 
-<aside class="bg-stone-700/10 rounded-md p-3 space-y-1">
+<aside class="bg-raised rounded-md p-3 space-y-1">
 	<div class="px-2 pt-1 pb-2">
-		<p class="lead text-white">Insérer</p>
+		<p class="lead text-ink">Insérer</p>
 	</div>
 
 	{#each ELEMENTS as element (element.kind)}
 		{@const sized = SIZED.includes(element.kind)}
-		<div class="rounded-md {open === element.kind ? 'bg-white/[0.03]' : ''}">
+		<div class="rounded-md {open === element.kind ? 'bg-surface-hover' : ''}">
 			<div
 				role="button"
 				tabindex="0"
@@ -59,7 +59,7 @@
 				}}
 				class="group flex items-center gap-3 p-2 rounded-md cursor-grab hover:bg-white/[0.04]"
 			>
-				<span class="size-9 shrink-0 rounded-md bg-stone-700/20 flex items-center justify-center text-white/58 group-hover:text-white">
+				<span class="size-9 shrink-0 rounded-md bg-raised-hover flex items-center justify-center text-muted group-hover:text-ink">
 					<iconify-icon icon={element.icon} width="18"></iconify-icon>
 				</span>
 				<span class="flex-1 min-w-0">
@@ -68,7 +68,7 @@
 				<iconify-icon
 					icon={sized ? 'lucide:chevron-down' : 'lucide:plus'}
 					width="14"
-					class="text-white/30 group-hover:text-white/70 {open === element.kind ? 'rotate-180' : ''}"
+					class="text-ghost group-hover:text-white/70 {open === element.kind ? 'rotate-180' : ''}"
 				></iconify-icon>
 			</div>
 
@@ -90,7 +90,7 @@
 							{/each}
 						{/each}
 					</div>
-					<p class="subtext text-white/58">
+					<p class="subtext text-muted">
 						{hover ? `${hover.w} colonne${hover.w > 1 ? 's' : ''} × ${hover.h} ligne${hover.h > 1 ? 's' : ''}` : 'Survolez pour choisir la taille'}
 					</p>
 				</div>

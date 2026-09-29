@@ -42,9 +42,9 @@
 </script>
 
 <div class="flex flex-col gap-1.5 w-full">
-	<span class="lead text-white/80">{label}</span>
+	<span class="lead text-soft">{label}</span>
 
-	<div class="group relative w-full aspect-[5/4] rounded-md overflow-hidden bg-white/[0.03]">
+	<div class="group relative w-full aspect-[5/4] rounded-md overflow-hidden bg-surface-hover">
 		{#if shown}
 			{#if video}
 				<video src={shown} muted loop playsinline class="w-full h-full object-cover {uploading ? 'opacity-40' : ''}"></video>
@@ -52,7 +52,7 @@
 				<img src={shown} alt="" class="w-full h-full object-cover {uploading ? 'opacity-40' : ''}" />
 			{/if}
 		{:else}
-			<div class="flex flex-col items-center justify-center h-full gap-2 text-white/45">
+			<div class="flex flex-col items-center justify-center h-full gap-2 text-faint">
 				<iconify-icon icon="lucide:cloud-upload" width="36"></iconify-icon>
 				<span class="subtext">Cliquez ou déposez un fichier</span>
 			</div>
@@ -60,7 +60,7 @@
 
 		{#if uploading}
 			<div class="absolute inset-0 flex items-center justify-center">
-				<span class="subtext rounded-md bg-black/70 px-3 py-1.5 text-white">Envoi…</span>
+				<span class="subtext rounded-md bg-black/70 px-3 py-1.5 text-ink">Envoi…</span>
 			</div>
 		{/if}
 
@@ -69,14 +69,14 @@
 				type="button"
 				onclick={() => (value = '')}
 				aria-label="Retirer le fichier"
-				class="absolute top-2 right-2 z-10 rounded-full bg-black/70 p-2 text-white/80 opacity-0 group-hover:opacity-100 hover:text-red-400"
+				class="absolute top-2 right-2 z-10 rounded-full bg-black/70 p-2 text-soft opacity-0 group-hover:opacity-100 hover:text-danger"
 			>
 				<iconify-icon icon="lucide:trash-2" width="16"></iconify-icon>
 			</button>
 		{/if}
 
 		{#if error}
-			<span class="absolute bottom-2 left-2 right-2 subtext rounded-md bg-red-500/20 px-3 py-1.5 text-red-300">{error}</span>
+			<span class="absolute bottom-2 left-2 right-2 subtext rounded-md bg-red-500/20 px-3 py-1.5 text-danger">{error}</span>
 		{/if}
 
 		<input type="file" {accept} onchange={upload} disabled={uploading} class="absolute inset-0 opacity-0 cursor-pointer" />

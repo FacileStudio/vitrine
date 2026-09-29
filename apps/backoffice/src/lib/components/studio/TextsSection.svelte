@@ -9,15 +9,14 @@
 	let locale = $state<Locale>('fr');
 </script>
 
-<Section title="Textes" description="Chaque langue du site a sa propre version">
-	<div class="flex gap-2">
+<Section title="Textes" icon="lucide:languages" description="Chaque langue du site a sa propre version">
+	<div class="segmented w-fit">
 		{#each LOCALES as code (code)}
 			<button
 				type="button"
 				onclick={() => (locale = code)}
-				class="lead px-3 py-1.5 rounded-xl uppercase {locale === code
-					? 'bg-white text-black'
-					: 'bg-white/[0.05] text-white/58 hover:text-white'}"
+				aria-pressed={locale === code}
+				class="segmented-item subtext uppercase px-3"
 			>
 				{code}
 			</button>

@@ -31,7 +31,7 @@
 				type="button"
 				aria-label="Supprimer la tuile"
 				onclick={() => item.tiles.splice(i, 1)}
-				class="shrink-0 w-10 h-10 rounded-xl bg-white/[0.05] text-white/58 hover:bg-red-500/10 hover:text-red-400 flex items-center justify-center"
+				class="btn-icon btn-icon-danger size-10 shrink-0"
 			>
 				<iconify-icon icon="lucide:trash-2" width="16"></iconify-icon>
 			</button>
@@ -41,7 +41,7 @@
 	<button
 		type="button"
 		onclick={() => item.tiles.push({ label: empty() })}
-		class="p flex items-center gap-2 px-4 py-2 rounded-xl bg-white/[0.05] text-white/80 hover:bg-white/10"
+		class="btn w-fit"
 	>
 		<iconify-icon icon="lucide:circle-plus" width="16"></iconify-icon>
 		Ajouter une tuile

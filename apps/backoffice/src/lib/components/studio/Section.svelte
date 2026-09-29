@@ -1,16 +1,26 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
+	import { enter } from '$lib/motion';
 
-	let { title, description, children }: { title: string; description?: string; children: Snippet } =
-		$props();
+	let {
+		title,
+		description,
+		icon,
+		children,
+	}: { title: string; description?: string; icon?: string; children: Snippet } = $props();
 </script>
 
-<section class="bg-white/[0.03] rounded-2xl shadow-sm p-6 space-y-4">
-	<header>
-		<h2 class="subtitle text-white">{title}</h2>
+<section use:enter class="panel">
+	<header class="panel-header pt-4">
+		{#if icon}
+			<iconify-icon {icon} width="16" class="text-faint"></iconify-icon>
+		{/if}
+		<h2 class="lead text-ink">{title}</h2>
 		{#if description}
-			<p class="subtext text-white/58 mt-0.5">{description}</p>
+			<p class="subtext text-faint">{description}</p>
 		{/if}
 	</header>
-	{@render children()}
+	<div class="px-5 pb-5 pt-1 space-y-4">
+		{@render children()}
+	</div>
 </section>

@@ -18,19 +18,40 @@
   font-display: swap;
 }
 
-
+/* every colour of the backoffice, each one becomes a utility: bg-surface, text-muted, ... */
 @theme {
   --font-title: 'Goga', Helvetica, 'Helvetica Neue', Arial, sans-serif;
   --font-body: 'Goga', Helvetica, 'Helvetica Neue', Arial, sans-serif;
+
+  --color-page: #050505;
+  --color-popover: #111111;
+  --color-surface: rgb(68 64 60 / 0.05);
+  --color-surface-hover: rgb(255 255 255 / 0.03);
+  --color-raised: rgb(68 64 60 / 0.1);
+  --color-raised-hover: rgb(68 64 60 / 0.2);
+  --color-overlay: rgb(0 0 0 / 0.6);
+
+  --color-ink: #ffffff;
+  --color-soft: rgb(255 255 255 / 0.8);
+  --color-muted: rgb(255 255 255 / 0.58);
+  --color-faint: rgb(255 255 255 / 0.45);
+  --color-ghost: rgb(255 255 255 / 0.3);
+
+  --color-danger: #fca5a5;
+  --color-danger-surface: rgb(239 68 68 / 0.1);
+  --color-success: #4ade80;
+  --color-success-surface: rgb(34 197 94 / 0.15);
+  --color-warning: #fbbf24;
+
+  /* one accent per section of the sidebar, used by the glow behind the active link */
+  --color-accent-projects: #3ddc97;
+  --color-accent-studio: #5b8cff;
+  --color-accent-contacts: #ffb547;
+  --color-accent-statistics: #b38cff;
+  --color-accent-users: #ff6b8b;
 }
 
 :root {
-  --backoffice-bg: #050505;
-  --backoffice-surface: rgb(255 255 255 / 0.03);
-  --backoffice-surface-strong: rgb(255 255 255 / 0.05);
-  --backoffice-border: rgb(255 255 255 / 0.1);
-  --backoffice-text: #fff;
-  --backoffice-muted: rgb(255 255 255 / 0.58);
   color-scheme: dark;
 }
 
@@ -39,8 +60,8 @@
   body {
     min-height: 100%;
     margin: 0;
-    background: var(--backoffice-bg);
-    color: var(--backoffice-text);
+    background: var(--color-page);
+    color: var(--color-ink);
     font-family: var(--font-body);
   }
 
@@ -51,36 +72,138 @@
   *::-webkit-scrollbar {
     display: none;
   }
+
+  option {
+    background: var(--color-popover);
+  }
 }
 
-@layer components {
-  .title {
-    font-family: var(--font-title);
-    font-size: 1.875rem;
-    font-weight: 500;
-    line-height: 1.15;
-  }
+/* shared building blocks, written as utilities so they can @apply each other and take variants */
+@utility title {
+  font-family: var(--font-title);
+  font-size: 1.875rem;
+  font-weight: 500;
+  line-height: 1.15;
+}
 
-  .subtitle {
-    font-family: var(--font-title);
-    font-size: 1.25rem;
-    font-weight: 500;
-    line-height: 1.3;
-  }
+@utility subtitle {
+  font-family: var(--font-title);
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
 
-  .lead {
-    font-size: 1rem;
-    font-weight: 600;
-    line-height: 1.4;
-  }
+@utility lead {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
 
-  .p {
-    font-size: 0.875rem;
-    line-height: 1.5;
-  }
+@utility p {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
 
-  .subtext {
-    font-size: 0.75rem;
-    line-height: 1.4;
-  }
+@utility subtext {
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+/* page skeleton */
+@utility page-header {
+  @apply flex flex-wrap items-end justify-between gap-6;
+}
+
+@utility page-description {
+  @apply p text-muted mt-2;
+}
+
+/* surfaces */
+@utility panel {
+  @apply bg-raised rounded-md;
+}
+
+@utility panel-link {
+  @apply bg-raised rounded-md hover:bg-surface-hover;
+}
+
+@utility panel-header {
+  @apply flex items-center gap-2 px-5 py-3;
+}
+
+/* small labels */
+@utility badge {
+  @apply subtext rounded-sm bg-white/10 px-1.5 py-0.5 text-soft;
+}
+
+@utility chip {
+  @apply subtext flex items-center gap-1.5 rounded-md bg-raised px-2.5 py-1.5 text-muted;
+}
+
+@utility kbd {
+  @apply subtext rounded-sm bg-white/10 px-1.5 text-faint;
+}
+
+/* buttons */
+@utility btn {
+  @apply p flex items-center justify-center gap-2 px-4 py-2.5 rounded-md bg-raised text-soft hover:bg-white/[0.05] hover:text-ink disabled:opacity-50 disabled:cursor-default;
+}
+
+@utility btn-primary {
+  @apply bg-white text-black hover:bg-white/90 hover:text-black;
+}
+
+@utility btn-danger {
+  @apply hover:bg-danger-surface hover:text-danger;
+}
+
+@utility btn-icon {
+  @apply flex items-center justify-center p-2 rounded-md text-muted hover:bg-white/[0.06] hover:text-ink disabled:opacity-40;
+}
+
+@utility btn-icon-danger {
+  @apply hover:bg-danger-surface hover:text-danger;
+}
+
+/* form controls */
+@utility input {
+  @apply w-full rounded-md bg-raised px-4 py-2.5 p text-ink placeholder:text-ghost focus:outline-2 focus:outline-white/10 disabled:text-faint;
+}
+
+@utility field {
+  @apply flex items-center gap-2 rounded-md bg-raised px-3 py-2.5 focus-within:bg-raised-hover;
+}
+
+@utility field-input {
+  @apply p flex-1 min-w-0 bg-transparent text-ink placeholder:text-ghost outline-none;
+}
+
+@utility field-select {
+  @apply p bg-transparent text-soft outline-none cursor-pointer;
+}
+
+@utility segmented {
+  @apply flex items-center rounded-md bg-raised p-1;
+}
+
+@utility segmented-item {
+  @apply flex items-center gap-2 px-2 py-2 rounded-sm text-muted hover:text-ink aria-pressed:bg-white aria-pressed:text-black;
+}
+
+/* feedback */
+@utility alert {
+  @apply p flex items-center gap-2 bg-danger-surface text-danger px-4 py-3 rounded-md;
+}
+
+@utility empty-state {
+  @apply panel py-20 flex flex-col items-center gap-3 text-center;
+}
+
+/* data tables drawn as rows of panels */
+@utility row {
+  @apply panel-link grid items-center gap-5 p-3 pr-5;
+}
+
+@utility column-label {
+  @apply subtext text-faint;
 }

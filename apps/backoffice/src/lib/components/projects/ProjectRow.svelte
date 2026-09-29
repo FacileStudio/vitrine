@@ -9,9 +9,9 @@
 
 <a
 	href="/admin/projects/{project.slug}"
-	class="group bg-stone-700/5 rounded-md p-0 pr-12 grid grid-cols-[11em_minmax(0,1fr)_6em_6em_6em_6em_6em_1rem] items-center gap-12 hover:bg-white/[0.03]"
+	class="group bg-surface rounded-md p-0 pr-12 grid grid-cols-[11em_minmax(0,1fr)_6em_6em_6em_6em_6em_1rem] items-center gap-12 hover:bg-surface-hover"
 >
-	<span class="relative w-48 aspect-[16/10] rounded-sm overflow-hidden bg-white/[0.03] flex items-center justify-center">
+	<span class="relative w-48 aspect-[16/10] rounded-sm overflow-hidden bg-surface-hover flex items-center justify-center">
 		<iconify-icon icon="lucide:image-off" width="18" class="text-white/20"></iconify-icon>
 		<img
 			src={siteAsset(project.image)}
@@ -21,12 +21,12 @@
 		/>
 	</span>
 	<span class="min-w-0">
-		<span class="block lead text-white truncate">{project.name}</span>
+		<span class="block lead text-ink truncate">{project.name}</span>
 	</span>
-	<span class="p text-white/58">{project.date}</span>
-	<span class="p text-white/58">{project.weeks} sem.</span>
-	<span class="p text-white/58">{project.story.length} sections</span>
+	<span class="p text-muted">{project.date}</span>
+	<span class="p text-muted">{project.weeks} sem.</span>
+	<span class="p text-muted">{project.story.length} sections</span>
 	<TechLogos stack={project.techStack} max={4} />
 	<TeamDots team={project.team} {members} />
-	<iconify-icon icon="lucide:chevron-right" width="16" class="text-white/30 group-hover:text-white"></iconify-icon>
+	<iconify-icon icon="lucide:chevron-right" width="16" class="text-ghost group-hover:text-ink"></iconify-icon>
 </a>

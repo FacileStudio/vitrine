@@ -3,11 +3,19 @@
 	import { onMount } from 'svelte';
 	import { Spinner } from '@repo/ui';
 	import { logger } from '@repo/logger';
+	import { enter } from '$lib/motion';
 
 	type Member = Awaited<ReturnType<typeof trpc.studio.list.query>>[number];
 
 	let members = $state<Member[] | null>(null);
 	let error = $state('');
+	let query = $state('');
+
+	const shown = $derived(
+		(members ?? []).filter((m) =>
+			[m.name, m.role.fr, m.slug].join(' ').toLowerCase().includes(query.trim().toLowerCase())
+		)
+	);
 
 	onMount(async () => {
 		try {
@@ -19,44 +27,67 @@
 	});
 </script>
 
-<div class="p-8 max-w-5xl mx-auto space-y-6">
-	<header>
-		<h1 class="title text-white">Studio</h1>
-		<p class="p text-white/58 mt-1">Les membres affichés sur la page studio du site</p>
-	</header>
+<header class="page-header">
+	<div>
+		<div class="flex items-baseline gap-3">
+			<h1 class="title text-ink">Studio</h1>
+			{#if members}
+				<span class="badge">{members.length}</span>
+			{/if}
+		</div>
+		<p class="page-description">Les membres affichés sur la page studio du site</p>
+	</div>
 
-	{#if error}
-		<p class="p bg-red-500/10 text-red-300 px-4 py-3 rounded-xl">{error}</p>
-	{:else if !members}
-		<div class="py-20 flex justify-center">
-			<Spinner size="xl" />
-		</div>
-	{:else}
-		<div class="grid gap-4 sm:grid-cols-2">
-			{#each members as member (member.slug)}
-				<a
-					href="/admin/studio/{member.slug}"
-					class="group bg-white/[0.03] rounded-2xl overflow-hidden shadow-sm hover:shadow-md"
-				>
-					<div class="h-2" style:background-color={member.highlight}></div>
-					<div class="p-5 flex items-center gap-4">
-						<div
-							class="subtitle w-16 h-16 rounded-full flex items-center justify-center text-white shrink-0"
-							style:background-color={member.highlight}
-						>
-							{member.name[0]}
-						</div>
-						<div class="min-w-0 flex-1">
-							<p class="subtitle text-white">{member.name}</p>
-							<p class="p text-white/58">{member.role.fr}</p>
-							<p class="subtext text-white/45 mt-1">
-								{member.projects.length} projets · {member.socials.length} réseaux{member.suite ? ' · Suite' : ''}
-							</p>
-						</div>
-						<iconify-icon icon="lucide:chevron-right" width="20" class="text-white/30 group-hover:text-white"></iconify-icon>
-					</div>
-				</a>
-			{/each}
-		</div>
-	{/if}
-</div>
+	<label class="field w-72">
+		<iconify-icon icon="lucide:search" width="16" class="text-faint"></iconify-icon>
+		<input bind:value={query} placeholder="Rechercher un membre..." class="field-input" />
+	</label>
+</header>
+
+{#if error}
+	<p class="alert"><iconify-icon icon="lucide:circle-alert" width="16"></iconify-icon>{error}</p>
+{:else if !members}
+	<div class="py-20 flex justify-center">
+		<Spinner size="xl" />
+	</div>
+{:else if shown.length === 0}
+	<div use:enter class="empty-state">
+		<iconify-icon icon="lucide:search-x" width="28" class="text-ghost"></iconify-icon>
+		<p class="lead text-ink">Aucun membre ne correspond à « {query} »</p>
+		<button type="button" onclick={() => (query = '')} class="p text-muted hover:text-ink">Effacer la recherche</button>
+	</div>
+{:else}
+	<div class="grid gap-1 sm:grid-cols-2 xl:grid-cols-4">
+		{#each shown as member (member.slug)}
+			<a use:enter href="/admin/studio/{member.slug}" class="group panel-link p-5 flex flex-col gap-8 overflow-hidden relative">
+                <div
+                    style:background-color={member.highlight}
+                    class="absolute top-0 -translate-1/2 left-20 w-90 opacity-15 rounded-full blur-[120px] z-0 aspect-square"
+                ></div>
+				<div class="flex items-start z-10 justify-between">
+					<span
+						class="subtitle size-14 rounded-md flex items-center justify-center"
+						style:background-color="{member.highlight}20"
+						style:color="color-mix(in srgb, {member.highlight}, #fff 20%)"
+					>
+						{member.name.charAt(0)}
+					</span>
+					<iconify-icon icon="lucide:arrow-up-right" width="18" class="text-ghost group-hover:text-ink"></iconify-icon>
+				</div>
+                <div class="flex justify-between z-10 items-center mt-auto">
+                    <div class="min-w-0 flex gap-3 items-center">
+                        <p class="subtitle text-ink truncate">{member.name}</p>
+                    </div>
+    
+                    <div class="mt-auto flex justify-end flex-wrap gap-1.5">
+                        <span class="chip"><iconify-icon icon="lucide:folder-kanban" width="12"></iconify-icon>{member.projects.length} projets</span>
+                        <span class="chip"><iconify-icon icon="lucide:link" width="12"></iconify-icon>{member.socials.length} réseaux</span>
+                        {#if member.suite}
+                            <span class="chip"><iconify-icon icon="lucide:sparkles" width="12"></iconify-icon>Suite</span>
+                        {/if}
+                    </div>
+                </div>
+			</a>
+		{/each}
+	</div>
+{/if}

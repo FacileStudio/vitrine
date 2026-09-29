@@ -12,7 +12,7 @@
   onMount(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      goto('/admin/contacts');
+      goto('/admin/projects');
     }
   });
 
@@ -22,52 +22,50 @@
     try {
       const result = await trpc.auth.login.mutate({ email, password });
       localStorage.setItem('token', result.token);
-      await goto('/admin/contacts');
+      await goto('/admin/projects');
     } catch (err) {
-      error = 'Invalid email or password';
+      error = 'E-mail ou mot de passe incorrect';
     }
     loading = false;
   }
 </script>
 
-<main class="min-h-screen bg-white/[0.03]">
-  <div class="min-h-screen flex items-center justify-center px-4">
-    <div class="max-w-md w-full space-y-8">
-      <div class="text-center">
-        <h1 class="text-4xl font-bold text-white">Admin Login</h1>
-        <p class="mt-2 text-white/58">Enter admin credentials</p>
+<main class="min-h-screen flex items-center justify-center px-4">
+  <div class="w-full max-w-sm space-y-8">
+    <div class="flex flex-col items-center gap-4 text-center">
+      <img src="/logo.png" alt="Facile." class="size-12 rounded-md" />
+      <div>
+        <h1 class="title text-ink">Facile. backoffice</h1>
+        <p class="page-description">Connectez-vous pour gérer le site</p>
       </div>
+    </div>
 
-      <form on:submit|preventDefault={handleLogin} class="mt-8 space-y-4">
-        <input
-          type="email"
-          bind:value={email}
-          placeholder="Email"
-          required
-          class="w-full px-4 py-2 border border-white/10 rounded-lg focus:ring-2 focus:ring-white/40 focus:border-transparent"
-        />
+    <form on:submit|preventDefault={handleLogin} class="panel p-6 space-y-3">
+      <label class="field">
+        <iconify-icon icon="lucide:mail" width="16" class="text-faint"></iconify-icon>
+        <input type="email" bind:value={email} placeholder="E-mail" autocomplete="email" required class="field-input" />
+      </label>
 
+      <label class="field">
+        <iconify-icon icon="lucide:lock" width="16" class="text-faint"></iconify-icon>
         <input
           type="password"
           bind:value={password}
-          placeholder="Password"
+          placeholder="Mot de passe"
+          autocomplete="current-password"
           required
-          class="w-full px-4 py-2 border border-white/10 rounded-lg focus:ring-2 focus:ring-white/40 focus:border-transparent"
+          class="field-input"
         />
+      </label>
 
-        <button
-          type="submit"
-          disabled={loading}
-          class="w-full bg-white text-black py-2 px-4 rounded-lg hover:bg-white/90 disabled:opacity-50 transition cursor-pointer disabled:cursor-not-allowed flex items-center justify-center gap-2"
-        >
-          <iconify-icon icon="lucide:log-in" width="20" height="20"></iconify-icon>
-          {loading ? 'Logging in...' : 'Login'}
-        </button>
+      {#if error}
+        <p class="alert"><iconify-icon icon="lucide:circle-alert" width="16"></iconify-icon>{error}</p>
+      {/if}
 
-        {#if error}
-          <p class="text-center text-sm text-red-400">{error}</p>
-        {/if}
-      </form>
-    </div>
+      <button type="submit" disabled={loading} class="btn btn-primary w-full">
+        <iconify-icon icon="lucide:log-in" width="16"></iconify-icon>
+        {loading ? 'Connexion...' : 'Se connecter'}
+      </button>
+    </form>
   </div>
 </main>

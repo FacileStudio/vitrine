@@ -124,15 +124,15 @@
 	}
 </script>
 
-<div class="p-8 mx-auto space-y-6">
-	<a href="/admin/projects" class="p inline-flex items-center gap-2 text-white/58 hover:text-white">
+<div class="space-y-6">
+	<a href="/admin/projects" class="p inline-flex items-center gap-2 text-muted hover:text-ink">
 		<iconify-icon icon="lucide:arrow-left" width="16"></iconify-icon>
 		Projects
 	</a>
 
 	{#if !project}
 		{#if error}
-			<p class="p bg-red-500/10 text-red-300 px-4 py-3 rounded-xl">{error}</p>
+			<p class="alert"><iconify-icon icon="lucide:circle-alert" width="16"></iconify-icon>{error}</p>
 		{:else}
 			<div class="py-20 flex justify-center">
 				<Spinner size="xl" />
@@ -142,18 +142,18 @@
 		<SaveBar {dirty} {saving} error={saveError} onsave={saveProject} />
 
 		<div class="flex items-baseline gap-3">
-			<h1 class="title text-white">{project.name}</h1>
-			<span class="subtext text-white/45">{sections.length} sections</span>
+			<h1 class="title text-ink">{project.name}</h1>
+			<span class="subtext text-faint">{sections.length} sections</span>
 		</div>
 
 		<div bind:this={list} class="flex flex-col gap-1">
 			{#each sections as section, i (i)}
 				{#if isEndSection(section)}
-					<div use:enter class="bg-stone-700/10 p-6 rounded-md flex items-center gap-6">
-						<span class="subtext text-white/30">Fin (généré automatiquement)</span>
+					<div use:enter class="bg-raised p-6 rounded-md flex items-center gap-6">
+						<span class="subtext text-ghost">Fin (généré automatiquement)</span>
 					</div>
 				{:else if isInfoSection(section)}
-					<div use:enter class="bg-stone-700/10 p-6 rounded-md">
+					<div use:enter class="bg-raised p-6 rounded-md">
 						<ProjectInfoCard bind:project {options} />
 					</div>
 				{:else}
@@ -192,7 +192,7 @@
 							type="button"
 							aria-label="Supprimer la section"
 							onclick={(e) => removeSection(i, e.currentTarget.parentElement)}
-							class="absolute top-1/2 -translate-y-1/2 right-4 flex items-center p-2 rounded-md text-white/30 hover:bg-red-500/20 hover:text-red-300"
+							class="absolute top-1/2 -translate-y-1/2 right-4 flex items-center p-2 rounded-md text-ghost hover:bg-red-500/20 hover:text-danger"
 						>
 							<iconify-icon icon="lucide:trash-2" width="16"></iconify-icon>
 						</button>
@@ -204,7 +204,7 @@
 				type="button"
 				onclick={addSection}
 				disabled={saving}
-				class="p disabled:opacity-50 bg-stone-700/10 p-6 rounded-md flex items-center gap-3 text-white/58 hover:bg-white/[0.03] hover:text-white"
+				class="p disabled:opacity-50 bg-raised p-6 rounded-md flex items-center gap-3 text-muted hover:bg-surface-hover hover:text-ink"
 			>
 				<iconify-icon icon="lucide:plus" width="18"></iconify-icon>
 				Ajouter une section

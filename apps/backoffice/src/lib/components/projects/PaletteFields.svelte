@@ -16,7 +16,7 @@
 
 	{#each item.swatches as swatch, i (i)}
 		<div class="flex items-center gap-2">
-			<input type="color" bind:value={swatch.hex} class="w-10 h-10 rounded-xl bg-transparent shrink-0" />
+			<input type="color" bind:value={swatch.hex} class="size-10 rounded-md bg-transparent shrink-0 cursor-pointer" />
 			<input bind:value={swatch.hex} placeholder="#000000" class="{inputClass} w-28 shrink-0" />
 			<input bind:value={swatch.label[locale]} placeholder="Nom" class={inputClass} />
 			<input
@@ -32,7 +32,7 @@
 				type="button"
 				aria-label="Supprimer la couleur"
 				onclick={() => item.swatches.splice(i, 1)}
-				class="shrink-0 w-10 h-10 rounded-xl bg-white/[0.05] text-white/58 hover:bg-red-500/10 hover:text-red-400 flex items-center justify-center"
+				class="btn-icon btn-icon-danger size-10 shrink-0"
 			>
 				<iconify-icon icon="lucide:trash-2" width="16"></iconify-icon>
 			</button>
@@ -42,7 +42,7 @@
 	<button
 		type="button"
 		onclick={() => item.swatches.push({ label: empty(), hex: '#000000' })}
-		class="p flex items-center gap-2 px-4 py-2 rounded-xl bg-white/[0.05] text-white/80 hover:bg-white/10"
+		class="btn w-fit"
 	>
 		<iconify-icon icon="lucide:circle-plus" width="16"></iconify-icon>
 		Ajouter une couleur

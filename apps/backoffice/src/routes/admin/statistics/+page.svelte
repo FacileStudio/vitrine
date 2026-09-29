@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { trpc } from '$lib/trpc';
 	import { onMount } from 'svelte';
-	import { Spinner, StatsOverview } from '@repo/ui';
+	import { AreaChart, BarChart, Spinner } from '@repo/ui';
 	import { logger } from '@repo/logger';
+	import { enter } from '$lib/motion';
 
 	type Overview = Awaited<ReturnType<typeof trpc.statistics.overview.query>>;
 
@@ -18,35 +19,73 @@
 		}
 	});
 
+	const today = $derived(overview?.series.at(-1));
+
 	const stats = $derived(
 		overview
 			? [
-					{ title: 'Visites', value: overview.counters.totalVisits, icon: 'lucide:eye', color: 'indigo' as const },
-					{ title: 'Visiteurs uniques', value: overview.counters.totalUniqueVisitors, icon: 'lucide:users-round', color: 'emerald' as const },
-					{ title: 'Visiteurs / jour (14 j)', value: overview.counters.avgVisitorsPerDay, icon: 'lucide:calendar', color: 'amber' as const },
-					{ title: 'Messages reçus', value: overview.counters.totalContacts, icon: 'lucide:mail', color: 'violet' as const },
-				]
-			: []
-	);
-
-	const charts = $derived(
-		overview
-			? [
-					{ title: 'Visites', description: '14 derniers jours', type: 'area' as const, data: overview.series, x: 'label', y: 'visits' },
-					{ title: 'Visiteurs uniques', description: '14 derniers jours', type: 'bar' as const, data: overview.series, x: 'label', y: 'uniqueVisitors' },
+					{ label: 'Visites', value: overview.counters.totalVisits, icon: 'lucide:eye', note: `${today?.visits ?? 0} aujourd'hui` },
+					{ label: 'Visiteurs uniques', value: overview.counters.totalUniqueVisitors, icon: 'lucide:users-round', note: `${today?.uniqueVisitors ?? 0} aujourd'hui` },
+					{ label: 'Visiteurs par jour', value: overview.counters.avgVisitorsPerDay, icon: 'lucide:calendar', note: 'Moyenne sur 14 jours' },
+					{ label: 'Messages reçus', value: overview.counters.totalContacts, icon: 'lucide:mail', note: 'Depuis le formulaire' },
 				]
 			: []
 	);
 </script>
 
-<div class="p-8 max-w-6xl mx-auto">
-	{#if error}
-		<div class="bg-red-500/10 border border-red-500/30 text-red-300 px-4 py-3 rounded-xl text-sm font-medium">{error}</div>
-	{:else if !overview}
-		<div class="py-20 flex justify-center">
-			<Spinner size="xl" />
-		</div>
-	{:else}
-		<StatsOverview title="Statistiques" description="Fréquentation du site vitrine" {stats} {charts} />
-	{/if}
-</div>
+<header class="page-header">
+	<div>
+		<h1 class="title text-ink">Statistiques</h1>
+		<p class="page-description">Fréquentation du site vitrine</p>
+	</div>
+	<span class="chip"><iconify-icon icon="lucide:calendar-range" width="12"></iconify-icon>14 derniers jours</span>
+</header>
+
+{#if error}
+	<p class="alert"><iconify-icon icon="lucide:circle-alert" width="16"></iconify-icon>{error}</p>
+{:else if !overview}
+	<div class="py-20 flex justify-center">
+		<Spinner size="xl" />
+	</div>
+{:else}
+	<div class="grid gap-1 sm:grid-cols-2 xl:grid-cols-4">
+		{#each stats as stat (stat.label)}
+			<div use:enter class="panel p-5 space-y-4">
+				<div class="flex items-center justify-between">
+					<span class="p text-muted">{stat.label}</span>
+					<span class="size-8 rounded-md bg-raised-hover flex items-center justify-center text-soft">
+						<iconify-icon icon={stat.icon} width="16"></iconify-icon>
+					</span>
+				</div>
+				<div>
+					<p class="title text-ink tabular-nums">{stat.value}</p>
+					<p class="subtext text-faint mt-1">{stat.note}</p>
+				</div>
+			</div>
+		{/each}
+	</div>
+
+	<div class="grid gap-1 xl:grid-cols-2">
+		<section use:enter class="panel">
+			<header class="panel-header pt-4">
+				<iconify-icon icon="lucide:chart-area" width="16" class="text-faint"></iconify-icon>
+				<h2 class="lead text-ink">Visites</h2>
+				<span class="subtext text-faint">par jour</span>
+			</header>
+			<div class="px-3 pb-3">
+				<AreaChart data={overview.series} x="label" y="visits" color="#ffffff" height={280} />
+			</div>
+		</section>
+
+		<section use:enter class="panel">
+			<header class="panel-header pt-4">
+				<iconify-icon icon="lucide:chart-column" width="16" class="text-faint"></iconify-icon>
+				<h2 class="lead text-ink">Visiteurs uniques</h2>
+				<span class="subtext text-faint">par jour</span>
+			</header>
+			<div class="px-3 pb-3">
+				<BarChart data={overview.series} x="label" y="uniqueVisitors" color="#ffffff" height={280} />
+			</div>
+		</section>
+	</div>
+{/if}

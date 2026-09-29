@@ -1,122 +1,148 @@
 <script lang="ts">
 	import { trpc } from '$lib/trpc';
 	import { onMount } from 'svelte';
-	import { Spinner, EmptyState } from '@repo/ui';
+	import { Spinner } from '@repo/ui';
 	import { logger } from '@repo/logger';
-	import 'iconify-icon';
+	import { collapse, enter } from '$lib/motion';
 
 	type Contact = Awaited<ReturnType<typeof trpc.contact.list.query>>[number];
 
-	let pageLoading = $state(true);
-	let contacts = $state<Contact[]>([]);
+	let contacts = $state<Contact[] | null>(null);
 	let error = $state('');
+	let query = $state('');
 	let expandedId = $state<string | null>(null);
+	let copiedId = $state<string | null>(null);
 
-	onMount(() => {
-		loadContacts();
-	});
+	const shown = $derived(
+		(contacts ?? []).filter((c) =>
+			[c.firstName, c.lastName, c.email, c.message].join(' ').toLowerCase().includes(query.trim().toLowerCase())
+		)
+	);
 
-	async function loadContacts() {
-		pageLoading = true;
+	onMount(async () => {
 		try {
 			contacts = await trpc.contact.list.query();
 		} catch (err) {
 			logger.error({ err }, 'Failed to load contacts');
 			error = 'Erreur chargement des contacts';
-		} finally {
-			pageLoading = false;
 		}
-	}
+	});
 
-	function toggle(id: string) {
-		expandedId = expandedId === id ? null : id;
-	}
+	async function remove(contact: Contact, row: HTMLElement | null) {
+		if (!confirm(`Supprimer le message de ${contact.firstName} ${contact.lastName} ?`))
+			return;
 
-	async function handleDelete(id: string, name: string) {
-		if (!confirm(`Supprimer le message de "${name}" ?`)) return;
 		try {
-			await trpc.contact.delete.mutate({ id });
-			contacts = contacts.filter((c) => c.id !== id);
+			await trpc.contact.delete.mutate({ id: contact.id });
+
+			const drop = () => (contacts = contacts?.filter((c) => c.id !== contact.id) ?? null);
+
+			if (row)
+				collapse(row, drop);
+			else
+				drop();
 		} catch (err) {
 			logger.error({ err }, 'Failed to delete contact');
-			error = 'Erreur suppression';
+			error = 'Erreur lors de la suppression';
 		}
+	}
+
+	async function copy(contact: Contact) {
+		await navigator.clipboard.writeText(contact.email);
+		copiedId = contact.id;
+		setTimeout(() => (copiedId = copiedId === contact.id ? null : copiedId), 1500);
 	}
 
 	const formatDate = (date: Date | string) =>
-		new Intl.DateTimeFormat('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' }).format(
-			new Date(date)
-		);
+		new Intl.DateTimeFormat('fr-FR', { day: '2-digit', month: 'short', year: 'numeric' }).format(new Date(date));
 </script>
 
-<div class="p-8 max-w-5xl mx-auto space-y-6">
-	<header>
-		<h1 class="text-3xl font-black text-white tracking-tighter">Contacts</h1>
-		<p class="text-white/58 text-sm mt-1 italic">Messages reçus depuis le formulaire du site</p>
-	</header>
+<header class="page-header">
+	<div>
+		<div class="flex items-baseline gap-3">
+			<h1 class="title text-ink">Contacts</h1>
+			{#if contacts}
+				<span class="badge">{contacts.length}</span>
+			{/if}
+		</div>
+		<p class="page-description">Messages reçus depuis le formulaire du site</p>
+	</div>
 
-	{#if error}
-		<div class="bg-red-500/10 border border-red-500/30 text-red-300 px-4 py-3 rounded-xl text-sm font-medium">{error}</div>
-	{/if}
+	<label class="field w-72">
+		<iconify-icon icon="lucide:search" width="16" class="text-faint"></iconify-icon>
+		<input bind:value={query} placeholder="Rechercher un message..." class="field-input" />
+	</label>
+</header>
 
-	{#if pageLoading}
+{#if error}
+	<p class="alert"><iconify-icon icon="lucide:circle-alert" width="16"></iconify-icon>{error}</p>
+{/if}
+
+{#if !contacts}
+	{#if !error}
 		<div class="py-20 flex justify-center">
 			<Spinner size="xl" />
 		</div>
-	{:else if contacts.length > 0}
-		<div class="space-y-3">
-			{#each contacts as contact (contact.id)}
-				<div class="bg-white/[0.03] rounded-2xl border border-white/10 overflow-hidden">
-					<button
-						onclick={() => toggle(contact.id)}
-						class="w-full flex items-center justify-between gap-4 p-4 text-left hover:bg-white/[0.05] transition-colors"
-					>
-						<div class="min-w-0 flex-1">
-							<div class="flex items-center gap-2">
-								<span class="font-black text-white truncate">{contact.firstName} {contact.lastName}</span>
-								<span class="text-xs text-white/45 font-medium truncate">{contact.email}</span>
-							</div>
-							<p class="text-sm text-white/58 mt-1 line-clamp-1">{contact.message}</p>
-						</div>
-						<div class="flex items-center gap-3 shrink-0">
-							<span class="text-xs text-white/45 font-medium hidden sm:inline">{formatDate(contact.createdAt)}</span>
-							<iconify-icon
-								icon="lucide:chevron-down"
-								width="16"
-								class="text-white/45 transition-transform {expandedId === contact.id ? 'rotate-180' : ''}"
-							></iconify-icon>
-						</div>
-					</button>
-
-					{#if expandedId === contact.id}
-						<div class="px-4 pb-4 border-t border-white/10 pt-3">
-							<p class="text-sm text-white/80 whitespace-pre-wrap">{contact.message}</p>
-							<div class="flex items-center gap-2 mt-4">
-								<a
-									href="mailto:{contact.email}"
-									class="flex items-center gap-2 bg-white text-black px-4 py-2 rounded-xl font-bold text-xs hover:bg-white/90 transition-colors"
-								>
-									<iconify-icon icon="lucide:mail" width="14"></iconify-icon>
-									Répondre
-								</a>
-								<button
-									onclick={() => handleDelete(contact.id, `${contact.firstName} ${contact.lastName}`)}
-									class="flex items-center gap-2 bg-white/[0.05] text-white/58 px-4 py-2 rounded-xl font-bold text-xs hover:bg-red-500/10 hover:text-red-400 transition-colors"
-								>
-									<iconify-icon icon="lucide:trash-2" width="14"></iconify-icon>
-									Supprimer
-								</button>
-							</div>
-						</div>
-					{/if}
-				</div>
-			{/each}
-		</div>
-	{:else}
-		<EmptyState
-			icon="lucide:mail"
-			title="Aucun message"
-			description="Les messages envoyés via le formulaire de contact du site apparaîtront ici."
-		/>
 	{/if}
-</div>
+{:else if contacts.length === 0}
+	<div use:enter class="empty-state">
+		<iconify-icon icon="lucide:inbox" width="28" class="text-ghost"></iconify-icon>
+		<p class="lead text-ink">Aucun message pour l'instant</p>
+		<p class="p text-muted">Les messages envoyés via le formulaire du site apparaîtront ici.</p>
+	</div>
+{:else if shown.length === 0}
+	<div use:enter class="empty-state">
+		<iconify-icon icon="lucide:search-x" width="28" class="text-ghost"></iconify-icon>
+		<p class="lead text-ink">Aucun message ne correspond à « {query} »</p>
+		<button type="button" onclick={() => (query = '')} class="p text-muted hover:text-ink">Effacer la recherche</button>
+	</div>
+{:else}
+	<div class="flex flex-col gap-1">
+		{#each shown as contact (contact.id)}
+			{@const open = expandedId === contact.id}
+			<div use:enter class="panel overflow-hidden {open ? '' : 'hover:bg-surface-hover'}">
+				<button
+					type="button"
+					aria-expanded={open}
+					onclick={() => (expandedId = open ? null : contact.id)}
+					class="w-full grid grid-cols-[2.5rem_14rem_minmax(0,1fr)_7rem_1rem] items-center gap-5 p-3 pr-5 text-left"
+				>
+					<span class="size-10 rounded-md bg-raised-hover flex items-center justify-center lead text-soft">
+						{contact.firstName.charAt(0).toUpperCase()}
+					</span>
+					<span class="min-w-0">
+						<span class="block lead text-ink truncate">{contact.firstName} {contact.lastName}</span>
+						<span class="block subtext text-faint truncate">{contact.email}</span>
+					</span>
+					<span class="p text-muted truncate">{contact.message}</span>
+					<span class="subtext text-faint text-right">{formatDate(contact.createdAt)}</span>
+					<iconify-icon icon="lucide:chevron-down" width="16" class="text-ghost {open ? 'rotate-180' : ''}"></iconify-icon>
+				</button>
+
+				{#if open}
+					<div use:enter class="px-5 pb-5 pl-[4.75rem] space-y-4">
+						<p class="p text-soft whitespace-pre-wrap max-w-[80ch]">{contact.message}</p>
+						<div class="flex flex-wrap items-center gap-2">
+							<a href="mailto:{contact.email}" class="btn btn-primary">
+								<iconify-icon icon="lucide:reply" width="16"></iconify-icon>
+								Répondre
+							</a>
+							<button type="button" onclick={() => copy(contact)} class="btn">
+								<iconify-icon icon={copiedId === contact.id ? 'lucide:check' : 'lucide:copy'} width="16"></iconify-icon>
+								{copiedId === contact.id ? 'Copié' : "Copier l'e-mail"}
+							</button>
+							<button
+								type="button"
+								onclick={(e) => remove(contact, e.currentTarget.closest('.panel'))}
+								class="btn btn-danger"
+							>
+								<iconify-icon icon="lucide:trash-2" width="16"></iconify-icon>
+								Supprimer
+							</button>
+						</div>
+					</div>
+				{/if}
+			</div>
+		{/each}
+	</div>
+{/if}

@@ -66,11 +66,11 @@
 	}
 </script>
 
-<section class="bg-stone-700/10 rounded-md overflow-hidden">
+<section class="bg-raised rounded-md overflow-hidden">
 	<header class="flex items-center justify-between gap-4 px-5 py-3">
 		<span class="flex items-center gap-2">
-			<iconify-icon icon="lucide:layout-dashboard" width="16" class="text-white/45"></iconify-icon>
-			<span class="lead text-white">Grille</span>
+			<iconify-icon icon="lucide:layout-dashboard" width="16" class="text-faint"></iconify-icon>
+			<span class="lead text-ink">Grille</span>
 		</span>
 
 	</header>
@@ -94,7 +94,7 @@
 		{#each cells as { col, row } (`${col}:${row}`)}
 			{#if !covered.has(`${col}:${row}`)}
 				<div
-					class="rounded-sm {col > layout.cols ? 'bg-white/[0.015]' : 'bg-white/[0.03]'}"
+					class="rounded-sm {col > layout.cols ? 'bg-white/[0.015]' : 'bg-surface-hover'}"
 					style:grid-column={col}
 					style:grid-row={row}
 				></div>
@@ -118,7 +118,7 @@
 						onedit?.(item.id);
 				}}
 				tabindex={locked(item.kind) ? -1 : 0}
-				class="group relative rounded-sm overflow-hidden bg-stone-700/10 {locked(item.kind) ? '' : 'cursor-grab'}"
+				class="group relative rounded-sm overflow-hidden bg-raised {locked(item.kind) ? '' : 'cursor-grab'}"
 				style:grid-column="{item.x} / span {item.w}"
 				style:grid-row="{item.y} / span {item.h}"
 			>
@@ -126,7 +126,7 @@
 				{#if !locked(item.kind)}
 					<span class="absolute inset-0 bg-black/55 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 flex flex-col justify-between p-2">
 						<span class="flex items-center justify-between">
-							<span class="subtext flex items-center gap-1.5 rounded-sm bg-black/60 px-2 py-1 text-white">
+							<span class="subtext flex items-center gap-1.5 rounded-sm bg-black/60 px-2 py-1 text-ink">
 								<iconify-icon icon={elementOf(item.kind)?.icon} width="12"></iconify-icon>
 								{elementOf(item.kind)?.label ?? item.kind}
 							</span>

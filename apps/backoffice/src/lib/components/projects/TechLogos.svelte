@@ -15,6 +15,6 @@
 		/>
 	{/each}
 	{#if stack.length > max}
-		<span class="subtext text-white/45">+{stack.length - max}</span>
+		<span class="subtext text-faint">+{stack.length - max}</span>
 	{/if}
 </span>

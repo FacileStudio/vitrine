@@ -12,15 +12,14 @@
 	}
 </script>
 
-<Section title="Projets" description="Les projets affichés sur la page du membre">
+<Section title="Projets" icon="lucide:folder-kanban" description="Les projets affichés sur la page du membre">
 	<div class="flex flex-wrap gap-2">
 		{#each options as project (project.slug)}
 			<button
 				type="button"
 				onclick={() => toggle(project.slug)}
-				class="p px-3 py-1.5 rounded-xl {member.projects.includes(project.slug)
-					? 'bg-white text-black'
-					: 'bg-white/[0.05] text-white/58 hover:text-white'}"
+				aria-pressed={member.projects.includes(project.slug)}
+				class="btn aria-pressed:bg-white aria-pressed:text-black"
 			>
 				{project.name}
 			</button>

@@ -10,6 +10,7 @@
 	import ProjectsSection from '$lib/components/studio/ProjectsSection.svelte';
 	import ModelSection from '$lib/components/studio/ModelSection.svelte';
 	import SaveBar from '$lib/components/SaveBar.svelte';
+	import { siteAsset } from '$lib/site';
 	import type { ProjectOption, StudioMember } from '$lib/components/studio/types';
 
 	let member = $state<StudioMember | null>(null);
@@ -70,35 +71,56 @@
 	}
 </script>
 
-<div class="p-8 max-w-4xl mx-auto space-y-6">
-	<a href="/admin/studio" class="p inline-flex items-center gap-2 text-white/58 hover:text-white">
-		<iconify-icon icon="lucide:arrow-left" width="16"></iconify-icon>
-		Studio
-	</a>
+<nav aria-label="Fil d'Ariane" class="p flex items-center gap-2 text-faint">
+	<a href="/admin/studio" class="hover:text-ink">Studio</a>
+	<iconify-icon icon="lucide:chevron-right" width="14" class="text-ghost"></iconify-icon>
+	<span class="text-soft">{member?.name ?? 'Membre'}</span>
+</nav>
 
-	{#if !member}
-		{#if error}
-			<p class="p bg-red-500/10 text-red-300 px-4 py-3 rounded-xl">{error}</p>
-		{:else}
-			<div class="py-20 flex justify-center">
-				<Spinner size="xl" />
-			</div>
-		{/if}
+{#if !member}
+	{#if error}
+		<p class="alert"><iconify-icon icon="lucide:circle-alert" width="16"></iconify-icon>{error}</p>
 	{:else}
-		<SaveBar {dirty} {saving} error={saveError} onsave={save} />
-
-		<header class="flex items-center gap-4">
-			<div class="w-3 h-12 rounded-full" style:background-color={member.highlight}></div>
-			<div>
-				<h1 class="title text-white">{member.name}</h1>
-				<p class="p text-white/58">{member.role.fr}</p>
-			</div>
-		</header>
-
-		<IdentitySection bind:member />
-		<TextsSection bind:member />
-		<SocialsSection bind:member />
-		<ProjectsSection bind:member {options} />
-		<ModelSection bind:member />
+		<div class="py-20 flex justify-center">
+			<Spinner size="xl" />
+		</div>
 	{/if}
-</div>
+{:else}
+	<SaveBar {dirty} {saving} error={saveError} onsave={save} />
+
+	<header class="page-header">
+		<div class="flex items-center gap-4 min-w-0">
+			<span
+				class="subtitle size-14 shrink-0 rounded-md flex items-center justify-center"
+				style:background-color="{member.highlight}20"
+				style:color="color-mix(in srgb, {member.highlight}, #fff 20%)"
+			>
+				{member.name.charAt(0)}
+			</span>
+			<div class="min-w-0">
+				<h1 class="title text-ink truncate">{member.name}</h1>
+				<p class="p text-muted">{member.role.fr}</p>
+			</div>
+		</div>
+
+		<div class="flex flex-wrap gap-1.5">
+			<span class="chip"><iconify-icon icon="lucide:folder-kanban" width="12"></iconify-icon>{member.projects.length} projets</span>
+			<span class="chip"><iconify-icon icon="lucide:link" width="12"></iconify-icon>{member.socials.length} réseaux</span>
+			<a href={siteAsset(`/en/studio/${member.slug}`)} target="_blank" rel="noopener" class="chip hover:text-ink">
+				<iconify-icon icon="lucide:external-link" width="12"></iconify-icon>Voir sur le site
+			</a>
+		</div>
+	</header>
+
+	<div class="grid gap-3 xl:grid-cols-2 items-start">
+		<div class="space-y-3">
+			<IdentitySection bind:member />
+			<SocialsSection bind:member />
+			<ProjectsSection bind:member {options} />
+		</div>
+		<div class="space-y-3">
+			<TextsSection bind:member />
+			<ModelSection bind:member />
+		</div>
+	</div>
+{/if}

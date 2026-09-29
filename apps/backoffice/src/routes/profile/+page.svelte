@@ -19,7 +19,7 @@
       user = await trpc.auth.me.query({});
       loading = false;
     } catch (err: any) {
-      error = 'Failed to load profile';
+      error = 'Impossible de charger le profil';
       loading = false;
       localStorage.removeItem('token');
       goto('/');
@@ -32,68 +32,54 @@
   }
 </script>
 
-<main class="min-h-screen bg-white/[0.03]">
-  <div class="max-w-4xl mx-auto px-4 py-8">
-    <div class="mb-8">
-      <a href="/" class="text-white/58 hover:text-white flex items-center gap-2 mb-4">
-        <iconify-icon icon="lucide:arrow-left" width="20" height="20"></iconify-icon>
-        Back to Dashboard
-      </a>
-      <h1 class="text-4xl font-bold text-white">My Profile</h1>
-    </div>
+<main class="max-w-3xl mx-auto px-8 py-12 space-y-6">
+  <nav aria-label="Fil d'Ariane" class="p flex items-center gap-2 text-faint">
+    <a href="/admin/projects" class="hover:text-ink">Backoffice</a>
+    <iconify-icon icon="lucide:chevron-right" width="14" class="text-ghost"></iconify-icon>
+    <span class="text-soft">Profil</span>
+  </nav>
 
-    {#if loading}
-      <div class="bg-white/[0.03] rounded-lg shadow p-6">
-        <p class="text-white/58">Loading profile...</p>
-      </div>
-    {:else if error}
-      <div class="bg-red-500/10 border border-red-500/30 rounded-lg p-6">
-        <p class="text-red-400">{error}</p>
-      </div>
-    {:else if user}
-      <div class="bg-white/[0.03] rounded-lg shadow p-6 space-y-6">
-        <div class="grid md:grid-cols-2 gap-4">
-          <div>
-            <label class="text-sm font-semibold text-white/58">First Name</label>
-            <p class="text-lg text-white">{user.firstName}</p>
-          </div>
-
-          <div>
-            <label class="text-sm font-semibold text-white/58">Last Name</label>
-            <p class="text-lg text-white">{user.lastName}</p>
-          </div>
-
-          <div>
-            <label class="text-sm font-semibold text-white/58">Email</label>
-            <p class="text-lg text-white">{user.email}</p>
-          </div>
-
-          <div>
-            <label class="text-sm font-semibold text-white/58">Role</label>
-            <p class="text-lg text-white capitalize">{user.role}</p>
-          </div>
-
-          <div>
-            <label class="text-sm font-semibold text-white/58">Account Status</label>
-            <p class="text-lg text-white">{user.isActive ? 'Active' : 'Inactive'}</p>
-          </div>
-
-          <div>
-            <label class="text-sm font-semibold text-white/58">Member Since</label>
-            <p class="text-lg text-white">{new Date(user.createdAt).toLocaleDateString()}</p>
-          </div>
-        </div>
-
-        <div class="pt-4">
-          <button
-            on:click={handleLogout}
-            class="bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition cursor-pointer flex items-center gap-2"
-          >
-            <iconify-icon icon="lucide:log-out" width="20" height="20"></iconify-icon>
-            Logout
-          </button>
+  {#if loading}
+    <div class="panel p-6"><p class="p text-muted">Chargement du profil...</p></div>
+  {:else if error}
+    <p class="alert"><iconify-icon icon="lucide:circle-alert" width="16"></iconify-icon>{error}</p>
+  {:else if user}
+    <header class="page-header">
+      <div class="flex items-center gap-4">
+        <span class="subtitle size-14 rounded-md bg-raised-hover flex items-center justify-center text-soft">
+          {user.firstName?.[0] ?? '?'}
+        </span>
+        <div>
+          <h1 class="title text-ink">{user.firstName} {user.lastName}</h1>
+          <p class="p text-muted">{user.email}</p>
         </div>
       </div>
-    {/if}
-  </div>
+      <button on:click={handleLogout} class="btn btn-danger">
+        <iconify-icon icon="lucide:log-out" width="16"></iconify-icon>
+        Déconnexion
+      </button>
+    </header>
+
+    <section class="panel">
+      <header class="panel-header pt-4">
+        <iconify-icon icon="lucide:id-card" width="16" class="text-faint"></iconify-icon>
+        <h2 class="lead text-ink">Informations</h2>
+      </header>
+      <dl class="grid sm:grid-cols-2 gap-1 p-2 pt-0">
+        {#each [
+          { label: 'Prénom', value: user.firstName },
+          { label: 'Nom', value: user.lastName },
+          { label: 'E-mail', value: user.email },
+          { label: 'Rôle', value: user.role === 'ADMIN' ? 'Admin' : 'Utilisateur' },
+          // auth.me only returns identity fields, so the account dates only show when present
+          { label: 'Membre depuis', value: user.createdAt ? new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long' }).format(new Date(user.createdAt)) : '' },
+        ].filter((row) => row.value) as row (row.label)}
+          <div class="rounded-md bg-raised p-4">
+            <dt class="subtext text-faint">{row.label}</dt>
+            <dd class="p text-ink mt-1">{row.value}</dd>
+          </div>
+        {/each}
+      </dl>
+    </section>
+  {/if}
 </main>

@@ -48,10 +48,10 @@
 
 <div
 	use:enter
-	class="sticky top-4 z-40 bg-stone-700/10 backdrop-blur-xl p-4 pl-6 rounded-md flex items-center justify-between gap-6"
+	class="sticky top-4 z-40 bg-raised backdrop-blur-xl p-4 pl-6 rounded-md flex items-center justify-between gap-6"
 >
 	{#key status}
-		<span use:enter class="p flex items-center gap-2 {status === 'error' ? 'text-red-400' : 'text-white/58'}">
+		<span use:enter class="p flex items-center gap-2 {status === 'error' ? 'text-danger' : 'text-muted'}">
 			{#if status === 'error'}
 				<iconify-icon icon="lucide:circle-alert" width="16"></iconify-icon>
 				{error}

@@ -8,7 +8,7 @@
 	const AXES = ['X', 'Y', 'Z'] as const;
 </script>
 
-<Section title="Tête 3D" description="Réglages du modèle affiché sur le site">
+<Section title="Tête 3D" icon="lucide:box" description="Réglages du modèle affiché sur le site">
 	<Field label="Modèle" hint="Chemin du .glb depuis /public">
 		<input bind:value={member.model} class={inputClass} />
 	</Field>
@@ -43,12 +43,12 @@
 				onchange={(e) => (member.hair = e.currentTarget.checked ? '#6E5A4E' : null)}
 				class="w-4 h-4 accent-white"
 			/>
-			<span class="p text-white/80">Couleur de cheveux personnalisée</span>
+			<span class="p text-soft">Couleur de cheveux personnalisée</span>
 		</label>
 
 		{#if member.hair !== null}
 			<div class="flex items-center gap-3 sm:w-1/3">
-				<input type="color" bind:value={member.hair} class="w-10 h-10 rounded-xl bg-transparent shrink-0" />
+				<input type="color" bind:value={member.hair} class="size-10 rounded-md bg-transparent shrink-0 cursor-pointer" />
 				<input bind:value={member.hair} class={inputClass} />
 			</div>
 		{/if}

@@ -4,14 +4,13 @@
 	let { locale = $bindable() }: { locale: Locale } = $props();
 </script>
 
-<div class="flex gap-2">
+<div class="segmented w-fit">
 	{#each LOCALES as code (code)}
 		<button
 			type="button"
 			onclick={() => (locale = code)}
-			class="lead px-3 py-1.5 rounded-xl uppercase {locale === code
-				? 'bg-white text-black'
-				: 'bg-white/[0.05] text-white/58 hover:text-white'}"
+			aria-pressed={locale === code}
+			class="segmented-item subtext uppercase px-3"
 		>
 			{code}
 		</button>

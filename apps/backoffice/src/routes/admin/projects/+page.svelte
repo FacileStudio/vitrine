@@ -88,26 +88,26 @@
 	}}
 />
 
-<div class="p-8 mx-auto space-y-8">
-	<header class="flex flex-wrap items-end justify-between gap-6">
+<div class="mx-auto space-y-8">
+	<header class="page-header">
 		<div>
 			<div class="flex items-baseline gap-3">
-				<h1 class="title text-white">Projects</h1>
+				<h1 class="title text-ink">Projects</h1>
 				{#if projects}
-					<span class="subtext rounded-sm bg-white/10 px-1.5 py-0.5 text-white/70">{projects.length}</span>
+					<span class="badge">{projects.length}</span>
 				{/if}
 			</div>
-			<p class="p text-white/58 mt-2">Les projets affichés sur la page projets du site</p>
+			<p class="page-description">Les projets affichés sur la page projets du site</p>
 		</div>
 
 		<div class="flex flex-wrap items-center gap-1">
-			<label class="flex items-center gap-2 w-72 rounded-md bg-stone-700/10 px-3 py-2.5 focus-within:bg-stone-700/20">
-				<iconify-icon icon="lucide:search" width="16" class="text-white/45"></iconify-icon>
+			<label class="field w-72">
+				<iconify-icon icon="lucide:search" width="16" class="text-faint"></iconify-icon>
 				<input
 					bind:this={search}
 					bind:value={query}
 					placeholder="Rechercher un projet, une techno..."
-					class="p flex-1 min-w-0 bg-transparent text-white placeholder:text-white/35 outline-none"
+					class="field-input"
 					onkeydown={(e) => {
 						if (e.key === 'Escape') {
 							query = '';
@@ -115,19 +115,19 @@
 						}
 					}}
 				/>
-				<kbd class="subtext rounded-sm bg-white/10 px-1.5 text-white/45">/</kbd>
+				<kbd class="kbd">/</kbd>
 			</label>
 
-			<label class="flex items-center gap-2 rounded-md bg-stone-700/10 pl-3 pr-2 py-2.5">
-				<iconify-icon icon="lucide:arrow-up-down" width="14" class="text-white/45"></iconify-icon>
-				<select bind:value={sort} class="p bg-transparent text-white/80 outline-none cursor-pointer">
+			<label class="field">
+				<iconify-icon icon="lucide:arrow-up-down" width="14" class="text-faint"></iconify-icon>
+				<select bind:value={sort} class="field-select">
 					{#each SORTS as option (option.value)}
-						<option value={option.value} class="bg-[#111]">{option.label}</option>
+						<option value={option.value}>{option.label}</option>
 					{/each}
 				</select>
 			</label>
 
-			<div class="flex items-center rounded-md bg-stone-700/10 p-1">
+			<div class="segmented">
 				{#each VIEWS as option (option.value)}
 					<button
 						type="button"
@@ -135,7 +135,7 @@
 						aria-label={option.label}
 						aria-pressed={view === option.value}
 						onclick={() => pickView(option.value)}
-						class="flex items-center p-2 rounded-sm {view === option.value ? 'bg-white text-black' : 'text-white/58 hover:text-white'}"
+						class="segmented-item"
 					>
 						<iconify-icon icon={option.icon} width="16"></iconify-icon>
 					</button>
@@ -145,16 +145,16 @@
 	</header>
 
 	{#if error}
-		<p class="p bg-red-500/10 text-red-300 px-6 py-3 rounded-xl">{error}</p>
+		<p class="alert"><iconify-icon icon="lucide:circle-alert" width="16"></iconify-icon>{error}</p>
 	{:else if !projects}
 		<div class="py-20 flex justify-center">
 			<Spinner size="xl" />
 		</div>
 	{:else if shown.length === 0}
-		<div use:enter class="bg-stone-700/5 rounded-md py-20 flex flex-col items-center gap-1 text-center">
-			<iconify-icon icon="lucide:search-x" width="28" class="text-white/30"></iconify-icon>
-			<p class="lead text-white">Aucun projet ne correspond à « {query} »</p>
-			<button type="button" onclick={() => (query = '')} class="p text-white/58 hover:text-white">Effacer la recherche</button>
+		<div use:enter class="empty-state">
+			<iconify-icon icon="lucide:search-x" width="28" class="text-ghost"></iconify-icon>
+			<p class="lead text-ink">Aucun projet ne correspond à « {query} »</p>
+			<button type="button" onclick={() => (query = '')} class="p text-muted hover:text-ink">Effacer la recherche</button>
 		</div>
 	{:else if view === 'grid'}
 		<div class="grid gap-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
