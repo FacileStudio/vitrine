@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { logger } from '@repo/logger';
-	import ImageUpload from './ImageUpload.svelte';
-	import MultiSelect from './MultiSelect.svelte';
-	import TechLogos from './TechLogos.svelte';
-	import TeamDots from './TeamDots.svelte';
+	import ImageUpload from '../ui/ImageUpload.svelte';
+	import MultiSelect from '../ui/MultiSelect.svelte';
+	import TechLogos from '../ui/TechLogos.svelte';
+	import TeamDots from '../ui/TeamDots.svelte';
 	import { siteAsset } from '$lib/site';
 	import { loadMembers } from '$lib/members';
-	import { LOCALES, type Locale, type Project, type ProjectOptions, type StudioMemberSummary } from './types';
+	import { LOCALES, type Locale, type Project, type ProjectOptions, type StudioMemberSummary } from '../types';
 
 	let { project = $bindable(), options }: { project: Project; options: ProjectOptions | null } = $props();
 

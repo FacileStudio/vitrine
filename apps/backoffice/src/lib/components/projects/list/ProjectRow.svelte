@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { siteAsset } from '$lib/site';
 	import { hoverTo, zoom } from '$lib/motion';
-	import TechLogos from './TechLogos.svelte';
-	import TeamDots from './TeamDots.svelte';
-	import type { ProjectSummary, StudioMemberSummary } from './types';
+	import TechLogos from '../ui/TechLogos.svelte';
+	import TeamDots from '../ui/TeamDots.svelte';
+	import type { ProjectSummary, StudioMemberSummary } from '../types';
 
 	let { project, members }: { project: ProjectSummary; members: Map<string, StudioMemberSummary> } = $props();
 </script>

@@ -2,7 +2,7 @@
 	import ItemPreview from './ItemPreview.svelte';
 	import { drag, endDrag, startDrag } from './drag.svelte';
 	import { moveToBucket, removeItem } from './gridOps';
-	import type { Project } from './types';
+	import type { Project } from '../types';
 
 	type Layout = Project['story'][number]['layout'];
 	type Bucket = Project['bucket'];

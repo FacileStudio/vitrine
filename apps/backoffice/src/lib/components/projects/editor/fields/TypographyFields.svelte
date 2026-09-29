@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Field from '../studio/Field.svelte';
-	import LocaleTabs from './LocaleTabs.svelte';
-	import { inputClass, type Locale, type Project } from './types';
+	import Field from '../../../studio/Field.svelte';
+	import LocaleTabs from '../../ui/LocaleTabs.svelte';
+	import { inputClass, type Locale, type Project } from '../../types';
 
 	type Item = Extract<Project['story'][number]['layout']['items'][number], { kind: 'typography' }>;
 

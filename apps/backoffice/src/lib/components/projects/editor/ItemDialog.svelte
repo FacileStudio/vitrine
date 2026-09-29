@@ -2,13 +2,13 @@
 	import { onMount } from 'svelte';
 	import { elementOf } from './elements';
 	import { fillTexts } from './gridOps';
-	import MediaFields from './MediaFields.svelte';
-	import TextFields from './TextFields.svelte';
-	import PaletteFields from './PaletteFields.svelte';
-	import TypographyFields from './TypographyFields.svelte';
-	import TilesFields from './TilesFields.svelte';
+	import MediaFields from './fields/MediaFields.svelte';
+	import TextFields from './fields/TextFields.svelte';
+	import PaletteFields from './fields/PaletteFields.svelte';
+	import TypographyFields from './fields/TypographyFields.svelte';
+	import TilesFields from './fields/TilesFields.svelte';
 	import SizePicker from './SizePicker.svelte';
-	import type { Project } from './types';
+	import type { Project } from '../types';
 
 	type Item = Project['story'][number]['layout']['items'][number];
 

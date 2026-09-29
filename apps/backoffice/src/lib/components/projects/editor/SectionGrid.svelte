@@ -3,7 +3,7 @@
 	import { drag, endDrag, startDrag } from './drag.svelte';
 	import { ROWS, addToGrid, fits, moveToGrid, shownCols } from './gridOps';
 	import { LOCKED_ELEMENTS, elementOf } from './elements';
-	import type { Project } from './types';
+	import type { Project } from '../types';
 
 	type Layout = Project['story'][number]['layout'];
 	type Bucket = Project['bucket'];

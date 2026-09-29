@@ -1,4 +1,4 @@
-import type { Project } from './types';
+import type { Project } from '../types';
 
 type Layout = Project['story'][number]['layout'];
 type Item = Layout['items'][number];

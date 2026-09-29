@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { LOCALES, type Locale } from './types';
+	import { LOCALES, type Locale } from '../types';
 
 	let { locale = $bindable() }: { locale: Locale } = $props();
 </script>

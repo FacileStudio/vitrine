@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { siteAsset } from '$lib/site';
 	import { elementOf } from './elements';
-	import type { Project } from './types';
+	import type { Project } from '../types';
 
 	type Item = Project['story'][number]['layout']['items'][number];
 

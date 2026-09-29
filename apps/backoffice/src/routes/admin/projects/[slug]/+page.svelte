@@ -5,11 +5,11 @@
 	import { Spinner } from '@repo/ui';
 	import { logger } from '@repo/logger';
 	import type { Project, ProjectOptions } from '$lib/components/projects/types';
-	import { isEndSection, isInfoSection } from '$lib/components/projects/elements';
+	import { isEndSection, isInfoSection } from '$lib/components/projects/editor/elements';
 	import { describe, infoInput, prepare } from '$lib/components/projects/project';
 	import { collapse, enter, settle } from '$lib/motion';
-	import SectionRow from '$lib/components/projects/SectionRow.svelte';
-	import ProjectInfoCard from '$lib/components/projects/ProjectInfoCard.svelte';
+	import SectionRow from '$lib/components/projects/overview/SectionRow.svelte';
+	import ProjectInfoCard from '$lib/components/projects/overview/ProjectInfoCard.svelte';
 	import SaveBar from '$lib/components/SaveBar.svelte';
 	import { loadMembers } from '$lib/members';
 	import type { StudioMemberSummary } from '$lib/components/projects/types';
@@ -192,7 +192,7 @@
 							type="button"
 							aria-label="Delete section"
 							onclick={(e) => removeSection(i, e.currentTarget.parentElement)}
-							class="absolute top-1/2 -translate-y-1/2 right-4 flex items-center p-2 rounded-md text-ghost hover:bg-red-500/20 hover:text-danger"
+							class="absolute top-1/2 -translate-y-1/2 right-2 lg:right-4 flex items-center p-2 rounded-md text-ghost hover:bg-red-500/20 hover:text-danger"
 						>
 							<iconify-icon icon="lucide:trash-2" width="16"></iconify-icon>
 						</button>

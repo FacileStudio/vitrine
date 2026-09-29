@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import { inputClass } from './types';
+	import { inputClass } from '../types';
 
 	type Option = { value: string; label: string };
 

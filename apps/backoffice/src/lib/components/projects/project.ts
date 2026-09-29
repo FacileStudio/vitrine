@@ -1,4 +1,4 @@
-import { fillTexts } from './gridOps';
+import { fillTexts } from './editor/gridOps';
 import type { Project } from './types';
 
 // the API leaves empty lists and locales out, the editors need something to bind to

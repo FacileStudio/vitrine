@@ -1,6 +1,6 @@
 <script lang="ts">
-	import LocaleTabs from './LocaleTabs.svelte';
-	import { inputClass, type Locale, type Project } from './types';
+	import LocaleTabs from '../../ui/LocaleTabs.svelte';
+	import { inputClass, type Locale, type Project } from '../../types';
 
 	type Item = Extract<Project['story'][number]['layout']['items'][number], { kind: 'palette' }>;
 

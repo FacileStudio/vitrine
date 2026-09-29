@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { siteAsset } from '$lib/site';
-	import ImageUpload from './ImageUpload.svelte';
+	import ImageUpload from '../../ui/ImageUpload.svelte';
 	import { isVideo } from './media';
-	import type { Project } from './types';
+	import type { Project } from '../../types';
 
 	type Item = Extract<Project['story'][number]['layout']['items'][number], { kind: 'image' | 'video' }>;
 

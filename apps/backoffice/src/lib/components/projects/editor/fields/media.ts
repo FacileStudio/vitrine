@@ -1,5 +1,5 @@
 import { siteAsset } from '$lib/site';
-import type { Project } from './types';
+import type { Project } from '../../types';
 
 type Block = Project['story'][number]['blocks'][number];
 

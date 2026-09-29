@@ -4,8 +4,8 @@
 	import { Spinner } from '@repo/ui';
 	import { logger } from '@repo/logger';
 	import { enter } from '$lib/motion';
-	import ProjectCard from '$lib/components/projects/ProjectCard.svelte';
-	import ProjectRow from '$lib/components/projects/ProjectRow.svelte';
+	import ProjectCard from '$lib/components/projects/list/ProjectCard.svelte';
+	import ProjectRow from '$lib/components/projects/list/ProjectRow.svelte';
 	import type { ProjectSummary, StudioMemberSummary } from '$lib/components/projects/types';
 
 	const SORTS = [

@@ -48,7 +48,7 @@
 
 <div
 	use:enter
-	class="sticky top-4 z-40 bg-raised backdrop-blur-xl p-4 pl-6 rounded-md flex items-center justify-between gap-6"
+	class="sticky top-20 lg:top-4 z-30 bg-page/50 backdrop-blur-xl p-4 pl-6 rounded-sm flex items-center justify-between gap-6"
 >
 	{#key status}
 		<span use:enter class="p flex items-center gap-2 {status === 'error' ? 'text-danger' : 'text-muted'}">
