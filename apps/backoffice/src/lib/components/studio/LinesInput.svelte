@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { inputClass } from './types';
 
-	let { value = $bindable(), rows = 4 }: { value: string[]; rows?: number } = $props();
+	let { value = $bindable(), rows = 4, placeholder }: { value: string[]; rows?: number; placeholder?: string } = $props();
 
 	// kept apart from value so blank lines survive while typing; remount to reset it
 	let text = $state(value.join('\n'));
@@ -14,4 +14,4 @@
 	}
 </script>
 
-<textarea bind:value={text} oninput={onInput} {rows} class={inputClass}></textarea>
+<textarea bind:value={text} oninput={onInput} {rows} {placeholder} class="{inputClass} block resize-none"></textarea>

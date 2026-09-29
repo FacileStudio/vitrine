@@ -4,13 +4,12 @@
 	import { onMount } from 'svelte';
 	import { Spinner } from '@repo/ui';
 	import { logger } from '@repo/logger';
-	import IdentitySection from '$lib/components/studio/IdentitySection.svelte';
+	import MemberHeader from '$lib/components/studio/MemberHeader.svelte';
 	import TextsSection from '$lib/components/studio/TextsSection.svelte';
 	import SocialsSection from '$lib/components/studio/SocialsSection.svelte';
 	import ProjectsSection from '$lib/components/studio/ProjectsSection.svelte';
 	import ModelSection from '$lib/components/studio/ModelSection.svelte';
 	import SaveBar from '$lib/components/SaveBar.svelte';
-	import { siteAsset } from '$lib/site';
 	import type { ProjectOption, StudioMember } from '$lib/components/studio/types';
 
 	let member = $state<StudioMember | null>(null);
@@ -88,39 +87,12 @@
 {:else}
 	<SaveBar {dirty} {saving} error={saveError} onsave={save} />
 
-	<header class="page-header">
-		<div class="flex items-center gap-4 min-w-0">
-			<span
-				class="subtitle size-14 shrink-0 rounded-md flex items-center justify-center"
-				style:background-color="{member.highlight}20"
-				style:color="color-mix(in srgb, {member.highlight}, #fff 20%)"
-			>
-				{member.name.charAt(0)}
-			</span>
-			<div class="min-w-0">
-				<h1 class="title text-ink truncate">{member.name}</h1>
-				<p class="p text-muted">{member.role.fr}</p>
-			</div>
-		</div>
+	<MemberHeader bind:member />
 
-		<div class="flex flex-wrap gap-1.5">
-			<span class="chip"><iconify-icon icon="lucide:folder-kanban" width="12"></iconify-icon>{member.projects.length} projets</span>
-			<span class="chip"><iconify-icon icon="lucide:link" width="12"></iconify-icon>{member.socials.length} réseaux</span>
-			<a href={siteAsset(`/en/studio/${member.slug}`)} target="_blank" rel="noopener" class="chip hover:text-ink">
-				<iconify-icon icon="lucide:external-link" width="12"></iconify-icon>Voir sur le site
-			</a>
-		</div>
-	</header>
-
-	<div class="grid gap-3 xl:grid-cols-2 items-start">
-		<div class="space-y-3">
-			<IdentitySection bind:member />
-			<SocialsSection bind:member />
-			<ProjectsSection bind:member {options} />
-		</div>
-		<div class="space-y-3">
-			<TextsSection bind:member />
-			<ModelSection bind:member />
-		</div>
+	<div class="flex flex-col gap-1">
+		<TextsSection bind:member />
+		<ProjectsSection bind:member {options} />
+		<SocialsSection bind:member />
+		<ModelSection bind:member />
 	</div>
 {/if}

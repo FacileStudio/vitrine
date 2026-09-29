@@ -92,3 +92,13 @@ export function zoom(node: HTMLElement) {
 		},
 	};
 }
+
+// open or close a panel body by animating its height, the closed state keeps no height at all
+export function fold(node: HTMLElement, open: boolean, instant = false) {
+	gsap.to(node, {
+		height: open ? 'auto' : 0,
+		opacity: open ? 1 : 0,
+		duration: instant ? 0 : 0.35,
+		ease: EASE.sharp,
+	});
+}

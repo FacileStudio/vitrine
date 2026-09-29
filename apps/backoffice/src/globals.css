@@ -29,6 +29,7 @@
   --color-surface-hover: rgb(255 255 255 / 0.03);
   --color-raised: rgb(68 64 60 / 0.1);
   --color-raised-hover: rgb(68 64 60 / 0.2);
+  --color-pressed: rgb(68 64 60 / 0.5);
   --color-overlay: rgb(0 0 0 / 0.6);
 
   --color-ink: #ffffff;
@@ -187,7 +188,7 @@
 }
 
 @utility segmented-item {
-  @apply flex items-center gap-2 px-2 py-2 rounded-sm text-muted hover:text-ink aria-pressed:bg-white aria-pressed:text-black;
+  @apply flex items-center gap-2 px-2 py-2 rounded-sm text-muted hover:text-ink aria-pressed:bg-pressed aria-pressed:text-ink;
 }
 
 /* feedback */
