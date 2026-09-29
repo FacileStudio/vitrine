@@ -9,7 +9,6 @@ model Project {
   coverEffect     String?
   description     Json
   metaDescription Json
-  challenge       Json?
   services        String[]
   team            StudioMember[]
   techStack       String[]

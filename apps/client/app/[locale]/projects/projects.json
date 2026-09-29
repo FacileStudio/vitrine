@@ -41,12 +41,6 @@
             "Figma"
         ],
         "date": "2025",
-        "challenge": {
-            "en": "Turn a to-do list into something people actually want to open — habits, streaks and overdue tasks had to feel like a quest, not a chore.",
-            "fr": "Faire d'une to-do list un truc qu'on a vraiment envie d'ouvrir : habitudes, séries et tâches en retard devaient ressembler à une quête, pas à une corvée.",
-            "es": "Convertir una lista de tareas en algo que de verdad quieras abrir: hábitos, rachas y tareas atrasadas tenían que sentirse como una misión, no como una obligación.",
-            "de": "Eine To-do-Liste in etwas verwandeln, das man wirklich öffnen will: Gewohnheiten, Serien und überfällige Aufgaben sollten sich wie eine Quest anfühlen, nicht wie eine Pflicht."
-        },
         "services": [
             "transformation",
             "redesign",
@@ -317,12 +311,6 @@
             "Illustrator"
         ],
         "date": "2026",
-        "challenge": {
-            "en": "Make an alien civilisation feel millennia ahead of us through one colour and one mark, then carry that all the way to a shop and battle-pass page without it curdling into generic gamer-blue.",
-            "fr": "Faire sentir qu'une civilisation extraterrestre a des millénaires d'avance avec une seule couleur et un seul logo, puis porter ça jusqu'à la boutique et au battle pass sans virer au bleu gamer générique.",
-            "es": "Hacer que una civilización alienígena parezca ir milenios por delante con un solo color y una sola marca, y llevarlo hasta la tienda y el pase de batalla sin caer en el típico azul gamer.",
-            "de": "Mit einer Farbe und einem Zeichen spürbar machen, dass eine außerirdische Zivilisation uns Jahrtausende voraus ist, und das bis zum Shop und zum Battle Pass tragen, ohne in generisches Gamer-Blau abzurutschen."
-        },
         "services": [
             "brandIdentity",
             "productDesign",
@@ -606,12 +594,6 @@
             "GSAP"
         ],
         "date": "2024",
-        "challenge": {
-            "en": "Give a body of work room to breathe on screen without the site ever pulling attention away from it.",
-            "fr": "Laisser respirer une œuvre à l'écran sans que le site ne lui vole jamais la vedette.",
-            "es": "Dar espacio a una obra en pantalla sin que la web le robe nunca el protagonismo.",
-            "de": "Einem Werk auf dem Bildschirm Raum geben, ohne dass die Website ihm je die Aufmerksamkeit stiehlt."
-        },
         "services": [
             "artDirection",
             "webDevelopment",
@@ -724,12 +706,6 @@
             "GSAP"
         ],
         "date": "2025",
-        "challenge": {
-            "en": "Make ranking your music taste feel curated and modern enough that any listener wants to argue about it publicly.",
-            "fr": "Rendre le classement de vos goûts musicaux assez soigné et moderne pour que chaque auditeur ait envie d'en débattre publiquement.",
-            "es": "Que clasificar tus gustos musicales se sienta tan cuidado y moderno que cualquier oyente quiera discutirlo en público.",
-            "de": "Das Ranking des eigenen Musikgeschmacks so kuratiert und modern wirken lassen, dass jeder darüber öffentlich streiten will."
-        },
         "services": [
             "productDesign",
             "webDevelopment",
@@ -848,12 +824,6 @@
             "GSAP"
         ],
         "date": "2024",
-        "challenge": {
-            "en": "Put handmade creations centre stage and keep every piece of interface out of their way.",
-            "fr": "Mettre des créations faites main au premier plan et ne laisser aucun élément d'interface leur faire de l'ombre.",
-            "es": "Poner creaciones hechas a mano en primer plano y que ningún elemento de la interfaz se interponga.",
-            "de": "Handgemachte Kreationen in den Mittelpunkt stellen und jedes Stück Oberfläche aus ihrem Weg halten."
-        },
         "services": [
             "artDirection",
             "webDevelopment",
@@ -959,12 +929,6 @@
             "Figma"
         ],
         "date": "2026",
-        "challenge": {
-            "en": "Make an AI analysis tool feel as simple as uploading a video: coaches should go from a match recording to clips and numbers without reading a manual.",
-            "fr": "Rendre un outil d'analyse par IA aussi simple que l'envoi d'une vidéo : un coach doit passer de l'enregistrement du match aux clips et aux chiffres sans lire de mode d'emploi.",
-            "es": "Hacer que una herramienta de análisis con IA sea tan sencilla como subir un vídeo: un entrenador debe pasar de la grabación del partido a los clips y los números sin leer ningún manual.",
-            "de": "Ein KI-Analysetool so einfach machen wie das Hochladen eines Videos: Trainer sollen ohne Anleitung von der Spielaufnahme zu Clips und Zahlen kommen."
-        },
         "services": [
             "brandIdentity",
             "uiUxDesign",
@@ -1271,12 +1235,6 @@
         "techStack": [],
         "image": "/images/projects/Vidoq_cover.webp",
         "date": "2026",
-        "challenge": {
-            "en": "Search more than a billion breach records by exact value, wildcard or several fields at once, and keep the answer fast enough to feel instant.",
-            "fr": "Chercher dans plus d'un milliard d'enregistrements de fuites par valeur exacte, joker ou plusieurs champs à la fois, avec une réponse assez rapide pour sembler instantanée.",
-            "es": "Buscar en más de mil millones de registros filtrados por valor exacto, comodín o varios campos a la vez, con una respuesta tan rápida que parezca instantánea.",
-            "de": "Über eine Milliarde Leak-Datensätze nach exaktem Wert, Platzhalter oder mehreren Feldern zugleich durchsuchen, und die Antwort trotzdem so schnell liefern, dass sie sofort wirkt."
-        },
         "services": [
             "appDevelopment",
             "webDevelopment"
@@ -1382,12 +1340,6 @@
         "techStack": [],
         "image": "/images/projects/Benky_cover.webp",
         "date": "2026",
-        "challenge": {
-            "en": "Replace the scattered tabs of a study session with one place where materials, questions, notes and practice follow each other.",
-            "fr": "Remplacer les onglets éparpillés d'une session de révision par un seul endroit où supports, questions, notes et entraînement s'enchaînent.",
-            "es": "Sustituir las pestañas dispersas de una sesión de estudio por un único lugar donde materiales, preguntas, notas y práctica se suceden.",
-            "de": "Die verstreuten Tabs einer Lernsession durch einen Ort ersetzen, an dem Material, Fragen, Notizen und Übung aufeinander folgen."
-        },
         "services": [
             "appDevelopment",
             "desktopDevelopment"
@@ -1497,12 +1449,6 @@
             "Vue.js"
         ],
         "date": "2024",
-        "challenge": {
-            "en": "Compress a team's daily tracking and reporting into a tool they open once and never fight.",
-            "fr": "Condenser le suivi et le reporting quotidiens d'une équipe dans un outil qu'on ouvre une fois et contre lequel on ne se bat jamais.",
-            "es": "Condensar el seguimiento y los informes diarios de un equipo en una herramienta que se abre una vez y con la que nunca hay que pelearse.",
-            "de": "Tägliches Tracking und Reporting eines Teams in ein Tool packen, das man einmal öffnet und mit dem man nie kämpft."
-        },
         "services": [
             "productDesign",
             "webDevelopment"
@@ -1614,12 +1560,6 @@
         ],
         "image": "/images/projects/Muse.webp",
         "date": "2026",
-        "challenge": {
-            "en": "Fifteen tools that had to look like one product without fifteen teams re-solving the same button.",
-            "fr": "Quinze outils qui devaient ressembler à un seul produit, sans quinze équipes pour réinventer le même bouton.",
-            "es": "Quince herramientas que tenían que parecer un solo producto, sin quince equipos resolviendo otra vez el mismo botón.",
-            "de": "Fünfzehn Tools, die wie ein Produkt aussehen sollten, ohne dass fünfzehn Teams denselben Button neu erfinden."
-        },
         "services": [
             "designSystem",
             "frontendDevelopment"

@@ -87,7 +87,6 @@ export interface ProjectEntry {
   gallery: string[];
   description: Localized;
   metaDescription: Localized;
-  challenge?: Localized;
   techStack: string[];
   date: string;
   services: string[];

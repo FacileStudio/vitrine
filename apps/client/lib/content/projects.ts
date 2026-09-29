@@ -33,7 +33,6 @@ export interface Project {
     metaDescription: Localized<string>;
     techStack?: string[];
     date: string;
-    challenge?: Localized<string>;
     services: Service[];
     team: string[];
     notes: Localized<string>[];

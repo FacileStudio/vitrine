@@ -4,7 +4,6 @@ import type { Project } from './types';
 // the API leaves empty lists and locales out, the editors need something to bind to
 export function prepare(project: Project) {
 	project.story.forEach((s) => (s.by ??= []));
-	project.challenge ??= { en: '', fr: '', es: '', de: '' };
 	project.bucket = [...new Map(project.bucket.map((item) => [item.id, item])).values()];
 	// done up front so merely opening an item dialog does not count as an unsaved change
 	[...project.story.flatMap((s) => s.layout.items), ...project.bucket].forEach(fillTexts);
@@ -14,12 +13,9 @@ export function prepare(project: Project) {
 
 // an emptied input is "" but the API expects the field left out
 export function infoInput({ story, bucket, ...info }: Project) {
-	const hasChallenge = Object.values(info.challenge ?? {}).some((text) => text.trim());
-
 	return {
 		...info,
 		link: info.link?.trim() || undefined,
-		challenge: hasChallenge ? info.challenge : undefined,
 	};
 }
 

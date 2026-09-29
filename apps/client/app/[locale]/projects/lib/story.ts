@@ -18,7 +18,7 @@ function hydrate(p: Resolved<Project>, b: StoryBlock, people: Person[], { t, ser
         return {
             eyebrow: `${p.date}  —  ${t("weeks", { count: p.weeks })}`,
             title: p.name,
-            text: p.challenge ?? p.description,
+            text: p.description,
             tags: p.services.map((s) => services(s)),
             logos: p.techStack,
             people,

@@ -109,7 +109,6 @@ export const projectSchema = z.object({
   gallery: z.array(z.string().min(1)),
   description: text,
   metaDescription: text,
-  challenge: text.optional(),
   techStack: z.array(z.string()),
   date: z.string().min(1),
   services: z.array(z.string()),

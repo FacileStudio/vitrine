@@ -16,7 +16,7 @@ const DATA_FILES = [
 ];
 
 const COPY_FIELDS = new Set([
-    "bio", "challenge", "description", "eyebrow", "facts", "footer", "kicker",
+    "bio", "description", "eyebrow", "facts", "footer", "kicker",
     "labels", "linkLabel", "notes", "role", "tagline", "text", "title",
 ]);
 

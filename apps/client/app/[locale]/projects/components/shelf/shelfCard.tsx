@@ -2,7 +2,6 @@
 
 import type { MouseEvent } from "react";
 import { useTranslations } from "next-intl";
-import SplitLines from "@/components/facile/splitLines";
 import TextReveal from "@/components/facile/textReveal";
 import { LightPillar } from "@/webgl/lazy";
 import ArrowLink from "@/components/facile/arrowLink";
@@ -10,7 +9,6 @@ import TechStack from "@/components/facile/techStack";
 import ShelfRow from "@/components/facile/shelf/shelfRow";
 import { MarcelEyes, MarcelSpheres, useMarcelEyes } from "@/components/facile/marcelEyes";
 import { isVideoFile } from "@/lib/utils";
-import { useLocalized } from "@/lib/i18n/localize";
 import type { Project } from "@/lib/content/projects";
 import type { ShelfRefs } from "@/hooks/use-shelf-motion";
 
@@ -39,7 +37,6 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
     const t = useTranslations("story");
     const tProjects = useTranslations("projects");
     const { frame, eyes, spheres, start, stop } = useMarcelEyes();
-    const description = useLocalized(project.description);
     const marcel = project.coverEffect === "marcel";
     const projetZero = project.coverEffect === "projet-zero-pillar";
 
@@ -101,15 +98,6 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
                         </TextReveal>
                         <TechStack stack={project.techStack} className="flex-col gap-3 hidden md:flex lg:hidden items-end text-right" {...techStackClass} />
                     </div>
-
-                    {description && (
-                        <SplitLines
-                            as="p"
-                            text={description}
-                            justify
-                            className="description relative z-10 text-white/75"
-                        />
-                    )}
 
                     {project.link && (
                         <TextReveal cropClassName="z-10 lg:mt-2">

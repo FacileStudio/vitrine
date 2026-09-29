@@ -36,7 +36,7 @@ export type MediaScalarFieldEnum = z.infer<typeof MediaScalarFieldEnumSchema>;
 
 // File: ProjectScalarFieldEnum.schema.ts
 
-export const ProjectScalarFieldEnumSchema = z.enum(['slug', 'position', 'name', 'weeks', 'link', 'image', 'video', 'coverEffect', 'description', 'metaDescription', 'challenge', 'services', 'techStack', 'date', 'gallery', 'notes', 'bucket', 'createdAt', 'updatedAt'])
+export const ProjectScalarFieldEnumSchema = z.enum(['slug', 'position', 'name', 'weeks', 'link', 'image', 'video', 'coverEffect', 'description', 'metaDescription', 'services', 'techStack', 'date', 'gallery', 'notes', 'bucket', 'createdAt', 'updatedAt'])
 
 export type ProjectScalarFieldEnum = z.infer<typeof ProjectScalarFieldEnumSchema>;
 
@@ -419,7 +419,6 @@ const projectwhereinputSchema = z.object({
   coverEffect: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
   description: z.lazy(() => JsonFilterObjectSchema).optional(),
   metaDescription: z.lazy(() => JsonFilterObjectSchema).optional(),
-  challenge: z.lazy(() => JsonNullableFilterObjectSchema).optional(),
   services: z.lazy(() => StringNullableListFilterObjectSchema).optional(),
   techStack: z.lazy(() => StringNullableListFilterObjectSchema).optional(),
   date: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
@@ -447,7 +446,6 @@ const __makeSchema_ProjectOrderByWithRelationInput_schema = () => z.object({
   coverEffect: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   description: SortOrderSchema.optional(),
   metaDescription: SortOrderSchema.optional(),
-  challenge: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   services: SortOrderSchema.optional(),
   techStack: SortOrderSchema.optional(),
   date: SortOrderSchema.optional(),
@@ -484,7 +482,6 @@ const __makeSchema_ProjectOrderByWithAggregationInput_schema = () => z.object({
   coverEffect: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   description: SortOrderSchema.optional(),
   metaDescription: SortOrderSchema.optional(),
-  challenge: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   services: SortOrderSchema.optional(),
   techStack: SortOrderSchema.optional(),
   date: SortOrderSchema.optional(),
@@ -519,7 +516,6 @@ const projectscalarwherewithaggregatesinputSchema = z.object({
   coverEffect: z.union([z.lazy(() => StringNullableWithAggregatesFilterObjectSchema), z.string()]).optional().nullable(),
   description: z.lazy(() => JsonWithAggregatesFilterObjectSchema).optional(),
   metaDescription: z.lazy(() => JsonWithAggregatesFilterObjectSchema).optional(),
-  challenge: z.lazy(() => JsonNullableWithAggregatesFilterObjectSchema).optional(),
   services: z.lazy(() => StringNullableListFilterObjectSchema).optional(),
   techStack: z.lazy(() => StringNullableListFilterObjectSchema).optional(),
   date: z.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()]).optional(),
@@ -1688,7 +1684,6 @@ const __makeSchema_ProjectCreateInput_schema = () => z.object({
   coverEffect: z.string().optional().nullable(),
   description: z.union([JsonNullValueInputSchema, jsonSchema]),
   metaDescription: z.union([JsonNullValueInputSchema, jsonSchema]),
-  challenge: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   services: z.union([z.lazy(() => ProjectCreateservicesInputObjectSchema), z.string().array()]).optional(),
   techStack: z.union([z.lazy(() => ProjectCreatetechStackInputObjectSchema), z.string().array()]).optional(),
   date: z.string(),
@@ -1715,7 +1710,6 @@ const __makeSchema_ProjectUncheckedCreateInput_schema = () => z.object({
   coverEffect: z.string().optional().nullable(),
   description: z.union([JsonNullValueInputSchema, jsonSchema]),
   metaDescription: z.union([JsonNullValueInputSchema, jsonSchema]),
-  challenge: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   services: z.union([z.lazy(() => ProjectCreateservicesInputObjectSchema), z.string().array()]).optional(),
   techStack: z.union([z.lazy(() => ProjectCreatetechStackInputObjectSchema), z.string().array()]).optional(),
   date: z.string(),
@@ -1742,7 +1736,6 @@ const __makeSchema_ProjectUpdateInput_schema = () => z.object({
   coverEffect: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
   description: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
   metaDescription: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
-  challenge: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   services: z.union([z.lazy(() => ProjectUpdateservicesInputObjectSchema), z.string().array()]).optional(),
   techStack: z.union([z.lazy(() => ProjectUpdatetechStackInputObjectSchema), z.string().array()]).optional(),
   date: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
@@ -1770,7 +1763,6 @@ const __makeSchema_ProjectUncheckedUpdateInput_schema = () => z.object({
   coverEffect: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
   description: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
   metaDescription: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
-  challenge: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   services: z.union([z.lazy(() => ProjectUpdateservicesInputObjectSchema), z.string().array()]).optional(),
   techStack: z.union([z.lazy(() => ProjectUpdatetechStackInputObjectSchema), z.string().array()]).optional(),
   date: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
@@ -1798,7 +1790,6 @@ const __makeSchema_ProjectCreateManyInput_schema = () => z.object({
   coverEffect: z.string().optional().nullable(),
   description: z.union([JsonNullValueInputSchema, jsonSchema]),
   metaDescription: z.union([JsonNullValueInputSchema, jsonSchema]),
-  challenge: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   services: z.union([z.lazy(() => ProjectCreateservicesInputObjectSchema), z.string().array()]).optional(),
   techStack: z.union([z.lazy(() => ProjectCreatetechStackInputObjectSchema), z.string().array()]).optional(),
   date: z.string(),
@@ -1824,7 +1815,6 @@ const __makeSchema_ProjectUpdateManyMutationInput_schema = () => z.object({
   coverEffect: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
   description: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
   metaDescription: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
-  challenge: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   services: z.union([z.lazy(() => ProjectUpdateservicesInputObjectSchema), z.string().array()]).optional(),
   techStack: z.union([z.lazy(() => ProjectUpdatetechStackInputObjectSchema), z.string().array()]).optional(),
   date: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
@@ -1850,7 +1840,6 @@ const __makeSchema_ProjectUncheckedUpdateManyInput_schema = () => z.object({
   coverEffect: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
   description: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
   metaDescription: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
-  challenge: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   services: z.union([z.lazy(() => ProjectUpdateservicesInputObjectSchema), z.string().array()]).optional(),
   techStack: z.union([z.lazy(() => ProjectUpdatetechStackInputObjectSchema), z.string().array()]).optional(),
   date: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
@@ -3331,27 +3320,6 @@ export const JsonFilterObjectSchema: z.ZodType<Prisma.JsonFilter> = __makeSchema
 export const JsonFilterObjectZodSchema = __makeSchema_JsonFilter_schema();
 
 
-// File: JsonNullableFilter.schema.ts
-const __makeSchema_JsonNullableFilter_schema = () => z.object({
-  equals: jsonSchema.optional(),
-  path: z.string().array().optional(),
-  mode: QueryModeSchema.optional(),
-  string_contains: z.string().optional(),
-  string_starts_with: z.string().optional(),
-  string_ends_with: z.string().optional(),
-  array_starts_with: jsonSchema.optional().nullable(),
-  array_ends_with: jsonSchema.optional().nullable(),
-  array_contains: jsonSchema.optional().nullable(),
-  lt: jsonSchema.optional(),
-  lte: jsonSchema.optional(),
-  gt: jsonSchema.optional(),
-  gte: jsonSchema.optional(),
-  not: jsonSchema.optional()
-}).strict();
-export const JsonNullableFilterObjectSchema: z.ZodType<Prisma.JsonNullableFilter> = __makeSchema_JsonNullableFilter_schema() as unknown as z.ZodType<Prisma.JsonNullableFilter>;
-export const JsonNullableFilterObjectZodSchema = __makeSchema_JsonNullableFilter_schema();
-
-
 // File: StringNullableListFilter.schema.ts
 const __makeSchema_StringNullableListFilter_schema = () => z.object({
   equals: z.string().array().optional().nullable(),
@@ -3424,7 +3392,6 @@ const __makeSchema_ProjectCountOrderByAggregateInput_schema = () => z.object({
   coverEffect: SortOrderSchema.optional(),
   description: SortOrderSchema.optional(),
   metaDescription: SortOrderSchema.optional(),
-  challenge: SortOrderSchema.optional(),
   services: SortOrderSchema.optional(),
   techStack: SortOrderSchema.optional(),
   date: SortOrderSchema.optional(),
@@ -3514,30 +3481,6 @@ const __makeSchema_JsonWithAggregatesFilter_schema = () => z.object({
 }).strict();
 export const JsonWithAggregatesFilterObjectSchema: z.ZodType<Prisma.JsonWithAggregatesFilter> = __makeSchema_JsonWithAggregatesFilter_schema() as unknown as z.ZodType<Prisma.JsonWithAggregatesFilter>;
 export const JsonWithAggregatesFilterObjectZodSchema = __makeSchema_JsonWithAggregatesFilter_schema();
-
-
-// File: JsonNullableWithAggregatesFilter.schema.ts
-const __makeSchema_JsonNullableWithAggregatesFilter_schema = () => z.object({
-  equals: jsonSchema.optional(),
-  path: z.string().array().optional(),
-  mode: QueryModeSchema.optional(),
-  string_contains: z.string().optional(),
-  string_starts_with: z.string().optional(),
-  string_ends_with: z.string().optional(),
-  array_starts_with: jsonSchema.optional().nullable(),
-  array_ends_with: jsonSchema.optional().nullable(),
-  array_contains: jsonSchema.optional().nullable(),
-  lt: jsonSchema.optional(),
-  lte: jsonSchema.optional(),
-  gt: jsonSchema.optional(),
-  gte: jsonSchema.optional(),
-  not: jsonSchema.optional(),
-  _count: z.lazy(() => NestedIntNullableFilterObjectSchema).optional(),
-  _min: z.lazy(() => NestedJsonNullableFilterObjectSchema).optional(),
-  _max: z.lazy(() => NestedJsonNullableFilterObjectSchema).optional()
-}).strict();
-export const JsonNullableWithAggregatesFilterObjectSchema: z.ZodType<Prisma.JsonNullableWithAggregatesFilter> = __makeSchema_JsonNullableWithAggregatesFilter_schema() as unknown as z.ZodType<Prisma.JsonNullableWithAggregatesFilter>;
-export const JsonNullableWithAggregatesFilterObjectZodSchema = __makeSchema_JsonNullableWithAggregatesFilter_schema();
 
 
 // File: SessionCountOrderByAggregateInput.schema.ts
@@ -3747,6 +3690,27 @@ export const SiteDailyVisitorMinOrderByAggregateInputObjectSchema: z.ZodType<Pri
 export const SiteDailyVisitorMinOrderByAggregateInputObjectZodSchema = __makeSchema_SiteDailyVisitorMinOrderByAggregateInput_schema();
 
 
+// File: JsonNullableFilter.schema.ts
+const __makeSchema_JsonNullableFilter_schema = () => z.object({
+  equals: jsonSchema.optional(),
+  path: z.string().array().optional(),
+  mode: QueryModeSchema.optional(),
+  string_contains: z.string().optional(),
+  string_starts_with: z.string().optional(),
+  string_ends_with: z.string().optional(),
+  array_starts_with: jsonSchema.optional().nullable(),
+  array_ends_with: jsonSchema.optional().nullable(),
+  array_contains: jsonSchema.optional().nullable(),
+  lt: jsonSchema.optional(),
+  lte: jsonSchema.optional(),
+  gt: jsonSchema.optional(),
+  gte: jsonSchema.optional(),
+  not: jsonSchema.optional()
+}).strict();
+export const JsonNullableFilterObjectSchema: z.ZodType<Prisma.JsonNullableFilter> = __makeSchema_JsonNullableFilter_schema() as unknown as z.ZodType<Prisma.JsonNullableFilter>;
+export const JsonNullableFilterObjectZodSchema = __makeSchema_JsonNullableFilter_schema();
+
+
 // File: IntNullableFilter.schema.ts
 const __makeSchema_IntNullableFilter_schema = () => z.object({
   equals: z.number().int().optional().nullable(),
@@ -3864,6 +3828,30 @@ const __makeSchema_StoryBlockSumOrderByAggregateInput_schema = () => z.object({
 }).strict();
 export const StoryBlockSumOrderByAggregateInputObjectSchema: z.ZodType<Prisma.StoryBlockSumOrderByAggregateInput> = __makeSchema_StoryBlockSumOrderByAggregateInput_schema() as unknown as z.ZodType<Prisma.StoryBlockSumOrderByAggregateInput>;
 export const StoryBlockSumOrderByAggregateInputObjectZodSchema = __makeSchema_StoryBlockSumOrderByAggregateInput_schema();
+
+
+// File: JsonNullableWithAggregatesFilter.schema.ts
+const __makeSchema_JsonNullableWithAggregatesFilter_schema = () => z.object({
+  equals: jsonSchema.optional(),
+  path: z.string().array().optional(),
+  mode: QueryModeSchema.optional(),
+  string_contains: z.string().optional(),
+  string_starts_with: z.string().optional(),
+  string_ends_with: z.string().optional(),
+  array_starts_with: jsonSchema.optional().nullable(),
+  array_ends_with: jsonSchema.optional().nullable(),
+  array_contains: jsonSchema.optional().nullable(),
+  lt: jsonSchema.optional(),
+  lte: jsonSchema.optional(),
+  gt: jsonSchema.optional(),
+  gte: jsonSchema.optional(),
+  not: jsonSchema.optional(),
+  _count: z.lazy(() => NestedIntNullableFilterObjectSchema).optional(),
+  _min: z.lazy(() => NestedJsonNullableFilterObjectSchema).optional(),
+  _max: z.lazy(() => NestedJsonNullableFilterObjectSchema).optional()
+}).strict();
+export const JsonNullableWithAggregatesFilterObjectSchema: z.ZodType<Prisma.JsonNullableWithAggregatesFilter> = __makeSchema_JsonNullableWithAggregatesFilter_schema() as unknown as z.ZodType<Prisma.JsonNullableWithAggregatesFilter>;
+export const JsonNullableWithAggregatesFilterObjectZodSchema = __makeSchema_JsonNullableWithAggregatesFilter_schema();
 
 
 // File: IntNullableWithAggregatesFilter.schema.ts
@@ -6770,7 +6758,6 @@ const __makeSchema_ProjectCreateWithoutStoryInput_schema = () => z.object({
   coverEffect: z.string().optional().nullable(),
   description: z.union([JsonNullValueInputSchema, jsonSchema]),
   metaDescription: z.union([JsonNullValueInputSchema, jsonSchema]),
-  challenge: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   services: z.union([z.lazy(() => ProjectCreateservicesInputObjectSchema), z.string().array()]).optional(),
   techStack: z.union([z.lazy(() => ProjectCreatetechStackInputObjectSchema), z.string().array()]).optional(),
   date: z.string(),
@@ -6797,7 +6784,6 @@ const __makeSchema_ProjectUncheckedCreateWithoutStoryInput_schema = () => z.obje
   coverEffect: z.string().optional().nullable(),
   description: z.union([JsonNullValueInputSchema, jsonSchema]),
   metaDescription: z.union([JsonNullValueInputSchema, jsonSchema]),
-  challenge: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   services: z.union([z.lazy(() => ProjectCreateservicesInputObjectSchema), z.string().array()]).optional(),
   techStack: z.union([z.lazy(() => ProjectCreatetechStackInputObjectSchema), z.string().array()]).optional(),
   date: z.string(),
@@ -6928,7 +6914,6 @@ const __makeSchema_ProjectUpdateWithoutStoryInput_schema = () => z.object({
   coverEffect: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
   description: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
   metaDescription: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
-  challenge: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   services: z.union([z.lazy(() => ProjectUpdateservicesInputObjectSchema), z.string().array()]).optional(),
   techStack: z.union([z.lazy(() => ProjectUpdatetechStackInputObjectSchema), z.string().array()]).optional(),
   date: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
@@ -6955,7 +6940,6 @@ const __makeSchema_ProjectUncheckedUpdateWithoutStoryInput_schema = () => z.obje
   coverEffect: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
   description: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
   metaDescription: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
-  challenge: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   services: z.union([z.lazy(() => ProjectUpdateservicesInputObjectSchema), z.string().array()]).optional(),
   techStack: z.union([z.lazy(() => ProjectUpdatetechStackInputObjectSchema), z.string().array()]).optional(),
   date: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
@@ -7044,7 +7028,6 @@ const __makeSchema_ProjectCreateWithoutTeamInput_schema = () => z.object({
   coverEffect: z.string().optional().nullable(),
   description: z.union([JsonNullValueInputSchema, jsonSchema]),
   metaDescription: z.union([JsonNullValueInputSchema, jsonSchema]),
-  challenge: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   services: z.union([z.lazy(() => ProjectCreateservicesInputObjectSchema), z.string().array()]).optional(),
   techStack: z.union([z.lazy(() => ProjectCreatetechStackInputObjectSchema), z.string().array()]).optional(),
   date: z.string(),
@@ -7071,7 +7054,6 @@ const __makeSchema_ProjectUncheckedCreateWithoutTeamInput_schema = () => z.objec
   coverEffect: z.string().optional().nullable(),
   description: z.union([JsonNullValueInputSchema, jsonSchema]),
   metaDescription: z.union([JsonNullValueInputSchema, jsonSchema]),
-  challenge: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   services: z.union([z.lazy(() => ProjectCreateservicesInputObjectSchema), z.string().array()]).optional(),
   techStack: z.union([z.lazy(() => ProjectCreatetechStackInputObjectSchema), z.string().array()]).optional(),
   date: z.string(),
@@ -7139,7 +7121,6 @@ const projectscalarwhereinputSchema = z.object({
   coverEffect: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
   description: z.lazy(() => JsonFilterObjectSchema).optional(),
   metaDescription: z.lazy(() => JsonFilterObjectSchema).optional(),
-  challenge: z.lazy(() => JsonNullableFilterObjectSchema).optional(),
   services: z.lazy(() => StringNullableListFilterObjectSchema).optional(),
   techStack: z.lazy(() => StringNullableListFilterObjectSchema).optional(),
   date: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
@@ -7853,7 +7834,6 @@ const __makeSchema_ProjectUpdateWithoutTeamInput_schema = () => z.object({
   coverEffect: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
   description: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
   metaDescription: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
-  challenge: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   services: z.union([z.lazy(() => ProjectUpdateservicesInputObjectSchema), z.string().array()]).optional(),
   techStack: z.union([z.lazy(() => ProjectUpdatetechStackInputObjectSchema), z.string().array()]).optional(),
   date: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
@@ -7880,7 +7860,6 @@ const __makeSchema_ProjectUncheckedUpdateWithoutTeamInput_schema = () => z.objec
   coverEffect: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
   description: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
   metaDescription: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
-  challenge: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   services: z.union([z.lazy(() => ProjectUpdateservicesInputObjectSchema), z.string().array()]).optional(),
   techStack: z.union([z.lazy(() => ProjectUpdatetechStackInputObjectSchema), z.string().array()]).optional(),
   date: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
@@ -7907,7 +7886,6 @@ const __makeSchema_ProjectUncheckedUpdateManyWithoutTeamInput_schema = () => z.o
   coverEffect: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
   description: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
   metaDescription: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
-  challenge: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
   services: z.union([z.lazy(() => ProjectUpdateservicesInputObjectSchema), z.string().array()]).optional(),
   techStack: z.union([z.lazy(() => ProjectUpdatetechStackInputObjectSchema), z.string().array()]).optional(),
   date: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
@@ -8228,7 +8206,6 @@ const __makeSchema_ProjectCountAggregateInput_schema = () => z.object({
   coverEffect: z.literal(true).optional(),
   description: z.literal(true).optional(),
   metaDescription: z.literal(true).optional(),
-  challenge: z.literal(true).optional(),
   services: z.literal(true).optional(),
   techStack: z.literal(true).optional(),
   date: z.literal(true).optional(),
@@ -9013,7 +8990,6 @@ const __makeSchema_ProjectSelect_schema = () => z.object({
   coverEffect: z.boolean().optional(),
   description: z.boolean().optional(),
   metaDescription: z.boolean().optional(),
-  challenge: z.boolean().optional(),
   services: z.boolean().optional(),
   team: z.union([z.boolean(), z.lazy(() => StudioMemberFindManySchema)]).optional(),
   techStack: z.boolean().optional(),
@@ -10009,7 +9985,6 @@ export const ProjectFindFirstSelectSchema__findFirstProject_schema: z.ZodType<Pr
     coverEffect: z.boolean().optional(),
     description: z.boolean().optional(),
     metaDescription: z.boolean().optional(),
-    challenge: z.boolean().optional(),
     services: z.boolean().optional(),
     team: z.union([z.boolean(), z.lazy(() => StudioMemberFindManySchema)]).optional(),
     techStack: z.boolean().optional(),
@@ -10034,7 +10009,6 @@ export const ProjectFindFirstSelectZodSchema__findFirstProject_schema = z.object
     coverEffect: z.boolean().optional(),
     description: z.boolean().optional(),
     metaDescription: z.boolean().optional(),
-    challenge: z.boolean().optional(),
     services: z.boolean().optional(),
     team: z.union([z.boolean(), z.lazy(() => StudioMemberFindManySchema)]).optional(),
     techStack: z.boolean().optional(),
@@ -10068,7 +10042,6 @@ export const ProjectFindFirstOrThrowSelectSchema__findFirstOrThrowProject_schema
     coverEffect: z.boolean().optional(),
     description: z.boolean().optional(),
     metaDescription: z.boolean().optional(),
-    challenge: z.boolean().optional(),
     services: z.boolean().optional(),
     team: z.union([z.boolean(), z.lazy(() => StudioMemberFindManySchema)]).optional(),
     techStack: z.boolean().optional(),
@@ -10093,7 +10066,6 @@ export const ProjectFindFirstOrThrowSelectZodSchema__findFirstOrThrowProject_sch
     coverEffect: z.boolean().optional(),
     description: z.boolean().optional(),
     metaDescription: z.boolean().optional(),
-    challenge: z.boolean().optional(),
     services: z.boolean().optional(),
     team: z.union([z.boolean(), z.lazy(() => StudioMemberFindManySchema)]).optional(),
     techStack: z.boolean().optional(),
@@ -10127,7 +10099,6 @@ export const ProjectFindManySelectSchema__findManyProject_schema: z.ZodType<Pris
     coverEffect: z.boolean().optional(),
     description: z.boolean().optional(),
     metaDescription: z.boolean().optional(),
-    challenge: z.boolean().optional(),
     services: z.boolean().optional(),
     team: z.union([z.boolean(), z.lazy(() => StudioMemberFindManySchema)]).optional(),
     techStack: z.boolean().optional(),
@@ -10152,7 +10123,6 @@ export const ProjectFindManySelectZodSchema__findManyProject_schema = z.object({
     coverEffect: z.boolean().optional(),
     description: z.boolean().optional(),
     metaDescription: z.boolean().optional(),
-    challenge: z.boolean().optional(),
     services: z.boolean().optional(),
     team: z.union([z.boolean(), z.lazy(() => StudioMemberFindManySchema)]).optional(),
     techStack: z.boolean().optional(),
@@ -12109,7 +12079,6 @@ export const Project = z.object({
   coverEffect: z.string().nullish(),
   description: z.unknown().refine((val) => { const getDepth = (obj: unknown, depth: number = 0): number => { if (depth > 10) return depth; if (obj === null || typeof obj !== 'object') return depth; const values = Object.values(obj as Record<string, unknown>); if (values.length === 0) return depth; return Math.max(...values.map(v => getDepth(v, depth + 1))); }; return getDepth(val) <= 10; }, "JSON nesting depth exceeds maximum of 10"),
   metaDescription: z.unknown().refine((val) => { const getDepth = (obj: unknown, depth: number = 0): number => { if (depth > 10) return depth; if (obj === null || typeof obj !== 'object') return depth; const values = Object.values(obj as Record<string, unknown>); if (values.length === 0) return depth; return Math.max(...values.map(v => getDepth(v, depth + 1))); }; return getDepth(val) <= 10; }, "JSON nesting depth exceeds maximum of 10"),
-  challenge: z.unknown().refine((val) => { const getDepth = (obj: unknown, depth: number = 0): number => { if (depth > 10) return depth; if (obj === null || typeof obj !== 'object') return depth; const values = Object.values(obj as Record<string, unknown>); if (values.length === 0) return depth; return Math.max(...values.map(v => getDepth(v, depth + 1))); }; return getDepth(val) <= 10; }, "JSON nesting depth exceeds maximum of 10").nullish(),
   services: z.array(z.string()),
   techStack: z.array(z.string()),
   date: z.string(),

@@ -32,7 +32,6 @@ const toProject = ({
   link,
   video,
   coverEffect,
-  challenge,
   team,
   story,
   bucket,
@@ -41,7 +40,7 @@ const toProject = ({
   // Prisma cannot see inside Json columns, only the project_content migration and the backoffice write them, in this shape
   ({
     ...project,
-    ...present({ link, video, coverEffect, challenge }),
+    ...present({ link, video, coverEffect }),
     team: team.map((member) => member.slug),
     // the shared bucket may have accumulated duplicates from the per-section migration
     bucket: [...new Map((bucket as GridItem[]).map((item) => [item.id, item])).values()],
@@ -87,7 +86,7 @@ async function assertMembers(db: Db, slugs: string[]) {
     throw new TRPCError({ code: 'BAD_REQUEST', message: 'Unknown team member' });
 }
 
-async function writeInfo(db: Db, { slug, team, link, video, coverEffect, challenge, ...fields }: ProjectInfo) {
+async function writeInfo(db: Db, { slug, team, link, video, coverEffect, ...fields }: ProjectInfo) {
   await assertMembers(db, team);
 
   await db.project.update({
@@ -98,7 +97,6 @@ async function writeInfo(db: Db, { slug, team, link, video, coverEffect, challen
       link: link ?? null,
       video: video ?? null,
       coverEffect: coverEffect ?? null,
-      challenge: challenge ?? Prisma.DbNull,
       team: { set: team.map((member) => ({ slug: member })) },
     },
   });
