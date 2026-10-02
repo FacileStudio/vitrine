@@ -1,3 +1,27 @@
+x-backend-env: &backend-env
+    NODE_ENV: production
+    PORT: 3001
+    DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD:-postgres}@postgres:5432/vitrine
+    ENCRYPTION_SECRET: ${ENCRYPTION_SECRET:?set ENCRYPTION_SECRET (32+ chars) in .env or the Dokploy environment}
+    COOKIE_DOMAIN: ${COOKIE_DOMAIN:?set COOKIE_DOMAIN (e.g. example.com) in .env or the Dokploy environment}
+    STORAGE_DRIVER: ${STORAGE_DRIVER:-fs}
+    STORAGE_PATH: /data/storage
+    STORAGE_PUBLIC_URL: ${STORAGE_PUBLIC_URL:-http://localhost:3001}
+    MINIO_ENDPOINT: ${MINIO_ENDPOINT:-}
+    MINIO_ROOT_USER: ${MINIO_ROOT_USER:-}
+    MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-}
+    MINIO_BUCKET_NAME: ${MINIO_BUCKET_NAME:-}
+    MINIO_PUBLIC_URL: ${MINIO_PUBLIC_URL:-}
+    BACKEND_URL: ${BACKEND_URL:-http://localhost:3001}
+    FRONTEND_URL: ${FRONTEND_URL:-http://localhost:3000}
+    TRUSTED_ORIGINS: ${TRUSTED_ORIGINS:-http://localhost:3000,http://localhost:3002}
+    DEFAULT_ADMIN_EMAIL: ${DEFAULT_ADMIN_EMAIL:-admin@example.com}
+    DEFAULT_ADMIN_PASSWORD: ${DEFAULT_ADMIN_PASSWORD:-admin123}
+    DEFAULT_ADMIN_FIRST_NAME: ${DEFAULT_ADMIN_FIRST_NAME:-Admin}
+    DEFAULT_ADMIN_LAST_NAME: ${DEFAULT_ADMIN_LAST_NAME:-User}
+    LOG_LEVEL: ${LOG_LEVEL:-info}
+    LOGTAIL_TOKEN: ${LOGTAIL_TOKEN:-}
+
 services:
   postgres:
     image: postgres:16-alpine
@@ -14,39 +38,40 @@ services:
       timeout: 5s
       retries: 5
 
+  # One-shot: migrate the schema and make sure the admin exists. Everything that
+  # needs the database waits for this to exit 0, so the backend never serves
+  # requests against a missing or outdated schema.
+  db-init:
+    build:
+      context: .
+      dockerfile: apps/backend/Dockerfile
+    container_name: vitrine-db-init
+    environment: *backend-env
+    command: ["bootstrap"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
+
   backend:
     build:
       context: .
       dockerfile: apps/backend/Dockerfile
     container_name: vitrine-backend
-    environment:
-      NODE_ENV: production
-      PORT: 3001
-      DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD:-postgres}@postgres:5432/vitrine
-      ENCRYPTION_SECRET: ${ENCRYPTION_SECRET:?set ENCRYPTION_SECRET (32+ chars) in .env or the Dokploy environment}
-      COOKIE_DOMAIN: ${COOKIE_DOMAIN:?set COOKIE_DOMAIN (e.g. example.com) in .env or the Dokploy environment}
-      STORAGE_DRIVER: ${STORAGE_DRIVER:-fs}
-      STORAGE_PATH: /data/storage
-      STORAGE_PUBLIC_URL: ${STORAGE_PUBLIC_URL:-http://localhost:3001}
-      MINIO_ENDPOINT: ${MINIO_ENDPOINT:-}
-      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-}
-      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-}
-      MINIO_BUCKET_NAME: ${MINIO_BUCKET_NAME:-}
-      MINIO_PUBLIC_URL: ${MINIO_PUBLIC_URL:-}
-      BACKEND_URL: ${BACKEND_URL:-http://localhost:3001}
-      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:3000}
-      TRUSTED_ORIGINS: ${TRUSTED_ORIGINS:-http://localhost:3000,http://localhost:3002}
-      DEFAULT_ADMIN_EMAIL: ${DEFAULT_ADMIN_EMAIL:-admin@example.com}
-      DEFAULT_ADMIN_PASSWORD: ${DEFAULT_ADMIN_PASSWORD:-admin123}
-      DEFAULT_ADMIN_FIRST_NAME: ${DEFAULT_ADMIN_FIRST_NAME:-Admin}
-      DEFAULT_ADMIN_LAST_NAME: ${DEFAULT_ADMIN_LAST_NAME:-User}
-      LOG_LEVEL: ${LOG_LEVEL:-info}
-      LOGTAIL_TOKEN: ${LOGTAIL_TOKEN:-}
+    environment: *backend-env
     volumes:
       - storage_data:/data/storage
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:3001/ >/dev/null || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
     depends_on:
       postgres:
         condition: service_healthy
+      db-init:
+        condition: service_completed_successfully
     restart: unless-stopped
 
   client:
@@ -60,7 +85,8 @@ services:
       PORT: 3000
       NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:3001}
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
     restart: unless-stopped
 
   backoffice:
@@ -74,9 +100,9 @@ services:
     environment:
       PORT: 3002
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
     restart: unless-stopped
 
 volumes:
   postgres_data:
-  storage_data:

@@ -46,6 +46,9 @@ ENV NODE_ENV=production
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 backend
 
+# a fresh named volume copies this directory's ownership, so uploads stay writable
+RUN mkdir -p /data/storage && chown -R backend:nodejs /data/storage
+
 COPY --from=builder --chown=backend:nodejs /app/apps/backend ./apps/backend
 COPY --from=builder --chown=backend:nodejs /app/packages ./packages
 COPY --from=builder --chown=backend:nodejs /app/node_modules ./node_modules
