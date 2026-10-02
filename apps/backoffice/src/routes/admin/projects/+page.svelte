@@ -228,7 +228,7 @@
 			<button type="button" onclick={() => (query = '')} class="p text-muted hover:text-ink">Clear search</button>
 		</div>
 	{:else if view === 'grid'}
-		<div bind:this={list} class="grid gap-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+		<div bind:this={list} class="grid gap-fc sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
 			{#each shown as project (project.slug)}
 				<div use:enter {...dragProps(project.slug)} role="listitem" class="relative flex {dragged === project.slug ? 'opacity-40' : ''}">
 					{#if over === project.slug && dragged && dragged !== project.slug}
@@ -239,7 +239,7 @@
 			{/each}
 		</div>
 	{:else}
-		<div bind:this={list} class="flex flex-col gap-1">
+		<div bind:this={list} class="flex flex-col gap-fc">
 			{#each shown as project (project.slug)}
 				<div use:enter {...dragProps(project.slug)} role="listitem" class="relative {dragged === project.slug ? 'opacity-40' : ''}">
 					{#if over === project.slug && dragged && dragged !== project.slug}

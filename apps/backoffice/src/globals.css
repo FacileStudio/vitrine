@@ -70,7 +70,9 @@
   --duration-hover: 200ms;
 
   /* one corner radius for every surface, button and field, rounded-full stays for circles */
-  --radius-project: 0.5rem;
+  --radius-project: var(--fc-radius);
+
+  --spacing-fc: var(--fc-gap);
 
   --color-danger: var(--theme-danger);
   --color-danger-surface: rgb(239 68 68 / 0.1);
@@ -81,6 +83,8 @@
 }
 
 :root {
+  --fc-gap: 0.25rem;
+  --fc-radius: 0.5rem;
   --theme-page: #050505;
   --theme-popover: #111111;
   --theme-ink: #ffffff;

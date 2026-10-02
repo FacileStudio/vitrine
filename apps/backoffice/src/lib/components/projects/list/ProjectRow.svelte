@@ -10,14 +10,14 @@
 
 <a
 	href="/admin/projects/{project.slug}"
-	class="group relative isolate overflow-hidden bg-surface rounded-project p-0 pr-12 grid grid-cols-[11em_minmax(0,1fr)_6em_6em_6em_6em_6em_1rem] items-center gap-12 hover:bg-surface-hover"
+	class="group relative isolate overflow-hidden bg-surface rounded-project p-0 pr-12 grid grid-cols-[11em_minmax(0,1fr)_9em_9em_9em_9em_9em_1rem] items-center gap-12 hover:bg-surface-hover"
 >
 	<img
-		use:hoverTo={{ rest: { opacity: 0.10, scale: 1 }, hover: { opacity: 0.6, scale: 1.3 } }}
+		use:hoverTo={{ rest: { opacity: 0.0, scale: 1 }, hover: { opacity: 0.35, scale: 1.3 } }}
 		src={siteAsset(project.image)}
 		alt=""
 		aria-hidden="true"
-		class="absolute -z-10 left-0 top-1/2 -translate-y-1/2 w-1/5 h-[200%] pointer-events-none object-cover saturate-200 blur-[400px]"
+		class="absolute -z-10 left-24 top-1/2 -translate-y-1/2 w-full pointer-events-none object-cover saturate-200 blur-3xl  [mask-image:linear-gradient(90deg,black_0%,transparent_66%)]"
 		onerror={(e) => e.currentTarget.remove()}
 	/>
 	<span class="relative w-48 aspect-[16/10] rounded-project overflow-hidden bg-surface-hover flex items-center justify-center">
@@ -32,7 +32,7 @@
 		/>
 	</span>
 	<span class="min-w-0">
-		<span class="block lead text-ink truncate">{project.name}</span>
+		<span class="block subtitle text-ink truncate">{project.name}</span>
 	</span>
 	<span class="p text-muted">{project.date}</span>
 	<span class="p text-muted">{project.weeks} wk</span>

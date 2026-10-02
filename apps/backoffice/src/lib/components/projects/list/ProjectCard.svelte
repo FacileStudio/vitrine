@@ -41,7 +41,7 @@
     
 	<div class="relative isolate overflow-hidden p-5 flex flex-col gap-12 flex-1">
         <img
-            use:hoverTo={{ rest: { opacity: 0.5, scale: 1 }, hover: { opacity: 0.85, scale: 1.25 } }}
+            use:hoverTo={{ rest: { opacity: 0.35, scale: 1 }, hover: { opacity: 0.5, scale: 1.25 } }}
             src={siteAsset(project.image)}
             alt=""
             aria-hidden="true"

@@ -54,7 +54,7 @@
 		</button>
 	</div>
 	<div bind:this={body} class="overflow-hidden h-0 opacity-0">
-		<div class="px-8 pb-8 space-y-8">
+		<div class="px-8 pb-8 space-y-1">
 			{@render children()}
 		</div>
 	</div>

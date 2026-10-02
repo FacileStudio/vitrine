@@ -34,7 +34,7 @@
 	}}
 />
 
-<aside class="space-y-8">
+<aside class="space-y-1">
 	{#each ELEMENTS as element (element.kind)}
 		{@const sized = SIZED.includes(element.kind)}
 		<div class="rounded-project {open === element.kind ? 'bg-surface-hover' : ''}">

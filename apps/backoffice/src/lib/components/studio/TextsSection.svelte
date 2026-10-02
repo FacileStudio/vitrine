@@ -11,7 +11,7 @@
 	const missing = (code: Locale) => ![member.description[code], member.bio[code]].every((text) => text?.trim());
 </script>
 
-<Section title="Texts" icon="lucide:languages">
+<Section title="Texts" class="gap-1" icon="lucide:languages">
 	{#snippet actions()}
 		<div class="segmented w-fit">
 			{#each LOCALES as code (code)}
