@@ -18,7 +18,7 @@
 	const MASK = 'radial-gradient(circle at 0 0, black, transparent 70%)';
 </script>
 
-<div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+<!-- <div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
 	<div class="absolute -left-[60vmax] -top-[60vmax] size-[140vmax]" style:background-image="radial-gradient(circle closest-side, {gradient})"></div>
 	<div
 		class="absolute inset-0 opacity-[0.07] mix-blend-soft-light"
@@ -26,4 +26,4 @@
 		style:mask-image={MASK}
 		style:-webkit-mask-image={MASK}
 	></div>
-</div>
+</div> -->

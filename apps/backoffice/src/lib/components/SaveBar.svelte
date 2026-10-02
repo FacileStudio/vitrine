@@ -48,9 +48,10 @@
 
 <div
 	use:enter
-	class="sticky top-4 z-30 bg-page/50 backdrop-blur-xl p-4 pl-6 rounded-project flex items-center justify-between gap-6"
+	class="sticky top-0 z-30
+		p-4 pl-6 flex items-center justify-end gap-6"
 >
-	{#key status}
+	<!-- {#key status}
 		<span use:enter class="p flex items-center gap-2 {status === 'error' ? 'text-danger' : 'text-muted'}">
 			{#if status === 'error'}
 				<iconify-icon icon="lucide:circle-alert" width="16"></iconify-icon>
@@ -65,15 +66,15 @@
 				No pending changes
 			{/if}
 		</span>
-	{/key}
+	{/key} -->
 
 	<button
 		type="button"
 		onclick={save}
 		disabled={!dirty || saving}
-		class="p flex items-center gap-3 px-5 py-2.5 rounded-project disabled:cursor-default {status === 'clean'
-			? 'bg-success-surface text-success'
-			: 'bg-pressed text-on-pressed hover:bg-pressed-hover disabled:opacity-60'}"
+		class="p flex items-center gap-3 px-5 py-3 rounded-project backdrop-blur-2xl disabled:cursor-default {status === 'clean'
+			? 'bg-pressed text-on-pressed'
+			: 'bg-orange-400/10 text-orange-300 hover:bg-orange-400/20 disabled:opacity-60'}"
 	>
 		{#key status === 'clean'}
 			{#if status === 'clean'}
@@ -82,7 +83,7 @@
 			{:else}
 				<iconify-icon icon="lucide:save" width="16"></iconify-icon>
 				Save
-				<span class="subtext text-on-pressed/60">{mac ? '⌘' : 'Ctrl'} S</span>
+				<span class="subtext text-orange-300/60">{mac ? '⌘' : 'Ctrl'} S</span>
 			{/if}
 		{/key}
 	</button>
