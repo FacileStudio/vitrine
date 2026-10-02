@@ -17,14 +17,14 @@ export default function Typography({ block }: BlockProps) {
                     className="flex h-full w-full flex-col gap-[3vh] p-[5vh]"
                 >
                     <div className="flex flex-col gap-2">
-                        <Line className="px-[1.5vh] pt-[6vh] pb-[1.5vh] text-[clamp(0.65rem,1.4vh,1.1rem)] font-goga tracking-tight text-white/50">Typography</Line>
+                        <Line className="px-[1.5vh] pt-[6vh] pb-[1.5vh] text-[clamp(0.65rem,1.4vh,1.1rem)] font-goga tracking-tight text-background/50">Typography</Line>
                         <Line className="text-[clamp(1.75rem,5.2vh,5rem)]">
                             {block.font}
                         </Line>
                     </div>
 
                     {block.description && (
-                        <Line style={{ fontFamily: "var(--font-goga)" }} className="max-w-[60ch] text-[clamp(0.75rem,1.6vh,1rem)] leading-relaxed text-white/60">
+                        <Line style={{ fontFamily: "var(--font-goga)" }} className="max-w-[60ch] text-[clamp(0.75rem,1.6vh,1rem)] leading-relaxed text-background/60">
                             {block.description}
                         </Line>
                     )}
@@ -33,7 +33,7 @@ export default function Typography({ block }: BlockProps) {
                         {ROWS.map((row) => (
                             <Line
                                 key={row[0]}
-                                className="flex gap-x-[1.6vh] text-[clamp(1.1rem,3.2vh,2.5rem)] text-white/75"
+                                className="flex gap-x-[1.6vh] text-[clamp(1.1rem,3.2vh,2.5rem)] text-background/75"
                             >
                                 {row.map((l) => (
                                     <span key={l}>{l}{l.toLowerCase()}</span>
@@ -42,11 +42,11 @@ export default function Typography({ block }: BlockProps) {
                         ))}
                     </div>
 
-                    <Line className="text-[clamp(1.1rem,3.2vh,2.5rem)] tracking-wide text-white/50">
+                    <Line className="text-[clamp(1.1rem,3.2vh,2.5rem)] tracking-wide text-background/50">
                         {NUMBERS}
                     </Line>
 
-                    <Line className="text-[clamp(0.65rem,1.4vh,0.9rem)] tracking-wide text-white/40">
+                    <Line className="text-[clamp(0.65rem,1.4vh,0.9rem)] tracking-wide text-background/40">
                         {SPECIALS}
                     </Line>
                 </div>

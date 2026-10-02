@@ -15,14 +15,14 @@ export const DesktopHeader =({ menuOpen, setMenuOpen, dark }: { menuOpen: boolea
 
     return (
         // only the controls take pointer events, or the full-width bar swallows taps on the phone menu
-        <header className={`pointer-events-none fixed top-0 left-0 w-full pt-4 px-12 z-20 flex justify-between items-center transition-colors duration-300 ${dark ? "text-[#1E1E1E]" : "text-white"}`}>
+        <header className={`pointer-events-none fixed top-0 left-0 w-full pt-4 px-12 z-20 flex justify-between items-center transition-colors duration-300 ${dark ? "text-[#1E1E1E]" : "text-background"}`}>
             <div className="flex items-center space-x-24">
                 <Link href="/" className="pointer-events-auto">
                     <img src="/F.svg" alt={t("logoAlt")} className={`h-6 shrink-0 brightness-0 ${dark ? "" : "invert"}`} />
                 </Link>
                 {/* <div className=" lg:flex justify-end items-center hidden   text-end gap-8">
                     <TextReveal delay={1} className="text-xl text-accent ">[<span className="italic font-goga lowercase tracking-tight mr-1">fasil</span>]</TextReveal>
-                    <TextReveal as="p" delay={1.1} className={`subtext text-[clamp(0.5rem,1.2vh,0.7rem)] ${dark ? "text-[#1E1E1E]" : "text-white"} `}>{t("tagline")}</TextReveal>
+                    <TextReveal as="p" delay={1.1} className={`subtext text-[clamp(0.5rem,1.2vh,0.7rem)] ${dark ? "text-[#1E1E1E]" : "text-background"} `}>{t("tagline")}</TextReveal>
                 </div> */}
             </div>
             <div className="flex items-center gap-fc">

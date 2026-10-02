@@ -92,7 +92,7 @@ export default function Palette({ block }: BlockProps) {
         <Block cols={block.cols} tall>
             <Cell col="1 / -1" row="1 / -1">
                 <div className="flex h-full w-full flex-col">
-                    <p className="subtext px-[1.5vh] pt-[6vh] pb-[1.5vh] text-white">Color palette</p>
+                    <p className="subtext px-[1.5vh] pt-[6vh] pb-[1.5vh] text-background">Color palette</p>
 
                     <div className="grid min-h-0 flex-1 grid-cols-5 md:grid-cols-3 gap-[var(--gap)]">
                         {swatches.map((s, i) => (

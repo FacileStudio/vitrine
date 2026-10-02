@@ -24,7 +24,7 @@ export default function Note({ block }: BlockProps) {
                     </h2>
 
                     {block.text ? (
-                        <SplitLines as="p" text={block.text} className="lead max-w-[45ch] text-white/70" />
+                        <SplitLines as="p" text={block.text} className="lead max-w-[45ch] text-background/70" />
                     ) : null}
                 </div>
             </Cell>

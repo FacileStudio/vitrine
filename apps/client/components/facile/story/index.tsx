@@ -222,7 +222,7 @@ export default function Story({ sections, name, index, total, backLabel, delay =
         <div
             ref={rootRef}
             aria-label={name}
-            className="fixed inset-0 z-120 text-white opacity-0"
+            className="fixed inset-0 z-120 text-background opacity-0"
         >
             <div ref={bgRef} className="absolute inset-0 bg-foreground">
                 <DitherBackdrop variant="dark" arrive={false} />

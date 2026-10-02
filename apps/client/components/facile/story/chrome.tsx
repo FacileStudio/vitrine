@@ -24,14 +24,14 @@ export default function Chrome({ name, index, total, backLabel, barRef, onBack }
                         data-chrome
                         type="button"
                         onClick={onBack}
-                        className="pointer-events-auto block tagText text-white/50 transition-colors hover:text-white"
+                        className="pointer-events-auto block tagText text-background/50 transition-colors hover:text-background"
                     >
                         ← {backLabel}
                     </button>
                 </span>
 
                 <span className="block overflow-hidden">
-                    <p data-chrome className="block tabular-nums text-white/40">
+                    <p data-chrome className="block tabular-nums text-background/40">
                         {pad2(index + 1)} / {pad2(total)}
                     </p>
                 </span>
@@ -39,14 +39,14 @@ export default function Chrome({ name, index, total, backLabel, barRef, onBack }
 
             <div className="hidden md:flex items-end justify-between gap-8">
                 <span className="block overflow-hidden">
-                    <p data-chrome className="block text-xs tracking-widest text-white/40">
+                    <p data-chrome className="block text-xs tracking-widest text-background/40">
                         {name}
                     </p>
                 </span>
 
                 <span className="block overflow-hidden">
                     <span data-chrome className="flex items-center gap-4">
-                        <p className="text-xs tracking-widest text-white/40">{t("scroll")}</p>
+                        <p className="text-xs tracking-widest text-background/40">{t("scroll")}</p>
                         <span className="relative h-px w-32 bg-white/20 md:w-48">
                             <span ref={barRef} className="absolute inset-0 origin-left scale-x-0 bg-accent" />
                         </span>

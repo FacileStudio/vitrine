@@ -120,7 +120,7 @@ export function NavLinks({
                         duration={0.6}
                         delay={open ? delay + i * 0.08 : 0}
                     >
-                        <Anchor href={link.href} go={go} className="subtitle block text-white transition-colors">
+                        <Anchor href={link.href} go={go} className="subtitle block text-background transition-colors">
                             {t(link.key)}
                         </Anchor>
                     </TextReveal>
@@ -133,7 +133,7 @@ export function NavLinks({
                                         duration={0.5}
                                         delay={open ? delay + SUB_AFTER + (subBase[i] + j) * 0.035 : 0}
                                     >
-                                        <Anchor href={sub.href} go={go} className="block text-white/45 transition-colors hover:text-white/90">
+                                        <Anchor href={sub.href} go={go} className="block text-background/45 transition-colors hover:text-background/90">
                                             <p>{label(sub)}</p>
                                         </Anchor>
                                     </TextReveal>
@@ -151,11 +151,11 @@ export function ContactLinks({ open, delay = 0, className }: { open: boolean; de
     const at = (step: number) => (open ? delay + step : 0);
 
     return (
-        <div className={cn('flex flex-row items-center gap-12 text-white/50', className)}>
+        <div className={cn('flex flex-row items-center gap-12 text-background/50', className)}>
             <TextReveal open={open} duration={0.5} delay={at(0)}>
                 <a
                     href={`mailto:${CONTACT.email}`}
-                    className="block transition-colors hover:text-white"
+                    className="block transition-colors hover:text-background"
                 >
                     <p>{CONTACT.email}</p>
                 </a>
@@ -163,7 +163,7 @@ export function ContactLinks({ open, delay = 0, className }: { open: boolean; de
             <TextReveal open={open} duration={0.5} delay={at(0.06)}>
                 <a
                     href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`}
-                    className="block transition-colors hover:text-white"
+                    className="block transition-colors hover:text-background"
                 >
                     <p className="normal-case">{CONTACT.phone}</p>
                 </a>
@@ -172,7 +172,7 @@ export function ContactLinks({ open, delay = 0, className }: { open: boolean; de
                 open={open}
                 duration={0.5}
                 delay={at(0.12)}
-                className="text-white/40 hidden md:block select-none"
+                className="text-background/40 hidden md:block select-none"
             >
                 <span aria-hidden="true">·</span>
             </TextReveal>

@@ -38,7 +38,7 @@ export default function MemberPage() {
     return (
         <PageShell
             ref={page}
-            className="relative h-screen w-full overflow-hidden bg-foreground p-2 text-white lg:p-0"
+            className="relative h-screen w-full overflow-hidden bg-foreground p-2 text-background lg:p-0"
             curtain={{ enter: "dark", leave: "dark" }}
         >
             <MemberHead member={member} narrow={narrow} />
@@ -49,7 +49,7 @@ export default function MemberPage() {
                 <TextReveal open={shown} cropClassName="z-10 absolute top-12 left-1/2 -translate-x-1/2" delay={0.05}>
                     <Link
                         href="/studio"
-                        className="pointer-events-auto font-goga text-[clamp(0.65rem,1.7vh,1.3rem)] font-medium capitalize tracking-tight transition-colors hover:text-white"
+                        className="pointer-events-auto font-goga text-[clamp(0.65rem,1.7vh,1.3rem)] font-medium capitalize tracking-tight transition-colors hover:text-background"
                     >
                         {t("back")}
                     </Link>

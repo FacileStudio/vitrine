@@ -89,7 +89,7 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
             <div ref={refs.content(index)} className="flex flex-col items-start lg:items-end lg:justify-between gap-6 lg:gap-12 w-full lg:w-auto lg:max-w-[26vw] p-6 lg:p-12 lg:pl-0 text-right">
                 <div className="gap-y-6 lg:gap-y-8 flex flex-col w-full lg:w-auto items-start lg:items-end text-start lg:text-end">
                     <div className="flex w-full lg:w-auto items-center justify-between gap-6">
-                        <TextReveal as="h2" cropClassName="z-10" className="subtitle text-white">
+                        <TextReveal as="h2" cropClassName="z-10" className="subtitle text-background">
                             {project.name}
                         </TextReveal>
                         <TechLogos stack={project.techStack} className="hidden md:flex lg:hidden" />
@@ -100,7 +100,7 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
                             as="p"
                             text={description}
                             justify
-                            className="description relative z-10 hidden md:block text-white/75"
+                            className="description relative z-10 hidden md:block text-background/75"
                         />
                     )}
 
@@ -109,7 +109,7 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
                             <ArrowLink
                                 href={project.link}
                                 isolated
-                                className="group flex w-fit text-xl font-goga capitalize tracking-tighter gap-2 rounded-fc lg:px-[2vh] lg:py-[1vh] text-white transition-colors duration-200 hover:text-accent"
+                                className="group flex w-fit text-xl font-goga capitalize tracking-tighter gap-2 rounded-fc lg:px-[2vh] lg:py-[1vh] text-background transition-colors duration-200 hover:text-accent"
                             >
                                 {t("visitSite")}
                             </ArrowLink>

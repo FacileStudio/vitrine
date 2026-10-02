@@ -49,7 +49,7 @@ function Content({ cell, parent }: { cell: GridCell; parent: StoryBlockData }) {
                 ) : null}
 
                 {block.text ? (
-                    <SplitLines as="p" text={block.text} className="lead max-w-[45ch] text-white/70" />
+                    <SplitLines as="p" text={block.text} className="lead max-w-[45ch] text-background/70" />
                 ) : null}
             </div>
         );

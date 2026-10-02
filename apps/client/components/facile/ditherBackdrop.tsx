@@ -8,7 +8,7 @@ import { DitherView } from "@/webgl/lazy";
 const MODEL = "/models/manifesto.glb";
 
 const SHELF = {
-    dark: { text: "text-white", canvas: "opacity-20", highlight: undefined, intensity: undefined, offset: 3.5 },
+    dark: { text: "text-background", canvas: "opacity-20", highlight: undefined, intensity: undefined, offset: 3.5 },
     light: { text: "text-foreground", canvas: "opacity-25 mix-blend-multiply", highlight: "#111111", intensity: 1.4, offset: 3 },
 } as const;
 

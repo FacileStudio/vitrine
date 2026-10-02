@@ -41,7 +41,7 @@ function ProcessSection({ step, index }: { step: Step; index: number }) {
                 <Stripes orientation={0} count={4} className="bg-foreground" openWhen={() => progressRef.current > 0.04} />
                 <Stripes orientation={180} count={4} className="bg-foreground" openWhen={() => progressRef.current < 0.9} />
 
-                <div className="absolute inset-0 z-50 flex flex-col items-center justify-center gap-8 px-6 text-center text-white">
+                <div className="absolute inset-0 z-50 flex flex-col items-center justify-center gap-8 px-6 text-center text-background">
                     <TextReveal as="p" open={show} leaving={leaving} className="tracking-widest opacity-50">
                         {pad2(index + 1)}
                     </TextReveal>

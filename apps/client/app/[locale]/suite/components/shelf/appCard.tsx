@@ -44,8 +44,8 @@ export default function AppCard({ app, index, refs, onOpen, onEnter, onLeave }: 
                 </div>
 
                 <div data-media className={wipeClass}>
-                    <AppMark icon={app.icon} className="text-[9vh] text-white" fileClassName="h-[1em] w-[1em] text-[9vh]" />
-                    <span className="subtitle text-white">
+                    <AppMark icon={app.icon} className="text-[9vh] text-background" fileClassName="h-[1em] w-[1em] text-[9vh]" />
+                    <span className="subtitle text-background">
                         {app.tagline}
                     </span>
                 </div>

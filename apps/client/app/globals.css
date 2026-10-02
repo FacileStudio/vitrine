@@ -180,7 +180,7 @@ p {
 }
 
 .button-dark {
-    color: #fff;
+    color: #E4EEE8;
 }
 
 @layer components {
@@ -201,7 +201,7 @@ p {
         border-radius: var(--fc-radius);
         padding: 1vh 2vh;
         font-size: clamp(0.65rem, 1.4vh, 0.9rem);
-        color: #fff;
+        color: #E4EEE8;
     }
 
     .chip {

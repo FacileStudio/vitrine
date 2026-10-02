@@ -37,7 +37,7 @@ export default function Heading({ lines, filter = null, count = 0, onFilter }: H
     return (
         <ShelfHeading
             tone="dark"
-            className="relative z-10 3xl:w-[70vw] lg:w-[80vw] w-full pb-[12vh] flex flex-col lg:flex-row items-start justify-between gap-6 lg:gap-12 text-white"
+            className="relative z-10 3xl:w-[70vw] lg:w-[80vw] w-full pb-[12vh] flex flex-col lg:flex-row items-start justify-between gap-6 lg:gap-12 text-background"
             counterClassName="flex lg:justify-end gap-3 w-full text-start lg:text-right tabular-nums"
             count={onFilter ? count : undefined}
             countLabel={t("projectCount", { count })}
@@ -68,7 +68,7 @@ export default function Heading({ lines, filter = null, count = 0, onFilter }: H
                                         type="button"
                                         onClick={() => onFilter(e.value)}
                                         aria-pressed={on}
-                                        className={`chip flex w-fit shrink-0 items-center gap-2 whitespace-nowrap tagText tracking-tight font-medium transition-colors duration-300 ${on ? "bg-white/15 text-white" : "text-white/60 hover:bg-stone-700/10 hover:text-white"}`}
+                                        className={`chip flex w-fit shrink-0 items-center gap-2 whitespace-nowrap tagText tracking-tight font-medium transition-colors duration-300 ${on ? "bg-white/15 text-background" : "text-background/60 hover:bg-stone-700/10 hover:text-background"}`}
                                     >
                                         {e.label}
                                     </button>

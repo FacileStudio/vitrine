@@ -11,11 +11,11 @@ export default function MemberIdentity({ member, shown }: { member: Member; show
             <div className="flex flex-wrap items-center gap-8">
                 <div className="flex items-center gap-2">
                     <div className="aspect-square h-3 w-3 rounded-sm" style={{ backgroundColor: member.highlight }} />
-                    <TextReveal as="h1" open={shown} cropClassName="z-10" delay={0.1} className=" mb-1 text-white">
+                    <TextReveal as="h1" open={shown} cropClassName="z-10" delay={0.1} className=" mb-1 text-background">
                         {member.name}
                     </TextReveal>
                 </div>
-                <TextReveal as="p" open={shown} cropClassName="z-10" delay={0.16} className="subtext text-white">
+                <TextReveal as="p" open={shown} cropClassName="z-10" delay={0.16} className="subtext text-background">
                     {member.role}
                 </TextReveal>
             </div>
@@ -23,7 +23,7 @@ export default function MemberIdentity({ member, shown }: { member: Member; show
             <SplitLines
                 as="p"
                 text={member.description}
-                className="lead relative z-10 text-white/70"
+                className="lead relative z-10 text-background/70"
             />
 
             {member.labels.length > 0 && (
@@ -37,7 +37,7 @@ export default function MemberIdentity({ member, shown }: { member: Member; show
             )}
 
             {member.socials.length > 0 && (
-                <TextReveal open={shown} delay={0.4} cropClassName="z-10" className="flex items-center gap-4 text-white/50">
+                <TextReveal open={shown} delay={0.4} cropClassName="z-10" className="flex items-center gap-4 text-background/50">
                     <SocialIcons socials={member.socials} />
                 </TextReveal>
             )}

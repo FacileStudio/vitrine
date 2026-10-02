@@ -12,9 +12,9 @@ function Panel({ label, font, fontFamily, description, big }: { label: string; f
             className="flex min-h-0 min-w-0 flex-col justify-between gap-4 p-[3vh]"
         >
             <div className="flex flex-col gap-fc">
-                <Line as="p" className="text-[clamp(0.65rem,1.4vh,0.9rem)] text-white/50">{label}</Line>
+                <Line as="p" className="text-[clamp(0.65rem,1.4vh,0.9rem)] text-background/50">{label}</Line>
                 <Line className={clsx(
-                        "flex gap-x-[1.2vh] leading-none text-white/75",
+                        "flex gap-x-[1.2vh] leading-none text-background/75",
                         big ? "font-semibold text-[clamp(1.75rem,5.2vh,5rem)]" : "text-[clamp(1rem,3.5vh,5rem)]"
                     )}
                 >
@@ -23,7 +23,7 @@ function Panel({ label, font, fontFamily, description, big }: { label: string; f
             </div>
 
             {/* {description && (
-                <Line style={{ fontFamily: "var(--font-goga)" }} className="max-w-[60ch] text-[clamp(1rem,1.6vh,1.2rem)] leading-relaxed text-white/50">
+                <Line style={{ fontFamily: "var(--font-goga)" }} className="max-w-[60ch] text-[clamp(1rem,1.6vh,1.2rem)] leading-relaxed text-background/50">
                     {description}
                 </Line>
             )} */}
@@ -33,7 +33,7 @@ function Panel({ label, font, fontFamily, description, big }: { label: string; f
                     <Line
                         key={row[0]}
                         className={clsx(
-                            "flex gap-x-[1.2vh] text-white/75",
+                            "flex gap-x-[1.2vh] text-background/75",
                             big ? "font-semibold text-[clamp(1.1rem,3.4vh,2.75rem)]" : "text-[clamp(0.75rem,2vh,1.5rem)]"
                         )}
                     >

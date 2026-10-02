@@ -72,7 +72,7 @@ export default function Hero({ charged }: { charged: boolean }) {
                         onMouseEnter={() => { setTeamHover(true); setHovered(true); }}
                         onMouseLeave={() => setTeamHover(false)}
                     >
-                        <h2 className="col-start-1 row-start-1 flex flex-col text-end items-end max-w-full text-white/90 gap-2">
+                        <h2 className="col-start-1 row-start-1 flex flex-col text-end items-end max-w-full text-background/90 gap-2">
                             {(t.raw("hero.headline") as string[]).map((line, i) => (
                                 <TextReveal
                                     key={i}

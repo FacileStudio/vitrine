@@ -31,11 +31,11 @@ export default function MemberSummary({
                 <div className="flex flex-col items-start">
                     <div className="flex gap-2">
                         <div className="h-2.5 w-2.5 rounded-xs mt-4" style={{ backgroundColor: member.highlight }} />
-                        <TextReveal as="h2" open={shown} delay={0.1} className="text-white">
+                        <TextReveal as="h2" open={shown} delay={0.1} className="text-background">
                             {member.name}
                         </TextReveal>
                     </div>
-                    <TextReveal as="p" open={shown} delay={0.16} className="subtext ml-4 text-white">
+                    <TextReveal as="p" open={shown} delay={0.16} className="subtext ml-4 text-background">
                         {member.role}
                     </TextReveal>
                 </div>
@@ -45,7 +45,7 @@ export default function MemberSummary({
                     text={member.description}
                     gap="mb-1"
                     as="p"
-                    className="lead max-w-[36ch] hidden lg:block text-white/60"
+                    className="lead max-w-[36ch] hidden lg:block text-background/60"
                 />
 
                 <button type="button" onClick={onSeeMore} className={`${buttonClass} w-32`}>

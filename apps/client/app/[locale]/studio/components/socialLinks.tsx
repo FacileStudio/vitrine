@@ -28,7 +28,7 @@ export function SocialIcons({ socials, size = 22 }: { socials: Socials; size?: n
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={label}
-                        className="pointer-events-auto transition-colors hover:text-white"
+                        className="pointer-events-auto transition-colors hover:text-background"
                     >
                         {SocialIcon ? <SocialIcon size={size} className="transition-all duration-200 hover:scale-115" /> : label}
                     </a>

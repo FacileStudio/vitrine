@@ -57,7 +57,7 @@ const Loader = ({ setCharged }: { setCharged: (charged: boolean) => void }) => {
             <LoaderFrame open={shown && !open} leaving={open} />
             <div className="relative z-50 flex items-center gap-24">
                 {/* equal widths keep the logo centred whatever the label's length */}
-                <TextReveal as="p" open={shown && !open} leaving={open} cropClassName="w-[8ch]" className="text-right text-white">
+                <TextReveal as="p" open={shown && !open} leaving={open} cropClassName="w-[8ch]" className="text-right text-background">
                     {String(percent).padStart(3, "0")}
                 </TextReveal>
                 <div ref={logo}>
@@ -65,7 +65,7 @@ const Loader = ({ setCharged }: { setCharged: (charged: boolean) => void }) => {
                         <img ref={bind("logo")} src="/Facile.svg" alt="Facile" className="invert h-48" style={{ transform: "translateX(100%)" }} />
                     </div>
                 </div>
-                <TextReveal as="p" open={shown && !open} leaving={open} cropClassName="w-[8ch]" className="text-white">
+                <TextReveal as="p" open={shown && !open} leaving={open} cropClassName="w-[8ch]" className="text-background">
                     {t("studio")}
                 </TextReveal>
             </div>

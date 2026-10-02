@@ -7,7 +7,7 @@ import { pad2 } from "@/lib/utils";
 import type { ShelfTone } from "./shelf";
 
 const COUNTER: Record<ShelfTone, { number: string; dot: string; label: string }> = {
-    dark: { number: "text-accent", dot: "text-[#d0ebdc]", label: "text-white" },
+    dark: { number: "text-accent", dot: "text-[#d0ebdc]", label: "text-background" },
     light: { number: "text-accent-ink", dot: "text-foreground/30", label: "text-foreground" },
 };
 
