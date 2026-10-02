@@ -15,7 +15,7 @@ export const MobileHeader = ({ menuOpen, setMenuOpen, dark }: MobileHeaderProps)
     return (
         <div className={"fixed top-0 right-0 flex flex-col items-end justify-end lg:hidden"}>
             <div className="flex items-center gap-6 p-6 pr-10">
-                <LocaleSwitcher className={`transition-colors duration-300 ${dark ? "text-[#1E1E1E]" : "text-white"}`} />
+                <LocaleSwitcher dark={dark} className={`transition-colors duration-300 ${dark ? "text-[#1E1E1E]" : "text-white"}`} />
                 <button
                     className="cursor-pointer"
                     aria-expanded={menuOpen}
