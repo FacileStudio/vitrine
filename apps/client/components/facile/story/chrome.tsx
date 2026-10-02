@@ -37,7 +37,7 @@ export default function Chrome({ name, index, total, backLabel, barRef, onBack }
                 </span>
             </div>
 
-            <div className="flex items-end justify-between gap-8">
+            <div className="hidden md:flex items-end justify-between gap-8">
                 <span className="block overflow-hidden">
                     <p data-chrome className="block text-xs tracking-widest text-white/40">
                         {name}

@@ -59,9 +59,11 @@ function Content({ cell, parent }: { cell: GridCell; parent: StoryBlockData }) {
     return Part ? <Part block={block as StoryBlockData} /> : null;
 }
 
+const TALL = ["palette", "note"];
+
 export default function Grid({ block }: BlockProps) {
     return (
-        <Block cols={block.cols}>
+        <Block cols={block.cols} tall={block.cells?.some((cell) => TALL.includes(cell.block.type))}>
             {(block.cells ?? []).map((cell, i) => (
                 <Cell key={i} col={`${cell.x} / span ${cell.w}`} row={`${cell.y} / span ${cell.h}`}>
                     <Content cell={cell} parent={block} />

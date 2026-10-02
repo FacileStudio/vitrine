@@ -100,7 +100,7 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
                             as="p"
                             text={description}
                             justify
-                            className="description relative z-10 text-white/75"
+                            className="description relative z-10 hidden md:block text-white/75"
                         />
                     )}
 

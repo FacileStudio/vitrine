@@ -8,7 +8,7 @@ const CHAPTER = "mr-6 font-medium text-[0.6em] text-accent";
 
 export default function Note({ block }: BlockProps) {
     return (
-        <Block cols={block.cols}>
+        <Block cols={block.cols} tall>
             <Cell col="1 / -1" row="1" className="glass">
                 <div className="flex h-full w-full flex-col gap-[2vh] p-[5vh]">
                     <h2 className="subtitle">

@@ -10,7 +10,7 @@ export const BENTO_VARS = {
 
 const LAYOUT = {
     band: "grid [--band:55vh] md:[--band:80vh] h-[var(--band)] w-max grid-flow-col grid-rows-3 gap-[var(--gap)] [grid-auto-columns:var(--cell)]",
-    stack: "flex w-full flex-col gap-[var(--gap)] [&>[data-block]]:h-auto [&>[data-block]]:aspect-[calc(var(--cols)*5/12)]",
+    stack: "flex w-full flex-col gap-[var(--gap)] [&>[data-block]]:h-auto [&>[data-block]]:aspect-[calc(var(--cols)*5/12)] [&>[data-block][data-tall]]:aspect-[calc(var(--cols)*5/16)]",
 };
 
 export function Bento({ children, vertical = false }: { children: ReactNode; vertical?: boolean }) {
@@ -26,14 +26,16 @@ export function Bento({ children, vertical = false }: { children: ReactNode; ver
 
 type SpanProps = {
     cols: number;
+    tall?: boolean;
     className?: string;
     children?: ReactNode;
 };
 
-export function Block({ cols, className = "", children }: SpanProps) {
+export function Block({ cols, tall = false, className = "", children }: SpanProps) {
     return (
         <div
             data-block
+            data-tall={tall || undefined}
             style={{ gridColumn: `span ${cols}`, gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`, "--cols": cols } as CSSProperties}
             className={`row-span-3 grid h-full grid-rows-3 gap-[var(--gap)] ${className}`}
         >
