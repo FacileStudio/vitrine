@@ -5,7 +5,11 @@
 	import TeamDots from '../ui/TeamDots.svelte';
 	import type { ProjectSummary, StudioMemberSummary } from '../types';
 
-	let { project, members }: { project: ProjectSummary; members: Map<string, StudioMemberSummary> } = $props();
+	let {
+		project,
+		members,
+		onremove,
+	}: { project: ProjectSummary; members: Map<string, StudioMemberSummary>; onremove: (row: HTMLElement | null) => void } = $props();
 </script>
 
 <a
@@ -36,6 +40,18 @@
 			class="absolute top-3 right-3 flex items-center p-2 rounded-project bg-black/60 text-on-media/80 backdrop-blur-md opacity-0 group-hover:opacity-100 focus:opacity-100 hover:bg-white hover:text-black"
 		>
 			<iconify-icon icon="lucide:external-link" width="14"></iconify-icon>
+		</button>
+		<button
+			type="button"
+			title="Delete"
+			aria-label="Delete {project.name}"
+			onclick={(e) => {
+				e.preventDefault();
+				onremove(e.currentTarget.closest('[role="listitem"]'));
+			}}
+			class="absolute top-3 right-13 flex items-center p-2 rounded-project bg-black/60 text-on-media/80 backdrop-blur-md opacity-0 group-hover:opacity-100 focus:opacity-100 hover:bg-red-500 hover:text-white"
+		>
+			<iconify-icon icon="lucide:trash-2" width="14"></iconify-icon>
 		</button>
 	</div>
     

@@ -218,6 +218,11 @@ export const projectService = {
     return projectService.get(db, slug);
   },
 
+  remove: async (db: PrismaClient, slug: string) => {
+    await assertExists(db, slug);
+    await db.project.delete({ where: { slug } });
+  },
+
   update: async (db: PrismaClient, { story, bucket, ...info }: ProjectEntry) => {
     await assertExists(db, info.slug);
 

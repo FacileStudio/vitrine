@@ -5,7 +5,11 @@
 	import TeamDots from '../ui/TeamDots.svelte';
 	import type { ProjectSummary, StudioMemberSummary } from '../types';
 
-	let { project, members }: { project: ProjectSummary; members: Map<string, StudioMemberSummary> } = $props();
+	let {
+		project,
+		members,
+		onremove,
+	}: { project: ProjectSummary; members: Map<string, StudioMemberSummary>; onremove: (row: HTMLElement | null) => void } = $props();
 </script>
 
 <a
@@ -39,5 +43,16 @@
 	<span class="p text-muted">{project.story.length} sections</span>
 	<TechLogos stack={project.techStack} max={4} />
 	<TeamDots team={project.team} {members} />
-	<iconify-icon icon="lucide:chevron-right" width="16" class="text-ghost group-hover:text-ink"></iconify-icon>
+	<button
+		type="button"
+		title="Delete"
+		aria-label="Delete {project.name}"
+		onclick={(e) => {
+			e.preventDefault();
+			onremove(e.currentTarget.closest('[role="listitem"]'));
+		}}
+		class="flex items-center p-2 -m-2 rounded-project text-ghost opacity-0 group-hover:opacity-100 focus:opacity-100 hover:bg-red-500/20 hover:text-danger"
+	>
+		<iconify-icon icon="lucide:trash-2" width="16"></iconify-icon>
+	</button>
 </a>

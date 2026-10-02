@@ -4,7 +4,7 @@
 	import { onMount, tick } from 'svelte';
 	import { Spinner } from '@repo/ui';
 	import { logger } from '@repo/logger';
-	import { enter, flip } from '$lib/motion';
+	import { collapse, enter, flip } from '$lib/motion';
 	import { describe } from '$lib/components/projects/project';
 	import ProjectCard from '$lib/components/projects/list/ProjectCard.svelte';
 	import ProjectRow from '$lib/components/projects/list/ProjectRow.svelte';
@@ -162,6 +162,26 @@
 		}
 	}
 
+	async function remove(project: ProjectSummary, row: HTMLElement | null) {
+		if (!confirm(`Delete ${project.name}? This cannot be undone.`))
+			return;
+
+		try {
+			await trpc.projects.remove.mutate({ slug: project.slug });
+			reorderError = '';
+
+			const drop = () => (projects = projects?.filter((p) => p.slug !== project.slug) ?? null);
+
+			if (row)
+				collapse(row, drop);
+			else
+				drop();
+		} catch (err) {
+			logger.error({ err }, 'Failed to delete a project');
+			reorderError = describe(err);
+		}
+	}
+
 	function pickView(value: typeof view) {
 		view = value;
 
@@ -256,7 +276,7 @@
 					{#if over === project.slug && dragged && dragged !== project.slug}
 						<span class="absolute inset-y-0 z-10 w-0.5 rounded-full bg-brand {landsAfter(project.slug) ? '-right-[3px]' : '-left-[3px]'}"></span>
 					{/if}
-					<ProjectCard {project} {members} />
+					<ProjectCard {project} {members} onremove={(row) => remove(project, row)} />
 				</div>
 			{/each}
 			<div use:enter class="flex">
@@ -270,7 +290,7 @@
 					{#if over === project.slug && dragged && dragged !== project.slug}
 						<span class="absolute inset-x-0 z-10 h-0.5 rounded-full bg-brand {landsAfter(project.slug) ? '-bottom-[3px]' : '-top-[3px]'}"></span>
 					{/if}
-					<ProjectRow {project} {members} />
+					<ProjectRow {project} {members} onremove={(row) => remove(project, row)} />
 				</div>
 			{/each}
 			<div use:enter>
