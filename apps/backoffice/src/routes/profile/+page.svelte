@@ -10,25 +10,22 @@
   let error = '';
 
   onMount(async () => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      goto('/');
-      return;
-    }
-
     try {
       user = await trpc.auth.me.query({});
       loading = false;
     } catch (err: any) {
       error = 'Could not load the profile';
       loading = false;
-      localStorage.removeItem('token');
       goto('/');
     }
   });
 
-  function handleLogout() {
-    localStorage.removeItem('token');
+  async function handleLogout() {
+    try {
+      await trpc.auth.logout.mutate({});
+    } catch {
+      // the cookie is cleared server-side on success; on failure the 401 guard handles it
+    }
     goto('/');
   }
 </script>

@@ -9,7 +9,6 @@ const baseUrl = process.env.NEXT_PUBLIC_API_URL
 
 export const trpc = createUniversalTrpcClient({
     baseUrl,
-    getToken: () => null,
     onUnauthorized: () => {},
 });
 

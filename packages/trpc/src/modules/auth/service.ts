@@ -30,7 +30,12 @@ const userSelection = {
 };
 
 export const authService = {
-  login: async (db: PrismaClient, auth: AuthManager, input: LoginInput) => {
+  login: async (
+    db: PrismaClient,
+    auth: AuthManager,
+    input: LoginInput,
+    meta?: { ipAddress?: string; userAgent?: string }
+  ) => {
     const user = await db.user.findUnique({
       where: { email: input.email.toLowerCase() },
       select: userSelection,
@@ -44,9 +49,9 @@ export const authService = {
       throw new TRPCError({ code: 'FORBIDDEN', message: 'Account disabled' });
 
     const sessionUser = mapToSessionUser(user);
-    const token = await auth.createToken(sessionUser);
+    const { token, expiresAt } = await auth.createSession(sessionUser, meta);
 
-    return { token, user: sessionUser };
+    return { token, expiresAt, user: sessionUser };
   },
 };
 

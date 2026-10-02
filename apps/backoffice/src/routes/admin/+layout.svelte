@@ -16,24 +16,23 @@
 	let user = $state<{ name: string; avatar?: string } | undefined>();
 
 	onMount(() => {
-		const token = localStorage.getItem('token');
-		if (!token) {
-			goto('/');
-			return;
-		}
-
 		try {
 			collapsed = localStorage.getItem('sidebar:collapsed') === '1';
 		} catch {
 			// storage can be blocked, the rail then starts expanded
 		}
 
+		// the session is an httpOnly cookie: the page only renders once the API confirms it
 		trpc.auth.me
 			.query({})
-			.then((me) => (user = { name: `${me.firstName} ${me.lastName}`.trim(), avatar: me.avatarUrl ?? undefined }))
-			.catch((err) => logger.error({ err }, 'Failed to load the signed-in user'));
-
-		ready = true;
+			.then((me) => {
+				user = { name: `${me.firstName} ${me.lastName}`.trim(), avatar: me.avatarUrl ?? undefined };
+				ready = true;
+			})
+			.catch((err) => {
+				logger.error({ err }, 'Failed to load the signed-in user');
+				goto('/');
+			});
 	});
 
 	$effect(() => {

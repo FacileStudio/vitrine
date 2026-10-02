@@ -1,6 +1,6 @@
 {
   "name": "@repo/auth-shared",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
   "exports": {
@@ -12,8 +12,6 @@
   "dependencies": {
     "@repo/logger": "workspace:*",
     "@repo/types": "workspace:*",
-    "@types/js-cookie": "^3.0.6",
-    "js-cookie": "^3.0.5",
     "zod": "^4.3.6"
   },
   "devDependencies": {

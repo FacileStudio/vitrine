@@ -12,10 +12,8 @@ const baseUrl = import.meta.env.VITE_API_URL
 
 export const trpc = createUniversalTrpcClient({
   baseUrl,
-  getToken: () => (typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null),
-  // a stale token from another project on this port must not leave the admin stuck on 401s
+  // an expired or revoked session must not leave the admin stuck on 401s
   onUnauthorized: () => {
-    localStorage.removeItem('token');
     if (window.location.pathname !== '/')
       window.location.href = '/';
   },

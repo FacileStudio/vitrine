@@ -1,6 +1,12 @@
-import { SignJWT, jwtVerify } from 'jose';
+import { SignJWT, jwtVerify, decodeJwt } from 'jose';
 import { type SessionUser } from '@repo/auth-shared';
 import { CryptoService } from '@repo/crypto';
+import { prisma } from '@repo/database';
+
+export interface SessionMeta {
+  ipAddress?: string;
+  userAgent?: string;
+}
 
 export interface AuthConfig {
   encryptionSecret: string;
@@ -44,21 +50,92 @@ export class AuthManager {
       .sign(this.secret);
   }
 
+  async createSession(
+    user: SessionUser,
+    meta?: SessionMeta
+  ): Promise<{ token: string; expiresAt: Date }> {
+    const token = await this.createToken(user);
+    const { exp } = decodeJwt(token);
+    const expiresAt = new Date((exp ?? 0) * 1000);
+
+    await prisma.session.create({
+      data: {
+        id: crypto.randomUUID(),
+        userId: user.id,
+        token,
+        expiresAt,
+        ipAddress: meta?.ipAddress,
+        userAgent: meta?.userAgent,
+      },
+    });
+
+    return { token, expiresAt };
+  }
+
+  async deleteSession(token: string): Promise<void> {
+    await prisma.session.deleteMany({ where: { token } });
+  }
+
+  // Expired sessions are also deleted lazily whenever their token is next
+  // verified, but an abandoned account's row otherwise lingers forever.
+  // Call this periodically (see apps/backend) to actually reclaim them.
+  async pruneExpiredSessions(): Promise<number> {
+    const { count } = await prisma.session.deleteMany({
+      where: { expiresAt: { lt: new Date() } },
+    });
+    return count;
+  }
+
   async verifyToken(token: string): Promise<SessionUser | null> {
     try {
-      const { payload } = await jwtVerify(token, this.secret, {
+      // The signature/issuer/audience/expiry check. Its payload (role,
+      // status, etc.) is intentionally not used below — trusting it would
+      // mean a role change or a disabled account doesn't take effect until the token
+      // naturally expires. The live values come from the DB join instead,
+      // which we're already hitting for the session-revocation check.
+      await jwtVerify(token, this.secret, {
         issuer: this.issuer,
         audience: this.audience,
       });
 
+      const session = await prisma.session.findUnique({
+        where: { token },
+        include: {
+          user: {
+            select: {
+              id: true,
+              email: true,
+              firstName: true,
+              lastName: true,
+              role: true,
+              status: true,
+              avatar: { select: { url: true } },
+              coverImage: { select: { url: true } },
+            },
+          },
+        },
+      });
+
+      if (!session || session.expiresAt < new Date()) {
+        if (session) {
+          await prisma.session.deleteMany({ where: { token } });
+        }
+        return null;
+      }
+
+      const { user } = session;
+      if (user.status !== 'ACTIVE') {
+        return null;
+      }
+
       return {
-        id: payload.id as string,
-        email: payload.email as string,
-        firstName: payload.firstName as string,
-        lastName: payload.lastName as string,
-        role: payload.role as any,
-        avatarUrl: payload.avatarUrl as string | null | undefined,
-        coverImageUrl: payload.coverImageUrl as string | null | undefined,
+        id: user.id,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        role: user.role,
+        avatarUrl: user.avatar?.url ?? null,
+        coverImageUrl: user.coverImage?.url ?? null,
       };
     } catch (error) {
       // Erreur de signature, expiration, etc.

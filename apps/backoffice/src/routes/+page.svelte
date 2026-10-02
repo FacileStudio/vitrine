@@ -9,10 +9,13 @@
   let loading = false;
   let error = '';
 
-  onMount(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      goto('/admin/projects');
+  onMount(async () => {
+    // the session lives in an httpOnly cookie, so the only way to know is to ask
+    try {
+      await trpc.auth.me.query({});
+      await goto('/admin/projects');
+    } catch {
+      // not signed in, stay on the form
     }
   });
 
@@ -20,8 +23,7 @@
     loading = true;
     error = '';
     try {
-      const result = await trpc.auth.login.mutate({ email, password });
-      localStorage.setItem('token', result.token);
+      await trpc.auth.login.mutate({ email, password });
       await goto('/admin/projects');
     } catch (err) {
       error = 'Wrong email or password';

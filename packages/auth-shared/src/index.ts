@@ -23,7 +23,10 @@ export const sessionUserSchema = z.object({
 
 export interface AuthState {
   user: SessionUser | null;
-  session: { token: string } | null;
+  // The token itself lives only in an httpOnly cookie set by the API and is
+  // never readable from client code; this just tracks whether we believe
+  // there's an active session.
+  session: boolean;
   loading: boolean;
 }
 

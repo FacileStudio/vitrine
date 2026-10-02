@@ -1,6 +1,21 @@
+import { z } from 'zod';
 import type { AuthState, SessionUser } from './';
-import Cookies from 'js-cookie';
+import { sessionUserSchema } from './';
 import { logger } from '@repo/logger';
+
+// Lazy: index.ts's `export * from './store'` makes this a circular import,
+// and building persistedStateSchema eagerly at module scope hit
+// sessionUserSchema before index.ts finished initializing it (TDZ crash
+// under Vite's SSR build, not caught by tsc). Deferring construction to
+// first use sidesteps the circular-init ordering entirely.
+let _persistedStateSchema: ReturnType<typeof buildPersistedStateSchema> | undefined;
+function buildPersistedStateSchema() {
+  return z.object({
+    user: sessionUserSchema.nullable(),
+    session: z.boolean(),
+  });
+}
+const getPersistedStateSchema = () => (_persistedStateSchema ??= buildPersistedStateSchema());
 
 type Listener<AuthState> = (value: AuthState) => void;
 
@@ -15,10 +30,10 @@ export class UniversalAuthStore {
   private listeners = new Set<Listener<AuthState>>();
   private storage: StorageProvider;
   private key = 'auth-storage';
-  private cookieName = 'auth_token';
-  private onSignOut?: () => Promise<any>;
+  private writeQueue: Promise<void> = Promise.resolve();
+  private onSignOut?: () => Promise<unknown>;
 
-  constructor(initialState: AuthState, storage: StorageProvider, onSignOut?: () => Promise<any>) {
+  constructor(initialState: AuthState, storage: StorageProvider, onSignOut?: () => Promise<unknown>) {
     this.state = initialState;
     this.storage = storage;
     this.onSignOut = onSignOut;
@@ -36,13 +51,16 @@ export class UniversalAuthStore {
     try {
       const saved = await this.storage.getItem(this.key);
       if (saved) {
-        this.state = { ...JSON.parse(saved), loading: false };
+        const parsed = getPersistedStateSchema().safeParse(JSON.parse(saved));
+        this.state = parsed.success
+          ? { user: parsed.data.user, session: parsed.data.session, loading: false }
+          : { user: null, session: false, loading: false };
       } else {
         this.state = { ...this.state, loading: false };
       }
     } catch (e) {
       logger.error({ err: e }, 'AuthStore Init Error');
-      this.state = { user: null, session: null, loading: false };
+      this.state = { user: null, session: false, loading: false };
     } finally {
       this.notify();
     }
@@ -51,33 +69,34 @@ export class UniversalAuthStore {
   update(patch: Partial<AuthState>) {
     this.state = { ...this.state, ...patch };
 
+    // Serialize storage writes so out-of-order resolution can't leave a
+    // stale persisted copy behind two rapid update() calls.
     if (this.state.session) {
       const dataToSave = JSON.stringify({
         user: this.state.user,
         session: this.state.session,
       });
-      this.storage.setItem(this.key, dataToSave);
+      this.writeQueue = this.writeQueue.then(() => this.storage.setItem(this.key, dataToSave));
     } else if (!this.state.loading) {
-      this.storage.removeItem(this.key);
+      this.writeQueue = this.writeQueue.then(() => this.storage.removeItem(this.key));
     }
 
     this.notify();
   }
 
-  setAuth(session: { token: string }, user: SessionUser) {
-    if (typeof document !== 'undefined') {
-      Cookies.set(this.cookieName, session.token, {
-        expires: 7,
-        path: '/',
-        sameSite: 'strict',
-        secure: typeof window !== 'undefined' && window.location.protocol === 'https:',
-      });
-    }
-
-    this.update({ session, user: user as SessionUser, loading: false });
+  setAuth(user: SessionUser) {
+    this.update({ session: true, user, loading: false });
   }
 
   async logout() {
+    // Already logged out client-side: skip the network round-trip. Without
+    // this, a burst of 401s (e.g. every in-flight request after the session
+    // was revoked server-side) each call logout(), which calls onSignOut,
+    // which itself 401s and can retrigger onUnauthorized — an unthrottled loop.
+    if (!this.state.session) {
+      return this.clear();
+    }
+
     if (this.onSignOut) {
       try {
         await this.onSignOut();
@@ -89,13 +108,9 @@ export class UniversalAuthStore {
   }
 
   async clear() {
-    this.state = { user: null, session: null, loading: false };
+    this.state = { user: null, session: false, loading: false };
 
     await this.storage.removeItem(this.key);
-
-    if (typeof document !== 'undefined') {
-      Cookies.remove(this.cookieName, { path: '/' });
-    }
 
     this.notify();
   }

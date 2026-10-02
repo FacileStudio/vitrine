@@ -62,6 +62,14 @@ app.use(
   })
 );
 
+// expired sessions are only deleted lazily on verify, reclaim abandoned ones periodically
+const SESSION_PRUNE_INTERVAL_MS = 60 * 60 * 1000;
+setInterval(() => {
+  authManager
+    .pruneExpiredSessions()
+    .catch((err) => logger.error({ err }, 'Failed to prune expired sessions'));
+}, SESSION_PRUNE_INTERVAL_MS);
+
 app.get('/', (c) => c.json({ message: 'tRPC Backend' }));
 
 const port = env.PORT;

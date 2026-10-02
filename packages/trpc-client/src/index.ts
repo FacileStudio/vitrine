@@ -3,7 +3,6 @@ import type { AppRouter } from '@repo/trpc';
 
 interface TrpcConfig {
   baseUrl: string;
-  getToken: () => string | null | Promise<string | null>;
   onUnauthorized: () => void;
 }
 
@@ -14,21 +13,20 @@ export const createUniversalTrpcClient = (config: TrpcConfig): TRPCClient<AppRou
     links: [
       httpBatchLink({
         url: cleanBaseUrl,
-        async headers() {
-          const token = await config.getToken();
+        headers() {
           return {
-            ...(token ? { Authorization: `Bearer ${token}` } : {}),
             'x-trpc-source': 'universal-client',
           };
         },
         fetch: async (url, options) => {
-          const res = await fetch(url, options);
+          // The auth token lives in an httpOnly cookie set by the API, never
+          // read or sent by client code directly — just ride along with the request.
+          const res = await fetch(url, { ...options, credentials: 'include' });
 
-          if (
-            res.status === 401 &&
-            typeof window !== 'undefined' &&
-            !window.location.pathname.includes('/login')
-          ) {
+          // No pathname check here: each app's login route differs (e.g. the
+          // backoffice's is "/", not "/login"), and onUnauthorized ->
+          // authStore.logout() is idempotent, so calling it repeatedly is safe.
+          if (res.status === 401 && typeof window !== 'undefined') {
             config.onUnauthorized();
           }
 

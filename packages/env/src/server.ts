@@ -26,6 +26,10 @@ export const serverEnvSchema = z.intersection(
 
     ENCRYPTION_SECRET: z.string().min(32),
 
+    // Domain the API sets the auth cookie on. Must cover both the API and the
+    // frontend (e.g. "localhost" in dev, "example.com" for api.example.com + example.com).
+    COOKIE_DOMAIN: z.string().min(1),
+
     BACKEND_URL: z.string().optional().default('http://localhost:3001'),
 
     CLIENT_CONTENT_DIR: z.string().default('../client/app/[locale]'),

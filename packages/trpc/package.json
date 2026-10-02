@@ -1,11 +1,10 @@
 {
   "name": "@repo/trpc",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/index.ts",
-    "./client": "./src/client.ts"
+    ".": "./src/index.ts"
   },
   "dependencies": {
     "@repo/auth": "workspace:*",
@@ -17,6 +16,7 @@
     "@repo/types": "workspace:*",
     "@repo/validators": "workspace:*",
     "@trpc/client": "^11.16.0",
+    "cookie": "^0.6.0",
     "@trpc/server": "^11.16.0",
     "trpc-redis-cache": "^0.4.0",
     "trpc-to-openapi": "^3.1.0",
