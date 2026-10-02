@@ -24,7 +24,7 @@ export default function Chrome({ name, index, total, backLabel, barRef, onBack }
                         data-chrome
                         type="button"
                         onClick={onBack}
-                        className="pointer-events-auto block font-bb-mono uppercase text-sm text-white/50 transition-colors hover:text-white"
+                        className="pointer-events-auto block tagText text-white/50 transition-colors hover:text-white"
                     >
                         ← {backLabel}
                     </button>

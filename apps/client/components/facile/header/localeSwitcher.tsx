@@ -48,7 +48,7 @@ export default function LocaleSwitcher({ className, dark = false }: { className?
     return (
         <div
             ref={root}
-            className={twMerge("pointer-events-auto relative font-bb-mono text-[clamp(0.6rem,1.3vh,0.85rem)] font-medium uppercase tracking-tight", className)}
+            className={twMerge("pointer-events-auto relative tagText font-medium tracking-tight", className)}
         >
             <button
                 type="button"

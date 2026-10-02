@@ -120,8 +120,8 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
                     {project.services.length > 0 && (
                         <span className="relative lg:mt-4 z-10 flex flex-wrap items-center lg:justify-end gap-fc">
                             {project.services.map((s) => (
-                                <TextReveal key={s} cropClassName="shrink-0" className="chip">
-                                    <p>{tProjects(`services.${s}`)}</p>
+                                <TextReveal key={s} cropClassName="shrink-0" className="chip tagText">
+                                    <span>{tProjects(`services.${s}`)}</span>
                                 </TextReveal>
                             ))}
                         </span>

@@ -184,6 +184,12 @@ p {
 }
 
 @layer components {
+    .tagText {
+        font-family: var(--font-bb-mono);
+        font-size: clamp(0.65rem, 1.4vh, 0.9rem);
+        text-transform: uppercase;
+    }
+
     .glass {
         -webkit-backdrop-filter: blur(var(--glass-blur));
         backdrop-filter: blur(var(--glass-blur));

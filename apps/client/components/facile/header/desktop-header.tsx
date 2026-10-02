@@ -27,7 +27,7 @@ export const DesktopHeader =({ menuOpen, setMenuOpen, dark }: { menuOpen: boolea
             </div>
             <div className="flex items-center gap-fc">
                 <LocaleSwitcher dark={dark} className="hidden lg:flex" />
-                <button className={`pointer-events-auto button ${dark ? "" : "button-dark"} hidden lg:block font-bb-mono font-medium tracking-tight uppercase`} onClick={toggleMenu}>
+                <button className={`pointer-events-auto button ${dark ? "" : "button-dark"} hidden lg:block tagText font-medium tracking-tight`} onClick={toggleMenu}>
                     {menuOpen ? t("close") : t("menu")}
                 </button>
             </div>
