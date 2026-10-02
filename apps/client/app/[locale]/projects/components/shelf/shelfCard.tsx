@@ -2,27 +2,21 @@
 
 import type { MouseEvent } from "react";
 import { useTranslations } from "next-intl";
+import SplitLines from "@/components/facile/splitLines";
 import TextReveal from "@/components/facile/textReveal";
 import { LightPillar } from "@/webgl/lazy";
 import ArrowLink from "@/components/facile/arrowLink";
-import TechStack from "@/components/facile/techStack";
+import TechLogos from "@/components/facile/techLogos";
 import ShelfRow from "@/components/facile/shelf/shelfRow";
 import { MarcelEyes, MarcelSpheres, useMarcelEyes } from "@/components/facile/marcelEyes";
 import { isVideoFile } from "@/lib/utils";
+import { useLocalized } from "@/lib/i18n/localize";
 import type { Project } from "@/lib/content/projects";
 import type { ShelfRefs } from "@/hooks/use-shelf-motion";
 
 const mediaClass = "pointer-events-none absolute top-1/2 left-1/2 w-4/5 -translate-x-1/2 -translate-y-1/2 rounded-md object-cover will-change-[clip-path] [clip-path:inset(100%_0_0_0)]";
 
 const coverClass = "w-full h-full object-cover brightness-100 transition-all duration-300 ease-out";
-
-const techStackClass = {
-    labelCropClassName: "relative z-10",
-    labelClassName: "subtext text-white",
-    rowClassName: "relative z-10 flex flex-wrap md:justify-end gap-6",
-    logoClassName: "block h-5 lg:h-7",
-    split: true,
-};
 
 interface ShelfCardProps {
     project: Project;
@@ -37,6 +31,8 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
     const t = useTranslations("story");
     const tProjects = useTranslations("projects");
     const { frame, eyes, spheres, start, stop } = useMarcelEyes();
+    const fullDescription = useLocalized(project.description);
+    const description = fullDescription.match(/[^.!?]+[.!?]+/g)?.slice(0, 2).join("").trim() || fullDescription;
     const marcel = project.coverEffect === "marcel";
     const projetZero = project.coverEffect === "projet-zero-pillar";
 
@@ -47,7 +43,7 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
             onOpen={() => { stop(); onOpen(project.slug); }}
             onEnter={(e) => { onEnter(e); if (marcel) start(); }}
             onLeave={(e) => { onLeave(e); stop(); }}
-            className="group/card cursor-pointer 3xl:w-[70vw] lg:w-[80vw] w-full shrink-0 flex lg:flex-row flex-col items-start justify-between lg:gap-[4vw]"
+            className="group/card cursor-pointer 3xl:w-[70vw] lg:w-[80vw] w-full shrink-0 flex lg:flex-row flex-col items-start lg:items-stretch justify-between lg:gap-[4vw]"
         >
             <div className="relative shrink-0 w-full lg:w-auto">
                 {marcel && <MarcelSpheres ref={spheres} />}
@@ -90,16 +86,25 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
                 </div>
             </div>
 
-            <div ref={refs.content(index)} className="flex lg:flex-col items-start lg:items-end gap-6 lg:gap-12 w-full lg:w-auto lg:max-w-[26vw] px-3 lg:px-0 py-12 text-right">
+            <div ref={refs.content(index)} className="flex lg:flex-col items-start lg:items-end lg:justify-between gap-6 lg:gap-12 w-full lg:w-auto lg:max-w-[26vw] pl-12 lg:px-0 py-12 lg:py-6 text-right">
                 <div className="gap-y-6 lg:gap-y-8 flex flex-col w-full lg:w-auto items-start lg:items-end text-start lg:text-end">
                     <div className="flex w-full lg:w-auto items-center justify-between gap-6">
                         <TextReveal as="h2" cropClassName="z-10" className="subtitle text-white">
                             {project.name}
                         </TextReveal>
-                        <TechStack stack={project.techStack} className="flex-col gap-3 hidden md:flex lg:hidden items-end text-right" {...techStackClass} />
+                        <TechLogos stack={project.techStack} className="hidden md:flex lg:hidden" />
                     </div>
 
-                    {project.link && (
+                    {description && (
+                        <SplitLines
+                            as="p"
+                            text={description}
+                            justify
+                            className="description relative z-10 text-white/75"
+                        />
+                    )}
+
+                    {/* {project.link && (
                         <TextReveal cropClassName="z-10 lg:mt-2">
                             <ArrowLink
                                 href={project.link}
@@ -109,7 +114,7 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
                                 {t("visitSite")}
                             </ArrowLink>
                         </TextReveal>
-                    )}
+                    )} */}
                 </div>
                 <div className="lg:gap-6 flex flex-col">
                     {project.services.length > 0 && (
@@ -121,7 +126,7 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
                             ))}
                         </span>
                     )}
-                    <TechStack stack={project.techStack} className="flex-col gap-3 flex md:hidden lg:flex pt-6 lg:pt-0 lg:items-end text-start lg:text-right" {...techStackClass} />
+                    <TechLogos stack={project.techStack} className="flex md:hidden lg:flex pt-6 lg:pt-0 lg:justify-end" />
                 </div>
             </div>
         </ShelfRow>
