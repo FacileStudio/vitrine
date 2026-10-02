@@ -1,0 +1,2648 @@
+{
+  "members": [
+    {
+      "slug": "fanga",
+      "position": 0,
+      "name": "Fanga",
+      "role": {
+        "de": "Entwickler",
+        "en": "Developer",
+        "es": "Desarrollador",
+        "fr": "Développeur"
+      },
+      "description": {
+        "de": "Fanga ist unser Mastermind. Er verbessert ständig unseren Tech-Stack und macht uns die Arbeit so leicht wie möglich. Seine aktuelle Aufgabe: die Facile Suite bauen. (Ja, ganz allein)",
+        "en": "Fanga is our mastermind. He constantly upgrades our working stack, and makes our jobs the easiest it gets. His current task is to build the Facile Suite. (Yes all by himself)",
+        "es": "Fanga es nuestro cerebro. Mejora sin parar nuestro stack de trabajo y nos hace el día a día lo más fácil posible. Su misión actual: construir la Facile Suite. (Sí, él solo)",
+        "fr": "Fanga, c'est notre cerveau. Il améliore sans cesse notre stack et nous rend le travail aussi facile que possible. Sa mission du moment : construire la Facile Suite. (Oui, tout seul)"
+      },
+      "bio": {
+        "de": "Platzhalter für Fangas ausführliche Bio, bitte im Backoffice ersetzen. Full-Stack-Entwickler bei Facile Studio, am liebsten im Backend und in der Infrastruktur darunter: Services, Pipelines und die Tools, die den Rest des Studios am Laufen halten.",
+        "en": "Placeholder long bio for Fanga — replace via the backoffice. Full-stack developer at Facile Studio, most at home in the backend and the infrastructure under it: services, pipelines, and the tooling that keeps the rest of the studio moving.",
+        "es": "Biografía larga provisional de Fanga, sustitúyela desde el backoffice. Desarrollador full-stack en Facile Studio, en su salsa en el backend y en la infraestructura que lo sostiene: servicios, pipelines y las herramientas que mantienen al resto del estudio en marcha.",
+        "fr": "Bio longue provisoire pour Fanga, à remplacer via le backoffice. Développeur full-stack chez Facile Studio, surtout à l'aise dans le backend et l'infrastructure qui le porte : services, pipelines et l'outillage qui fait avancer le reste du studio."
+      },
+      "model": "/models/fanga.glb",
+      "scale": 0.015,
+      "roughness": 0.85,
+      "metalness": 1,
+      "hair": "#6E5A4E",
+      "rotation": [
+        0,
+        0.6732,
+        -0.4
+      ],
+      "highlight": "#29A863",
+      "socials": [
+        {
+          "href": "https://linkedin.com/in/thevyann",
+          "label": "LinkedIn"
+        },
+        {
+          "href": "https://www.github.com/saravenpi",
+          "label": "GitHub"
+        }
+      ],
+      "labels": {
+        "de": [
+          "Backend",
+          "Infra",
+          "Tooling"
+        ],
+        "en": [
+          "Backend",
+          "Infra",
+          "Tooling"
+        ],
+        "es": [
+          "Backend",
+          "Infra",
+          "Herramientas"
+        ],
+        "fr": [
+          "Backend",
+          "Infra",
+          "Outillage"
+        ]
+      },
+      "projects": [
+        "marcel",
+        "projet-zero",
+        "benky",
+        "muse"
+      ],
+      "suite": true,
+      "facts": {
+        "de": [
+          "Hört bei der Arbeit 10 Stunden Wii-Musik",
+          "Scheut keine schwierige Mission und gibt immer alles"
+        ],
+        "en": [
+          "Listens to 10 hours of Wii music while working",
+          "Never backs down from a hard mission, always gives his fullest"
+        ],
+        "es": [
+          "Escucha 10 horas de música de Wii mientras trabaja",
+          "Nunca se echa atrás ante una misión difícil, siempre lo da todo"
+        ],
+        "fr": [
+          "Écoute 10 heures de musique Wii en travaillant",
+          "Ne recule jamais devant une mission difficile, et donne toujours tout"
+        ]
+      }
+    },
+    {
+      "slug": "noah",
+      "position": 1,
+      "name": "Noah",
+      "role": {
+        "de": "Designer",
+        "en": "Designer",
+        "es": "Diseñador",
+        "fr": "Designer"
+      },
+      "description": {
+        "de": "Noah ist Webdesigner und Frontend-Entwickler. UI | UX hat er sich selbst beigebracht, und damit gestaltet er wunderschöne Websites",
+        "en": "Noah is the web designer and frontend developer. He learned UI | UX as an autodidact and uses his skills to craft beautiful websites",
+        "es": "Noah es el diseñador web y desarrollador frontend. Aprendió UI | UX de forma autodidacta y usa lo que sabe para crear webs preciosas",
+        "fr": "Noah est le web designer et développeur frontend. Il a appris l'UI | UX en autodidacte et s'en sert pour créer de beaux sites web"
+      },
+      "bio": {
+        "de": "Er ist spezialisiert auf elegante Designs, die er mit ansprechenden, einzigartigen GSAP-Animationen umsetzt.",
+        "en": "He specialises in creating sleek designs and implementing them with attractive and unique GSAP animations.",
+        "es": "Se especializa en crear diseños elegantes y darles vida con animaciones GSAP atractivas y únicas.",
+        "fr": "Sa spécialité : des designs épurés, mis en mouvement par des animations GSAP uniques et séduisantes."
+      },
+      "model": "/models/noah.glb",
+      "scale": 0.015,
+      "roughness": 0.85,
+      "metalness": 1,
+      "hair": "#6E5A4E",
+      "rotation": [
+        0,
+        0.6732,
+        -0.4
+      ],
+      "highlight": "#2C9CCC",
+      "socials": [
+        {
+          "href": "https://www.dribbble.com/webbygian",
+          "label": "Dribbble"
+        },
+        {
+          "href": "https://www.github.com/G1anC",
+          "label": "GitHub"
+        },
+        {
+          "href": "https://www.instagram.com/webbygian",
+          "label": "Instagram"
+        }
+      ],
+      "labels": {
+        "de": [
+          "UI | UX-Systeme",
+          "Animationen",
+          "Frontend"
+        ],
+        "en": [
+          "UI | UX systems",
+          "Animations",
+          "Frontend"
+        ],
+        "es": [
+          "Sistemas UI | UX",
+          "Animaciones",
+          "Frontend"
+        ],
+        "fr": [
+          "Systèmes UI | UX",
+          "Animations",
+          "Frontend"
+        ]
+      },
+      "projects": [
+        "marcel",
+        "hottake",
+        "laura-herve",
+        "projet-zero",
+        "evelynecrea",
+        "handvision",
+        "muse"
+      ],
+      "suite": false,
+      "facts": {
+        "de": [
+          "Baut ständig sein Linux-Setup um"
+        ],
+        "en": [
+          "Constantly changing his Linux setup"
+        ],
+        "es": [
+          "Siempre está cambiando su configuración de Linux"
+        ],
+        "fr": [
+          "Change sans arrêt sa config Linux"
+        ]
+      }
+    },
+    {
+      "slug": "mazouz",
+      "position": 2,
+      "name": "Mazouz",
+      "role": {
+        "de": "Entwickler",
+        "en": "Developer",
+        "es": "Desarrollador",
+        "fr": "Développeur"
+      },
+      "description": {
+        "de": "Mazouz ist ein echtes Schweizer Taschenmesser. Egal welche Aufgabe, er erledigt sie. Web-Apps bauen und die kniffligsten Features stemmen sind nur zwei seiner unzähligen Fähigkeiten.",
+        "en": "Mazouz is a literal swiss knife. Any task you give him, he'll do. Creating web apps and taking care of the hardest features are two of his countless skills.",
+        "es": "Mazouz es una auténtica navaja suiza. Dale cualquier tarea y la hará. Crear apps web y encargarse de las funcionalidades más difíciles son solo dos de sus incontables habilidades.",
+        "fr": "Mazouz est un vrai couteau suisse. Quelle que soit la tâche, il s'en charge. Créer des applications web et venir à bout des fonctionnalités les plus coriaces font partie de ses innombrables talents."
+      },
+      "bio": {
+        "de": "Platzhalter für Mazouz' ausführliche Bio, bitte im Backoffice ersetzen. Entwickler bei Facile Studio, im Backend: APIs, Daten und die Automatisierung, die Arbeit abschafft, die niemand zweimal machen will.",
+        "en": "Placeholder long bio for Mazouz — replace via the backoffice. Developer at Facile Studio, on the backend side: APIs, data, and the automation that removes the work nobody wants to do twice.",
+        "es": "Biografía larga provisional de Mazouz, sustitúyela desde el backoffice. Desarrollador en Facile Studio, del lado del backend: APIs, datos y la automatización que elimina el trabajo que nadie quiere hacer dos veces.",
+        "fr": "Bio longue provisoire pour Mazouz, à remplacer via le backoffice. Développeur chez Facile Studio, côté backend : API, données et l'automatisation qui supprime le travail que personne ne veut faire deux fois."
+      },
+      "model": "/models/mazouz.glb",
+      "scale": 4.5,
+      "roughness": 0.85,
+      "metalness": 1,
+      "hair": "#6E5A4E",
+      "rotation": [
+        0,
+        0.6732,
+        -0.4
+      ],
+      "highlight": "#CF6322",
+      "socials": [
+        {
+          "href": "https://www.github.com/MezzLMC",
+          "label": "GitHub"
+        }
+      ],
+      "labels": {
+        "de": [
+          "Backend",
+          "APIs",
+          "Daten",
+          "Automatisierung"
+        ],
+        "en": [
+          "Backend",
+          "APIs",
+          "Data",
+          "Automation"
+        ],
+        "es": [
+          "Backend",
+          "APIs",
+          "Datos",
+          "Automatización"
+        ],
+        "fr": [
+          "Backend",
+          "API",
+          "Données",
+          "Automatisation"
+        ]
+      },
+      "projects": [
+        "hottake",
+        "marcel",
+        "evelynecrea",
+        "vidoq",
+        "muse"
+      ],
+      "suite": false,
+      "facts": {
+        "de": [
+          "Lernt gerade kochen",
+          "Programmieren ist sein Rückzugsort",
+          "hört gern die Geschichten anderer Menschen",
+          "nichts geht über eine Nebenquest am Sonntagnachmittag"
+        ],
+        "en": [
+          "Currently learning to cook",
+          "Sees coding as his sanctuary",
+          "loves hearing people's stories",
+          "nothing beats a Sunday afternoon side quest"
+        ],
+        "es": [
+          "Ahora mismo está aprendiendo a cocinar",
+          "Ve la programación como su santuario",
+          "le encanta escuchar las historias de la gente",
+          "nada supera una misión secundaria un domingo por la tarde"
+        ],
+        "fr": [
+          "Apprend à cuisiner en ce moment",
+          "Voit le code comme son sanctuaire",
+          "adore écouter les histoires des gens",
+          "rien ne vaut une quête secondaire un dimanche après-midi"
+        ]
+      }
+    },
+    {
+      "slug": "camille",
+      "position": 3,
+      "name": "Camille",
+      "role": {
+        "de": "Designerin",
+        "en": "Designer",
+        "es": "Diseñadora",
+        "fr": "Designer"
+      },
+      "description": {
+        "de": "Camille ist unsere Design-Direktorin. Sie hat Grafikdesign studiert, kommt aus der Fotografie und hat ein feines Gespür dafür, alles schön zu machen",
+        "en": "Camille is our design director. Coming from graphic design studies and a photography background. She has a keen eye to make everything beautiful",
+        "es": "Camille es nuestra directora de diseño. Estudió diseño gráfico, viene del mundo de la fotografía y tiene buen ojo para que todo quede bonito",
+        "fr": "Camille est notre directrice artistique. Passée par des études de graphisme et venue de la photographie, elle a l'œil pour rendre tout plus beau"
+      },
+      "bio": {
+        "de": "Platzhalter für Camilles ausführliche Bio, bitte im Backoffice ersetzen. Designerin bei Facile Studio, zuständig für Marke, Illustration und Print: die Art Direction, die einem Projekt seine Stimme gibt, bevor auch nur eine Zeile geschrieben ist.",
+        "en": "Placeholder long bio for Camille — replace via the backoffice. Designer at Facile Studio, working on brand, illustration and print: the art direction that gives a project its voice before a single line is written.",
+        "es": "Biografía larga provisional de Camille, sustitúyela desde el backoffice. Diseñadora en Facile Studio, entre marca, ilustración e impresión: la dirección de arte que da voz a un proyecto antes de escribir una sola línea.",
+        "fr": "Bio longue provisoire pour Camille, à remplacer via le backoffice. Designer chez Facile Studio, entre marque, illustration et print : la direction artistique qui donne sa voix à un projet avant qu'une seule ligne soit écrite."
+      },
+      "model": "/models/camille.glb",
+      "scale": 0.015,
+      "roughness": 0.85,
+      "metalness": 1,
+      "hair": null,
+      "rotation": [
+        0,
+        0.6732,
+        -0.4
+      ],
+      "highlight": "#9E3CE9",
+      "socials": [
+        {
+          "href": "https://www.instagram.com/camg_raphic/",
+          "label": "Instagram"
+        }
+      ],
+      "labels": {
+        "de": [
+          "Branding",
+          "Styleguide",
+          "Art Direction"
+        ],
+        "en": [
+          "Branding",
+          "graphical chart",
+          "design direction"
+        ],
+        "es": [
+          "Branding",
+          "guía de estilo",
+          "dirección de diseño"
+        ],
+        "fr": [
+          "Branding",
+          "charte graphique",
+          "direction artistique"
+        ]
+      },
+      "projects": [
+        "projet-zero",
+        "hottake",
+        "marcel",
+        "muse"
+      ],
+      "suite": false,
+      "facts": {
+        "de": [
+          "Zieht sich gern in ihre eigene Welt zurück, um Liebesromane zu lesen",
+          "Unser Sonnenschein: motiviert alle mit einem riesigen Lächeln"
+        ],
+        "en": [
+          "Loves getting into her bubble to read her romance books",
+          "Our sun — keeps everyone motivated with a giant smile"
+        ],
+        "es": [
+          "Le encanta meterse en su burbuja a leer novelas románticas",
+          "Nuestro sol: nos mantiene motivados con una sonrisa enorme"
+        ],
+        "fr": [
+          "Adore se mettre dans sa bulle pour lire ses romans d'amour",
+          "Notre soleil : elle motive tout le monde avec un sourire immense"
+        ]
+      }
+    }
+  ],
+  "projects": [
+    {
+      "slug": "marcel",
+      "position": 0,
+      "name": "Marcel",
+      "weeks": 12,
+      "link": "https://marcel.my/",
+      "image": "/images/projects/Marcel_cover.webp",
+      "coverEffect": "marcel",
+      "description": {
+        "de": "Marcel ist eine App, die Ihr Leben in ein Spiel verwandelt und Aufgaben und Gewohnheiten zu Abenteuern macht.",
+        "en": "Marcel is an application that lets you turn your life into a game by transforming tasks and habits into adventures.",
+        "es": "Marcel es una aplicación que convierte tu vida en un juego, transformando tus tareas y hábitos en aventuras.",
+        "fr": "Marcel est une application qui transforme votre vie en jeu, en changeant vos tâches et vos habitudes en aventures.\n"
+      },
+      "metaDescription": {
+        "de": "Marcel ist eine Wellbeing-App von Facile Studio. Spielerisches Gewohnheitstracking und Aufgabenverwaltung, entwickelt mit Svelte und Go.",
+        "en": "Marcel is a wellbeing application by Facile Studio. Gamified habit tracking and task management, built with Svelte and Go.",
+        "es": "Marcel es una aplicación de bienestar de Facile Studio. Seguimiento de hábitos y gestión de tareas gamificados, desarrollados con Svelte y Go.",
+        "fr": "Marcel est une application de bien-être signée Facile Studio. Suivi d'habitudes et gestion de tâches gamifiés, développés avec Svelte et Go."
+      },
+      "services": [
+        "transformation",
+        "redesign",
+        "appDevelopment"
+      ],
+      "techStack": [
+        "Svelte",
+        "Go",
+        "Postgres",
+        "Figma"
+      ],
+      "date": "2025",
+      "gallery": [
+        "/images/projects/Marcel%202x2%20logo.png",
+        "/images/projects/Marcel%202x3%20rebranding.png",
+        "/images/projects/Marcel%203x3%20dashboard.webp",
+        "/images/projects/Marcel_1x2_phone.webp",
+        "/images/projects/Marcel_2x1_onboarding.webp",
+        "/images/projects/Marcel_1x1_calendar_dark.webp",
+        "/images/projects/Marcel_2x2_calendar.webp",
+        "/images/projects/Marcel_1x1_red.webp",
+        "/images/projects/Marcel_1x1_orange.webp",
+        "/images/projects/Marcel_1x1_yellow.webp",
+        "/images/projects/Marcel_1x1_green.webp",
+        "/images/projects/Marcel_1x1_blue.webp",
+        "/images/projects/Marcel_1x1_purple.webp",
+        "/images/projects/Marcel_2x2_dev.webp"
+      ],
+      "notes": [
+        {
+          "de": "Die Belohnungsschleife war das eigentliche Designproblem: Gold und Erfahrung mussten in dem Moment ankommen, in dem eine Aufgabe abgehakt wird, sonst fällt das Spiel auseinander.",
+          "en": "The reward loop was the whole design problem: gold and experience had to land the moment a task is checked, or the game falls apart.",
+          "es": "Todo el reto de diseño era el ciclo de recompensas: el oro y la experiencia tenían que llegar en cuanto marcas una tarea, o el juego se viene abajo.",
+          "fr": "Toute la difficulté tenait dans la boucle de récompense : l'or et l'expérience devaient tomber à l'instant où une tâche est cochée, sinon le jeu s'effondre."
+        },
+        {
+          "de": "Alles wurde in Figma gezeichnet, bevor auch nur eine Komponente geschrieben war. So blieb der Svelte-Build eine Übersetzungsarbeit statt einer Entdeckungsreise.",
+          "en": "Everything was drawn in Figma before a single component was written, so the Svelte build stayed a translation job rather than a discovery one.",
+          "es": "Todo se dibujó en Figma antes de escribir un solo componente, así que el desarrollo en Svelte fue un trabajo de traducción, no de descubrimiento.",
+          "fr": "Tout a été dessiné dans Figma avant d'écrire le moindre composant, si bien que le développement Svelte est resté un travail de traduction, pas d'exploration."
+        }
+      ],
+      "bucket": [],
+      "team": [
+        "fanga",
+        "noah",
+        "mazouz",
+        "camille"
+      ],
+      "story": [
+        {
+          "position": 0,
+          "by": [],
+          "blocks": [
+            {
+              "position": 0,
+              "type": "cover",
+              "logos": []
+            },
+            {
+              "position": 1,
+              "type": "intro",
+              "logos": []
+            }
+          ]
+        },
+        {
+          "position": 1,
+          "title": {
+            "de": "Neues Gesicht!",
+            "en": "New Face!",
+            "es": "¡Nueva cara!",
+            "fr": "Nouveau visage !"
+          },
+          "by": [
+            "camille"
+          ],
+          "layout": {
+            "cols": 8,
+            "items": [
+              {
+                "h": 1,
+                "w": 2,
+                "x": 1,
+                "y": 1,
+                "id": "b0-0",
+                "kind": "note",
+                "text": {
+                  "de": "Marcel war etwas in die Jahre gekommen. Also bat er uns freundlich, ihn aufzufrischen und ihm das Gesicht und den Glanz zu geben, die er brauchte. Die Idee für dieses Rebranding stammt von Camille.",
+                  "en": "Marcel started to get a bit old. So he kindly asked us to revamp him and give him the face and shine he needed. The ideation of this rebranding was made by Camille.",
+                  "es": "Marcel empezaba a hacerse mayor. Así que nos pidió amablemente un lavado de cara que le devolviera el brillo que necesitaba. La idea de este rebranding fue de Camille.",
+                  "fr": "Marcel commençait à prendre un coup de vieux. Il nous a donc gentiment demandé de le rafraîchir et de lui offrir le visage et l'éclat qu'il méritait. L'idée de ce rebranding vient de Camille."
+                },
+                "title": {
+                  "de": "Neues Gesicht!",
+                  "en": "New Face!",
+                  "es": "¡Nueva cara!",
+                  "fr": "Nouveau visage !"
+                }
+              },
+              {
+                "h": 2,
+                "w": 2,
+                "x": 1,
+                "y": 2,
+                "id": "b0-1",
+                "src": "/images/projects/Marcel%202x2%20logo.png",
+                "kind": "image"
+              },
+              {
+                "h": 3,
+                "w": 2,
+                "x": 3,
+                "y": 1,
+                "id": "b1-0",
+                "src": "/images/projects/Marcel%202x3%20rebranding.png",
+                "kind": "image"
+              },
+              {
+                "h": 3,
+                "w": 2,
+                "x": 7,
+                "y": 1,
+                "id": "b2-0",
+                "kind": "palette",
+                "swatches": [
+                  {
+                    "hex": "#F9F1E7",
+                    "label": {
+                      "de": "Hintergrund",
+                      "en": "Background",
+                      "es": "Fondo",
+                      "fr": "Fond"
+                    }
+                  },
+                  {
+                    "hex": "#E2DAD2",
+                    "note": {
+                      "de": "#F9F1E7 + #0E0F10 (Deckkraft 10 %)",
+                      "en": "#F9F1E7 + #0E0F10 (opacity 10%)",
+                      "es": "#F9F1E7 + #0E0F10 (opacidad 10 %)",
+                      "fr": "#F9F1E7 + #0E0F10 (opacité 10 %)"
+                    },
+                    "label": {
+                      "de": "Komponentenfläche",
+                      "en": "Component Bg",
+                      "es": "Fondo componente",
+                      "fr": "Fond composant"
+                    }
+                  },
+                  {
+                    "hex": "#494846",
+                    "note": {
+                      "de": "#0E0F10 (Deckkraft 75 %)",
+                      "en": "#0E0F10 (opacity 75%)",
+                      "es": "#0E0F10 (opacidad 75 %)",
+                      "fr": "#0E0F10 (opacité 75 %)"
+                    },
+                    "label": {
+                      "de": "Nebentext",
+                      "en": "Subtext",
+                      "es": "Subtexto",
+                      "fr": "Sous-texte"
+                    }
+                  },
+                  {
+                    "hex": "#0E0F10",
+                    "label": {
+                      "de": "Text",
+                      "en": "Text",
+                      "es": "Texto",
+                      "fr": "Texte"
+                    }
+                  }
+                ]
+              },
+              {
+                "h": 3,
+                "w": 2,
+                "x": 5,
+                "y": 1,
+                "id": "b3-0",
+                "font": "Poppins",
+                "kind": "typography",
+                "fontFamily": "var(--font-poppins), sans-serif",
+                "description": {
+                  "de": "PLACEHOLDER: erklären, warum Poppins gewählt wurde, welche Rolle sie in Titeln und Fließtext spielt und wie ihre runde, freundliche Geometrie zu Marcels Ton passt.",
+                  "en": "PLACEHOLDER — explain why Poppins was chosen: its role across titles, body copy and where its rounded, friendly geometry fits Marcel's tone.",
+                  "es": "PLACEHOLDER: explicar por qué se eligió Poppins, su papel en títulos y texto, y cómo su geometría redondeada y amable encaja con el tono de Marcel.",
+                  "fr": "Poppins est une typographie ronde et harmonieuse qui met en valeur Marcel sans prendre trop de place. Elle rajoute un sentiment de calme et bonté qui aide grandement l'application a se fait sentir chez soi."
+                },
+                "secondDescription": {
+                  "de": "",
+                  "en": "",
+                  "es": "",
+                  "fr": ""
+                }
+              }
+            ]
+          },
+          "blocks": [
+            {
+              "position": 0,
+              "type": "note",
+              "media": [
+                0
+              ],
+              "title": {
+                "de": "Neues Gesicht!",
+                "en": "New Face!",
+                "es": "¡Nueva cara!",
+                "fr": "Nouveau visage !"
+              },
+              "text": {
+                "de": "Marcel war etwas in die Jahre gekommen. Also bat er uns freundlich, ihn aufzufrischen und ihm das Gesicht und den Glanz zu geben, die er brauchte. Die Idee für dieses Rebranding stammt von Camille.",
+                "en": "Marcel started to get a bit old. So he kindly asked us to revamp him and give him the face and shine he needed. The ideation of this rebranding was made by Camille.",
+                "es": "Marcel empezaba a hacerse mayor. Así que nos pidió amablemente un lavado de cara que le devolviera el brillo que necesitaba. La idea de este rebranding fue de Camille.",
+                "fr": "Marcel commençait à prendre un coup de vieux. Il nous a donc gentiment demandé de le rafraîchir et de lui offrir le visage et l'éclat qu'il méritait. L'idée de ce rebranding vient de Camille."
+              },
+              "logos": []
+            },
+            {
+              "position": 1,
+              "type": "full",
+              "media": [
+                1
+              ],
+              "logos": []
+            },
+            {
+              "position": 2,
+              "type": "palette",
+              "logos": [],
+              "swatches": [
+                {
+                  "hex": "#F9F1E7",
+                  "label": {
+                    "de": "Hintergrund",
+                    "en": "Background",
+                    "es": "Fondo",
+                    "fr": "Fond"
+                  }
+                },
+                {
+                  "hex": "#E2DAD2",
+                  "note": {
+                    "de": "#F9F1E7 + #0E0F10 (Deckkraft 10 %)",
+                    "en": "#F9F1E7 + #0E0F10 (opacity 10%)",
+                    "es": "#F9F1E7 + #0E0F10 (opacidad 10 %)",
+                    "fr": "#F9F1E7 + #0E0F10 (opacité 10 %)"
+                  },
+                  "label": {
+                    "de": "Komponentenfläche",
+                    "en": "Component Bg",
+                    "es": "Fondo componente",
+                    "fr": "Fond composant"
+                  }
+                },
+                {
+                  "hex": "#494846",
+                  "note": {
+                    "de": "#0E0F10 (Deckkraft 75 %)",
+                    "en": "#0E0F10 (opacity 75%)",
+                    "es": "#0E0F10 (opacidad 75 %)",
+                    "fr": "#0E0F10 (opacité 75 %)"
+                  },
+                  "label": {
+                    "de": "Nebentext",
+                    "en": "Subtext",
+                    "es": "Subtexto",
+                    "fr": "Sous-texte"
+                  }
+                },
+                {
+                  "hex": "#0E0F10",
+                  "label": {
+                    "de": "Text",
+                    "en": "Text",
+                    "es": "Texto",
+                    "fr": "Texte"
+                  }
+                }
+              ]
+            },
+            {
+              "position": 3,
+              "type": "typography",
+              "logos": [],
+              "font": "Poppins",
+              "fontFamily": "var(--font-poppins), sans-serif",
+              "description": {
+                "de": "PLACEHOLDER: erklären, warum Poppins gewählt wurde, welche Rolle sie in Titeln und Fließtext spielt und wie ihre runde, freundliche Geometrie zu Marcels Ton passt.",
+                "en": "PLACEHOLDER — explain why Poppins was chosen: its role across titles, body copy and where its rounded, friendly geometry fits Marcel's tone.",
+                "es": "PLACEHOLDER: explicar por qué se eligió Poppins, su papel en títulos y texto, y cómo su geometría redondeada y amable encaja con el tono de Marcel.",
+                "fr": "PLACEHOLDER : expliquer pourquoi Poppins a été choisie, son rôle dans les titres et le texte courant, et en quoi sa géométrie ronde et amicale colle au ton de Marcel."
+              }
+            }
+          ]
+        },
+        {
+          "position": 2,
+          "title": {
+            "de": "Redesign",
+            "en": "Redesign",
+            "es": "Rediseño",
+            "fr": "Refonte"
+          },
+          "by": [
+            "camille",
+            "noah"
+          ],
+          "blocks": [
+            {
+              "position": 0,
+              "type": "note",
+              "media": [
+                2
+              ],
+              "title": {
+                "de": "Redesign",
+                "en": "Redesign",
+                "es": "Rediseño",
+                "fr": "Refonte"
+              },
+              "text": {
+                "de": "Auf Basis des Styleguides haben Noah und Camille die gesamte Marcel-App neu gestaltet. Mit viel Sorgfalt für jede Komponente haben wir einer müden Website neues Leben eingehaucht.",
+                "en": "Based on the graphical chart, Noah and Camille teamed up to redesign the entire Marcel app. By carefully crafting every component, we gave a new life to a tired website.",
+                "es": "Partiendo de la guía gráfica, Noah y Camille unieron fuerzas para rediseñar toda la app de Marcel. Cuidando cada componente, le dimos una nueva vida a una web cansada.",
+                "fr": "À partir de la charte graphique, Noah et Camille ont uni leurs forces pour refondre toute l'application Marcel. En soignant chaque composant, nous avons donné une nouvelle vie à un site fatigué."
+              },
+              "logos": []
+            },
+            {
+              "position": 1,
+              "type": "collage",
+              "media": [
+                4,
+                5,
+                3,
+                6
+              ],
+              "logos": []
+            }
+          ]
+        },
+        {
+          "position": 3,
+          "title": {
+            "de": "Umsetzung",
+            "en": "Implementation",
+            "es": "Implementación",
+            "fr": "Développement"
+          },
+          "by": [
+            "noah",
+            "mazouz",
+            "fanga"
+          ],
+          "blocks": [
+            {
+              "position": 0,
+              "type": "note",
+              "media": [
+                13
+              ],
+              "title": {
+                "de": "Umsetzung",
+                "en": "Implementation",
+                "es": "Implementación",
+                "fr": "Développement"
+              },
+              "text": {
+                "de": "Jetzt müssen wir nur noch die Zeit finden, Marcel seine neue Identität tatsächlich zu geben. Das dauert noch etwas, aber wir kommen ans Ziel! ;)",
+                "en": "Now we just have to find the time to actually give Marcel its newly created identity. It will take a moment but we will eventually get there! ;)",
+                "es": "Ahora solo nos falta encontrar tiempo para darle a Marcel su nueva identidad. Llevará un rato, ¡pero lo conseguiremos! ;)",
+                "fr": "Il ne nous reste plus qu'à trouver le temps de donner à Marcel sa toute nouvelle identité. Ça prendra un moment, mais on y arrivera ! ;)"
+              },
+              "logos": []
+            },
+            {
+              "position": 1,
+              "type": "col",
+              "media": [
+                7,
+                8,
+                9
+              ],
+              "logos": []
+            },
+            {
+              "position": 2,
+              "type": "col",
+              "media": [
+                10,
+                11,
+                12
+              ],
+              "logos": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "projet-zero",
+      "position": 1,
+      "name": "Projet Zero",
+      "weeks": 6,
+      "image": "/images/projects/ProjetZero_cover.webp",
+      "video": "/images/projects/ProjetZero_reveal.webp",
+      "coverEffect": "projet-zero-pillar",
+      "description": {
+        "de": "Projet Zero ist ein Sci-Fi-RPG-Server für Minecraft: Sie sind ein menschlicher Soldat-Astronaut und halten die Stellung gegen eine außerirdische Zivilisation, deren Technologie unsere weit übertrifft, gespeist aus einer seltsamen, uralten blauen Energie.",
+        "en": "Projet Zero is a sci-fi RPG Minecraft server: you're a human soldier-astronaut holding the line against an alien civilisation whose technology dwarfs ours, all of it drawn from a strange ancient blue energy.",
+        "es": "Projet Zero es un servidor de Minecraft RPG de ciencia ficción: eres un soldado-astronauta humano que resiste frente a una civilización alienígena cuya tecnología supera con creces la nuestra, toda ella nacida de una extraña energía azul ancestral.",
+        "fr": "Projet Zero est un serveur Minecraft RPG de science-fiction : vous incarnez un soldat-astronaute humain qui tient la ligne face à une civilisation extraterrestre dont la technologie écrase la nôtre, entièrement puisée dans une étrange énergie bleue ancestrale."
+      },
+      "metaDescription": {
+        "de": "Projet Zero: Marke und Showcase-Website für einen Sci-Fi-RPG-Server in Minecraft, von Facile Studio. Eine Soldat-Astronaut-Identität rund um eine einzige uralte blaue Energie, bis in Shop und Battle Pass getragen. Entwickelt mit Next.js, React und TypeScript.",
+        "en": "Projet Zero is a sci-fi RPG Minecraft server brand and showcase website by Facile Studio — a soldier-astronaut identity built around a single ancient blue energy, carried through the shop and battle-pass pages. Built with Next.js, React and TypeScript.",
+        "es": "Projet Zero: marca y web de presentación de un servidor de Minecraft RPG de ciencia ficción, por Facile Studio. Una identidad de soldado-astronauta construida en torno a una única energía azul ancestral, llevada hasta la tienda y el pase de batalla. Desarrollado con Next.js, React y TypeScript.",
+        "fr": "Projet Zero : identité et site vitrine d'un serveur Minecraft RPG de science-fiction, par Facile Studio. Une identité de soldat-astronaute bâtie autour d'une seule énergie bleue ancestrale, déclinée jusqu'à la boutique et au battle pass. Développé avec Next.js, React et TypeScript."
+      },
+      "services": [
+        "brandIdentity",
+        "productDesign",
+        "webDevelopment"
+      ],
+      "techStack": [
+        "Figma",
+        "Photoshop",
+        "Illustrator"
+      ],
+      "date": "2026",
+      "gallery": [
+        "https://picsum.photos/seed/projet-zero-sketches/1400/1000",
+        "https://picsum.photos/seed/projet-zero-logo-a/1200/1200",
+        "https://picsum.photos/seed/projet-zero-logo-b/1200/1200",
+        "https://picsum.photos/seed/projet-zero-logo-c/1200/1200",
+        "https://picsum.photos/seed/projet-zero-moodboard/1500/1000",
+        "https://picsum.photos/seed/projet-zero-instagram/1200/1500",
+        "https://picsum.photos/seed/projet-zero-web-preview/1500/1000",
+        "https://picsum.photos/seed/projet-zero-web-home/1700/1100",
+        "https://picsum.photos/seed/projet-zero-web-shop/1700/1100",
+        "https://picsum.photos/seed/projet-zero-web-chapter/1700/1100",
+        "https://picsum.photos/seed/projet-zero-web-mobile/1200/1600",
+        "https://picsum.photos/seed/projet-zero-web-glow/1700/1000",
+        "https://picsum.photos/seed/projet-zero-logo-d/1200/1200",
+        "https://picsum.photos/seed/projet-zero-logo-e/1200/1200",
+        "https://picsum.photos/seed/projet-zero-sketches-2/1400/1000",
+        "https://picsum.photos/seed/projet-zero-moodboard-2/1500/1000"
+      ],
+      "notes": [
+        {
+          "de": "Das Logo musste zugleich als uraltes Artefakt und als UI-Zeichen funktionieren. Deshalb wurde jede Iteration erst winzig, in Favicon-Größe, getestet und dann groß.",
+          "en": "The logo had to read as an ancient artifact and a UI mark at the same time, so every iteration was tested small — favicon-small — before it was tested big.",
+          "es": "El logo tenía que leerse a la vez como artefacto antiguo y como icono de interfaz, así que cada iteración se probó en pequeño, tamaño favicon, antes de probarla en grande.",
+          "fr": "Le logo devait se lire à la fois comme un artefact ancien et comme un signe d'interface. Chaque itération a donc été testée en tout petit, taille favicon, avant d'être testée en grand."
+        },
+        {
+          "de": "Blau trägt die gesamte Lore: Es ist die außerirdische Energiequelle. Darum greifen jedes Leuchten, jede Seltenheitsstufe und jede Kapitelbelohnung bewusst auf dieselbe Handvoll Blautöne zurück.",
+          "en": "Blue carries the entire lore: it's the alien energy source, so every glow, every rarity tier and every chapter reward reuses the same handful of blues on purpose.",
+          "es": "El azul sostiene todo el lore: es la fuente de energía alienígena, así que cada brillo, cada nivel de rareza y cada recompensa de capítulo reutiliza a propósito el mismo puñado de azules.",
+          "fr": "Le bleu porte tout le lore : c'est la source d'énergie extraterrestre, donc chaque lueur, chaque niveau de rareté et chaque récompense de chapitre reprend volontairement la même poignée de bleus."
+        }
+      ],
+      "bucket": [],
+      "team": [
+        "noah",
+        "camille"
+      ],
+      "story": [
+        {
+          "position": 0,
+          "by": [],
+          "blocks": [
+            {
+              "position": 0,
+              "type": "cover",
+              "logos": []
+            },
+            {
+              "position": 1,
+              "type": "intro",
+              "logos": []
+            }
+          ]
+        },
+        {
+          "position": 1,
+          "title": {
+            "de": "Ideenfindung",
+            "en": "Ideation",
+            "es": "Ideación",
+            "fr": "Idéation"
+          },
+          "by": [],
+          "blocks": [
+            {
+              "position": 0,
+              "type": "note",
+              "media": [
+                0
+              ],
+              "title": {
+                "de": "Ideenfindung",
+                "en": "Ideation",
+                "es": "Ideación",
+                "fr": "Idéation"
+              },
+              "text": {
+                "de": "Ausgangspunkt war weder ein Soldat noch ein Raumschiff, sondern die Energie selbst: ein Zeichen, das zuerst wie geborgene Alien-Technik wirkt und erst dann wie ein Spielelogo.",
+                "en": "The starting point wasn't a soldier or a spaceship, it was the energy itself: a mark that reads as scavenged alien tech first, game logo second.",
+                "es": "El punto de partida no fue un soldado ni una nave, sino la propia energía: una marca que se lee primero como tecnología alienígena rescatada y después como logo de juego.",
+                "fr": "Le point de départ n'était ni un soldat ni un vaisseau, mais l'énergie elle-même : un signe qui se lit d'abord comme une techno extraterrestre récupérée, ensuite comme un logo de jeu."
+              },
+              "logos": []
+            },
+            {
+              "position": 1,
+              "type": "big",
+              "media": [
+                1,
+                2,
+                3
+              ],
+              "logos": [],
+              "smalls": "top"
+            },
+            {
+              "position": 2,
+              "type": "collage",
+              "media": [
+                12,
+                13,
+                14,
+                15
+              ],
+              "logos": []
+            }
+          ]
+        },
+        {
+          "position": 2,
+          "title": {
+            "de": "Styleguide",
+            "en": "Graphic Chart",
+            "es": "Guía gráfica",
+            "fr": "Charte graphique"
+          },
+          "by": [],
+          "blocks": [
+            {
+              "position": 0,
+              "type": "note",
+              "media": [
+                4
+              ],
+              "title": {
+                "de": "Styleguide",
+                "en": "Graphic Chart",
+                "es": "Guía gráfica",
+                "fr": "Charte graphique"
+              },
+              "text": {
+                "de": "Jede Fläche, ob Website, Shop, Battle Pass oder Marketing, schöpft aus demselben Blau der uralten Energie. So bleibt die Welt immer in ihrer Rolle, vom Screenshot bis zum Instagram-Post.",
+                "en": "Every surface — site, shop, battle pass, marketing — draws from the same ancient-energy blue, so the world never breaks character switching from screenshot to Instagram post.",
+                "es": "Cada superficie, desde la web y la tienda hasta el pase de batalla y el marketing, bebe del mismo azul de energía ancestral, así que el mundo nunca rompe el personaje al pasar de una captura a un post de Instagram.",
+                "fr": "Chaque support, du site à la boutique en passant par le battle pass et le marketing, puise dans le même bleu d'énergie ancestrale : l'univers ne sort jamais de son rôle, d'une capture d'écran à un post Instagram."
+              },
+              "logos": []
+            },
+            {
+              "position": 1,
+              "type": "palette",
+              "logos": [],
+              "swatches": [
+                {
+                  "hex": "#121219",
+                  "label": {
+                    "de": "Hintergrund",
+                    "en": "Background",
+                    "es": "Fondo",
+                    "fr": "Fond"
+                  }
+                },
+                {
+                  "hex": "#181920",
+                  "note": {
+                    "de": "#E8EEFF (Deckkraft 3 %), Infos und Titel",
+                    "en": "#E8EEFF (opacity 3%) — informations & titles",
+                    "es": "#E8EEFF (opacidad 3 %), información y títulos",
+                    "fr": "#E8EEFF (opacité 3 %), informations et titres"
+                  },
+                  "label": {
+                    "de": "Komponente",
+                    "en": "Component",
+                    "es": "Componente",
+                    "fr": "Composant"
+                  }
+                },
+                {
+                  "hex": "linear-gradient(135deg, #B4C3F0 0%, #7B8FD6 100%)",
+                  "hsv": "—",
+                  "rgb": "—",
+                  "cmyk": "—",
+                  "note": {
+                    "de": "Verlauf: #B4C3F0 → #7B8FD6",
+                    "en": "Gradient: #B4C3F0 → #7B8FD6",
+                    "es": "Degradado: #B4C3F0 → #7B8FD6",
+                    "fr": "Dégradé : #B4C3F0 → #7B8FD6"
+                  },
+                  "label": {
+                    "de": "H1-Titel Verlauf",
+                    "en": "H1 Title Gradient",
+                    "es": "Título H1 degradado",
+                    "fr": "Titre H1 Dégradé"
+                  },
+                  "textColor": "#0E0F10"
+                },
+                {
+                  "hex": "#E8EEFF",
+                  "label": {
+                    "de": "Text",
+                    "en": "Text",
+                    "es": "Texto",
+                    "fr": "Texte"
+                  }
+                },
+                {
+                  "hex": "#7D808C",
+                  "note": {
+                    "de": "#E8EEFF (Deckkraft 50 %), Nebeninfos",
+                    "en": "#E8EEFF (opacity 50%) — minor informations",
+                    "es": "#E8EEFF (opacidad 50 %), información secundaria",
+                    "fr": "#E8EEFF (opacité 50 %), informations secondaires"
+                  },
+                  "label": {
+                    "de": "Nebentext",
+                    "en": "Subtext",
+                    "es": "Subtexto",
+                    "fr": "Sous-texte"
+                  }
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "type": "typographyPair",
+              "logos": [],
+              "font": "DM Sans",
+              "fontFamily": "var(--font-dm-sans), sans-serif",
+              "description": {
+                "de": "PLACEHOLDER: erklären, warum DM Sans die Titel trägt, ihr geometrisches Gewicht vor dem tiefschwarzen Hintergrund und warum sie in großen Größen wie „Alien-Technik“ wirkt.",
+                "en": "PLACEHOLDER — explain why DM Sans carries the titles: its geometric weight against the void-black background, and how it reads as \"alien tech\" at large sizes.",
+                "es": "PLACEHOLDER: explicar por qué DM Sans lleva los títulos, su peso geométrico sobre el fondo negro vacío y cómo se lee como \"tecnología alienígena\" en tamaños grandes.",
+                "fr": "PLACEHOLDER : expliquer pourquoi DM Sans porte les titres, son poids géométrique sur le fond noir abyssal, et comment elle évoque une « techno extraterrestre » en grande taille."
+              },
+              "secondFont": "IBM Plex Mono",
+              "secondFontFamily": "var(--font-ibm-plex-mono), monospace",
+              "secondDescription": {
+                "de": "PLACEHOLDER: erklären, warum IBM Plex Mono den Fließtext trägt, und welches Terminal-/HUD-Gefühl sie Stats, Kapiteltexten und UI-Labels gibt.",
+                "en": "PLACEHOLDER — explain why IBM Plex Mono carries body text: the terminal/HUD feel it gives to stats, chapter copy and UI labels.",
+                "es": "PLACEHOLDER: explicar por qué IBM Plex Mono lleva el texto, y el aire de terminal/HUD que da a las estadísticas, los textos de capítulo y las etiquetas de la interfaz.",
+                "fr": "PLACEHOLDER : expliquer pourquoi IBM Plex Mono porte le texte courant, et l'effet terminal/HUD qu'elle donne aux stats, aux textes de chapitre et aux libellés d'interface."
+              }
+            },
+            {
+              "position": 3,
+              "type": "full",
+              "media": [
+                5
+              ],
+              "logos": []
+            }
+          ]
+        },
+        {
+          "position": 3,
+          "title": {
+            "de": "Webdesign",
+            "en": "Web Design",
+            "es": "Diseño web",
+            "fr": "Web design"
+          },
+          "by": [],
+          "blocks": [
+            {
+              "position": 0,
+              "type": "note",
+              "media": [
+                6
+              ],
+              "title": {
+                "de": "Webdesign",
+                "en": "Web Design",
+                "es": "Diseño web",
+                "fr": "Web design"
+              },
+              "text": {
+                "de": "Showcase-Website, Shop und Infoseite zu den Kapiteln (Battle Pass), gebaut als ein einziges Kontinuum: Dasselbe blaue Leuchten wird stärker, je weiter man von der Lore zur Beute kommt.",
+                "en": "Showcase site, shop and chapter (battle pass) info page, all built as one continuum — the same blue glow escalates as you move from lore to loot.",
+                "es": "Web de presentación, tienda y página de información de capítulos (pase de batalla), todo construido como un único continuo: el mismo brillo azul se intensifica a medida que pasas del lore al botín.",
+                "fr": "Site vitrine, boutique et page d'infos des chapitres (battle pass), pensés comme un seul continuum : la même lueur bleue monte en intensité à mesure qu'on passe du lore au butin."
+              },
+              "logos": []
+            },
+            {
+              "position": 1,
+              "type": "mosaic",
+              "media": [
+                7,
+                8,
+                9,
+                10,
+                11
+              ],
+              "logos": []
+            }
+          ]
+        },
+        {
+          "position": 4,
+          "by": [],
+          "layout": {
+            "cols": 3,
+            "items": []
+          },
+          "blocks": []
+        }
+      ]
+    },
+    {
+      "slug": "laura-herve",
+      "position": 2,
+      "name": "LauraHerve",
+      "weeks": 4,
+      "link": "https://lauraherve.com",
+      "image": "/images/projects/Laura.webp",
+      "video": "/videos/LauraHerve.mp4",
+      "description": {
+        "de": "Eine Showcase-Website für die Künstlerin, getragen von fließender Bewegung und einem kühnen redaktionellen Layout, das den Werken Raum lässt.",
+        "en": "A showcase site for the artist, driven by smooth motion and a bold editorial layout that lets the work breathe.",
+        "es": "Una web de presentación para la artista, con animaciones fluidas y una maquetación editorial atrevida que deja respirar la obra.",
+        "fr": "Un site vitrine pour l'artiste, porté par des animations fluides et une mise en page éditoriale audacieuse qui laisse respirer les œuvres."
+      },
+      "metaDescription": {
+        "de": "Künstlerportfolio, gestaltet und entwickelt von Facile Studio. Typografiezentriertes Design mit fließenden Übergängen und responsiven Layouts.",
+        "en": "Artist portfolio designed and built by Facile Studio. Typography-focused design with smooth transitions and responsive layouts.",
+        "es": "Portfolio de artista diseñado y desarrollado por Facile Studio. Un diseño centrado en la tipografía, con transiciones fluidas y maquetaciones adaptables.",
+        "fr": "Portfolio d'artiste conçu et développé par Facile Studio. Un design centré sur la typographie, avec des transitions fluides et des mises en page responsives."
+      },
+      "services": [
+        "artDirection",
+        "webDevelopment",
+        "motionDesign"
+      ],
+      "techStack": [
+        "TS",
+        "Svelte",
+        "GSAP"
+      ],
+      "date": "2024",
+      "gallery": [
+        "/images/projects/LauraHerve.webp",
+        "https://picsum.photos/seed/laura-b/1400/1500",
+        "https://media.w3.org/2010/05/bunny/trailer.mp4",
+        "https://picsum.photos/seed/laura-herve-x0/1500/1000"
+      ],
+      "notes": [
+        {
+          "de": "Hier trägt die Bewegung den gesamten redaktionellen Rhythmus: Nichts bewegt sich, ohne sich den Blick des Betrachters zu verdienen.",
+          "en": "Motion carries the whole editorial rhythm here — nothing moves unless it earns the reader's eye.",
+          "es": "Aquí el movimiento marca todo el ritmo editorial: nada se mueve si no merece la mirada de quien lee.",
+          "fr": "Ici, le mouvement porte tout le rythme éditorial : rien ne bouge sans mériter le regard du lecteur."
+        }
+      ],
+      "bucket": [],
+      "team": [
+        "noah",
+        "camille"
+      ],
+      "story": [
+        {
+          "position": 0,
+          "by": [],
+          "blocks": [
+            {
+              "position": 0,
+              "type": "cover",
+              "logos": []
+            },
+            {
+              "position": 1,
+              "type": "intro",
+              "logos": []
+            }
+          ]
+        },
+        {
+          "position": 1,
+          "title": {
+            "de": "Art Direction",
+            "en": "Art direction",
+            "es": "Dirección de arte",
+            "fr": "Direction artistique"
+          },
+          "by": [],
+          "blocks": [
+            {
+              "position": 0,
+              "type": "note",
+              "media": [
+                0
+              ],
+              "title": {
+                "de": "Art Direction",
+                "en": "Art direction",
+                "es": "Dirección de arte",
+                "fr": "Direction artistique"
+              },
+              "text": {
+                "de": "Hier trägt die Bewegung den gesamten redaktionellen Rhythmus: Nichts bewegt sich, ohne sich den Blick des Betrachters zu verdienen.",
+                "en": "Motion carries the whole editorial rhythm here — nothing moves unless it earns the reader's eye.",
+                "es": "Aquí el movimiento marca todo el ritmo editorial: nada se mueve si no merece la mirada de quien lee.",
+                "fr": "Ici, le mouvement porte tout le rythme éditorial : rien ne bouge sans mériter le regard du lecteur."
+              },
+              "logos": []
+            },
+            {
+              "position": 1,
+              "type": "big",
+              "media": [
+                1,
+                2,
+                3
+              ],
+              "logos": [],
+              "smalls": "top"
+            },
+            {
+              "position": 2,
+              "type": "full",
+              "media": [
+                "/videos/LauraHerve.mp4"
+              ],
+              "logos": []
+            }
+          ]
+        },
+        {
+          "position": 2,
+          "by": [],
+          "blocks": [
+            {
+              "position": 0,
+              "type": "end",
+              "logos": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "hottake",
+      "position": 3,
+      "name": "Hottake",
+      "weeks": 1,
+      "link": "https://www.instagram.com/p/DL5Fr7dol_5/?img_index=1",
+      "image": "/images/projects/Hottake.webp",
+      "video": "/videos/Hottake.webp",
+      "description": {
+        "de": "Hottake ist eine Community-Plattform, noch in Entwicklung, auf der Sie Ihren Musikgeschmack ranken. Wir haben einen klaren, kuratierten und modernen Look entwickelt, der jeden Musikfan anspricht.",
+        "en": "Hottake is a community-driven platform to rank your music taste that is under development. We came up with a straightforward, curated and modern look that would attract any kind of music enjoyer.",
+        "es": "Hottake es una plataforma comunitaria, aún en desarrollo, para clasificar tus gustos musicales. Creamos un look directo, cuidado y moderno, pensado para atraer a cualquier amante de la música.",
+        "fr": "Hottake est une plateforme communautaire, encore en développement, pour classer vos goûts musicaux. Nous avons imaginé un look direct, soigné et moderne, fait pour séduire tous les amateurs de musique."
+      },
+      "metaDescription": {
+        "de": "Hottake ist eine Community-Plattform zum Ranken des Musikgeschmacks von Facile Studio, mit kuratiertem, modernem Look für Musikbegeisterte. Entwickelt mit Next.js, React und GSAP.",
+        "en": "Hottake is a community-driven music taste ranking platform by Facile Studio, with a curated, modern look built for music enthusiasts. Built with Next.js, React and GSAP.",
+        "es": "Hottake es una plataforma comunitaria para clasificar gustos musicales, de Facile Studio, con un look cuidado y moderno pensado para los amantes de la música. Desarrollada con Next.js, React y GSAP.",
+        "fr": "Hottake est une plateforme communautaire de classement des goûts musicaux, signée Facile Studio, au look soigné et moderne pensé pour les passionnés de musique. Développée avec Next.js, React et GSAP."
+      },
+      "services": [
+        "productDesign",
+        "webDevelopment",
+        "motionDesign"
+      ],
+      "techStack": [
+        "TS",
+        "Next.js",
+        "React",
+        "GSAP"
+      ],
+      "date": "2025",
+      "gallery": [
+        "/images/projects/HottakeShow.webp",
+        "https://media.w3.org/2010/05/video/movie_300.mp4",
+        "https://picsum.photos/seed/hottake-b/1300/1600",
+        "https://picsum.photos/seed/hottake-x0/1500/1000"
+      ],
+      "notes": [
+        {
+          "de": "Die Ranking-Interaktion musste tausend Taps überstehen: Jeder Zustand wurde als Prototyp gebaut, bevor er gestaltet wurde.",
+          "en": "The ranking interaction had to survive a thousand taps — every state was prototyped before it was styled.",
+          "es": "La interacción de ranking tenía que aguantar mil toques: cada estado se prototipó antes de darle estilo.",
+          "fr": "L'interaction de classement devait survivre à mille tapotements : chaque état a été prototypé avant d'être habillé."
+        },
+        {
+          "de": "Schrift und Körnung übernehmen das Branding, damit die Oberfläche selbst fast unsichtbar bleiben kann.",
+          "en": "Type and grain do the branding work, so the interface itself can stay almost invisible.",
+          "es": "La tipografía y el grano hacen el trabajo de marca, así la interfaz puede quedar casi invisible.",
+          "fr": "La typo et le grain font le travail de marque, pour que l'interface elle-même reste presque invisible."
+        }
+      ],
+      "bucket": [],
+      "team": [
+        "noah",
+        "mazouz"
+      ],
+      "story": [
+        {
+          "position": 0,
+          "by": [],
+          "blocks": [
+            {
+              "position": 0,
+              "type": "cover",
+              "logos": []
+            },
+            {
+              "position": 1,
+              "type": "intro",
+              "logos": []
+            }
+          ]
+        },
+        {
+          "position": 1,
+          "title": {
+            "de": "Produktdesign",
+            "en": "Product design",
+            "es": "Diseño de producto",
+            "fr": "Design produit"
+          },
+          "by": [],
+          "blocks": [
+            {
+              "position": 0,
+              "type": "note",
+              "media": [
+                0
+              ],
+              "title": {
+                "de": "Produktdesign",
+                "en": "Product design",
+                "es": "Diseño de producto",
+                "fr": "Design produit"
+              },
+              "text": {
+                "de": "Die Ranking-Interaktion musste tausend Taps überstehen: Jeder Zustand wurde als Prototyp gebaut, bevor er gestaltet wurde.",
+                "en": "The ranking interaction had to survive a thousand taps — every state was prototyped before it was styled.",
+                "es": "La interacción de ranking tenía que aguantar mil toques: cada estado se prototipó antes de darle estilo.",
+                "fr": "L'interaction de classement devait survivre à mille tapotements : chaque état a été prototypé avant d'être habillé."
+              },
+              "logos": []
+            },
+            {
+              "position": 1,
+              "type": "big",
+              "media": [
+                1,
+                2,
+                3
+              ],
+              "logos": [],
+              "smalls": "bottom"
+            },
+            {
+              "position": 2,
+              "type": "full",
+              "media": [
+                "/videos/Hottake.webp"
+              ],
+              "logos": []
+            }
+          ]
+        },
+        {
+          "position": 2,
+          "by": [],
+          "blocks": [
+            {
+              "position": 0,
+              "type": "end",
+              "logos": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "evelynecrea",
+      "position": 4,
+      "name": "EvelyneCrea",
+      "weeks": 8,
+      "link": "https://www.evelynecrea.com",
+      "image": "/images/projects/Green.webp",
+      "video": "/videos/EvelyneCrea_web.mp4",
+      "description": {
+        "de": "Eine warme, handgemachte Portfolio-Website, die die Kreationen in den Mittelpunkt stellt und alles andere aus dem Weg räumt.",
+        "en": "A warm, handcrafted portfolio site that puts the creations centre stage and keeps everything else out of the way.",
+        "es": "Un portfolio cálido y artesanal que pone las creaciones en primer plano y aparta todo lo demás.",
+        "fr": "Un portfolio chaleureux et fait main, qui place les créations au premier plan et écarte tout le reste."
+      },
+      "metaDescription": {
+        "de": "Portfolio-Redesign von Facile Studio für eine Kreativschaffende. Individuelle visuelle Identität, Animationen und ein organischer Navigationsfluss.",
+        "en": "Portfolio redesign by Facile Studio for a creative professional. Custom visual identity, animations, and organic navigation flow.",
+        "es": "Rediseño de portfolio de Facile Studio para una profesional creativa. Identidad visual a medida, animaciones y una navegación orgánica.",
+        "fr": "Refonte de portfolio par Facile Studio pour une professionnelle de la création. Identité visuelle sur mesure, animations et navigation organique."
+      },
+      "services": [
+        "artDirection",
+        "webDevelopment",
+        "motionDesign"
+      ],
+      "techStack": [
+        "TS",
+        "Next.js",
+        "React",
+        "GSAP"
+      ],
+      "date": "2024",
+      "gallery": [
+        "/images/projects/EvelyneCrea.webp",
+        "https://picsum.photos/seed/evelyne-b/1200/1500",
+        "https://media.w3.org/2010/05/bunny/movie.mp4",
+        "https://picsum.photos/seed/evelyne-c/1700/1000"
+      ],
+      "notes": [
+        {
+          "de": "Die Wärme kommt von der Palette und dem Tempo, nicht von Dekoration: Das Layout bleibt bewusst fast leer.",
+          "en": "Warmth came from the palette and the pacing, not from decoration — the layout stays almost bare on purpose.",
+          "es": "La calidez viene de la paleta y del ritmo, no de la decoración: la maquetación se queda casi desnuda a propósito.",
+          "fr": "La chaleur vient de la palette et du rythme, pas de la décoration : la mise en page reste volontairement presque nue."
+        }
+      ],
+      "bucket": [],
+      "team": [
+        "fanga",
+        "noah",
+        "camille"
+      ],
+      "story": [
+        {
+          "position": 0,
+          "by": [],
+          "blocks": [
+            {
+              "position": 0,
+              "type": "cover",
+              "logos": []
+            },
+            {
+              "position": 1,
+              "type": "intro",
+              "logos": []
+            }
+          ]
+        },
+        {
+          "position": 1,
+          "title": {
+            "de": "Art Direction",
+            "en": "Art direction",
+            "es": "Dirección de arte",
+            "fr": "Direction artistique"
+          },
+          "by": [],
+          "blocks": [
+            {
+              "position": 0,
+              "type": "note",
+              "media": [
+                0
+              ],
+              "title": {
+                "de": "Art Direction",
+                "en": "Art direction",
+                "es": "Dirección de arte",
+                "fr": "Direction artistique"
+              },
+              "text": {
+                "de": "Die Wärme kommt von der Palette und dem Tempo, nicht von Dekoration: Das Layout bleibt bewusst fast leer.",
+                "en": "Warmth came from the palette and the pacing, not from decoration — the layout stays almost bare on purpose.",
+                "es": "La calidez viene de la paleta y del ritmo, no de la decoración: la maquetación se queda casi desnuda a propósito.",
+                "fr": "La chaleur vient de la palette et du rythme, pas de la décoration : la mise en page reste volontairement presque nue."
+              },
+              "logos": []
+            },
+            {
+              "position": 1,
+              "type": "col",
+              "media": [
+                1,
+                2,
+                3
+              ],
+              "logos": []
+            },
+            {
+              "position": 2,
+              "type": "full",
+              "media": [
+                "/videos/EvelyneCrea_web.mp4"
+              ],
+              "logos": []
+            }
+          ]
+        },
+        {
+          "position": 2,
+          "by": [],
+          "blocks": [
+            {
+              "position": 0,
+              "type": "end",
+              "logos": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "handvision",
+      "position": 5,
+      "name": "HandVision",
+      "weeks": 68,
+      "link": "https://hand-vision.fr",
+      "image": "/images/projects/uploads/1790621855668-handvision-starter.png",
+      "description": {
+        "de": "HandVision ist eine App zur Videoanalyse im Handball: Man lädt ein Spiel hoch, die KI findet jedes Tor, schneidet die Clips und macht aus dem Spielbericht Statistiken, die das ganze Team lesen kann.",
+        "en": "HandVision is a handball video analysis app: upload a match, the AI finds every goal, cuts the clips and turns the match sheet into statistics the whole team can read.",
+        "es": "HandVision es una aplicación de análisis de vídeo de balonmano: subes un partido, la IA encuentra cada gol, corta los clips y convierte el acta del partido en estadísticas que todo el equipo puede leer.",
+        "fr": "HandVision est une application d'analyse vidéo pour le handball : on envoie un match, l'IA trouve chaque but, découpe les clips et transforme la feuille de match en statistiques lisibles par toute l'équipe."
+      },
+      "metaDescription": {
+        "de": "HandVision ist eine App zur Videoanalyse im Handball. Branding, Webdesign und Frontend von Facile Studio, entwickelt mit SvelteKit, shadcn-svelte und GSAP.",
+        "en": "HandVision is a handball video analysis app. Branding, web design and frontend by Facile Studio, built with SvelteKit, shadcn-svelte and GSAP.",
+        "es": "HandVision es una aplicación de análisis de vídeo de balonmano. Identidad, diseño web y frontend de Facile Studio, desarrollados con SvelteKit, shadcn-svelte y GSAP.",
+        "fr": "HandVision est une application d'analyse vidéo pour le handball. Identité, web design et frontend par Facile Studio, développés avec SvelteKit, shadcn-svelte et GSAP."
+      },
+      "services": [
+        "brandIdentity",
+        "uiUxDesign",
+        "appDevelopment",
+        "transformation"
+      ],
+      "techStack": [
+        "GSAP",
+        "Figma",
+        "Svelte",
+        "TS"
+      ],
+      "date": "2026",
+      "gallery": [
+        "/images/projects/HandVision_0.webp",
+        "/images/projects/HandVision_1.webp",
+        "/images/projects/HandVision_2.webp",
+        "/images/projects/HandVision_3.webp",
+        "/images/projects/HandVision_4.webp",
+        "/images/projects/HandVision_5.webp",
+        "/images/projects/HandVision_6.webp",
+        "/images/projects/HandVision_7.webp",
+        "/images/projects/HandVision_8.webp",
+        "/images/projects/HandVision_9.webp",
+        "/images/projects/HandVision_10.webp",
+        "/images/projects/HandVision_11.webp",
+        "/images/projects/HandVision_12.webp",
+        "/images/projects/HandVision_13.webp",
+        "/images/projects/HandVision_14.webp",
+        "/images/projects/HandVision_15.webp"
+      ],
+      "notes": [
+        {
+          "de": "Eine Person hat die gesamte Oberfläche des Produkts getragen: Logo, Schrift, Farben, jeder Screen in Figma und danach der SvelteKit-Build.",
+          "en": "One person carried the whole front of the product: logo, font, colours, every screen in Figma, then the SvelteKit build.",
+          "es": "Una sola persona llevó toda la cara visible del producto: logo, tipografía, colores, cada pantalla en Figma y después el desarrollo en SvelteKit.",
+          "fr": "Une seule personne a porté toute la façade du produit : logo, typo, couleurs, chaque écran dans Figma, puis le développement SvelteKit."
+        }
+      ],
+      "bucket": [],
+      "team": [
+        "noah"
+      ],
+      "story": [
+        {
+          "position": 0,
+          "by": [],
+          "layout": {
+            "cols": 5,
+            "items": [
+              {
+                "h": 3,
+                "w": 3,
+                "x": 1,
+                "y": 1,
+                "id": "b0-0",
+                "kind": "cover"
+              },
+              {
+                "h": 3,
+                "w": 2,
+                "x": 4,
+                "y": 1,
+                "id": "b1-0",
+                "kind": "intro"
+              }
+            ]
+          },
+          "blocks": [
+            {
+              "position": 0,
+              "type": "cover",
+              "logos": []
+            },
+            {
+              "position": 1,
+              "type": "intro",
+              "logos": []
+            }
+          ]
+        },
+        {
+          "position": 1,
+          "title": {
+            "de": "So funktioniert es",
+            "en": "How it works",
+            "es": "Cómo funciona",
+            "fr": "Comment ça marche"
+          },
+          "by": [
+            "noah"
+          ],
+          "layout": {
+            "cols": 5,
+            "items": [
+              {
+                "h": 3,
+                "w": 3,
+                "x": 3,
+                "y": 1,
+                "id": "0998fee7-c05d-4c8a-9435-f71d8c977fae",
+                "src": "/images/projects/uploads/1790619288788-Marcel-3x3-dashboard.png",
+                "kind": "image"
+              },
+              {
+                "h": 1,
+                "w": 2,
+                "x": 1,
+                "y": 1,
+                "id": "b0-0",
+                "kind": "note",
+                "text": {
+                  "de": "Drei Schritte, kein manuelles Taggen. Der Trainer lädt das Spielvideo hoch, ein auf Handball trainiertes Erkennungsmodell markiert jedes Tor mit Timecode, dann springt der Trainer von Clip zu Clip und liest Spieler- und Teamstatistiken aus dem Spielbericht, alles auf einer Seite.",
+                  "en": "Three steps, no manual tagging. The coach uploads the match video, a detection model trained on handball marks every goal with its timecode, then the coach jumps from clip to clip and reads player and team statistics from the match sheet, all on one page.",
+                  "es": "Tres pasos, sin etiquetar nada a mano. El entrenador sube el vídeo del partido, un modelo de detección entrenado con balonmano marca cada gol con su timecode, y después el entrenador salta de clip en clip y lee las estadísticas de jugadores y equipo sacadas del acta, todo en una sola página.",
+                  "fr": "Le coach upload une vidéo d'un match filmé avec son téléphone, puis notre IA la sépare en séquences attaque/défense. Le coach peut alors lire chaques actions une par une et se repérer dans des vidéos qui durent parfois des heures facilement."
+                },
+                "title": {
+                  "de": "So funktioniert es",
+                  "en": "How it works",
+                  "es": "Cómo funciona",
+                  "fr": "Qu'est ce qu'Handvision"
+                }
+              },
+              {
+                "h": 2,
+                "w": 2,
+                "x": 1,
+                "y": 2,
+                "id": "5a3ed6f8-95ed-40d8-b4b3-14032bbfaec1",
+                "src": "/images/projects/uploads/1790621780452-Marcel-3x3-dashboard.png",
+                "kind": "image"
+              }
+            ]
+          },
+          "blocks": [
+            {
+              "position": 0,
+              "type": "note",
+              "media": [
+                0
+              ],
+              "title": {
+                "de": "So funktioniert es",
+                "en": "How it works",
+                "es": "Cómo funciona",
+                "fr": "Comment ça marche"
+              },
+              "text": {
+                "de": "Drei Schritte, kein manuelles Taggen. Der Trainer lädt das Spielvideo hoch, ein auf Handball trainiertes Erkennungsmodell markiert jedes Tor mit Timecode, dann springt der Trainer von Clip zu Clip und liest Spieler- und Teamstatistiken aus dem Spielbericht, alles auf einer Seite.",
+                "en": "Three steps, no manual tagging. The coach uploads the match video, a detection model trained on handball marks every goal with its timecode, then the coach jumps from clip to clip and reads player and team statistics from the match sheet, all on one page.",
+                "es": "Tres pasos, sin etiquetar nada a mano. El entrenador sube el vídeo del partido, un modelo de detección entrenado con balonmano marca cada gol con su timecode, y después el entrenador salta de clip en clip y lee las estadísticas de jugadores y equipo sacadas del acta, todo en una sola página.",
+                "fr": "Trois étapes, aucun marquage à la main. Le coach envoie la vidéo du match, un modèle de détection entraîné sur le handball repère chaque but avec son timecode, puis le coach passe d'un clip à l'autre et lit les statistiques des joueurs et de l'équipe tirées de la feuille de match, le tout sur une seule page."
+              },
+              "logos": []
+            },
+            {
+              "position": 1,
+              "type": "big",
+              "media": [
+                3,
+                1,
+                2
+              ],
+              "logos": [],
+              "smalls": "top"
+            }
+          ]
+        },
+        {
+          "position": 2,
+          "title": {
+            "de": "Branding",
+            "en": "Branding",
+            "es": "Identidad",
+            "fr": "Identité"
+          },
+          "by": [
+            "noah"
+          ],
+          "layout": {
+            "cols": 9,
+            "items": [
+              {
+                "h": 1,
+                "w": 2,
+                "x": 1,
+                "y": 1,
+                "id": "b0-0",
+                "kind": "note",
+                "text": {
+                  "de": "Noah hat das Logo gezeichnet, die Schrift gewählt und die Farben festgelegt. Ein tiefes Schwarz lässt das Spielmaterial das Hellste auf dem Bildschirm bleiben, und ein einziger violetter Verlauf markiert alles, was die KI für dich erledigt.",
+                  "en": "Noah drew the logo, picked the font and set the colours. A deep black lets match footage stay the brightest thing on screen, and a single violet gradient marks everything the AI does for you.",
+                  "es": "Noah dibujó el logo, eligió la tipografía y definió los colores. Un negro profundo deja que las imágenes del partido sean lo más brillante de la pantalla, y un único degradado violeta marca todo lo que la IA hace por ti.",
+                  "fr": "Noah a fait une refonte de l'UI de HandVision ainsi que son univers graphique. Utilisant des couleurs vives et des contrastes forts, il est parvenu a rendre son mémoire encore plus intéressant."
+                },
+                "title": {
+                  "de": "Branding",
+                  "en": "Branding",
+                  "es": "Identidad",
+                  "fr": "Identité"
+                }
+              },
+              {
+                "h": 2,
+                "w": 2,
+                "x": 1,
+                "y": 2,
+                "id": "b37e2097-05c1-445a-8420-bb55d8277fea",
+                "src": "/images/projects/uploads/1790619277805-2x2.png",
+                "kind": "image"
+              },
+              {
+                "h": 3,
+                "w": 2,
+                "x": 3,
+                "y": 1,
+                "id": "57976fb7-d666-41ba-b1e8-631e2b3542d0",
+                "src": "/images/projects/uploads/1790621273024-2x3.png",
+                "kind": "image"
+              },
+              {
+                "h": 3,
+                "w": 2,
+                "x": 5,
+                "y": 1,
+                "id": "b1-0",
+                "kind": "palette",
+                "swatches": [
+                  {
+                    "hex": "#0A0A0A",
+                    "label": {
+                      "de": "Hintergrund",
+                      "en": "Background",
+                      "es": "Fondo",
+                      "fr": "Fond"
+                    }
+                  },
+                  {
+                    "hex": "#161616",
+                    "note": {
+                      "de": "#FFFFFF (Deckkraft 5 %)",
+                      "en": "#FFFFFF (opacity 5%)",
+                      "es": "#FFFFFF (opacidad 5 %)",
+                      "fr": "#FFFFFF (opacité 5 %)"
+                    },
+                    "label": {
+                      "de": "Komponente",
+                      "en": "Component",
+                      "es": "Componente",
+                      "fr": "Composant"
+                    }
+                  },
+                  {
+                    "hex": "linear-gradient(30deg, #6354E0 0%, #B12DDD 100%)",
+                    "hsv": "—",
+                    "rgb": "—",
+                    "cmyk": "—",
+                    "note": {
+                      "de": "Verlauf: #6354E0 → #B12DDD",
+                      "en": "Gradient: #6354E0 → #B12DDD",
+                      "es": "Degradado: #6354E0 → #B12DDD",
+                      "fr": "Dégradé : #6354E0 → #B12DDD"
+                    },
+                    "label": {
+                      "de": "Verlauf",
+                      "en": "Gradient",
+                      "es": "Degradado",
+                      "fr": "Dégradé"
+                    },
+                    "textColor": "#FFFFFF"
+                  },
+                  {
+                    "hex": "#FFFFFF",
+                    "label": {
+                      "de": "Text",
+                      "en": "Text",
+                      "es": "Texto",
+                      "fr": "Texte"
+                    }
+                  },
+                  {
+                    "hex": "#858585",
+                    "note": {
+                      "de": "#FFFFFF (Deckkraft 50 %)",
+                      "en": "#FFFFFF (opacity 50%)",
+                      "es": "#FFFFFF (opacidad 50 %)",
+                      "fr": "#FFFFFF (opacité 50 %)"
+                    },
+                    "label": {
+                      "de": "Nebentext",
+                      "en": "Subtext",
+                      "es": "Subtexto",
+                      "fr": "Sous-texte"
+                    }
+                  }
+                ]
+              },
+              {
+                "h": 3,
+                "w": 3,
+                "x": 7,
+                "y": 1,
+                "id": "2bf6fb90-218c-41ec-8f60-2c5445ab1ce6",
+                "src": "/images/projects/uploads/1790621278559-Marcel-3x3-dashboard.png",
+                "kind": "image"
+              }
+            ]
+          },
+          "blocks": [
+            {
+              "position": 0,
+              "type": "note",
+              "media": [
+                4
+              ],
+              "title": {
+                "de": "Branding",
+                "en": "Branding",
+                "es": "Identidad",
+                "fr": "Identité"
+              },
+              "text": {
+                "de": "Noah hat das Logo gezeichnet, die Schrift gewählt und die Farben festgelegt. Ein tiefes Schwarz lässt das Spielmaterial das Hellste auf dem Bildschirm bleiben, und ein einziger violetter Verlauf markiert alles, was die KI für dich erledigt.",
+                "en": "Noah drew the logo, picked the font and set the colours. A deep black lets match footage stay the brightest thing on screen, and a single violet gradient marks everything the AI does for you.",
+                "es": "Noah dibujó el logo, eligió la tipografía y definió los colores. Un negro profundo deja que las imágenes del partido sean lo más brillante de la pantalla, y un único degradado violeta marca todo lo que la IA hace por ti.",
+                "fr": "Noah a dessiné le logo, choisi la typo et fixé les couleurs. Un noir profond laisse les images du match rester l'élément le plus lumineux de l'écran, et un seul dégradé violet signale tout ce que l'IA fait pour vous."
+              },
+              "logos": []
+            },
+            {
+              "position": 1,
+              "type": "palette",
+              "logos": [],
+              "swatches": [
+                {
+                  "hex": "#0A0A0A",
+                  "label": {
+                    "de": "Hintergrund",
+                    "en": "Background",
+                    "es": "Fondo",
+                    "fr": "Fond"
+                  }
+                },
+                {
+                  "hex": "#161616",
+                  "note": {
+                    "de": "#FFFFFF (Deckkraft 5 %)",
+                    "en": "#FFFFFF (opacity 5%)",
+                    "es": "#FFFFFF (opacidad 5 %)",
+                    "fr": "#FFFFFF (opacité 5 %)"
+                  },
+                  "label": {
+                    "de": "Komponente",
+                    "en": "Component",
+                    "es": "Componente",
+                    "fr": "Composant"
+                  }
+                },
+                {
+                  "hex": "linear-gradient(30deg, #6354E0 0%, #B12DDD 100%)",
+                  "hsv": "—",
+                  "rgb": "—",
+                  "cmyk": "—",
+                  "note": {
+                    "de": "Verlauf: #6354E0 → #B12DDD",
+                    "en": "Gradient: #6354E0 → #B12DDD",
+                    "es": "Degradado: #6354E0 → #B12DDD",
+                    "fr": "Dégradé : #6354E0 → #B12DDD"
+                  },
+                  "label": {
+                    "de": "Verlauf",
+                    "en": "Gradient",
+                    "es": "Degradado",
+                    "fr": "Dégradé"
+                  },
+                  "textColor": "#FFFFFF"
+                },
+                {
+                  "hex": "#FFFFFF",
+                  "label": {
+                    "de": "Text",
+                    "en": "Text",
+                    "es": "Texto",
+                    "fr": "Texte"
+                  }
+                },
+                {
+                  "hex": "#858585",
+                  "note": {
+                    "de": "#FFFFFF (Deckkraft 50 %)",
+                    "en": "#FFFFFF (opacity 50%)",
+                    "es": "#FFFFFF (opacidad 50 %)",
+                    "fr": "#FFFFFF (opacité 50 %)"
+                  },
+                  "label": {
+                    "de": "Nebentext",
+                    "en": "Subtext",
+                    "es": "Subtexto",
+                    "fr": "Sous-texte"
+                  }
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "type": "typography",
+              "logos": [],
+              "font": "SF Pro Display",
+              "fontFamily": "'SF Pro Display', -apple-system, sans-serif",
+              "description": {
+                "de": "PLACEHOLDER: erklären, warum SF Pro Display gewählt wurde, eine neutrale, sportliche Grotesk, die in dichten Statistiktabellen lesbar bleibt und auch in großen Landing-Titeln trägt.",
+                "en": "PLACEHOLDER — explain why SF Pro Display was chosen: a neutral, sporty sans that stays readable in dense stat tables and still holds up in big landing titles.",
+                "es": "PLACEHOLDER: explicar por qué se eligió SF Pro Display, una sans neutra y deportiva que sigue siendo legible en tablas de estadísticas densas y aguanta bien en los grandes títulos de la landing.",
+                "fr": "PLACEHOLDER : expliquer pourquoi SF Pro Display a été choisie, une linéale neutre et sportive qui reste lisible dans les tableaux de stats denses et tient la route dans les grands titres de la landing."
+              }
+            },
+            {
+              "position": 3,
+              "type": "full",
+              "media": [
+                5
+              ],
+              "logos": []
+            }
+          ]
+        },
+        {
+          "position": 3,
+          "title": {
+            "de": "Webdesign",
+            "en": "Web Design",
+            "es": "Diseño web",
+            "fr": "Web design"
+          },
+          "by": [
+            "noah"
+          ],
+          "layout": {
+            "cols": 5,
+            "items": [
+              {
+                "h": 1,
+                "w": 2,
+                "x": 1,
+                "y": 1,
+                "id": "b0-0",
+                "kind": "note",
+                "text": {
+                  "de": "Noah hat jeden Screen in Figma entworfen: die Landing, die Seiten für Analyse, Statistiken und Preise und danach die App selbst. Die Landing zeigt das Produkt, statt es zu beschreiben, mit einem Bento aus lebendig wirkenden Visuals für Erkennung, Clips, Statistiken und Credits.",
+                  "en": "Noah designed every screen in Figma: the landing, the analysis, statistics and pricing pages, then the app itself. The landing shows the product instead of describing it, with a bento of live-looking visuals for detection, clips, stats and credits.",
+                  "es": "Noah diseñó cada pantalla en Figma: la landing, las páginas de análisis, estadísticas y precios, y después la propia aplicación. La landing muestra el producto en lugar de describirlo, con un bento de visuales que parecen en vivo para la detección, los clips, las estadísticas y los créditos.",
+                  "fr": "Grâce aux personnes avec qui Noah a pu travaillé, Hanvision permet aussi de lire une feuille de match pour récupérer automatiquement toutes les statistiques du match pris en vidéo."
+                },
+                "title": {
+                  "de": "Webdesign",
+                  "en": "Web Design",
+                  "es": "Diseño web",
+                  "fr": "Technicité"
+                }
+              },
+              {
+                "h": 3,
+                "w": 3,
+                "x": 3,
+                "y": 1,
+                "id": "f2dd267c-9da7-4992-b87e-3bcf163f63dd",
+                "src": "/images/projects/uploads/1790621533101-Marcel-3x3-dashboard-1.png",
+                "kind": "image"
+              },
+              {
+                "h": 2,
+                "w": 1,
+                "x": 1,
+                "y": 2,
+                "id": "1f361722-c669-41bb-a865-5df6133dd9dd",
+                "src": "/images/projects/uploads/1790619298031-1x2.png",
+                "kind": "image"
+              },
+              {
+                "h": 2,
+                "w": 1,
+                "x": 2,
+                "y": 2,
+                "id": "2c326e71-d987-4dc3-a0d4-773e44df4718",
+                "src": "/images/projects/uploads/1790623476437-1x2.png",
+                "kind": "image"
+              }
+            ]
+          },
+          "blocks": [
+            {
+              "position": 0,
+              "type": "note",
+              "media": [
+                6
+              ],
+              "title": {
+                "de": "Webdesign",
+                "en": "Web Design",
+                "es": "Diseño web",
+                "fr": "Web design"
+              },
+              "text": {
+                "de": "Noah hat jeden Screen in Figma entworfen: die Landing, die Seiten für Analyse, Statistiken und Preise und danach die App selbst. Die Landing zeigt das Produkt, statt es zu beschreiben, mit einem Bento aus lebendig wirkenden Visuals für Erkennung, Clips, Statistiken und Credits.",
+                "en": "Noah designed every screen in Figma: the landing, the analysis, statistics and pricing pages, then the app itself. The landing shows the product instead of describing it, with a bento of live-looking visuals for detection, clips, stats and credits.",
+                "es": "Noah diseñó cada pantalla en Figma: la landing, las páginas de análisis, estadísticas y precios, y después la propia aplicación. La landing muestra el producto en lugar de describirlo, con un bento de visuales que parecen en vivo para la detección, los clips, las estadísticas y los créditos.",
+                "fr": "Noah a conçu chaque écran dans Figma : la landing, les pages analyse, statistiques et tarifs, puis l'application elle-même. La landing montre le produit au lieu de le décrire, avec un bento de visuels qui semblent vivants pour la détection, les clips, les stats et les crédits."
+              },
+              "logos": []
+            },
+            {
+              "position": 1,
+              "type": "mosaic",
+              "media": [
+                7,
+                8,
+                9,
+                10,
+                11
+              ],
+              "logos": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "vidoq",
+      "position": 6,
+      "name": "Vidoq",
+      "weeks": 1,
+      "link": "https://vidoq.fr",
+      "image": "/images/projects/Vidoq_cover.webp",
+      "description": {
+        "de": "Vidoq ist eine Plattform zur Prüfung des digitalen Fußabdrucks: Suche nach E-Mail, Telefonnummer, Benutzername, Name, IP oder Adresse und sieh, wo sie in öffentlichen Daten und bekannten Datenlecks auftauchen.",
+        "en": "Vidoq is a platform for auditing your digital footprint: search an email, phone, username, name, IP or address and see where it shows up in public data and known breaches.",
+        "es": "Vidoq es una plataforma para auditar tu huella digital: busca un correo, un teléfono, un usuario, un nombre, una IP o una dirección y descubre dónde aparece en datos públicos y filtraciones conocidas.",
+        "fr": "Vidoq est une plateforme d'audit d'empreinte numérique : cherchez un e-mail, un téléphone, un pseudo, un nom, une IP ou une adresse et voyez où ils apparaissent dans les données publiques et les fuites connues."
+      },
+      "metaDescription": {
+        "de": "Vidoq ist eine Plattform zur Prüfung des digitalen Fußabdrucks von Facile Studio: Suche in über 1 Mrd. indexierten Leak-Datensätzen, OSINT-Recherche, Leak-Graphen und passive Benachrichtigungen.",
+        "en": "Vidoq is a digital footprint auditing platform by Facile Studio: breach search over 1B+ indexed records, OSINT investigation, breach graphs and passive alerting.",
+        "es": "Vidoq es una plataforma de auditoría de huella digital de Facile Studio: búsqueda en más de mil millones de registros filtrados, investigación OSINT, grafos de filtraciones y alertas pasivas.",
+        "fr": "Vidoq est une plateforme d'audit d'empreinte numérique signée Facile Studio : recherche dans plus d'un milliard d'enregistrements de fuites, investigation OSINT, graphes de fuites et alertes passives."
+      },
+      "services": [
+        "appDevelopment",
+        "webDevelopment"
+      ],
+      "techStack": [],
+      "date": "2026",
+      "gallery": [
+        "/images/projects/Vidoq_0.webp",
+        "/images/projects/Vidoq_1.webp",
+        "/images/projects/Vidoq_2.webp",
+        "/images/projects/Vidoq_3.webp",
+        "/images/projects/Vidoq_4.webp"
+      ],
+      "notes": [
+        {
+          "de": "Überwachte Felder werden täglich mit jeder neuen Leak-Version abgeglichen, und neue Datensätze bleiben gesperrt, bis der Nutzer sie freischaltet.",
+          "en": "Monitored fields are checked against every new breach version daily, and new records stay locked until the user chooses to unlock them.",
+          "es": "Los campos vigilados se comparan cada día con cada nueva versión de las filtraciones, y los registros nuevos quedan bloqueados hasta que el usuario decide desbloquearlos.",
+          "fr": "Les champs surveillés sont comparés chaque jour à chaque nouvelle version des fuites, et les nouveaux enregistrements restent verrouillés jusqu'à ce que l'utilisateur choisisse de les débloquer."
+        }
+      ],
+      "bucket": [],
+      "team": [
+        "mazouz"
+      ],
+      "story": [
+        {
+          "position": 0,
+          "by": [],
+          "blocks": [
+            {
+              "position": 0,
+              "type": "cover",
+              "logos": []
+            },
+            {
+              "position": 1,
+              "type": "intro",
+              "logos": []
+            }
+          ]
+        },
+        {
+          "position": 1,
+          "title": {
+            "de": "Produktdesign",
+            "en": "Product design",
+            "es": "Diseño de producto",
+            "fr": "Design produit"
+          },
+          "by": [],
+          "blocks": [
+            {
+              "position": 0,
+              "type": "note",
+              "media": [
+                0
+              ],
+              "title": {
+                "de": "Produktdesign",
+                "en": "Product design",
+                "es": "Diseño de producto",
+                "fr": "Design produit"
+              },
+              "text": {
+                "de": "Mazouz hat Vidoq um drei Werkzeuge gebaut: eine Leak-Suche über sechs Identifikatoren, einen Graphen, der Datensätze gruppiert und gleiche Felder quellenübergreifend verknüpft, und passive Benachrichtigungen, wenn ein überwachtes Feld in einem neuen Leak auftaucht.",
+                "en": "Mazouz built Vidoq around three tools: a breach search on six identifiers, a graph that groups leaked records and links matching fields across sources, and passive alerts when a watched field appears in a new breach.",
+                "es": "Mazouz construyó Vidoq en torno a tres herramientas: una búsqueda de filtraciones sobre seis identificadores, un grafo que agrupa los registros y enlaza los campos coincidentes entre fuentes, y alertas pasivas cuando un campo vigilado aparece en una nueva filtración.",
+                "fr": "Mazouz a construit Vidoq autour de trois outils : une recherche de fuites sur six identifiants, un graphe qui regroupe les enregistrements et relie les champs identiques entre les sources, et des alertes passives quand un champ surveillé apparaît dans une nouvelle fuite."
+              },
+              "logos": []
+            },
+            {
+              "position": 1,
+              "type": "big",
+              "media": [
+                1,
+                2,
+                3
+              ],
+              "logos": [],
+              "smalls": "top"
+            },
+            {
+              "position": 2,
+              "type": "full",
+              "media": [
+                4
+              ],
+              "logos": []
+            }
+          ]
+        },
+        {
+          "position": 2,
+          "by": [],
+          "blocks": [
+            {
+              "position": 0,
+              "type": "end",
+              "logos": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "benky",
+      "position": 7,
+      "name": "Benky",
+      "weeks": 1,
+      "link": "https://benky.space",
+      "image": "/images/projects/Benky_cover.webp",
+      "description": {
+        "de": "Benky ist eine Lern-App: Kursnotizen hochladen, der KI Fragen dazu stellen und das Gelernte in Karteikarten, Quiz und einen Lernplan verwandeln.",
+        "en": "Benky is a study app: bring your course notes, ask AI questions about them, and turn what you learn into flashcards, quizzes and a study plan.",
+        "es": "Benky es una app de estudio: subes tus apuntes, le haces preguntas a la IA y conviertes lo que aprendes en flashcards, cuestionarios y un plan de estudio.",
+        "fr": "Benky est une application de révision : on y dépose ses notes de cours, on pose des questions à l'IA, et on transforme ce qu'on apprend en flashcards, quiz et planning de révision."
+      },
+      "metaDescription": {
+        "de": "Benky ist eine Lern-App von Facile Studio. Kursmaterial, KI-Erklärungen, Karteikarten, Quiz und Lernplanung an einem Ort, im Web und auf dem Mac.",
+        "en": "Benky is a study app by Facile Studio. Course materials, AI explanations, flashcards, quizzes and study planning in one place, on the web and on Mac.",
+        "es": "Benky es una app de estudio de Facile Studio. Materiales, explicaciones con IA, flashcards, cuestionarios y planificación en un solo lugar, en la web y en Mac.",
+        "fr": "Benky est une application de révision signée Facile Studio. Supports de cours, explications par IA, flashcards, quiz et planning réunis au même endroit, sur le web et sur Mac."
+      },
+      "services": [
+        "appDevelopment",
+        "desktopDevelopment"
+      ],
+      "techStack": [],
+      "date": "2026",
+      "gallery": [
+        "/images/projects/Benky_0.webp",
+        "/images/projects/Benky_1.webp",
+        "/images/projects/Benky_2.webp",
+        "/images/projects/Benky_3.webp",
+        "/images/projects/Benky_4.webp"
+      ],
+      "notes": [
+        {
+          "de": "Jede Antwort verweist auf dein eigenes Material, so wird aus einer Nachfrage eine Notiz und daraus eine Karteikarte.",
+          "en": "Every answer points back to your own materials, so a follow-up question turns into a note and then into a flashcard.",
+          "es": "Cada respuesta remite a tus propios materiales, así que una pregunta de seguimiento se convierte en una nota y después en una flashcard.",
+          "fr": "Chaque réponse renvoie à vos propres supports : une question de suivi devient une note, puis une flashcard."
+        }
+      ],
+      "bucket": [],
+      "team": [
+        "fanga"
+      ],
+      "story": [
+        {
+          "position": 0,
+          "by": [],
+          "layout": {
+            "cols": 5,
+            "items": [
+              {
+                "h": 3,
+                "w": 3,
+                "x": 1,
+                "y": 1,
+                "id": "b0-0",
+                "kind": "cover"
+              },
+              {
+                "h": 3,
+                "w": 2,
+                "x": 4,
+                "y": 1,
+                "id": "b1-0",
+                "kind": "intro"
+              }
+            ]
+          },
+          "blocks": [
+            {
+              "position": 0,
+              "type": "cover",
+              "logos": []
+            },
+            {
+              "position": 1,
+              "type": "intro",
+              "logos": []
+            }
+          ]
+        },
+        {
+          "position": 1,
+          "title": {
+            "de": "Lernsession",
+            "en": "Study session",
+            "es": "Sesión de estudio",
+            "fr": "Session de révision"
+          },
+          "by": [
+            "fanga"
+          ],
+          "layout": {
+            "cols": 5,
+            "items": [
+              {
+                "h": 1,
+                "w": 2,
+                "x": 1,
+                "y": 1,
+                "id": "b0-0",
+                "kind": "note",
+                "text": {
+                  "de": "Eine Session hat drei Schritte: PDFs, Bilder und Notizen nach Fach sammeln, Benky fragen, bis die Idee sitzt, und dann mit Karteikarten, Quiz und einem Termin im Wochenkalender darauf zurückkommen.",
+                  "en": "A session runs in three steps: gather PDFs, images and notes by subject, ask Benky until the idea makes sense, then come back to it with flashcards, quizzes and a slot on the weekly calendar.",
+                  "es": "Una sesión sigue tres pasos: reunir PDF, imágenes y apuntes por asignatura, preguntar a Benky hasta que la idea quede clara y volver a ella con flashcards, cuestionarios y un hueco en el calendario semanal.",
+                  "fr": "Une session se déroule en trois étapes : rassembler PDF, images et notes par matière, questionner Benky jusqu'à ce que l'idée soit claire, puis y revenir avec des flashcards, des quiz et un créneau dans le calendrier de la semaine."
+                },
+                "title": {
+                  "de": "Lernsession",
+                  "en": "Study session",
+                  "es": "Sesión de estudio",
+                  "fr": "Session de révision"
+                }
+              },
+              {
+                "h": 3,
+                "w": 3,
+                "x": 3,
+                "y": 1,
+                "id": "1dce6f6a-9704-4c54-b3fc-6e1c121efb66",
+                "src": "/images/projects/uploads/1790683845983-benky-demo.mp4",
+                "kind": "video"
+              }
+            ]
+          },
+          "blocks": [
+            {
+              "position": 0,
+              "type": "note",
+              "media": [
+                0
+              ],
+              "title": {
+                "de": "Lernsession",
+                "en": "Study session",
+                "es": "Sesión de estudio",
+                "fr": "Session de révision"
+              },
+              "text": {
+                "de": "Eine Session hat drei Schritte: PDFs, Bilder und Notizen nach Fach sammeln, Benky fragen, bis die Idee sitzt, und dann mit Karteikarten, Quiz und einem Termin im Wochenkalender darauf zurückkommen.",
+                "en": "A session runs in three steps: gather PDFs, images and notes by subject, ask Benky until the idea makes sense, then come back to it with flashcards, quizzes and a slot on the weekly calendar.",
+                "es": "Una sesión sigue tres pasos: reunir PDF, imágenes y apuntes por asignatura, preguntar a Benky hasta que la idea quede clara y volver a ella con flashcards, cuestionarios y un hueco en el calendario semanal.",
+                "fr": "Une session se déroule en trois étapes : rassembler PDF, images et notes par matière, questionner Benky jusqu'à ce que l'idée soit claire, puis y revenir avec des flashcards, des quiz et un créneau dans le calendrier de la semaine."
+              },
+              "logos": []
+            },
+            {
+              "position": 1,
+              "type": "big",
+              "media": [
+                1,
+                2,
+                3
+              ],
+              "logos": [],
+              "smalls": "top"
+            },
+            {
+              "position": 2,
+              "type": "full",
+              "media": [
+                4
+              ],
+              "logos": []
+            }
+          ]
+        },
+        {
+          "position": 2,
+          "by": [],
+          "layout": {
+            "cols": 2,
+            "items": [
+              {
+                "h": 3,
+                "w": 2,
+                "x": 1,
+                "y": 1,
+                "id": "b0-0",
+                "kind": "end"
+              }
+            ]
+          },
+          "blocks": [
+            {
+              "position": 0,
+              "type": "end",
+              "logos": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "solais-intra",
+      "position": 8,
+      "name": "SolaïsIntra",
+      "weeks": 8,
+      "link": "https://solais.fr/",
+      "image": "/images/projects/SolaïsIntra.webp",
+      "description": {
+        "de": "Ein internes Tool, das den Alltag des Solaïs-Teams vereinfacht, vom Tracking bis zum Reporting.",
+        "en": "An internal tool that streamlines the day-to-day for the Solaïs team, from tracking to reporting.",
+        "es": "Una herramienta interna que agiliza el día a día del equipo de Solaïs, del seguimiento a los informes.",
+        "fr": "Un outil interne qui simplifie le quotidien de l'équipe Solaïs, du suivi jusqu'au reporting."
+      },
+      "metaDescription": {
+        "de": "Maßgeschneiderte Intranet-Anwendung von Facile Studio für Solaïs. Eine Plattform mit Vue.js und TypeScript für Teamarbeit und Dokumentenverwaltung.",
+        "en": "Custom intranet application built by Facile Studio for Solaïs. Vue.js and TypeScript platform for team collaboration and document management.",
+        "es": "Aplicación de intranet a medida desarrollada por Facile Studio para Solaïs. Una plataforma en Vue.js y TypeScript para la colaboración en equipo y la gestión documental.",
+        "fr": "Application intranet sur mesure développée par Facile Studio pour Solaïs. Une plateforme Vue.js et TypeScript pour la collaboration d'équipe et la gestion documentaire."
+      },
+      "services": [
+        "productDesign",
+        "webDevelopment"
+      ],
+      "techStack": [
+        "TS",
+        "Vue.js"
+      ],
+      "date": "2024",
+      "gallery": [
+        "https://picsum.photos/seed/solais-a/1800/1100",
+        "https://media.w3.org/2010/05/bunny/trailer.mp4",
+        "https://picsum.photos/seed/solais-intra-x0/1500/1000",
+        "https://media.w3.org/2010/05/bunny/trailer.mp4",
+        "https://picsum.photos/seed/solais-intra-x2/1500/1400"
+      ],
+      "notes": [
+        {
+          "de": "Interne Tools werden bei der zehnten Nutzung beurteilt, nicht bei der ersten: Dichte und Tastatur-Flow schlagen jeden Onboarding-Screen.",
+          "en": "Internal tools get judged on the tenth use, not the first — density and keyboard flow beat any onboarding screen.",
+          "es": "Una herramienta interna se juzga en el décimo uso, no en el primero: la densidad y el flujo con teclado ganan a cualquier pantalla de bienvenida.",
+          "fr": "Un outil interne se juge à la dixième utilisation, pas à la première : la densité et la fluidité au clavier valent mieux que n'importe quel écran d'accueil."
+        }
+      ],
+      "bucket": [],
+      "team": [
+        "fanga",
+        "mazouz"
+      ],
+      "story": [
+        {
+          "position": 0,
+          "by": [],
+          "blocks": [
+            {
+              "position": 0,
+              "type": "cover",
+              "logos": []
+            },
+            {
+              "position": 1,
+              "type": "intro",
+              "logos": []
+            }
+          ]
+        },
+        {
+          "position": 1,
+          "title": {
+            "de": "Produktdesign",
+            "en": "Product design",
+            "es": "Diseño de producto",
+            "fr": "Design produit"
+          },
+          "by": [],
+          "blocks": [
+            {
+              "position": 0,
+              "type": "note",
+              "media": [
+                0
+              ],
+              "title": {
+                "de": "Produktdesign",
+                "en": "Product design",
+                "es": "Diseño de producto",
+                "fr": "Design produit"
+              },
+              "text": {
+                "de": "Interne Tools werden bei der zehnten Nutzung beurteilt, nicht bei der ersten: Dichte und Tastatur-Flow schlagen jeden Onboarding-Screen.",
+                "en": "Internal tools get judged on the tenth use, not the first — density and keyboard flow beat any onboarding screen.",
+                "es": "Una herramienta interna se juzga en el décimo uso, no en el primero: la densidad y el flujo con teclado ganan a cualquier pantalla de bienvenida.",
+                "fr": "Un outil interne se juge à la dixième utilisation, pas à la première : la densité et la fluidité au clavier valent mieux que n'importe quel écran d'accueil."
+              },
+              "logos": []
+            },
+            {
+              "position": 1,
+              "type": "big",
+              "media": [
+                1,
+                2,
+                3
+              ],
+              "logos": [],
+              "smalls": "bottom"
+            },
+            {
+              "position": 2,
+              "type": "full",
+              "media": [
+                4
+              ],
+              "logos": []
+            }
+          ]
+        },
+        {
+          "position": 2,
+          "by": [],
+          "blocks": [
+            {
+              "position": 0,
+              "type": "end",
+              "logos": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "muse",
+      "position": 9,
+      "name": "Muse",
+      "weeks": 6,
+      "link": "https://github.com/FacileStudio",
+      "image": "/images/projects/Muse.webp",
+      "description": {
+        "de": "Die Web-Komponentenbibliothek hinter der Suite: ein einziger Satz aus Svelte-Komponenten, Tokens und Bewegungsregeln, aus dem jedes Tool des Studios gebaut ist.",
+        "en": "The web component library behind the Suite: one set of Svelte components, tokens and motion rules that every studio tool is built from.",
+        "es": "La librería de componentes web detrás de la Suite: un único conjunto de componentes Svelte, tokens y reglas de movimiento con el que se construye cada herramienta del estudio.",
+        "fr": "La bibliothèque de composants web derrière la Suite : un seul jeu de composants Svelte, de tokens et de règles d'animation, sur lequel repose chaque outil du studio."
+      },
+      "metaDescription": {
+        "de": "Muse ist die Svelte-Komponentenbibliothek von Facile Studio hinter der Facile Suite: gemeinsame Komponenten, Design-Tokens und Bewegungsregeln für jedes Tool.",
+        "en": "Muse is the Svelte component library by Facile Studio behind the Facile Suite: shared components, design tokens and motion rules for every tool.",
+        "es": "Muse es la librería de componentes Svelte de Facile Studio detrás de la Facile Suite: componentes compartidos, design tokens y reglas de movimiento para cada herramienta.",
+        "fr": "Muse est la bibliothèque de composants Svelte de Facile Studio derrière la Facile Suite : composants partagés, design tokens et règles d'animation pour chaque outil."
+      },
+      "services": [
+        "designSystem",
+        "frontendDevelopment"
+      ],
+      "techStack": [
+        "Svelte",
+        "TS",
+        "Tailwind",
+        "Vite"
+      ],
+      "date": "2026",
+      "gallery": [
+        "https://picsum.photos/seed/muse-a/1800/1000",
+        "https://picsum.photos/seed/muse-b/1400/1500",
+        "https://picsum.photos/seed/muse-c/1500/1000"
+      ],
+      "notes": [
+        {
+          "de": "Eine gemeinsame Bibliothek lohnt sich nur, wenn sie schneller ist, als die Komponente neu zu schreiben. Deshalb kam die API vor dem Styling.",
+          "en": "A shared library only pays off if using it is faster than writing the component again, so the API came before the styling.",
+          "es": "Una librería compartida solo compensa si usarla es más rápido que volver a escribir el componente, así que la API fue antes que el estilo.",
+          "fr": "Une bibliothèque partagée n'est rentable que si l'utiliser va plus vite que réécrire le composant : l'API est donc passée avant le style."
+        }
+      ],
+      "bucket": [],
+      "team": [
+        "fanga",
+        "noah",
+        "mazouz",
+        "camille"
+      ],
+      "story": [
+        {
+          "position": 0,
+          "by": [],
+          "blocks": [
+            {
+              "position": 0,
+              "type": "cover",
+              "logos": []
+            },
+            {
+              "position": 1,
+              "type": "intro",
+              "logos": []
+            }
+          ]
+        },
+        {
+          "position": 1,
+          "title": {
+            "de": "Designsystem",
+            "en": "Design system",
+            "es": "Sistema de diseño",
+            "fr": "Design system"
+          },
+          "by": [],
+          "blocks": [
+            {
+              "position": 0,
+              "type": "note",
+              "media": [
+                0
+              ],
+              "title": {
+                "de": "Designsystem",
+                "en": "Design system",
+                "es": "Sistema de diseño",
+                "fr": "Design system"
+              },
+              "text": {
+                "de": "Ein Satz Tokens, ein Satz Komponenten: Jedes Tool der Suite liest aus derselben Quelle, statt eine eigene Kopie zu pflegen.",
+                "en": "One set of tokens, one set of components: every tool in the Suite reads from the same source instead of keeping its own copy.",
+                "es": "Un solo conjunto de tokens y de componentes: cada herramienta de la Suite lee de la misma fuente en lugar de guardar su propia copia.",
+                "fr": "Un seul jeu de tokens, un seul jeu de composants : chaque outil de la Suite puise à la même source au lieu de garder sa propre copie."
+              },
+              "logos": []
+            },
+            {
+              "position": 1,
+              "type": "big",
+              "media": [
+                1,
+                2
+              ],
+              "logos": [],
+              "smalls": "top"
+            }
+          ]
+        },
+        {
+          "position": 2,
+          "by": [],
+          "blocks": [
+            {
+              "position": 0,
+              "type": "end",
+              "logos": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
