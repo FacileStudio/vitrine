@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import TextReveal from "@/components/facile/textReveal";
+import { twMerge } from "tailwind-merge";
 
 export default function TechStack({
     stack,
@@ -28,7 +29,7 @@ export default function TechStack({
 
     return (
         <div className={className}>
-            <TextReveal as="p" cropClassName={labelCropClassName} className={labelClassName}>
+            <TextReveal as="p" cropClassName={labelCropClassName} className={twMerge("mr-5", labelClassName)}>
                 {t("createdWith")}
             </TextReveal>
             {split ? (

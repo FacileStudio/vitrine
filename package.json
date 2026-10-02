@@ -40,5 +40,8 @@
     "esbuild",
     "prisma",
     "unrs-resolver"
-  ]
+  ],
+  "dependencies": {
+    "tailwind-merge": "^3.7.0"
+  }
 }
