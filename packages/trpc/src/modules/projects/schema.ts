@@ -103,7 +103,7 @@ export const projectSchema = z.object({
   name: z.string().min(1),
   weeks: z.number().int().positive(),
   link: z.string().url().optional(),
-  image: z.string().min(1),
+  image: z.string(),
   video: z.string().optional(),
   coverEffect: z.string().optional(),
   gallery: z.array(z.string().min(1)),
