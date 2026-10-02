@@ -9,13 +9,13 @@ export default function Tiles({ block }: BlockProps) {
     return (
         <Block cols={block.cols}>
             {tiles.map((t: Tile) => (
-                <Cell key={t.label} className="bg-foreground/10 backdrop-blur-2xl">
+                <Cell key={t.label} className="glass">
                     <div className="flex h-full w-full flex-col justify-between gap-[1.5vh] p-[3vh]">
                         {t.icon ? (
                             <AppMark icon={t.icon} className="text-[4vh] text-accent" fileClassName="h-[6vh] w-[6vh] object-contain" />
                         ) : null}
 
-                        <div className="flex flex-col gap-1">
+                        <div className="flex flex-col gap-fc">
                             <Line as="h2" className="subtitle text-current">{t.label}</Line>
 
                             {t.text ? (

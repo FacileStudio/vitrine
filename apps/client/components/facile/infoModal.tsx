@@ -30,12 +30,12 @@ export default function InfoModal({ open, setOpen, title, kicker, note, children
     return (
         <Dialog.Root open={open} onOpenChange={setOpen}>
             <Dialog.Portal>
-                <Dialog.Overlay className="fixed inset-0 z-[120] rounded-md bg-foreground/20 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
+                <Dialog.Overlay className="fixed inset-0 z-[120] rounded-fc bg-foreground/20 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
 
                 <Dialog.Content
                     ref={panel}
                     onAnimationEnd={(e) => { if (e.target === e.currentTarget && open) setLanded(true); }}
-                    className="fixed inset-2 z-[121] flex flex-col overflow-hidden rounded-md bg-background text-foreground duration-500 data-[state=open]:animate-in data-[state=open]:slide-in-from-bottom-full data-[state=closed]:animate-out data-[state=closed]:slide-out-to-bottom-full"
+                    className="fixed inset-2 z-[121] flex flex-col overflow-hidden rounded-fc bg-background text-foreground duration-500 data-[state=open]:animate-in data-[state=open]:slide-in-from-bottom-full data-[state=closed]:animate-out data-[state=closed]:slide-out-to-bottom-full"
                 >
                     <div className="flex items-start justify-between gap-6 px-8 py-8">
                         <div>
@@ -60,7 +60,7 @@ export default function InfoModal({ open, setOpen, title, kicker, note, children
 
                         <Dialog.Close
                             aria-label={t("close")}
-                            className="flex size-10 shrink-0 items-center justify-center rounded-md bg-foreground/5 text-xl leading-none font-medium text-foreground/60 transition-colors duration-200 hover:bg-foreground/10 hover:text-foreground"
+                            className="flex size-10 shrink-0 items-center justify-center rounded-fc bg-foreground/5 text-xl leading-none font-medium text-foreground/60 transition-colors duration-200 hover:bg-foreground/10 hover:text-foreground"
                         >
                             <span aria-hidden="true">×</span>
                         </Dialog.Close>

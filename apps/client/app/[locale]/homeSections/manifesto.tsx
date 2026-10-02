@@ -16,7 +16,7 @@ const LIST_TO = 0.9;
 
 const BAND = { from: 0.2, to: 0.8 };
 
-const CARD = "flex aspect-square w-[40vw] md:w-[20vw] max-w-80 flex-col items-center justify-center gap-4 rounded-xl bg-foreground/10 text-foreground backdrop-blur-3xl";
+const CARD = "flex aspect-square w-[40vw] md:w-[20vw] max-w-80 flex-col items-center justify-center gap-4 rounded-fc glass text-foreground";
 
 const CLIENTS: { src: string; name: string; slug: string | null }[] = [
     { src: "LH", name: "Laura Hervé", slug: "laura-herve" },
@@ -135,7 +135,7 @@ export default function Manifesto() {
                     <div className="w-full">
                         <div
                             ref={listRef}
-                            className="flex w-max gap-1 text-foreground will-change-transform"
+                            className="flex w-max gap-fc text-foreground will-change-transform"
                             style={{ transform: "translate3d(100vw, 0, 0)" }}
                         >
                             {CLIENTS.map((client, i) => {

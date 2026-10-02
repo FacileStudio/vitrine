@@ -41,7 +41,7 @@ export default function SuiteShelf({
             id="suite-shelf"
             tone="light"
             stickyBackdrop={stickyBackdrop}
-            columnClassName="w-full h-full pt-[20vh] flex flex-col gap-1 justify-start items-center px-6"
+            columnClassName="w-full h-full pt-[20vh] flex flex-col gap-fc justify-start items-center px-6"
             after={
                 <>
                     <ArchitectureModal open={explain} setOpen={setExplain} />

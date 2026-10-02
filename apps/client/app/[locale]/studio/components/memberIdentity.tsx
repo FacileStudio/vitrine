@@ -27,7 +27,7 @@ export default function MemberIdentity({ member, shown }: { member: Member; show
             />
 
             {member.labels.length > 0 && (
-                <span className="relative z-10 flex flex-wrap items-center gap-1">
+                <span className="relative z-10 flex flex-wrap items-center gap-fc">
                     {member.labels.map((label, i) => (
                         <TextReveal key={label} as="p" open={shown} delay={0.24 + i * 0.05} cropClassName="shrink-0" className="chip-solid">
                             {label}

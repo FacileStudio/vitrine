@@ -57,7 +57,7 @@ export default function Heading({ lines, filter = null, count = 0, onFilter }: H
             }
         >
             {onFilter && (
-                <ul className="mt-6 flex flex-wrap lg:flex-nowrap overflow-hidden gap-1">
+                <ul className="mt-6 flex flex-wrap lg:flex-nowrap overflow-hidden gap-fc">
                     {entries.map((e, i) => {
                         const on = filter === e.value;
 

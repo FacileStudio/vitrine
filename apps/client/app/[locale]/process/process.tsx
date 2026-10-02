@@ -53,7 +53,7 @@ function ProcessSection({ step, index }: { step: Step; index: number }) {
                     </h2>
 
                     <TextReveal open={show} leaving={leaving} delay={0.16}>
-                        <div className="h-56 w-80 overflow-hidden rounded-xl bg-white/5 3xl:h-72 3xl:w-[28rem]">
+                        <div className="h-56 w-80 overflow-hidden rounded-fc bg-white/5 3xl:h-72 3xl:w-[28rem]">
                             <img src={step.image} alt={step.title} loading="lazy" decoding="async" className="h-full w-full object-cover" />
                         </div>
                     </TextReveal>

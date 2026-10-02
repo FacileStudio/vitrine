@@ -53,7 +53,7 @@ export default function ProjectShelf({
             id="projects"
             tone="dark"
             stickyBackdrop={stickyBackdrop}
-            columnClassName="w-full h-full pt-[10vh] lg:pt-[20vh] pb-[120vh] flex flex-col gap-1 justify-start items-center px-3 lg:px-6"
+            columnClassName="w-full h-full pt-[10vh] lg:pt-[20vh] pb-[120vh] flex flex-col gap-fc justify-start items-center px-3 lg:px-6"
             after={
                 <div className="pointer-events-none sticky bottom-0 z-30 h-0">
                     {/* the section ends on a fractional pixel, so the cover runs 1px past it or the dark ground shows as a line */}

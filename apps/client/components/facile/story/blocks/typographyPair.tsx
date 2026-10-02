@@ -9,9 +9,9 @@ function Panel({ label, font, fontFamily, description, big }: { label: string; f
     return (
         <div
             style={{ fontFamily }}
-            className="flex min-h-0 min-w-0 flex-col justify-between gap-[1.5vh] p-[3vh]"
+            className="flex min-h-0 min-w-0 flex-col justify-between gap-4 p-[3vh]"
         >
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-fc">
                 <Line as="p" className="text-[clamp(0.65rem,1.4vh,0.9rem)] text-white/50">{label}</Line>
                 <Line className={clsx(
                         "flex gap-x-[1.2vh] leading-none text-white/75",
@@ -22,18 +22,18 @@ function Panel({ label, font, fontFamily, description, big }: { label: string; f
                 </Line>
             </div>
 
-            {description && (
+            {/* {description && (
                 <Line style={{ fontFamily: "var(--font-goga)" }} className="max-w-[60ch] text-[clamp(1rem,1.6vh,1.2rem)] leading-relaxed text-white/50">
                     {description}
                 </Line>
-            )}
+            )} */}
 
-            <div className="flex flex-1 flex-col mt-12 justify-center gap-2">
+            <div className="flex flex-1 flex-col lg:mt-12 justify-center gap-2">
                 {ROWS.map((row) => (
                     <Line
                         key={row[0]}
                         className={clsx(
-                            "flex gap-x-[1.2vh] leading-none text-white/75",
+                            "flex gap-x-[1.2vh] text-white/75",
                             big ? "font-semibold text-[clamp(1.1rem,3.4vh,2.75rem)]" : "text-[clamp(0.75rem,2vh,1.5rem)]"
                         )}
                     >
@@ -50,7 +50,7 @@ function Panel({ label, font, fontFamily, description, big }: { label: string; f
 export default function TypographyPair({ block }: BlockProps) {
     return (
         <Block cols={block.cols}>
-            <Cell col="1 / -1" row="1 / -1">
+            <Cell col="1 / -1" row="1 / -1" className="glass">
                 <div className="flex h-full w-full flex-col justify-between">
                     <Panel label="Title" font={block.font} fontFamily={block.fontFamily} description={block.description} big />
                     <Panel label="Text" font={block.secondFont} fontFamily={block.secondFontFamily} description={block.secondDescription} />

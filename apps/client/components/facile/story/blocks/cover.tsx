@@ -16,7 +16,7 @@ export default function Cover({ block }: BlockProps) {
 
             <Cell col="1 / -1" row="1 / -1">
                 <div
-                    className="rounded-md overflow-hidden relative h-full w-full"
+                    className="rounded-fc overflow-hidden relative h-full w-full"
                     onPointerEnter={marcel ? start : undefined}
                     onPointerLeave={marcel ? stop : undefined}
                 >

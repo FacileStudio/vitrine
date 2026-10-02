@@ -78,7 +78,7 @@ export default function MemberTiles({
                         className={`absolute inset-0 h-full transition-all duration-200 ${coarse || !dimmed ? "opacity-100 brightness-100" : "opacity-33 brightness-50 hover:opacity-100 hover:brightness-100"}`}
                     />
 
-                    <div className="pointer-events-none absolute inset-x-0 top-[66%] z-50 flex flex-col items-center gap-1 text-center text-white">
+                    <div className="pointer-events-none absolute inset-x-0 top-[66%] z-50 flex flex-col items-center gap-fc text-center text-white">
                         <TextReveal
                             open={coarse || hovered === member.slug}
                             duration={0.45}

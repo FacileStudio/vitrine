@@ -33,13 +33,13 @@ export default function MemberPanel({
         <InfoModal open={open} setOpen={setOpen} title={member.name} kicker={member.role} note={member.description}>
             {(entered) => (
                 <>
-                    <div className="flex flex-wrap gap-1">
+                    <div className="flex flex-wrap gap-fc">
                         {TABS.map((id, i) => (
                             <button
                                 key={id}
                                 type="button"
                                 onClick={() => setTab(id)}
-                                className={`rounded-md px-3 py-2 transition-colors ${
+                                className={`rounded-fc px-3 py-2 transition-colors ${
                                     tab === id ? "bg-foreground text-background" : "bg-foreground/5 text-foreground/50"
                                 }`}
                             >
@@ -98,7 +98,7 @@ export default function MemberPanel({
                             {member.labels.length > 0 && (
                                 <div className="flex flex-wrap gap-2 pt-6">
                                     {member.labels.map((label, i) => (
-                                        <span key={label} className="rounded-md bg-foreground/5 px-3 py-2 text-foreground/60">
+                                        <span key={label} className="rounded-fc bg-foreground/5 px-3 py-2 text-foreground/60">
                                             <TextReveal as="p" open={entered} delay={0.36 + i * 0.05}>{label}</TextReveal>
                                         </span>
                                     ))}

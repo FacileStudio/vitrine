@@ -73,10 +73,9 @@ export default function LocaleSwitcher({ className, dark = false }: { className?
                 role="listbox"
                 aria-label={t("header.language")}
                 className={twMerge(
-                    "absolute right-0 top-full mt-1 flex min-w-full flex-col rounded-lg backdrop-blur-2xl origin-top-right",
+                    "absolute right-0 top-full mt-1 flex min-w-full flex-col rounded-fc glass origin-top-right",
                     "transition-[clip-path,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none",
-                    dark ? "bg-[#141414]/10" : "bg-[#212121]/40",
-                    open ? "opacity-100 [clip-path:inset(0_0_0_0_round_0.5rem)]" : "pointer-events-none opacity-0 [clip-path:inset(0_0_100%_0_round_0.5rem)]",
+                    open ? "opacity-100 [clip-path:inset(0_0_0_0_round_var(--fc-radius))]" : "pointer-events-none opacity-0 [clip-path:inset(0_0_100%_0_round_var(--fc-radius))]",
                 )}
             >
                 {locales.map((l, i) => {

@@ -11,7 +11,7 @@ const SPECIALS = "&@#$%€£()[]{}!?.,;:\"'/\\+−=×÷<>~^_|©®°*";
 export default function Typography({ block }: BlockProps) {
     return (
         <Block cols={block.cols}>
-            <Cell col="1 / -1" row="1 / -1">
+            <Cell col="1 / -1" row="1 / -1" className="glass">
                 <div
                     style={{ fontFamily: block.fontFamily }}
                     className="flex h-full w-full flex-col gap-[3vh] p-[5vh]"

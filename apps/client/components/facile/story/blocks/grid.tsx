@@ -33,7 +33,7 @@ function Content({ cell, parent }: { cell: GridCell; parent: StoryBlockData }) {
 
     if (block.type === "note")
         return (
-            <div className="flex h-full w-full flex-col gap-[2vh] p-[5vh]">
+            <div className="glass flex h-full w-full flex-col gap-[2vh] p-[5vh]">
                 {block.title ? (
                     <h2 className="subtitle">
                         <Line>

@@ -3,7 +3,7 @@ import { isVideoFile } from "@/lib/utils";
 
 // --band stays in the class list: an inline style would beat the phone breakpoint
 export const BENTO_VARS = {
-    "--gap": "4px",
+    "--gap": "var(--fc-gap)",
     "--row": "calc((var(--band) - 2 * var(--gap)) / 3)",
     "--cell": "calc(var(--row) * 5 / 4)",
 } as CSSProperties;
@@ -53,7 +53,7 @@ export function Cell({ col, row, className = "", children }: CellProps) {
     return (
         <div
             style={{ gridColumn: col, gridRow: row }}
-            className={`min-h-0 min-w-0 overflow-hidden rounded-md ${className}`}
+            className={`min-h-0 min-w-0 overflow-hidden rounded-fc ${className}`}
         >
             {children}
         </div>

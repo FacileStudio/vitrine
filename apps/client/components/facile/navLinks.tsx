@@ -125,7 +125,7 @@ export function NavLinks({
                         </Anchor>
                     </TextReveal>
                     {link.secondary && link.secondary.length > 0 && (
-                        <ul className="mt-4 hidden md:flex flex-col items-start gap-1">
+                        <ul className="mt-4 hidden md:flex flex-col items-start gap-fc">
                             {link.secondary.map((sub, j) => (
                                 <li key={sub.href}>
                                     <TextReveal
