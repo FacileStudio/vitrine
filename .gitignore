@@ -54,3 +54,4 @@ dany*
 # prisma generated client and seed output
 packages/database/prisma/src/
 packages/database/prisma/user_logins.json
+packages/database/src/zod/.prisma-zod-generator-manifest.json
