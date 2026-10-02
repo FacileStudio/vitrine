@@ -37,13 +37,12 @@ export default function Footer() {
             </div>
 
             <div className="relative z-20 w-full flex items-end justify-between lg:flex-row lg:items-center gap-6">
-                <ContactLinks open={show} delay={0.6} className="flex-col items-start gap-x-8 gap-y-2" />
+                <ContactLinks open={show} delay={0.6} className="flex flex-col md:flex-row items-start gap-x-8 gap-y-2" />
 
                 <TextReveal as="p" open={show} delay={0.8} className="text-white/40">
-                    <span className="flex items-center gap-2">
+                    <span className="flex items-center gap-3">
                         {t("footer.madeBy")}
                         <img src="/Facile.svg" alt="Facile." className="h-[24px] mb-3 w-auto invert opacity-40" />
-                        Studio
                     </span>
                 </TextReveal>
             </div>

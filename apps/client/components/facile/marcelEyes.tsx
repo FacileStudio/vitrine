@@ -70,11 +70,11 @@ type Variant = "card" | "cover";
 
 const TRAVEL: Record<Variant, number> = {
     card: 0.13,
-    cover: 0.18,
+    cover: 0.13,
 };
 
 const EYE = {
-    card: { anchor: "bottom-[3.3cqw] lg:bottom-6", row: "gap-[4.4cqw] lg:gap-8", pill: "w-[6.1cqw] h-[26.7cqw] lg:w-10 lg:h-48 xl:w-12 xl:h-70" },
+    card: { anchor: "bottom-[3.3cqw] lg:bottom-6", row: "gap-[4.4cqw] lg:gap-8", pill: "w-[6.1cqw] h-[26.7cqw] lg:w-11 lg:h-44 xl:w-12 xl:h-70" },
     cover: { anchor: "bottom-[-6cqw]", row: "gap-[3.3cqw]", pill: "w-[6.7cqw] h-[29cqw]" },
 };
 
