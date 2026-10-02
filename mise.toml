@@ -70,13 +70,18 @@ tools = { "asdf:mise-plugins/mise-postgres" = "14.22" }
 run = "./scripts/db-down.sh"
 
 [tasks."db:setup"]
-description = "Start the repo-local Postgres dev database and apply the Prisma migrations"
+description = "Start the repo-local Postgres dev database and push the Prisma schema"
 depends = [":install"]
 run = [
   'mise run db:up',
   'mise run //packages/database:generate',
-  'mise run //packages/database:migrate:deploy',
+  'mise run //packages/database:push',
 ]
+
+[tasks."db:seed"]
+description = "Seed the database"
+depends = [":install"]
+run = 'mise run //packages/database:seed'
 
 [tasks."db:studio"]
 description = "Open Prisma Studio"
