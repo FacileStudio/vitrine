@@ -50,3 +50,7 @@ bun-debug.log*
 dany*
 
 *.txt
+
+# prisma generated client and seed output
+packages/database/prisma/src/
+packages/database/prisma/user_logins.json
