@@ -4,7 +4,6 @@
   "globalPassThroughEnv": [
     "DATABASE_URL",
     "ENCRYPTION_SECRET",
-    "FRONTEND_URL",
     "TRUSTED_ORIGINS",
     "PORT",
     "STORAGE_DRIVER",

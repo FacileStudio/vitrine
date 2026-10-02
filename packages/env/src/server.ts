@@ -21,7 +21,6 @@ export const storageEnvSchema = z.discriminatedUnion("STORAGE_DRIVER", [MinioEnv
 export const serverEnvSchema = z.intersection(
   baseSchema.extend({
     PORT: z.coerce.number().default(3001),
-    FRONTEND_URL: z.string().url(),
     TRUSTED_ORIGINS: z.string().transform((s) => s.split(',').map((u) => u.trim())),
 
     ENCRYPTION_SECRET: z.string().min(32),

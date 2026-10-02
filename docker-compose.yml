@@ -13,7 +13,6 @@ x-backend-env: &backend-env
     MINIO_BUCKET_NAME: ${MINIO_BUCKET_NAME:-}
     MINIO_PUBLIC_URL: ${MINIO_PUBLIC_URL:-}
     BACKEND_URL: ${BACKEND_URL:-http://localhost:3001}
-    FRONTEND_URL: ${FRONTEND_URL:-http://localhost:3000}
     TRUSTED_ORIGINS: ${TRUSTED_ORIGINS:-http://localhost:3000,http://localhost:3002}
     DEFAULT_ADMIN_EMAIL: ${DEFAULT_ADMIN_EMAIL:-admin@example.com}
     DEFAULT_ADMIN_PASSWORD: ${DEFAULT_ADMIN_PASSWORD:-admin123}
@@ -59,8 +58,6 @@ services:
       dockerfile: apps/backend/Dockerfile
     container_name: vitrine-backend
     environment: *backend-env
-    volumes:
-      - storage_data:/data/storage
     healthcheck:
       test: ["CMD-SHELL", "wget -qO- http://localhost:3001/ >/dev/null || exit 1"]
       interval: 10s
