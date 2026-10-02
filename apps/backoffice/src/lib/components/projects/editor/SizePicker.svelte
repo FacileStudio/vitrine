@@ -25,7 +25,7 @@
 					class="subtext w-14 h-11 rounded-project {w === cols && h === rows
 						? 'bg-pressed text-on-pressed'
 						: fits
-							? 'bg-wash text-soft hover:bg-ink/10'
+							? 'bg-wash text-soft hover:bg-raised-hover'
 							: 'bg-surface-hover text-ink/20 cursor-not-allowed'}"
 				>
 					{cols}×{rows}

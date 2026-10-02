@@ -189,7 +189,7 @@
 								href="/admin/projects/{slug}/{nav.to}"
 								aria-label={nav.label}
 								title="{nav.label} (Alt {nav.to < position ? '←' : '→'})"
-								class="flex items-center p-2 rounded-project text-muted hover:bg-wash hover:text-ink"
+								class="flex items-center p-2 rounded-project text-muted hover:bg-raised-hover hover:text-ink"
 							>
 								<iconify-icon icon={nav.icon} width="16"></iconify-icon>
 							</a>

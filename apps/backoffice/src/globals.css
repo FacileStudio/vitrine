@@ -54,17 +54,17 @@
   --color-ghost: color-mix(in srgb, var(--theme-ink) 30%, transparent);
   --color-wash: color-mix(in srgb, var(--theme-ink) 5%, transparent);
 
-  --color-surface: rgb(68 64 60 / 0.05);
-  --color-surface-hover: color-mix(in srgb, var(--theme-ink) 3%, transparent);
-  --color-raised: rgb(68 64 60 / 0.1);
-  --color-raised-hover: rgb(68 64 60 / 0.2);
+  --color-surface: color-mix(in oklab, var(--color-stone-500) 10%, transparent);
+  --color-surface-hover: color-mix(in oklab, var(--color-stone-500) 20%, transparent);
+  --color-raised: color-mix(in oklab, var(--color-stone-500) 10%, transparent);
+  --color-raised-hover: color-mix(in oklab, var(--color-stone-500) 20%, transparent);
   /* THE project colour marks whatever is selected or primary: a 20% wash behind, the colour itself for text and icons */
   --color-pressed: color-mix(in srgb, var(--theme-brand) 20%, transparent);
   --color-pressed-hover: color-mix(in srgb, var(--theme-brand) 30%, transparent);
   --color-on-pressed: var(--theme-brand);
   /* the raised tint already mixed onto the page, for surfaces that move over their neighbours */
-  --color-card: color-mix(in srgb, #44403c 10%, var(--theme-page));
-  --color-card-hover: color-mix(in srgb, var(--theme-ink) 3%, var(--color-card));
+  --color-card: color-mix(in oklab, var(--color-stone-500) 10%, var(--theme-page));
+  --color-card-hover: color-mix(in oklab, var(--color-stone-500) 20%, var(--theme-page));
   --color-overlay: rgb(0 0 0 / 0.6);
 
   --duration-hover: 200ms;
@@ -221,7 +221,7 @@
 
 /* buttons */
 @utility btn {
-  @apply p flex items-center justify-center gap-2 px-4 py-2.5 rounded-project bg-raised text-soft hover:bg-wash hover:text-ink disabled:opacity-50 disabled:cursor-default;
+  @apply p flex items-center justify-center gap-2 px-4 py-2.5 rounded-project bg-raised text-soft hover:bg-raised-hover hover:text-ink disabled:opacity-50 disabled:cursor-default;
 }
 
 @utility btn-primary {
@@ -233,7 +233,7 @@
 }
 
 @utility btn-icon {
-  @apply flex items-center justify-center p-2 rounded-project text-muted hover:bg-wash hover:text-ink disabled:opacity-40;
+  @apply flex items-center justify-center p-2 rounded-project text-muted hover:bg-raised-hover hover:text-ink disabled:opacity-40;
 }
 
 @utility btn-icon-danger {

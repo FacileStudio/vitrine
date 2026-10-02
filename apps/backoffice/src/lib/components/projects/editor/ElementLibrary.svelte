@@ -53,7 +53,7 @@
 					if (e.key === 'Enter')
 						activate(element.kind, element.w, element.h);
 				}}
-				class="group flex items-center gap-3 pr-6 rounded-project cursor-grab hover:bg-wash"
+				class="group flex items-center gap-3 pr-6 rounded-project cursor-grab hover:bg-raised-hover"
 			>
 				<span class="size-16 shrink-0 rounded-project bg-raised-hover flex items-center justify-center text-muted group-hover:text-ink">
 					<iconify-icon icon={element.icon} width="18"></iconify-icon>

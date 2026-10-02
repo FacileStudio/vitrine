@@ -70,7 +70,7 @@
 
 	<div class="absolute z-20 mt-1 w-full min-w-56 max-h-72 overflow-y-auto rounded-project bg-popover p-2 shadow-lg space-y-8">
 		{#each all as option (option.value)}
-			<label class="flex items-center gap-3 rounded-project px-2 py-1.5 hover:bg-wash cursor-pointer">
+			<label class="flex items-center gap-3 rounded-project px-2 py-1.5 hover:bg-raised-hover cursor-pointer">
 				<input
 					type="checkbox"
 					checked={selected.includes(option.value)}
