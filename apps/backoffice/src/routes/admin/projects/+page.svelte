@@ -8,6 +8,9 @@
 	import { describe } from '$lib/components/projects/project';
 	import ProjectCard from '$lib/components/projects/list/ProjectCard.svelte';
 	import ProjectRow from '$lib/components/projects/list/ProjectRow.svelte';
+	import NewProjectCard from '$lib/components/projects/list/NewProjectCard.svelte';
+	import NewProjectRow from '$lib/components/projects/list/NewProjectRow.svelte';
+	import { goto } from '$app/navigation';
 	import type { ProjectSummary, StudioMemberSummary } from '$lib/components/projects/types';
 
 	const SORTS = [
@@ -31,6 +34,7 @@
 
 	// name, description, tags, stack and team all answer a search
 	let reorderError = $state('');
+	let creating = $state(false);
 	let dragged = $state<string | null>(null);
 	let over = $state<string | null>(null);
 	let list = $state<HTMLElement>();
@@ -140,6 +144,24 @@
 		}
 	});
 
+	async function create() {
+		if (creating)
+			return;
+
+		creating = true;
+
+		try {
+			const project = await trpc.projects.create.mutate({ name: 'Untitled project' });
+			reorderError = '';
+			await goto(`/admin/projects/${project.slug}`);
+		} catch (err) {
+			logger.error({ err }, 'Failed to create a project');
+			reorderError = describe(err);
+		} finally {
+			creating = false;
+		}
+	}
+
 	function pickView(value: typeof view) {
 		view = value;
 
@@ -221,7 +243,7 @@
 		<div class="py-20 flex justify-center">
 			<Spinner size="xl" />
 		</div>
-	{:else if shown.length === 0}
+	{:else if shown.length === 0 && query.trim()}
 		<div use:enter class="empty-state">
 			<iconify-icon icon="lucide:search-x" width="28" class="text-ghost"></iconify-icon>
 			<p class="lead text-ink">No project matches “{query}”</p>
@@ -237,6 +259,9 @@
 					<ProjectCard {project} {members} />
 				</div>
 			{/each}
+			<div use:enter class="flex">
+				<NewProjectCard busy={creating} onpick={create} />
+			</div>
 		</div>
 	{:else}
 		<div bind:this={list} class="flex flex-col gap-fc">
@@ -248,6 +273,9 @@
 					<ProjectRow {project} {members} />
 				</div>
 			{/each}
+			<div use:enter>
+				<NewProjectRow busy={creating} onpick={create} />
+			</div>
 		</div>
 	{/if}
 </div>

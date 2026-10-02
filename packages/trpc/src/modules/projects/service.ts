@@ -1,7 +1,7 @@
 import { TRPCError } from '@trpc/server';
 import { Prisma, type PrismaClient } from '@repo/database';
 import { blocksToLayout } from './layout';
-import type { GridItem, ProjectEntry, ProjectStoryBlock, SectionLayout } from './types';
+import type { GridItem, ProjectEntry, ProjectStoryBlock, ProjectStorySection, SectionLayout } from './types';
 
 type Db = PrismaClient | Prisma.TransactionClient;
 
@@ -18,6 +18,32 @@ const projectInclude = {
 } satisfies Prisma.ProjectInclude;
 
 type ProjectRow = Prisma.ProjectGetPayload<{ include: typeof projectInclude }>;
+
+const emptyText = { en: '', fr: '', es: '', de: '' };
+
+const infoSection: ProjectStorySection = {
+  blocks: [{ type: 'cover' }, { type: 'intro' }],
+  layout: {
+    cols: 5,
+    items: [
+      { id: 'cover', kind: 'cover', x: 1, y: 1, w: 3, h: 3 },
+      { id: 'intro', kind: 'intro', x: 4, y: 1, w: 2, h: 3 },
+    ],
+  },
+  hasLayout: true,
+};
+
+const isInfo = ({ blocks, layout }: ProjectStorySection) =>
+  blocks.some((block) => block.type === 'cover' || block.type === 'intro') ||
+  layout.items.some((item) => item.kind === 'cover' || item.kind === 'intro');
+
+const slugify = (name: string) =>
+  name
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
 
 // projects.json leaves optional fields out, so null columns and empty lists are dropped to match it
 const present = <T extends object>(fields: T) =>
@@ -152,6 +178,46 @@ export const projectService = {
     return toProject(row);
   },
 
+  create: async (db: PrismaClient, name: string) => {
+    const base = slugify(name) || 'project';
+    const taken = new Set(
+      (await db.project.findMany({ where: { slug: { startsWith: base } }, select: { slug: true } })).map(
+        (project) => project.slug
+      )
+    );
+
+    let slug = base;
+    for (let suffix = 2; taken.has(slug); suffix += 1) slug = `${base}-${suffix}`;
+
+    const last = await db.project.findFirst({ orderBy: { position: 'desc' }, select: { position: true } });
+
+    await db.project.create({
+      data: {
+        slug,
+        position: (last?.position ?? -1) + 1,
+        name,
+        weeks: 1,
+        image: '',
+        description: emptyText,
+        metaDescription: emptyText,
+        services: [],
+        techStack: [],
+        date: String(new Date().getFullYear()),
+        gallery: [],
+        notes: [],
+        story: {
+          create: {
+            position: 0,
+            layout: infoSection.layout,
+            blocks: { create: infoSection.blocks.map((block, position) => ({ position, ...block })) },
+          },
+        },
+      },
+    });
+
+    return projectService.get(db, slug);
+  },
+
   update: async (db: PrismaClient, { story, bucket, ...info }: ProjectEntry) => {
     await assertExists(db, info.slug);
 
@@ -164,7 +230,9 @@ export const projectService = {
       });
       await tx.storySection.deleteMany({ where: { projectSlug: info.slug } });
 
-      for (const [position, { title, by, blocks, layout, hasLayout }] of story.entries())
+      const sections = story.some(isInfo) ? story : [infoSection, ...story];
+
+      for (const [position, { title, by, blocks, layout, hasLayout }] of sections.entries())
         await tx.storySection.create({
           data: {
             projectSlug: info.slug,

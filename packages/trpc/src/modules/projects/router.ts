@@ -12,6 +12,10 @@ export const projectRouter = router({
     .input(z.object({ slug: z.string() }))
     .query(({ ctx, input }) => projectService.get(ctx.db, input.slug)),
 
+  create: adminProcedure
+    .input(z.object({ name: z.string().trim().min(1).max(120) }))
+    .mutation(({ ctx, input }) => projectService.create(ctx.db, input.name)),
+
   update: adminProcedure
     .input(projectSchema)
     .mutation(({ ctx, input }) => projectService.update(ctx.db, input)),
