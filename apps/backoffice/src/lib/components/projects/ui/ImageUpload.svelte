@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { uploadFileSimple } from '@repo/storage-client';
+	import { uploadFileSimple, UploadError } from '@repo/storage-client';
 	import { logger } from '@repo/logger';
 	import { trpc } from '$lib/trpc';
 	import { siteAsset } from '$lib/site';
@@ -28,12 +28,29 @@
 		uploading = true;
 		error = '';
 
+		// tells the log which hop broke: the backend signing the URL, or the browser PUT to MinIO
+		let phase: 'sign' | 'put' = 'sign';
+		const fileInfo = { fileName: file.name, fileType: file.type, fileSize: file.size };
+
 		try {
 			const { uploadUrl } = await trpc.media.getUploadUrl.mutate({ fileName: file.name, fileType: file.type });
+			phase = 'put';
 			value = await uploadFileSimple(file, uploadUrl);
 		} catch (err) {
-			logger.error({ err }, 'Upload failed');
-			error = 'Upload failed';
+			const upload = err instanceof UploadError ? err : undefined;
+
+			logger.error({
+				err,
+				phase,
+				...fileInfo,
+				status: upload?.statusCode,
+				s3Code: upload?.s3Code,
+				target: upload?.target,
+			}, `Upload failed at ${phase}: ${err instanceof Error ? err.message : String(err)}`);
+
+			error = phase === 'sign'
+				? 'Upload failed: the server could not prepare the upload'
+				: `Upload failed${upload?.s3Code ? `: ${upload.s3Code}` : upload?.statusCode ? ` (HTTP ${upload.statusCode})` : ': storage unreachable (network or CORS)'}`;
 		} finally {
 			uploading = false;
 			preview = null;

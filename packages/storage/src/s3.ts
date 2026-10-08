@@ -13,6 +13,8 @@ export interface S3StorageConfig {
 export class S3StorageService implements StorageProvider {
   private client: S3Client;
   private publicUrl: string;
+  private endpoint: string;
+  private bucket: string;
 
   constructor(config: S3StorageConfig) {
     this.client = new S3Client({
@@ -22,6 +24,8 @@ export class S3StorageService implements StorageProvider {
       bucket: config.bucket,
     });
 
+    this.endpoint = config.endpoint;
+    this.bucket = config.bucket;
     this.publicUrl = config.publicUrl || `${config.endpoint}/${config.bucket}`;
   }
 
@@ -40,7 +44,9 @@ export class S3StorageService implements StorageProvider {
         etag: s.etag,
         type: s.type,
       };
-    } catch {
+    } catch (err) {
+      // a missing object is expected, anything else (auth, network) is not
+      logger.warn({ err, path, endpoint: this.endpoint, bucket: this.bucket }, 'Storage stat failed');
       return null;
     }
   }
@@ -82,13 +88,23 @@ export class S3StorageService implements StorageProvider {
   }
 
   async getUploadUrl(key: string, options?: { expiresIn?: number }): Promise<string> {
-    return this.client.file(key).presign({
-      expiresIn: options?.expiresIn ?? 900,
-      method: 'PUT',
-    });
+    try {
+      return this.client.file(key).presign({
+        expiresIn: options?.expiresIn ?? 900,
+        method: 'PUT',
+      });
+    } catch (err) {
+      logger.error({ err, key, endpoint: this.endpoint, bucket: this.bucket }, 'Storage presign failed');
+      throw err;
+    }
   }
 
   async healthCheck(): Promise<void> {
-    await this.client.file('__healthcheck__').exists();
+    try {
+      await this.client.file('__healthcheck__').exists();
+    } catch (err) {
+      logger.error({ err, endpoint: this.endpoint, bucket: this.bucket }, 'Storage health check failed');
+      throw err;
+    }
   }
 }

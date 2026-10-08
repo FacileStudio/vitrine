@@ -34,6 +34,19 @@ const storage =
         encryptionSecret: env.ENCRYPTION_SECRET,
       });
 
+// misconfigured credentials, endpoint or bucket show up now instead of at the first upload
+storage
+  .healthCheck()
+  .then(() => logger.info({ driver: env.STORAGE_DRIVER }, 'Storage reachable'))
+  .catch((err) => logger.error({ err, driver: env.STORAGE_DRIVER }, 'Storage unreachable at startup',));
+
+if (env.STORAGE_DRIVER === 's3' && env.MINIO_PUBLIC_URL) {
+  const publicHost = new URL(env.MINIO_PUBLIC_URL).hostname;
+  if (['localhost', '127.0.0.1'].includes(publicHost) && env.NODE_ENV === 'production') {
+    logger.warn({ publicUrl: env.MINIO_PUBLIC_URL }, 'MINIO_PUBLIC_URL points to localhost in production');
+  }
+}
+
 app.use(
   '*',
   cors({

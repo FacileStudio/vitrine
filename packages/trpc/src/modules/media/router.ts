@@ -20,11 +20,34 @@ export const mediaRouter = router({
   getUploadUrl: protectedProcedure
     .input(uploadUrlSchema)
     .mutation(async ({ ctx, input }) => {
-      return mediaService.generateUploadUrl(
-        ctx.storage,
-        ctx.user.id,
-        uploadUrlSchema.parse(input) as UploadUrlInput
-      );
+      try {
+        const result = await mediaService.generateUploadUrl(
+          ctx.storage,
+          ctx.user.id,
+          uploadUrlSchema.parse(input) as UploadUrlInput
+        );
+
+        // host and path only: the query string of a presigned URL is a credential
+        const signed = new URL(result.uploadUrl);
+        ctx.log.info(
+          {
+            type: 'upload-url',
+            fileKey: result.fileKey,
+            fileType: input.fileType,
+            signedHost: signed.host,
+            publicUrl: result.publicUrl,
+          },
+          'Upload URL issued'
+        );
+
+        return result;
+      } catch (err) {
+        ctx.log.error(
+          { err, type: 'upload-url', fileName: input.fileName, fileType: input.fileType },
+          'Failed to issue upload URL'
+        );
+        throw err;
+      }
     }),
 
   updateAvatar: protectedProcedure.input(mediaSchema).mutation(async ({ ctx, input }) => {
