@@ -14,7 +14,7 @@ export default function MemberHead({ member, narrow }: { member: Member; narrow:
                 gridSize: narrow ? 1.7 : 2,
                 parallax: 1,
                 parallaxSpeed: 0.01,
-                intensity: 1.0,
+                intensity: 1.3,
                 ambient: 0.9,
                 scale: member.scale * (narrow ? 2 : 3),
                 position: narrow ? [0, -0.6, 0] : [0, -1.1, 0],
