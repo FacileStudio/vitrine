@@ -1,10 +1,9 @@
 'use client'
 import React from "react";
 import { DesktopHeader } from "./desktop-header";
-import { MobileHeader } from "./mobile-header";
 import { useScroll } from "@/hooks/use-scroll";
 
-const LIGHT_SECTIONS = ["manifesto", "suite", "suite-shelf"];
+const LIGHT_SECTIONS = ["manifesto", "expertise", "suite-shelf"];
 
 const Header =({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
     const [onLight, setOnLight] = React.useState(false);
@@ -24,7 +23,6 @@ const Header =({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: Reac
     return (
         <div className={"z-[110] absolute w-full top-0"}>
             <DesktopHeader menuOpen={menuOpen} setMenuOpen={setMenuOpen} dark={dark} />
-            <MobileHeader menuOpen={menuOpen} setMenuOpen={setMenuOpen} dark={dark} />
         </div>
     );
 };
