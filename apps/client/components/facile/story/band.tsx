@@ -30,8 +30,6 @@ export default function Band({ sections, id }: BandProps) {
     }, [sections]);
 
     usePinProgress(sectionRef, (progress, visible) => {
-        const covered = (1 - progress) * Math.max(travel, window.innerHeight) <= window.innerHeight * 0.5;
-        sectionRef.current?.toggleAttribute("data-covered", covered);
         if (visible)
             gsap.set(trackRef.current, { x: -travel * progress });
     });
@@ -41,11 +39,11 @@ export default function Band({ sections, id }: BandProps) {
             ref={sectionRef}
             id={id}
             style={{ height: `calc(100vh + ${travel}px)` }}
-            className="relative w-full text-foreground"
+            className="relative w-full text-background"
         >
             <div
                 ref={viewRef}
-                className="sticky top-0 h-screen w-full overflow-hidden bg-background"
+                className="sticky top-0 h-screen w-full overflow-hidden bg-foreground"
             >
                 <DitherBackdrop variant="story" />
 
@@ -53,11 +51,12 @@ export default function Band({ sections, id }: BandProps) {
                     <Track ref={trackRef} sections={sections} scrollerRef={viewRef} />
                 </div>
 
+                {/* reads the rect itself: the stripes' scroll listener fires before the band's, so a shared progress ref lags one event */}
                 <Stripes
-                    orientation={180}
+                    orientation={0}
                     count={4}
-                    className="bg-foreground "
-                    openWhen={() => !sectionRef.current?.hasAttribute("data-covered")}
+                    className="bg-background"
+                    openWhen={() => (sectionRef.current?.getBoundingClientRect().top ?? 0) < -window.innerHeight * 0.05}
                 />
             </div>
         </section>
