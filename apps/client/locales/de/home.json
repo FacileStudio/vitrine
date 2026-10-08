@@ -1,7 +1,8 @@
 {
-  "seeProjects": "Unsere Projekte ansehen",
+  "seeProjects": "Projekte",
   "hero": {
-    "headline": ["Ein Team voller Leidenschaft,", "das weiß, was es tut."]
+    "headline": ["Ein Team voller Leidenschaft,", "das weiß, was es tut."],
+    "scroll": "Scrollen"
   },
   "manifesto": {
     "creators": ["Wir sind *Kreative*, die", "unvergessliche", "*Erlebnisse* schaffen."],
