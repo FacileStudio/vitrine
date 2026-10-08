@@ -1,0 +1,145 @@
+[
+    {
+        "id": "strategy",
+        "title": { "en": "Strategy", "fr": "Stratégie", "es": "Estrategia", "de": "Strategie" },
+        "tagline": {
+            "en": "Know where you are going before a single pixel is drawn.",
+            "fr": "Savoir où aller avant de dessiner le moindre pixel.",
+            "es": "Saber adónde ir antes de dibujar un solo píxel.",
+            "de": "Wissen, wohin es geht, bevor der erste Pixel entsteht."
+        },
+        "text": {
+            "en": "We sit down with you, your team and your clients to understand what makes your project worth building, then turn it into a clear plan.",
+            "fr": "Nous échangeons avec vous, votre équipe et vos clients pour comprendre ce qui rend votre projet unique, puis nous le traduisons en un plan clair.",
+            "es": "Hablamos contigo, con tu equipo y con tus clientes para entender qué hace único tu proyecto, y lo convertimos en un plan claro.",
+            "de": "Wir sprechen mit Ihnen, Ihrem Team und Ihren Kunden, um zu verstehen, was Ihr Projekt besonders macht, und machen daraus einen klaren Plan."
+        },
+        "items": [
+            { "en": "Discovery workshops with your team", "fr": "Ateliers de découverte avec votre équipe", "es": "Talleres de descubrimiento con tu equipo", "de": "Discovery-Workshops mit Ihrem Team" },
+            { "en": "Audit of your brand, website and tools", "fr": "Audit de votre marque, de votre site et de vos outils", "es": "Auditoría de tu marca, tu web y tus herramientas", "de": "Audit von Marke, Website und Tools" },
+            { "en": "Positioning and key messages", "fr": "Positionnement et messages clés", "es": "Posicionamiento y mensajes clave", "de": "Positionierung und Kernbotschaften" },
+            { "en": "Product scoping and feature priorities", "fr": "Cadrage produit et priorisation des fonctionnalités", "es": "Definición del producto y prioridades de funciones", "de": "Produktumfang und Priorisierung der Funktionen" },
+            { "en": "Roadmap, budget and planning", "fr": "Feuille de route, budget et planning", "es": "Hoja de ruta, presupuesto y planificación", "de": "Roadmap, Budget und Zeitplan" },
+            { "en": "Market and trend watch", "fr": "Veille marché et tendances", "es": "Vigilancia de mercado y tendencias", "de": "Markt- und Trendbeobachtung" }
+        ]
+    },
+    {
+        "id": "brand",
+        "title": { "en": "Brand", "fr": "Marque", "es": "Marca", "de": "Marke" },
+        "tagline": {
+            "en": "An identity people recognise at a glance.",
+            "fr": "Une identité que l'on reconnaît au premier regard.",
+            "es": "Una identidad que se reconoce a primera vista.",
+            "de": "Eine Identität, die man auf den ersten Blick erkennt."
+        },
+        "text": {
+            "en": "From the logo to the tone of voice, we build a brand that holds together on every screen, print and post.",
+            "fr": "Du logo au ton éditorial, nous construisons une marque cohérente sur chaque écran, chaque support imprimé et chaque publication.",
+            "es": "Del logotipo al tono de voz, construimos una marca coherente en cada pantalla, impreso y publicación.",
+            "de": "Vom Logo bis zur Tonalität bauen wir eine Marke, die auf jedem Bildschirm, in jedem Druck und in jedem Post zusammenhält."
+        },
+        "items": [
+            { "en": "Visual identity: logo, typography, palette", "fr": "Identité visuelle : logo, typographie, palette", "es": "Identidad visual: logotipo, tipografía, paleta", "de": "Visuelle Identität: Logo, Typografie, Farbpalette" },
+            { "en": "Art direction", "fr": "Direction artistique", "es": "Dirección de arte", "de": "Art Direction" },
+            { "en": "Editorial tone of voice", "fr": "Ton éditorial", "es": "Tono de voz editorial", "de": "Redaktionelle Tonalität" },
+            { "en": "Brandbook and usage guidelines", "fr": "Brandbook et charte d'utilisation", "es": "Brandbook y guía de uso", "de": "Brandbook und Nutzungsrichtlinien" },
+            { "en": "Social media identity", "fr": "Identité réseaux sociaux", "es": "Identidad en redes sociales", "de": "Social-Media-Identität" },
+            { "en": "Rebranding and redesign", "fr": "Refonte de marque et redesign", "es": "Rebranding y rediseño", "de": "Rebranding und Redesign" }
+        ]
+    },
+    {
+        "id": "design",
+        "title": { "en": "Product design", "fr": "Design produit", "es": "Diseño de producto", "de": "Produktdesign" },
+        "tagline": {
+            "en": "Interfaces that feel obvious the first time.",
+            "fr": "Des interfaces évidentes dès la première fois.",
+            "es": "Interfaces que resultan obvias desde el primer uso.",
+            "de": "Interfaces, die sich vom ersten Klick an selbstverständlich anfühlen."
+        },
+        "text": {
+            "en": "We design the journeys and screens of your site or app, test them with real users and hand over a system your team can grow.",
+            "fr": "Nous concevons les parcours et les écrans de votre site ou application, les testons avec de vrais utilisateurs et livrons un système que votre équipe peut faire évoluer.",
+            "es": "Diseñamos los recorridos y las pantallas de tu web o app, los probamos con usuarios reales y entregamos un sistema que tu equipo puede hacer crecer.",
+            "de": "Wir gestalten die Abläufe und Screens Ihrer Website oder App, testen sie mit echten Nutzern und übergeben ein System, das Ihr Team weiterentwickeln kann."
+        },
+        "items": [
+            { "en": "UI/UX design", "fr": "Design UI/UX", "es": "Diseño UI/UX", "de": "UI/UX-Design" },
+            { "en": "User journeys and wireframes", "fr": "Parcours utilisateurs et wireframes", "es": "Recorridos de usuario y wireframes", "de": "User Journeys und Wireframes" },
+            { "en": "Interactive prototypes", "fr": "Prototypes interactifs", "es": "Prototipos interactivos", "de": "Interaktive Prototypen" },
+            { "en": "Design systems", "fr": "Design systems", "es": "Sistemas de diseño", "de": "Designsysteme" },
+            { "en": "Accessibility from the first mockup", "fr": "Accessibilité dès la première maquette", "es": "Accesibilidad desde la primera maqueta", "de": "Barrierefreiheit ab dem ersten Entwurf" },
+            { "en": "User testing", "fr": "Tests utilisateurs", "es": "Pruebas con usuarios", "de": "Nutzertests" }
+        ]
+    },
+    {
+        "id": "development",
+        "title": { "en": "Development", "fr": "Développement", "es": "Desarrollo", "de": "Entwicklung" },
+        "tagline": {
+            "en": "Fast, solid products built to last.",
+            "fr": "Des produits rapides et solides, faits pour durer.",
+            "es": "Productos rápidos y sólidos, hechos para durar.",
+            "de": "Schnelle, solide Produkte, die bleiben."
+        },
+        "text": {
+            "en": "We build what we design, from a showcase site to a full business application, with a back-office so you edit your content yourself.",
+            "fr": "Nous développons ce que nous concevons, du site vitrine à l'application métier complète, avec un back-office pour modifier vos contenus vous-même.",
+            "es": "Desarrollamos lo que diseñamos, de la web corporativa a la aplicación de negocio completa, con un backoffice para que edites tus contenidos.",
+            "de": "Wir entwickeln, was wir gestalten, von der Präsentationswebsite bis zur kompletten Business-App, mit einem Backoffice, in dem Sie Ihre Inhalte selbst pflegen."
+        },
+        "items": [
+            { "en": "Showcase websites and e-commerce", "fr": "Sites vitrines et e-commerce", "es": "Webs corporativas y e-commerce", "de": "Präsentationswebsites und E-Commerce" },
+            { "en": "Web applications", "fr": "Applications web", "es": "Aplicaciones web", "de": "Webanwendungen" },
+            { "en": "Mobile apps", "fr": "Applications mobiles", "es": "Apps móviles", "de": "Mobile Apps" },
+            { "en": "Desktop apps", "fr": "Applications desktop", "es": "Aplicaciones de escritorio", "de": "Desktop-Apps" },
+            { "en": "Custom back-office to edit your content", "fr": "Back-office sur mesure pour vos contenus", "es": "Backoffice a medida para tus contenidos", "de": "Individuelles Backoffice für Ihre Inhalte" },
+            { "en": "SEO, performance and multilingual", "fr": "SEO, performance et multilingue", "es": "SEO, rendimiento y multilingüe", "de": "SEO, Performance und Mehrsprachigkeit" }
+        ]
+    },
+    {
+        "id": "motion",
+        "title": { "en": "Motion & content", "fr": "Motion & contenus", "es": "Motion y contenidos", "de": "Motion & Content" },
+        "tagline": {
+            "en": "Images and movement that make people stop scrolling.",
+            "fr": "Des images et du mouvement qui arrêtent le scroll.",
+            "es": "Imágenes y movimiento que detienen el scroll.",
+            "de": "Bilder und Bewegung, bei denen man aufhört zu scrollen."
+        },
+        "text": {
+            "en": "We shoot, animate and model the content that gives your brand a pulse, on your site and on social media.",
+            "fr": "Nous photographions, animons et modélisons les contenus qui donnent du rythme à votre marque, sur votre site comme sur les réseaux.",
+            "es": "Fotografiamos, animamos y modelamos los contenidos que dan ritmo a tu marca, en tu web y en redes sociales.",
+            "de": "Wir fotografieren, animieren und modellieren die Inhalte, die Ihrer Marke Leben geben, auf Ihrer Website und in Social Media."
+        },
+        "items": [
+            { "en": "Motion design and animation", "fr": "Motion design et animation", "es": "Motion design y animación", "de": "Motion Design und Animation" },
+            { "en": "3D and WebGL experiences", "fr": "Expériences 3D et WebGL", "es": "Experiencias 3D y WebGL", "de": "3D- und WebGL-Erlebnisse" },
+            { "en": "Photography", "fr": "Photographie", "es": "Fotografía", "de": "Fotografie" },
+            { "en": "Video", "fr": "Vidéo", "es": "Vídeo", "de": "Video" },
+            { "en": "Social media content", "fr": "Contenus pour les réseaux sociaux", "es": "Contenido para redes sociales", "de": "Social-Media-Content" }
+        ]
+    },
+    {
+        "id": "care",
+        "title": { "en": "Hosting & care", "fr": "Hébergement & suivi", "es": "Alojamiento y soporte", "de": "Hosting & Betreuung" },
+        "tagline": {
+            "en": "We stay after launch day.",
+            "fr": "Nous restons après le lancement.",
+            "es": "Nos quedamos después del lanzamiento.",
+            "de": "Wir bleiben auch nach dem Launch."
+        },
+        "text": {
+            "en": "We host what we build on our own servers, keep it up to date and give your team the tools of the Facile Suite to work better every day.",
+            "fr": "Nous hébergeons ce que nous construisons sur nos propres serveurs, le maintenons à jour et donnons à votre équipe les outils de la Suite Facile pour mieux travailler au quotidien.",
+            "es": "Alojamos lo que construimos en nuestros propios servidores, lo mantenemos al día y damos a tu equipo las herramientas de la Suite Facile para trabajar mejor cada día.",
+            "de": "Wir hosten, was wir bauen, auf eigenen Servern, halten es aktuell und geben Ihrem Team die Tools der Facile Suite für einen besseren Arbeitsalltag."
+        },
+        "items": [
+            { "en": "Hosting on our own servers", "fr": "Hébergement sur nos propres serveurs", "es": "Alojamiento en nuestros propios servidores", "de": "Hosting auf eigenen Servern" },
+            { "en": "Monitoring and backups", "fr": "Supervision et sauvegardes", "es": "Monitorización y copias de seguridad", "de": "Monitoring und Backups" },
+            { "en": "Maintenance and updates", "fr": "Maintenance et mises à jour", "es": "Mantenimiento y actualizaciones", "de": "Wartung und Updates" },
+            { "en": "Business tools from the Facile Suite", "fr": "Outils métier de la Suite Facile", "es": "Herramientas de negocio de la Suite Facile", "de": "Business-Tools aus der Facile Suite" },
+            { "en": "Digital transformation of your workflows", "fr": "Transformation numérique de vos processus", "es": "Transformación digital de tus procesos", "de": "Digitale Transformation Ihrer Abläufe" },
+            { "en": "Team training", "fr": "Formation de vos équipes", "es": "Formación de tus equipos", "de": "Schulung Ihres Teams" }
+        ]
+    }
+]

@@ -4,7 +4,7 @@ import { defaultLocale, isLocale, locales, type Locale } from "@/lib/i18n/locale
 
 export const siteUrl = "https://facile.studio";
 
-export const routePaths = ["", "/projects", "/studio", "/suite"] as const;
+export const routePaths = ["", "/projects", "/expertise", "/studio", "/suite"] as const;
 
 export const resolveLocale = (locale: string): Locale => (isLocale(locale) ? locale : defaultLocale);
 

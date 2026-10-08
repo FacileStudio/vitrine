@@ -66,7 +66,7 @@ export default function ProjectShelf({
                             leadOpen={endTone === "dark" ? LEAD : 0}
                             openWhen={() => progressRef.current < 0.9}
                         />
-                        {/* the dark trail only belongs where a dark section follows, the home suite band is light */}
+                        {/* the dark trail only belongs where a dark section follows, the home expertise section is light */}
                         {endTone === "dark" && (
                             <Stripes
                                 orientation={180}

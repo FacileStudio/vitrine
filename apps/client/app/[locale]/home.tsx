@@ -7,6 +7,7 @@ import Hero from "./homeSections/hero";
 import Manifesto from "./homeSections/manifesto";
 import Suite from "./homeSections/suite";
 import Shelf from "./homeSections/shelf";
+import Expertise from "./homeSections/expertise";
 
 export default function Home() {
     const [charged, setCharged] = useState(false);
@@ -25,6 +26,7 @@ export default function Home() {
                 <Hero charged={charged} />
                 <Manifesto />
                 <Shelf />
+                <Expertise />
                 <Suite />
             </main>
         </PageShell>
