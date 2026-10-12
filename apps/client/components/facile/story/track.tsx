@@ -34,7 +34,8 @@ export function useTrackReveal(scrollerRef: RefObject<HTMLElement | null>, secti
 
         const stills = Array.from(el.querySelectorAll<HTMLElement>("[data-pop]"));
 
-        gsap.set(stills, { scale: 1.1 });
+        if (stills.length)
+            gsap.set(stills, { scale: 1.1 });
 
         const pop = new IntersectionObserver((entries) => {
             entries.forEach((e) => {

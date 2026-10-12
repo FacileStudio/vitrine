@@ -88,7 +88,8 @@ export function DitherView({
                 key={canvasKey}
                 className=""
                 dpr={lite ? 1 : [1, 2]}
-                shadows={lite ? false : { type: THREE.PCFShadowMap }}
+                // shadows only exist in the 64px environment bake; pcf's linear depth compare makes firefox warn once per canvas
+                shadows={lite ? false : { type: THREE.BasicShadowMap }}
                 frameloop={active ? "always" : "never"}
                 // the composer's last pass is one full-screen triangle, so MSAA on the canvas only costs memory
                 gl={{ alpha: background === null, antialias: false }}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { DitherView } from "@/webgl/lazy";
 import { useAfter } from "@/hooks/use-after";
@@ -32,6 +32,8 @@ export default function HeroHeads({ open }: { open: boolean }) {
     const sharp = useAfter(open, 1200);
     const heads = useMembers().slice(0, CORNERS.length);
     const narrow = useNarrow();
+    const wasOpen = useRef(false);
+    const [parked, setParked] = useState(false);
 
     useLayoutEffect(() => {
         refs.current.forEach((el, i) => gsap.set(el, away(el, i)));
@@ -49,7 +51,14 @@ export default function HeroHeads({ open }: { open: boolean }) {
         });
     }, [heads.length, narrow]);
 
+    // the fixed layer always intersects the viewport, so the canvases only stop once the heads have flown out; never before the first open, or the models compile mid-intro
     useEffect(() => {
+        const park = !open && wasOpen.current;
+
+        wasOpen.current = open;
+        if (open)
+            setParked(false);
+
         refs.current.forEach((el, i) => {
             gsap.to(el, {
                 ...(open ? { x: 0, y: 0 } : away(el, i)),
@@ -57,6 +66,7 @@ export default function HeroHeads({ open }: { open: boolean }) {
                 duration: open ? 1.6 : 0.9,
                 ease: open ? EASE.out : EASE.in,
                 overwrite: true,
+                onComplete: park && i === refs.current.length - 1 ? () => setParked(true) : undefined,
             });
         });
     }, [open, heads.length]);
@@ -76,6 +86,7 @@ export default function HeroHeads({ open }: { open: boolean }) {
                             file={head.model!}
                             className="absolute -inset-1/4"
                             gridSize={sharp ? 2 : 9}
+                            active={!parked}
                             position={[0, -1, 0]}
                             rotation={[CORNERS[i].pitch, CORNERS[i].yaw, 0]}
                             scale={(head.scale * 3 * CORNERS[i].zoom) / ROOM}
