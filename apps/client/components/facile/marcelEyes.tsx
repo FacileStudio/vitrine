@@ -3,7 +3,30 @@
 import gsap from "gsap";
 import { useCallback, useEffect, useRef, type Ref } from "react";
 
-export function useMarcelEyes(variant: Variant = "card") {
+type Variant = "card" | "cover";
+
+// how far the eyes may wander, as a fraction of the frame: sideways, then up and down
+const REACH = { x: 0.13, up: 0.05, down: 0.05 };
+
+// every size is in cqw of the frame, so the eyes scale with the card and the screen
+const EYE: Record<Variant, { anchor: string; row: string; pill: string }> = {
+    card: { anchor: "bottom-[3.3cqw]", row: "gap-[3.5cqw]", pill: "w-[5.5cqw] h-[25cqw]" },
+    cover: { anchor: "bottom-[-6cqw]", row: "gap-[3.5cqw]", pill: "w-[6.7cqw] h-[29cqw]" },
+};
+
+const SPHERE: Record<Variant, { row: string; ball: string }> = {
+    card: { row: "gap-[8.9cqw]", ball: "w-[12.5cqw]" },
+    cover: { row: "gap-[6.7cqw]", ball: "w-[16.7cqw]" },
+};
+
+const follow = (el: HTMLElement, prop: "x" | "y", duration = 1.4, delay = 0) =>
+    gsap.quickTo(el, prop, {
+        duration,
+        delay,
+        ease: "power2.out",
+    });
+
+export function useMarcelEyes() {
     const frame = useRef<HTMLDivElement>(null);
     const eyes = useRef<HTMLDivElement>(null);
     const spheres = useRef<HTMLDivElement>(null);
@@ -23,65 +46,50 @@ export function useMarcelEyes(variant: Variant = "card") {
             return;
 
         release();
-
         gsap.set(el, { x: 0, y: 0 });
+
         const r = el.getBoundingClientRect();
+        const f = box.getBoundingClientRect();
         const cx = r.left + r.width / 2;
         const cy = r.top + r.height / 2;
-
-        const w = Math.min(
-            box.getBoundingClientRect().width,
-            box.parentElement?.getBoundingClientRect().width ?? Infinity,
-        );
-        const maxX = w * TRAVEL[variant] * (window.innerWidth >= 2000 ? 1.11 : 1);
-
-        const clampX = gsap.utils.clamp(-maxX, maxX),
-              clampY = gsap.utils.clamp(-w * 0.06, w * 0.02),
-              setX = gsap.quickTo(el, "x", { duration: 1.4, ease: "power2.out" }),
-              setY = gsap.quickTo(el, "y", { duration: 1.4, ease: "power2.out" }),
-              setSphX = spheres.current ? gsap.quickTo(spheres.current, "x", { duration: 1.6, ease: "power2.out", delay: 0.2 }) : null;
+        const clampX = gsap.utils.clamp(-f.width * REACH.x, f.width * REACH.x);
+        const clampY = gsap.utils.clamp(-f.height * REACH.up, f.height * REACH.down);
+        const setX = follow(el, "x");
+        const setY = follow(el, "y");
+        const setBalls = spheres.current ? follow(spheres.current, "x", 1.6, 0.2) : null;
 
         const onMove = (e: PointerEvent) => {
-            const tx = clampX(e.clientX - cx);
-            setX(tx);
+            const x = clampX(e.clientX - cx);
+
+            setX(x);
             setY(clampY(e.clientY - cy));
-            setSphX?.(tx);
+            setBalls?.(x);
         };
 
         move.current = onMove;
         window.addEventListener("pointermove", onMove, { passive: true });
-    }, [variant, release]);
+    }, [release]);
 
     const stop = useCallback(() => {
         release();
 
+        const home = {
+            x: 0,
+            duration: 0.6,
+            ease: "power2.out",
+            overwrite: true,
+        };
+
         if (eyes.current)
-            gsap.to(eyes.current, { x: 0, y: 0, duration: 0.6, ease: "power2.out", overwrite: true });
+            gsap.to(eyes.current, { ...home, y: 0 });
         if (spheres.current)
-            gsap.to(spheres.current, { x: 0, duration: 0.6, ease: "power2.out", overwrite: true });
+            gsap.to(spheres.current, home);
     }, [release]);
 
     useEffect(() => release, [release]);
 
     return { frame, eyes, spheres, start, stop };
 }
-
-type Variant = "card" | "cover";
-
-const TRAVEL: Record<Variant, number> = {
-    card: 0.13,
-    cover: 0.13,
-};
-
-const EYE = {
-    card: { anchor: "bottom-[3.3cqw] lg:bottom-6", row: "gap-[4.4cqw] lg:gap-8", pill: "w-[6.1cqw] h-[26.7cqw] lg:w-11 lg:h-44 xl:w-12 xl:h-70" },
-    cover: { anchor: "bottom-[-6cqw]", row: "gap-[3.3cqw]", pill: "w-[6.7cqw] h-[29cqw]" },
-};
-
-const SPHERE = {
-    card: { row: "gap-[8.9cqw] lg:gap-16", ball: "w-[15.6cqw] h-[15.6cqw] lg:w-28 lg:h-28 xl:w-40 xl:h-40" },
-    cover: { row: "gap-[6.7cqw]", ball: "w-[16.7cqw] aspect-square" },
-};
 
 type EyesProps = {
     variant?: Variant;
@@ -110,10 +118,10 @@ export function MarcelSpheres({ variant = "card", ref }: Omit<EyesProps, "frameR
     const s = SPHERE[variant];
 
     return (
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex justify-center @container">
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-50 flex justify-center @container">
             <div ref={ref} className={`flex translate-y-1/2 will-change-transform ${s.row}`}>
-                <div className={`rounded-full bg-[#95DFE9] shadow-3xl ${s.ball}`} />
-                <div className={`rounded-full bg-[#95DFE9] shadow-3xl ${s.ball}`} />
+                <div className={`aspect-square rounded-full bg-[#95DFE9] shadow-3xl ${s.ball}`} />
+                <div className={`aspect-square rounded-full bg-[#95DFE9] shadow-3xl ${s.ball}`} />
             </div>
         </div>
     );

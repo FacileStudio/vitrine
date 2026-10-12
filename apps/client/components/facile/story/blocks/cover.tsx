@@ -4,7 +4,7 @@ import type { BlockProps } from "../types";
 import { Block, Cell, Media } from "../bento";
 
 export default function Cover({ block }: BlockProps) {
-    const { frame, eyes, spheres, start, stop } = useMarcelEyes("cover");
+    const { frame, eyes, spheres, start, stop } = useMarcelEyes();
 
     const marcel = block.effect === "marcel";
 
