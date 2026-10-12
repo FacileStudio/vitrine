@@ -38,7 +38,7 @@ export default function PageShell({
 
     return (
         <div ref={ref} className={className}>
-            {lenis ? <ReactLenis ref={lenisRef} root options={{ lerp: 0.1, smoothWheel: true }} /> : null}
+            {lenis ? <ReactLenis ref={lenisRef} root options={{ lerp: 0.05, smoothWheel: true }} /> : null}
 
             {curtain ? <PageCurtain {...curtain} /> : null}
 

@@ -17,7 +17,7 @@ export default function LoaderFrame({ open, leaving }: { open: boolean; leaving:
     ]
 
     return (
-        <div className="absolute inset-0 z-50 grid grid-cols-3 grid-rows-[auto_1fr_auto] p-20">
+        <div className="absolute inset-0 z-50 grid grid-cols-3 grid-rows-[auto_1fr_auto] p-8">
             {items.map((item, i) => (
                 <TextReveal key={i} as="p" open={open} leaving={leaving} delay={i * 0.08} cropClassName={item.crop} className={item.tone}>
                     {item.text}

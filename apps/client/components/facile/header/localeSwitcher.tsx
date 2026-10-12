@@ -93,7 +93,7 @@ export default function LocaleSwitcher({ className, dark = false }: { className?
                                 onClick={() => pick(l)}
                                 style={{ transitionDelay: open ? `${60 + i * 40}ms` : "0ms" }}
                                 className={twMerge(
-                                    "flex w-full cursor-pointer items-center gap-2.5 whitespace-nowrap px-4 py-3 text-left normal-case",
+                                    "flex w-full justify-center cursor-pointer items-center gap-2.5 whitespace-nowrap px-4 py-3 text-left normal-case",
                                     "transition-[opacity,translate,background-color] duration-300 ease-out motion-reduce:transition-none",
                                     open ? "translate-y-0 opacity-100" : "-translate-y-1 opacity-0",
                                     current ? "bg-current/10" : "hover:bg-current/10",
