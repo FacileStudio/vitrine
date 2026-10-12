@@ -183,6 +183,16 @@ p {
     color: #E4EEE8;
 }
 
+/* glass inherits its tint from the nearest section background: lighter on white, back to dark inside a dark block */
+.bg-background,
+.glass-light {
+    --glass: rgb(33 33 33 / 0.1);
+}
+
+.bg-foreground {
+    --glass: rgb(33 33 33 / 0.2);
+}
+
 @layer components {
     .tagText {
         font-family: var(--font-bb-mono);
@@ -233,6 +243,12 @@ p {
 html,
 body {
     overflow-x: clip;
+    scrollbar-width: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none;
 }
 
 .lenis.lenis-smooth {
