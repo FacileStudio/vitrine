@@ -8,7 +8,7 @@ const baseUrl = import.meta.env.VITE_API_URL
     ? (import.meta.env.VITE_API_URL.endsWith('/trpc')
         ? import.meta.env.VITE_API_URL 
         : `${import.meta.env.VITE_API_URL}/trpc`)
-    : 'http://localhost:3000/trpc';
+    : 'http://localhost:3001/trpc';
 
 export const trpc = createUniversalTrpcClient({
   baseUrl,
