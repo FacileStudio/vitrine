@@ -2,15 +2,11 @@
 
 import type { MouseEvent } from "react";
 import { useTranslations } from "next-intl";
-import SplitLines from "@/components/facile/splitLines";
 import TextReveal from "@/components/facile/textReveal";
 import { LightPillar } from "@/webgl/lazy";
-import ArrowLink from "@/components/facile/arrowLink";
-import TechLogos from "@/components/facile/techLogos";
 import ShelfRow from "@/components/facile/shelf/shelfRow";
 import { MarcelEyes, MarcelSpheres, useMarcelEyes } from "@/components/facile/marcelEyes";
 import { isVideoFile } from "@/lib/utils";
-import { useLocalized } from "@/lib/i18n/localize";
 import type { Project } from "@/lib/content/projects";
 import type { ShelfRefs } from "@/hooks/use-shelf-motion";
 
@@ -28,11 +24,8 @@ interface ShelfCardProps {
 }
 
 export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLeave }: ShelfCardProps) {
-    const t = useTranslations("story");
     const tProjects = useTranslations("projects");
     const { frame, eyes, spheres, start, stop } = useMarcelEyes();
-    const fullDescription = useLocalized(project.description);
-    const description = fullDescription.match(/[^.!?]+[.!?]+/g)?.slice(0, 2).join("").trim() || fullDescription;
     const marcel = project.coverEffect === "marcel";
     const projetZero = project.coverEffect === "projet-zero-pillar";
 
@@ -43,91 +36,63 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
             onOpen={() => { stop(); onOpen(project.slug); }}
             onEnter={(e) => { onEnter(e); if (marcel) start(); }}
             onLeave={(e) => { onLeave(e); stop(); }}
-            className="group/card cursor-pointer 3xl:w-[70vw] lg:w-[80vw] glass w-full shrink-0 flex lg:flex-row flex-col items-start lg:items-stretch justify-between"
+            className="group/card relative cursor-pointer  3xl:w-[70vw] lg:w-[80vw] w-full shrink-0"
         >
-            <div className="relative shrink-0 w-full lg:w-auto">
-                {marcel && <MarcelSpheres ref={spheres} />}
-                <div className="relative 3xl:w-5xl lg:w-[50vw] w-full aspect-16/10 shrink-0 overflow-hidden rounded-fc">
-                    <div ref={refs.media(index)} className="absolute inset-0 will-change-transform">
-                        {projetZero ? (
-                            <LightPillar fallback={project.image} className="object-cover brightness-100 transition-all duration-300 ease-out group-hover/card:brightness-[0.6] group-hover/card:scale-110" />
-                        ) : (
-                            <img
-                                src={project.image}
-                                alt={project.name}
-                                loading="lazy"
-                                decoding="async"
-                                className={marcel ? coverClass : `${coverClass} group-hover/card:brightness-[0.6] group-hover/card:scale-110`}
-                            />
-                        )}
-
-                        {marcel && <MarcelEyes frameRef={frame} ref={eyes} />}
-                    </div>
-
-                    {!marcel && project.video && (
-                        isVideoFile(project.video) ? (
-                            <video
-                                data-media
-                                src={project.video}
-                                loop muted playsInline preload="none"
-                                className={mediaClass}
-                            />
-                        ) : (
-                            <img
-                                data-media
-                                src={project.video}
-                                alt={project.name}
-                                loading="lazy"
-                                decoding="async"
-                                className={mediaClass}
-                            />
-                        )
-                    )}
-                </div>
-            </div>
-
-            <div ref={refs.content(index)} className="flex flex-col items-start lg:items-end lg:justify-between gap-6 lg:gap-12 w-full lg:w-auto lg:max-w-[26vw] p-6 lg:p-12 lg:pl-0 text-right">
-                <div className="gap-y-6 lg:gap-y-8 flex flex-col w-full lg:w-auto items-start lg:items-end text-start lg:text-end">
-                    <div className="flex w-full lg:w-auto items-center justify-between gap-6">
-                        <TextReveal as="h2" cropClassName="z-10" className="subtitle text-background">
-                            {project.name}
-                        </TextReveal>
-                        <TechLogos stack={project.techStack} className="hidden md:flex lg:hidden" />
-                    </div>
-
-                    {description && (
-                        <SplitLines
-                            as="p"
-                            text={description}
-                            justify
-                            className="description relative z-10 hidden md:block text-background/75"
+            {marcel && <MarcelSpheres ref={spheres} />}
+            <div className="relative w-full aspect-16/10 lg:aspect-video overflow-hidden rounded-fc">
+                <div ref={refs.media(index)} className="absolute inset-0 will-change-transform">
+                    {projetZero ? (
+                        <LightPillar fallback={project.image} className="object-cover brightness-100 transition-all duration-300 ease-out group-hover/card:brightness-[0.6] group-hover/card:scale-110" />
+                    ) : (
+                        <img
+                            src={project.image}
+                            alt={project.name}
+                            loading="lazy"
+                            decoding="async"
+                            className={marcel ? coverClass : `${coverClass} group-hover/card:brightness-[0.6] group-hover/card:scale-110`}
                         />
                     )}
 
-                    {/* {project.link && (
-                        <TextReveal cropClassName="z-10 lg:mt-2">
-                            <ArrowLink
-                                href={project.link}
-                                isolated
-                                className="group flex w-fit text-xl font-goga capitalize tracking-tighter gap-2 rounded-fc lg:px-[2vh] lg:py-[1vh] text-background transition-colors duration-200 hover:text-accent"
-                            >
-                                {t("visitSite")}
-                            </ArrowLink>
-                        </TextReveal>
-                    )} */}
+                    {marcel && <MarcelEyes frameRef={frame} ref={eyes} />}
                 </div>
-                <div className="lg:gap-6 flex flex-col">
-                    {project.services.length > 0 && (
-                        <span className="relative lg:mt-4 z-10 flex flex-wrap items-center lg:justify-end gap-fc">
-                            {project.services.map((s) => (
-                                <TextReveal key={s} cropClassName="shrink-0" className="chip tagText">
-                                    <span>{tProjects(`services.${s}`)}</span>
-                                </TextReveal>
-                            ))}
-                        </span>
-                    )}
-                    <TechLogos stack={project.techStack} className="flex md:hidden lg:flex pt-6 lg:pt-0 lg:justify-end" />
-                </div>
+
+                {!marcel && project.video && (
+                    isVideoFile(project.video) ? (
+                        <video
+                            data-media
+                            src={project.video}
+                            loop muted playsInline preload="none"
+                            className={mediaClass}
+                        />
+                    ) : (
+                        <img
+                            data-media
+                            src={project.video}
+                            alt={project.name}
+                            loading="lazy"
+                            decoding="async"
+                            className={mediaClass}
+                        />
+                    )
+                )}
+            </div>
+
+            <div ref={refs.content(index)} className="pointer-events-none absolute inset-0 z-40 flex flex-col lg:flex-row items-start lg:items-end justify-end lg:justify-between gap-1 lg:gap-12 px-6 p-4 lg:px-12 lg:p-10">
+                {!marcel && <div data-shade className="absolute inset-x-0 bottom-0 -z-10 h-2/3 rounded-b-fc bg-linear-to-t from-foreground/75 to-transparent opacity-0" />}
+
+                <TextReveal as="h2" className="title text-background">
+                    {project.name}
+                </TextReveal>
+
+                {project.services.length > 0 && (
+                    <span className="flex flex-wrap items-center lg:justify-end gap-fc">
+                        {project.services.map((s) => (
+                            <TextReveal key={s} cropClassName="shrink-0" className="chip tagText">
+                                <span>{tProjects(`services.${s}`)}</span>
+                            </TextReveal>
+                        ))}
+                    </span>
+                )}
             </div>
         </ShelfRow>
     );
