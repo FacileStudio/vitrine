@@ -1,14 +1,10 @@
 import Portfolio from "./components/portfolio";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { pageMetadata, resolveLocale } from "@/lib/seo/metadata";
+import { pageLocale, pageMetadata, type LocaleParams } from "@/lib/seo/metadata";
 
-type PageProps = {
-    params: Promise<{ locale: string }>;
-};
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-    const locale = resolveLocale((await params).locale);
+export async function generateMetadata({ params }: { params: LocaleParams }): Promise<Metadata> {
+    const locale = await pageLocale(params);
     const t = await getTranslations({ locale, namespace: "seo.collection" });
 
     return pageMetadata(locale, "/projects", {

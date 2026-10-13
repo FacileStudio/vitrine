@@ -21,7 +21,6 @@ export default function Stripes({
     ease = defaultEase,
     duration = 0.8,
     stagger = 0.1,
-    children,
 }: {
     orientation: number;
     exitOrientation?: number;
@@ -37,7 +36,6 @@ export default function Stripes({
     ease?: string;
     duration?: number;
     stagger?: number;
-    children?: React.ReactNode;
 }) {
     const [openState, setOpenState] = useState(false);
     const [ready, setReady] = useState(false);
@@ -90,9 +88,7 @@ export default function Stripes({
                             transition: `transform ${duration}s ${ease}`,
                             transitionDelay: `${delay}s`,
                         }}
-                    >
-                        {children}
-                    </div>
+                    />
                 );
             })}
         </>

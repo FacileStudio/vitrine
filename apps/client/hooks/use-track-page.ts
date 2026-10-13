@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useMembers } from "@/components/facile/membersProvider";
+import { useMembers } from "@/components/facile/contentProvider";
 import { expectFile, trackFetch, trackPromise } from "@/webgl/loadBytes";
 
 const MODELS = ["/models/manifesto.glb"];

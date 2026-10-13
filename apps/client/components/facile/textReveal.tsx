@@ -51,6 +51,12 @@ export default function TextReveal({
         slideY(!!open, leaving, { duration, delay })(el, 0);
     }, [driven, open, leaving, duration, delay]);
 
+    // a reveal still delayed when the component goes away would otherwise write to a detached node
+    useEffect(() => () => {
+        if (ref.current)
+            gsap.killTweensOf(ref.current);
+    }, []);
+
     return (
         <span className={cn("block overflow-hidden", cropClassName)}>
             <Tag

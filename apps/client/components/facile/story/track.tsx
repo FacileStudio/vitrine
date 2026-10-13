@@ -4,7 +4,7 @@ import gsap from "gsap";
 import { useEffect, type Ref, type RefObject } from "react";
 import { EASE, hideRevealY, run, slideY } from "@/lib/animations";
 import { Bento } from "./bento";
-import { BLOCKS } from "./blocks";
+import ChapterBlocks from "./chapterBlocks";
 import PersonHead from "./head";
 import type { Chapter } from "./types";
 
@@ -63,7 +63,13 @@ export function useTrackReveal(scrollerRef: RefObject<HTMLElement | null>, secti
         }, arrival);
         blocks.forEach((b) => copy.observe(b));
 
-        return () => { media.disconnect(); pop.disconnect(); copy.disconnect(); };
+        return () => {
+            media.disconnect();
+            pop.disconnect();
+            copy.disconnect();
+            gsap.killTweensOf([...stills, ...blocks]);
+            gsap.set(stills, { clearProps: "scale" });
+        };
     }, [scrollerRef, sections, rootMargin]);
 }
 
@@ -74,18 +80,14 @@ export default function Track({ sections, scrollerRef, onClose, ref }: TrackProp
         <div ref={ref} className="flex h-full w-max items-center gap-32 lg:gap-128 px-[6vw] pl-[50vw] pr-[50vw]">
             {sections.map((chapter, s) => (
                 <div key={s} className="flex items-center gap-8 lg:gap-20">
-                        <div className="">
-                            {chapter.owners.map((p) => (
-                                <PersonHead key={p.name} person={p} className="h-[12vh] w-[12vh] mt-4 max-h-64 max-w-64" />
-                            ))}
-                        </div>
+                    <div>
+                        {chapter.owners.map((p) => (
+                            <PersonHead key={p.name} person={p} className="h-[12vh] w-[12vh] mt-4 max-h-64 max-w-64" />
+                        ))}
+                    </div>
 
                     <Bento>
-                        {chapter.blocks.map((b, i) => {
-                            const Part = BLOCKS[b.type];
-
-                            return <Part key={i} block={b} onClose={onClose} />;
-                        })}
+                        <ChapterBlocks blocks={chapter.blocks} onClose={onClose} />
                     </Bento>
                 </div>
             ))}

@@ -12,13 +12,8 @@
     "back": "Zurück zur Suite"
   },
   "story": {
-    "eyebrow": "Facile Suite: selbst gehostet, Open Source, integriert",
-    "title": "Wir *vereinfachen*.\nSie *arbeiten*.",
     "intro": "{count, plural, one {# Tool} other {# Tools}}, die miteinander sprechen, auf Ihrem eigenen Server. Zeit, Projekte, Leads, Signaturen, Rechnungen, Secrets, Logs: ein Login, null Cloud-Abhängigkeit.",
     "section": "Die Suite",
-    "count": "{count, plural, one {# Tool} other {# Tools}}, eine Suite",
-    "end": "Und alles ist *vernetzt*.",
-    "discover": "Die Suite entdecken",
     "open": "App öffnen",
     "rest": "Der Rest der Suite",
     "appEnd": "Ende von {name}",

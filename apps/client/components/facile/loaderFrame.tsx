@@ -12,7 +12,7 @@ export default function LoaderFrame({ open, leaving }: { open: boolean; leaving:
         { text: "F.", crop: "self-start justify-self-center", tone: "text-background/40" },
         { text: "facile.studio", crop: "self-start justify-self-end", tone: "text-background/40" },
         { text: t("loader.team"), crop: "col-start-1 row-start-3 self-end", tone: "text-background/40" },
-        { text: `@26 ${t("loader.rights")}`, crop: "col-start-2 row-start-3 self-end justify-self-center", tone: "text-background/40" },
+        { text: `@${String(new Date().getFullYear()).slice(2)} ${t("loader.rights")}`, crop: "col-start-2 row-start-3 self-end justify-self-center", tone: "text-background/40" },
         { text: t("loader.crafting"), crop: "col-start-3 row-start-3 max-w-[24ch] self-end justify-self-end", tone: "text-right text-background" },
     ]
 

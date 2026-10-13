@@ -2,7 +2,7 @@ import type { useTranslations } from "next-intl";
 import { buildStory, type Chapter, type StoryBlock, type StorySection, type Tile } from "@/components/facile/story/types";
 import type { SuiteApp } from "@/lib/content/suite";
 
-export type StoryCopy = ReturnType<typeof useTranslations<"suite.story">>;
+type StoryCopy = ReturnType<typeof useTranslations<"suite.story">>;
 
 const FEATURED = new Set(["vision", "opus", "glouton", "nuage", "journal", "plume"]);
 

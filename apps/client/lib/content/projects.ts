@@ -4,25 +4,7 @@ import type { Localized } from "@/lib/i18n/localize";
 import { locales } from "@/lib/i18n/locales";
 import { trpc } from "@/lib/trpc";
 
-const SERVICES = [
-    "appDevelopment",
-    "webDevelopment",
-    "desktopDevelopment",
-    "frontendDevelopment",
-    "brandIdentity",
-    "artDirection",
-    "photography",
-    "productDesign",
-    "uiUxDesign",
-    "designSystem",
-    "redesign",
-    "motionDesign",
-    "transformation",
-] as const;
-
-export type Service = (typeof SERVICES)[number];
-
-export const SERVICE_ICONS: Record<Service, string> = {
+export const SERVICE_ICONS = {
     appDevelopment: "iconoir:smartphone-device",
     webDevelopment: "iconoir:globe",
     desktopDevelopment: "iconoir:computer",
@@ -37,6 +19,8 @@ export const SERVICE_ICONS: Record<Service, string> = {
     motionDesign: "iconoir:cinema-old",
     transformation: "iconoir:rocket",
 };
+
+export type Service = keyof typeof SERVICE_ICONS;
 
 export interface Project {
     slug: string;
@@ -60,15 +44,30 @@ export interface Project {
 // Project narrows services and block kinds to the site's own unions, which the API only knows as strings
 const filled = (text: string | undefined) => Boolean(text?.trim());
 
+// reachability of an image changes rarely, but every force-dynamic request used to HEAD every one of them; keep the verdict for a while
+const REACHABLE_TTL = 10 * 60 * 1000;
+const reachability = new Map<string, { ok: boolean; at: number }>();
+
 const reachable = async (src: string) => {
     if (!/^https?:\/\//.test(src))
         return true;
 
+    const hit = reachability.get(src);
+
+    if (hit && Date.now() - hit.at < REACHABLE_TTL)
+        return hit.ok;
+
+    let ok = false;
+
     try {
-        return (await fetch(src, { method: "HEAD", signal: AbortSignal.timeout(3000) })).ok;
+        ok = (await fetch(src, { method: "HEAD", signal: AbortSignal.timeout(3000) })).ok;
     } catch {
-        return false;
+        ok = false;
     }
+
+    reachability.set(src, { ok, at: Date.now() });
+
+    return ok;
 };
 
 const complete = async (p: Project) =>

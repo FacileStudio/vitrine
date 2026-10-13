@@ -6,7 +6,7 @@ import Link from "@/components/facile/transitionLink";
 import TextReveal from "@/components/facile/textReveal";
 import { useInView } from "@/hooks/use-in-view";
 import { useLocalized } from "@/lib/i18n/localize";
-import { useProcess } from "@/components/facile/processProvider";
+import { useProcess } from "@/components/facile/contentProvider";
 import Heading from "../process/components/heading";
 import ProcessRow from "../process/components/processRow";
 

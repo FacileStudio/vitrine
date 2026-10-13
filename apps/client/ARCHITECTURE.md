@@ -29,10 +29,9 @@ animated site with a 3D dithered-render aesthetic, plus a few secondary pages
 | Styling | **Tailwind CSS v4** | Config lives in CSS: `app/globals.css` (`@theme`), not a `tailwind.config.*` |
 | i18n | **next-intl v4** | Locales `en, fr, es, de`; `localePrefix: 'always'` |
 | Smooth scroll | **Lenis** (`lenis/react`) | Mounted per-page (see `home.tsx`) |
-| Animation | **GSAP** (+ `@gsap/react`, `CustomEase`) and **motion** | GSAP drives scroll reveals; `motion` used by icon components |
+| Animation | **GSAP** (+ `CustomEase`) | Drives every reveal and the scroll choreography; shared eases live in `lib/animations.ts` |
 | 3D / WebGL | **three**, **@react-three/fiber**, **@react-three/drei**, **postprocessing** | Custom dithering effect |
-| Email | **nodemailer** | Contact form API route |
-| Icons | local components + `@iconify/react` | `components/ui/*` |
+| Icons | **@iconify/react** + local SVG components | Icon names resolve through `lib/iconoir.json`; brand marks in `components/ui/*` |
 
 Package manager: **bun** (`bun.lock`). Scripts in `package.json`: `dev`, `build`, `start`, `lint`.
 
@@ -49,7 +48,8 @@ All user-facing routes live under `app/[locale]/`. Locale handling:
 - `app/shell.tsx` — the `<html>` document: fonts, SEO JSON-LD, `NextIntlClientProvider` with an explicit `locale`.
 - `app/[locale]/layout.tsx` — validates the locale, `setRequestLocale`, `generateStaticParams`, base metadata, renders `Shell`.
 - `app/not-found.tsx` — renders `Shell` itself in the default locale, since it sits outside `[locale]`.
-- **Translation messages:** `locales/<locale>.json` (repo root `locales/`, imported by `i18n.ts`).
+- **Translation messages:** `locales/<locale>/<namespace>.json` (per-namespace files, validated by `scripts/check-i18n.ts`).
+- `lib/i18n/localize.ts` — `Localized<T>` content shape (`{ en, fr, es, de }`) and `useLocalized()` to resolve it in a client component.
 
 > ⚠️ Because `localePrefix` is `'always'`, internal links should include the locale
 > (use next-intl navigation helpers). Some hand-written `<a href="/projects/...">` links
@@ -60,28 +60,21 @@ All user-facing routes live under `app/[locale]/`. Locale handling:
 |---|---|---|
 | `/[locale]` | `app/[locale]/page.tsx` → `home.tsx` | Home (the big scroll experience) |
 | `/[locale]/projects` | `projects/page.tsx` → `portfolio.tsx` | Project list |
-| `/[locale]/projects/[slug]` | `projects/[slug]/page.tsx` → `case-study.tsx` | Case study |
+| `/[locale]/projects/[slug]` | `projects/[slug]/page.tsx` → `projectStory.tsx` | Case study story (horizontal band) |
 | `/[locale]/suite` | `suite/page.tsx` → `suite.tsx` | Product suite |
 | `/[locale]/studio` | `studio/page.tsx` → `studio.tsx` | Team wall — non-scrollable, 4 full-height head columns (DitherReveal), click → member page |
 | `/[locale]/studio/[slug]` | `studio/[slug]/page.tsx` → `member.tsx` | Individual member page (data from the backend, `studio.list`) |
-| `/[locale]/process` | `process/page.tsx` → `process.tsx` | Process page — landing-style pinned sections, one per step (data from `process.json`) |
-| `/[locale]/us` | `us/page.tsx` | (see file) |
-| `/[locale]/[...rest]` | catch-all | Fallback |
-| `/api/contact` | `app/api/contact/route.ts` | POST → nodemailer (`transporter.ts`) |
+| `/[locale]/process` | `process/page.tsx` → `process.tsx` | Process page — landing-style pinned sections, one per step (data from the backend, `process.list`) |
+| `/[locale]/us` | `us/page.tsx` | Redirects to `/[locale]/studio` |
+| `/[locale]/[...rest]` | `[...rest]/page.tsx` | Throws `notFound()` so unknown paths answer 404 |
 
 SEO helpers live in `lib/seo/` (`metadata.ts`, `jsonld.ts`, `viewport.ts`). `app/robots.ts` and `app/sitemap.ts` exist.
 
-### Data (content that is not translated copy) — backoffice-editable JSON
-- `app/[locale]/projects/projects.json` — all projects (slug, name, image, video, link, tier…).
-  `gallery: string[]` is optional and feeds the horizontal project detail view on `/projects`
-  (see `projects/story.ts` — image or video is picked by file extension).
-- `app/[locale]/suite/suite.json` — product suite entries.
-- Team members live in Postgres (`StudioMember`) and are edited in the backoffice under Studio. `app/shell.tsx` fetches them through tRPC (`studio.list`) and client components read them with `useMembers()`. Drives the `/studio` grid and `/studio/[slug]` pages.
-- `app/[locale]/process/process.json` — process steps (`id, title, text, image`). Drives the `/process` sections; the `id` of each is the anchor the menu links to.
-- `app/[locale]/projects/navigation.ts` — project nav order.
-
-> These four JSON files are intentionally flat and self-describing so a future
-> backoffice can read/write them. Keep new content-editable data in this same shape.
+### Data (content that is not translated copy)
+- **Projects, suite apps, team members and process steps all come from the backend** through tRPC, fetched once per request in `app/shell.tsx` and read by client components from `components/facile/contentProvider.tsx` (`useProjects()`, `useProcess()`, `useMembers()`).
+- `lib/content/*.ts` — the typed accessors (`fetchProjects`, `fetchMembers`, `fetchProcess`, `findProject`, `projectsIn`, …).
+- `app/[locale]/projects/projects.json` and `app/[locale]/suite/suite.json` are **authored sources the backoffice reads**, not what the site renders. Editing them does not change the live site; the database does.
+- `app/[locale]/suite/architecture.json` backs the suite architecture modal.
 
 ---
 
@@ -90,13 +83,12 @@ SEO helpers live in `lib/seo/` (`metadata.ts`, `jsonld.ts`, `viewport.ts`). `app
 `app/[locale]/home.tsx` composes the experience:
 
 ```
-<Rideau/>                      loader/curtain; gates scroll until 3D assets load (setCharged)
-<ReactLenis root/>             smooth scroll (lerp 0.1); started/stopped based on charged & menuOpen
-<Menu/>                        full-screen nav overlay (components/facile/menu.tsx)
-<Header/>                      top bar with the Menu trigger
-<main>
-  <Hero/> <Manifesto/> <Friends/> <Projects/> <Suite/> <Avis/>
-</main>
+<PageShell lenis locked={!charged} footer>   header, menu, curtain, Lenis, footer
+  <Loader setCharged/>                       gates scroll until the 3D assets load
+  <main>
+    <Hero/> <Manifesto/> <Shelf/> <Process/> <Suite/>
+  </main>
+</PageShell>
 ```
 
 Each section is in `app/[locale]/homeSections/`.
@@ -117,28 +109,23 @@ Two hooks power this:
   (`progress 0` = top hits viewport top; `progress 1` = pin end). `visible` is false when
   fully off-screen so you can skip per-frame work.
 
-### Animation helpers — `app/utils/animations.ts`
+### Animation helpers — `lib/animations.ts`
 Single home for motion. Pattern: derive boolean flags from scroll, feed them to a preset via `run`.
 
-- `EASE` — named eases (`soft`, `in`, `out`, `inOut`, `glide`, `cover`). `cover` matches the Stripes curve.
+- `EASE` — named eases (`soft`, `in`, `out`, `glide`) plus the `sharp` CustomEase.
 - `run(els, animate)` — map an animator over an array of refs.
-- `hideRevealY(els)` / `hideRevealX(els)` — park elements off their slot before first reveal (avoids flash).
-- `slideY(show, leaving, opts)` / `slideX(show, opts)` — the reveal tweens (yPercent/xPercent).
-- `revealY(show, leaving)` — the target offset logic (0 shown / ±110 hidden).
-- `fade` / `hideFade` — opacity+translate variant.
-- `pointerDrift(el, strength, duration)` — cursor-follow drift.
+- `hideRevealY(els)` — park elements off their slot before first reveal (avoids flash).
+- `slideY(show, leaving, opts)` — the reveal tween (yPercent).
 
 **Reveal recipe:** wrap the text in an `overflow-hidden` element, give the inner element a
 ref, `hideRevealY` it on mount, then `run(refs, slideY(showFlag, leavingFlag, {...}))` in an
 effect keyed on the flags. See `manifesto.tsx`, `projects.tsx`, and `menu.tsx` for live examples.
 
-### Stripes (curtain covers) — TWO different implementations
-- **`components/facile/stripes.tsx`** — the reusable component. Columns/rows that slide
-  away by an `orientation` angle. Accepts a static `open` or an `openWhen={() => boolean}`
-  derived from scroll; tune with `duration`, `stagger`, `ease`. Used for section
-  transitions (e.g. `manifesto.tsx`, `projects.tsx`).
-- **`components/facile/menu.tsx`** has its own inline `Stripes()` helper for the menu's
-  open/close curtain — separate from the component above. Don't confuse the two.
+### Stripes (curtain covers) — `components/facile/stripes.tsx`
+One component covers every curtain: columns/rows that slide away by an `orientation` angle,
+with an optional `exitOrientation`. Accepts a static `open` or an `openWhen={() => boolean}`
+derived from scroll; tune with `duration`, `stagger`, `ease`. The menu, the loader, the page
+curtain and the section covers all use it.
 
 ---
 
@@ -191,12 +178,18 @@ Utility: `app/utils/index.ts` exports `cn` (clsx + tailwind-merge).
 - **Scroll performance:** never read layout-triggering properties (`scrollWidth`, `offsetHeight`,
   `getBoundingClientRect`) **inside a per-frame loop** (GSAP ticker / rAF) after writing
   transforms — it forces synchronous reflow and freezes on every machine. Measure once + on
-  `resize` and cache. (This was a real bug in `friends.tsx`.)
+  `resize` and cache.
+- **One scroll listener.** `hooks/use-scroll.ts` keeps a single `window` scroll listener and
+  fans it out to every subscriber; add new scroll readers through `useScroll` / `usePinProgress`
+  rather than attaching your own listener.
+- **GSAP cleanup is mandatory.** Any tween started in an effect must be killed in that effect's
+  cleanup (`gsap.killTweensOf`) or owned by a `gsap.context`, or it keeps writing to detached
+  nodes after App Router navigation.
 - **Everything in the Menu overlay must hide when closed.** The overlay stays mounted; any new
   element needs to participate in the reveal (parked via `hideRevealY`) or it shows through.
-- **Debug styling:** some WIP elements have `bg-red-500/…` debug backgrounds — remove before ship.
-- **Responsive tuning done so far:** several transitions/sizes branch on `window.innerWidth >= 2560`
-  (big monitors keep the "full" feel; laptops get a tighter one). Keep that split consistent.
+- **`react-hooks/set-state-in-effect` is an error here.** Adjusting state from a prop change
+  belongs in the render phase (`if (!open && landed) setLanded(false)`), not in an effect body.
+- **No test suite.** Verification is `bunx tsc --noEmit`, `bun run lint` and `bun run build`.
 
 ### Commit style (repo owner preference)
 - **One commit per feature — never one big bundled commit.** If several features live in one
@@ -215,10 +208,11 @@ bun install
 bun run dev        # next dev
 bun run build      # production build (standalone)
 bun run lint
+bunx tsc --noEmit  # typecheck
 ```
 
-Contact form needs SMTP env vars for nodemailer (see `app/api/contact/transporter.ts` for the
-exact keys). 3D models must exist under `public/models/`.
+Content and 3D models come from the backend and `public/models/`. The client needs the API
+(`@repo/trpc-client`) reachable for anything but a static render.
 
 ---
 
@@ -226,25 +220,17 @@ exact keys). 3D models must exist under `public/models/`.
 
 > Verified against the code at the time of writing. Update as things change.
 
-- [ ] **Menu contact details are placeholders** — `CONTACT` in `components/facile/menu.tsx`
-      (email `contact@facile.studio`, phone, Dribbble handle) and the `Email`/`Instagram`
-      secondary links marked `TODO(gian)`. Replace with real channels.
-- [ ] **`appShell.tsx` is still unused** — the Studio, member, and Process pages each render
-      their own `Header` + `Menu` (the `home.tsx` pattern) rather than a shared shell. Decide
-      whether to consolidate by wiring `AppShell` into `app/[locale]/layout.tsx`
-      (watch: its `isHome` check compares `pathname === "/"`, which never matches under the
-      always-on locale prefix, and it renders a `Footer` + page-transition curtain).
-- [ ] **Placeholder content from this build:**
-      - Studio heads all use `/models/F.glb` — add real head GLBs and update `model` in the backoffice.
-      - Member bios/roles in the database are placeholders.
-      - `process.json` copy is placeholder; process step images point at `/images/process/*.png`
-        which **do not exist yet** (add them, or the boxes render empty).
-- [ ] **Locale-aware internal links** — the **Menu is done** (it prefixes internal hrefs with
-      the active locale via a `withLocale` helper, since there is no middleware and routes live
-      under `/[locale]/`). Audit other components for the same pattern (project/case-study cards,
-      `pageTransition` targets, footer) — any bare `/path` link 404s without the locale prefix.
-- [ ] **Remove debug backgrounds** (`bg-red-500/…`) once layouts are finalized.
-- [ ] **i18n coverage** — verify all four locale files (`locales/*.json`) are complete for new copy.
+- [ ] **Menu contact details are placeholders** — `CONTACT` in `components/facile/navLinks.tsx`
+      (email `contact@facile.studio`, phone, Dribbble handle) is marked `TODO(gian)`.
+      Replace with real channels.
+- [ ] **Suite link is inconsistent** — the menu points Suite at the external
+      `https://suite.facile.studio`, while member pages link the internal `/suite` route.
+      Decide which one is canonical.
+- [ ] **`projects.json` is a second source of truth** — the backoffice reads it to offer
+      project options, the site reads the database. Either seed the database from it and
+      delete the file, or move it somewhere shared.
+- [ ] **i18n coverage** — `scripts/check-i18n.ts` checks parity and placeholders; it does not
+      check that a key is still referenced. Run it after adding copy.
 
 ---
 
@@ -253,4 +239,6 @@ exact keys). 3D models must exist under `public/models/`.
 <!-- Add anything future you/agents should know: decisions, quirks, per-section timing values,
      asset sources, deploy notes, etc. Keep entries dated and short. -->
 
-- _(add notes here)_
+- **2026-10-13** — `body { letter-spacing: -3% }` in `globals.css` was invalid CSS, so the
+  browser dropped it: the global tracking it looked like it set was never applied. Removed
+  rather than converted, to keep the rendering identical.

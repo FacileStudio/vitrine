@@ -1,8 +1,8 @@
 'use client'
 
 import type { ComponentProps, MouseEvent, Ref } from "react";
-import { Link, usePathname, useRouter } from "@/lib/i18n/navigation";
-import { TransitionOut } from "@/components/facile/pageTransition";
+import { Link } from "@/lib/i18n/navigation";
+import { useTransitionGo } from "@/hooks/use-transition-go";
 
 export default function TransitionLink({
     href,
@@ -10,23 +10,16 @@ export default function TransitionLink({
     ref,
     ...props
 }: ComponentProps<typeof Link> & { ref?: Ref<HTMLAnchorElement> }) {
-    const router = useRouter();
-    const pathname = usePathname();
+    const go = useTransitionGo();
 
-    const go = (event: MouseEvent<HTMLAnchorElement>) => {
+    const handle = (event: MouseEvent<HTMLAnchorElement>) => {
         onClick?.(event);
         if (event.defaultPrevented) return;
 
         const target = typeof href === "string" ? href : href.pathname ?? "";
         event.preventDefault();
-
-        if (target.split("#")[0] === pathname) {
-            router.push(target);
-            return;
-        }
-
-        TransitionOut({ href: target, router });
+        go(target);
     };
 
-    return <Link ref={ref} href={href} onClick={go} {...props} />;
+    return <Link ref={ref} href={href} onClick={handle} {...props} />;
 }

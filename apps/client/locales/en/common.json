@@ -2,27 +2,16 @@
   "header": {
     "navigation": "Navigation",
     "logoAlt": "Facile Studio logo",
-    "tagline": "Done without effort, presenting no difficulty. Simple, easy, etc…",
     "menu": "Menu",
     "close": "Close",
     "language": "Language"
-  },
-  "locales": {
-    "en": "English",
-    "fr": "Français",
-    "es": "Español",
-    "de": "Deutsch"
   },
   "nav": {
     "home": "Home",
     "projects": "Projects",
     "suite": "Suite",
     "process": "Process",
-    "studio": "Studio",
-    "discovery": "Discovery",
-    "design": "Design",
-    "development": "Development",
-    "launch": "Launch & Care"
+    "studio": "Studio"
   },
   "footer": {
     "buildTogether": "Let's *build* a *website* together.",

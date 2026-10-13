@@ -2,27 +2,16 @@
   "header": {
     "navigation": "Navegación",
     "logoAlt": "Logo de Facile Studio",
-    "tagline": "Que se hace sin esfuerzo, que no presenta ninguna dificultad. Simple, fácil, etc…",
     "menu": "Menú",
     "close": "Cerrar",
     "language": "Idioma"
-  },
-  "locales": {
-    "en": "English",
-    "fr": "Français",
-    "es": "Español",
-    "de": "Deutsch"
   },
   "nav": {
     "home": "Inicio",
     "projects": "Proyectos",
     "suite": "Suite",
     "process": "Proceso",
-    "studio": "Studio",
-    "discovery": "Descubrimiento",
-    "design": "Diseño",
-    "development": "Desarrollo",
-    "launch": "Lanzamiento y soporte"
+    "studio": "Studio"
   },
   "footer": {
     "buildTogether": "*Construyamos* un *sitio web* juntos.",

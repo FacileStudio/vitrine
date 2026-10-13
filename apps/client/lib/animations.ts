@@ -2,16 +2,13 @@ import gsap from "gsap";
 import { CustomEase } from "gsap/CustomEase";
 
 gsap.registerPlugin(CustomEase);
-const cover = CustomEase.create("cover", "0.7, 0, 0.3, 1");
 const sharp = CustomEase.create("sharp", "0.8, 0, 0.2, 1");
 
 export const EASE = {
     soft: "power2.out",
     in: "power3.in",
     out: "power3.out",
-    inOut: "power4.inOut",
     glide: "power3.inOut",
-    cover,
     sharp,
 } as const;
 

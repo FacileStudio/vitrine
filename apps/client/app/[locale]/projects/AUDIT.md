@@ -4,25 +4,24 @@
 
 ```
 app/[locale]/projects/
-  page.tsx              /projects        -> Portfolio -> Shelf
-  [slug]/page.tsx       /projects/<slug> -> Story     (metadata, JSON-LD, static params)
-  projects.json         authored data
-  lib/
-    projects.ts         Project/Member types, the list, categories + filtering, media helpers
-    story.ts            block vocabulary (BLOCK_SPECS), authored story types, buildStory()
+  page.tsx              /projects        -> Portfolio -> ProjectShelf
+  [slug]/page.tsx       /projects/<slug> -> ProjectStory (metadata, JSON-LD)
+  projects.json         authored source the backoffice reads; the site reads the database
+  lib/story.ts          builds the story chapters for one project
   components/
     portfolio.tsx       /projects shell: Lenis, curtain, header, menu
-    marcelEyes.tsx      shared by the shelf card and the story cover block
+    projectStory.tsx    the horizontal story band for one project
     shelf/
-      index.tsx         Shelf — scroll list, filter, parallax, hover wipe, opens a route
+      index.tsx         shelf: scroll list, filter, parallax, hover wipe, opens a route
       heading.tsx       intro copy + category filter
-      card.tsx          one project row
-      backdrop.tsx      pinned dither backdrop
-    story/
-      index.tsx         Story — horizontal bento band for one project
-      chrome.tsx        back link, counter, name, scroll bar
-      blocks/           one component per BlockKind, wired up in blocks/index.ts (BLOCKS)
+      shelfCard.tsx     one project row
 ```
+
+The shared story machinery lives outside this route: `components/facile/story/`
+(`index.tsx` band, `track.tsx` / `verticalTrack.tsx`, `bento.tsx`, `head.tsx`, `blocks/*`),
+with the block vocabulary in `story/types.ts` (`BLOCK_SPECS`, `buildStory`). Project types
+and filtering are in `lib/content/projects.ts`; `components/facile/marcelEyes.tsx` is shared
+by the shelf card and the story cover block.
 
 A story is a route, not a piece of shelf state: `/projects/<slug>` can be linked to, bookmarked
 and landed on cold, and the shelf is just one of its entry points. Both directions of the hop go
@@ -42,13 +41,10 @@ gone — but nothing is focused when it mounts, and the only keyboard affordance
 button, which is at least a sane first stop; a proper roving focus through the chapters is still
 missing.
 
-### 2. Bento media loads eagerly
+### 2. Bento media loading
 
-Every `<img>` produced by `story/blocks/Bento.tsx:Media` ships without `loading` or `decoding`.
-Opening Marcel fetches all 14 gallery images the moment the page mounts.
-
-`loading="lazy"` is the obvious win, but the track scrolls horizontally and fast — the risk is
-visible pop-in as blocks arrive. Wants a measurement, not a guess.
+Every `<img>` produced by `story/bento.tsx:Media` now ships `loading="lazy"` and
+`decoding="async"`, so opening a story no longer fetches all 14 gallery images at once.
 
 ### 3. `starts` in `story/index.tsx` stays a spread-reduce
 
@@ -63,17 +59,18 @@ Quadratic, and it returns one element more than there are sections. A linear rew
 running counter trips `react-hooks/immutability` ("cannot reassign variable after render
 completes"). With at most five chapters the spread costs nothing, so the lint-clean version won.
 
-### 4. `portfolio.caseStudy.*` messages are now unused
+### 4. `portfolio.caseStudy.*` messages — closed
 
-`components/caseStudy.tsx` is gone — `/projects/<slug>` renders the Story instead of the prose
-page. The translated `challenge` / `approach` / `result` / `features` strings are still in the
-message catalogues, and the prose they carried is no longer rendered anywhere, so that copy is
-out of the index. Either fold it into a story block or delete the keys.
+`components/caseStudy.tsx` is gone and the translated `challenge` / `approach` / `result` /
+`features` strings have been deleted from the catalogues, so nothing ships copy the site
+never renders.
 
 ---
 
 ## Closed since the last pass
 
+- **Bento media loading** — `Media` now sets `loading="lazy" decoding="async"` (finding 2).
+- **`portfolio.caseStudy.*` messages** — deleted from the catalogues (finding 4).
 - **Dead mobile pager** — `lib/navigation.ts` and `components/mobileNavigation.tsx` deleted, along
   with the two unstyled `‹ ›` glyphs and nine zero-size buttons they put on `/projects`.
 - **Missing logo assets** — every `techStack` entry in `projects.json` now resolves to a file in

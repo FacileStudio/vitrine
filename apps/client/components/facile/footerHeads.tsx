@@ -4,8 +4,7 @@ import { useEffect, useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { DitherView } from "@/webgl/lazy";
 import { useAfter } from "@/hooks/use-after";
-import { useNarrow } from "@/hooks/use-narrow";
-import { useMembers } from "@/components/facile/membersProvider";
+import { useMembers } from "@/components/facile/contentProvider";
 
 const ANGLES = [220, 200, 160, 140];
 const LAUNCH = 0.9;
@@ -27,7 +26,6 @@ function launched() {
 export default function FooterHeads({ open, active }: { open: boolean; active: boolean }) {
     const refs = useRef<(HTMLDivElement | null)[]>([]);
     const sharp = useAfter(open, GRID_DELAY);
-    const narrow = useNarrow();
     const heads = useMembers();
 
     useLayoutEffect(() => {
@@ -35,7 +33,9 @@ export default function FooterHeads({ open, active }: { open: boolean; active: b
     }, []);
 
     useEffect(() => {
-        gsap.to(refs.current, {
+        const heads = refs.current;
+
+        gsap.to(heads, {
             ...(open ? { x: 0, y: 0 } : launched()),
             delay: 0.6,
             duration: open ? 1.5 : 1,
@@ -43,6 +43,10 @@ export default function FooterHeads({ open, active }: { open: boolean; active: b
             ease: open ? "power3.out" : "power3.in",
             overwrite: true,
         });
+
+        return () => {
+            gsap.killTweensOf(heads);
+        };
     }, [open]);
 
     return (
@@ -57,7 +61,7 @@ export default function FooterHeads({ open, active }: { open: boolean; active: b
                         file={head.model!}
                         className="absolute inset-0 h-full w-full"
                         active={active}
-                        gridSize={sharp ? (narrow ? 1 : 1) : 9}
+                        gridSize={sharp ? 1 : 9}
                         position={[0, -1, 0]}
                         rotation={[0, 0, 0]}
                         scale={head.scale * 1.7}

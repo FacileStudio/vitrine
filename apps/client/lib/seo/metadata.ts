@@ -4,23 +4,32 @@ import { defaultLocale, isLocale, locales, type Locale } from "@/lib/i18n/locale
 
 export const siteUrl = "https://facile.studio";
 
+export const siteName = "Facile Studio";
+
+// OG titles never go through the title template, so the suffix is spelled out in one place
+export const ogTitle = (title: string) => `${title} | ${siteName}`;
+
 export const routePaths = ["", "/projects", "/process", "/studio", "/suite"] as const;
 
 export const resolveLocale = (locale: string): Locale => (isLocale(locale) ? locale : defaultLocale);
+
+export type LocaleParams = Promise<{ locale: string }>;
+
+export const pageLocale = async (params: LocaleParams) => resolveLocale((await params).locale);
 
 export function getLocalizedPath(locale: Locale, path: string = "") {
     return path ? `/${locale}${path}` : `/${locale}`;
 }
 
-function getAlternates(path: string, locale: Locale) {
-    const languages = Object.fromEntries(
-        locales.map((l) => [l, getLocalizedPath(l, path)])
-    ) as Record<Locale, string>;
+// path-only hreflang map; the sitemap prefixes each entry with siteUrl
+export const hreflangLanguages = (path: string) =>
+    Object.fromEntries(locales.map((l) => [l, getLocalizedPath(l, path)])) as Record<Locale, string>;
 
+function getAlternates(path: string, locale: Locale) {
     return {
         canonical: getLocalizedPath(locale, path),
         languages: {
-            ...languages,
+            ...hreflangLanguages(path),
             "x-default": getLocalizedPath(defaultLocale, path),
         },
     };
@@ -45,13 +54,13 @@ export async function getBaseMetadata(locale: Locale, path: string = ""): Promis
     return {
         title: {
             default: title,
-            template: "%s | Facile Studio"
+            template: `%s | ${siteName}`
         },
         description,
         keywords: t("keywords").split(",").map((keyword) => keyword.trim()),
-        authors: [{ name: "Facile. Studio" }],
-        creator: "Facile. Studio",
-        publisher: "Facile. Studio",
+        authors: [{ name: siteName }],
+        creator: siteName,
+        publisher: siteName,
         metadataBase: new URL(siteUrl),
         alternates: getAlternates(path, locale),
         openGraph: {
@@ -60,7 +69,7 @@ export async function getBaseMetadata(locale: Locale, path: string = ""): Promis
             url: `${siteUrl}${getLocalizedPath(locale, path)}`,
             title,
             description,
-            siteName: "Facile. Studio",
+            siteName,
             images: [
                 {
                     url: "/images/og.webp",

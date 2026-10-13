@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { locales, type Locale } from "@/lib/i18n/locales";
+import { siteName, siteUrl } from "@/lib/seo/metadata";
 
 export async function getOrganizationJsonLd(locale: Locale) {
     const t = await getTranslations({ locale, namespace: "seo.organization" });
@@ -7,9 +8,9 @@ export async function getOrganizationJsonLd(locale: Locale) {
     return {
         "@context": "https://schema.org",
         "@type": "Organization",
-        name: "Facile Studio",
-        url: "https://facile.studio",
-        logo: "https://facile.studio/F.svg",
+        name: siteName,
+        url: siteUrl,
+        logo: `${siteUrl}/F.svg`,
         sameAs: [
             "https://github.com/FacileStudio",
             "https://www.dribbble.com/webbygian",
@@ -18,7 +19,7 @@ export async function getOrganizationJsonLd(locale: Locale) {
         contactPoint: {
             "@type": "ContactPoint",
             contactType: "customer service",
-            url: "https://facile.studio",
+            url: siteUrl,
         },
         founders: [
             {
@@ -39,8 +40,8 @@ export function getWebSiteJsonLd() {
     return {
         "@context": "https://schema.org",
         "@type": "WebSite",
-        name: "Facile Studio",
-        url: "https://facile.studio",
+        name: siteName,
+        url: siteUrl,
         inLanguage: [...locales],
     };
 }
@@ -75,8 +76,8 @@ export function getCaseStudyJsonLd(project: {
         inLanguage: project.locale,
         creator: {
             "@type": "Organization",
-            name: "Facile Studio",
-            url: "https://facile.studio",
+            name: siteName,
+            url: siteUrl,
         },
         ...(project.techStack && {
             keywords: project.techStack.join(", "),

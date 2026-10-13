@@ -2,7 +2,7 @@
 
 import type { Ref, RefObject } from "react";
 import { Bento } from "./bento";
-import { BLOCKS } from "./blocks";
+import ChapterBlocks from "./chapterBlocks";
 import PersonHead from "./head";
 import { useTrackReveal } from "./track";
 import type { Chapter } from "./types";
@@ -30,11 +30,7 @@ export default function VerticalTrack({ sections, scrollerRef, onClose, ref }: V
                     )}
 
                     <Bento vertical>
-                        {chapter.blocks.map((b, i) => {
-                            const Part = BLOCKS[b.type];
-
-                            return <Part key={i} block={b} onClose={onClose} />;
-                        })}
+                        <ChapterBlocks blocks={chapter.blocks} onClose={onClose} />
                     </Bento>
                 </div>
             ))}

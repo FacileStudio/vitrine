@@ -4,7 +4,7 @@ import gsap from "gsap";
 import { useEffect, useRef } from "react";
 import { useLocale } from "next-intl";
 import PersonHead from "@/components/facile/story/head";
-import { useMembers } from "@/components/facile/membersProvider";
+import { useMembers } from "@/components/facile/contentProvider";
 import { findPerson } from "@/lib/content/studio";
 import type { Locale } from "@/lib/i18n/locales";
 import { EASE } from "@/lib/animations";

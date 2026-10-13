@@ -6,16 +6,12 @@ import Stripes from "./stripes";
 import { useScenesReady } from "@/webgl/sceneReady";
 
 // tones are class names rather than raw hex, so Tailwind still sees them
-type CurtainTone = { lead: string; trail: string };
-
 const TONES = {
     dark: { lead: "bg-white", trail: "bg-foreground" },
     light: { lead: "bg-foreground", trail: "bg-white" },
-    mint: { lead: "bg-white", trail: "bg-[#CAE6D8]" },
 } as const;
 
-type ToneName = keyof typeof TONES;
-export type Tone = ToneName | CurtainTone;
+export type Tone = keyof typeof TONES;
 
 const COUNT = 4;
 const DURATION = 0.8;
@@ -26,9 +22,7 @@ export const CURTAIN_MS = (DURATION + LEAD + (COUNT - 1) * STAGGER) * 1000;
 
 export const ARRIVE = CURTAIN_MS * 0.55;
 
-const resolve = (t: Tone): CurtainTone => (typeof t === "string" ? TONES[t] : t);
-
-
+const resolve = (t: Tone) => TONES[t];
 
 function Curtain({ covered, tone = "dark", zIndex = 200 }: { covered: boolean; tone?: Tone; zIndex?: number }) {
     const c = resolve(tone);
@@ -67,8 +61,6 @@ function Curtain({ covered, tone = "dark", zIndex = 200 }: { covered: boolean; t
     );
 }
 
-
-
 let sweeper: ((mid: () => void) => void) | null = null;
 let leaver: ((href: string) => void) | null = null;
 
@@ -83,8 +75,6 @@ export const TransitionOut = ({ href, router }: { href: string; router: { push: 
         leaver(href);
     else router.push(href);
 };
-
-
 
 export default function PageCurtain({ enter = "dark", leave = "dark", arrive = true }: { enter?: Tone; leave?: Tone; arrive?: boolean }) {
     const router = useRouter();

@@ -1,7 +1,7 @@
 'use client'
 
 import type { Ref } from "react";
-import { useMembers } from "@/components/facile/membersProvider";
+import { useMembers } from "@/components/facile/contentProvider";
 import type { ProcessStep } from "@/lib/content/process";
 import { pad2 } from "@/lib/utils";
 

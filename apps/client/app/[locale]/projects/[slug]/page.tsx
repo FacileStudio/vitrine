@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import PageCurtain from "@/components/facile/pageTransition";
 import { localize } from "@/lib/i18n/localize";
-import { getBaseMetadata, pageMetadata, resolveLocale, siteUrl } from "@/lib/seo/metadata";
+import { getBaseMetadata, ogTitle, pageMetadata, resolveLocale, siteName, siteUrl } from "@/lib/seo/metadata";
 import { getBreadcrumbJsonLd, getCaseStudyJsonLd } from "@/lib/seo/jsonld";
 import { fetchProjects, findProject, projectIndex } from "@/lib/content/projects";
 import ProjectStory from "../components/projectStory";
@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return pageMetadata(locale, path, {
         title: project.name,
         description: localize(project, locale).metaDescription,
-        openGraph: { type: "article", title: `${project.name} | Facile Studio`, siteName: "Facile Studio" },
+        openGraph: { type: "article", title: ogTitle(project.name), siteName },
     });
 }
 
@@ -39,6 +39,7 @@ export default async function LocaleProjectStoryPage({ params }: PageProps) {
 
     const t = await getTranslations({ locale, namespace: "seo.breadcrumb" });
     const url = `${siteUrl}/${locale}/projects/${slug}`;
+    const index = projectIndex(projects, slug);
 
     const jsonLd = getCaseStudyJsonLd({
         name: project.name,
@@ -62,7 +63,7 @@ export default async function LocaleProjectStoryPage({ params }: PageProps) {
 
             <PageCurtain enter="dark" leave="dark" />
 
-            <ProjectStory project={project} index={projectIndex(projects, slug)} total={projects.length} locale={locale} nextSlug={projects[projectIndex(projects, slug) + 1]?.slug ?? null} prevSlug={projects[projectIndex(projects, slug) - 1]?.slug ?? null} firstSlug={projects[0]?.slug ?? null} />
+            <ProjectStory project={project} index={index} total={projects.length} locale={locale} nextSlug={projects[index + 1]?.slug ?? null} prevSlug={projects[index - 1]?.slug ?? null} firstSlug={projects[0]?.slug ?? null} />
         </>
     );
 }

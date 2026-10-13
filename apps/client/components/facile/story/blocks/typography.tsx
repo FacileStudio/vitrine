@@ -1,8 +1,7 @@
 import Line from "@/components/facile/textReveal";
 import type { BlockProps } from "../types";
 import { Block, Cell } from "../bento";
-
-const ROWS = ["ABCDEFGHIJKL", "MNOPQRSTUVW", "XYZ"].map((row) => row.split(""));
+import AlphabetRows from "./alphabetRows";
 
 const NUMBERS = "0123456789";
 
@@ -30,16 +29,7 @@ export default function Typography({ block }: BlockProps) {
                     )}
 
                     <div className="flex flex-1 flex-col gap-3">
-                        {ROWS.map((row) => (
-                            <Line
-                                key={row[0]}
-                                className="flex gap-x-[1.6vh] text-[clamp(1.1rem,3.2vh,2.5rem)] text-background/75"
-                            >
-                                {row.map((l) => (
-                                    <span key={l}>{l}{l.toLowerCase()}</span>
-                                ))}
-                            </Line>
-                        ))}
+                        <AlphabetRows className="flex gap-x-[1.6vh] text-[clamp(1.1rem,3.2vh,2.5rem)] text-background/75" />
                     </div>
 
                     <Line className="text-[clamp(1.1rem,3.2vh,2.5rem)] tracking-wide text-background/50">

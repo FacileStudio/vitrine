@@ -3,15 +3,7 @@
     "title": "Process",
     "description": "Ce que fait Facile Studio : stratégie, marque, design produit, développement, motion et hébergement, sous un même toit."
   },
-  "eyebrow": "Notre process",
-  "title": ["Des *expertises* fortes et multiples", "pour les marques *ambitieuses*."],
-  "count": "{count, plural, one {étape} other {étapes}}",
   "scroll": "Voici à quoi ressemble *un projet avec nous*",
-  "end": {
-    "eyebrow": "Un projet en tête ?",
-    "title": "Construisons-le *ensemble*.",
-    "link": "Voir nos projets"
-  },
   "home": {
     "eyebrow": "Ce que nous faisons",
     "lines": ["*Tout* ce qu'il vous faut,", "sous un *même toit*."],

@@ -1,7 +1,7 @@
 import MemberPage from "./member";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import { getBaseMetadata, pageMetadata, resolveLocale } from "@/lib/seo/metadata";
+import { getBaseMetadata, ogTitle, pageMetadata, resolveLocale } from "@/lib/seo/metadata";
 import { fetchMembers, findMember, hasMember } from "@/lib/content/studio";
 
 type PageProps = {
@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return pageMetadata(locale, path, {
         title: member.name,
         description: member.description,
-        openGraph: { type: "profile", title: `${member.name} | Facile Studio` },
+        openGraph: { type: "profile", title: ogTitle(member.name) },
     });
 }
 

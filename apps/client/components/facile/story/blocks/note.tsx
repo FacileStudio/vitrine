@@ -1,32 +1,12 @@
-import SplitLines from "@/components/facile/splitLines";
-import Line from "@/components/facile/textReveal";
-import { pad2 } from "@/lib/utils";
 import type { BlockProps } from "../types";
 import { Block, Cell, Media } from "../bento";
-
-const CHAPTER = "mr-6 font-medium text-[0.6em] text-accent";
+import NoteBody from "./noteBody";
 
 export default function Note({ block }: BlockProps) {
     return (
         <Block cols={block.cols} tall>
             <Cell col="1 / -1" row="1">
-                <div className="flex h-full w-full flex-col gap-[2vh] p-[5vh]">
-                    <h2 className="subtitle">
-                        <Line>
-                            {block.index ? (
-                                <>
-                                    <span className={`tabular-nums ${CHAPTER}`}>{pad2(block.index)}</span>
-                                    <span className={CHAPTER}>.</span>
-                                </>
-                            ) : null}
-                            {block.title}
-                        </Line>
-                    </h2>
-
-                    {block.text ? (
-                        <SplitLines as="p" text={block.text} className="lead max-w-[45ch] text-background/70" />
-                    ) : null}
-                </div>
+                <NoteBody block={block} />
             </Cell>
 
             <Cell col="1 / -1" row="2 / -1">

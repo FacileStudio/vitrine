@@ -3,6 +3,7 @@
 import type { MouseEvent, ReactNode } from "react";
 import Arrow from "@/components/facile/arrow";
 import TransitionLink from "@/components/facile/transitionLink";
+import { isExternal } from "@/lib/utils";
 
 const stop = (e: MouseEvent) => e.stopPropagation();
 
@@ -22,7 +23,7 @@ export default function ArrowLink({
     const onClick = isolated ? stop : undefined;
     const arrow = arrowClassName ? <span className={arrowClassName}><Arrow /></span> : <Arrow />;
 
-    if (href.startsWith("http"))
+    if (isExternal(href))
         return (
             <a href={href} target="_blank" rel="noreferrer" onClick={onClick} className={className}>
                 {children}

@@ -1,24 +1,13 @@
 'use client'
 
-import { useRef } from "react";
-import { useTranslations } from "next-intl";
 import PageShell from "@/components/facile/pageShell";
 import Shelf from "@/components/facile/shelf/shelf";
-import TextReveal from "@/components/facile/textReveal";
-import ArrowLink from "@/components/facile/arrowLink";
-import Emphasis from "@/components/facile/emphasis";
-import { ARRIVE } from "@/components/facile/pageTransition";
-import { useInView } from "@/hooks/use-in-view";
 import { useLocalized } from "@/lib/i18n/localize";
-import { useProcess } from "@/components/facile/processProvider";
-import Heading from "./components/heading";
+import { useProcess } from "@/components/facile/contentProvider";
 import ProcessScroll from "./components/processScroll";
 
 export default function ProcessPage() {
-    const t = useTranslations("process");
     const steps = useLocalized(useProcess());
-    const endRef = useRef<HTMLDivElement>(null);
-    const endOpen = useInView(endRef);
 
     return (
         <PageShell

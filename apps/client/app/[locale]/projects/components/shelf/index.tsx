@@ -8,7 +8,7 @@ import { LEAD, TransitionOut } from "@/components/facile/pageTransition";
 import Shelf from "@/components/facile/shelf/shelf";
 import Stripes from "@/components/facile/stripes";
 import { projectsIn, type Category } from "@/lib/content/projects";
-import { useProjects } from "@/components/facile/projectsProvider";
+import { useProjects } from "@/components/facile/contentProvider";
 import Heading from "./heading";
 import ShelfCard from "./shelfCard";
 
@@ -32,17 +32,15 @@ export default function ProjectShelf({
     const [filter, setFilter] = useState<Category | null>(null);
     const router = useRouter();
     const projects = useProjects();
-    const { sectionRef, progressRef, refs, reset, onEnter, onLeave } = useShelfMotion({ zoom: 1.3, range: 25, key: filter });
+    const { sectionRef, progressRef, refs, onEnter, onLeave } = useShelfMotion({ zoom: 1.3, range: 25, key: filter });
 
     const pool = projectsIn(projects, filter);
     const visible = limit ? pool.slice(0, limit) : pool;
 
+    // the cards are keyed by filter, so a new filter remounts them and the refs re-register on their own
     const applyFilter = (c: Category | null) => {
-        if (c === filter)
-            return;
-
-        reset();
-        setFilter(c);
+        if (c !== filter)
+            setFilter(c);
     };
 
     const open = (slug: string) => TransitionOut({ href: `/projects/${slug}`, router });

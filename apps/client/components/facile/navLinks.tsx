@@ -3,13 +3,12 @@
 import React, { useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import TextReveal from '@/components/facile/textReveal';
-import { TransitionOut } from '@/components/facile/pageTransition';
 import type { Project } from '@/lib/content/projects';
-import { useMembers } from '@/components/facile/membersProvider';
-import { useProjects } from '@/components/facile/projectsProvider';
+import { useMembers, useProjects } from '@/components/facile/contentProvider';
 import type { AuthoredMember } from '@/lib/content/studio';
-import { Link, usePathname, useRouter } from '@/lib/i18n/navigation';
-import { cn } from '@/lib/utils';
+import { Link } from '@/lib/i18n/navigation';
+import { useTransitionGo } from '@/hooks/use-transition-go';
+import { cn, isExternal } from '@/lib/utils';
 import type common from '@/locales/en/common.json';
 import { GithubIcon } from '../ui/github';
 import { InstagramIcon } from '../ui/instagram';
@@ -66,8 +65,6 @@ const subOffsets = (links: NavLink[]) => links.reduce<number[]>(
 
 const SUB_AFTER = 0.45;
 
-const isExternal = (href: string) => href.startsWith('http');
-
 function Anchor({ href, className, go, children }: {
     href: string;
     className: string;
@@ -92,8 +89,7 @@ export function NavLinks({
     className?: string;
 }) {
     const t = useTranslations('common.nav');
-    const router = useRouter();
-    const pathname = usePathname();
+    const go = useTransitionGo();
     const members = useMembers();
     const projects = useProjects();
     const links = useMemo(() => buildLinks(members, projects), [members, projects]);
@@ -101,15 +97,9 @@ export function NavLinks({
 
     const label = (l: Label) => ('key' in l ? t(l.key) : l.name);
 
-    const go = (e: React.MouseEvent, href: string) => {
+    const handle = (e: React.MouseEvent, href: string) => {
         e.preventDefault();
-
-        if (href.split('#')[0] === pathname) {
-            onSamePage?.();
-            router.push(href);
-            return;
-        }
-        TransitionOut({ href, router });
+        go(href, onSamePage);
     };
 
     return (
@@ -121,7 +111,7 @@ export function NavLinks({
                         duration={0.6}
                         delay={open ? delay + i * 0.08 : 0}
                     >
-                        <Anchor href={link.href} go={go} className="subtitle block text-background transition-colors">
+                        <Anchor href={link.href} go={handle} className="subtitle block text-background transition-colors">
                             {t(link.key)}
                         </Anchor>
                     </TextReveal>
@@ -134,7 +124,7 @@ export function NavLinks({
                                         duration={0.5}
                                         delay={open ? delay + SUB_AFTER + (subBase[i] + j) * 0.035 : 0}
                                     >
-                                        <Anchor href={sub.href} go={go} className="block text-background/45 transition-colors hover:text-background/90">
+                                        <Anchor href={sub.href} go={handle} className="block text-background/45 transition-colors hover:text-background/90">
                                             <p>{label(sub)}</p>
                                         </Anchor>
                                     </TextReveal>

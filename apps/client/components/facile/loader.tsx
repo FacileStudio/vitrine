@@ -54,12 +54,18 @@ const Loader = ({ setCharged }: { setCharged: (charged: boolean) => void }) => {
         if (!open)
             return
 
-        gsap.to([logo.current, list.current], {
+        const nodes = [logo.current, list.current]
+
+        gsap.to(nodes, {
             y: "-100vh",
             opacity: 0,
             duration: 0.8,
             ease: EASE.sharp,
         })
+
+        return () => {
+            gsap.killTweensOf(nodes)
+        }
     }, [open])
 
     return (

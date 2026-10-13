@@ -7,7 +7,7 @@ import Story from "@/components/facile/story";
 import { ARRIVE, TransitionOut } from "@/components/facile/pageTransition";
 import type { Project } from "@/lib/content/projects";
 import { projectStory } from "../lib/story";
-import { useMembers } from "@/components/facile/membersProvider";
+import { useMembers } from "@/components/facile/contentProvider";
 import type { Locale } from "@/lib/i18n/locales";
 
 interface ProjectStoryProps {

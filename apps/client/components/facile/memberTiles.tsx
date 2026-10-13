@@ -9,7 +9,7 @@ import DitherReveal from "@/components/facile/ditherReveal";
 import TextReveal from "@/components/facile/textReveal";
 import { useNarrow } from "@/hooks/use-narrow";
 import { cn } from "@/lib/utils";
-import { useMembers } from "@/components/facile/membersProvider";
+import { useMembers } from "@/components/facile/contentProvider";
 import type { AuthoredMember } from "@/lib/content/studio";
 
 // a re-render re-bakes drei's Environment cubemap, so hover must never re-render a head

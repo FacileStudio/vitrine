@@ -3,15 +3,7 @@
     "title": "Prozess",
     "description": "Was Facile Studio macht: Strategie, Marke, Produktdesign, Entwicklung, Motion und Hosting, alles aus einer Hand."
   },
-  "eyebrow": "Unser Prozess",
-  "title": ["*Starke*, vielseitige *Kompetenzen*", "für Marken mit *Anspruch*."],
-  "count": "{count, plural, one {Schritt} other {Schritte}}",
   "scroll": "So ist es, *mit uns zu arbeiten*",
-  "end": {
-    "eyebrow": "Ein Projekt im Kopf?",
-    "title": "Bauen wir es *gemeinsam*.",
-    "link": "Unsere Projekte ansehen"
-  },
   "home": {
     "eyebrow": "Was wir machen",
     "lines": ["*Alles*, was Sie brauchen,", "aus *einer Hand*."],

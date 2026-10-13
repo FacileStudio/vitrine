@@ -86,7 +86,11 @@ export function useMarcelEyes() {
             gsap.to(spheres.current, home);
     }, [release]);
 
-    useEffect(() => release, [release]);
+    // quickTo keeps its own tween alive on the element, so unmounting has to stop it as well as the listener
+    useEffect(() => () => {
+        release();
+        gsap.killTweensOf([eyes.current, spheres.current].filter(Boolean));
+    }, [release]);
 
     return { frame, eyes, spheres, start, stop };
 }

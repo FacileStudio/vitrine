@@ -9,7 +9,6 @@ const MESSAGES = join(ROOT, "locales");
 
 const DATA_FILES = [
     "app/[locale]/projects/projects.json",
-    "app/[locale]/studio/studio.json",
     "app/[locale]/suite/suite.json",
     "app/[locale]/suite/architecture.json",
 ];

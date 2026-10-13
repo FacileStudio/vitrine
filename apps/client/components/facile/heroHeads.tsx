@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { DitherView } from "@/webgl/lazy";
 import { useAfter } from "@/hooks/use-after";
 import { useNarrow } from "@/hooks/use-narrow";
-import { useMembers } from "@/components/facile/membersProvider";
+import { useMembers } from "@/components/facile/contentProvider";
 import { EASE } from "@/lib/animations";
 
 // dx/dy point out of the screen; turn lays the head on its side (top heads: crown toward the centre, bottom heads: torso toward the centre), so yaw (radians) looks up or down at the copy; bleed is the % pushed off-screen; zoom scales one head against the others; mobile overrides turn and bleed under 768px
@@ -35,16 +35,13 @@ export default function HeroHeads({ open }: { open: boolean }) {
     const wasOpen = useRef(false);
     const [parked, setParked] = useState(false);
 
-    useLayoutEffect(() => {
-        refs.current.forEach((el, i) => gsap.set(el, away(el, i)));
-    }, [heads.length]);
-
-    // the bleed lives in gsap: it folds a css translate into its own transform and drops it
+    // one pass: the bleed has to follow the breakpoint, so both sets of transforms are applied together
     useLayoutEffect(() => {
         refs.current.forEach((el, i) => {
             const { bleed } = narrow ? CORNERS[i].mobile : CORNERS[i];
 
             gsap.set(el, {
+                ...away(el, i),
                 xPercent: CORNERS[i].dx * (bleed.x - 10),
                 yPercent: CORNERS[i].dy * bleed.y,
             });
@@ -54,10 +51,11 @@ export default function HeroHeads({ open }: { open: boolean }) {
     // the fixed layer always intersects the viewport, so the canvases only stop once the heads have flown out; never before the first open, or the models compile mid-intro
     useEffect(() => {
         const park = !open && wasOpen.current;
+        const heads = refs.current;
 
         wasOpen.current = open;
 
-        refs.current.forEach((el, i) => {
+        heads.forEach((el, i) => {
             gsap.to(el, {
                 ...(open ? { x: 0, y: 0 } : away(el, i)),
                 delay: open ? 0.2 + i * 0.12 : i * 0.05,
@@ -65,9 +63,13 @@ export default function HeroHeads({ open }: { open: boolean }) {
                 ease: open ? EASE.out : EASE.in,
                 overwrite: true,
                 onStart: open && i === 0 ? () => setParked(false) : undefined,
-                onComplete: park && i === refs.current.length - 1 ? () => setParked(true) : undefined,
+                onComplete: park && i === heads.length - 1 ? () => setParked(true) : undefined,
             });
         });
+
+        return () => {
+            gsap.killTweensOf(heads);
+        };
     }, [open, heads.length]);
 
     return (

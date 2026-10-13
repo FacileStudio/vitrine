@@ -12,13 +12,8 @@
     "back": "Volver a la suite"
   },
   "story": {
-    "eyebrow": "Facile Suite: autoalojada, open source, integrada",
-    "title": "Nosotros *simplificamos*.\nTú *trabajas*.",
     "intro": "{count, plural, one {# herramienta} other {# herramientas}} que se hablan entre sí, en tu servidor. Tiempo, proyectos, leads, firmas, facturas, secretos, logs: un solo login, cero dependencia de la nube.",
     "section": "La suite",
-    "count": "{count, plural, one {# herramienta} other {# herramientas}}, una suite",
-    "end": "Y todo se *comunica*.",
-    "discover": "Descubre la suite",
     "open": "Abrir la app",
     "rest": "El resto de la suite",
     "appEnd": "Fin de {name}",

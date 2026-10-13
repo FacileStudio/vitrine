@@ -7,9 +7,7 @@ import { getMessages } from "next-intl/server";
 import { getOrganizationJsonLd, getWebSiteJsonLd } from "@/lib/seo/jsonld";
 import type { Locale } from "@/lib/i18n/locales";
 import VisitTracker from "@/components/facile/visitTracker";
-import { MembersProvider } from "@/components/facile/membersProvider";
-import { ProjectsProvider } from "@/components/facile/projectsProvider";
-import { ProcessProvider } from "@/components/facile/processProvider";
+import { MembersProvider, ProcessProvider, ProjectsProvider } from "@/components/facile/contentProvider";
 import { fetchMembers } from "@/lib/content/studio";
 import { fetchProjects } from "@/lib/content/projects";
 import { fetchProcess } from "@/lib/content/process";
@@ -67,9 +65,9 @@ export default async function Shell({ locale, children }: { locale: Locale; chil
             </head>
             <body>
                 <NextIntlClientProvider locale={locale} messages={messages}>
-                    <MembersProvider members={members}>
-                        <ProjectsProvider projects={projects}>
-                            <ProcessProvider steps={steps}>{children}</ProcessProvider>
+                    <MembersProvider value={members}>
+                        <ProjectsProvider value={projects}>
+                            <ProcessProvider value={steps}>{children}</ProcessProvider>
                         </ProjectsProvider>
                     </MembersProvider>
                 </NextIntlClientProvider>

@@ -2,8 +2,7 @@ import clsx from "clsx";
 import Line from "@/components/facile/textReveal";
 import type { BlockProps } from "../types";
 import { Block, Cell } from "../bento";
-
-const ROWS = ["ABCDEFGHIJKL", "MNOPQRSTUVW", "XYZ"].map((row) => row.split(""));
+import AlphabetRows from "./alphabetRows";
 
 function Panel({ label, font, fontFamily, big }: { label: string; font?: string; fontFamily?: string; big?: boolean }) {
     return (
@@ -23,19 +22,12 @@ function Panel({ label, font, fontFamily, big }: { label: string; font?: string;
             </div>
 
             <div className="flex flex-1 flex-col lg:mt-12 justify-center gap-2">
-                {ROWS.map((row) => (
-                    <Line
-                        key={row[0]}
-                        className={clsx(
-                            "flex gap-x-[1.2vh] text-background/75",
-                            big ? "font-semibold text-[clamp(1.1rem,3.4vh,2.75rem)]" : "text-[clamp(0.75rem,2vh,1.5rem)]"
-                        )}
-                    >
-                        {row.map((l) => (
-                            <span key={l}>{l}{l.toLowerCase()}</span>
-                        ))}
-                    </Line>
-                ))}
+                <AlphabetRows
+                    className={clsx(
+                        "flex gap-x-[1.2vh] text-background/75",
+                        big ? "font-semibold text-[clamp(1.1rem,3.4vh,2.75rem)]" : "text-[clamp(0.75rem,2vh,1.5rem)]"
+                    )}
+                />
             </div>
         </div>
     );
