@@ -10,9 +10,12 @@ export type ServiceCopy = (service: Service) => string;
 
 type Copy = { t: StoryCopy; services: ServiceCopy };
 
+// the cover opens on what the shelf reveals on hover; marcel keeps its still, the eyes are drawn over it
+const coverMedia = (p: Resolved<Project>, effect = p.coverEffect) => (effect !== "marcel" && p.video ? p.video : p.image);
+
 function hydrate(p: Resolved<Project>, b: StoryBlock, people: Person[], { t, services }: Copy): StoryBlock {
     if (b.type === "cover")
-        return { ...b, media: b.media?.length ? b.media : [p.image], effect: b.effect ?? p.coverEffect };
+        return { ...b, media: b.media?.length ? b.media : [coverMedia(p, b.effect)], effect: b.effect ?? p.coverEffect };
 
     if (b.type === "intro")
         return {
@@ -111,7 +114,7 @@ export function projectStory(p: Project, locale: Locale, copy: Copy, members: Au
 }
 
 function autoStory(p: Resolved<Project>, services: ServiceCopy): StorySection[] {
-    const pool = [...new Set([p.video, ...p.gallery].filter(Boolean) as string[])];
+    const pool = [...new Set([p.video, ...p.gallery].filter(Boolean) as string[])].filter((src) => src !== coverMedia(p));
     const take = (n: number) => pool.splice(0, n);
 
     const story: StorySection[] = [{ blocks: [{ type: "cover" }, { type: "intro" }] }];
