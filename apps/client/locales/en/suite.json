@@ -24,9 +24,7 @@
     "appEnd": "End of {name}",
     "oneLogin": "One login. The whole suite.",
     "muse": {
-      "eyebrow": "The design system behind the suite",
-      "title": "*Muse*, one visual language\nfor every tool.",
-      "text": "Two apps built a year apart still look like siblings, because neither of them ever chose a colour.",
+      "title": "Muse, the *design system* of the *Suite*",
       "link": "Discover Muse"
     }
   }

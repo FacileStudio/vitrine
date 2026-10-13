@@ -5,6 +5,8 @@
 	import { Spinner } from '@repo/ui';
 	import { logger } from '@repo/logger';
 	import { collapse, enter, flip } from '$lib/motion';
+	import { loadMembers } from '$lib/members';
+	import { Reorder } from '$lib/reorder.svelte';
 	import { describe } from '$lib/components/projects/project';
 	import ProjectCard from '$lib/components/projects/list/ProjectCard.svelte';
 	import ProjectRow from '$lib/components/projects/list/ProjectRow.svelte';
@@ -32,11 +34,8 @@
 	let view = $state<(typeof VIEWS)[number]['value']>('grid');
 	let search = $state<HTMLInputElement>();
 
-	// name, description, tags, stack and team all answer a search
 	let reorderError = $state('');
 	let creating = $state(false);
-	let dragged = $state<string | null>(null);
-	let over = $state<string | null>(null);
 	let list = $state<HTMLElement>();
 
 	// dragging only means something in the site's own order with nothing filtered out
@@ -69,43 +68,12 @@
 		}
 	}
 
-	function dragProps(slug: string) {
-		return {
-			draggable: canReorder,
-			ondragstart: (e: DragEvent) => {
-				if (!canReorder)
-					return e.preventDefault();
-
-				dragged = slug;
-				e.dataTransfer?.setData('text/plain', slug);
-
-				if (e.dataTransfer) {
-					e.dataTransfer.effectAllowed = 'move';
-					e.dataTransfer.setDragImage(e.currentTarget as Element, 24, 24);
-				}
-			},
-			ondragover: (e: DragEvent) => {
-				if (!dragged)
-					return;
-
-				e.preventDefault();
-				over = slug;
-			},
-			ondrop: (e: DragEvent) => {
-				e.preventDefault();
-
-				if (dragged)
-					move(dragged, slug);
-
-				dragged = over = null;
-			},
-			ondragend: () => (dragged = over = null),
-		};
-	}
+	const reorder = new Reorder(() => canReorder, move);
 
 	// the bar sits on the side the dragged item will land: after the target when moving forward
-	const landsAfter = (slug: string) => dragged !== null && indexOf(dragged) < indexOf(slug);
+	const landsAfter = (slug: string) => reorder.dragged !== null && indexOf(reorder.dragged) < indexOf(slug);
 
+	// name, description, tags, stack and team all answer a search
 	const shown = $derived.by(() => {
 		const needle = query.trim().toLowerCase();
 		const matches = (projects ?? []).filter((p) =>
@@ -131,9 +99,8 @@
 			// storage can be blocked, the grid is a fine default
 		}
 
-		trpc.studio.list
-			.query()
-			.then((list) => (members = new Map(list.map((m) => [m.slug, m]))))
+		loadMembers()
+			.then((loaded) => (members = loaded))
 			.catch((err) => logger.error({ err }, 'Failed to load studio members'));
 
 		try {
@@ -272,8 +239,8 @@
 	{:else if view === 'grid'}
 		<div bind:this={list} class="grid gap-fc sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
 			{#each shown as project (project.slug)}
-				<div use:enter {...dragProps(project.slug)} role="listitem" class="relative flex {dragged === project.slug ? 'opacity-40' : ''}">
-					{#if over === project.slug && dragged && dragged !== project.slug}
+				<div use:enter {...reorder.props(project.slug)} role="listitem" class="relative flex {reorder.dragged === project.slug ? 'opacity-40' : ''}">
+					{#if reorder.showsBar(project.slug)}
 						<span class="absolute inset-y-0 z-10 w-0.5 rounded-full bg-brand {landsAfter(project.slug) ? '-right-[3px]' : '-left-[3px]'}"></span>
 					{/if}
 					<ProjectCard {project} {members} onremove={(row) => remove(project, row)} />
@@ -286,8 +253,8 @@
 	{:else}
 		<div bind:this={list} class="flex flex-col gap-fc">
 			{#each shown as project (project.slug)}
-				<div use:enter {...dragProps(project.slug)} role="listitem" class="relative {dragged === project.slug ? 'opacity-40' : ''}">
-					{#if over === project.slug && dragged && dragged !== project.slug}
+				<div use:enter {...reorder.props(project.slug)} role="listitem" class="relative {reorder.dragged === project.slug ? 'opacity-40' : ''}">
+					{#if reorder.showsBar(project.slug)}
 						<span class="absolute inset-x-0 z-10 h-0.5 rounded-full bg-brand {landsAfter(project.slug) ? '-bottom-[3px]' : '-top-[3px]'}"></span>
 					{/if}
 					<ProjectRow {project} {members} onremove={(row) => remove(project, row)} />

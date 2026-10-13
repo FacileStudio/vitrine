@@ -38,15 +38,26 @@ export function DitherModel({
     const group = useRef<THREE.Group>(null);
     const cursor = useRef<{ x: number; y: number } | null>(null);
     const pointer = useRef({ x: 0, y: 0 });
+    const moved = useRef(false);
     const [seed] = useState(() => Math.random() * 100);
 
     useEffect(() => {
         if (!parallax) return;
         const onMove = (e: PointerEvent) => {
             cursor.current = { x: e.clientX, y: e.clientY };
+            moved.current = true;
         };
+        const onScroll = () => {
+            moved.current = true;
+        };
+
         window.addEventListener("pointermove", onMove, { passive: true });
-        return () => window.removeEventListener("pointermove", onMove);
+        window.addEventListener("scroll", onScroll, { passive: true });
+
+        return () => {
+            window.removeEventListener("pointermove", onMove);
+            window.removeEventListener("scroll", onScroll);
+        };
     }, [parallax]);
 
     const model = useMemo(() => {
@@ -100,7 +111,10 @@ export function DitherModel({
     useFrame((state) => {
         if (!group.current || (!parallax && !idle)) return;
 
-        if (parallax && cursor.current) {
+        // reading the canvas rect can force a layout, so it only happens after the pointer or the page moved
+        if (parallax && cursor.current && moved.current) {
+            moved.current = false;
+
             const rect = canvas.getBoundingClientRect();
             pointer.current.x = (cursor.current.x - (rect.left + rect.width / 2)) / (window.innerWidth / 2);
             pointer.current.y = -(cursor.current.y - (rect.top + rect.height / 2)) / (window.innerHeight / 2);

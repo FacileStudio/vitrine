@@ -4,7 +4,7 @@ import type { Localized } from "@/lib/i18n/localize";
 import { locales } from "@/lib/i18n/locales";
 import { trpc } from "@/lib/trpc";
 
-export const SERVICES = [
+const SERVICES = [
     "appDevelopment",
     "webDevelopment",
     "desktopDevelopment",
@@ -85,7 +85,7 @@ export const findProject = (projects: Project[], slug: string) => projects.find(
 
 export const projectIndex = (projects: Project[], slug: string) => projects.findIndex((p) => p.slug === slug);
 
-export const CATEGORIES = {
+const CATEGORIES = {
     appDev: ["appDevelopment", "desktopDevelopment"],
     showcaseWebsite: ["webDevelopment"],
     branding: ["brandIdentity", "artDirection", "photography"],
@@ -96,7 +96,7 @@ export type Category = keyof typeof CATEGORIES;
 
 export const categories = Object.keys(CATEGORIES) as Category[];
 
-export const inCategory = (p: Project, c: Category) =>
+const inCategory = (p: Project, c: Category) =>
     p.services.some((s) => (CATEGORIES[c] as readonly Service[]).includes(s));
 
 export const projectsIn = (projects: Project[], c: Category | null) =>

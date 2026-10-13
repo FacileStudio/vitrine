@@ -6,6 +6,8 @@
 	import { logger } from '@repo/logger';
 	import { goto } from '$app/navigation';
 	import { collapse, enter, flip } from '$lib/motion';
+	import { loadMembers } from '$lib/members';
+	import { Reorder } from '$lib/reorder.svelte';
 	import { describe } from '$lib/components/projects/project';
 	import StepRow from '$lib/components/process/StepRow.svelte';
 	import NewStepRow from '$lib/components/process/NewStepRow.svelte';
@@ -17,8 +19,6 @@
 	let actionError = $state('');
 	let query = $state('');
 	let creating = $state(false);
-	let dragged = $state<string | null>(null);
-	let over = $state<string | null>(null);
 	let list = $state<HTMLElement>();
 
 	// dragging only means something with nothing filtered out
@@ -62,47 +62,14 @@
 		}
 	}
 
-	function dragProps(slug: string) {
-		return {
-			draggable: canReorder,
-			ondragstart: (e: DragEvent) => {
-				if (!canReorder)
-					return e.preventDefault();
-
-				dragged = slug;
-				e.dataTransfer?.setData('text/plain', slug);
-
-				if (e.dataTransfer) {
-					e.dataTransfer.effectAllowed = 'move';
-					e.dataTransfer.setDragImage(e.currentTarget as Element, 24, 24);
-				}
-			},
-			ondragover: (e: DragEvent) => {
-				if (!dragged)
-					return;
-
-				e.preventDefault();
-				over = slug;
-			},
-			ondrop: (e: DragEvent) => {
-				e.preventDefault();
-
-				if (dragged)
-					move(dragged, slug);
-
-				dragged = over = null;
-			},
-			ondragend: () => (dragged = over = null),
-		};
-	}
+	const reorder = new Reorder(() => canReorder, move);
 
 	// the bar sits on the side the dragged step will land: after the target when moving down
-	const landsAfter = (slug: string) => dragged !== null && indexOf(dragged) < indexOf(slug);
+	const landsAfter = (slug: string) => reorder.dragged !== null && indexOf(reorder.dragged) < indexOf(slug);
 
 	onMount(async () => {
-		trpc.studio.list
-			.query()
-			.then((list) => (members = new Map(list.map((m) => [m.slug, m]))))
+		loadMembers()
+			.then((loaded) => (members = loaded))
 			.catch((err) => logger.error({ err }, 'Failed to load studio members'));
 
 		try {
@@ -194,8 +161,8 @@
 	{:else}
 		<div bind:this={list} class="flex flex-col gap-fc">
 			{#each shown as step (step.slug)}
-				<div use:enter {...dragProps(step.slug)} role="listitem" class="relative {dragged === step.slug ? 'opacity-40' : ''}">
-					{#if over === step.slug && dragged && dragged !== step.slug}
+				<div use:enter {...reorder.props(step.slug)} role="listitem" class="relative {reorder.dragged === step.slug ? 'opacity-40' : ''}">
+					{#if reorder.showsBar(step.slug)}
 						<span class="absolute inset-x-0 z-10 h-0.5 rounded-full bg-brand {landsAfter(step.slug) ? '-bottom-[3px]' : '-top-[3px]'}"></span>
 					{/if}
 					<StepRow {step} index={indexOf(step.slug)} {members} onremove={(row) => remove(step, row)} />

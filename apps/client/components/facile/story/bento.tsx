@@ -2,7 +2,7 @@ import type { CSSProperties, ReactNode } from "react";
 import { isVideoFile } from "@/lib/utils";
 
 // --band stays in the class list: an inline style would beat the phone breakpoint
-export const BENTO_VARS = {
+const BENTO_VARS = {
     "--gap": "var(--fc-gap)",
     "--row": "calc((var(--band) - 2 * var(--gap)) / 3)",
     "--cell": "calc(var(--row) * 5 / 4)",

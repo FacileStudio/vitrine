@@ -1,15 +1,8 @@
 import { createUniversalTrpcClient } from "@repo/trpc-client";
 
-
-const baseUrl = process.env.NEXT_PUBLIC_API_URL
-    ? (process.env.NEXT_PUBLIC_API_URL.endsWith('/trpc')
-        ? process.env.NEXT_PUBLIC_API_URL 
-        : `${process.env.NEXT_PUBLIC_API_URL}/trpc`)
-    : 'http://localhost:3001/trpc';
+const api = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
 
 export const trpc = createUniversalTrpcClient({
-    baseUrl,
+    baseUrl: api.endsWith("/trpc") ? api : `${api}/trpc`,
     onUnauthorized: () => {},
 });
-
-export default trpc;

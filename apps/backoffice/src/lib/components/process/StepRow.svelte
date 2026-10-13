@@ -2,6 +2,7 @@
 	import { siteAsset } from '$lib/site';
 	import { hoverTo, zoom } from '$lib/motion';
 	import TeamDots from '$lib/components/projects/ui/TeamDots.svelte';
+	import { isVideo } from '$lib/components/projects/editor/fields/media';
 	import type { ProcessStep, StudioMemberSummary } from './types';
 
 	let {
@@ -11,7 +12,7 @@
 		onremove,
 	}: { step: ProcessStep; index: number; members: Map<string, StudioMemberSummary>; onremove: (row: HTMLElement | null) => void } = $props();
 
-	const video = $derived(/\.(mp4|webm|mov)$/i.test(step.image));
+	const video = $derived(isVideo(step.image));
 </script>
 
 <a

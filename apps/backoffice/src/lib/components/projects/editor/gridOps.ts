@@ -7,12 +7,12 @@ type Bucket = Project['bucket'];
 export const ROWS = 3;
 
 // empty columns kept after the last filled one, room for the widest block (4x3)
-export const SPARE_COLS = 4;
+const SPARE_COLS = 4;
 
 const localized = () => ({ en: '', fr: '', es: '', de: '' });
 
 // the right edge of the rightmost item, 0 for an empty grid
-export const lastUsedCol = (layout: Layout) => Math.max(0, ...layout.items.map((item) => item.x + item.w - 1));
+const lastUsedCol = (layout: Layout) => Math.max(0, ...layout.items.map((item) => item.x + item.w - 1));
 
 export const shownCols = (layout: Layout) => Math.max(layout.cols, lastUsedCol(layout) + SPARE_COLS);
 

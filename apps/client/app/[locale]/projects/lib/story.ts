@@ -5,8 +5,8 @@ import type { Locale } from "@/lib/i18n/locales";
 import { SERVICE_ICONS, type Project, type Service } from "@/lib/content/projects";
 import { findPerson, type AuthoredMember } from "@/lib/content/studio";
 
-export type StoryCopy = ReturnType<typeof useTranslations<"story">>;
-export type ServiceCopy = (service: Service) => string;
+type StoryCopy = ReturnType<typeof useTranslations<"story">>;
+type ServiceCopy = (service: Service) => string;
 
 type Copy = { t: StoryCopy; services: ServiceCopy };
 

@@ -1,4 +1,4 @@
-export const BLOCK_SPECS = {
+const BLOCK_SPECS = {
     cover: { media: 1, cols: 3 },
     intro: { media: 0, cols: 2 },
     note: { media: 1, cols: 2 },

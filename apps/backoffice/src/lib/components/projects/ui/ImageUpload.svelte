@@ -3,6 +3,7 @@
 	import { logger } from '@repo/logger';
 	import { trpc } from '$lib/trpc';
 	import { siteAsset } from '$lib/site';
+	import { isVideo } from '../editor/fields/media';
 
 	let {
 		value = $bindable(''),
@@ -15,7 +16,7 @@
 	let preview = $state<string | null>(null);
 
 	// a field taking both kinds can only tell from the stored file
-	const video = $derived(accept.startsWith('video') || /\.(mp4|webm|mov)$/i.test(value));
+	const video = $derived(accept.startsWith('video') || isVideo(value));
 	const shown = $derived(preview ?? (value ? siteAsset(value) : ''));
 
 	// the backend signs a one-off PUT to MinIO, the file then goes there straight from the browser

@@ -12,7 +12,7 @@ export function getLocalizedPath(locale: Locale, path: string = "") {
     return path ? `/${locale}${path}` : `/${locale}`;
 }
 
-export function getAlternates(path: string, locale: Locale) {
+function getAlternates(path: string, locale: Locale) {
     const languages = Object.fromEntries(
         locales.map((l) => [l, getLocalizedPath(l, path)])
     ) as Record<Locale, string>;
@@ -26,7 +26,7 @@ export function getAlternates(path: string, locale: Locale) {
     };
 }
 
-export function getOpenGraphLocale(locale: string) {
+function getOpenGraphLocale(locale: string) {
     const localesMap: Record<string, string> = {
         en: "en_US",
         fr: "fr_FR",

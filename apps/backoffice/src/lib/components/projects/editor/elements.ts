@@ -8,8 +8,6 @@ export const ELEMENTS = [
 	{ kind: 'tiles', label: 'Tiles', icon: 'iconoir:view-grid', w: 2, h: 3 },
 ] as const;
 
-export type ElementKind = (typeof ELEMENTS)[number]['kind'];
-
 // edited from the project info at the top of the page, so they never appear in the library
 export const LOCKED_ELEMENTS = [
 	{ kind: 'cover', label: 'Cover', icon: 'iconoir:star' },

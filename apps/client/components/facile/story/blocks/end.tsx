@@ -1,6 +1,5 @@
 import { useTranslations } from "next-intl";
 import Line from "@/components/facile/textReveal";
-import SplitLines from "@/components/facile/splitLines";
 import AppMark from "@/components/facile/appMark";
 import ArrowLink from "@/components/facile/arrowLink";
 import type { BlockProps } from "../types";
@@ -17,7 +16,11 @@ export default function End({ block, onClose }: BlockProps) {
                 {/* an image frames the block at 16:10 on its full height, so a wide screenshot trims top and bottom, never the sides */}
                 <div className={`relative h-full ${framed ? "mx-auto aspect-16/10 max-w-full overflow-hidden rounded-fc" : "w-full"}`}>
                     {framed ? (
-                        <Media src={framed} className="absolute inset-0" />
+                        <>
+                            <Media src={framed} className="absolute inset-0" />
+                            {/* a dark corner behind the copy sets it apart from the screenshot, gone by the centre */}
+                            <div aria-hidden className="absolute inset-0 bg-linear-to-tr from-foreground/50 to-transparent to-50%" />
+                        </>
                     ) : null}
 
                     <div className="relative flex h-full w-full flex-col justify-between gap-[2.5vh] p-[5vh]">
@@ -34,13 +37,13 @@ export default function End({ block, onClose }: BlockProps) {
                             </Line>
                         ) : null}
 
-                        <div className="flex flex-col gap-[2.5vh]">
-                            {block.icon ? (
-                                <Line>
-                                    <AppMark icon={block.icon} className="text-[10vh] text-accent" fileClassName="h-[10vh] w-[10vh] object-contain" />
-                                </Line>
-                            ) : null}
+                        {block.icon ? (
+                            <Line>
+                                <AppMark icon={block.icon} className="text-[10vh] text-accent" fileClassName="h-[10vh] w-[10vh] object-contain" />
+                            </Line>
+                        ) : null}
 
+                        <div className="mt-auto flex flex-col gap-[2.5vh]">
                             {block.eyebrow ? (
                                 <Line as="p" className="subtext text-current">
                                     {block.eyebrow}
@@ -50,10 +53,6 @@ export default function End({ block, onClose }: BlockProps) {
                             <Line as="h2" className="whitespace-pre-line">
                                 <Emphasis text={block.title ?? t("thanks")} />
                             </Line>
-
-                            {block.text ? (
-                                <SplitLines as="p" text={block.text} className="lead max-w-[48ch] text-current opacity-70" />
-                            ) : null}
 
                             {block.link ? (
                                 <Line>
