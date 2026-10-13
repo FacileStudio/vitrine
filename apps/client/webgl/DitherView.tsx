@@ -87,6 +87,8 @@ export function DitherView({
             <Canvas
                 key={canvasKey}
                 className=""
+                // r3f puts pointer-events: auto inline on its wrapper, which let a giant hero canvas swallow the footer links
+                style={{ pointerEvents: "none" }}
                 dpr={lite ? 1 : [1, 2]}
                 // shadows only exist in the 64px environment bake; pcf's linear depth compare makes firefox warn once per canvas
                 shadows={lite ? false : { type: THREE.BasicShadowMap }}
