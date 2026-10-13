@@ -2,7 +2,6 @@
 
 import React from "react";
 import { useTranslations } from "next-intl";
-import TextReveal from "../textReveal";
 import Link from "@/components/facile/transitionLink";
 import LocaleSwitcher from "./localeSwitcher";
 
@@ -20,10 +19,6 @@ export const DesktopHeader =({ menuOpen, setMenuOpen, dark }: { menuOpen: boolea
                 <Link href="/" className="pointer-events-auto">
                     <img src="/F.svg" alt={t("logoAlt")} className={`h-6 shrink-0 brightness-0 ${dark ? "" : "invert"}`} />
                 </Link>
-                {/* <div className=" lg:flex justify-end items-center hidden   text-end gap-8">
-                    <TextReveal delay={1} className="text-xl text-accent ">[<span className="italic font-goga lowercase tracking-tight mr-1">fasil</span>]</TextReveal>
-                    <TextReveal as="p" delay={1.1} className={`subtext text-[clamp(0.5rem,1.2vh,0.7rem)] ${dark ? "text-[#1E1E1E]" : "text-background"} `}>{t("tagline")}</TextReveal>
-                </div> */}
             </div>
             <div className="flex items-stretch gap-fc">
                 <LocaleSwitcher dark={dark} className="flex" />

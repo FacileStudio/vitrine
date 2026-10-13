@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { Center, Float, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
@@ -38,7 +38,7 @@ export function DitherModel({
     const group = useRef<THREE.Group>(null);
     const cursor = useRef<{ x: number; y: number } | null>(null);
     const pointer = useRef({ x: 0, y: 0 });
-    const seed = useRef(Math.random() * 100);
+    const [seed] = useState(() => Math.random() * 100);
 
     useEffect(() => {
         if (!parallax) return;
@@ -107,7 +107,7 @@ export function DitherModel({
         }
 
         const { x, y } = pointer.current;
-        const t = state.clock.elapsedTime + seed.current;
+        const t = state.clock.elapsedTime + seed;
         const driftX = Math.sin(t * 0.23) * 0.6 + Math.sin(t * 0.13 + 2.1) * 0.4;
         const driftY = Math.sin(t * 0.31 + 1.3) * 0.6 + Math.sin(t * 0.17 + 0.7) * 0.4;
 

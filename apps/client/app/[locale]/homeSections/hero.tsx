@@ -8,17 +8,6 @@ import Arrow from "@/components/facile/arrow";
 import TextReveal from "@/components/facile/textReveal";
 import HeroHeads from "@/components/facile/heroHeads";
 import { usePinProgress } from "@/hooks/use-pin-progress";
-import { useMembers } from "@/components/facile/membersProvider";
-import { useLocalized } from "@/lib/i18n/localize";
-import { pad2 } from "@/lib/utils";
-
-// one frame corner per head, in the same order as the heads' corners
-const MARKS = [
-    { place: "top-0 left-0", text: "flex-col items-start" },
-    { place: "top-0 right-0", text: "flex-col items-end text-end" },
-    { place: "bottom-0 left-0", text: "flex-col-reverse items-start" },
-    { place: "bottom-0 right-0", text: "flex-col-reverse items-end text-end" },
-];
 
 export default function Hero({ charged }: { charged: boolean }) {
     const sectionRef = useRef<HTMLElement>(null);
@@ -28,7 +17,6 @@ export default function Hero({ charged }: { charged: boolean }) {
     const [copyGone, setCopyGone] = useState(false);
     const t = useTranslations("home");
     const tc = useTranslations("common.header");
-    const members = useLocalized(useMembers());
 
     // everything is pinned to the viewport: the heads leave on the first scroll, the copy and cue once the next section has passed over the copy
     usePinProgress(sectionRef, (p) => {
@@ -60,32 +48,6 @@ export default function Hero({ charged }: { charged: boolean }) {
     return (
         <section id="hero" ref={sectionRef} className="h-screen w-full relative overflow-hidden bg-foreground text-background">
             <HeroHeads open={shown} />
-
-            {/* <div className="pointer-events-none absolute inset-x-[8vw] lg:inset-x-[18vw] inset-y-[30vh] lg:inset-y-[0vh]">
-                {MARKS.map((mark, i) => {
-                    const m = members[i];
-
-                    return (
-                        <div key={mark.place} className={`absolute flex gap-1 ${mark.place} ${mark.text}`}>
-                            <TextReveal open={shown} leaving={leaving} delay={0.9 + i * 0.05} className="tagText text-background/30">
-                                <span aria-hidden="true">+</span>
-                            </TextReveal>
-
-                            {m ? (
-                                <Link href={`/studio/${m.slug}`} className="pointer-events-auto hidden lg:flex flex-col gap-1">
-                                    <TextReveal as="p" open={shown} leaving={leaving} delay={1.3 + i * 0.08} className="tagText text-accent">
-                                        {pad2(i + 1)} / {m.name}
-                                    </TextReveal>
-
-                                    <TextReveal as="p" open={shown} leaving={leaving} delay={1.36 + i * 0.08} className="subtext text-background">
-                                        {m.role}
-                                    </TextReveal>
-                                </Link>
-                            ) : null}
-                        </div>
-                    );
-                })}
-            </div> */}
 
             <div ref={copyRef} className="pointer-events-none fixed inset-0 z-[70] flex flex-col lg:flex-row items-center justify-center gap-10 lg:justify-between px-6 lg:px-[22vw]">
                 <div className="flex flex-col items-center lg:items-start gap-6">

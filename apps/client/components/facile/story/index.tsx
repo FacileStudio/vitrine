@@ -3,7 +3,7 @@
 import gsap from "gsap";
 import Lenis from "lenis";
 import { useLenis } from "lenis/react";
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useEffectEvent, useLayoutEffect, useRef, useState } from "react";
 import { EASE, hideRevealY, run, slideY } from "@/lib/animations";
 import { useNarrow } from "@/hooks/use-narrow";
 import DitherBackdrop from "@/components/facile/ditherBackdrop";
@@ -52,6 +52,19 @@ export default function Story({ sections, name, index, total, backLabel, delay =
         leaving.current = true;
         onClose();
     }, [onClose]);
+
+    // the parent passes fresh arrows each render, so reading them here keeps the scroller effect from rebuilding lenis
+    const go = useEffectEvent((to: "next" | "prev") => {
+        const move = to === "next" ? onNext : onPrev;
+
+        if (!move || leaving.current)
+            return false;
+
+        leaving.current = true;
+        move();
+
+        return true;
+    });
 
 
 
@@ -128,16 +141,12 @@ export default function Story({ sections, name, index, total, backLabel, delay =
                 return;
 
             // seamless transition to the next project when scrolling past the end
-            if (max > 0 && at >= max - 5 && onNext) {
-                leaving.current = true;
-                onNext();
-            }
+            if (max > 0 && at >= max - 5)
+                go("next");
 
             // reverse direction: scroll to the start to go to the previous project
-            if (max > 0 && at <= 5 && at < prevAt && onPrev) {
-                leaving.current = true;
-                onPrev();
-            }
+            if (max > 0 && at <= 5 && at < prevAt)
+                go("prev");
 
             prevAt = at;
         };
@@ -146,27 +155,19 @@ export default function Story({ sections, name, index, total, backLabel, delay =
         const onKey = (e: KeyboardEvent) => {
             if (e.key === "Escape") close();
             else if (e.key === (narrow ? "ArrowDown" : "ArrowRight")) {
-                if (onNext && !leaving.current) {
-                    const max = narrow ? el.scrollHeight - el.clientHeight : el.scrollWidth - el.clientWidth;
-                    const at = narrow ? el.scrollTop : el.scrollLeft;
+                const max = narrow ? el.scrollHeight - el.clientHeight : el.scrollWidth - el.clientWidth;
+                const at = narrow ? el.scrollTop : el.scrollLeft;
 
-                    if (at >= max - 5) {
-                        leaving.current = true;
-                        onNext();
-                        return;
-                    }
-                }
+                if (at >= max - 5 && go("next"))
+                    return;
+
                 lenis.scrollTo(lenis.targetScroll + step(), { duration: 0.8 });
             } else if (e.key === (narrow ? "ArrowUp" : "ArrowLeft")) {
-                if (onPrev && !leaving.current) {
-                    const at = narrow ? el.scrollTop : el.scrollLeft;
+                const at = narrow ? el.scrollTop : el.scrollLeft;
 
-                    if (at <= 5) {
-                        leaving.current = true;
-                        onPrev();
-                        return;
-                    }
-                }
+                if (at <= 5 && go("prev"))
+                    return;
+
                 lenis.scrollTo(lenis.targetScroll - step(), { duration: 0.8 });
             }
         };

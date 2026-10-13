@@ -56,8 +56,6 @@ export default function HeroHeads({ open }: { open: boolean }) {
         const park = !open && wasOpen.current;
 
         wasOpen.current = open;
-        if (open)
-            setParked(false);
 
         refs.current.forEach((el, i) => {
             gsap.to(el, {
@@ -66,6 +64,7 @@ export default function HeroHeads({ open }: { open: boolean }) {
                 duration: open ? 1.6 : 0.9,
                 ease: open ? EASE.out : EASE.in,
                 overwrite: true,
+                onStart: open && i === 0 ? () => setParked(false) : undefined,
                 onComplete: park && i === refs.current.length - 1 ? () => setParked(true) : undefined,
             });
         });
