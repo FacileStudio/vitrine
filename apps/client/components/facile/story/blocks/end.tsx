@@ -15,11 +15,7 @@ export default function End({ block, onClose }: BlockProps) {
                 {/* an image frames the block at 16:10 on its full height, so a wide screenshot trims top and bottom, never the sides */}
                 <div className={`relative h-full ${framed ? "mx-auto aspect-16/10 max-w-full overflow-hidden rounded-fc" : "w-full"}`}>
                     {framed ? (
-                        <>
-                            <Media src={framed} className="absolute inset-0" />
-                            {/* darkens the bottom so the title stays readable over any screenshot */}
-                            <div aria-hidden className="absolute inset-0 bg-linear-to-t from-foreground via-foreground/60 to-foreground/10" />
-                        </>
+                        <Media src={framed} className="absolute inset-0" />
                     ) : null}
 
                     <div className="relative flex h-full w-full flex-col justify-between gap-[2.5vh] p-[5vh]">
