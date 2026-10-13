@@ -55,7 +55,8 @@ export default function ProjectShelf({
             stickyBackdrop={stickyBackdrop}
             columnClassName="w-full h-full pt-[10vh] lg:pt-[20vh] pb-[120vh] flex flex-col gap-fc justify-start items-center px-1 lg:px-6"
             after={
-                <div className="pointer-events-none sticky bottom-0 z-30 h-0">
+                // above the cards' z-40 metadata, or a card's title and chips draw over the stripes while they still cover the section
+                <div className="pointer-events-none sticky bottom-0 z-50 h-0">
                     {/* the section ends on a fractional pixel, so the cover runs 1px past it or the dark ground shows as a line */}
                     <div className="relative h-[calc(100vh+1px)] w-full translate-y-[calc(-100%+1px)] overflow-hidden">
                         <Stripes

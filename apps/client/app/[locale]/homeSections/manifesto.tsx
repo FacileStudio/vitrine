@@ -102,9 +102,10 @@ export default function Manifesto() {
                     ]}
                 />
 
-                <Stripes orientation={0} count={4} className="bg-foreground" openWhen={() => progressRef.current > 0.02} />
+                {/* both covers sit above the z-50 copy, or the titles and list draw over the stripes while they close */}
+                <Stripes orientation={0} count={4} className="bg-foreground" zIndex={60} openWhen={() => progressRef.current > 0.02} />
 
-                <Stripes orientation={180} count={4} className="bg-foreground" openWhen={() => progressRef.current < 0.94} />
+                <Stripes orientation={180} count={4} className="bg-foreground" zIndex={60} openWhen={() => progressRef.current < 0.94} />
 
                 <div className="absolute inset-0 z-50 flex flex-col items-center justify-center pointer-events-none gap-12">
                     <div ref={titleRef} className="grid place-items-center px-2 text-center transition-transform duration-700 ease-out">
