@@ -24,7 +24,7 @@ const TRACKS = {
 const Loader = ({ setCharged }: { setCharged: (charged: boolean) => void }) => {
     const [open, setOpen] = useState(false)
     const logo = useRef<HTMLDivElement>(null)
-    const list = useRef<HTMLUListElement>(null)
+    const list = useRef<HTMLDivElement>(null)
     const shown = useAfter(true, 150)
     const t = useTranslations("common.nav")
 

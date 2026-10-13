@@ -148,6 +148,12 @@ p {
     font-size: 0.875rem;
 }
 
+@media (width < 48rem) {
+    p {
+        font-size: 0.75rem;
+    }
+}
+
 /* the colour sits in the base layer so a `text-*` utility on a `p` can override it */
 @layer base {
     p {
