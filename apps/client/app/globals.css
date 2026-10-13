@@ -29,6 +29,34 @@
     font-display: swap;
 }
 
+/* the Goga trial has no ampersand, so Magnetik's is borrowed for that one glyph */
+@font-face {
+    font-family: "Goga";
+    src: url("/fonts/magnetik/Magnetik-Ampersand-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    unicode-range: U+0026;
+}
+
+@font-face {
+    font-family: "Goga";
+    src: url("/fonts/magnetik/Magnetik-Ampersand-Medium.woff2") format("woff2");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    unicode-range: U+0026;
+}
+
+@font-face {
+    font-family: "Goga";
+    src: url("/fonts/magnetik/Magnetik-Ampersand-Bold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    unicode-range: U+0026;
+}
+
 @font-face {
     font-family: "BB Manual Mono";
     src: url("/fonts/bb-manual-mono/BBManualMonoProText-Regular.woff2") format("woff2"),
