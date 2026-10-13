@@ -18,9 +18,12 @@ export default function Tiles({ block }: BlockProps) {
     return (
         <Block cols={block.cols}>
             {tiles.map((t: Tile) => (
-                <Cell key={t.label} {...place(t, tiles)} className="in-data-glass:bg-[#212121]/20 in-data-glass:backdrop-blur-[48px]">
+                <Cell key={t.label} {...place(t, tiles)} className="relative">
+                    {/* its own layer so the band can fade the glass near the screen edge without fading the text */}
+                    <div data-glass-layer aria-hidden className="absolute inset-0 in-data-glass:bg-[#212121]/20 in-data-glass:backdrop-blur-[48px]" />
+
                     {t.featured ? <FeaturedTile tile={t} /> : (
-                        <div className="flex h-full w-full flex-col justify-between gap-[1.5vh] p-[3vh]">
+                        <div className="relative flex h-full w-full flex-col justify-between gap-[1.5vh] p-[3vh]">
                             {t.icon ? (
                                 <AppMark icon={t.icon} className="text-[4vh] text-accent" fileClassName="h-[6vh] w-[6vh] object-contain" />
                             ) : null}
