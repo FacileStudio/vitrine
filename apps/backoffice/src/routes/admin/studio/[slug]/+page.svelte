@@ -10,6 +10,7 @@
 	import ProjectsSection from '$lib/components/studio/ProjectsSection.svelte';
 	import ModelSection from '$lib/components/studio/ModelSection.svelte';
 	import SaveBar from '$lib/components/SaveBar.svelte';
+	import { describe } from '$lib/components/projects/project';
 	import type { ProjectOption, StudioMember } from '$lib/components/studio/types';
 
 	let member = $state<StudioMember | null>(null);
@@ -41,16 +42,6 @@
 			return member!.projects.map((slug) => ({ slug, name: slug }));
 		});
 	});
-
-	// zod input errors arrive as a JSON list of issues, the field paths are what the admin needs
-	function describe(err: unknown) {
-		try {
-			const issues: Array<{ path: (string | number)[] }> = JSON.parse((err as Error).message);
-			return `Champs invalides : ${issues.map((issue) => issue.path.join('.')).join(', ')}`;
-		} catch {
-			return "Could not save";
-		}
-	}
 
 	async function save() {
 		if (!member)

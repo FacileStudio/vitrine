@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
 	import { MobileNav, SideBar, icons } from '$lib/muse';
 	import Glow from '$lib/components/Glow.svelte';
@@ -52,9 +52,7 @@
 		{ href: '/admin/users', icon: icons.shield, label: 'Accounts' },
 	];
 
-	let currentPath = $derived($page.url.pathname);
-
-	const pages = $derived(NAV.map((item) => ({ ...item, active: currentPath.startsWith(item.href) })));
+	const pages = $derived(NAV.map((item) => ({ ...item, active: page.url.pathname.startsWith(item.href) })));
 </script>
 
 {#if ready}

@@ -5,6 +5,7 @@
 	import { Spinner } from '@repo/ui';
 	import { logger } from '@repo/logger';
 	import { siteAsset } from '$lib/site';
+	import { loadMembers } from '$lib/members';
 	import SaveBar from '$lib/components/SaveBar.svelte';
 	import Section from '$lib/components/studio/Section.svelte';
 	import Field from '$lib/components/studio/Field.svelte';
@@ -35,9 +36,8 @@
 	}
 
 	onMount(async () => {
-		trpc.studio.list
-			.query()
-			.then((list) => (members = new Map(list.map((m) => [m.slug, m]))))
+		loadMembers()
+			.then((loaded) => (members = loaded))
 			.catch((err) => logger.error({ err }, 'Failed to load studio members'));
 
 		try {

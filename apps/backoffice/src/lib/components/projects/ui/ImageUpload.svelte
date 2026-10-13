@@ -55,6 +55,7 @@
 				: `Upload failed${upload?.s3Code ? `: ${upload.s3Code}` : upload?.statusCode ? ` (HTTP ${upload.statusCode})` : ': storage unreachable (network or CORS)'}`;
 		} finally {
 			uploading = false;
+			URL.revokeObjectURL(preview!);
 			preview = null;
 		}
 	}

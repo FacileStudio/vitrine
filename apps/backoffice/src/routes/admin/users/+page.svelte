@@ -19,14 +19,13 @@
 		role: 'all' as 'all' | 'admin' | 'user',
 	});
 
-	onMount(async () => {
-		await Promise.all([fetchUsers(), fetchStats()]);
-	});
+	onMount(fetchStats);
 
-	async function fetchUsers() {
+	// the snapshot is read synchronously, so the effect below refetches whenever a filter changes
+	async function fetchUsers(query = $state.snapshot(filters)) {
 		pageLoading = true;
 		try {
-			users = await trpc.user.list.query(filters);
+			users = await trpc.user.list.query(query);
 		} catch (err) {
 			logger.error({ err }, 'Failed to fetch users');
 		} finally {
