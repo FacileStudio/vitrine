@@ -70,8 +70,7 @@ export function suiteStory(apps: SuiteApp[], t: StoryCopy): Chapter[] {
             blocks: [{
                 type: "end",
                 cols: 4,
-                // placeholder until a real screenshot of the suite lands in public/images/suite
-                media: ["/images/projects/Marcel%203x3%20dashboard.webp"],
+                media: ["/images/suite/suite.webp"],
                 eyebrow: t("count", { count: apps.length }),
                 title: t("title"),
                 link: "/suite",
