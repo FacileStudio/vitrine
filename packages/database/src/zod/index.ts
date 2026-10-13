@@ -34,6 +34,12 @@ export const MediaScalarFieldEnumSchema = z.enum(['id', 'url', 'key', 'mimeType'
 
 export type MediaScalarFieldEnum = z.infer<typeof MediaScalarFieldEnumSchema>;
 
+// File: ProcessStepScalarFieldEnum.schema.ts
+
+export const ProcessStepScalarFieldEnumSchema = z.enum(['slug', 'position', 'image', 'title', 'duration', 'keywords', 'tagline', 'text', 'items', 'team', 'createdAt', 'updatedAt'])
+
+export type ProcessStepScalarFieldEnum = z.infer<typeof ProcessStepScalarFieldEnumSchema>;
+
 // File: ProjectScalarFieldEnum.schema.ts
 
 export const ProjectScalarFieldEnumSchema = z.enum(['slug', 'position', 'name', 'weeks', 'link', 'image', 'video', 'coverEffect', 'description', 'metaDescription', 'services', 'techStack', 'date', 'gallery', 'notes', 'bucket', 'createdAt', 'updatedAt'])
@@ -401,6 +407,104 @@ const mediascalarwherewithaggregatesinputSchema = z.object({
 }).strict();
 export const MediaScalarWhereWithAggregatesInputObjectSchema: z.ZodType<Prisma.MediaScalarWhereWithAggregatesInput> = mediascalarwherewithaggregatesinputSchema as unknown as z.ZodType<Prisma.MediaScalarWhereWithAggregatesInput>;
 export const MediaScalarWhereWithAggregatesInputObjectZodSchema = mediascalarwherewithaggregatesinputSchema;
+
+
+// File: ProcessStepWhereInput.schema.ts
+
+const processstepwhereinputSchema = z.object({
+  AND: z.union([z.lazy(() => ProcessStepWhereInputObjectSchema), z.lazy(() => ProcessStepWhereInputObjectSchema).array()]).optional(),
+  OR: z.lazy(() => ProcessStepWhereInputObjectSchema).array().optional(),
+  NOT: z.union([z.lazy(() => ProcessStepWhereInputObjectSchema), z.lazy(() => ProcessStepWhereInputObjectSchema).array()]).optional(),
+  slug: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
+  position: z.union([z.lazy(() => IntFilterObjectSchema), z.number().int()]).optional(),
+  image: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
+  title: z.lazy(() => JsonFilterObjectSchema).optional(),
+  duration: z.lazy(() => JsonFilterObjectSchema).optional(),
+  keywords: z.lazy(() => JsonFilterObjectSchema).optional(),
+  tagline: z.lazy(() => JsonFilterObjectSchema).optional(),
+  text: z.lazy(() => JsonFilterObjectSchema).optional(),
+  items: z.lazy(() => JsonFilterObjectSchema).optional(),
+  team: z.lazy(() => StringNullableListFilterObjectSchema).optional(),
+  createdAt: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional(),
+  updatedAt: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional()
+}).strict();
+export const ProcessStepWhereInputObjectSchema: z.ZodType<Prisma.ProcessStepWhereInput> = processstepwhereinputSchema as unknown as z.ZodType<Prisma.ProcessStepWhereInput>;
+export const ProcessStepWhereInputObjectZodSchema = processstepwhereinputSchema;
+
+
+// File: ProcessStepOrderByWithRelationInput.schema.ts
+const __makeSchema_ProcessStepOrderByWithRelationInput_schema = () => z.object({
+  slug: SortOrderSchema.optional(),
+  position: SortOrderSchema.optional(),
+  image: SortOrderSchema.optional(),
+  title: SortOrderSchema.optional(),
+  duration: SortOrderSchema.optional(),
+  keywords: SortOrderSchema.optional(),
+  tagline: SortOrderSchema.optional(),
+  text: SortOrderSchema.optional(),
+  items: SortOrderSchema.optional(),
+  team: SortOrderSchema.optional(),
+  createdAt: SortOrderSchema.optional(),
+  updatedAt: SortOrderSchema.optional()
+}).strict();
+export const ProcessStepOrderByWithRelationInputObjectSchema: z.ZodType<Prisma.ProcessStepOrderByWithRelationInput> = __makeSchema_ProcessStepOrderByWithRelationInput_schema() as unknown as z.ZodType<Prisma.ProcessStepOrderByWithRelationInput>;
+export const ProcessStepOrderByWithRelationInputObjectZodSchema = __makeSchema_ProcessStepOrderByWithRelationInput_schema();
+
+
+// File: ProcessStepWhereUniqueInput.schema.ts
+const __makeSchema_ProcessStepWhereUniqueInput_schema = () => z.object({
+  slug: z.string().optional(),
+  position: z.number().int().optional()
+}).strict();
+export const ProcessStepWhereUniqueInputObjectSchema: z.ZodType<Prisma.ProcessStepWhereUniqueInput> = __makeSchema_ProcessStepWhereUniqueInput_schema() as unknown as z.ZodType<Prisma.ProcessStepWhereUniqueInput>;
+export const ProcessStepWhereUniqueInputObjectZodSchema = __makeSchema_ProcessStepWhereUniqueInput_schema();
+
+
+// File: ProcessStepOrderByWithAggregationInput.schema.ts
+const __makeSchema_ProcessStepOrderByWithAggregationInput_schema = () => z.object({
+  slug: SortOrderSchema.optional(),
+  position: SortOrderSchema.optional(),
+  image: SortOrderSchema.optional(),
+  title: SortOrderSchema.optional(),
+  duration: SortOrderSchema.optional(),
+  keywords: SortOrderSchema.optional(),
+  tagline: SortOrderSchema.optional(),
+  text: SortOrderSchema.optional(),
+  items: SortOrderSchema.optional(),
+  team: SortOrderSchema.optional(),
+  createdAt: SortOrderSchema.optional(),
+  updatedAt: SortOrderSchema.optional(),
+  _count: z.lazy(() => ProcessStepCountOrderByAggregateInputObjectSchema).optional(),
+  _avg: z.lazy(() => ProcessStepAvgOrderByAggregateInputObjectSchema).optional(),
+  _max: z.lazy(() => ProcessStepMaxOrderByAggregateInputObjectSchema).optional(),
+  _min: z.lazy(() => ProcessStepMinOrderByAggregateInputObjectSchema).optional(),
+  _sum: z.lazy(() => ProcessStepSumOrderByAggregateInputObjectSchema).optional()
+}).strict();
+export const ProcessStepOrderByWithAggregationInputObjectSchema: z.ZodType<Prisma.ProcessStepOrderByWithAggregationInput> = __makeSchema_ProcessStepOrderByWithAggregationInput_schema() as unknown as z.ZodType<Prisma.ProcessStepOrderByWithAggregationInput>;
+export const ProcessStepOrderByWithAggregationInputObjectZodSchema = __makeSchema_ProcessStepOrderByWithAggregationInput_schema();
+
+
+// File: ProcessStepScalarWhereWithAggregatesInput.schema.ts
+
+const processstepscalarwherewithaggregatesinputSchema = z.object({
+  AND: z.union([z.lazy(() => ProcessStepScalarWhereWithAggregatesInputObjectSchema), z.lazy(() => ProcessStepScalarWhereWithAggregatesInputObjectSchema).array()]).optional(),
+  OR: z.lazy(() => ProcessStepScalarWhereWithAggregatesInputObjectSchema).array().optional(),
+  NOT: z.union([z.lazy(() => ProcessStepScalarWhereWithAggregatesInputObjectSchema), z.lazy(() => ProcessStepScalarWhereWithAggregatesInputObjectSchema).array()]).optional(),
+  slug: z.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()]).optional(),
+  position: z.union([z.lazy(() => IntWithAggregatesFilterObjectSchema), z.number().int()]).optional(),
+  image: z.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()]).optional(),
+  title: z.lazy(() => JsonWithAggregatesFilterObjectSchema).optional(),
+  duration: z.lazy(() => JsonWithAggregatesFilterObjectSchema).optional(),
+  keywords: z.lazy(() => JsonWithAggregatesFilterObjectSchema).optional(),
+  tagline: z.lazy(() => JsonWithAggregatesFilterObjectSchema).optional(),
+  text: z.lazy(() => JsonWithAggregatesFilterObjectSchema).optional(),
+  items: z.lazy(() => JsonWithAggregatesFilterObjectSchema).optional(),
+  team: z.lazy(() => StringNullableListFilterObjectSchema).optional(),
+  createdAt: z.union([z.lazy(() => DateTimeWithAggregatesFilterObjectSchema), z.coerce.date()]).optional(),
+  updatedAt: z.union([z.lazy(() => DateTimeWithAggregatesFilterObjectSchema), z.coerce.date()]).optional()
+}).strict();
+export const ProcessStepScalarWhereWithAggregatesInputObjectSchema: z.ZodType<Prisma.ProcessStepScalarWhereWithAggregatesInput> = processstepscalarwherewithaggregatesinputSchema as unknown as z.ZodType<Prisma.ProcessStepScalarWhereWithAggregatesInput>;
+export const ProcessStepScalarWhereWithAggregatesInputObjectZodSchema = processstepscalarwherewithaggregatesinputSchema;
 
 
 // File: ProjectWhereInput.schema.ts
@@ -1670,6 +1774,137 @@ const __makeSchema_MediaUncheckedUpdateManyInput_schema = () => z.object({
 }).strict();
 export const MediaUncheckedUpdateManyInputObjectSchema: z.ZodType<Prisma.MediaUncheckedUpdateManyInput> = __makeSchema_MediaUncheckedUpdateManyInput_schema() as unknown as z.ZodType<Prisma.MediaUncheckedUpdateManyInput>;
 export const MediaUncheckedUpdateManyInputObjectZodSchema = __makeSchema_MediaUncheckedUpdateManyInput_schema();
+
+
+// File: ProcessStepCreateInput.schema.ts
+const __makeSchema_ProcessStepCreateInput_schema = () => z.object({
+  slug: z.string(),
+  position: z.number().int(),
+  image: z.string(),
+  title: z.union([JsonNullValueInputSchema, jsonSchema]),
+  duration: z.union([JsonNullValueInputSchema, jsonSchema]),
+  keywords: z.union([JsonNullValueInputSchema, jsonSchema]),
+  tagline: z.union([JsonNullValueInputSchema, jsonSchema]),
+  text: z.union([JsonNullValueInputSchema, jsonSchema]),
+  items: z.union([JsonNullValueInputSchema, jsonSchema]),
+  team: z.union([z.lazy(() => ProcessStepCreateteamInputObjectSchema), z.string().array()]).optional(),
+  createdAt: z.coerce.date().optional()
+}).strict();
+export const ProcessStepCreateInputObjectSchema: z.ZodType<Prisma.ProcessStepCreateInput> = __makeSchema_ProcessStepCreateInput_schema() as unknown as z.ZodType<Prisma.ProcessStepCreateInput>;
+export const ProcessStepCreateInputObjectZodSchema = __makeSchema_ProcessStepCreateInput_schema();
+
+
+// File: ProcessStepUncheckedCreateInput.schema.ts
+const __makeSchema_ProcessStepUncheckedCreateInput_schema = () => z.object({
+  slug: z.string(),
+  position: z.number().int(),
+  image: z.string(),
+  title: z.union([JsonNullValueInputSchema, jsonSchema]),
+  duration: z.union([JsonNullValueInputSchema, jsonSchema]),
+  keywords: z.union([JsonNullValueInputSchema, jsonSchema]),
+  tagline: z.union([JsonNullValueInputSchema, jsonSchema]),
+  text: z.union([JsonNullValueInputSchema, jsonSchema]),
+  items: z.union([JsonNullValueInputSchema, jsonSchema]),
+  team: z.union([z.lazy(() => ProcessStepCreateteamInputObjectSchema), z.string().array()]).optional(),
+  createdAt: z.coerce.date().optional()
+}).strict();
+export const ProcessStepUncheckedCreateInputObjectSchema: z.ZodType<Prisma.ProcessStepUncheckedCreateInput> = __makeSchema_ProcessStepUncheckedCreateInput_schema() as unknown as z.ZodType<Prisma.ProcessStepUncheckedCreateInput>;
+export const ProcessStepUncheckedCreateInputObjectZodSchema = __makeSchema_ProcessStepUncheckedCreateInput_schema();
+
+
+// File: ProcessStepUpdateInput.schema.ts
+const __makeSchema_ProcessStepUpdateInput_schema = () => z.object({
+  slug: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  image: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  title: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  duration: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  keywords: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  tagline: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  text: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  items: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  team: z.union([z.lazy(() => ProcessStepUpdateteamInputObjectSchema), z.string().array()]).optional(),
+  createdAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
+  updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional()
+}).strict();
+export const ProcessStepUpdateInputObjectSchema: z.ZodType<Prisma.ProcessStepUpdateInput> = __makeSchema_ProcessStepUpdateInput_schema() as unknown as z.ZodType<Prisma.ProcessStepUpdateInput>;
+export const ProcessStepUpdateInputObjectZodSchema = __makeSchema_ProcessStepUpdateInput_schema();
+
+
+// File: ProcessStepUncheckedUpdateInput.schema.ts
+const __makeSchema_ProcessStepUncheckedUpdateInput_schema = () => z.object({
+  slug: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  image: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  title: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  duration: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  keywords: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  tagline: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  text: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  items: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  team: z.union([z.lazy(() => ProcessStepUpdateteamInputObjectSchema), z.string().array()]).optional(),
+  createdAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
+  updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional()
+}).strict();
+export const ProcessStepUncheckedUpdateInputObjectSchema: z.ZodType<Prisma.ProcessStepUncheckedUpdateInput> = __makeSchema_ProcessStepUncheckedUpdateInput_schema() as unknown as z.ZodType<Prisma.ProcessStepUncheckedUpdateInput>;
+export const ProcessStepUncheckedUpdateInputObjectZodSchema = __makeSchema_ProcessStepUncheckedUpdateInput_schema();
+
+
+// File: ProcessStepCreateManyInput.schema.ts
+const __makeSchema_ProcessStepCreateManyInput_schema = () => z.object({
+  slug: z.string(),
+  position: z.number().int(),
+  image: z.string(),
+  title: z.union([JsonNullValueInputSchema, jsonSchema]),
+  duration: z.union([JsonNullValueInputSchema, jsonSchema]),
+  keywords: z.union([JsonNullValueInputSchema, jsonSchema]),
+  tagline: z.union([JsonNullValueInputSchema, jsonSchema]),
+  text: z.union([JsonNullValueInputSchema, jsonSchema]),
+  items: z.union([JsonNullValueInputSchema, jsonSchema]),
+  team: z.union([z.lazy(() => ProcessStepCreateteamInputObjectSchema), z.string().array()]).optional(),
+  createdAt: z.coerce.date().optional(),
+  updatedAt: z.coerce.date().optional()
+}).strict();
+export const ProcessStepCreateManyInputObjectSchema: z.ZodType<Prisma.ProcessStepCreateManyInput> = __makeSchema_ProcessStepCreateManyInput_schema() as unknown as z.ZodType<Prisma.ProcessStepCreateManyInput>;
+export const ProcessStepCreateManyInputObjectZodSchema = __makeSchema_ProcessStepCreateManyInput_schema();
+
+
+// File: ProcessStepUpdateManyMutationInput.schema.ts
+const __makeSchema_ProcessStepUpdateManyMutationInput_schema = () => z.object({
+  slug: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  image: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  title: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  duration: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  keywords: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  tagline: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  text: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  items: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  team: z.union([z.lazy(() => ProcessStepUpdateteamInputObjectSchema), z.string().array()]).optional(),
+  createdAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
+  updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional()
+}).strict();
+export const ProcessStepUpdateManyMutationInputObjectSchema: z.ZodType<Prisma.ProcessStepUpdateManyMutationInput> = __makeSchema_ProcessStepUpdateManyMutationInput_schema() as unknown as z.ZodType<Prisma.ProcessStepUpdateManyMutationInput>;
+export const ProcessStepUpdateManyMutationInputObjectZodSchema = __makeSchema_ProcessStepUpdateManyMutationInput_schema();
+
+
+// File: ProcessStepUncheckedUpdateManyInput.schema.ts
+const __makeSchema_ProcessStepUncheckedUpdateManyInput_schema = () => z.object({
+  slug: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  image: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
+  title: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  duration: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  keywords: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  tagline: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  text: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  items: z.union([JsonNullValueInputSchema, jsonSchema]).optional(),
+  team: z.union([z.lazy(() => ProcessStepUpdateteamInputObjectSchema), z.string().array()]).optional(),
+  createdAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
+  updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional()
+}).strict();
+export const ProcessStepUncheckedUpdateManyInputObjectSchema: z.ZodType<Prisma.ProcessStepUncheckedUpdateManyInput> = __makeSchema_ProcessStepUncheckedUpdateManyInput_schema() as unknown as z.ZodType<Prisma.ProcessStepUncheckedUpdateManyInput>;
+export const ProcessStepUncheckedUpdateManyInputObjectZodSchema = __makeSchema_ProcessStepUncheckedUpdateManyInput_schema();
 
 
 // File: ProjectCreateInput.schema.ts
@@ -3332,6 +3567,89 @@ export const StringNullableListFilterObjectSchema: z.ZodType<Prisma.StringNullab
 export const StringNullableListFilterObjectZodSchema = __makeSchema_StringNullableListFilter_schema();
 
 
+// File: ProcessStepCountOrderByAggregateInput.schema.ts
+const __makeSchema_ProcessStepCountOrderByAggregateInput_schema = () => z.object({
+  slug: SortOrderSchema.optional(),
+  position: SortOrderSchema.optional(),
+  image: SortOrderSchema.optional(),
+  title: SortOrderSchema.optional(),
+  duration: SortOrderSchema.optional(),
+  keywords: SortOrderSchema.optional(),
+  tagline: SortOrderSchema.optional(),
+  text: SortOrderSchema.optional(),
+  items: SortOrderSchema.optional(),
+  team: SortOrderSchema.optional(),
+  createdAt: SortOrderSchema.optional(),
+  updatedAt: SortOrderSchema.optional()
+}).strict();
+export const ProcessStepCountOrderByAggregateInputObjectSchema: z.ZodType<Prisma.ProcessStepCountOrderByAggregateInput> = __makeSchema_ProcessStepCountOrderByAggregateInput_schema() as unknown as z.ZodType<Prisma.ProcessStepCountOrderByAggregateInput>;
+export const ProcessStepCountOrderByAggregateInputObjectZodSchema = __makeSchema_ProcessStepCountOrderByAggregateInput_schema();
+
+
+// File: ProcessStepAvgOrderByAggregateInput.schema.ts
+const __makeSchema_ProcessStepAvgOrderByAggregateInput_schema = () => z.object({
+  position: SortOrderSchema.optional()
+}).strict();
+export const ProcessStepAvgOrderByAggregateInputObjectSchema: z.ZodType<Prisma.ProcessStepAvgOrderByAggregateInput> = __makeSchema_ProcessStepAvgOrderByAggregateInput_schema() as unknown as z.ZodType<Prisma.ProcessStepAvgOrderByAggregateInput>;
+export const ProcessStepAvgOrderByAggregateInputObjectZodSchema = __makeSchema_ProcessStepAvgOrderByAggregateInput_schema();
+
+
+// File: ProcessStepMaxOrderByAggregateInput.schema.ts
+const __makeSchema_ProcessStepMaxOrderByAggregateInput_schema = () => z.object({
+  slug: SortOrderSchema.optional(),
+  position: SortOrderSchema.optional(),
+  image: SortOrderSchema.optional(),
+  createdAt: SortOrderSchema.optional(),
+  updatedAt: SortOrderSchema.optional()
+}).strict();
+export const ProcessStepMaxOrderByAggregateInputObjectSchema: z.ZodType<Prisma.ProcessStepMaxOrderByAggregateInput> = __makeSchema_ProcessStepMaxOrderByAggregateInput_schema() as unknown as z.ZodType<Prisma.ProcessStepMaxOrderByAggregateInput>;
+export const ProcessStepMaxOrderByAggregateInputObjectZodSchema = __makeSchema_ProcessStepMaxOrderByAggregateInput_schema();
+
+
+// File: ProcessStepMinOrderByAggregateInput.schema.ts
+const __makeSchema_ProcessStepMinOrderByAggregateInput_schema = () => z.object({
+  slug: SortOrderSchema.optional(),
+  position: SortOrderSchema.optional(),
+  image: SortOrderSchema.optional(),
+  createdAt: SortOrderSchema.optional(),
+  updatedAt: SortOrderSchema.optional()
+}).strict();
+export const ProcessStepMinOrderByAggregateInputObjectSchema: z.ZodType<Prisma.ProcessStepMinOrderByAggregateInput> = __makeSchema_ProcessStepMinOrderByAggregateInput_schema() as unknown as z.ZodType<Prisma.ProcessStepMinOrderByAggregateInput>;
+export const ProcessStepMinOrderByAggregateInputObjectZodSchema = __makeSchema_ProcessStepMinOrderByAggregateInput_schema();
+
+
+// File: ProcessStepSumOrderByAggregateInput.schema.ts
+const __makeSchema_ProcessStepSumOrderByAggregateInput_schema = () => z.object({
+  position: SortOrderSchema.optional()
+}).strict();
+export const ProcessStepSumOrderByAggregateInputObjectSchema: z.ZodType<Prisma.ProcessStepSumOrderByAggregateInput> = __makeSchema_ProcessStepSumOrderByAggregateInput_schema() as unknown as z.ZodType<Prisma.ProcessStepSumOrderByAggregateInput>;
+export const ProcessStepSumOrderByAggregateInputObjectZodSchema = __makeSchema_ProcessStepSumOrderByAggregateInput_schema();
+
+
+// File: JsonWithAggregatesFilter.schema.ts
+const __makeSchema_JsonWithAggregatesFilter_schema = () => z.object({
+  equals: jsonSchema.optional(),
+  path: z.string().array().optional(),
+  mode: QueryModeSchema.optional(),
+  string_contains: z.string().optional(),
+  string_starts_with: z.string().optional(),
+  string_ends_with: z.string().optional(),
+  array_starts_with: jsonSchema.optional().nullable(),
+  array_ends_with: jsonSchema.optional().nullable(),
+  array_contains: jsonSchema.optional().nullable(),
+  lt: jsonSchema.optional(),
+  lte: jsonSchema.optional(),
+  gt: jsonSchema.optional(),
+  gte: jsonSchema.optional(),
+  not: jsonSchema.optional(),
+  _count: z.lazy(() => NestedIntFilterObjectSchema).optional(),
+  _min: z.lazy(() => NestedJsonFilterObjectSchema).optional(),
+  _max: z.lazy(() => NestedJsonFilterObjectSchema).optional()
+}).strict();
+export const JsonWithAggregatesFilterObjectSchema: z.ZodType<Prisma.JsonWithAggregatesFilter> = __makeSchema_JsonWithAggregatesFilter_schema() as unknown as z.ZodType<Prisma.JsonWithAggregatesFilter>;
+export const JsonWithAggregatesFilterObjectZodSchema = __makeSchema_JsonWithAggregatesFilter_schema();
+
+
 // File: JsonNullableListFilter.schema.ts
 const __makeSchema_JsonNullableListFilter_schema = () => z.object({
   equals: jsonSchema.array().optional().nullable(),
@@ -3457,30 +3775,6 @@ const __makeSchema_ProjectSumOrderByAggregateInput_schema = () => z.object({
 }).strict();
 export const ProjectSumOrderByAggregateInputObjectSchema: z.ZodType<Prisma.ProjectSumOrderByAggregateInput> = __makeSchema_ProjectSumOrderByAggregateInput_schema() as unknown as z.ZodType<Prisma.ProjectSumOrderByAggregateInput>;
 export const ProjectSumOrderByAggregateInputObjectZodSchema = __makeSchema_ProjectSumOrderByAggregateInput_schema();
-
-
-// File: JsonWithAggregatesFilter.schema.ts
-const __makeSchema_JsonWithAggregatesFilter_schema = () => z.object({
-  equals: jsonSchema.optional(),
-  path: z.string().array().optional(),
-  mode: QueryModeSchema.optional(),
-  string_contains: z.string().optional(),
-  string_starts_with: z.string().optional(),
-  string_ends_with: z.string().optional(),
-  array_starts_with: jsonSchema.optional().nullable(),
-  array_ends_with: jsonSchema.optional().nullable(),
-  array_contains: jsonSchema.optional().nullable(),
-  lt: jsonSchema.optional(),
-  lte: jsonSchema.optional(),
-  gt: jsonSchema.optional(),
-  gte: jsonSchema.optional(),
-  not: jsonSchema.optional(),
-  _count: z.lazy(() => NestedIntFilterObjectSchema).optional(),
-  _min: z.lazy(() => NestedJsonFilterObjectSchema).optional(),
-  _max: z.lazy(() => NestedJsonFilterObjectSchema).optional()
-}).strict();
-export const JsonWithAggregatesFilterObjectSchema: z.ZodType<Prisma.JsonWithAggregatesFilter> = __makeSchema_JsonWithAggregatesFilter_schema() as unknown as z.ZodType<Prisma.JsonWithAggregatesFilter>;
-export const JsonWithAggregatesFilterObjectZodSchema = __makeSchema_JsonWithAggregatesFilter_schema();
 
 
 // File: SessionCountOrderByAggregateInput.schema.ts
@@ -4446,6 +4740,23 @@ const __makeSchema_UserUpdateOneWithoutCoverImageNestedInput_schema = () => z.ob
 }).strict();
 export const UserUpdateOneWithoutCoverImageNestedInputObjectSchema: z.ZodType<Prisma.UserUpdateOneWithoutCoverImageNestedInput> = __makeSchema_UserUpdateOneWithoutCoverImageNestedInput_schema() as unknown as z.ZodType<Prisma.UserUpdateOneWithoutCoverImageNestedInput>;
 export const UserUpdateOneWithoutCoverImageNestedInputObjectZodSchema = __makeSchema_UserUpdateOneWithoutCoverImageNestedInput_schema();
+
+
+// File: ProcessStepCreateteamInput.schema.ts
+const __makeSchema_ProcessStepCreateteamInput_schema = () => z.object({
+  set: z.string().array()
+}).strict();
+export const ProcessStepCreateteamInputObjectSchema: z.ZodType<Prisma.ProcessStepCreateteamInput> = __makeSchema_ProcessStepCreateteamInput_schema() as unknown as z.ZodType<Prisma.ProcessStepCreateteamInput>;
+export const ProcessStepCreateteamInputObjectZodSchema = __makeSchema_ProcessStepCreateteamInput_schema();
+
+
+// File: ProcessStepUpdateteamInput.schema.ts
+const __makeSchema_ProcessStepUpdateteamInput_schema = () => z.object({
+  set: z.string().array().optional(),
+  push: z.union([z.string(), z.string().array()]).optional()
+}).strict();
+export const ProcessStepUpdateteamInputObjectSchema: z.ZodType<Prisma.ProcessStepUpdateteamInput> = __makeSchema_ProcessStepUpdateteamInput_schema() as unknown as z.ZodType<Prisma.ProcessStepUpdateteamInput>;
+export const ProcessStepUpdateteamInputObjectZodSchema = __makeSchema_ProcessStepUpdateteamInput_schema();
 
 
 // File: ProjectCreateservicesInput.schema.ts
@@ -8194,6 +8505,66 @@ export const MediaMaxAggregateInputObjectSchema: z.ZodType<Prisma.MediaMaxAggreg
 export const MediaMaxAggregateInputObjectZodSchema = __makeSchema_MediaMaxAggregateInput_schema();
 
 
+// File: ProcessStepCountAggregateInput.schema.ts
+const __makeSchema_ProcessStepCountAggregateInput_schema = () => z.object({
+  slug: z.literal(true).optional(),
+  position: z.literal(true).optional(),
+  image: z.literal(true).optional(),
+  title: z.literal(true).optional(),
+  duration: z.literal(true).optional(),
+  keywords: z.literal(true).optional(),
+  tagline: z.literal(true).optional(),
+  text: z.literal(true).optional(),
+  items: z.literal(true).optional(),
+  team: z.literal(true).optional(),
+  createdAt: z.literal(true).optional(),
+  updatedAt: z.literal(true).optional(),
+  _all: z.literal(true).optional()
+}).strict();
+export const ProcessStepCountAggregateInputObjectSchema: z.ZodType<Prisma.ProcessStepCountAggregateInputType> = __makeSchema_ProcessStepCountAggregateInput_schema() as unknown as z.ZodType<Prisma.ProcessStepCountAggregateInputType>;
+export const ProcessStepCountAggregateInputObjectZodSchema = __makeSchema_ProcessStepCountAggregateInput_schema();
+
+
+// File: ProcessStepAvgAggregateInput.schema.ts
+const __makeSchema_ProcessStepAvgAggregateInput_schema = () => z.object({
+  position: z.literal(true).optional()
+}).strict();
+export const ProcessStepAvgAggregateInputObjectSchema: z.ZodType<Prisma.ProcessStepAvgAggregateInputType> = __makeSchema_ProcessStepAvgAggregateInput_schema() as unknown as z.ZodType<Prisma.ProcessStepAvgAggregateInputType>;
+export const ProcessStepAvgAggregateInputObjectZodSchema = __makeSchema_ProcessStepAvgAggregateInput_schema();
+
+
+// File: ProcessStepSumAggregateInput.schema.ts
+const __makeSchema_ProcessStepSumAggregateInput_schema = () => z.object({
+  position: z.literal(true).optional()
+}).strict();
+export const ProcessStepSumAggregateInputObjectSchema: z.ZodType<Prisma.ProcessStepSumAggregateInputType> = __makeSchema_ProcessStepSumAggregateInput_schema() as unknown as z.ZodType<Prisma.ProcessStepSumAggregateInputType>;
+export const ProcessStepSumAggregateInputObjectZodSchema = __makeSchema_ProcessStepSumAggregateInput_schema();
+
+
+// File: ProcessStepMinAggregateInput.schema.ts
+const __makeSchema_ProcessStepMinAggregateInput_schema = () => z.object({
+  slug: z.literal(true).optional(),
+  position: z.literal(true).optional(),
+  image: z.literal(true).optional(),
+  createdAt: z.literal(true).optional(),
+  updatedAt: z.literal(true).optional()
+}).strict();
+export const ProcessStepMinAggregateInputObjectSchema: z.ZodType<Prisma.ProcessStepMinAggregateInputType> = __makeSchema_ProcessStepMinAggregateInput_schema() as unknown as z.ZodType<Prisma.ProcessStepMinAggregateInputType>;
+export const ProcessStepMinAggregateInputObjectZodSchema = __makeSchema_ProcessStepMinAggregateInput_schema();
+
+
+// File: ProcessStepMaxAggregateInput.schema.ts
+const __makeSchema_ProcessStepMaxAggregateInput_schema = () => z.object({
+  slug: z.literal(true).optional(),
+  position: z.literal(true).optional(),
+  image: z.literal(true).optional(),
+  createdAt: z.literal(true).optional(),
+  updatedAt: z.literal(true).optional()
+}).strict();
+export const ProcessStepMaxAggregateInputObjectSchema: z.ZodType<Prisma.ProcessStepMaxAggregateInputType> = __makeSchema_ProcessStepMaxAggregateInput_schema() as unknown as z.ZodType<Prisma.ProcessStepMaxAggregateInputType>;
+export const ProcessStepMaxAggregateInputObjectZodSchema = __makeSchema_ProcessStepMaxAggregateInput_schema();
+
+
 // File: ProjectCountAggregateInput.schema.ts
 const __makeSchema_ProjectCountAggregateInput_schema = () => z.object({
   slug: z.literal(true).optional(),
@@ -8978,6 +9349,25 @@ export const MediaSelectObjectSchema: z.ZodType<Prisma.MediaSelect> = __makeSche
 export const MediaSelectObjectZodSchema = __makeSchema_MediaSelect_schema();
 
 
+// File: ProcessStepSelect.schema.ts
+const __makeSchema_ProcessStepSelect_schema = () => z.object({
+  slug: z.boolean().optional(),
+  position: z.boolean().optional(),
+  image: z.boolean().optional(),
+  title: z.boolean().optional(),
+  duration: z.boolean().optional(),
+  keywords: z.boolean().optional(),
+  tagline: z.boolean().optional(),
+  text: z.boolean().optional(),
+  items: z.boolean().optional(),
+  team: z.boolean().optional(),
+  createdAt: z.boolean().optional(),
+  updatedAt: z.boolean().optional()
+}).strict();
+export const ProcessStepSelectObjectSchema: z.ZodType<Prisma.ProcessStepSelect> = __makeSchema_ProcessStepSelect_schema() as unknown as z.ZodType<Prisma.ProcessStepSelect>;
+export const ProcessStepSelectObjectZodSchema = __makeSchema_ProcessStepSelect_schema();
+
+
 // File: ProjectSelect.schema.ts
 const __makeSchema_ProjectSelect_schema = () => z.object({
   slug: z.boolean().optional(),
@@ -9198,6 +9588,14 @@ const __makeSchema_MediaArgs_schema = () => z.object({
 }).strict();
 export const MediaArgsObjectSchema = __makeSchema_MediaArgs_schema();
 export const MediaArgsObjectZodSchema = __makeSchema_MediaArgs_schema();
+
+
+// File: ProcessStepArgs.schema.ts
+const __makeSchema_ProcessStepArgs_schema = () => z.object({
+  select: z.lazy(() => ProcessStepSelectObjectSchema).optional()
+}).strict();
+export const ProcessStepArgsObjectSchema = __makeSchema_ProcessStepArgs_schema();
+export const ProcessStepArgsObjectZodSchema = __makeSchema_ProcessStepArgs_schema();
 
 
 // File: ProjectArgs.schema.ts
@@ -9956,6 +10354,207 @@ export const MediaAggregateZodSchema = z.object({ orderBy: z.union([MediaOrderBy
 export const MediaGroupBySchema: z.ZodType<Prisma.MediaGroupByArgs> = z.object({ where: MediaWhereInputObjectSchema.optional(), orderBy: z.union([MediaOrderByWithAggregationInputObjectSchema, MediaOrderByWithAggregationInputObjectSchema.array()]).optional(), having: MediaScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(MediaScalarFieldEnumSchema), _count: z.union([ z.literal(true), MediaCountAggregateInputObjectSchema ]).optional(), _min: MediaMinAggregateInputObjectSchema.optional(), _max: MediaMaxAggregateInputObjectSchema.optional(), _avg: MediaAvgAggregateInputObjectSchema.optional(), _sum: MediaSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.MediaGroupByArgs>;
 
 export const MediaGroupByZodSchema = z.object({ where: MediaWhereInputObjectSchema.optional(), orderBy: z.union([MediaOrderByWithAggregationInputObjectSchema, MediaOrderByWithAggregationInputObjectSchema.array()]).optional(), having: MediaScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(MediaScalarFieldEnumSchema), _count: z.union([ z.literal(true), MediaCountAggregateInputObjectSchema ]).optional(), _min: MediaMinAggregateInputObjectSchema.optional(), _max: MediaMaxAggregateInputObjectSchema.optional(), _avg: MediaAvgAggregateInputObjectSchema.optional(), _sum: MediaSumAggregateInputObjectSchema.optional() }).strict();
+
+// File: findUniqueProcessStep.schema.ts
+
+export const ProcessStepFindUniqueSchema: z.ZodType<Prisma.ProcessStepFindUniqueArgs> = z.object({ select: ProcessStepSelectObjectSchema.optional(),  where: ProcessStepWhereUniqueInputObjectSchema }).strict() as unknown as z.ZodType<Prisma.ProcessStepFindUniqueArgs>;
+
+export const ProcessStepFindUniqueZodSchema = z.object({ select: ProcessStepSelectObjectSchema.optional(),  where: ProcessStepWhereUniqueInputObjectSchema }).strict();
+
+// File: findUniqueOrThrowProcessStep.schema.ts
+
+export const ProcessStepFindUniqueOrThrowSchema: z.ZodType<Prisma.ProcessStepFindUniqueOrThrowArgs> = z.object({ select: ProcessStepSelectObjectSchema.optional(),  where: ProcessStepWhereUniqueInputObjectSchema }).strict() as unknown as z.ZodType<Prisma.ProcessStepFindUniqueOrThrowArgs>;
+
+export const ProcessStepFindUniqueOrThrowZodSchema = z.object({ select: ProcessStepSelectObjectSchema.optional(),  where: ProcessStepWhereUniqueInputObjectSchema }).strict();
+
+// File: findFirstProcessStep.schema.ts
+
+// Select schema needs to be in file to prevent circular imports
+//------------------------------------------------------
+
+export const ProcessStepFindFirstSelectSchema__findFirstProcessStep_schema: z.ZodType<Prisma.ProcessStepSelect> = z.object({
+    slug: z.boolean().optional(),
+    position: z.boolean().optional(),
+    image: z.boolean().optional(),
+    title: z.boolean().optional(),
+    duration: z.boolean().optional(),
+    keywords: z.boolean().optional(),
+    tagline: z.boolean().optional(),
+    text: z.boolean().optional(),
+    items: z.boolean().optional(),
+    team: z.boolean().optional(),
+    createdAt: z.boolean().optional(),
+    updatedAt: z.boolean().optional()
+  }).strict() as unknown as z.ZodType<Prisma.ProcessStepSelect>;
+
+export const ProcessStepFindFirstSelectZodSchema__findFirstProcessStep_schema = z.object({
+    slug: z.boolean().optional(),
+    position: z.boolean().optional(),
+    image: z.boolean().optional(),
+    title: z.boolean().optional(),
+    duration: z.boolean().optional(),
+    keywords: z.boolean().optional(),
+    tagline: z.boolean().optional(),
+    text: z.boolean().optional(),
+    items: z.boolean().optional(),
+    team: z.boolean().optional(),
+    createdAt: z.boolean().optional(),
+    updatedAt: z.boolean().optional()
+  }).strict();
+
+export const ProcessStepFindFirstSchema: z.ZodType<Prisma.ProcessStepFindFirstArgs> = z.object({ select: ProcessStepFindFirstSelectSchema__findFirstProcessStep_schema.optional(),  orderBy: z.union([ProcessStepOrderByWithRelationInputObjectSchema, ProcessStepOrderByWithRelationInputObjectSchema.array()]).optional(), where: ProcessStepWhereInputObjectSchema.optional(), cursor: ProcessStepWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([ProcessStepScalarFieldEnumSchema, ProcessStepScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<Prisma.ProcessStepFindFirstArgs>;
+
+export const ProcessStepFindFirstZodSchema = z.object({ select: ProcessStepFindFirstSelectSchema__findFirstProcessStep_schema.optional(),  orderBy: z.union([ProcessStepOrderByWithRelationInputObjectSchema, ProcessStepOrderByWithRelationInputObjectSchema.array()]).optional(), where: ProcessStepWhereInputObjectSchema.optional(), cursor: ProcessStepWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([ProcessStepScalarFieldEnumSchema, ProcessStepScalarFieldEnumSchema.array()]).optional() }).strict();
+
+// File: findFirstOrThrowProcessStep.schema.ts
+
+// Select schema needs to be in file to prevent circular imports
+//------------------------------------------------------
+
+export const ProcessStepFindFirstOrThrowSelectSchema__findFirstOrThrowProcessStep_schema: z.ZodType<Prisma.ProcessStepSelect> = z.object({
+    slug: z.boolean().optional(),
+    position: z.boolean().optional(),
+    image: z.boolean().optional(),
+    title: z.boolean().optional(),
+    duration: z.boolean().optional(),
+    keywords: z.boolean().optional(),
+    tagline: z.boolean().optional(),
+    text: z.boolean().optional(),
+    items: z.boolean().optional(),
+    team: z.boolean().optional(),
+    createdAt: z.boolean().optional(),
+    updatedAt: z.boolean().optional()
+  }).strict() as unknown as z.ZodType<Prisma.ProcessStepSelect>;
+
+export const ProcessStepFindFirstOrThrowSelectZodSchema__findFirstOrThrowProcessStep_schema = z.object({
+    slug: z.boolean().optional(),
+    position: z.boolean().optional(),
+    image: z.boolean().optional(),
+    title: z.boolean().optional(),
+    duration: z.boolean().optional(),
+    keywords: z.boolean().optional(),
+    tagline: z.boolean().optional(),
+    text: z.boolean().optional(),
+    items: z.boolean().optional(),
+    team: z.boolean().optional(),
+    createdAt: z.boolean().optional(),
+    updatedAt: z.boolean().optional()
+  }).strict();
+
+export const ProcessStepFindFirstOrThrowSchema: z.ZodType<Prisma.ProcessStepFindFirstOrThrowArgs> = z.object({ select: ProcessStepFindFirstOrThrowSelectSchema__findFirstOrThrowProcessStep_schema.optional(),  orderBy: z.union([ProcessStepOrderByWithRelationInputObjectSchema, ProcessStepOrderByWithRelationInputObjectSchema.array()]).optional(), where: ProcessStepWhereInputObjectSchema.optional(), cursor: ProcessStepWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([ProcessStepScalarFieldEnumSchema, ProcessStepScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<Prisma.ProcessStepFindFirstOrThrowArgs>;
+
+export const ProcessStepFindFirstOrThrowZodSchema = z.object({ select: ProcessStepFindFirstOrThrowSelectSchema__findFirstOrThrowProcessStep_schema.optional(),  orderBy: z.union([ProcessStepOrderByWithRelationInputObjectSchema, ProcessStepOrderByWithRelationInputObjectSchema.array()]).optional(), where: ProcessStepWhereInputObjectSchema.optional(), cursor: ProcessStepWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([ProcessStepScalarFieldEnumSchema, ProcessStepScalarFieldEnumSchema.array()]).optional() }).strict();
+
+// File: findManyProcessStep.schema.ts
+
+// Select schema needs to be in file to prevent circular imports
+//------------------------------------------------------
+
+export const ProcessStepFindManySelectSchema__findManyProcessStep_schema: z.ZodType<Prisma.ProcessStepSelect> = z.object({
+    slug: z.boolean().optional(),
+    position: z.boolean().optional(),
+    image: z.boolean().optional(),
+    title: z.boolean().optional(),
+    duration: z.boolean().optional(),
+    keywords: z.boolean().optional(),
+    tagline: z.boolean().optional(),
+    text: z.boolean().optional(),
+    items: z.boolean().optional(),
+    team: z.boolean().optional(),
+    createdAt: z.boolean().optional(),
+    updatedAt: z.boolean().optional()
+  }).strict() as unknown as z.ZodType<Prisma.ProcessStepSelect>;
+
+export const ProcessStepFindManySelectZodSchema__findManyProcessStep_schema = z.object({
+    slug: z.boolean().optional(),
+    position: z.boolean().optional(),
+    image: z.boolean().optional(),
+    title: z.boolean().optional(),
+    duration: z.boolean().optional(),
+    keywords: z.boolean().optional(),
+    tagline: z.boolean().optional(),
+    text: z.boolean().optional(),
+    items: z.boolean().optional(),
+    team: z.boolean().optional(),
+    createdAt: z.boolean().optional(),
+    updatedAt: z.boolean().optional()
+  }).strict();
+
+export const ProcessStepFindManySchema: z.ZodType<Prisma.ProcessStepFindManyArgs> = z.object({ select: ProcessStepFindManySelectSchema__findManyProcessStep_schema.optional(),  orderBy: z.union([ProcessStepOrderByWithRelationInputObjectSchema, ProcessStepOrderByWithRelationInputObjectSchema.array()]).optional(), where: ProcessStepWhereInputObjectSchema.optional(), cursor: ProcessStepWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([ProcessStepScalarFieldEnumSchema, ProcessStepScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<Prisma.ProcessStepFindManyArgs>;
+
+export const ProcessStepFindManyZodSchema = z.object({ select: ProcessStepFindManySelectSchema__findManyProcessStep_schema.optional(),  orderBy: z.union([ProcessStepOrderByWithRelationInputObjectSchema, ProcessStepOrderByWithRelationInputObjectSchema.array()]).optional(), where: ProcessStepWhereInputObjectSchema.optional(), cursor: ProcessStepWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([ProcessStepScalarFieldEnumSchema, ProcessStepScalarFieldEnumSchema.array()]).optional() }).strict();
+
+// File: countProcessStep.schema.ts
+
+export const ProcessStepCountSchema: z.ZodType<Prisma.ProcessStepCountArgs> = z.object({ orderBy: z.union([ProcessStepOrderByWithRelationInputObjectSchema, ProcessStepOrderByWithRelationInputObjectSchema.array()]).optional(), where: ProcessStepWhereInputObjectSchema.optional(), cursor: ProcessStepWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), ProcessStepCountAggregateInputObjectSchema ]).optional() }).strict() as unknown as z.ZodType<Prisma.ProcessStepCountArgs>;
+
+export const ProcessStepCountZodSchema = z.object({ orderBy: z.union([ProcessStepOrderByWithRelationInputObjectSchema, ProcessStepOrderByWithRelationInputObjectSchema.array()]).optional(), where: ProcessStepWhereInputObjectSchema.optional(), cursor: ProcessStepWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), ProcessStepCountAggregateInputObjectSchema ]).optional() }).strict();
+
+// File: createOneProcessStep.schema.ts
+
+export const ProcessStepCreateOneSchema: z.ZodType<Prisma.ProcessStepCreateArgs> = z.object({ select: ProcessStepSelectObjectSchema.optional(),  data: z.union([ProcessStepCreateInputObjectSchema, ProcessStepUncheckedCreateInputObjectSchema]) }).strict() as unknown as z.ZodType<Prisma.ProcessStepCreateArgs>;
+
+export const ProcessStepCreateOneZodSchema = z.object({ select: ProcessStepSelectObjectSchema.optional(),  data: z.union([ProcessStepCreateInputObjectSchema, ProcessStepUncheckedCreateInputObjectSchema]) }).strict();
+
+// File: createManyProcessStep.schema.ts
+
+export const ProcessStepCreateManySchema: z.ZodType<Prisma.ProcessStepCreateManyArgs> = z.object({ data: z.union([ ProcessStepCreateManyInputObjectSchema, z.array(ProcessStepCreateManyInputObjectSchema) ]), skipDuplicates: z.boolean().optional() }).strict() as unknown as z.ZodType<Prisma.ProcessStepCreateManyArgs>;
+
+export const ProcessStepCreateManyZodSchema = z.object({ data: z.union([ ProcessStepCreateManyInputObjectSchema, z.array(ProcessStepCreateManyInputObjectSchema) ]), skipDuplicates: z.boolean().optional() }).strict();
+
+// File: createManyAndReturnProcessStep.schema.ts
+
+export const ProcessStepCreateManyAndReturnSchema: z.ZodType<Prisma.ProcessStepCreateManyAndReturnArgs> = z.object({ select: ProcessStepSelectObjectSchema.optional(), data: z.union([ ProcessStepCreateManyInputObjectSchema, z.array(ProcessStepCreateManyInputObjectSchema) ]), skipDuplicates: z.boolean().optional() }).strict() as unknown as z.ZodType<Prisma.ProcessStepCreateManyAndReturnArgs>;
+
+export const ProcessStepCreateManyAndReturnZodSchema = z.object({ select: ProcessStepSelectObjectSchema.optional(), data: z.union([ ProcessStepCreateManyInputObjectSchema, z.array(ProcessStepCreateManyInputObjectSchema) ]), skipDuplicates: z.boolean().optional() }).strict();
+
+// File: deleteOneProcessStep.schema.ts
+
+export const ProcessStepDeleteOneSchema: z.ZodType<Prisma.ProcessStepDeleteArgs> = z.object({ select: ProcessStepSelectObjectSchema.optional(),  where: ProcessStepWhereUniqueInputObjectSchema }).strict() as unknown as z.ZodType<Prisma.ProcessStepDeleteArgs>;
+
+export const ProcessStepDeleteOneZodSchema = z.object({ select: ProcessStepSelectObjectSchema.optional(),  where: ProcessStepWhereUniqueInputObjectSchema }).strict();
+
+// File: deleteManyProcessStep.schema.ts
+
+export const ProcessStepDeleteManySchema: z.ZodType<Prisma.ProcessStepDeleteManyArgs> = z.object({ where: ProcessStepWhereInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.ProcessStepDeleteManyArgs>;
+
+export const ProcessStepDeleteManyZodSchema = z.object({ where: ProcessStepWhereInputObjectSchema.optional() }).strict();
+
+// File: updateOneProcessStep.schema.ts
+
+export const ProcessStepUpdateOneSchema: z.ZodType<Prisma.ProcessStepUpdateArgs> = z.object({ select: ProcessStepSelectObjectSchema.optional(),  data: z.union([ProcessStepUpdateInputObjectSchema, ProcessStepUncheckedUpdateInputObjectSchema]), where: ProcessStepWhereUniqueInputObjectSchema }).strict() as unknown as z.ZodType<Prisma.ProcessStepUpdateArgs>;
+
+export const ProcessStepUpdateOneZodSchema = z.object({ select: ProcessStepSelectObjectSchema.optional(),  data: z.union([ProcessStepUpdateInputObjectSchema, ProcessStepUncheckedUpdateInputObjectSchema]), where: ProcessStepWhereUniqueInputObjectSchema }).strict();
+
+// File: updateManyProcessStep.schema.ts
+
+export const ProcessStepUpdateManySchema: z.ZodType<Prisma.ProcessStepUpdateManyArgs> = z.object({ data: ProcessStepUpdateManyMutationInputObjectSchema, where: ProcessStepWhereInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.ProcessStepUpdateManyArgs>;
+
+export const ProcessStepUpdateManyZodSchema = z.object({ data: ProcessStepUpdateManyMutationInputObjectSchema, where: ProcessStepWhereInputObjectSchema.optional() }).strict();
+
+// File: updateManyAndReturnProcessStep.schema.ts
+
+export const ProcessStepUpdateManyAndReturnSchema: z.ZodType<Prisma.ProcessStepUpdateManyAndReturnArgs> = z.object({ select: ProcessStepSelectObjectSchema.optional(), data: ProcessStepUpdateManyMutationInputObjectSchema, where: ProcessStepWhereInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.ProcessStepUpdateManyAndReturnArgs>;
+
+export const ProcessStepUpdateManyAndReturnZodSchema = z.object({ select: ProcessStepSelectObjectSchema.optional(), data: ProcessStepUpdateManyMutationInputObjectSchema, where: ProcessStepWhereInputObjectSchema.optional() }).strict();
+
+// File: upsertOneProcessStep.schema.ts
+
+export const ProcessStepUpsertOneSchema: z.ZodType<Prisma.ProcessStepUpsertArgs> = z.object({ select: ProcessStepSelectObjectSchema.optional(),  where: ProcessStepWhereUniqueInputObjectSchema, create: z.union([ ProcessStepCreateInputObjectSchema, ProcessStepUncheckedCreateInputObjectSchema ]), update: z.union([ ProcessStepUpdateInputObjectSchema, ProcessStepUncheckedUpdateInputObjectSchema ]) }).strict() as unknown as z.ZodType<Prisma.ProcessStepUpsertArgs>;
+
+export const ProcessStepUpsertOneZodSchema = z.object({ select: ProcessStepSelectObjectSchema.optional(),  where: ProcessStepWhereUniqueInputObjectSchema, create: z.union([ ProcessStepCreateInputObjectSchema, ProcessStepUncheckedCreateInputObjectSchema ]), update: z.union([ ProcessStepUpdateInputObjectSchema, ProcessStepUncheckedUpdateInputObjectSchema ]) }).strict();
+
+// File: aggregateProcessStep.schema.ts
+
+export const ProcessStepAggregateSchema: z.ZodType<Prisma.ProcessStepAggregateArgs> = z.object({ orderBy: z.union([ProcessStepOrderByWithRelationInputObjectSchema, ProcessStepOrderByWithRelationInputObjectSchema.array()]).optional(), where: ProcessStepWhereInputObjectSchema.optional(), cursor: ProcessStepWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), ProcessStepCountAggregateInputObjectSchema ]).optional(), _min: ProcessStepMinAggregateInputObjectSchema.optional(), _max: ProcessStepMaxAggregateInputObjectSchema.optional(), _avg: ProcessStepAvgAggregateInputObjectSchema.optional(), _sum: ProcessStepSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.ProcessStepAggregateArgs>;
+
+export const ProcessStepAggregateZodSchema = z.object({ orderBy: z.union([ProcessStepOrderByWithRelationInputObjectSchema, ProcessStepOrderByWithRelationInputObjectSchema.array()]).optional(), where: ProcessStepWhereInputObjectSchema.optional(), cursor: ProcessStepWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), ProcessStepCountAggregateInputObjectSchema ]).optional(), _min: ProcessStepMinAggregateInputObjectSchema.optional(), _max: ProcessStepMaxAggregateInputObjectSchema.optional(), _avg: ProcessStepAvgAggregateInputObjectSchema.optional(), _sum: ProcessStepSumAggregateInputObjectSchema.optional() }).strict();
+
+// File: groupByProcessStep.schema.ts
+
+export const ProcessStepGroupBySchema: z.ZodType<Prisma.ProcessStepGroupByArgs> = z.object({ where: ProcessStepWhereInputObjectSchema.optional(), orderBy: z.union([ProcessStepOrderByWithAggregationInputObjectSchema, ProcessStepOrderByWithAggregationInputObjectSchema.array()]).optional(), having: ProcessStepScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(ProcessStepScalarFieldEnumSchema), _count: z.union([ z.literal(true), ProcessStepCountAggregateInputObjectSchema ]).optional(), _min: ProcessStepMinAggregateInputObjectSchema.optional(), _max: ProcessStepMaxAggregateInputObjectSchema.optional(), _avg: ProcessStepAvgAggregateInputObjectSchema.optional(), _sum: ProcessStepSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.ProcessStepGroupByArgs>;
+
+export const ProcessStepGroupByZodSchema = z.object({ where: ProcessStepWhereInputObjectSchema.optional(), orderBy: z.union([ProcessStepOrderByWithAggregationInputObjectSchema, ProcessStepOrderByWithAggregationInputObjectSchema.array()]).optional(), having: ProcessStepScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(ProcessStepScalarFieldEnumSchema), _count: z.union([ z.literal(true), ProcessStepCountAggregateInputObjectSchema ]).optional(), _min: ProcessStepMinAggregateInputObjectSchema.optional(), _max: ProcessStepMaxAggregateInputObjectSchema.optional(), _avg: ProcessStepAvgAggregateInputObjectSchema.optional(), _sum: ProcessStepSumAggregateInputObjectSchema.optional() }).strict();
 
 // File: findUniqueProject.schema.ts
 
@@ -12065,6 +12664,29 @@ export type Media = z.infer<typeof Media>;
 // Legacy aliases
 export const MediaSchema = Media;
 export type MediaType = z.infer<typeof Media>;
+
+// File: ProcessStep.schema.ts
+
+export const ProcessStep = z.object({
+  slug: z.string(),
+  position: z.number().int(),
+  image: z.string(),
+  title: z.unknown().refine((val) => { const getDepth = (obj: unknown, depth: number = 0): number => { if (depth > 10) return depth; if (obj === null || typeof obj !== 'object') return depth; const values = Object.values(obj as Record<string, unknown>); if (values.length === 0) return depth; return Math.max(...values.map(v => getDepth(v, depth + 1))); }; return getDepth(val) <= 10; }, "JSON nesting depth exceeds maximum of 10"),
+  duration: z.unknown().refine((val) => { const getDepth = (obj: unknown, depth: number = 0): number => { if (depth > 10) return depth; if (obj === null || typeof obj !== 'object') return depth; const values = Object.values(obj as Record<string, unknown>); if (values.length === 0) return depth; return Math.max(...values.map(v => getDepth(v, depth + 1))); }; return getDepth(val) <= 10; }, "JSON nesting depth exceeds maximum of 10"),
+  keywords: z.unknown().refine((val) => { const getDepth = (obj: unknown, depth: number = 0): number => { if (depth > 10) return depth; if (obj === null || typeof obj !== 'object') return depth; const values = Object.values(obj as Record<string, unknown>); if (values.length === 0) return depth; return Math.max(...values.map(v => getDepth(v, depth + 1))); }; return getDepth(val) <= 10; }, "JSON nesting depth exceeds maximum of 10"),
+  tagline: z.unknown().refine((val) => { const getDepth = (obj: unknown, depth: number = 0): number => { if (depth > 10) return depth; if (obj === null || typeof obj !== 'object') return depth; const values = Object.values(obj as Record<string, unknown>); if (values.length === 0) return depth; return Math.max(...values.map(v => getDepth(v, depth + 1))); }; return getDepth(val) <= 10; }, "JSON nesting depth exceeds maximum of 10"),
+  text: z.unknown().refine((val) => { const getDepth = (obj: unknown, depth: number = 0): number => { if (depth > 10) return depth; if (obj === null || typeof obj !== 'object') return depth; const values = Object.values(obj as Record<string, unknown>); if (values.length === 0) return depth; return Math.max(...values.map(v => getDepth(v, depth + 1))); }; return getDepth(val) <= 10; }, "JSON nesting depth exceeds maximum of 10"),
+  items: z.unknown().refine((val) => { const getDepth = (obj: unknown, depth: number = 0): number => { if (depth > 10) return depth; if (obj === null || typeof obj !== 'object') return depth; const values = Object.values(obj as Record<string, unknown>); if (values.length === 0) return depth; return Math.max(...values.map(v => getDepth(v, depth + 1))); }; return getDepth(val) <= 10; }, "JSON nesting depth exceeds maximum of 10"),
+  team: z.array(z.string()),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+});
+
+export type ProcessStep = z.infer<typeof ProcessStep>;
+
+// Legacy aliases
+export const ProcessStepSchema = ProcessStep;
+export type ProcessStepType = z.infer<typeof ProcessStep>;
 
 // File: Project.schema.ts
 

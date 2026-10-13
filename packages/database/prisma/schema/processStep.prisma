@@ -1,0 +1,14 @@
+model ProcessStep {
+  slug      String   @id
+  position  Int      @unique
+  image     String
+  title     Json
+  duration  Json
+  keywords  Json
+  tagline   Json
+  text      Json
+  items     Json
+  team      String[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
