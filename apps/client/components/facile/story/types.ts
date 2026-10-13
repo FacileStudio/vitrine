@@ -43,15 +43,19 @@ export interface Tile {
     label: string;
     text?: string;
     icon?: string;
+    featured?: boolean;
+    description?: string;
+    link?: string;
 }
 
 export interface StoryBlock {
     type: BlockKind;
     media?: (string | number)[];
+    icon?: string;
     eyebrow?: string;
     title?: string;
     text?: string;
-    tags?: string[];
+    tags?: { label: string; icon?: string }[];
     logos?: string[];
     people?: Person[];
     tiles?: Tile[];

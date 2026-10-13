@@ -15,15 +15,8 @@ interface AuthoredApp {
 export type SuiteApp = Resolved<AuthoredApp>;
 
 const LOCAL = new Set([
-    "solar:bill-list-bold-duotone",
     "solar:calendar-add-bold-duotone",
-    "solar:cloud-bold-duotone",
-    "solar:leaf-bold-duotone",
     "solar:letter-opened-bold-duotone",
-    "solar:microphone-2-bold-duotone",
-    "solar:monitor-camera-bold-duotone",
-    "solar:panorama-bold-duotone",
-    "solar:pills-bold-duotone",
     "solar:ruler-cross-pen-bold-duotone",
 ]);
 

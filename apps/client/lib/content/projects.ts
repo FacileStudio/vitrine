@@ -22,6 +22,22 @@ export const SERVICES = [
 
 export type Service = (typeof SERVICES)[number];
 
+export const SERVICE_ICONS: Record<Service, string> = {
+    appDevelopment: "iconoir:smartphone-device",
+    webDevelopment: "iconoir:globe",
+    desktopDevelopment: "iconoir:computer",
+    frontendDevelopment: "iconoir:code",
+    brandIdentity: "iconoir:medal",
+    artDirection: "iconoir:palette",
+    photography: "iconoir:camera",
+    productDesign: "iconoir:package",
+    uiUxDesign: "iconoir:web-window",
+    designSystem: "iconoir:component",
+    redesign: "iconoir:refresh",
+    motionDesign: "iconoir:cinema-old",
+    transformation: "iconoir:rocket",
+};
+
 export interface Project {
     slug: string;
     name: string;

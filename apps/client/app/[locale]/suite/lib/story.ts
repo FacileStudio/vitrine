@@ -4,14 +4,32 @@ import type { SuiteApp } from "@/lib/content/suite";
 
 export type StoryCopy = ReturnType<typeof useTranslations<"suite.story">>;
 
-const tile = (a: SuiteApp): Tile => ({ label: a.name, text: a.tagline, icon: a.icon });
+const FEATURED = new Set(["vision", "opus", "glouton", "nuage", "journal", "plume"]);
 
-const chunk = (apps: SuiteApp[]): StoryBlock[] =>
+const tile = (a: SuiteApp): Tile => FEATURED.has(a.slug)
+    ? { label: a.name, text: a.tagline, icon: a.icon, featured: true, description: a.description, link: a.link }
+    : { label: a.name, text: a.tagline, icon: a.icon };
+
+const sixes = (apps: SuiteApp[]): StoryBlock[] =>
     apps.reduce<SuiteApp[][]>((rows, a, i) => {
         if (i % 6 === 0) rows.push([]);
         rows[rows.length - 1].push(a);
         return rows;
     }, []).map((row) => ({ type: "tiles", tiles: row.map(tile) }));
+
+// every featured app gets its own block with the next two small apps beside it, so the last big ones may stand alone
+function chunk(apps: SuiteApp[]): StoryBlock[] {
+    const small = apps.filter((a) => !FEATURED.has(a.slug));
+    const featured = apps.filter((a) => FEATURED.has(a.slug));
+
+    const units = featured.map((a, i): StoryBlock => {
+        const side = small.splice(0, 2).map(tile);
+
+        return { type: "tiles", tiles: i % 2 ? [...side, tile(a)] : [tile(a), ...side] };
+    });
+
+    return [...units, ...sixes(small)];
+}
 
 export function appStory(app: SuiteApp, apps: SuiteApp[], t: StoryCopy): Chapter[] {
     const sections: StorySection[] = app.story?.length ? app.story : [
@@ -42,8 +60,8 @@ export function suiteStory(apps: SuiteApp[], t: StoryCopy): Chapter[] {
         {
             blocks: [{
                 type: "intro",
-                eyebrow: t("eyebrow"),
-                title: t("title"),
+                icon: "/icons/Suite.svg",
+                title: "Facile. Suite",
                 text: t("intro", { count: apps.length }),
             }],
         },
@@ -51,8 +69,11 @@ export function suiteStory(apps: SuiteApp[], t: StoryCopy): Chapter[] {
         {
             blocks: [{
                 type: "end",
+                cols: 4,
+                // placeholder until a real screenshot of the suite lands in public/images/suite
+                media: ["/images/projects/Marcel%203x3%20dashboard.webp"],
                 eyebrow: t("count", { count: apps.length }),
-                title: t("end"),
+                title: t("title"),
                 link: "/suite",
                 linkLabel: t("discover"),
             }],

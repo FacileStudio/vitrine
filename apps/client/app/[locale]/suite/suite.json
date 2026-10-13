@@ -32,7 +32,7 @@
             "es": "Kanban, relaciones entre tareas, búsqueda instantánea: lo mínimo que hace lo máximo.",
             "de": "Kanban, Aufgabenbeziehungen, Sofortsuche: das Minimum, das am meisten bewirkt."
         },
-        "icon": "solar:box-minimalistic-bold-duotone",
+        "icon": "/icons/Opus.svg",
         "link": "https://opus.facile.studio"
     },
     {
@@ -50,7 +50,7 @@
             "es": "Un script, cero cookies, datos en tiempo real.",
             "de": "Ein Skript, null Cookies, Echtzeitdaten."
         },
-        "icon": "solar:panorama-bold-duotone",
+        "icon": "/icons/Vision.svg",
         "link": "https://vision.facile.studio"
     },
     {
@@ -68,7 +68,7 @@
             "es": "Glouton rastrea la web, detecta stacks técnicos y puntúa prospectos.",
             "de": "Glouton durchsucht das Web, erkennt Tech-Stacks und bewertet Leads."
         },
-        "icon": "solar:leaf-bold-duotone",
+        "icon": "/icons/Glouton.svg",
         "link": "https://glouton.facile.studio"
     },
     {
@@ -86,7 +86,7 @@
             "es": "Stripe integrado, emails automáticos, recibos descargables.",
             "de": "Stripe integriert, automatische E-Mails, Belege zum Herunterladen."
         },
-        "icon": "solar:bill-list-bold-duotone",
+        "icon": "/icons/Ardoise.svg",
         "link": "https://ardoise.facile.studio"
     },
     {
@@ -158,7 +158,7 @@
             "es": "Subidas, carpetas, búsqueda: un drive interno conectado a todas tus herramientas por API.",
             "de": "Uploads, Ordner, Suche: ein internes Laufwerk, per API mit all Ihren Tools verbunden."
         },
-        "icon": "solar:cloud-bold-duotone",
+        "icon": "/icons/Nuage.svg",
         "link": "https://nuage.facile.studio"
     },
     {
@@ -212,7 +212,7 @@
             "es": "Crea una sala, comparte el enlace y listo. Basado en Jitsi.",
             "de": "Raum erstellen, Link teilen, fertig. Basiert auf Jitsi."
         },
-        "icon": "solar:monitor-camera-bold-duotone",
+        "icon": "/icons/Echo.svg",
         "link": "https://echo.facile.studio"
     },
     {
@@ -230,7 +230,7 @@
             "es": "Cifrado de extremo a extremo en el navegador, zero-knowledge en el servidor.",
             "de": "Ende-zu-Ende-Verschlüsselung im Browser, Zero-Knowledge auf dem Server."
         },
-        "icon": "solar:pills-bold-duotone",
+        "icon": "/icons/Capsule.svg",
         "link": "https://capsule.facile.studio"
     },
     {
@@ -248,7 +248,7 @@
             "es": "Captura el audio y obtén la transcripción en tiempo real y notas estructuradas.",
             "de": "Audio aufnehmen, Transkript in Echtzeit und strukturierte Notizen erhalten."
         },
-        "icon": "solar:microphone-2-bold-duotone",
+        "icon": "/icons/Scribe.svg",
         "link": "https://scribe.facile.studio"
     },
     {
@@ -266,7 +266,7 @@
             "es": "Busca, filtra, crea alertas. Un SDK por lenguaje, un collector Docker.",
             "de": "Suchen, filtern, Alerts anlegen. Ein SDK pro Sprache, ein Docker-Collector."
         },
-        "icon": "solar:notebook-bold-duotone",
+        "icon": "/icons/Journal.svg",
         "link": "https://journal.facile.studio"
     }
 ]

@@ -4,6 +4,8 @@ import SplitLines from "@/components/facile/splitLines";
 import Line from "@/components/facile/textReveal";
 import Emphasis from "@/components/facile/emphasis";
 import TechStack from "@/components/facile/techStack";
+import ChipIcon from "@/components/facile/chipIcon";
+import AppMark from "@/components/facile/appMark";
 import type { BlockProps } from "../types";
 import PersonHead from "../head";
 import { Block, Cell } from "../bento";
@@ -24,6 +26,12 @@ export default function Intro({ block }: BlockProps) {
             <Cell col="1 / -1" row="1 / -1">
                 <div className="flex h-full w-full flex-col justify-between gap-[3vh] p-[5vh]">
                     <div className="flex flex-col gap-6">
+                        {block.icon ? (
+                            <Line>
+                                <AppMark icon={block.icon} className="text-[12vh] text-accent" fileClassName="h-[12vh] w-[12vh] object-contain" />
+                            </Line>
+                        ) : null}
+
                         {block.eyebrow ? (
                             <Line as="p" className="text-[clamp(0.65rem,1.4vh,0.9rem)] text-current opacity-70">
                                 {block.eyebrow}
@@ -45,8 +53,9 @@ export default function Intro({ block }: BlockProps) {
                         {block.tags?.length ? (
                             <Line className="flex flex-wrap items-center gap-fc">
                                 {block.tags.map((tag) => (
-                                    <p key={tag} className="chip-solid">
-                                        {tag}
+                                    <p key={tag.label} className="chip-solid flex items-center gap-[0.8vh]">
+                                        {tag.icon ? <ChipIcon icon={tag.icon} /> : null}
+                                        {tag.label}
                                     </p>
                                 ))}
                             </Line>

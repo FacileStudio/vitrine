@@ -18,10 +18,12 @@ export default function DitherBackdrop({
     variant,
     sticky = false,
     arrive = true,
+    leaving = false,
 }: {
     variant: BackdropVariant;
     sticky?: boolean;
     arrive?: boolean;
+    leaving?: boolean;
 }) {
     const ref = useRef<HTMLDivElement>(null);
     const [arrived, setArrived] = useState(false);
@@ -36,7 +38,7 @@ export default function DitherBackdrop({
         setArrived(section.getBoundingClientRect().top <= 0);
     });
 
-    const on = !arrive || arrived;
+    const on = (!arrive || arrived) && !leaving;
 
     if (variant === "story") {
         const spread = arrive && narrow ? 2.2 : 3.5;
@@ -48,7 +50,7 @@ export default function DitherBackdrop({
                 style={{ opacity: on ? 1 : 0, transition: "opacity 0.8s cubic-bezier(0.7, 0, 0.3, 1)" }}
             >
                 <DitherView
-                    className="absolute inset-0 h-full w-full opacity-60"
+                    className="absolute inset-0 h-full w-full opacity-20"
                     file={MODEL}
                     parallax={0.5}
                     gridSize={on ? 3 : 14}

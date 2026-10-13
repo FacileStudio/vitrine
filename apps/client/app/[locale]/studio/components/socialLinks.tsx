@@ -1,6 +1,7 @@
 'use client'
 
 import { Icon } from "@iconify/react";
+import "@/lib/iconoir";
 import TextReveal from "@/components/facile/textReveal";
 import { GithubIcon } from "@/components/ui/github";
 import { InstagramIcon } from "@/components/ui/instagram";
@@ -11,7 +12,7 @@ const SOCIAL_ICONS: Record<string, React.ComponentType<{ size?: number; classNam
     GitHub: GithubIcon,
     Instagram: InstagramIcon,
     Dribbble: DribbbleIcon,
-    LinkedIn: ({ size = 22, className }) => <Icon icon="mdi:linkedin" width={size} height={size} className={className} />,
+    LinkedIn: ({ size = 22, className }) => <Icon icon="iconoir:linkedin" width={size} height={size} className={className} />,
 };
 
 type Socials = Member["socials"];

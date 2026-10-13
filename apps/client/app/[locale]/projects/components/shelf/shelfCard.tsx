@@ -5,8 +5,9 @@ import { useTranslations } from "next-intl";
 import TextReveal from "@/components/facile/textReveal";
 import ShelfRow from "@/components/facile/shelf/shelfRow";
 import { MarcelEyes, MarcelSpheres, useMarcelEyes } from "@/components/facile/marcelEyes";
+import ChipIcon from "@/components/facile/chipIcon";
 import { isVideoFile } from "@/lib/utils";
-import type { Project } from "@/lib/content/projects";
+import { SERVICE_ICONS, type Project } from "@/lib/content/projects";
 import type { ShelfRefs } from "@/hooks/use-shelf-motion";
 
 const mediaClass = "pointer-events-none absolute top-1/2 left-1/2 w-4/5 -translate-x-1/2 -translate-y-1/2 rounded-fc object-cover will-change-[clip-path] [clip-path:inset(100%_0_0_0)]";
@@ -81,7 +82,8 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
                 {project.services.length > 0 && (
                     <span className="flex flex-wrap items-center lg:justify-end gap-fc">
                         {project.services.map((s) => (
-                            <TextReveal key={s} cropClassName="shrink-0" className="chip tagText">
+                            <TextReveal key={s} cropClassName="shrink-0" className="chip tagText flex items-center gap-[0.8vh]">
+                                <ChipIcon icon={SERVICE_ICONS[s]} />
                                 <span>{tProjects(`services.${s}`)}</span>
                             </TextReveal>
                         ))}

@@ -13,5 +13,5 @@ export default function Suite() {
 
     const sections = useMemo(() => suiteStory(apps, t), [apps, t]);
 
-    return <Band id="suite" sections={sections} />;
+    return <Band id="suite" sections={sections} glass />;
 }

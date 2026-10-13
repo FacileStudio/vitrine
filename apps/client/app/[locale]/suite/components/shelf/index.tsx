@@ -54,6 +54,7 @@ export default function SuiteShelf({
                             index={visible.indexOf(open)}
                             total={visible.length}
                             backLabel={tShelf("back")}
+                            glass
                             onClose={() => setOpen(null)}
                         />
                     ) : null}

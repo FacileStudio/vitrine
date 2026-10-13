@@ -19,12 +19,13 @@ interface StoryProps {
     total: number;
     backLabel: string;
     delay?: number;
+    glass?: boolean;
     onClose: () => void;
     onNext?: () => void;
     onPrev?: () => void;
 }
 
-export default function Story({ sections, name, index, total, backLabel, delay = 0, onClose, onNext, onPrev }: StoryProps) {
+export default function Story({ sections, name, index, total, backLabel, delay = 0, glass = false, onClose, onNext, onPrev }: StoryProps) {
     const rootRef = useRef<HTMLDivElement>(null);
     const bgRef = useRef<HTMLDivElement>(null);
     const scrollerRef = useRef<HTMLDivElement>(null);
@@ -223,6 +224,7 @@ export default function Story({ sections, name, index, total, backLabel, delay =
         <div
             ref={rootRef}
             aria-label={name}
+            data-glass={glass || undefined}
             className="fixed inset-0 z-120 text-background opacity-0"
         >
             <div ref={bgRef} className="absolute inset-0 bg-foreground">

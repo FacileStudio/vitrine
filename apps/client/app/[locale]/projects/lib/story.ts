@@ -2,7 +2,7 @@ import type { useTranslations } from "next-intl";
 import { buildStory, type BlockKind, type Chapter, type GridItem, type Person, type StoryBlock, type StorySection } from "@/components/facile/story/types";
 import { localize, type Resolved } from "@/lib/i18n/localize";
 import type { Locale } from "@/lib/i18n/locales";
-import type { Project, Service } from "@/lib/content/projects";
+import { SERVICE_ICONS, type Project, type Service } from "@/lib/content/projects";
 import { findPerson, type AuthoredMember } from "@/lib/content/studio";
 
 export type StoryCopy = ReturnType<typeof useTranslations<"story">>;
@@ -22,7 +22,7 @@ function hydrate(p: Resolved<Project>, b: StoryBlock, people: Person[], { t, ser
             eyebrow: `${p.date}  —  ${t("weeks", { count: p.weeks })}`,
             title: p.name,
             text: p.description,
-            tags: p.services.map((s) => services(s)),
+            tags: p.services.map((s) => ({ label: services(s), icon: SERVICE_ICONS[s] })),
             logos: p.techStack,
             people,
             link: p.link,
