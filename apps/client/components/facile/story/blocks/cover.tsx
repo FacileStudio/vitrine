@@ -1,4 +1,3 @@
-import { LightPillar } from "@/webgl/lazy";
 import { MarcelEyes, MarcelSpheres, useMarcelEyes } from "@/components/facile/marcelEyes";
 import type { BlockProps } from "../types";
 import { Block, Cell, Media } from "../bento";
@@ -7,8 +6,6 @@ export default function Cover({ block }: BlockProps) {
     const { frame, eyes, spheres, start, stop } = useMarcelEyes();
 
     const marcel = block.effect === "marcel";
-
-    const pillar = block.effect === "projet-zero-pillar";
 
     return (
         <Block cols={block.cols} className="relative">
@@ -20,7 +17,7 @@ export default function Cover({ block }: BlockProps) {
                     onPointerEnter={marcel ? start : undefined}
                     onPointerLeave={marcel ? stop : undefined}
                 >
-                    {pillar ? <LightPillar fallback={block.media[0]} /> : <Media src={block.media[0]} />}
+                    <Media src={block.media[0]} />
 
                     {marcel ? <MarcelEyes variant="cover" frameRef={frame} ref={eyes} /> : null}
                 </div>

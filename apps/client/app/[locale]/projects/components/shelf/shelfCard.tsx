@@ -3,7 +3,6 @@
 import type { MouseEvent } from "react";
 import { useTranslations } from "next-intl";
 import TextReveal from "@/components/facile/textReveal";
-import { LightPillar } from "@/webgl/lazy";
 import ShelfRow from "@/components/facile/shelf/shelfRow";
 import { MarcelEyes, MarcelSpheres, useMarcelEyes } from "@/components/facile/marcelEyes";
 import { isVideoFile } from "@/lib/utils";
@@ -27,7 +26,6 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
     const tProjects = useTranslations("projects");
     const { frame, eyes, spheres, start, stop } = useMarcelEyes();
     const marcel = project.coverEffect === "marcel";
-    const projetZero = project.coverEffect === "projet-zero-pillar";
 
     return (
         <ShelfRow
@@ -41,17 +39,13 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
             {marcel && <MarcelSpheres ref={spheres} />}
             <div className="relative w-full aspect-16/10 lg:aspect-video overflow-hidden rounded-fc">
                 <div ref={refs.media(index)} className="absolute inset-0 will-change-transform">
-                    {projetZero ? (
-                        <LightPillar fallback={project.image} className="object-cover brightness-100 transition-all duration-300 ease-out group-hover/card:brightness-[0.6] group-hover/card:scale-110" />
-                    ) : (
-                        <img
-                            src={project.image}
-                            alt={project.name}
-                            loading="lazy"
-                            decoding="async"
-                            className={marcel ? coverClass : `${coverClass} group-hover/card:brightness-[0.6] group-hover/card:scale-110`}
-                        />
-                    )}
+                    <img
+                        src={project.image}
+                        alt={project.name}
+                        loading="lazy"
+                        decoding="async"
+                        className={marcel ? coverClass : `${coverClass} group-hover/card:brightness-[0.6] group-hover/card:scale-110`}
+                    />
 
                     {marcel && <MarcelEyes frameRef={frame} ref={eyes} />}
                 </div>

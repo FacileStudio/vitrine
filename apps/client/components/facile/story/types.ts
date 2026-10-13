@@ -17,7 +17,7 @@ export const BLOCK_SPECS = {
 
 export type BlockKind = keyof typeof BLOCK_SPECS;
 
-export type CoverEffect = "marcel" | "projet-zero-pillar";
+export type CoverEffect = "marcel";
 
 export interface Swatch {
     label: string;
