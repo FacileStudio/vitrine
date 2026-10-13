@@ -37,7 +37,7 @@ export default function Heading({ lines, filter = null, count = 0, onFilter }: H
     return (
         <ShelfHeading
             tone="dark"
-            className="relative z-10 3xl:w-[70vw] lg:w-[80vw] w-full pb-[12vh] flex flex-col lg:flex-row items-start justify-between gap-6 lg:gap-12 text-background"
+            className="relative z-10 3xl:w-[70vw] lg:w-[70vw] w-full pb-[12vh] flex flex-col lg:flex-row items-start justify-between gap-6 lg:gap-12 text-background"
             counterClassName="flex lg:justify-end gap-3 w-full text-start lg:text-right tabular-nums"
             count={onFilter ? count : undefined}
             countLabel={t("projectCount", { count })}

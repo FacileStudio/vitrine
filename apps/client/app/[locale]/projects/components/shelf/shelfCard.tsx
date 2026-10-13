@@ -35,7 +35,7 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
             onOpen={() => { stop(); onOpen(project.slug); }}
             onEnter={(e) => { onEnter(e); if (marcel) start(); }}
             onLeave={(e) => { onLeave(e); stop(); }}
-            className="group/card relative cursor-pointer  3xl:w-[70vw] lg:w-[80vw] w-full shrink-0"
+            className="group/card relative cursor-pointer  lg:w-[70vw] w-full shrink-0"
         >
             {marcel && <MarcelSpheres ref={spheres} />}
             <div className="relative w-full aspect-16/10 lg:aspect-video overflow-hidden rounded-fc">
