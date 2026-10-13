@@ -10,8 +10,6 @@ import type { Chapter } from "./types";
 
 // extra scroll, in screen heights, the band stays parked on its last block before it lets go
 const HOLD = 2;
-// px from the screen edge over which a tile's glass fades out, about the reach of its 48px blur
-const EDGE = 160;
 
 interface BandProps {
     sections: Chapter[];
@@ -54,20 +52,9 @@ export default function Band({ sections, id, glass = false }: BandProps) {
         // halfway through the hold the dither fades out, so it is gone before the page lets go
         setLeaving(scrolled > travel + window.innerHeight * HOLD / 2);
 
-        if (!visible)
-            return;
-
         // whole pixels: the glass cells make the track its own layer, and a fractional offset resamples every glyph soft
-        gsap.set(trackRef.current, { x: -Math.round(Math.min(travel, scrolled)) });
-
-        // past the screen edge the blur has nothing drawn to sample and smears, so the glass fades out before it gets there
-        trackRef.current?.querySelectorAll<HTMLElement>("[data-glass-layer]").forEach((layer) => {
-            const r = layer.getBoundingClientRect();
-            // distance of the tile's nearest side to its nearest screen edge, negative once it overhangs
-            const edge = Math.min(r.left, window.innerWidth - r.right);
-
-            gsap.set(layer, { opacity: gsap.utils.clamp(0, 1, edge / EDGE) });
-        });
+        if (visible)
+            gsap.set(trackRef.current, { x: -Math.round(Math.min(travel, scrolled)) });
     });
 
     return (
