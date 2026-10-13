@@ -9,7 +9,7 @@ export default function Tiles({ block }: BlockProps) {
     return (
         <Block cols={block.cols}>
             {tiles.map((t: Tile) => (
-                <Cell key={t.label} className="glass">
+                <Cell key={t.label}>
                     <div className="flex h-full w-full flex-col justify-between gap-[1.5vh] p-[3vh]">
                         {t.icon ? (
                             <AppMark icon={t.icon} className="text-[4vh] text-accent" fileClassName="h-[6vh] w-[6vh] object-contain" />

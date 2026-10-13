@@ -21,7 +21,7 @@ export default function Intro({ block }: BlockProps) {
     const t = useTranslations("story");
     return (
         <Block cols={block.cols}>
-            <Cell col="1 / -1" row="1 / -1" className="glass">
+            <Cell col="1 / -1" row="1 / -1">
                 <div className="flex h-full w-full flex-col justify-between gap-[3vh] p-[5vh]">
                     <div className="flex flex-col gap-6">
                         {block.eyebrow ? (

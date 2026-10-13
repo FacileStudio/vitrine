@@ -5,7 +5,7 @@ import { Block, Cell } from "../bento";
 
 const ROWS = ["ABCDEFGHIJKL", "MNOPQRSTUVW", "XYZ"].map((row) => row.split(""));
 
-function Panel({ label, font, fontFamily, description, big }: { label: string; font?: string; fontFamily?: string; description?: string; big?: boolean }) {
+function Panel({ label, font, fontFamily, big }: { label: string; font?: string; fontFamily?: string; big?: boolean }) {
     return (
         <div
             style={{ fontFamily }}
@@ -21,12 +21,6 @@ function Panel({ label, font, fontFamily, description, big }: { label: string; f
                     {font}
                 </Line>
             </div>
-
-            {/* {description && (
-                <Line style={{ fontFamily: "var(--font-goga)" }} className="max-w-[60ch] text-[clamp(1rem,1.6vh,1.2rem)] leading-relaxed text-background/50">
-                    {description}
-                </Line>
-            )} */}
 
             <div className="flex flex-1 flex-col lg:mt-12 justify-center gap-2">
                 {ROWS.map((row) => (
@@ -50,10 +44,10 @@ function Panel({ label, font, fontFamily, description, big }: { label: string; f
 export default function TypographyPair({ block }: BlockProps) {
     return (
         <Block cols={block.cols}>
-            <Cell col="1 / -1" row="1 / -1" className="glass">
+            <Cell col="1 / -1" row="1 / -1">
                 <div className="flex h-full w-full flex-col justify-between">
-                    <Panel label="Title" font={block.font} fontFamily={block.fontFamily} description={block.description} big />
-                    <Panel label="Text" font={block.secondFont} fontFamily={block.secondFontFamily} description={block.secondDescription} />
+                    <Panel label="Title" font={block.font} fontFamily={block.fontFamily} big />
+                    <Panel label="Text" font={block.secondFont} fontFamily={block.secondFontFamily} />
                 </div>
             </Cell>
         </Block>
