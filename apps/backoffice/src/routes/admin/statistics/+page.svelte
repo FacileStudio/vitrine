@@ -25,10 +25,10 @@
 	const stats = $derived(
 		overview
 			? [
-					{ label: 'Visits', value: overview.counters.totalVisits, icon: 'lucide:eye', note: `${today?.visits ?? 0} today` },
-					{ label: 'Unique visitors', value: overview.counters.totalUniqueVisitors, icon: 'lucide:users-round', note: `${today?.uniqueVisitors ?? 0} today` },
-					{ label: 'Visitors per day', value: overview.counters.avgVisitorsPerDay, icon: 'lucide:calendar', note: 'Average over 14 days' },
-					{ label: 'Messages received', value: overview.counters.totalContacts, icon: 'lucide:mail', note: 'From the contact form' },
+					{ label: 'Visits', value: overview.counters.totalVisits, icon: 'iconoir:eye', note: `${today?.visits ?? 0} today` },
+					{ label: 'Unique visitors', value: overview.counters.totalUniqueVisitors, icon: 'iconoir:group', note: `${today?.uniqueVisitors ?? 0} today` },
+					{ label: 'Visitors per day', value: overview.counters.avgVisitorsPerDay, icon: 'iconoir:calendar', note: 'Average over 14 days' },
+					{ label: 'Messages received', value: overview.counters.totalContacts, icon: 'iconoir:mail', note: 'From the contact form' },
 				]
 			: []
 	);
@@ -36,12 +36,12 @@
 
 <Header title="Statistics" description="Traffic on the showcase site">
 	{#snippet actions()}
-		<span class="chip"><iconify-icon icon="lucide:calendar-range" width="12"></iconify-icon>Last 14 days</span>
+		<span class="chip"><iconify-icon icon="iconoir:calendar" width="12"></iconify-icon>Last 14 days</span>
 	{/snippet}
 </Header>
 
 {#if error}
-	<p class="alert"><iconify-icon icon="lucide:circle-alert" width="16"></iconify-icon>{error}</p>
+	<p class="alert"><iconify-icon icon="iconoir:warning-circle" width="16"></iconify-icon>{error}</p>
 {:else if !overview}
 	<div class="py-20 flex justify-center">
 		<Spinner size="xl" />
@@ -67,7 +67,7 @@
 	<div class="grid gap-1 xl:grid-cols-2">
 		<section use:enter class="panel">
 			<header class="panel-header pt-4">
-				<iconify-icon icon="lucide:chart-area" width="16" class="text-faint"></iconify-icon>
+				<iconify-icon icon="iconoir:graph-up" width="16" class="text-faint"></iconify-icon>
 				<h2 class="lead text-ink">Visits</h2>
 				<span class="subtext text-faint">per day</span>
 			</header>
@@ -78,7 +78,7 @@
 
 		<section use:enter class="panel">
 			<header class="panel-header pt-4">
-				<iconify-icon icon="lucide:chart-column" width="16" class="text-faint"></iconify-icon>
+				<iconify-icon icon="iconoir:stats-report" width="16" class="text-faint"></iconify-icon>
 				<h2 class="lead text-ink">Unique visitors</h2>
 				<span class="subtext text-faint">per day</span>
 			</header>

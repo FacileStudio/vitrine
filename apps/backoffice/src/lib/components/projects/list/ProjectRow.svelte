@@ -25,7 +25,7 @@
 		onerror={(e) => e.currentTarget.remove()}
 	/>
 	<span class="relative w-48 aspect-[16/10] rounded-project overflow-hidden bg-surface-hover flex items-center justify-center">
-		<iconify-icon icon="lucide:image-off" width="18" class="text-ink/20"></iconify-icon>
+		<iconify-icon icon="iconoir:media-image-xmark" width="18" class="text-ink/20"></iconify-icon>
 		<img
 			use:zoom
             use:hoverTo={{ rest: { scale: 1 }, hover: { scale: 1.2 } }}
@@ -53,6 +53,6 @@
 		}}
 		class="flex items-center p-2 -m-2 rounded-project text-ghost opacity-0 group-hover:opacity-100 focus:opacity-100 hover:bg-red-500/20 hover:text-danger"
 	>
-		<iconify-icon icon="lucide:trash-2" width="16"></iconify-icon>
+		<iconify-icon icon="iconoir:trash" width="16"></iconify-icon>
 	</button>
 </a>

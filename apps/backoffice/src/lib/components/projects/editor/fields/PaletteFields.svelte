@@ -34,7 +34,7 @@
 				onclick={() => item.swatches.splice(i, 1)}
 				class="btn-icon btn-icon-danger size-10 shrink-0"
 			>
-				<iconify-icon icon="lucide:trash-2" width="16"></iconify-icon>
+				<iconify-icon icon="iconoir:trash" width="16"></iconify-icon>
 			</button>
 		</div>
 	{/each}
@@ -44,7 +44,7 @@
 		onclick={() => item.swatches.push({ label: empty(), hex: '#000000' })}
 		class="btn w-fit"
 	>
-		<iconify-icon icon="lucide:circle-plus" width="16"></iconify-icon>
+		<iconify-icon icon="iconoir:plus-circle" width="16"></iconify-icon>
 		Add a colour
 	</button>
 </div>

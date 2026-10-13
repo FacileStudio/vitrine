@@ -31,21 +31,21 @@
 <Header title="Studio" count={members?.length} description="The members shown on the site's studio page">
 	{#snippet actions()}
 		<label class="field w-72">
-			<iconify-icon icon="lucide:search" width="16" class="text-faint"></iconify-icon>
+			<iconify-icon icon="iconoir:search" width="16" class="text-faint"></iconify-icon>
 			<input bind:value={query} placeholder="Search a member..." class="field-input" />
 		</label>
 	{/snippet}
 </Header>
 
 {#if error}
-	<p class="alert"><iconify-icon icon="lucide:circle-alert" width="16"></iconify-icon>{error}</p>
+	<p class="alert"><iconify-icon icon="iconoir:warning-circle" width="16"></iconify-icon>{error}</p>
 {:else if !members}
 	<div class="py-20 flex justify-center">
 		<Spinner size="xl" />
 	</div>
 {:else if shown.length === 0}
 	<div use:enter class="empty-state">
-		<iconify-icon icon="lucide:search-x" width="28" class="text-ghost"></iconify-icon>
+		<iconify-icon icon="iconoir:search-window" width="28" class="text-ghost"></iconify-icon>
 		<p class="lead text-ink">No member matches “{query}”</p>
 		<button type="button" onclick={() => (query = '')} class="p text-muted hover:text-ink">Clear search</button>
 	</div>
@@ -65,7 +65,7 @@
 					>
 						{member.name.charAt(0)}
 					</span>
-					<iconify-icon icon="lucide:arrow-up-right" width="18" class="text-ghost group-hover:text-ink"></iconify-icon>
+					<iconify-icon icon="iconoir:arrow-up-right" width="18" class="text-ghost group-hover:text-ink"></iconify-icon>
 				</div>
                 <div class="flex justify-between z-10 items-center mt-auto">
                     <div class="min-w-0 flex gap-3 items-center">
@@ -73,10 +73,10 @@
                     </div>
     
                     <div class="mt-auto flex justify-end flex-wrap gap-1.5">
-                        <span class="chip"><iconify-icon icon="lucide:folder-kanban" width="12"></iconify-icon>{member.projects.length} projects</span>
-                        <span class="chip"><iconify-icon icon="lucide:link" width="12"></iconify-icon>{member.socials.length} links</span>
+                        <span class="chip"><iconify-icon icon="iconoir:folder" width="12"></iconify-icon>{member.projects.length} projects</span>
+                        <span class="chip"><iconify-icon icon="iconoir:link" width="12"></iconify-icon>{member.socials.length} links</span>
                         {#if member.suite}
-                            <span class="chip"><iconify-icon icon="lucide:sparkles" width="12"></iconify-icon>Suite</span>
+                            <span class="chip"><iconify-icon icon="iconoir:sparks" width="12"></iconify-icon>Suite</span>
                         {/if}
                     </div>
                 </div>

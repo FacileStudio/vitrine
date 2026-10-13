@@ -2,10 +2,8 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
-	import 'iconify-icon';
-	import { MobileNav, SideBar } from '$lib/muse';
+	import { MobileNav, SideBar, icons } from '$lib/muse';
 	import Glow from '$lib/components/Glow.svelte';
-	import { icons } from '$lib/icons';
 	import { logger } from '@repo/logger';
 	import { trpc } from '$lib/trpc';
 

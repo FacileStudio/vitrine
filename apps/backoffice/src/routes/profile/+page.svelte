@@ -2,7 +2,6 @@
   import { trpc } from '$lib/trpc';
   import { goto } from '$app/navigation';
   import { onMount } from 'svelte';
-  import 'iconify-icon';
   import ThemeSwitch from '$lib/components/ThemeSwitch.svelte';
 
   let loading = true;
@@ -33,14 +32,14 @@
 <main class="max-w-3xl mx-auto px-8 py-12 space-y-8">
   <nav aria-label="Breadcrumb" class="p flex items-center gap-2 text-faint">
     <a href="/admin/projects" class="hover:text-ink">Backoffice</a>
-    <iconify-icon icon="lucide:chevron-right" width="14" class="text-ghost"></iconify-icon>
+    <iconify-icon icon="iconoir:nav-arrow-right" width="14" class="text-ghost"></iconify-icon>
     <span class="text-soft">Profile</span>
   </nav>
 
   {#if loading}
     <div class="panel p-6"><p class="p text-muted">Loading profile...</p></div>
   {:else if error}
-    <p class="alert"><iconify-icon icon="lucide:circle-alert" width="16"></iconify-icon>{error}</p>
+    <p class="alert"><iconify-icon icon="iconoir:warning-circle" width="16"></iconify-icon>{error}</p>
   {:else if user}
     <header class="page-header">
       <div class="flex items-center gap-4">
@@ -55,7 +54,7 @@
       <div class="flex items-center gap-1">
         <div class="w-40"><ThemeSwitch /></div>
       <button on:click={handleLogout} class="btn btn-danger">
-        <iconify-icon icon="lucide:log-out" width="16"></iconify-icon>
+        <iconify-icon icon="iconoir:log-out" width="16"></iconify-icon>
         Sign out
       </button>
       </div>
@@ -63,7 +62,7 @@
 
     <section class="panel">
       <header class="panel-header pt-4">
-        <iconify-icon icon="lucide:id-card" width="16" class="text-faint"></iconify-icon>
+        <iconify-icon icon="iconoir:user-square" width="16" class="text-faint"></iconify-icon>
         <h2 class="lead text-ink">Details</h2>
       </header>
       <dl class="grid sm:grid-cols-2 gap-1 p-2 pt-0">

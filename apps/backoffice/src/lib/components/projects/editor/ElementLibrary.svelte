@@ -62,7 +62,7 @@
 					<span class="block p text-ink/90">{element.label}</span>
 				</span>
 				<iconify-icon
-					icon={sized ? 'lucide:chevron-down' : 'lucide:plus'}
+					icon={sized ? 'iconoir:nav-arrow-down' : 'iconoir:plus'}
 					width="14"
 					class="text-ghost group-hover:text-ink/70 {open === element.kind ? 'rotate-180' : ''}"
 				></iconify-icon>

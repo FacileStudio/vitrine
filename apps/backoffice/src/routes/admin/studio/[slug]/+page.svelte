@@ -72,13 +72,13 @@
 
 <nav aria-label="Breadcrumb" class="p flex items-center gap-2 text-faint">
 	<a href="/admin/studio" class="hover:text-ink">Studio</a>
-	<iconify-icon icon="lucide:chevron-right" width="14" class="text-ghost"></iconify-icon>
+	<iconify-icon icon="iconoir:nav-arrow-right" width="14" class="text-ghost"></iconify-icon>
 	<span class="text-soft">{member?.name ?? 'Member'}</span>
 </nav>
 
 {#if !member}
 	{#if error}
-		<p class="alert"><iconify-icon icon="lucide:circle-alert" width="16"></iconify-icon>{error}</p>
+		<p class="alert"><iconify-icon icon="iconoir:warning-circle" width="16"></iconify-icon>{error}</p>
 	{:else}
 		<div class="py-20 flex justify-center">
 			<Spinner size="xl" />

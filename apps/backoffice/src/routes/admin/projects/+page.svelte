@@ -20,8 +20,8 @@
 	] as const;
 
 	const VIEWS = [
-		{ value: 'grid', icon: 'lucide:layout-grid', label: 'Grid' },
-		{ value: 'list', icon: 'lucide:list', label: 'List' },
+		{ value: 'grid', icon: 'iconoir:view-grid', label: 'Grid' },
+		{ value: 'list', icon: 'iconoir:list', label: 'List' },
 	] as const;
 
 	let projects = $state<ProjectSummary[] | null>(null);
@@ -212,7 +212,7 @@
 	
 		{#snippet actions()}
 			<label class="field w-72">
-				<iconify-icon icon="lucide:search" width="16" class="text-faint"></iconify-icon>
+				<iconify-icon icon="iconoir:search" width="16" class="text-faint"></iconify-icon>
 				<input
 					bind:this={search}
 					bind:value={query}
@@ -229,7 +229,7 @@
 			</label>
 	
 			<label class="field">
-				<iconify-icon icon="lucide:arrow-up-down" width="14" class="text-faint"></iconify-icon>
+				<iconify-icon icon="iconoir:arrow-separate-vertical" width="14" class="text-faint"></iconify-icon>
 				<select bind:value={sort} class="field-select">
 					{#each SORTS as option (option.value)}
 						<option value={option.value}>{option.label}</option>
@@ -255,17 +255,17 @@
 	</Header>
 
 	{#if reorderError}
-		<p class="alert"><iconify-icon icon="lucide:circle-alert" width="16"></iconify-icon>{reorderError}</p>
+		<p class="alert"><iconify-icon icon="iconoir:warning-circle" width="16"></iconify-icon>{reorderError}</p>
 	{/if}
 	{#if error}
-		<p class="alert"><iconify-icon icon="lucide:circle-alert" width="16"></iconify-icon>{error}</p>
+		<p class="alert"><iconify-icon icon="iconoir:warning-circle" width="16"></iconify-icon>{error}</p>
 	{:else if !projects}
 		<div class="py-20 flex justify-center">
 			<Spinner size="xl" />
 		</div>
 	{:else if shown.length === 0 && query.trim()}
 		<div use:enter class="empty-state">
-			<iconify-icon icon="lucide:search-x" width="28" class="text-ghost"></iconify-icon>
+			<iconify-icon icon="iconoir:search-window" width="28" class="text-ghost"></iconify-icon>
 			<p class="lead text-ink">No project matches “{query}”</p>
 			<button type="button" onclick={() => (query = '')} class="p text-muted hover:text-ink">Clear search</button>
 		</div>

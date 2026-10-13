@@ -24,7 +24,7 @@
 
 <section class="bg-raised rounded-project p-5 space-y-3">
 	<header class="flex items-center gap-2 py-2">
-		<iconify-icon icon="lucide:inbox" width="16" class="text-faint"></iconify-icon>
+		<iconify-icon icon="iconoir:archive" width="16" class="text-faint"></iconify-icon>
 		<span class="lead text-ink">Bucket</span>
 		<span class="subtext rounded-project bg-ink/10 px-1.5 py-0.5 text-ink/70">{bucket.length}</span>
 		<span class="subtext text-faint">Shared between sections, nothing is lost</span>
@@ -66,13 +66,13 @@
 			>
 				<ItemPreview {item} />
 				<span class="absolute inset-0 bg-black/55 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 flex items-center justify-center">
-					<iconify-icon icon="lucide:pencil" width="16" class="text-ink"></iconify-icon>
+					<iconify-icon icon="iconoir:edit-pencil" width="16" class="text-ink"></iconify-icon>
 				</span>
 				<span class="absolute bottom-1 right-1 subtext rounded-project bg-black/60 px-1.5 text-on-media/80">{item.w}×{item.h}</span>
 			</div>
 		{:else}
 			<span class="m-auto subtext text-ghost flex items-center gap-2">
-				<iconify-icon icon="lucide:arrow-down-to-line" width="14"></iconify-icon>
+				<iconify-icon icon="iconoir:download" width="14"></iconify-icon>
 				Drop a grid item here to set it aside
 			</span>
 		{/each}
@@ -99,7 +99,7 @@
 			endDrag();
 		}}
 	>
-		<iconify-icon icon="lucide:trash-2" width="24"></iconify-icon>
+		<iconify-icon icon="iconoir:trash" width="24"></iconify-icon>
 		<span class="subtext">Delete</span>
 	</div>
 	</div>

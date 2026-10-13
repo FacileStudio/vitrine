@@ -20,7 +20,7 @@
 
 {#if back}
 	<a href={back.href} class="p inline-flex items-center gap-2 pl-6 text-muted hover:text-ink">
-		<iconify-icon icon="lucide:arrow-left" width="16"></iconify-icon>
+		<iconify-icon icon="iconoir:arrow-left" width="16"></iconify-icon>
 		{back.label}
 	</a>
 {/if}

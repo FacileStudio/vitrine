@@ -4,9 +4,9 @@
 	type Theme = 'system' | 'light' | 'dark';
 
 	const OPTIONS: { value: Theme; icon: string; label: string }[] = [
-		{ value: 'light', icon: 'lucide:sun', label: 'Light' },
-		{ value: 'dark', icon: 'lucide:moon', label: 'Dark' },
-		{ value: 'system', icon: 'lucide:monitor', label: 'System' },
+		{ value: 'light', icon: 'iconoir:sun-light', label: 'Light' },
+		{ value: 'dark', icon: 'iconoir:half-moon', label: 'Dark' },
+		{ value: 'system', icon: 'iconoir:computer', label: 'System' },
 	];
 
 	let theme = $state<Theme>('system');

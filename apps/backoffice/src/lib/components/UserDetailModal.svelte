@@ -2,7 +2,6 @@
 	import { Modal, Badge, Spinner, Tabs } from '@repo/ui';
 	import { trpc } from '$lib/trpc';
 	import { logger } from '@repo/logger';
-	import 'iconify-icon';
 
 	let { userId = $bindable(''), onClose = () => {} }: { userId?: string; onClose?: () => void } = $props();
 
@@ -152,9 +151,9 @@
 
 			<Tabs
 				tabs={[
-					{ label: 'Overview', value: 'overview', icon: 'lucide:info' },
-					{ label: 'Activity', value: 'activity', icon: 'lucide:history' },
-					{ label: 'Moderation', value: 'moderation', icon: 'lucide:shield-alert' }
+					{ label: 'Overview', value: 'overview', icon: 'iconoir:info-circle' },
+					{ label: 'Activity', value: 'activity', icon: 'iconoir:clock-rotate-right' },
+					{ label: 'Moderation', value: 'moderation', icon: 'iconoir:shield-alert' }
 				]}
 				bind:activeTab
 			/>
@@ -211,7 +210,7 @@
 						{/each}
 					{:else}
 						<div class="text-center py-12 text-faint">
-							<iconify-icon icon="lucide:history" width="48"></iconify-icon>
+							<iconify-icon icon="iconoir:clock-rotate-right" width="48"></iconify-icon>
 							<p class="mt-2 p">No activity logs</p>
 						</div>
 					{/if}
@@ -221,7 +220,7 @@
 					{#if user.status === 'BANNED'}
 						<div class="rounded-project bg-raised p-4">
 							<div class="flex items-center gap-2 mb-2">
-								<iconify-icon icon="lucide:shield-alert" class="text-muted"></iconify-icon>
+								<iconify-icon icon="iconoir:shield-alert" class="text-muted"></iconify-icon>
 								<h3 class="lead text-ink">User is Banned</h3>
 							</div>
 							<button
@@ -235,7 +234,7 @@
 					{:else if user.status === 'SUSPENDED'}
 						<div class="rounded-project bg-raised p-4">
 							<div class="flex items-center gap-2 mb-2">
-								<iconify-icon icon="lucide:clock" class="text-muted"></iconify-icon>
+								<iconify-icon icon="iconoir:clock" class="text-muted"></iconify-icon>
 								<h3 class="lead text-ink">User is Suspended</h3>
 							</div>
 							<button

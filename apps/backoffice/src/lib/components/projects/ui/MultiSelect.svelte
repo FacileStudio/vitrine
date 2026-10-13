@@ -65,7 +65,7 @@
 				</span>
 			{/each}
 		{/if}
-		<iconify-icon icon="lucide:chevron-down" width="14" class="ml-auto text-faint group-open:rotate-180"></iconify-icon>
+		<iconify-icon icon="iconoir:nav-arrow-down" width="14" class="ml-auto text-faint group-open:rotate-180"></iconify-icon>
 	</summary>
 
 	<div class="absolute z-20 mt-1 w-full min-w-56 max-h-72 overflow-y-auto rounded-project bg-popover p-2 shadow-lg space-y-8">

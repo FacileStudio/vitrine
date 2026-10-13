@@ -11,7 +11,7 @@
 	}
 </script>
 
-<Section title="Projects" icon="lucide:folder-kanban" summary="{member.projects.length} of {options.length}">
+<Section title="Projects" icon="iconoir:folder" summary="{member.projects.length} of {options.length}">
 	<div class="flex flex-wrap gap-1">
 		{#each options as project (project.slug)}
 			<button

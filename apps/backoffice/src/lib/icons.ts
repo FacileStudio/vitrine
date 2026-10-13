@@ -1,18 +1,5 @@
-import { icons } from '$lib/muse';
+import { addCollection } from 'iconify-icon';
+import iconoir from './iconoir.json';
 
-// muse draws Solar and MDI glyphs inside SideBar and MobileNav with no prop to swap them, so the
-// shared map is repointed once at startup; the lucide names render through iconify-icon
-Object.assign(icons, {
-	collapse: 'lucide:panel-left',
-	search: 'lucide:search',
-	settings: 'lucide:settings',
-	arrow: 'lucide:chevron-right',
-	folder: 'lucide:folder-kanban',
-	usersGroup: 'lucide:users-round',
-	mail: 'lucide:mail',
-	dashboard: 'lucide:chart-column',
-	shield: 'lucide:shield-user',
-	paletteMark: 'lucide:palette',
-});
-
-export { icons };
+// the routes draw through <iconify-icon>, so their glyphs are bundled at stroke 2 rather than fetched at 1.5
+addCollection(iconoir);

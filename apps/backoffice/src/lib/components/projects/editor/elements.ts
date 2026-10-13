@@ -1,20 +1,20 @@
 export const ELEMENTS = [
-	{ kind: 'image', label: 'Image', icon: 'lucide:image', w: 1, h: 1 },
-	{ kind: 'video', label: 'Video', icon: 'lucide:video', w: 1, h: 1 },
-	{ kind: 'note', label: 'Note', icon: 'lucide:sticky-note', w: 2, h: 1 },
-	{ kind: 'text', label: 'Text', icon: 'lucide:text-cursor-input', w: 1, h: 1 },
-	{ kind: 'palette', label: 'Palette', icon: 'lucide:palette', w: 2, h: 3 },
-	{ kind: 'typography', label: 'Typography', icon: 'lucide:type', w: 2, h: 3 },
-	{ kind: 'tiles', label: 'Tiles', icon: 'lucide:layout-grid', w: 2, h: 3 },
+	{ kind: 'image', label: 'Image', icon: 'iconoir:media-image', w: 1, h: 1 },
+	{ kind: 'video', label: 'Video', icon: 'iconoir:media-video', w: 1, h: 1 },
+	{ kind: 'note', label: 'Note', icon: 'iconoir:post', w: 2, h: 1 },
+	{ kind: 'text', label: 'Text', icon: 'iconoir:input-field', w: 1, h: 1 },
+	{ kind: 'palette', label: 'Palette', icon: 'iconoir:palette', w: 2, h: 3 },
+	{ kind: 'typography', label: 'Typography', icon: 'iconoir:text', w: 2, h: 3 },
+	{ kind: 'tiles', label: 'Tiles', icon: 'iconoir:view-grid', w: 2, h: 3 },
 ] as const;
 
 export type ElementKind = (typeof ELEMENTS)[number]['kind'];
 
 // edited from the project info at the top of the page, so they never appear in the library
 export const LOCKED_ELEMENTS = [
-	{ kind: 'cover', label: 'Cover', icon: 'lucide:star' },
-	{ kind: 'intro', label: 'Intro', icon: 'lucide:file-text' },
-	{ kind: 'end', label: 'End', icon: 'lucide:flag' },
+	{ kind: 'cover', label: 'Cover', icon: 'iconoir:star' },
+	{ kind: 'intro', label: 'Intro', icon: 'iconoir:page' },
+	{ kind: 'end', label: 'End', icon: 'iconoir:triangle-flag' },
 ] as const;
 
 // the cover and intro only show project info, so their section is edited as a form, not a grid

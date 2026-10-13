@@ -50,7 +50,7 @@
 			{@render actions?.()}
 		{/if}
 		<button type="button" onclick={toggle} aria-label={open ? 'Collapse' : 'Expand'} class="btn-icon">
-			<iconify-icon icon="lucide:chevron-down" width="16" class={open ? 'rotate-180' : ''}></iconify-icon>
+			<iconify-icon icon="iconoir:nav-arrow-down" width="16" class={open ? 'rotate-180' : ''}></iconify-icon>
 		</button>
 	</div>
 	<div bind:this={body} class="overflow-hidden h-0 opacity-0">

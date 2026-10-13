@@ -33,7 +33,7 @@
 				onclick={() => item.tiles.splice(i, 1)}
 				class="btn-icon btn-icon-danger size-10 shrink-0"
 			>
-				<iconify-icon icon="lucide:trash-2" width="16"></iconify-icon>
+				<iconify-icon icon="iconoir:trash" width="16"></iconify-icon>
 			</button>
 		</div>
 	{/each}
@@ -43,7 +43,7 @@
 		onclick={() => item.tiles.push({ label: empty() })}
 		class="btn w-fit"
 	>
-		<iconify-icon icon="lucide:circle-plus" width="16"></iconify-icon>
+		<iconify-icon icon="iconoir:plus-circle" width="16"></iconify-icon>
 		Add a tile
 	</button>
 </div>

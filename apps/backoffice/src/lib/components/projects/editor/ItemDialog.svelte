@@ -57,7 +57,7 @@
 				<span class="subtext text-faint">{item.w}×{item.h}</span>
 			</span>
 			<button type="button" onclick={() => dialog.close()} aria-label="Close" class="text-faint hover:text-ink">
-				<iconify-icon icon="lucide:circle-x" width="26"></iconify-icon>
+				<iconify-icon icon="iconoir:xmark-circle" width="26"></iconify-icon>
 			</button>
 		</header>
 
@@ -83,7 +83,7 @@
 				}}
 				class="btn btn-danger"
 			>
-				<iconify-icon icon="lucide:trash-2" width="16"></iconify-icon>
+				<iconify-icon icon="iconoir:trash" width="16"></iconify-icon>
 				Delete
 			</button>
 

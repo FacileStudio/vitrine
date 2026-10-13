@@ -6,7 +6,6 @@
 	import { Spinner } from '@repo/ui';
 	import { enter } from '$lib/motion';
 	import { logger } from '@repo/logger';
-	import 'iconify-icon';
 
 	let pageLoading = $state(true);
 	let users: any[] = $state([]);
@@ -127,11 +126,11 @@
 <Header title="Accounts" count={users.length} description="The people who can sign in to the backoffice">
 	{#snippet actions()}
 		<label class="field w-72">
-			<iconify-icon icon="lucide:search" width="16" class="text-faint"></iconify-icon>
+			<iconify-icon icon="iconoir:search" width="16" class="text-faint"></iconify-icon>
 			<input bind:value={searchQuery} placeholder="Name, email..." class="field-input" />
 		</label>
 		<label class="field">
-			<iconify-icon icon="lucide:activity" width="14" class="text-faint"></iconify-icon>
+			<iconify-icon icon="iconoir:activity" width="14" class="text-faint"></iconify-icon>
 			<select bind:value={filters.status} class="field-select">
 				<option value="all">All statuses</option>
 				<option value="active">Active</option>
@@ -141,7 +140,7 @@
 			</select>
 		</label>
 		<label class="field">
-			<iconify-icon icon="lucide:shield" width="14" class="text-faint"></iconify-icon>
+			<iconify-icon icon="iconoir:shield" width="14" class="text-faint"></iconify-icon>
 			<select bind:value={filters.role} class="field-select">
 				<option value="all">All roles</option>
 				<option value="admin">Admins</option>
@@ -154,10 +153,10 @@
 {#if stats}
 	<div class="grid gap-1 sm:grid-cols-2 xl:grid-cols-4">
 		{#each [
-			{ label: 'Total', value: stats.totalUsers, icon: 'lucide:users' },
-			{ label: 'Active', value: stats.activeUsers, icon: 'lucide:user-check' },
-			{ label: 'Suspended', value: stats.suspendedUsers, icon: 'lucide:clock' },
-			{ label: 'Banned', value: stats.bannedUsers, icon: 'lucide:user-x' },
+			{ label: 'Total', value: stats.totalUsers, icon: 'iconoir:group' },
+			{ label: 'Active', value: stats.activeUsers, icon: 'iconoir:user-badge-check' },
+			{ label: 'Suspended', value: stats.suspendedUsers, icon: 'iconoir:clock' },
+			{ label: 'Banned', value: stats.bannedUsers, icon: 'iconoir:user-xmark' },
 		] as stat (stat.label)}
 			<div use:enter class="panel p-5 flex items-center justify-between">
 				<div>
@@ -202,7 +201,7 @@
 							<p class="lead text-ink flex items-center gap-1.5 truncate">
 								{user.firstName} {user.lastName}
 								{#if user.emailVerified}
-									<iconify-icon icon="lucide:badge-check" width="14" class="text-muted" aria-label="Email verified"></iconify-icon>
+									<iconify-icon icon="iconoir:badge-check" width="14" class="text-muted" aria-label="Email verified"></iconify-icon>
 								{/if}
 							</p>
 							<p class="subtext text-faint truncate">{user.email}</p>
@@ -217,7 +216,7 @@
 						onclick={() => handleToggleRole(user.id, user.role)}
 						class="chip w-fit hover:text-ink {user.role === 'ADMIN' ? 'text-ink' : ''}"
 					>
-						<iconify-icon icon={user.role === 'ADMIN' ? 'lucide:shield-check' : 'lucide:user'} width="12"></iconify-icon>
+						<iconify-icon icon={user.role === 'ADMIN' ? 'iconoir:shield-check' : 'iconoir:user'} width="12"></iconify-icon>
 						{user.role === 'ADMIN' ? 'Admin' : 'User'}
 					</button>
 
@@ -225,20 +224,20 @@
 
 					<div class="flex items-center justify-end gap-1">
 						<button type="button" onclick={() => (selectedUserId = user.id)} class="btn-icon" title="Details" aria-label="Details">
-							<iconify-icon icon="lucide:eye" width="16"></iconify-icon>
+							<iconify-icon icon="iconoir:eye" width="16"></iconify-icon>
 						</button>
 						{#if !user.emailVerified}
 							<button type="button" onclick={() => handleVerifyEmail(user.id)} class="btn-icon" title="Verify email" aria-label="Verify email">
-								<iconify-icon icon="lucide:mail-check" width="16"></iconify-icon>
+								<iconify-icon icon="iconoir:send-mail" width="16"></iconify-icon>
 							</button>
 						{/if}
 						{#if user.status === 'BANNED'}
 							<button type="button" onclick={() => handleUnban(user.id)} class="btn-icon" title="Restore" aria-label="Restore">
-								<iconify-icon icon="lucide:shield-check" width="16"></iconify-icon>
+								<iconify-icon icon="iconoir:shield-check" width="16"></iconify-icon>
 							</button>
 						{:else}
 							<button type="button" onclick={() => (banningUserId = user.id)} class="btn-icon btn-icon-danger" title="Ban" aria-label="Ban">
-								<iconify-icon icon="lucide:shield-alert" width="16"></iconify-icon>
+								<iconify-icon icon="iconoir:shield-alert" width="16"></iconify-icon>
 							</button>
 						{/if}
 						<button
@@ -248,14 +247,14 @@
 							title="Delete"
 							aria-label="Delete"
 						>
-							<iconify-icon icon="lucide:trash-2" width="16"></iconify-icon>
+							<iconify-icon icon="iconoir:trash" width="16"></iconify-icon>
 						</button>
 					</div>
 				</div>
 
 				{#if banningUserId === user.id}
 					<div use:enter class="flex items-center gap-3 px-5 pb-4">
-						<iconify-icon icon="lucide:shield-alert" width="18" class="text-danger"></iconify-icon>
+						<iconify-icon icon="iconoir:shield-alert" width="18" class="text-danger"></iconify-icon>
 						<p class="p flex-1 text-soft">Ban this account? It loses access until it is restored.</p>
 						<button type="button" onclick={() => handleBan(user.id)} class="btn btn-primary">Ban</button>
 						<button type="button" onclick={() => (banningUserId = '')} class="btn">Cancel</button>
@@ -268,7 +267,7 @@
 	</div>
 {:else}
 	<div use:enter class="empty-state">
-		<iconify-icon icon="lucide:users" width="28" class="text-ghost"></iconify-icon>
+		<iconify-icon icon="iconoir:group" width="28" class="text-ghost"></iconify-icon>
 		<p class="lead text-ink">No account found</p>
 		<p class="p text-muted">Try other filters or another search</p>
 	</div>

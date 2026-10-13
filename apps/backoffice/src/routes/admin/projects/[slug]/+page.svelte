@@ -137,7 +137,7 @@
 
 	{#if !project}
 		{#if error}
-			<p class="alert"><iconify-icon icon="lucide:circle-alert" width="16"></iconify-icon>{error}</p>
+			<p class="alert"><iconify-icon icon="iconoir:warning-circle" width="16"></iconify-icon>{error}</p>
 		{:else}
 			<div class="py-20 flex justify-center">
 				<Spinner size="xl" />
@@ -192,7 +192,7 @@
 							onclick={(e) => removeSection(i, e.currentTarget.parentElement)}
 							class="absolute top-1/2 -translate-y-1/2 right-2 lg:right-4 flex items-center p-2 rounded-project text-ghost hover:bg-red-500/20 hover:text-danger"
 						>
-							<iconify-icon icon="lucide:trash-2" width="16"></iconify-icon>
+							<iconify-icon icon="iconoir:trash" width="16"></iconify-icon>
 						</button>
 					</div>
 				{/if}
@@ -204,7 +204,7 @@
 				disabled={saving}
 				class="p disabled:opacity-50 bg-raised p-6 rounded-project flex items-center gap-3 text-muted hover:bg-surface-hover hover:text-ink"
 			>
-				<iconify-icon icon="lucide:plus" width="18"></iconify-icon>
+				<iconify-icon icon="iconoir:plus" width="18"></iconify-icon>
 				Add a section
 			</button>
 		</div>

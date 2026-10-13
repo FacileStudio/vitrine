@@ -76,10 +76,10 @@
 		const media = section.layout.items.filter((item) => item.kind === 'image' || item.kind === 'video').length;
 
 		return [
-			{ icon: 'lucide:grid-2x2', label: `${Math.max(1, trimmed(section.layout).cols)}×${ROWS}` },
-			{ icon: 'lucide:layers', label: `${items} item${items > 1 ? 's' : ''}` },
-			{ icon: 'lucide:image', label: `${media} media` },
-			{ icon: 'lucide:inbox', label: `${project.bucket.length} in the bucket` },
+			{ icon: 'iconoir:view-grid', label: `${Math.max(1, trimmed(section.layout).cols)}×${ROWS}` },
+			{ icon: 'iconoir:multiple-pages-empty', label: `${items} item${items > 1 ? 's' : ''}` },
+			{ icon: 'iconoir:media-image', label: `${media} media` },
+			{ icon: 'iconoir:archive', label: `${project.bucket.length} in the bucket` },
 		];
 	});
 
@@ -144,20 +144,20 @@
 <div class="space-y-8">
 	<nav aria-label="Breadcrumb" class="p flex items-center gap-2 text-faint">
 		<a href="/admin/projects" class="hover:text-ink">Projects</a>
-		<iconify-icon icon="lucide:chevron-right" width="14" class="text-ink/25"></iconify-icon>
+		<iconify-icon icon="iconoir:nav-arrow-right" width="14" class="text-ink/25"></iconify-icon>
 		<a href="/admin/projects/{slug}" class="hover:text-ink">{project?.name ?? 'Projet'}</a>
-		<iconify-icon icon="lucide:chevron-right" width="14" class="text-ink/25"></iconify-icon>
+		<iconify-icon icon="iconoir:nav-arrow-right" width="14" class="text-ink/25"></iconify-icon>
 		<span class="text-soft">Section {position + 1}</span>
 	</nav>
 
 	{#if error}
-		<p class="alert"><iconify-icon icon="lucide:circle-alert" width="16"></iconify-icon>{error}</p>
+		<p class="alert"><iconify-icon icon="iconoir:warning-circle" width="16"></iconify-icon>{error}</p>
 	{:else if !project}
 		<div class="py-20 flex justify-center">
 			<Spinner size="xl" />
 		</div>
 	{:else if !section}
-		<p class="alert"><iconify-icon icon="lucide:circle-alert" width="16"></iconify-icon>Section not found</p>
+		<p class="alert"><iconify-icon icon="iconoir:warning-circle" width="16"></iconify-icon>Section not found</p>
 	{:else}
 		<SaveBar {dirty} {saving} error={saveError} onsave={saveStory} />
 
@@ -171,7 +171,7 @@
 
 			<div class="flex items-center gap-3">
 				<div class="flex items-center gap-2 min-w-64 rounded-project bg-raised pl-4 pr-2 py-1">
-					<iconify-icon icon="lucide:users-round" width="16" class="text-faint"></iconify-icon>
+					<iconify-icon icon="iconoir:group" width="16" class="text-faint"></iconify-icon>
 					<MultiSelect
 						bind:selected={project.story[position].by!}
 						options={(options?.members ?? []).map((m) => ({ value: m.slug, label: m.name }))}
@@ -180,7 +180,7 @@
 				</div>
 
 				<div class="flex items-center rounded-project bg-raised p-1">
-					{#each [{ to: position - 1, icon: 'lucide:chevron-left', label: 'Previous section' }, { to: position + 1, icon: 'lucide:chevron-right', label: 'Next section' }] as nav, n (nav.icon)}
+					{#each [{ to: position - 1, icon: 'iconoir:nav-arrow-left', label: 'Previous section' }, { to: position + 1, icon: 'iconoir:nav-arrow-right', label: 'Next section' }] as nav, n (nav.icon)}
 						{#if n === 1}
 							<span class="subtext px-2 text-muted tabular-nums">{position + 1} / {project.story.length}</span>
 						{/if}

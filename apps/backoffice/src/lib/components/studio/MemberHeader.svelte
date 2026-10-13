@@ -58,7 +58,7 @@
 		</label>
 
 		<span class="field text-faint" title="Slug, used in the URL, read-only">
-			<iconify-icon icon="lucide:at-sign" width="14"></iconify-icon>
+			<iconify-icon icon="iconoir:at-sign" width="14"></iconify-icon>
 			<span class="p">{member.slug}</span>
 		</span>
 
@@ -69,7 +69,7 @@
 			title="Works on the Facile Suite"
 			class="btn aria-pressed:bg-pressed aria-pressed:text-on-pressed"
 		>
-			<iconify-icon icon="lucide:sparkles" width="14"></iconify-icon>
+			<iconify-icon icon="iconoir:sparks" width="14"></iconify-icon>
 			Suite
 		</button>
 
@@ -81,7 +81,7 @@
 			aria-label="View on the site"
 			class="btn-icon size-10"
 		>
-			<iconify-icon icon="lucide:external-link" width="16"></iconify-icon>
+			<iconify-icon icon="iconoir:open-new-window" width="16"></iconify-icon>
 		</a>
 	</div>
 </header>

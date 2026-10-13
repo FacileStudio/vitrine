@@ -69,7 +69,7 @@
 <section class="bg-raised rounded-project overflow-hidden">
 	<header class="flex items-center justify-between gap-4 px-5 py-5">
 		<span class="flex items-center gap-2">
-			<iconify-icon icon="lucide:layout-dashboard" width="16" class="text-faint"></iconify-icon>
+			<iconify-icon icon="iconoir:view-columns-3" width="16" class="text-faint"></iconify-icon>
 			<span class="lead text-ink">Grid</span>
 		</span>
 
@@ -127,7 +127,7 @@
 							<span class="subtext rounded-project bg-black/60 px-1.5 py-1 text-on-media/70">{item.w}×{item.h}</span>
 						</span>
 						<span class="self-center flex items-center gap-1.5 rounded-project bg-ink text-page px-3 py-1.5 subtext">
-							<iconify-icon icon="lucide:pencil" width="12"></iconify-icon>
+							<iconify-icon icon="iconoir:edit-pencil" width="12"></iconify-icon>
 							Edit
 						</span>
 						<span></span>

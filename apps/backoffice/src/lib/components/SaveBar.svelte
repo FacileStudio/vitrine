@@ -54,10 +54,10 @@
 	<!-- {#key status}
 		<span use:enter class="p flex items-center gap-2 {status === 'error' ? 'text-danger' : 'text-muted'}">
 			{#if status === 'error'}
-				<iconify-icon icon="lucide:circle-alert" width="16"></iconify-icon>
+				<iconify-icon icon="iconoir:warning-circle" width="16"></iconify-icon>
 				{error}
 			{:else if status === 'saving'}
-				<iconify-icon use:spin icon="lucide:loader-circle" width="16"></iconify-icon>
+				<iconify-icon use:spin icon="iconoir:refresh-double" width="16"></iconify-icon>
 				Saving...
 			{:else if status === 'dirty'}
 				<span class="size-2 rounded-full bg-warning"></span>
@@ -78,10 +78,10 @@
 	>
 		{#key status === 'clean'}
 			{#if status === 'clean'}
-				<iconify-icon use:pop icon="lucide:circle-check" width="16"></iconify-icon>
+				<iconify-icon use:pop icon="iconoir:check-circle" width="16"></iconify-icon>
 				Saved
 			{:else}
-				<iconify-icon icon="lucide:save" width="16"></iconify-icon>
+				<iconify-icon icon="iconoir:floppy-disk" width="16"></iconify-icon>
 				Save
 				<span class="subtext text-orange-300/60">{mac ? '⌘' : 'Ctrl'} S</span>
 			{/if}

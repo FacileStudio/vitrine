@@ -68,7 +68,7 @@
 			{/if}
 		{:else}
 			<div class="flex flex-col items-center justify-center h-full gap-2 text-faint">
-				<iconify-icon icon="lucide:cloud-upload" width="36"></iconify-icon>
+				<iconify-icon icon="iconoir:cloud-upload" width="36"></iconify-icon>
 				<span class="subtext">Click or drop a file</span>
 			</div>
 		{/if}
@@ -86,7 +86,7 @@
 				aria-label="Remove file"
 				class="absolute top-2 right-2 z-10 rounded-full bg-black/70 p-2 text-on-media/80 opacity-0 group-hover:opacity-100 hover:text-danger"
 			>
-				<iconify-icon icon="lucide:trash-2" width="16"></iconify-icon>
+				<iconify-icon icon="iconoir:trash" width="16"></iconify-icon>
 			</button>
 		{/if}
 

@@ -17,7 +17,7 @@
 	class="group w-full bg-card rounded-project overflow-hidden flex flex-col hover:bg-card-hover"
 >
 	<div class="relative aspect-[16/10] overflow-hidden bg-surface-hover">
-		<iconify-icon icon="lucide:image-off" width="28" class="absolute inset-0 m-auto size-fit text-ink/20"></iconify-icon>
+		<iconify-icon icon="iconoir:media-image-xmark" width="28" class="absolute inset-0 m-auto size-fit text-ink/20"></iconify-icon>
 		<img
 			use:zoom
             use:hoverTo={{ rest: {scale: 1}, hover: {scale: 1.05}}}
@@ -39,7 +39,7 @@
 			}}
 			class="absolute top-3 right-3 flex items-center p-2 rounded-project bg-black/60 text-on-media/80 backdrop-blur-md opacity-0 group-hover:opacity-100 focus:opacity-100 hover:bg-white hover:text-black"
 		>
-			<iconify-icon icon="lucide:external-link" width="14"></iconify-icon>
+			<iconify-icon icon="iconoir:open-new-window" width="14"></iconify-icon>
 		</button>
 		<button
 			type="button"
@@ -51,7 +51,7 @@
 			}}
 			class="absolute top-3 right-13 flex items-center p-2 rounded-project bg-black/60 text-on-media/80 backdrop-blur-md opacity-0 group-hover:opacity-100 focus:opacity-100 hover:bg-red-500 hover:text-white"
 		>
-			<iconify-icon icon="lucide:trash-2" width="14"></iconify-icon>
+			<iconify-icon icon="iconoir:trash" width="14"></iconify-icon>
 		</button>
 	</div>
     

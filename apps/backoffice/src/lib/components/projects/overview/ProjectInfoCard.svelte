@@ -32,15 +32,15 @@
 
 		<div class="flex flex-wrap items-center gap-1">
 			<label class="field w-64" title="Project link">
-				<iconify-icon icon="lucide:link" width="14" class="text-faint"></iconify-icon>
+				<iconify-icon icon="iconoir:link" width="14" class="text-faint"></iconify-icon>
 				<input bind:value={project.link} placeholder="https://" class="field-input" />
 			</label>
 			<label class="field w-28" title="Year">
-				<iconify-icon icon="lucide:calendar" width="14" class="text-faint"></iconify-icon>
+				<iconify-icon icon="iconoir:calendar" width="14" class="text-faint"></iconify-icon>
 				<input bind:value={project.date} placeholder="2026" class="field-input" />
 			</label>
 			<label class="field w-32" title="Duration in weeks">
-				<iconify-icon icon="lucide:clock" width="14" class="text-faint"></iconify-icon>
+				<iconify-icon icon="iconoir:clock" width="14" class="text-faint"></iconify-icon>
 				<input type="number" min="1" bind:value={project.weeks} class="p w-12 bg-transparent text-ink outline-none" />
 				<span class="subtext text-faint">wk</span>
 			</label>
@@ -89,7 +89,7 @@
 			</div>
 
 			<div class="rounded-project bg-raised px-8 py-4 flex items-center gap-3" title="Tags">
-				<iconify-icon icon="lucide:tags" width="16" class="text-faint shrink-0"></iconify-icon>
+				<iconify-icon icon="iconoir:label" width="16" class="text-faint shrink-0"></iconify-icon>
 				<div class="flex-1 min-w-0">
 					<MultiSelect
 						bind:selected={project.services}
@@ -108,7 +108,7 @@
 			</div>
 
 			<div class="rounded-project bg-raised px-8 py-4 flex items-center gap-3" title="Tech stack">
-				<iconify-icon icon="lucide:code-xml" width="16" class="text-faint shrink-0"></iconify-icon>
+				<iconify-icon icon="iconoir:code" width="16" class="text-faint shrink-0"></iconify-icon>
 				<div class="flex-1 min-w-0">
 					<MultiSelect
 						bind:selected={project.techStack}
@@ -125,7 +125,7 @@
 			</div>
 
 			<div class="rounded-project bg-raised px-8 py-4 flex items-center gap-3" title="Team">
-				<iconify-icon icon="lucide:users-round" width="16" class="text-faint shrink-0"></iconify-icon>
+				<iconify-icon icon="iconoir:group" width="16" class="text-faint shrink-0"></iconify-icon>
 				<div class="flex-1 min-w-0">
 					<MultiSelect
 						bind:selected={project.team}

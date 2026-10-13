@@ -61,14 +61,14 @@
 <Header title="Contacts" count={contacts?.length} description="Messages sent through the site's contact form">
 	{#snippet actions()}
 		<label class="field w-72">
-			<iconify-icon icon="lucide:search" width="16" class="text-faint"></iconify-icon>
+			<iconify-icon icon="iconoir:search" width="16" class="text-faint"></iconify-icon>
 			<input bind:value={query} placeholder="Search a message..." class="field-input" />
 		</label>
 	{/snippet}
 </Header>
 
 {#if error}
-	<p class="alert"><iconify-icon icon="lucide:circle-alert" width="16"></iconify-icon>{error}</p>
+	<p class="alert"><iconify-icon icon="iconoir:warning-circle" width="16"></iconify-icon>{error}</p>
 {/if}
 
 {#if !contacts}
@@ -79,13 +79,13 @@
 	{/if}
 {:else if contacts.length === 0}
 	<div use:enter class="empty-state">
-		<iconify-icon icon="lucide:inbox" width="28" class="text-ghost"></iconify-icon>
+		<iconify-icon icon="iconoir:archive" width="28" class="text-ghost"></iconify-icon>
 		<p class="lead text-ink">No messages yet</p>
 		<p class="p text-muted">Messages sent through the site's form will show up here.</p>
 	</div>
 {:else if shown.length === 0}
 	<div use:enter class="empty-state">
-		<iconify-icon icon="lucide:search-x" width="28" class="text-ghost"></iconify-icon>
+		<iconify-icon icon="iconoir:search-window" width="28" class="text-ghost"></iconify-icon>
 		<p class="lead text-ink">No message matches “{query}”</p>
 		<button type="button" onclick={() => (query = '')} class="p text-muted hover:text-ink">Clear search</button>
 	</div>
@@ -109,7 +109,7 @@
 					</span>
 					<span class="p text-muted truncate">{contact.message}</span>
 					<span class="subtext text-faint text-right">{formatDate(contact.createdAt)}</span>
-					<iconify-icon icon="lucide:chevron-down" width="16" class="text-ghost {open ? 'rotate-180' : ''}"></iconify-icon>
+					<iconify-icon icon="iconoir:nav-arrow-down" width="16" class="text-ghost {open ? 'rotate-180' : ''}"></iconify-icon>
 				</button>
 
 				{#if open}
@@ -117,11 +117,11 @@
 						<p class="p text-soft whitespace-pre-wrap max-w-[80ch]">{contact.message}</p>
 						<div class="flex flex-wrap items-center gap-2">
 							<a href="mailto:{contact.email}" class="btn btn-primary">
-								<iconify-icon icon="lucide:reply" width="16"></iconify-icon>
+								<iconify-icon icon="iconoir:reply" width="16"></iconify-icon>
 								Reply
 							</a>
 							<button type="button" onclick={() => copy(contact)} class="btn">
-								<iconify-icon icon={copiedId === contact.id ? 'lucide:check' : 'lucide:copy'} width="16"></iconify-icon>
+								<iconify-icon icon={copiedId === contact.id ? 'iconoir:check' : 'iconoir:copy'} width="16"></iconify-icon>
 								{copiedId === contact.id ? 'Copied' : 'Copy email'}
 							</button>
 							<button
@@ -129,7 +129,7 @@
 								onclick={(e) => remove(contact, e.currentTarget.closest('.panel'))}
 								class="btn btn-danger"
 							>
-								<iconify-icon icon="lucide:trash-2" width="16"></iconify-icon>
+								<iconify-icon icon="iconoir:trash" width="16"></iconify-icon>
 								Delete
 							</button>
 						</div>

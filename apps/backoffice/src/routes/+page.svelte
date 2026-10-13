@@ -2,7 +2,6 @@
   import { trpc } from '$lib/trpc';
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
-  import 'iconify-icon';
 
   let email = '';
   let password = '';
@@ -44,12 +43,12 @@
 
     <form on:submit|preventDefault={handleLogin} class="panel p-6 space-y-3">
       <label class="field">
-        <iconify-icon icon="lucide:mail" width="16" class="text-faint"></iconify-icon>
+        <iconify-icon icon="iconoir:mail" width="16" class="text-faint"></iconify-icon>
         <input type="email" bind:value={email} placeholder="Email" autocomplete="email" required class="field-input" />
       </label>
 
       <label class="field">
-        <iconify-icon icon="lucide:lock" width="16" class="text-faint"></iconify-icon>
+        <iconify-icon icon="iconoir:lock" width="16" class="text-faint"></iconify-icon>
         <input
           type="password"
           bind:value={password}
@@ -61,11 +60,11 @@
       </label>
 
       {#if error}
-        <p class="alert"><iconify-icon icon="lucide:circle-alert" width="16"></iconify-icon>{error}</p>
+        <p class="alert"><iconify-icon icon="iconoir:warning-circle" width="16"></iconify-icon>{error}</p>
       {/if}
 
       <button type="submit" disabled={loading} class="btn btn-primary w-full">
-        <iconify-icon icon="lucide:log-in" width="16"></iconify-icon>
+        <iconify-icon icon="iconoir:log-in" width="16"></iconify-icon>
         {loading ? 'Signing in...' : 'Sign in'}
       </button>
     </form>

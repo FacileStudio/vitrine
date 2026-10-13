@@ -7,15 +7,15 @@
 	const AXES = ['X', 'Y', 'Z'] as const;
 
 	const MATERIAL = [
-		{ key: 'scale', icon: 'lucide:scaling', title: 'Scale (0.015 for a Mii head)', step: 'any', max: undefined },
-		{ key: 'roughness', icon: 'lucide:droplet', title: 'Roughness, 0 to 1', step: '0.05', max: 1 },
-		{ key: 'metalness', icon: 'lucide:gem', title: 'Metalness, 0 to 1', step: '0.05', max: 1 },
+		{ key: 'scale', icon: 'iconoir:scale-frame-enlarge', title: 'Scale (0.015 for a Mii head)', step: 'any', max: undefined },
+		{ key: 'roughness', icon: 'iconoir:droplet', title: 'Roughness, 0 to 1', step: '0.05', max: 1 },
+		{ key: 'metalness', icon: 'iconoir:crown', title: 'Metalness, 0 to 1', step: '0.05', max: 1 },
 	] as const;
 </script>
 
-<Section title="3D head" icon="lucide:box" summary={member.model.split('/').at(-1)}>
+<Section title="3D head" icon="iconoir:box-3d-center" summary={member.model.split('/').at(-1)}>
 	<label class="field" title="Path to the .glb from /public">
-		<iconify-icon icon="lucide:file-box" width="14" class="text-faint"></iconify-icon>
+		<iconify-icon icon="iconoir:box-iso" width="14" class="text-faint"></iconify-icon>
 		<input bind:value={member.model} placeholder="/models/tete.glb" class="field-input" />
 	</label>
 
@@ -45,7 +45,7 @@
 			title="Custom hair colour"
 			class="btn aria-pressed:bg-pressed aria-pressed:text-on-pressed"
 		>
-			<iconify-icon icon="lucide:brush" width="14"></iconify-icon>
+			<iconify-icon icon="iconoir:design-pencil" width="14"></iconify-icon>
 			Hair
 		</button>
 		{#if member.hair !== null}
