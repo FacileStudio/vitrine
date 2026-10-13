@@ -45,6 +45,7 @@
 
 	const NAV = [
 		{ href: '/admin/projects', icon: icons.folder, label: 'Projects' },
+		{ href: '/admin/process', icon: icons.compass, label: 'Process' },
 		{ href: '/admin/studio', icon: icons.usersGroup, label: 'Studio' },
 		{ href: '/admin/contacts', icon: icons.mail, label: 'Contacts' },
 		{ href: '/admin/statistics', icon: icons.dashboard, label: 'Statistics' },

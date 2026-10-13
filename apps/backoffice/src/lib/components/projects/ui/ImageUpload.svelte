@@ -14,7 +14,8 @@
 	let error = $state('');
 	let preview = $state<string | null>(null);
 
-	const video = $derived(accept.startsWith('video'));
+	// a field taking both kinds can only tell from the stored file
+	const video = $derived(accept.startsWith('video') || /\.(mp4|webm|mov)$/i.test(value));
 	const shown = $derived(preview ?? (value ? siteAsset(value) : ''));
 
 	// the backend signs a one-off PUT to MinIO, the file then goes there straight from the browser
