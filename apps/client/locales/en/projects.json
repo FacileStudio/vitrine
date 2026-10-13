@@ -1,6 +1,6 @@
 {
     "back": "Back to projects",
-    "shelfTitle": ["A curated selection of", "our latest and best work."],
+    "shelfTitle": ["A curated *selection* of", "our *latest* and *best work*."],
     "filterAll": "All",
     "filterLabel": "Filter projects",
     "projectCount": "{count, plural, one {project} other {projects}}",

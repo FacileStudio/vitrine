@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useScroll } from "@/hooks/use-scroll";
 import TextReveal from "@/components/facile/textReveal";
+import Emphasis from "@/components/facile/emphasis";
 import { ContactLinks, NavLinks } from "@/components/facile/navLinks";
 import FooterHeads from "@/components/facile/footerHeads";
 
@@ -29,7 +30,7 @@ export default function Footer() {
 
             <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8 relative z-10">
                 <TextReveal as="h2" open={show} className="max-w-[16ch] text-background">
-                    {t("footer.buildTogether")}
+                    <Emphasis text={t("footer.buildTogether")} />
                 </TextReveal>
 
                 {/* NavLinks goes row and shows sublinks from md, the footer holds both back to lg */}

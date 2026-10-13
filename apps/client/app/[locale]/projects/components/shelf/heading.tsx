@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import TextReveal from "@/components/facile/textReveal";
 import SplitLines from "@/components/facile/splitLines";
 import ShelfHeading from "@/components/facile/shelf/shelfHeading";
+import Emphasis from "@/components/facile/emphasis";
 import { ARRIVE } from "@/components/facile/pageTransition";
 import { run, slideY } from "@/lib/animations";
 import { useNarrow } from "@/hooks/use-narrow";
@@ -45,11 +46,11 @@ export default function Heading({ lines, filter = null, count = 0, onFilter }: H
             title={
                 <h2 ref={title} className="text-start">
                     {narrow ? (
-                        <SplitLines text={lines.join(" ")} gap="mb-0" />
+                        <SplitLines text={lines.join(" ").replaceAll("*", "")} gap="mb-0" />
                     ) : (
                         lines.map((line, i) => (
                             <TextReveal key={i} open duration={0.8} delay={arrive + i * 0.12}>
-                                {line}
+                                <Emphasis text={line} />
                             </TextReveal>
                         ))
                     )}

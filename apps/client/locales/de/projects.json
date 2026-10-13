@@ -1,6 +1,6 @@
 {
     "back": "Zurück zu den Projekten",
-    "shelfTitle": ["Eine handverlesene Auswahl", "unserer neuesten Arbeiten."],
+    "shelfTitle": ["Eine handverlesene *Auswahl*", "unserer *neuesten Arbeiten*."],
     "filterAll": "Alle",
     "filterLabel": "Projekte filtern",
     "projectCount": "{count, plural, one {Projekt} other {Projekte}}",

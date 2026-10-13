@@ -8,7 +8,7 @@ export default function LoaderFrame({ open, leaving }: { open: boolean; leaving:
 
     // self-start and self-end stop grid rows stretching a crop taller than its text, which would hide nothing
     const items = [
-        { text: t("footer.buildTogether"), crop: "max-w-[18ch] self-start", tone: "text-background" },
+        { text: t("footer.buildTogether").replaceAll("*", ""), crop: "max-w-[18ch] self-start", tone: "text-background" },
         { text: "F.", crop: "self-start justify-self-center", tone: "text-background/40" },
         { text: "facile.studio", crop: "self-start justify-self-end", tone: "text-background/40" },
         { text: t("loader.team"), crop: "col-start-1 row-start-3 self-end", tone: "text-background/40" },

@@ -10,6 +10,6 @@
     "openProject": "{name}, ver el proyecto"
   },
   "shelf": {
-    "lines": ["Echa un vistazo a", "nuestros últimos proyectos."]
+    "lines": ["*Echa un vistazo* a", "nuestros últimos *proyectos*."]
   }
 }

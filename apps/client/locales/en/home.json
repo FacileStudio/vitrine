@@ -10,6 +10,6 @@
     "openProject": "{name}, see the project"
   },
   "shelf": {
-    "lines": ["Take a look at", "our latest projects."]
+    "lines": ["*Take a look* at", "our latest *projects*."]
   }
 }

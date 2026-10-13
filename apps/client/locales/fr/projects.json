@@ -1,6 +1,6 @@
 {
     "back": "Retour aux projets",
-    "shelfTitle": ["Une sélection choisie de", "nos projets les plus récents."],
+    "shelfTitle": ["Une *sélection* choisie de", "nos *projets* les plus *récents*."],
     "filterAll": "Tous",
     "filterLabel": "Filtrer les projets",
     "projectCount": "{count, plural, one {projet} other {projets}}",
