@@ -1,5 +1,7 @@
 import { useTranslations } from "next-intl";
 import Line from "@/components/facile/textReveal";
+import SplitLines from "@/components/facile/splitLines";
+import AppMark from "@/components/facile/appMark";
 import ArrowLink from "@/components/facile/arrowLink";
 import type { BlockProps } from "../types";
 import { Block, Cell, Media } from "../bento";
@@ -33,6 +35,12 @@ export default function End({ block, onClose }: BlockProps) {
                         ) : null}
 
                         <div className="flex flex-col gap-[2.5vh]">
+                            {block.icon ? (
+                                <Line>
+                                    <AppMark icon={block.icon} className="text-[10vh] text-accent" fileClassName="h-[10vh] w-[10vh] object-contain" />
+                                </Line>
+                            ) : null}
+
                             {block.eyebrow ? (
                                 <Line as="p" className="subtext text-current">
                                     {block.eyebrow}
@@ -42,6 +50,10 @@ export default function End({ block, onClose }: BlockProps) {
                             <Line as="h2" className="whitespace-pre-line">
                                 <Emphasis text={block.title ?? t("thanks")} />
                             </Line>
+
+                            {block.text ? (
+                                <SplitLines as="p" text={block.text} className="lead max-w-[48ch] text-current opacity-70" />
+                            ) : null}
 
                             {block.link ? (
                                 <Line>

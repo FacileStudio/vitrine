@@ -5,8 +5,7 @@
 <path d="M50.8333 36.2077C50.8333 41.2702 46.7292 45.3743 41.6667 45.3743C36.6041 45.3743 32.5 41.2702 32.5 36.2077C32.5 31.1452 36.6041 27.041 41.6667 27.041" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 <defs>
 <linearGradient id="paint0_linear_153_193" x1="5.70525" y1="30.2151" x2="49.5995" y2="30.2151" gradientUnits="userSpaceOnUse">
-<stop stop-color="#737EBF"/>
-<stop offset="0.503225" stop-color="#8CABC7"/>
+<stop stop-color="#6B7CD9"/>
 <stop offset="1" stop-color="#A4D8CE"/>
 </linearGradient>
 <linearGradient id="paint1_linear_153_193" x1="19.9841" y1="32.3304" x2="35.3207" y2="32.3304" gradientUnits="userSpaceOnUse">

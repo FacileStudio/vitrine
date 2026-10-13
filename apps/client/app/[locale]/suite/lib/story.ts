@@ -67,14 +67,17 @@ export function suiteStory(apps: SuiteApp[], t: StoryCopy): Chapter[] {
         },
         { title: t("section"), blocks: chunk(apps) },
         {
+            // the closing image is a site built with Muse, so the last word goes to the design system
             blocks: [{
                 type: "end",
                 cols: 4,
                 media: ["/images/suite/suite.webp"],
-                eyebrow: t("count", { count: apps.length }),
-                title: t("title"),
-                link: "/suite",
-                linkLabel: t("discover"),
+                icon: "/icons/Muse.svg",
+                eyebrow: t("muse.eyebrow"),
+                title: t("muse.title"),
+                text: t("muse.text"),
+                link: "/projects/muse",
+                linkLabel: t("muse.link"),
             }],
         },
     ]);

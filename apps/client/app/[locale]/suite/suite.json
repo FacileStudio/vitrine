@@ -14,7 +14,7 @@
             "es": "Un clic para empezar, un clic para parar. Desglose por proyecto y sesiones compartidas.",
             "de": "Ein Klick zum Starten, ein Klick zum Stoppen. Aufschlüsselung nach Projekt und geteilte Sessions."
         },
-        "icon": "solar:hourglass-bold-duotone",
+        "icon": "/icons/Sablier.svg",
         "link": "https://sablier.facile.studio"
     },
     {
@@ -104,7 +104,7 @@
             "es": "Sube un PDF, coloca los campos, envía el enlace.",
             "de": "PDF hochladen, Felder platzieren, Link senden."
         },
-        "icon": "solar:ruler-cross-pen-bold-duotone",
+        "icon": "/icons/Plume.svg",
         "link": "https://plume.facile.studio"
     },
     {
@@ -122,7 +122,7 @@
             "es": "Cifrado AES-256-GCM, versionado, registro de auditoría completo.",
             "de": "AES-256-GCM-verschlüsselt, versioniert, vollständiges Audit-Log."
         },
-        "icon": "solar:safe-2-bold-duotone",
+        "icon": "/icons/Casier.svg",
         "link": "https://casier.facile.studio"
     },
     {
@@ -140,7 +140,7 @@
             "es": "Centraliza las alertas de toda tu infraestructura y envíalas a Discord, Matrix o email.",
             "de": "Bündeln Sie die Alerts Ihrer gesamten Infrastruktur und senden Sie sie an Discord, Matrix oder per E-Mail."
         },
-        "icon": "solar:satellite-bold-duotone",
+        "icon": "/icons/Antenne.svg",
         "link": "https://antenne.facile.studio"
     },
     {
@@ -176,7 +176,7 @@
             "es": "IMAP y SMTP nativos, multicuenta, interfaz limpia.",
             "de": "Natives IMAP und SMTP, mehrere Konten, aufgeräumte Oberfläche."
         },
-        "icon": "solar:letter-opened-bold-duotone",
+        "icon": "/icons/Courier.svg",
         "link": "https://courrier.facile.studio"
     },
     {
@@ -194,7 +194,7 @@
             "es": "Citas, deadlines, disponibilidad, sin Google Calendar. CalDAV nativo.",
             "de": "Termine, Deadlines, Verfügbarkeiten, ganz ohne Google Calendar. Natives CalDAV."
         },
-        "icon": "solar:calendar-add-bold-duotone",
+        "icon": "/icons/Calendar.svg",
         "link": "https://agenda.facile.studio"
     },
     {

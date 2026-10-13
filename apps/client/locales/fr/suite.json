@@ -22,6 +22,12 @@
     "open": "Ouvrir l'app",
     "rest": "Le reste de la suite",
     "appEnd": "Fin de {name}",
-    "oneLogin": "Un seul login. Toute la suite."
+    "oneLogin": "Un seul login. Toute la suite.",
+    "muse": {
+      "eyebrow": "Le design system derrière la suite",
+      "title": "*Muse*, un seul langage visuel\npour chaque outil.",
+      "text": "Deux apps construites à un an d'écart ont toujours l'air de sœurs, parce qu'aucune n'a jamais choisi une couleur.",
+      "link": "Découvrir Muse"
+    }
   }
 }

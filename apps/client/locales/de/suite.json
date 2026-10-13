@@ -22,6 +22,12 @@
     "open": "App öffnen",
     "rest": "Der Rest der Suite",
     "appEnd": "Ende von {name}",
-    "oneLogin": "Ein Login. Die ganze Suite."
+    "oneLogin": "Ein Login. Die ganze Suite.",
+    "muse": {
+      "eyebrow": "Das Designsystem hinter der Suite",
+      "title": "*Muse*, eine visuelle Sprache\nfür jedes Tool.",
+      "text": "Zwei Apps, die ein Jahr auseinander gebaut wurden, sehen trotzdem aus wie Geschwister, weil keine von beiden je eine Farbe gewählt hat.",
+      "link": "Muse entdecken"
+    }
   }
 }

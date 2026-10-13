@@ -14,12 +14,4 @@ interface AuthoredApp {
 
 export type SuiteApp = Resolved<AuthoredApp>;
 
-const LOCAL = new Set([
-    "solar:calendar-add-bold-duotone",
-    "solar:letter-opened-bold-duotone",
-    "solar:ruler-cross-pen-bold-duotone",
-]);
-
-const iconOf = (icon: string) => (LOCAL.has(icon) ? `/icons/${icon.replace(":", "_")}.svg` : icon);
-
-export const authoredApps: AuthoredApp[] = (apps as AuthoredApp[]).map((a) => ({ ...a, icon: iconOf(a.icon) }));
+export const authoredApps = apps as AuthoredApp[];
