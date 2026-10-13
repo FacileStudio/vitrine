@@ -17,7 +17,7 @@ export default function FeaturedTile({ tile }: { tile: Tile }) {
                 </div>
             ) : null}
 
-            <div className="relative flex items-start justify-between gap-fc">
+            <div className="relative flex items-start justify-between z-10 gap-fc">
                 {tile.icon ? (
                     <div className="relative">
                         <div aria-hidden className="absolute inset-0 opacity-10 ">
