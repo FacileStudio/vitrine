@@ -12,8 +12,6 @@ const DATA_FILES = [
     "app/[locale]/studio/studio.json",
     "app/[locale]/suite/suite.json",
     "app/[locale]/suite/architecture.json",
-    "app/[locale]/process/process.json",
-    "app/[locale]/expertise/expertise.json",
 ];
 
 const COPY_FIELDS = new Set([

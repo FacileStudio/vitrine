@@ -6,31 +6,31 @@ import Link from "@/components/facile/transitionLink";
 import TextReveal from "@/components/facile/textReveal";
 import { useInView } from "@/hooks/use-in-view";
 import { useLocalized } from "@/lib/i18n/localize";
-import { authoredExpertise } from "@/lib/content/expertise";
-import Heading from "../expertise/components/heading";
-import ExpertiseRow from "../expertise/components/expertiseRow";
+import { useProcess } from "@/components/facile/processProvider";
+import Heading from "../process/components/heading";
+import ProcessRow from "../process/components/processRow";
 
-export default function Expertise() {
-    const t = useTranslations("expertise");
-    const expertise = useLocalized(authoredExpertise);
+export default function Process() {
+    const t = useTranslations("process");
+    const steps = useLocalized(useProcess());
     const ref = useRef<HTMLElement>(null);
     const open = useInView(ref, 0.6);
 
     return (
         <section
             ref={ref}
-            id="expertise"
+            id="process"
             className="relative w-full bg-background text-foreground flex flex-col items-center gap-fc px-3 lg:px-6 pt-[10vh] pb-[30vh]"
         >
             <Heading eyebrow={t("home.eyebrow")} lines={t.raw("home.lines") as string[]} open={open} />
 
-            {expertise.map((e, i) => (
-                <ExpertiseRow key={e.id} expertise={e} index={i} open={open} />
+            {steps.map((e, i) => (
+                <ProcessRow key={e.slug} step={e} index={i} open={open} />
             ))}
 
             <div className="w-full lg:w-[80vw] 3xl:w-[70vw] pt-[6vh]">
                 <TextReveal open={open} delay={0.7} cropClassName="w-fit">
-                    <Link href="/expertise" className="button inline-block">
+                    <Link href="/process" className="button inline-block">
                         <p>{t("home.discover")}</p>
                     </Link>
                 </TextReveal>

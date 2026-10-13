@@ -1,6 +1,20 @@
 {
   "meta": {
     "title": "Process",
-    "description": "How Facile Studio works: our process from discovery to launch, step by step."
+    "description": "What Facile Studio does: strategy, brand, product design, development, motion and hosting, under one roof."
+  },
+  "eyebrow": "Our process",
+  "title": ["*Strong*, varied *skills*", "for brands that *aim high*."],
+  "count": "{count, plural, one {step} other {steps}}",
+  "scroll": "This is what it's like *working with us*",
+  "end": {
+    "eyebrow": "A project in mind?",
+    "title": "Let's build it *together*.",
+    "link": "See our projects"
+  },
+  "home": {
+    "eyebrow": "What we do",
+    "lines": ["*Everything* you need,", "under *one roof*."],
+    "discover": "Discover our process"
   }
 }

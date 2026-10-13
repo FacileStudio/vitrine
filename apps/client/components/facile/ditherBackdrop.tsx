@@ -9,7 +9,7 @@ const MODEL = "/models/manifesto.glb";
 
 const SHELF = {
     dark: { text: "text-background", canvas: "opacity-20", highlight: undefined, intensity: undefined, offset: 3.5 },
-    light: { text: "text-foreground", canvas: "opacity-25 mix-blend-multiply", highlight: "#111111", intensity: 1.4, offset: 3 },
+    light: { text: "text-foreground", canvas: "opacity-20", highlight: undefined, intensity: undefined, offset: 3.5 },
 } as const;
 
 export type BackdropVariant = keyof typeof SHELF | "story";
@@ -19,11 +19,13 @@ export default function DitherBackdrop({
     sticky = false,
     arrive = true,
     leaving = false,
+    placement = "corners",
 }: {
     variant: BackdropVariant;
     sticky?: boolean;
     arrive?: boolean;
     leaving?: boolean;
+    placement?: "corners" | "top";
 }) {
     const ref = useRef<HTMLDivElement>(null);
     const [arrived, setArrived] = useState(false);
@@ -88,10 +90,12 @@ export default function DitherBackdrop({
                 gridSize={on ? 2 : 14}
                 scale={4}
                 file={MODEL}
-                models={[
-                    { file: MODEL, position: [side, -offset, 0], scale: 4 },
-                    { file: MODEL, position: [-offset, 1, 0], scale: 4 },
-                ]}
+                models={placement === "top"
+                    ? [{ file: MODEL, position: [0, 2.2, 0], scale: 4 }]
+                    : [
+                        { file: MODEL, position: [side, -offset, 0], scale: 4 },
+                        { file: MODEL, position: [-offset, 1, 0], scale: 4 },
+                    ]}
             />
         </div>
     );

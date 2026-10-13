@@ -3,7 +3,7 @@ import React from "react";
 import { DesktopHeader } from "./desktop-header";
 import { useScroll } from "@/hooks/use-scroll";
 
-const LIGHT_SECTIONS = ["manifesto", "expertise", "suite-shelf"];
+const LIGHT_SECTIONS = ["manifesto", "process", "suite-shelf"];
 
 const Header =({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
     const [onLight, setOnLight] = React.useState(false);

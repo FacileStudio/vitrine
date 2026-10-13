@@ -9,8 +9,10 @@ import type { Locale } from "@/lib/i18n/locales";
 import VisitTracker from "@/components/facile/visitTracker";
 import { MembersProvider } from "@/components/facile/membersProvider";
 import { ProjectsProvider } from "@/components/facile/projectsProvider";
+import { ProcessProvider } from "@/components/facile/processProvider";
 import { fetchMembers } from "@/lib/content/studio";
 import { fetchProjects } from "@/lib/content/projects";
+import { fetchProcess } from "@/lib/content/process";
 
 // only story typography blocks use these three, so they must not preload on every route
 const poppins = Poppins({
@@ -47,7 +49,7 @@ const FONT_PRELOADS = [
 export default async function Shell({ locale, children }: { locale: Locale; children: ReactNode }) {
     const messages = await getMessages({ locale });
     const organization = await getOrganizationJsonLd(locale);
-    const [members, projects] = await Promise.all([fetchMembers(), fetchProjects()]);
+    const [members, projects, steps] = await Promise.all([fetchMembers(), fetchProjects(), fetchProcess()]);
 
     FONT_PRELOADS.forEach((href) => preload(href, { as: "font", type: "font/woff2", crossOrigin: "anonymous" }));
 
@@ -66,7 +68,9 @@ export default async function Shell({ locale, children }: { locale: Locale; chil
             <body>
                 <NextIntlClientProvider locale={locale} messages={messages}>
                     <MembersProvider members={members}>
-                        <ProjectsProvider projects={projects}>{children}</ProjectsProvider>
+                        <ProjectsProvider projects={projects}>
+                            <ProcessProvider steps={steps}>{children}</ProcessProvider>
+                        </ProjectsProvider>
                     </MembersProvider>
                 </NextIntlClientProvider>
                 <VisitTracker />

@@ -43,7 +43,7 @@ const buildLinks = (members: AuthoredMember[], projects: Project[]): NavLink[] =
             name: p.name,
         })),
     },
-    { href: '/expertise', key: 'expertise' },
+    { href: '/process', key: 'process' },
     {
         href: 'https://suite.facile.studio',
         key: 'suite',

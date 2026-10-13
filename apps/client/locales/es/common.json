@@ -16,7 +16,6 @@
   "nav": {
     "home": "Inicio",
     "projects": "Proyectos",
-    "expertise": "Especialidades",
     "suite": "Suite",
     "process": "Proceso",
     "studio": "Studio",
@@ -26,7 +25,7 @@
     "launch": "Lanzamiento y soporte"
   },
   "footer": {
-    "buildTogether": "Construyamos un sitio web juntos.",
+    "buildTogether": "*Construyamos* un *sitio web* juntos.",
     "madeBy": "_ Hecho por"
   },
   "loader": {

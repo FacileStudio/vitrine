@@ -7,7 +7,6 @@ import type story from "./locales/en/story.json";
 import type studio from "./locales/en/studio.json";
 import type suite from "./locales/en/suite.json";
 import type process from "./locales/en/process.json";
-import type expertise from "./locales/en/expertise.json";
 
 declare module "next-intl" {
     interface AppConfig {
@@ -21,7 +20,6 @@ declare module "next-intl" {
             studio: typeof studio;
             suite: typeof suite;
             process: typeof process;
-            expertise: typeof expertise;
         };
     }
 }

@@ -2,6 +2,7 @@
 
 import TextReveal from "@/components/facile/textReveal";
 import ShelfHeading from "@/components/facile/shelf/shelfHeading";
+import Emphasis from "@/components/facile/emphasis";
 
 interface HeadingProps {
     eyebrow: string;
@@ -37,7 +38,7 @@ export default function Heading({ eyebrow, lines, open, delay = 0, count, countL
                     <Title>
                         {lines.map((line, i) => (
                             <TextReveal key={i} open={open} duration={0.8} delay={delay + (i + 1) * 0.12}>
-                                {line}
+                                <Emphasis text={line} />
                             </TextReveal>
                         ))}
                     </Title>

@@ -15,6 +15,7 @@ export default function Shelf({
     id,
     tone,
     stickyBackdrop = false,
+    backdropPlacement,
     columnClassName,
     after,
     children,
@@ -23,6 +24,7 @@ export default function Shelf({
     id: string;
     tone: ShelfTone;
     stickyBackdrop?: boolean;
+    backdropPlacement?: "corners" | "top";
     columnClassName: string;
     after?: ReactNode;
     children: ReactNode;
@@ -31,7 +33,7 @@ export default function Shelf({
         <section ref={ref} id={id} className="w-full relative h-full">
             <div className={GROUND[tone]} aria-hidden="true" />
 
-            <DitherBackdrop variant={tone} sticky={stickyBackdrop} />
+            <DitherBackdrop variant={tone} sticky={stickyBackdrop} placement={backdropPlacement} />
 
             <div className={columnClassName}>
                 {children}

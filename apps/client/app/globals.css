@@ -169,6 +169,7 @@ p {
 
 .lead {
     font-family: var(--font-goga);
+    font-weight: 500;
     text-transform: none;
     letter-spacing: -0.05em;
     line-height: 1.5;
@@ -255,6 +256,7 @@ p {
 
 .subtext {
     font-family: var(--font-goga);
+    font-weight: 500;
     text-transform: none;
     letter-spacing: -0.025em;
     line-height: 1.4;

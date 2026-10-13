@@ -32,9 +32,23 @@ const SplitLines = memo(function SplitLines({
         const el = ref.current;
         if (!el) return;
 
-        const words = text.trim().split(/\s+/).filter(Boolean).flatMap((word) =>
-            word.split(/(?<=-)(?=[^-])/).map((piece, i, pieces) => ({ piece, space: i === pieces.length - 1 }))
-        );
+        // *starred* words stay full strength and the rest fades, like Emphasis does for titles
+        const emphasis = /\*(.+?)\*/.test(text);
+        let strong = false;
+
+        const words = text.trim().split(/\s+/).filter(Boolean).flatMap((word) => {
+            const parts = word.split("*").map((part, i) => {
+                if (i)
+                    strong = !strong;
+
+                return { part, strong };
+            }).filter(({ part }) => part);
+            const pieces = parts.flatMap(({ part, strong }) =>
+                part.split(/(?<=-)(?=[^-])/).map((piece) => ({ piece, strong }))
+            );
+
+            return pieces.map((p, i) => ({ ...p, space: i === pieces.length - 1 }));
+        });
 
         const build = () => {
             const shown = el.querySelector<HTMLElement>("[data-reveal]");
@@ -54,20 +68,19 @@ const SplitLines = memo(function SplitLines({
                     el.append(document.createTextNode(" "));
             });
 
-            const lines: string[] = [];
+            const lines: (typeof words)[] = [];
             let top: number | null = null;
 
             wordEls.forEach((s, i) => {
                 if (top === null || s.offsetTop !== top) {
-                    if (lines.length) lines[lines.length - 1] = lines[lines.length - 1].trimEnd();
-                    lines.push("");
+                    lines.push([]);
                     top = s.offsetTop;
                 }
-                lines[lines.length - 1] += words[i].piece + (words[i].space ? " " : "");
+                lines[lines.length - 1].push(words[i]);
             });
 
-            if (lines.length)
-                lines[lines.length - 1] = lines[lines.length - 1].trimEnd();
+            const textOf = (line: typeof words) =>
+                line.map((w, i) => w.piece + (w.space && i < line.length - 1 ? " " : "")).join("");
 
             el.innerHTML = "";
             const inners: HTMLElement[] = [];
@@ -85,7 +98,16 @@ const SplitLines = memo(function SplitLines({
                 }
                 if (reveal)
                     inner.setAttribute("data-reveal", "");
-                inner.textContent = line;
+                if (emphasis)
+                    line.forEach((w, j) => {
+                        const run = document.createElement("span");
+                        run.textContent = w.piece + (w.space && j < line.length - 1 ? " " : "");
+                        if (!w.strong)
+                            run.className = "opacity-75";
+                        inner.append(run);
+                    });
+                else
+                    inner.textContent = textOf(line);
                 outer.append(inner);
                 el.append(outer);
                 inners.push(inner);
@@ -119,7 +141,7 @@ const SplitLines = memo(function SplitLines({
         };
     }, [text, gap, lineClassName, reveal, justify]);
 
-    return <Tag ref={ref as never} className={className} aria-label={text} />;
+    return <Tag ref={ref as never} className={className} aria-label={text.replaceAll("*", "")} />;
 });
 
 export default SplitLines;
