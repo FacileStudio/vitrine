@@ -4,9 +4,9 @@ import { bytesDone, bytesProgress } from "@/webgl/loadBytes";
 
 // playback rate 1 plays a whole track in a second, so a rate reads as hundredths per second
 const FILL_MS = 1000;
-const CATCH_UP = 0.5;
-const MIN_RATE = 0.12;
-const MAX_RATE = 0.6;
+const CATCH_UP = 1;
+const MIN_RATE = 0.06;
+const MAX_RATE = 0.25;
 const RATE_EASE = 0.25;
 
 export function useLoadFill<K extends string>(tracks: Record<K, Keyframe[]>, onDone: () => void) {

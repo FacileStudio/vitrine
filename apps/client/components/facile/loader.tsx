@@ -1,24 +1,27 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from "react"
-import { useTranslations } from "next-intl"
 import { gsap } from "gsap"
 import { EASE } from "@/lib/animations"
 import { useAfter } from "@/hooks/use-after"
 import { useLoadFill } from "@/hooks/use-load-fill"
 import { useTrackPage } from "@/hooks/use-track-page"
 import { idleFor } from "@/webgl/loadBytes"
+import { DitherView } from "@/webgl/lazy"
 import TextReveal from "./textReveal"
 import LoaderFrame from "./loaderFrame"
 import Stripes from "./stripes"
 import LoadList from "./loadList"
 
 const STALL_MS = 10000
+const GRID = { from: 16, to: 1.2, doneAt: 75 }
 
-// the clip slides right while the logo inside slides back left, so the logo holds still as it is revealed
+const MODEL_SCALE = { from: 7, to: 17 }
+const glide = gsap.parseEase(EASE.glide)
+
 const TRACKS = {
-    clip: [{ transform: "translateX(-100%)" }, { transform: "translateX(0%)" }],
-    logo: [{ transform: "translateX(100%)" }, { transform: "translateX(0%)" }],
+    // a finer grid draws the F lower, so it starts raised and lands as the grid settles
+    lift: [{ transform: "translateY(-20px)" }, { transform: "translateY(0px)", offset: GRID.doneAt / 100 }, { transform: "translateY(0px)" }],
 }
 
 const Loader = ({ setCharged }: { setCharged: (charged: boolean) => void }) => {
@@ -26,7 +29,6 @@ const Loader = ({ setCharged }: { setCharged: (charged: boolean) => void }) => {
     const logo = useRef<HTMLDivElement>(null)
     const list = useRef<HTMLDivElement>(null)
     const shown = useAfter(true, 150)
-    const t = useTranslations("common.nav")
 
     const finish = useCallback(() => {
         setOpen(true)
@@ -76,19 +78,32 @@ const Loader = ({ setCharged }: { setCharged: (charged: boolean) => void }) => {
         >
             <LoaderFrame open={shown && !open} leaving={open} />
             <LoadList ref={list} active={!open} />
-            <div className="relative z-50 flex items-center gap-12">
-                {/* equal widths keep the logo centred whatever the label's length */}
-                <TextReveal as="p" open={shown && !open} leaving={open} cropClassName="w-[8ch]" className="text-right text-background">
-                    {String(percent).padStart(3, "0")}
-                </TextReveal>
-                <div ref={logo}>
-                    <div ref={bind("clip")} className="overflow-hidden" style={{ transform: "translateX(-100%)" }}>
-                        <img ref={bind("logo")} src="/Facile.svg" alt="Facile" className="invert h-32" style={{ transform: "translateX(100%)" }} />
+            <div ref={logo} className="absolute inset-0 z-50">
+                <div className="absolute inset-0">
+                    <div ref={bind("lift")} className="size-full" style={{ transform: "translateY(-20px)" }}>
+                        <DitherView
+                            file="/models/F.glb"
+                            className="size-full opacity-75"
+                            // grid shrinks linearly from GRID.from at 0% to GRID.to at GRID.doneAt%, then holds
+                            gridSize={GRID.from - (GRID.from - GRID.to) * Math.min(1, percent / GRID.doneAt)}
+                            gridTween={0.3}
+                            position={[0, -0.5, 0]}
+                            cameraPosition={[0, 0, 4]}
+                            rotation={[0, 0.35, 0]}
+                            parallax={0.7}
+                            parallaxSpeed={0.05}
+                            float={false}
+                            // model scale eased from MODEL_SCALE.from to MODEL_SCALE.to across the load
+                            scale={MODEL_SCALE.from + (MODEL_SCALE.to - MODEL_SCALE.from) * glide(percent / 100)}
+                            fov={50}
+                        />
                     </div>
                 </div>
-                <TextReveal as="p" open={shown && !open} leaving={open} cropClassName="w-[8ch]" className="text-background">
-                    {t("studio")}
-                </TextReveal>
+                <div className="absolute top-[74%] left-1/2 -translate-x-1/2">
+                    <TextReveal as="p" open={shown && !open} leaving={open} cropClassName="w-[8ch]" className="text-center text-background">
+                        {String(percent).padStart(3, "0")}
+                    </TextReveal>
+                </div>
             </div>
             <Stripes count={4} orientation={0} open={open} className="bg-foreground" zIndex={45} leadOpen={0} />
             <Stripes count={4} orientation={0} open={open} className="bg-background" zIndex={44} leadOpen={0.18} />
