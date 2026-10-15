@@ -6,6 +6,7 @@ import { DitherView } from "@/webgl/lazy";
 import { useAfter } from "@/hooks/use-after";
 import { useNarrow } from "@/hooks/use-narrow";
 import { useMembers } from "@/components/facile/contentProvider";
+import { headScale } from "@/lib/content/studio";
 import { EASE } from "@/lib/animations";
 
 // dx/dy point out of the screen; turn lays the head on its side (top heads: crown toward the centre, bottom heads: torso toward the centre), so yaw (radians) looks up or down at the copy; bleed is the % pushed off-screen; zoom scales one head against the others; mobile overrides turn and bleed under 768px
@@ -90,7 +91,7 @@ export default function HeroHeads({ open }: { open: boolean }) {
                             active={!parked}
                             position={[0, -1, 0]}
                             rotation={[CORNERS[i].pitch, CORNERS[i].yaw, 0]}
-                            scale={(head.scale * 3 * CORNERS[i].zoom) / ROOM}
+                            scale={(headScale(head.slug) * 3 * CORNERS[i].zoom) / ROOM}
                             roughness={head.roughness}
                             metalness={0.6}
                             highlight={head.highlight}

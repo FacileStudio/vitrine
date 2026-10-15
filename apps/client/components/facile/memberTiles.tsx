@@ -10,7 +10,7 @@ import TextReveal from "@/components/facile/textReveal";
 import { useNarrow } from "@/hooks/use-narrow";
 import { cn } from "@/lib/utils";
 import { useMembers } from "@/components/facile/contentProvider";
-import type { AuthoredMember } from "@/lib/content/studio";
+import { headScale, type AuthoredMember } from "@/lib/content/studio";
 
 // a re-render re-bakes drei's Environment cubemap, so hover must never re-render a head
 const Head = memo(DitherReveal);
@@ -29,7 +29,7 @@ const HEAD_PROPS = (members: AuthoredMember[], idle: number, gridSize: number) =
         idle,
         ambient: 0.3,
         float: false,
-        scale: member.scale * (4 / 3),
+        scale: headScale(member.slug) * (4 / 3),
         roughness: member.roughness,
         metalness: 0,
         hairColor: member.hair ?? undefined,

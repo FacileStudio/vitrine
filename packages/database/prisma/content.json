@@ -23,7 +23,6 @@
         "fr": "Bio longue provisoire pour Fanga, à remplacer via le backoffice. Développeur full-stack chez Facile Studio, surtout à l'aise dans le backend et l'infrastructure qui le porte : services, pipelines et l'outillage qui fait avancer le reste du studio."
       },
       "model": "/models/fanga.glb",
-      "scale": 0.015,
       "roughness": 0.85,
       "metalness": 1,
       "hair": "#6E5A4E",
@@ -114,7 +113,6 @@
         "fr": "Sa spécialité : des designs épurés, mis en mouvement par des animations GSAP uniques et séduisantes."
       },
       "model": "/models/noah.glb",
-      "scale": 0.015,
       "roughness": 0.85,
       "metalness": 1,
       "hair": "#6E5A4E",
@@ -208,7 +206,6 @@
         "fr": "Bio longue provisoire pour Mazouz, à remplacer via le backoffice. Développeur chez Facile Studio, côté backend : API, données et l'automatisation qui supprime le travail que personne ne veut faire deux fois."
       },
       "model": "/models/mazouz.glb",
-      "scale": 4.5,
       "roughness": 0.85,
       "metalness": 1,
       "hair": "#6E5A4E",
@@ -308,7 +305,6 @@
         "fr": "Bio longue provisoire pour Camille, à remplacer via le backoffice. Designer chez Facile Studio, entre marque, illustration et print : la direction artistique qui donne sa voix à un projet avant qu'une seule ligne soit écrite."
       },
       "model": "/models/camille.glb",
-      "scale": 0.015,
       "roughness": 0.85,
       "metalness": 1,
       "hair": null,

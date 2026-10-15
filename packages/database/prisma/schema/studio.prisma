@@ -6,7 +6,6 @@ model StudioMember {
   description Json
   bio         Json
   model       String
-  scale       Float
   roughness   Float
   metalness   Float
   hair        String?

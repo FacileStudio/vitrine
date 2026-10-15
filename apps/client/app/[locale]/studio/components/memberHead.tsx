@@ -1,7 +1,7 @@
 'use client'
 
 import DitherReveal from "@/components/facile/ditherReveal";
-import type { Member } from "@/lib/content/studio";
+import { headScale, type Member } from "@/lib/content/studio";
 
 export default function MemberHead({ member, narrow }: { member: Member; narrow: boolean }) {
     return (
@@ -16,7 +16,7 @@ export default function MemberHead({ member, narrow }: { member: Member; narrow:
                 parallaxSpeed: 0.01,
                 intensity: 1.3,
                 ambient: 0.9,
-                scale: member.scale * (narrow ? 2 : 3),
+                scale: headScale(member.slug) * (narrow ? 2 : 3),
                 position: narrow ? [0, 0.6, 0] : [0, -0.7, 0],
                 roughness: member.roughness,
                 metalness: 1,

@@ -15,7 +15,6 @@ export interface StudioMember {
   description: Localized<string>;
   bio: Localized<string>;
   model: string;
-  scale: number;
   roughness: number;
   metalness: number;
   hair: string | null;
@@ -35,7 +34,6 @@ export const memberSchema = z.object({
   description: localized(z.string()),
   bio: localized(z.string()),
   model: z.string().min(1),
-  scale: z.number().positive(),
   roughness: z.number().min(0).max(1),
   metalness: z.number().min(0).max(1),
   hair: hexColor.nullable(),

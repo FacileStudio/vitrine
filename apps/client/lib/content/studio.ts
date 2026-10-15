@@ -15,6 +15,11 @@ export type WorkedProject = Resolved<Project>;
 // params, metadata and the page all ask for the list in one render, cache makes that one request
 export const fetchMembers = cache((): Promise<AuthoredMember[]> => trpc.studio.list.query());
 
+// fanga still ships the old Mii rig, drop the exception once their new head lands
+const HEAD_SCALE: Record<string, number> = { fanga: 0.015 };
+
+export const headScale = (slug: string) => HEAD_SCALE[slug] ?? 4.5;
+
 export const hasMember = (members: AuthoredMember[], slug: string) => members.some((m) => m.slug === slug);
 
 export const crew = (members: AuthoredMember[], locale: Locale): Member[] => localize(members, locale);
@@ -27,7 +32,7 @@ const toPerson = (m: Member): Person => ({
     role: m.role,
     highlight: m.highlight,
     model: m.model,
-    scale: m.scale,
+    scale: headScale(m.slug),
     roughness: m.roughness,
     hair: m.hair,
 });

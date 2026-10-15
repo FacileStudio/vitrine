@@ -229,6 +229,11 @@ Content and 3D models come from the backend and `public/models/`. The client nee
 - [ ] **`projects.json` is a second source of truth** — the backoffice reads it to offer
       project options, the site reads the database. Either seed the database from it and
       delete the file, or move it somewhere shared.
+- [ ] **Head scale is hardcoded, temporarily** — the per-member `scale` column was dropped
+      once the new-rig heads landed. `headScale()` in `lib/content/studio.ts` returns `4.5`
+      for everyone, except Fanga at `0.015`, who still ships the old Mii rig. Once Fanga's
+      new head lands, delete the `HEAD_SCALE` exception. If heads ever need different sizes
+      again, normalise each model to a fixed height rather than bringing the column back.
 - [ ] **i18n coverage** — `scripts/check-i18n.ts` checks parity and placeholders; it does not
       check that a key is still referenced. Run it after adding copy.
 
