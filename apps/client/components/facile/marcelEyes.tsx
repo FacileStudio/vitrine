@@ -14,8 +14,9 @@ const EYE: Record<Variant, { anchor: string; row: string; pill: string }> = {
     cover: { anchor: "bottom-[-6cqw]", row: "gap-[3.5cqw]", pill: "w-[6.7cqw] h-[29cqw]" },
 };
 
+// the square phone card crops the cover to its height, so the cover is 1.597x the card width and the balls scale by it
 const SPHERE: Record<Variant, { row: string; ball: string }> = {
-    card: { row: "gap-[8.9cqw]", ball: "w-[12.5cqw]" },
+    card: { row: "gap-[14.2cqw] lg:gap-[8.9cqw]", ball: "w-[20cqw] lg:w-[12.5cqw]" },
     cover: { row: "gap-[6.7cqw]", ball: "w-[16.7cqw]" },
 };
 
