@@ -3,6 +3,7 @@
 import React from 'react';
 import { ContactLinks, NavLinks } from '@/components/facile/navLinks';
 import { useAfter } from '@/hooks/use-after';
+import { useNarrow } from '@/hooks/use-narrow';
 import { DitherView } from '@/webgl/lazy';
 
 const COUNT = 4;
@@ -34,6 +35,7 @@ const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: React
     const OPEN_AT = { link: 0.55, contact: 1.3 };
     const [mountDither, setMountDither] = React.useState(false);
     const resolved = useAfter(menuOpen, COVERED_MS + 600);
+    const narrow = useNarrow();
     const [stage, setStage] = React.useState<'off' | 'ready' | 'shown'>('off');
 
     if (menuOpen && !mountDither) setMountDither(true);
@@ -64,7 +66,7 @@ const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: React
             <div className="absolute inset-0 z-30">{Stripes(menuOpen, '#ffffff', 0, 0.14 + exitDelay)}</div>
             <div className="absolute inset-0 z-40">{Stripes(menuOpen, 'var(--foreground)', 0.14, 0 + exitDelay)}</div>
 
-            {mountDither && (
+            {mountDither && !narrow && (
                 <div
                     className={`absolute inset-0 z-45 overflow-hidden ${stage === 'off' ? 'hidden' : 'visible'}`}
                     style={{

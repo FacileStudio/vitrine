@@ -19,16 +19,16 @@ export default function NotFound() {
             <PageCurtain enter="dark" leave="dark" />
 
 
-            <DitherView
+            {!narrow && <DitherView
                 file="/models/404.glb"
                 className="absolute inset-0 -z-10 opacity-80 h-full w-full"
                 gridSize={resolved ? 2 : 16}
                 position={[0, -0.5, 0]}
                 rotation={[0, 0, 0]}
                 parallax={0.35}
-                scale={narrow ? 5.5 : 20}
+                scale={20}
                 fov={45}
-            />
+            />}
 
             <div className="flex gap-24">
                 <div className="flex flex-col gap-2">

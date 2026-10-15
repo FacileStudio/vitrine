@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { gsap } from "gsap"
 import { EASE } from "@/lib/animations"
 import { useAfter } from "@/hooks/use-after"
+import { useNarrow } from "@/hooks/use-narrow"
 import { useLoadFill } from "@/hooks/use-load-fill"
 import { useTrackPage } from "@/hooks/use-track-page"
 import { idleFor } from "@/webgl/loadBytes"
@@ -29,6 +30,7 @@ const Loader = ({ setCharged }: { setCharged: (charged: boolean) => void }) => {
     const logo = useRef<HTMLDivElement>(null)
     const list = useRef<HTMLDivElement>(null)
     const shown = useAfter(true, 150)
+    const narrow = useNarrow()
 
     const finish = useCallback(() => {
         setOpen(true)
@@ -81,7 +83,7 @@ const Loader = ({ setCharged }: { setCharged: (charged: boolean) => void }) => {
             <div ref={logo} className="absolute inset-0 z-50">
                 <div className="absolute inset-0">
                     <div ref={bind("lift")} className="size-full" style={{ transform: "translateY(-20px)" }}>
-                        <DitherView
+                        {!narrow && <DitherView
                             file="/models/F.glb"
                             className="size-full opacity-75"
                             // grid shrinks linearly from GRID.from at 0% to GRID.to at GRID.doneAt%, then holds
@@ -96,7 +98,7 @@ const Loader = ({ setCharged }: { setCharged: (charged: boolean) => void }) => {
                             // model scale eased from MODEL_SCALE.from to MODEL_SCALE.to across the load
                             scale={MODEL_SCALE.from + (MODEL_SCALE.to - MODEL_SCALE.from) * glide(percent / 100)}
                             fov={50}
-                        />
+                        />}
                     </div>
                 </div>
                 <div className="absolute top-[74%] left-1/2 -translate-x-1/2">

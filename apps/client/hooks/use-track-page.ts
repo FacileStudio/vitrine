@@ -24,8 +24,11 @@ export function useTrackPage() {
     const members = useMembers();
 
     useEffect(() => {
-        [...MODELS, ...members.flatMap((m) => (m.model ? [m.model] : []))].forEach(expectFile);
-        [...WARM, ...mediaUrls()].forEach(trackFetch);
+        // phones render no scene models, so expecting them would hold the loader until the stall timeout
+        const phone = window.matchMedia("(max-width: 767px)").matches;
+
+        [...(phone ? [] : MODELS), ...members.flatMap((m) => (m.model ? [m.model] : []))].forEach(expectFile);
+        [...(phone ? [] : WARM), ...mediaUrls()].forEach(trackFetch);
         trackPromise("fonts", document.fonts.ready);
     }, [members]);
 }

@@ -42,9 +42,11 @@ export default function DitherBackdrop({
 
     const on = (!arrive || arrived) && !leaving;
 
-    if (variant === "story") {
-        const spread = arrive && narrow ? 2.2 : 3.5;
+    // phones keep only the member heads: every extra canvas pushed iOS Safari into reloading the tab
+    if (narrow)
+        return null;
 
+    if (variant === "story") {
         return (
             <div
                 ref={ref}
@@ -58,8 +60,8 @@ export default function DitherBackdrop({
                     gridSize={on ? 3 : 14}
                     scale={4}
                     models={[
-                        { file: MODEL, position: [-spread, -1.5, 0.5], scale: 4 },
-                        { file: MODEL, position: [spread, 1, 0.5], scale: 4 },
+                        { file: MODEL, position: [-3.5, -1.5, 0.5], scale: 4 },
+                        { file: MODEL, position: [3.5, 1, 0.5], scale: 4 },
                     ]}
                 />
             </div>
@@ -67,9 +69,6 @@ export default function DitherBackdrop({
     }
 
     const t = SHELF[variant];
-    const near = sticky && narrow;
-    const offset = near ? 2.2 : t.offset;
-    const side = near ? 2 : 3;
 
     return (
         <div
@@ -93,8 +92,8 @@ export default function DitherBackdrop({
                 models={placement === "top"
                     ? [{ file: MODEL, position: [0, 2.2, 0], scale: 4 }]
                     : [
-                        { file: MODEL, position: [side, -offset, 0], scale: 4 },
-                        { file: MODEL, position: [-offset, 1, 0], scale: 4 },
+                        { file: MODEL, position: [3, -t.offset, 0], scale: 4 },
+                        { file: MODEL, position: [-t.offset, 1, 0], scale: 4 },
                     ]}
             />
         </div>
