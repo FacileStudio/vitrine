@@ -7,6 +7,7 @@
 	const AXES = ['X', 'Y', 'Z'] as const;
 
 	const MATERIAL = [
+		{ key: 'scale', icon: 'iconoir:scale-frame-enlarge', title: 'Scale (0.015 for a Mii head)', step: 'any', max: undefined },
 		{ key: 'roughness', icon: 'iconoir:droplet', title: 'Roughness, 0 to 1', step: '0.05', max: 1 },
 		{ key: 'metalness', icon: 'iconoir:crown', title: 'Metalness, 0 to 1', step: '0.05', max: 1 },
 	] as const;
@@ -18,7 +19,7 @@
 		<input bind:value={member.model} placeholder="/models/tete.glb" class="field-input" />
 	</label>
 
-	<div class="grid gap-1 grid-cols-2">
+	<div class="grid gap-1 grid-cols-3">
 		{#each MATERIAL as setting (setting.key)}
 			<label class="field" title={setting.title}>
 				<iconify-icon icon={setting.icon} width="14" class="text-faint"></iconify-icon>
