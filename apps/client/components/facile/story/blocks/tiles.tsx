@@ -18,7 +18,8 @@ export default function Tiles({ block }: BlockProps) {
     return (
         <Block cols={block.cols}>
             {tiles.map((t: Tile) => (
-                <Cell key={t.label} {...place(t, tiles)} className="in-data-glass:bg-[#212121]/40 in-data-glass:backdrop-blur-[48px]">
+                {/* ~20 blurred cells over a live canvas exhaust iOS GPU memory and Safari reloads the tab, so phones get a flat tint */}
+                <Cell key={t.label} {...place(t, tiles)} className="in-data-glass:bg-[#212121]/70 md:in-data-glass:bg-[#212121]/40 md:in-data-glass:backdrop-blur-[48px]">
                     {t.featured ? <FeaturedTile tile={t} /> : (
                         <div className="flex h-full w-full flex-col justify-between gap-[1.5vh] p-[3vh]">
                             {t.icon ? (
