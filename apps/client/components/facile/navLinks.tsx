@@ -9,6 +9,7 @@ import type { AuthoredMember } from '@/lib/content/studio';
 import { Link } from '@/lib/i18n/navigation';
 import { useTransitionGo } from '@/hooks/use-transition-go';
 import { cn, isExternal } from '@/lib/utils';
+import AppMark from '@/components/facile/appMark';
 import type common from '@/locales/en/common.json';
 import { GithubIcon } from '../ui/github';
 import { InstagramIcon } from '../ui/instagram';
@@ -30,7 +31,7 @@ type NavKey = keyof (typeof common)['nav'];
 type Label = { key: NavKey } | { name: string };
 
 type SubLink = Label & { href: string };
-type NavLink = { href: string; key: NavKey; secondary?: SubLink[] };
+type NavLink = { href: string; key: NavKey; icon?: string; secondary?: SubLink[] };
 
 const buildLinks = (members: AuthoredMember[], projects: Project[]): NavLink[] => [
     { href: '/', key: 'home' },
@@ -46,6 +47,7 @@ const buildLinks = (members: AuthoredMember[], projects: Project[]): NavLink[] =
     {
         href: 'https://suite.facile.studio',
         key: 'suite',
+        icon: '/icons/Suite.svg',
     },
     {
         href: '/studio',
@@ -103,15 +105,16 @@ export function NavLinks({
     };
 
     return (
-        <nav className={cn('flex flex-col md:flex-row gap-4 md:gap-x-10 lg:gap-x-4', className)}>
+        <nav className={cn('flex flex-col md:flex-row mr-12 gap-4 md:gap-x-10 lg:gap-x-16', className)}>
             {links.map((link, i) => (
-                <div key={link.href} className="flex w-48 md:w-auto lg:w-48 flex-col items-start">
+                <div key={link.href} className="flex w-auto flex-col items-start">
                     <TextReveal
                         open={open}
                         duration={0.6}
                         delay={open ? delay + i * 0.08 : 0}
                     >
-                        <Anchor href={link.href} go={handle} className="subtitle block text-background transition-colors">
+                        <Anchor href={link.href} go={handle} className="subtitle flex items-center gap-[0.3em] text-background transition-colors">
+                            {link.icon && <AppMark icon={link.icon} fileClassName="h-[0.9em] w-[0.9em] object-contain" />}
                             {t(link.key)}
                         </Anchor>
                     </TextReveal>
