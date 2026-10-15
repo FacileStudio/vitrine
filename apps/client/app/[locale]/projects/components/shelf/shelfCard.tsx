@@ -38,7 +38,7 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
             className="group/card relative cursor-pointer  lg:w-[70vw] w-full shrink-0"
         >
             {marcel && <MarcelSpheres ref={spheres} />}
-            <div className="relative w-full aspect-16/10 lg:aspect-video overflow-hidden rounded-fc">
+            <div className="relative w-full aspect-square lg:aspect-video overflow-hidden rounded-fc">
                 <div ref={refs.media(index)} className="absolute inset-0 will-change-transform">
                     <img
                         src={project.image}
@@ -72,15 +72,15 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
                 )}
             </div>
 
-            <div ref={refs.content(index)} className="pointer-events-none absolute inset-0 z-40 flex flex-col lg:flex-row items-start lg:items-end justify-end lg:justify-between gap-1 lg:gap-12 px-6 p-4 lg:px-12 lg:p-10">
-                {!marcel && <div data-shade className="absolute inset-x-0 bottom-0 -z-10 h-2/3 rounded-b-fc bg-linear-to-t from-foreground/75 to-transparent opacity-0" />}
+            <div ref={refs.content(index)} className="pointer-events-none absolute inset-0 z-40 flex flex-col lg:flex-row items-start lg:items-end justify-between gap-1 lg:gap-12 px-6 p-4 lg:px-12 lg:p-10">
+                {!marcel && <div data-shade className="absolute inset-x-0 bottom-0 -z-10 h-full lg:h-2/3 rounded-fc lg:rounded-t-none bg-linear-to-b from-foreground/75 via-transparent to-foreground/75 lg:bg-linear-to-t lg:via-none lg:to-transparent opacity-0" />}
 
                 <TextReveal as="h2" className="title text-background">
                     {project.name}
                 </TextReveal>
 
                 {project.services.length > 0 && (
-                    <span className="flex flex-wrap items-center lg:justify-end gap-fc">
+                    <span className="flex flex-wrap items-center self-end justify-end gap-fc">
                         {project.services.map((s) => (
                             <TextReveal key={s} cropClassName="shrink-0" className="chip tagText flex items-center gap-[0.8vh]">
                                 <ChipIcon icon={SERVICE_ICONS[s]} />
