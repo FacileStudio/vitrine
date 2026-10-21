@@ -7,6 +7,7 @@ import { GithubIcon } from "@/components/ui/github";
 import { InstagramIcon } from "@/components/ui/instagram";
 import { DribbbleIcon } from "@/components/ui/dribbble";
 import type { Member } from "@/lib/content/studio";
+import { ARROW } from "@/components/facile/arrow";
 
 const SOCIAL_ICONS: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
     GitHub: GithubIcon,
@@ -56,7 +57,7 @@ export function SocialRows({ socials, entered, delay = 0.32 }: { socials: Social
                         <TextReveal open={entered} delay={delay + i * 0.05} className="flex items-center gap-3">
                             {SocialIcon ? <SocialIcon size={18} /> : null}
                             <p>{label}</p>
-                            <p className="ml-auto">↗</p>
+                            <p className="ml-auto">{ARROW}</p>
                         </TextReveal>
                     </a>
                 );
