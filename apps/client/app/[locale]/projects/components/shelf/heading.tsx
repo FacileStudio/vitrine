@@ -1,14 +1,10 @@
 'use client'
 
-import { useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
 import TextReveal from "@/components/facile/textReveal";
-import SplitLines from "@/components/facile/splitLines";
 import ShelfHeading from "@/components/facile/shelf/shelfHeading";
 import Emphasis from "@/components/facile/emphasis";
 import { ARRIVE } from "@/components/facile/pageTransition";
-import { run, slideY } from "@/lib/animations";
-import { useNarrow } from "@/hooks/use-narrow";
 import { categories, type Category } from "@/lib/content/projects";
 
 interface HeadingProps {
@@ -21,14 +17,6 @@ interface HeadingProps {
 export default function Heading({ lines, filter = null, count = 0, onFilter }: HeadingProps) {
     const t = useTranslations("projects");
     const arrive = ARRIVE / 1000;
-    const narrow = useNarrow();
-    const title = useRef<HTMLHeadingElement>(null);
-
-    useEffect(() => {
-        if (!narrow || !title.current) return;
-        const parked = Array.from(title.current.querySelectorAll<HTMLElement>("[data-reveal]"));
-        run(parked, slideY(true, false, { stagger: 0.12, duration: 0.8, delay: arrive }));
-    }, [narrow, lines, arrive]);
 
     const entries: { label: string; value: Category | null }[] = [
         { label: t("filterAll"), value: null },
@@ -44,16 +32,13 @@ export default function Heading({ lines, filter = null, count = 0, onFilter }: H
             countLabel={t("projectCount", { count })}
             asideLabel={t("filterLabel")}
             title={
-                <h2 ref={title} className="text-start">
-                    {narrow ? (
-                        <SplitLines text={lines.join(" ").replaceAll("*", "")} gap="mb-0" />
-                    ) : (
-                        lines.map((line, i) => (
-                            <TextReveal key={i} open duration={0.8} delay={arrive + i * 0.12}>
-                                <Emphasis text={line} />
-                            </TextReveal>
-                        ))
-                    )}
+                // the authored lines are the line breaks on every screen, so a phone keeps the two lines instead of re-wrapping them
+                <h2 className="self-center text-center lg:self-auto lg:text-start">
+                    {lines.map((line, i) => (
+                        <TextReveal key={i} open duration={0.8} delay={arrive + i * 0.12}>
+                            <Emphasis text={line} />
+                        </TextReveal>
+                    ))}
                 </h2>
             }
         >
