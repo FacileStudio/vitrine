@@ -9,7 +9,7 @@ const BENTO_VARS = {
 } as CSSProperties;
 
 const LAYOUT = {
-    band: "grid [--band:55vh] md:[--band:80vh] h-[var(--band)] w-max grid-flow-col grid-rows-3 gap-[var(--gap)] [grid-auto-columns:var(--cell)]",
+    band: "grid [--band:75vh] md:[--band:80vh] h-[var(--band)] w-max grid-flow-col grid-rows-3 gap-[var(--gap)] [grid-auto-columns:var(--cell)]",
     stack: "flex w-full flex-col gap-[var(--gap)] [&>[data-block]]:h-auto [&>[data-block]]:aspect-[calc(var(--cols)*5/12)] [&>[data-block][data-tall]]:aspect-[calc(var(--cols)*5/16)]",
 };
 

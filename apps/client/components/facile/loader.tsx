@@ -83,9 +83,11 @@ const Loader = ({ setCharged }: { setCharged: (charged: boolean) => void }) => {
             <div ref={logo} className="absolute inset-0 z-50">
                 <div className="absolute inset-0">
                     <div ref={bind("lift")} className="size-full" style={{ transform: "translateY(-20px)" }}>
-                        {!narrow && <DitherView
+                        <DitherView
                             file="/models/F.glb"
                             className="size-full opacity-75"
+                            // phones render at pixel ratio 1 with no shadows, or iOS Safari runs out of memory
+                            lite={narrow}
                             // grid shrinks linearly from GRID.from at 0% to GRID.to at GRID.doneAt%, then holds
                             gridSize={GRID.from - (GRID.from - GRID.to) * Math.min(1, percent / GRID.doneAt)}
                             gridTween={0.3}
@@ -98,7 +100,7 @@ const Loader = ({ setCharged }: { setCharged: (charged: boolean) => void }) => {
                             // model scale eased from MODEL_SCALE.from to MODEL_SCALE.to across the load
                             scale={MODEL_SCALE.from + (MODEL_SCALE.to - MODEL_SCALE.from) * glide(percent / 100)}
                             fov={50}
-                        />}
+                        />
                     </div>
                 </div>
                 <div className="absolute top-[74%] left-1/2 -translate-x-1/2">

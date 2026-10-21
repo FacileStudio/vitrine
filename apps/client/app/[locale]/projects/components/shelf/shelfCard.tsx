@@ -80,7 +80,8 @@ export default function ShelfCard({ project, index, refs, onOpen, onEnter, onLea
                 </TextReveal>
 
                 {project.services.length > 0 && (
-                    <span className="flex flex-wrap items-center self-end justify-end gap-fc">
+                    // phones show the name alone, the tags crowded the square cover
+                    <span className="hidden flex-wrap items-center self-end justify-end gap-fc lg:flex">
                         {project.services.map((s) => (
                             <TextReveal key={s} cropClassName="shrink-0" className="chip tagText flex items-center gap-[0.8vh]">
                                 <ChipIcon icon={SERVICE_ICONS[s]} />

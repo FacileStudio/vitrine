@@ -41,10 +41,9 @@ export default function DitherBackdrop({
     });
 
     const on = (!arrive || arrived) && !leaving;
-
-    // phones keep only the member heads: every extra canvas pushed iOS Safari into reloading the tab
-    if (narrow)
-        return null;
+    // iOS Safari reloaded the tab under one full canvas per section, so phones render at pixel ratio 1 with no shadows
+    // a portrait screen shows far less width, so phones pull each model halfway to the centre
+    const x = (v: number) => (narrow ? v / 2 : v);
 
     if (variant === "story") {
         return (
@@ -58,10 +57,11 @@ export default function DitherBackdrop({
                     file={MODEL}
                     parallax={0.5}
                     gridSize={on ? 3 : 14}
+                    lite={narrow}
                     scale={4}
                     models={[
-                        { file: MODEL, position: [-3.5, -1.5, 0.5], scale: 4 },
-                        { file: MODEL, position: [3.5, 1, 0.5], scale: 4 },
+                        { file: MODEL, position: [x(-3.5), -1.5, 0.5], scale: 4 },
+                        { file: MODEL, position: [x(3.5), 1, 0.5], scale: 4 },
                     ]}
                 />
             </div>
@@ -87,13 +87,14 @@ export default function DitherBackdrop({
                 intensity={t.intensity}
                 parallax={0.7}
                 gridSize={on ? 2 : 14}
+                lite={narrow}
                 scale={4}
                 file={MODEL}
                 models={placement === "top"
                     ? [{ file: MODEL, position: [0, 2.2, 0], scale: 4 }]
                     : [
-                        { file: MODEL, position: [3, -t.offset, 0], scale: 4 },
-                        { file: MODEL, position: [-t.offset, 1, 0], scale: 4 },
+                        { file: MODEL, position: [x(3), -t.offset, 0], scale: 4 },
+                        { file: MODEL, position: [x(-t.offset), 1, 0], scale: 4 },
                     ]}
             />
         </div>

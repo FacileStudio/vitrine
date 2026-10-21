@@ -89,18 +89,20 @@ export default function Manifesto() {
             <div className="absolute inset-0 bg-background -z-10" aria-hidden="true" />
             <div className="sticky top-0 z-20 h-screen w-full overflow-hidden">
 
-                {!narrow && <DitherView
+                {/* phones render at pixel ratio 1 with no shadows, and pull both models halfway to the centre of the narrow screen */}
+                <DitherView
                     className="absolute top-0 left-0 w-full h-full z-0 opacity-50"
+                    lite={narrow}
                     background="#E4EEE8"
                     parallax={1}
                     scale={1.6}
                     gridSize={showText ? 2 : 9}
                     file="/models/manifesto.glb"
                     models={[
-                        { file: "/models/manifesto.glb", position: [-1.5, 0.5, 2], rotation: [0, 90, 90]},
-                        { file: "/models/manifesto.glb", position: [1.5, -3, 2] },
+                        { file: "/models/manifesto.glb", position: [narrow ? -0.75 : -1.5, 0.5, 2], rotation: [0, 90, 90]},
+                        { file: "/models/manifesto.glb", position: [narrow ? 0.75 : 1.5, -3, 2] },
                     ]}
-                />}
+                />
 
                 {/* both covers sit above the z-50 copy, or the titles and list draw over the stripes while they close */}
                 <Stripes orientation={0} count={4} className="bg-foreground" zIndex={60} openWhen={() => progressRef.current > 0.02} />
