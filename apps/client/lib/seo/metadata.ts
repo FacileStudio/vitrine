@@ -9,7 +9,7 @@ export const siteName = "Facile Studio";
 // OG titles never go through the title template, so the suffix is spelled out in one place
 export const ogTitle = (title: string) => `${title} | ${siteName}`;
 
-export const routePaths = ["", "/projects", "/process", "/studio", "/suite"] as const;
+export const routePaths = ["", "/projects", "/method", "/studio", "/suite"] as const;
 
 export const resolveLocale = (locale: string): Locale => (isLocale(locale) ? locale : defaultLocale);
 

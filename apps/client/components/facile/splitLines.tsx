@@ -10,6 +10,7 @@ interface SplitLinesProps {
     text: string;
     className?: string;
     lineClassName?: string;
+    dimClassName?: string;
     gap?: string;
     reveal?: boolean;
     justify?: boolean;
@@ -21,6 +22,7 @@ const SplitLines = memo(function SplitLines({
     text,
     className,
     lineClassName,
+    dimClassName = "opacity-75",
     gap = "mb-2",
     reveal = true,
     justify = false,
@@ -103,7 +105,7 @@ const SplitLines = memo(function SplitLines({
                         const run = document.createElement("span");
                         run.textContent = w.piece + (w.space && j < line.length - 1 ? " " : "");
                         if (!w.strong)
-                            run.className = "opacity-75";
+                            run.className = dimClassName;
                         inner.append(run);
                     });
                 else
@@ -139,7 +141,7 @@ const SplitLines = memo(function SplitLines({
             cancelAnimationFrame(raf);
             document.fonts.removeEventListener("loadingdone", onFonts);
         };
-    }, [text, gap, lineClassName, reveal, justify]);
+    }, [text, gap, lineClassName, dimClassName, reveal, justify]);
 
     return <Tag ref={ref as never} className={className} aria-label={text.replaceAll("*", "")} />;
 });

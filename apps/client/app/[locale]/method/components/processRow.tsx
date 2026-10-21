@@ -11,7 +11,7 @@ export default function ProcessRow({ step, index, open }: { step: ProcessStep; i
 
     return (
         <TransitionLink
-            href={`/process#${step.slug}`}
+            href={`/method#${step.slug}`}
             className="group glass rounded-fc w-full lg:w-[80vw] 3xl:w-[70vw] flex items-center justify-between gap-6 p-[3vh] text-foreground"
         >
             <div className="flex items-baseline gap-[3vh]">

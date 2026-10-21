@@ -1,12 +1,12 @@
 {
   "meta": {
-    "title": "Process",
+    "title": "Méthode",
     "description": "Ce que fait Facile Studio : stratégie, marque, design produit, développement, motion et hébergement, sous un même toit."
   },
   "scroll": "Voici à quoi ressemble *un projet avec nous*",
   "home": {
     "eyebrow": "Ce que nous faisons",
     "lines": ["*Tout* ce qu'il vous faut,", "sous un *même toit*."],
-    "discover": "Découvrir notre process"
+    "discover": "Découvrir notre méthode"
   }
 }

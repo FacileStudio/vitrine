@@ -44,41 +44,47 @@ const away = (el: HTMLElement | null, i: number) => {
     return { x: CORNERS[i].dx * d, y: CORNERS[i].dy * d };
 };
 
-export default function HeroHeads({ open }: { open: boolean }) {
+// team narrows open to those member slugs; swift drops the landing pause and stagger, for heads that swap mid-scroll
+export default function HeroHeads({ open, team, swift = false }: { open: boolean; team?: string[]; swift?: boolean }) {
     const refs = useRef<(HTMLDivElement | null)[]>([]);
     const sharp = useAfter(open, 1200);
     const heads = useMembers().slice(0, CORNERS.length);
     const narrow = useNarrow();
-    const wasOpen = useRef(false);
-    const [parked, setParked] = useState(false);
+    const wasOn = useRef<boolean[]>([]);
+    const [parked, setParked] = useState<boolean[]>([]);
 
     useLayoutEffect(() => {
         refs.current.forEach((el, i) => gsap.set(el, away(el, i)));
     }, [heads.length]);
 
-    // the fixed layer always intersects the viewport, so the canvases only stop once the heads have flown out; never before the first open, or the models compile mid-intro
+    const on = heads.map((h) => open && (!team || team.includes(h.slug)));
+
+    // only the heads whose state changed fly, so a head kept between two teams never moves or restarts
     useEffect(() => {
-        const park = !open && wasOpen.current;
-        const heads = refs.current;
+        const moving = on.flatMap((o, i) => (o === !!wasOn.current[i] ? [] : [i]));
+        const park = (i: number, v: boolean) => setParked((p) => Object.assign([...p], { [i]: v }));
 
-        wasOpen.current = open;
+        wasOn.current = on;
 
-        heads.forEach((el, i) => {
+        moving.forEach((i, k) => {
+            const el = refs.current[i];
+
+            // the fixed layer always intersects the viewport, so a canvas only stops once its head has flown out; a head only closes after an open, so the models never park before compiling
             gsap.to(el, {
-                ...(open ? { x: 0, y: 0 } : away(el, i)),
-                delay: open ? 0.2 + i * 0.12 : i * 0.05,
-                duration: open ? 1.6 : 0.9,
-                ease: open ? EASE.out : EASE.in,
+                ...(on[i] ? { x: 0, y: 0 } : away(el, i)),
+                delay: swift ? 0 : on[i] ? 0.2 + k * 0.12 : k * 0.05,
+                duration: on[i] ? (swift ? 1.1 : 1.6) : (swift ? 1 : 0.9),
+                ease: on[i] ? EASE.out : swift ? EASE.glide : EASE.in,
                 overwrite: true,
-                onStart: open && i === 0 ? () => setParked(false) : undefined,
-                onComplete: park && i === heads.length - 1 ? () => setParked(true) : undefined,
+                onStart: on[i] ? () => park(i, false) : undefined,
+                onComplete: on[i] ? undefined : () => park(i, true),
             });
         });
+    }, [on, swift]);
 
-        return () => {
-            gsap.killTweensOf(heads);
-        };
-    }, [open, heads.length]);
+    useEffect(() => () => {
+        gsap.killTweensOf(refs.current);
+    }, []);
 
     return (
         // z-60 sits above the next section's layers, so the heads fly out over it instead of being covered; the hero copy is z-70
@@ -95,7 +101,7 @@ export default function HeroHeads({ open }: { open: boolean }) {
                             file={head.model!}
                             className="absolute -inset-1/4"
                             gridSize={sharp ? 2 : 9}
-                            active={!parked}
+                            active={!parked[i]}
                             position={placement(i, narrow)}
                             rotation={[CORNERS[i].pitch, CORNERS[i].yaw, 0]}
                             scale={(headScale(head.slug) * 3 * CORNERS[i].zoom) / ROOM}

@@ -7,8 +7,8 @@ import TextReveal from "@/components/facile/textReveal";
 import { useInView } from "@/hooks/use-in-view";
 import { useLocalized } from "@/lib/i18n/localize";
 import { useProcess } from "@/components/facile/contentProvider";
-import Heading from "../process/components/heading";
-import ProcessRow from "../process/components/processRow";
+import Heading from "../method/components/heading";
+import ProcessRow from "../method/components/processRow";
 
 export default function Process() {
     const t = useTranslations("process");
@@ -30,7 +30,7 @@ export default function Process() {
 
             <div className="w-full lg:w-[80vw] 3xl:w-[70vw] pt-[6vh]">
                 <TextReveal open={open} delay={0.7} cropClassName="w-fit">
-                    <Link href="/process" className="button inline-block">
+                    <Link href="/method" className="button inline-block">
                         <p>{t("home.discover")}</p>
                     </Link>
                 </TextReveal>
