@@ -16,7 +16,6 @@ const PersonHead = memo(function PersonHead({ person, className = "", gridSize =
     const dither = useMemo(() => ({
         active,
         lite: true,
-        warm: true,
         gridSize: gridSize,
         intensity: 1.0,
         parallax: 0.6,

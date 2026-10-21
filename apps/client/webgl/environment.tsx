@@ -11,11 +11,9 @@ const RESOLUTION = 256;
 export interface EnvironmentWrapperProps {
     intensity?: number;
     highlight?: string;
-    // skin under the cold highlights reads grey, so heads dim it and take a warm key from the front
-    warm?: boolean;
 }
 
-function Room({ highlight = "#066aff", warm = false }: { highlight?: string; warm?: boolean }) {
+function Room({ highlight = "#066aff" }: { highlight?: string }) {
     return (
         <group position={[0, -0.5, 0]}>
             <spotLight castShadow position={[-15, 20, 15]} angle={0.2} penumbra={1} intensity={2} decay={0} />
@@ -36,8 +34,7 @@ function Room({ highlight = "#066aff", warm = false }: { highlight?: string; war
             <mesh geometry={boxGeometry} material={whiteMaterial} castShadow receiveShadow position={[2.291, -0.756, -2.621]} rotation={[0, -0.286, 0]} scale={[1.546, 1.552, 1.496]} />
             <mesh geometry={boxGeometry} material={whiteMaterial} castShadow receiveShadow position={[-2.193, -0.369, -5.547]} rotation={[0, 0.516, 0]} scale={[3.875, 3.487, 2.986]} />
 
-            <Lightformer form="ring" position={[2, 3, -2]} scale={10} color={highlight} intensity={warm ? 6 : 15} />
-            {warm && <Lightformer form="ring" position={[-3, 2, 4]} scale={8} color="#ff8a3d" intensity={8} />}
+            <Lightformer form="ring" position={[2, 3, -2]} scale={10} color={highlight} intensity={15} />
             <Lightformer form="box" intensity={80} position={[-14.0, 10.0, 8.0]} scale={[0.1, 2.5, 2.5]} target={false} />
             <Lightformer form="box" intensity={80} position={[-14.0, 14.0, -4.0]} scale={[0.1, 2.5, 2.5]} target={false} />
             <Lightformer form="box" intensity={23} position={[14.0, 12.0, 0.0]} scale={[0.1, 5.0, 5.0]} target={false} />
@@ -51,10 +48,10 @@ function Room({ highlight = "#066aff", warm = false }: { highlight?: string; war
 }
 
 // drei re-bakes whenever children change identity, so a parent re-render must not reach the Room
-export const EnvironmentWrapper = memo(function EnvironmentWrapper({ intensity = 1.5, highlight = "#066aff", warm = false }: EnvironmentWrapperProps) {
+export const EnvironmentWrapper = memo(function EnvironmentWrapper({ intensity = 1.5, highlight = "#066aff" }: EnvironmentWrapperProps) {
     return (
         <Environment resolution={RESOLUTION} background={false} environmentIntensity={intensity}>
-            <Room highlight={highlight} warm={warm} />
+            <Room highlight={highlight} />
         </Environment>
     );
 });

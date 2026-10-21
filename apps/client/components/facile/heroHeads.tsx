@@ -108,7 +108,6 @@ export default function HeroHeads({ open, team, swift = false }: { open: boolean
                             roughness={head.roughness}
                             metalness={0.6}
                             highlight={head.highlight}
-                            warm
                             intensity={0.8}
                             bloom
                             bloomIntensity={0.5}

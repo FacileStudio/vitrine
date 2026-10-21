@@ -15,7 +15,6 @@ export default function MemberHead({ member, narrow }: { member: Member; narrow:
             className="absolute inset-0 h-full"
             dither={{
                 gridSize: sharp ? 2 : 9,
-                warm: true,
                 parallax: 1,
                 parallaxSpeed: 0.01,
                 intensity: 0.85,
