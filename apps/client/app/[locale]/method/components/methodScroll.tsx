@@ -65,7 +65,7 @@ export default function MethodScroll({ slides }: { slides: Slide[] }) {
                 team={crew(crew(slides[step].team, slides[target]?.team), slides[ahead]?.team)}
             />
 
-            <div className="pointer-events-none fixed inset-0 z-[70] grid content-center justify-items-center gap-10 px-6 lg:grid-cols-2 lg:items-center lg:px-[22vw]">
+            <div className="pointer-events-none fixed inset-0 z-[70] grid content-center justify-items-center gap-4 px-6 lg:grid-cols-2 lg:gap-10 lg:items-center lg:px-[22vw]">
                 <Reel
                     position={position}
                     delay={0.06}
@@ -75,7 +75,7 @@ export default function MethodScroll({ slides }: { slides: Slide[] }) {
                         : <h1 key={s.key} className="text-center text-background lg:text-start">{s.title}</h1>)}
                 />
 
-                <div className="grid max-w-[52ch] text-center lg:justify-self-end lg:text-end">
+                <div className="grid max-w-[30ch] lg:max-w-[52ch] text-center lg:justify-self-end lg:text-end">
                     {slides.map((s, i) => (
                         <MethodText key={s.key} text={s.text} place={i === position ? 0 : i < position ? -1 : 1} />
                     ))}
