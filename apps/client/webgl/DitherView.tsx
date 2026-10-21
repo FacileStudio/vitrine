@@ -26,6 +26,7 @@ export interface DitherViewProps extends DitherModelProps {
     bloom?: boolean;
     bloomIntensity?: number;
     ambient?: number;
+    ambientColor?: string;
     gridTween?: number;
     background?: string | null;
     ditherAngle?: number;
@@ -47,6 +48,7 @@ export function DitherView({
     bloom = false,
     bloomIntensity = 0.5,
     ambient = 0,
+    ambientColor = "#ffffff",
     gridTween = 0.8,
     background = null,
     position = [0, -0.5, 0],
@@ -116,7 +118,7 @@ export function DitherView({
                 }}
             >
                 <Suspense fallback={null}>
-                    {ambient > 0 && <ambientLight intensity={ambient} />}
+                    {ambient > 0 && <ambientLight intensity={ambient} color={ambientColor} />}
                     {items.map(({ position: itemPosition = position, ...m }, i) => (
                         <group key={i} position={itemPosition}>
                             <DitherModel {...m} />
