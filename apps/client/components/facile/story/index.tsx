@@ -127,29 +127,36 @@ export default function Story({ sections, name, index, total, backLabel, delay =
         const tick = (time: number) => lenis.raf(time * 1000);
         gsap.ticker.add(tick);
 
-        // skip past the left padding so the first section is visible immediately
-        if (!narrow)
-            lenis.scrollTo(window.innerWidth * 0.5, { immediate: true });
+        const threshold = () => (narrow ? window.innerHeight : window.innerWidth) * 0.35;
 
-        let prevAt = 0;
+        // 1 at the end, -1 at the start, 0 in between
+        const edge = () => {
+            const max = narrow ? el.scrollHeight - el.clientHeight : el.scrollWidth - el.clientWidth;
+            const at = narrow ? el.scrollTop : el.scrollLeft;
+
+            if (at >= max - 5)
+                return 1;
+
+            return at <= 5 ? -1 : 0;
+        };
+
+        let pull = 0;
+
+        // lenis still reports input at its bounds, so pushing past an edge long enough switches project
+        const onVirtual = ({ deltaX, deltaY }: { deltaX: number; deltaY: number }) => {
+            const delta = narrow || Math.abs(deltaY) > Math.abs(deltaX) ? deltaY : deltaX;
+            const at = edge();
+
+            pull = at !== 0 && Math.sign(delta) === at ? pull + Math.abs(delta) : 0;
+
+            if (pull > threshold())
+                go(at > 0 ? "next" : "prev");
+        };
 
         const onScroll = () => {
             const max = narrow ? el.scrollHeight - el.clientHeight : el.scrollWidth - el.clientWidth;
             const at = narrow ? el.scrollTop : el.scrollLeft;
             gsap.set(barRef.current, { scaleX: max > 0 ? at / max : 1 });
-
-            if (leaving.current)
-                return;
-
-            // seamless transition to the next project when scrolling past the end
-            if (max > 0 && at >= max - 5)
-                go("next");
-
-            // reverse direction: scroll to the start to go to the previous project
-            if (max > 0 && at <= 5 && at < prevAt)
-                go("prev");
-
-            prevAt = at;
         };
 
         const step = () => (narrow ? window.innerHeight : window.innerWidth) * 0.6;
@@ -190,11 +197,20 @@ export default function Story({ sections, name, index, total, backLabel, delay =
             if (!dragging)
                 return;
 
-            lenis.scrollTo(startLeft - (e.clientX - startX), { immediate: true, force: true });
+            const target = startLeft - (e.clientX - startX);
+
+            // how far the drag reaches past either end of the track
+            const over = Math.max(target - lenis.limit, -target, 0);
+
+            if (over > threshold() && go(target > 0 ? "next" : "prev"))
+                return;
+
+            lenis.scrollTo(target, { immediate: true, force: true });
         };
 
         const onUp = () => { dragging = false; };
 
+        lenis.on("virtual-scroll", onVirtual);
         el.addEventListener("scroll", onScroll, { passive: true });
         el.addEventListener("pointerdown", onDown);
         window.addEventListener("pointermove", onMove);
