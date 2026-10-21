@@ -88,7 +88,7 @@ export default function HeroHeads({ open, team, swift = false }: { open: boolean
 
     return (
         // z-60 sits above the next section's layers, so the heads fly out over it instead of being covered; the hero copy is z-70
-        <div className="pointer-events-none fixed inset-0 z-[60] opacity-80 overflow-hidden" aria-hidden="true">
+        <div className="pointer-events-none fixed inset-0 z-[60] opacity-100 overflow-hidden" aria-hidden="true">
             {heads.map((head, i) => (
                 <div
                     key={head.slug}
