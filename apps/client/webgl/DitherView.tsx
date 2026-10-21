@@ -21,6 +21,7 @@ export interface DitherViewProps extends DitherModelProps {
     grayscaleOnly?: boolean;
     intensity?: number;
     highlight?: string;
+    warm?: boolean;
     fov?: number;
     cameraPosition?: [number, number, number];
     bloom?: boolean;
@@ -43,6 +44,7 @@ export function DitherView({
     grayscaleOnly = false,
     intensity = 1.8,
     highlight = "#24E27A",
+    warm = false,
     fov = 60,
     cameraPosition = [0, -1, 4],
     bloom = false,
@@ -124,7 +126,7 @@ export function DitherView({
                             <DitherModel {...m} />
                         </group>
                     ))}
-                    <EnvironmentWrapper intensity={intensity} highlight={highlight} />
+                    <EnvironmentWrapper intensity={intensity} highlight={highlight} warm={warm} />
                     <Ready done={done} />
                 </Suspense>
                 <PostProcessing

@@ -23,6 +23,7 @@ const HEAD_PROPS = (members: AuthoredMember[], idle: number, gridSize: number) =
     delay: 0.15 + i * HEAD_STEP,
     dither: {
         gridSize,
+        warm: true,
         intensity: 1.0,
         parallax: 0.6,
         parallaxSpeed: 0.05,

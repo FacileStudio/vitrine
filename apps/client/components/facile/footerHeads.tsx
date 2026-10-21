@@ -68,6 +68,7 @@ export default function FooterHeads({ open, active }: { open: boolean; active: b
                         scale={headScale(head.slug) * 1.7}
                         roughness={head.roughness}
                         highlight={head.highlight}
+                        warm
                         hairColor={head.hair ?? undefined}
                         parallax={0.6}
                         parallaxSpeed={0.05}
