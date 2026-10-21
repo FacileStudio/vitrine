@@ -6,26 +6,26 @@ import Link from "@/components/facile/transitionLink";
 import TextReveal from "@/components/facile/textReveal";
 import { useInView } from "@/hooks/use-in-view";
 import { useLocalized } from "@/lib/i18n/localize";
-import { useProcess } from "@/components/facile/contentProvider";
+import { useMethod } from "@/components/facile/contentProvider";
 import Heading from "../method/components/heading";
-import ProcessRow from "../method/components/processRow";
+import MethodRow from "../method/components/methodRow";
 
-export default function Process() {
-    const t = useTranslations("process");
-    const steps = useLocalized(useProcess());
+export default function Method() {
+    const t = useTranslations("method");
+    const steps = useLocalized(useMethod());
     const ref = useRef<HTMLElement>(null);
     const open = useInView(ref, 0.6);
 
     return (
         <section
             ref={ref}
-            id="process"
+            id="method"
             className="relative w-full bg-background text-foreground flex flex-col items-center gap-fc px-3 lg:px-6 pt-[10vh] pb-[30vh]"
         >
             <Heading eyebrow={t("home.eyebrow")} lines={t.raw("home.lines") as string[]} open={open} />
 
             {steps.map((e, i) => (
-                <ProcessRow key={e.slug} step={e} index={i} open={open} />
+                <MethodRow key={e.slug} step={e} index={i} open={open} />
             ))}
 
             <div className="w-full lg:w-[80vw] 3xl:w-[70vw] pt-[6vh]">

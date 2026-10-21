@@ -3,7 +3,7 @@ import { isLocale } from "@/lib/i18n/locales";
 import { routing } from "@/lib/i18n/routing";
 
 // keep in step with global.d.ts
-export const namespaces = ["common", "seo", "home", "projects", "story", "studio", "suite", "process"] as const;
+export const namespaces = ["common", "seo", "home", "projects", "story", "studio", "suite", "method"] as const;
 
 export default getRequestConfig(async ({ requestLocale }) => {
     const requested = await requestLocale;

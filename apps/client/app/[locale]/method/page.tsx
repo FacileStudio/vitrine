@@ -5,7 +5,7 @@ import { ogTitle, pageLocale, pageMetadata, type LocaleParams } from "@/lib/seo/
 
 export async function generateMetadata({ params }: { params: LocaleParams }): Promise<Metadata> {
     const locale = await pageLocale(params);
-    const t = await getTranslations({ locale, namespace: "process" });
+    const t = await getTranslations({ locale, namespace: "method" });
     const title = t("meta.title");
 
     return pageMetadata(locale, "/method", {

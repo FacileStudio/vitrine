@@ -2,12 +2,12 @@
 
 import { createContext, useContext, type Context, type ReactNode } from "react";
 import type { Project } from "@/lib/content/projects";
-import type { AuthoredStep } from "@/lib/content/process";
+import type { AuthoredStep } from "@/lib/content/method";
 import type { AuthoredMember } from "@/lib/content/studio";
 
 // the three backoffice-editable lists the shell loads once per request and every route reads
 const ProjectsContext = createContext<Project[]>([]);
-const ProcessContext = createContext<AuthoredStep[]>([]);
+const MethodContext = createContext<AuthoredStep[]>([]);
 const MembersContext = createContext<AuthoredMember[]>([]);
 
 const listProvider = <T,>(context: Context<T[]>) =>
@@ -16,9 +16,9 @@ const listProvider = <T,>(context: Context<T[]>) =>
     };
 
 export const ProjectsProvider = listProvider(ProjectsContext);
-export const ProcessProvider = listProvider(ProcessContext);
+export const MethodProvider = listProvider(MethodContext);
 export const MembersProvider = listProvider(MembersContext);
 
 export const useProjects = () => useContext(ProjectsContext);
-export const useProcess = () => useContext(ProcessContext);
+export const useMethod = () => useContext(MethodContext);
 export const useMembers = () => useContext(MembersContext);

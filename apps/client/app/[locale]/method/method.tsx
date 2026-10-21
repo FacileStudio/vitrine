@@ -3,12 +3,12 @@
 import { useTranslations } from "next-intl";
 import PageShell from "@/components/facile/pageShell";
 import { useLocalized } from "@/lib/i18n/localize";
-import { useProcess } from "@/components/facile/contentProvider";
+import { useMethod } from "@/components/facile/contentProvider";
 import MethodScroll from "./components/methodScroll";
 
 export default function MethodPage() {
-    const t = useTranslations("process");
-    const steps = useLocalized(useProcess());
+    const t = useTranslations("method");
+    const steps = useLocalized(useMethod());
 
     const slides = [
         { key: "intro", title: t("meta.title"), text: t("scroll") },

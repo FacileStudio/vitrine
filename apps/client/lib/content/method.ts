@@ -6,9 +6,9 @@ import { trpc } from "@/lib/trpc";
 
 export type AuthoredStep = RouterOutputs["process"]["list"][number];
 
-export type ProcessStep = Resolved<AuthoredStep>;
+export type MethodStep = Resolved<AuthoredStep>;
 
 // a step just created in the backoffice stays off the site until every language has its text
 const complete = (s: AuthoredStep) => locales.every((l) => s.title[l]?.trim() && s.text[l]?.trim());
 
-export const fetchProcess = cache(async () => (await trpc.process.list.query()).filter(complete));
+export const fetchMethod = cache(async () => (await trpc.process.list.query()).filter(complete));

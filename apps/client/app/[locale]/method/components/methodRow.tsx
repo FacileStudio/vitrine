@@ -3,10 +3,10 @@
 import Arrow from "@/components/facile/arrow";
 import TextReveal from "@/components/facile/textReveal";
 import TransitionLink from "@/components/facile/transitionLink";
-import type { ProcessStep } from "@/lib/content/process";
+import type { MethodStep } from "@/lib/content/method";
 import { pad2 } from "@/lib/utils";
 
-export default function ProcessRow({ step, index, open }: { step: ProcessStep; index: number; open: boolean }) {
+export default function MethodRow({ step, index, open }: { step: MethodStep; index: number; open: boolean }) {
     const delay = 0.2 + index * 0.06;
 
     return (
