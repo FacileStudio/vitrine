@@ -26,5 +26,10 @@
     "title": "Vaya",
     "message": "Parece que has llegado al final de nuestro portfolio.",
     "goHome": "Volver al inicio"
+  },
+  "error": {
+    "title": "Algo se rompió",
+    "message": "Esta página ha tenido un error por nuestra parte. Inténtalo de nuevo o vuelve al inicio.",
+    "retry": "Reintentar"
   }
 }

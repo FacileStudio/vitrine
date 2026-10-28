@@ -15,6 +15,8 @@ export interface DitheringEffectOptions {
 
 export class DitheringEffect extends Effect {
     uniforms: Map<string, THREE.Uniform<number | THREE.Vector2>>;
+    private gridSize: number;
+    private pixelScale = 1;
 
     constructor({
         time = 0,
@@ -41,6 +43,7 @@ export class DitheringEffect extends Effect {
         super("DitheringEffect", ditheringShader, { uniforms });
 
         this.uniforms = uniforms;
+        this.gridSize = gridSize;
     }
 
     update(renderer: THREE.WebGLRenderer, _inputBuffer: THREE.WebGLRenderTarget, deltaTime: number): void {
@@ -56,9 +59,20 @@ export class DitheringEffect extends Effect {
         }
     }
 
-    setGridSize(size: number): void {
+    // gridSize is in the device's own pixels; under a lowered dpr it shrinks with the canvas, never below one canvas pixel
+    private applyGridSize(): void {
         const u = this.uniforms.get("gridSize");
-        if (u !== undefined) u.value = size;
+        if (u !== undefined) u.value = Math.max(1, this.gridSize * this.pixelScale);
+    }
+
+    setGridSize(size: number): void {
+        this.gridSize = size;
+        this.applyGridSize();
+    }
+
+    setPixelScale(scale: number): void {
+        this.pixelScale = scale;
+        this.applyGridSize();
     }
 
     setPixelSizeRatio(ratio: number): void {

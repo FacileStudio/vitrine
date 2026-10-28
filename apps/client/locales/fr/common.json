@@ -26,5 +26,10 @@
     "title": "Oups",
     "message": "On dirait que vous êtes arrivé au bout de notre portfolio.",
     "goHome": "Retour à l'accueil"
+  },
+  "error": {
+    "title": "Quelque chose a cassé",
+    "message": "Cette page a rencontré une erreur de notre côté. Réessayez, ou revenez à l’accueil.",
+    "retry": "Réessayer"
   }
 }

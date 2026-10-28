@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import { useScroll } from "@/hooks/use-scroll";
+import { slide } from "@/lib/animations";
 
 const defaultEase = "cubic-bezier(0.7, 0, 0.3, 1)";
 
@@ -39,6 +40,7 @@ export default function Stripes({
 }) {
     const [openState, setOpenState] = useState(false);
     const [ready, setReady] = useState(false);
+    const refs = useRef<(HTMLDivElement | null)[]>([]);
 
     useScroll(() => {
         if (openWhen) setOpenState(openWhen());
@@ -55,6 +57,19 @@ export default function Stripes({
     const exitRad = ((exitOrientation ?? orientation) * Math.PI) / 180;
     const away = `translate(${(-Math.sin(exitRad) * 110).toFixed(2)}%, ${(-Math.cos(exitRad) * 110).toFixed(2)}%)`;
     const vertical = Math.abs(Math.cos(rad)) >= Math.abs(Math.sin(rad));
+
+    useEffect(() => {
+        refs.current.forEach((el, i) => {
+            if (!el)
+                return;
+
+            const delay = open
+                ? leadOpen + (reverseOnOpen ? count - 1 - i : i) * stagger
+                : leadClose + (reverseOnClose ? count - 1 - i : i) * stagger;
+
+            slide(el, open ? away : "translate(0%, 0%)", { duration, delay, easing: ease });
+        });
+    }, [open, away, count, leadOpen, leadClose, reverseOnOpen, reverseOnClose, stagger, duration, ease]);
 
     const stripStyle = (i: number): CSSProperties =>
         vertical
@@ -73,24 +88,18 @@ export default function Stripes({
 
     return (
         <>
-            {Array.from({ length: count }, (_, i) => {
-                const delay = open
-                    ? leadOpen + (reverseOnOpen ? count - 1 - i : i) * stagger
-                    : leadClose + (reverseOnClose ? count - 1 - i : i) * stagger;
-                return (
-                    <div
-                        key={i}
-                        className={`absolute pointer-events-none ${className}`}
-                        style={{
-                            ...stripStyle(i),
-                            zIndex,
-                            transform: open ? away : "translate(0%, 0%)",
-                            transition: `transform ${duration}s ${ease}`,
-                            transitionDelay: `${delay}s`,
-                        }}
-                    />
-                );
-            })}
+            {Array.from({ length: count }, (_, i) => (
+                <div
+                    key={i}
+                    ref={(el) => { refs.current[i] = el; }}
+                    className={`absolute pointer-events-none ${className}`}
+                    style={{
+                        ...stripStyle(i),
+                        zIndex,
+                        transform: "translate(0%, 0%)",
+                    }}
+                />
+            ))}
         </>
     );
 }

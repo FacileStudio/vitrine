@@ -10,14 +10,23 @@ import { DitheringEffect } from "./dithering-shader/DitheringEffect";
 const MAX_FPS = 60;
 const FRAME_SLACK = 0.002;
 
-// the dither reads the scene once per cell, so the scene needs CSS pixels while the pattern keeps device pixels
-function fit(composer: EffectComposer, width: number, height: number) {
+// the dither reads one scene texel near each cell centre, so a few texels per cell look the same as full resolution
+const TEXELS_PER_CELL = 3;
+
+// the scene and bloom only feed the per-cell sample, so they render at a fraction of css size while the pattern keeps device pixels
+function fit(composer: EffectComposer, width: number, height: number, cellCss: number) {
+    const scale = Math.min(1, TEXELS_PER_CELL / cellCss);
+    const w = Math.max(1, Math.ceil(width * scale));
+    const h = Math.max(1, Math.ceil(height * scale));
+
     composer.setSize(width, height);
-    composer.inputBuffer.setSize(Math.ceil(width), Math.ceil(height));
-    composer.outputBuffer.setSize(Math.ceil(width), Math.ceil(height));
+    composer.inputBuffer.setSize(w, h);
+    composer.outputBuffer.setSize(w, h);
+    composer.passes.forEach((pass) => pass.setSize(w, h));
 }
 
 export interface PostProcessingProps {
+    nativeDpr?: number;
     gridSize?: number;
     pixelSizeRatio?: number;
     grayscaleOnly?: boolean;
@@ -28,6 +37,7 @@ export interface PostProcessingProps {
 }
 
 export function PostProcessing({
+    nativeDpr = 1,
     gridSize = 4,
     pixelSizeRatio = 1,
     grayscaleOnly = false,
@@ -43,11 +53,20 @@ export function PostProcessing({
     const [camera, setCamera] = useState<THREE.Camera | null>(null);
     const sinceRender = useRef(Infinity);
     const { size, gl, viewport } = useThree();
+    // a lowered dpr would grow the dots, so the pattern is drawn in the device's own pixels scaled to the canvas
+    const pixelScale = viewport.dpr / nativeDpr;
+    const [cellGrid, setCellGrid] = useState(gridSize);
+    // a cell's side in css px: gridSize × ratio device px at the device's own dpr
+    const cellCss = (Math.max(1, cellGrid) * pixelSizeRatio) / nativeDpr;
 
     useEffect(() => {
         if (composerRef.current)
-            fit(composerRef.current, size.width, size.height);
-    }, [size, viewport.dpr]);
+            fit(composerRef.current, size.width, size.height, cellCss);
+    }, [size, viewport.dpr, cellCss]);
+
+    useEffect(() => {
+        ditherRef.current?.setPixelScale(pixelScale);
+    }, [pixelScale]);
 
     useEffect(() => () => {
         composerRef.current?.dispose();
@@ -85,12 +104,19 @@ export function PostProcessing({
         }
 
         const dither = new DitheringEffect({ gridSize: gridValue.current, pixelSizeRatio, grayscaleOnly, rotation });
+        dither.setPixelScale(pixelScale);
         ditherRef.current = dither;
         composer.addPass(new EffectPass(camera, dither));
+        fit(composer, size.width, size.height, cellCss);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [scene, camera, pixelSizeRatio, grayscaleOnly, rotation, bloom, bloomIntensity]);
 
+    // the scene buffer is sized for the finest grid of the tween, then follows the target once it lands
     useEffect(() => {
         const proxy = { v: gridValue.current };
+
+        setCellGrid(Math.min(gridValue.current, gridSize));
+
         const tween = gsap.to(proxy, {
             v: gridSize,
             duration: gridTween,
@@ -99,6 +125,7 @@ export function PostProcessing({
                 gridValue.current = proxy.v;
                 ditherRef.current?.setGridSize(proxy.v);
             },
+            onComplete: () => setCellGrid(gridSize),
         });
         return () => {
             tween.kill();
@@ -108,7 +135,7 @@ export function PostProcessing({
     useFrame(({ gl, scene: currentScene, camera: currentCamera }, delta) => {
         if (!composerRef.current) {
             composerRef.current = new EffectComposer(gl);
-            fit(composerRef.current, size.width, size.height);
+            fit(composerRef.current, size.width, size.height, cellCss);
         }
         if (scene !== currentScene) setScene(currentScene);
         if (camera !== currentCamera) setCamera(currentCamera);

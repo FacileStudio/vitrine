@@ -26,5 +26,10 @@
     "title": "Hoppla",
     "message": "Sieht so aus, als wären Sie am Ende unseres Portfolios angekommen.",
     "goHome": "Zur Startseite"
+  },
+  "error": {
+    "title": "Etwas ist kaputt",
+    "message": "Auf dieser Seite ist bei uns ein Fehler aufgetreten. Versuchen Sie es erneut oder kehren Sie zur Startseite zurück.",
+    "retry": "Erneut versuchen"
   }
 }

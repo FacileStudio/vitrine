@@ -26,5 +26,10 @@
     "title": "Oops",
     "message": "Looks like you've reached the end of our portfolio.",
     "goHome": "Go Home"
+  },
+  "error": {
+    "title": "Something broke",
+    "message": "This page hit an error on our side. Try again, or head back home.",
+    "retry": "Try again"
   }
 }

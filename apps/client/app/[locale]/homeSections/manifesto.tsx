@@ -1,6 +1,7 @@
 'use client'
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
 import { useTranslations } from "next-intl";
 import Link from "@/components/facile/transitionLink";
 import Stripes from "@/components/facile/stripes";
@@ -37,6 +38,7 @@ export default function Manifesto() {
     const listRef = useRef<HTMLDivElement>(null);
     const progressRef = useRef(0);
     const boxesKey = useRef("");
+    const titleY = useRef<((y: number) => void) | null>(null);
     const narrow = useNarrow();
     const t = useTranslations("home");
 
@@ -44,6 +46,19 @@ export default function Manifesto() {
     const [trusted, setTrusted] = useState(false);
     const [leaving, setLeaving] = useState(false);
     const [boxes, setBoxes] = useState<BoxState[]>(() => CLIENTS.map(() => "down"));
+
+    useEffect(() => {
+        const title = titleRef.current;
+
+        titleY.current = gsap.quickTo(title, "y", {
+            duration: 0.7,
+            ease: "power2.out",
+        });
+
+        return () => {
+            gsap.killTweensOf(title);
+        };
+    }, []);
 
     usePinProgress(sectionRef, (p) => {
         progressRef.current = p;
@@ -58,17 +73,21 @@ export default function Manifesto() {
         if (!title || !list || !row)
             return;
 
-        const drop = (row.offsetTop + row.offsetHeight - title.offsetTop - title.offsetHeight) / 2;
-        title.style.transform = `translateY(${p >= LIST_FROM ? 0 : drop}px)`;
-        if (ctaRef.current)
-            ctaRef.current.style.top = `${title.offsetTop + drop + title.offsetHeight}px`;
-
+        // every layout read happens before the first write, or each scroll event forces a reflow
+        const titleTop = title.offsetTop;
+        const titleHeight = title.offsetHeight;
+        const drop = (row.offsetTop + row.offsetHeight - titleTop - titleHeight) / 2;
         const vw = window.innerWidth;
         const t = Math.min(1, Math.max(0, (p - LIST_FROM) / (LIST_TO - LIST_FROM)));
+        // the list slides from just off the right edge to fully off the left edge
         const x = vw + (-list.offsetWidth - vw) * t;
-        list.style.transform = `translate3d(${x}px, 0, 0)`;
-
+        // each box's centre as a share of the viewport width
         const mids = Array.from(list.children as HTMLCollectionOf<HTMLElement>, (box) => (x + box.offsetLeft + box.offsetWidth / 2) / vw);
+
+        titleY.current?.(p >= LIST_FROM ? 0 : drop);
+        if (ctaRef.current)
+            ctaRef.current.style.top = `${titleTop + drop + titleHeight}px`;
+        list.style.transform = `translate3d(${x}px, 0, 0)`;
         setTrusted(x <= vw * 0.9);
 
         const next = mids.map((mid): BoxState => {
@@ -110,7 +129,7 @@ export default function Manifesto() {
                 <Stripes orientation={180} count={4} className="bg-foreground" zIndex={60} openWhen={() => progressRef.current < 0.94} />
 
                 <div className="absolute inset-0 z-50 flex flex-col items-center justify-center pointer-events-none gap-12">
-                    <div ref={titleRef} className="grid place-items-center px-2 text-center transition-transform duration-700 ease-out">
+                    <div ref={titleRef} className="grid place-items-center px-2 text-center">
                         <h2 className="col-start-1 row-start-1 max-w-3xl text-foreground" aria-hidden={trusted}>
                             {(t.raw("manifesto.creators") as string[]).map((line, i) => (
                                 <TextReveal key={i} open={showText && !trusted} leaving={leaving || trusted} duration={trusted ? 0.35 : 0.6} delay={i * (trusted ? 0.04 : 0.1)}>

@@ -1,7 +1,9 @@
 'use client'
 
-import { useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
+import gsap from "gsap";
 import { useScroll } from "@/hooks/use-scroll";
+import { EASE } from "@/lib/animations";
 import { useNarrow } from "@/hooks/use-narrow";
 import { DitherView } from "@/webgl/lazy";
 
@@ -41,6 +43,40 @@ export default function DitherBackdrop({
     });
 
     const on = (!arrive || arrived) && !leaving;
+    const shown = useRef<boolean | null>(null);
+
+    // the first pass only sets the opacity, so a backdrop never fades in on load
+    useLayoutEffect(() => {
+        const el = ref.current;
+        const first = shown.current === null;
+
+        shown.current = on;
+        if (!el)
+            return;
+
+        if (first) {
+            gsap.set(el, { opacity: on ? 1 : 0 });
+            return;
+        }
+
+        // the shelf backdrop drops out fast, the story one keeps the slow fade both ways
+        const fast = !on && variant !== "story";
+
+        gsap.to(el, {
+            opacity: on ? 1 : 0,
+            duration: fast ? 0.2 : 0.8,
+            ease: fast ? EASE.drop : EASE.cover,
+            overwrite: true,
+        });
+    }, [on, variant]);
+
+    useLayoutEffect(() => {
+        const el = ref.current;
+
+        return () => {
+            gsap.killTweensOf(el);
+        };
+    }, []);
     // iOS Safari reloaded the tab under one full canvas per section, so phones render at pixel ratio 1 with no shadows
     // a portrait screen shows far less width, so phones pull each model halfway to the centre
     const x = (v: number) => (narrow ? v / 2 : v);
@@ -50,7 +86,6 @@ export default function DitherBackdrop({
             <div
                 ref={ref}
                 className="absolute inset-0 h-full w-full"
-                style={{ opacity: on ? 1 : 0, transition: "opacity 0.8s cubic-bezier(0.7, 0, 0.3, 1)" }}
             >
                 <DitherView
                     className="absolute inset-0 h-full w-full opacity-20"
@@ -73,12 +108,6 @@ export default function DitherBackdrop({
     return (
         <div
             ref={ref}
-            style={{
-                opacity: on ? 1 : 0,
-                transition: on
-                    ? "opacity 0.8s cubic-bezier(0.7, 0, 0.3, 1)"
-                    : "opacity 0.2s cubic-bezier(0.6, 0, 1, 1)",
-            }}
             className={`h-screen w-full overflow-hidden ${t.text} ${sticky ? "sticky top-0 -mb-[100vh]" : "fixed top-0"}`}
         >
             <DitherView
