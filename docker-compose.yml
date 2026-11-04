@@ -1,15 +1,27 @@
-version: "3.8"
-
 services:
   vitrine:
-    build: .
-    container_name: facile-vitrine
-    ports:
-      - "3012:3012"
+    build:
+      context: .
+      dockerfile: Dockerfile
     restart: unless-stopped
+    expose:
+      - "3012"
+    networks:
+      - default
+      - dokploy-network
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.vitrine.rule=Host(`facile.studio`) || Host(`localhost`) || Host(`127.0.0.1`)"
-      - "traefik.http.routers.vitrine.entrypoints=web"
-      - "traefik.http.services.vitrine.loadbalancer.server.port=3012"
-      - "traefik.docker.network=dokploy-network"
+      traefik.enable: "true"
+      traefik.docker.network: dokploy-network
+      traefik.http.routers.vitrine-web.rule: "Host(`facile.studio`)"
+      traefik.http.routers.vitrine-web.entrypoints: web
+      traefik.http.routers.vitrine-web.middlewares: redirect-to-https@file
+      traefik.http.routers.vitrine-web.service: vitrine
+      traefik.http.routers.vitrine-secure.rule: "Host(`facile.studio`)"
+      traefik.http.routers.vitrine-secure.entrypoints: websecure
+      traefik.http.routers.vitrine-secure.tls.certresolver: letsencrypt
+      traefik.http.routers.vitrine-secure.service: vitrine
+      traefik.http.services.vitrine.loadbalancer.server.port: "3012"
+
+networks:
+  dokploy-network:
+    external: true
