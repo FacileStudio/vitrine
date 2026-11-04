@@ -569,15 +569,17 @@ export const SUITE_TOOLS: ToolItem[] = [
   {
     id: "fusible",
     name: "Fusible",
-    tagline: "Linter et gestionnaire de projets électroniques en Rust",
-    description: "Vérification de règles électriques, parser Gerber/KiCad et générateur de pinouts pour Embassy.",
+    tagline: "Cartes, firmware et boîtiers dans un seul projet vérifié",
+    description: "Linter électrique et physique, pins firmware Rust générés, pièces 3D en code, nomenclature et fichiers de fabrication. Pilotable par Bulle via MCP.",
     icon: "solar:cpu-bolt-bold-duotone",
     category: "hardware",
     categoryLabel: "Hardware & IoT",
-    githubUrl: "https://github.com/FacileStudio",
-    tag: "Rust · Gerber · ERC",
+    url: "https://fusible.facile.studio",
+    githubUrl: "https://github.com/FacileStudio/Fusible",
+    tag: "Rust · PCB · CAO · MCP",
     badge: "Nouveau",
   },
+
   {
     id: "vision",
     name: "Vision",

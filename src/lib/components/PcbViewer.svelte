@@ -166,7 +166,7 @@
         class="hidden sm:inline-flex rounded-fc-pill bg-fc-surface/85
           backdrop-blur px-3 py-1 text-fc-xs font-mono text-fc-success"
       >
-        Pastille · ERC/DRC Fusible validés
+        Pastille · ERC/DRC <a href="https://fusible.facile.studio" class="text-fc-success">Fusible</a> validés
       </span>
     </div>
   {/if}
