@@ -23,7 +23,7 @@
     { name: "Nuage", cat: "Stockage", icon: "solar:cloud-bold-duotone" },
     { name: "Courrier", cat: "Email", icon: "solar:letter-opened-bold-duotone" },
     { name: "Agenda", cat: "Planning", icon: "solar:calendar-add-bold-duotone" },
-    { name: "Echo", cat: "Visio", icon: "solar:monitor-camera-bold-duotone" },
+    { name: "Echo", cat: "Visio", icon: "solar:videocamera-record-bold-duotone" },
     { name: "Capsule", cat: "Chiffrement", icon: "solar:pill-bold-duotone" },
     { name: "Scribe", cat: "Audio", icon: "solar:microphone-2-bold-duotone" },
     { name: "Journal", cat: "Logs", icon: "solar:notebook-bold-duotone" },

@@ -2,6 +2,11 @@
 
 All notable changes to Facile Studio Vitrine will be documented in this file.
 
+## [1.2.1] - 2026-11-04
+
+### Fixed
+- Echo uses the `solar:videocamera-record-bold-duotone` icon in the suite grid and the ecosystem graph.
+
 ## [1.2.0] - 2026-11-04
 
 ### Changed

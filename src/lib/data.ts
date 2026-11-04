@@ -510,7 +510,7 @@ export const SUITE_TOOLS: ToolItem[] = [
     name: "Echo",
     tagline: "Visioconférence chiffrée sans installation",
     description: "Créez une salle, partagez le lien, c'est parti. WebRTC chiffré.",
-    icon: "solar:monitor-camera-bold-duotone",
+    icon: "solar:videocamera-record-bold-duotone",
     category: "productivity",
     categoryLabel: "Productivité",
     url: "https://echo.facile.studio",
