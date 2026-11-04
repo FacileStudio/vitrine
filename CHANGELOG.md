@@ -2,6 +2,13 @@
 
 All notable changes to Facile Studio Vitrine will be documented in this file.
 
+## [1.2.2] - 2026-11-04
+
+### Fixed
+- Top bar corner fillets no longer float as a separate block while the bar morphs back from its pill shape. They hide during the morph and fade in once the bar and frame have landed.
+- Top bar morph now runs for 500ms, in step with the screen frame.
+- Portfolio cards no longer show light slits at their rounded edges while scrolling. They clip with `clip-path` on a black base, and the unused blur layer is gone.
+
 ## [1.2.1] - 2026-11-04
 
 ### Fixed

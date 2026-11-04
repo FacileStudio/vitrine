@@ -144,7 +144,7 @@
   <div class="fixed top-0 inset-x-0 z-30 flex justify-center pointer-events-none px-2 sm:px-4">
     <div class="pointer-events-auto relative flex items-start justify-center w-full max-w-5xl">
       <div
-        class="hidden sm:block absolute right-full top-3 xl:top-4 pointer-events-none transition-opacity duration-200 ease-out {scrolled ? 'opacity-0' : 'opacity-100'}"
+        class="hidden sm:block absolute right-full top-3 xl:top-4 pointer-events-none transition-opacity ease-out {scrolled ? 'opacity-0 duration-100 delay-0' : 'opacity-100 duration-200 delay-500'}"
         aria-hidden="true"
       >
         <svg viewBox="0 0 19 19" class="h-4 w-4 sm:h-5 sm:w-5 text-fc-surface fill-current block -mr-[0.5px]">
@@ -156,7 +156,7 @@
       </div>
 
       <header
-        class="relative flex h-14 w-full items-center justify-between gap-2 sm:gap-4 transition-all duration-300 ease-out
+        class="relative flex h-14 w-full items-center justify-between gap-2 sm:gap-4 transition-all duration-500 ease-out
           {scrolled
           ? 'mt-2.5 sm:mt-3 rounded-fc-pill bg-fc-surface/85 px-4 sm:px-6 backdrop-blur-xl shadow-lg'
           : 'mt-0 rounded-t-none rounded-b-2xl sm:rounded-b-3xl bg-fc-surface px-4 sm:px-6 md:px-8 shadow-none'}"
@@ -235,7 +235,7 @@
       </header>
 
       <div
-        class="hidden sm:block absolute left-full top-3 xl:top-4 pointer-events-none transition-opacity duration-200 ease-out {scrolled ? 'opacity-0' : 'opacity-100'}"
+        class="hidden sm:block absolute left-full top-3 xl:top-4 pointer-events-none transition-opacity ease-out {scrolled ? 'opacity-0 duration-100 delay-0' : 'opacity-100 duration-200 delay-500'}"
         aria-hidden="true"
       >
         <svg viewBox="0 0 19 19" class="h-4 w-4 sm:h-5 sm:w-5 scale-x-[-1] text-fc-surface fill-current block -ml-[0.5px]">

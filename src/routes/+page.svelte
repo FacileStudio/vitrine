@@ -268,7 +268,7 @@
     {#each CLIENT_PROJECTS as project}
       <a
         href={`/projects/${project.slug}`}
-        class="group relative flex flex-col justify-end aspect-[16/10] overflow-hidden rounded-fc-2xl p-6 transition-all duration-300 hover:-translate-y-1 shadow-md"
+        class="project-card group relative flex flex-col justify-end aspect-[16/10] rounded-fc-2xl bg-black p-6 transition-transform duration-300 hover:-translate-y-1 shadow-md"
       >
         <img
           src={project.cover}
@@ -310,9 +310,9 @@
     >
       {#each CLIENT_PROJECTS as project}
         <article
-          class="project-slide group relative w-[76vw] max-w-[1100px] h-full shrink-0 rounded-fc-3xl overflow-hidden bg-fc-surface shadow-2xl flex flex-col justify-between p-8 xl:p-12 transition-all duration-300"
+          class="project-slide group relative w-[76vw] max-w-[1100px] h-full shrink-0 rounded-fc-3xl bg-black shadow-2xl flex flex-col justify-between p-8 xl:p-12"
         >
-          <div class="absolute inset-0 z-0 overflow-hidden bg-fc-surface">
+          <div class="project-clip absolute inset-0 z-0 bg-black">
             <img
               src={project.cover}
               alt={project.name}
@@ -320,7 +320,6 @@
               loading="lazy"
             />
             <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-black/30 pointer-events-none"></div>
-            <div class="absolute inset-0 bg-black/10 backdrop-blur-[0.5px] pointer-events-none"></div>
           </div>
 
           <div class="relative z-10 flex items-center justify-between gap-4">
@@ -617,3 +616,13 @@
   </div>
 </section>
 
+
+<style>
+  .project-clip {
+    clip-path: inset(0 round var(--radius-fc-3xl));
+  }
+
+  .project-card {
+    clip-path: inset(0 round var(--radius-fc-2xl));
+  }
+</style>
