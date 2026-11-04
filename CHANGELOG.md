@@ -2,6 +2,12 @@
 
 All notable changes to Facile Studio Vitrine will be documented in this file.
 
+## [1.4.2] - 2026-11-04
+
+### Fixed
+- Top bar inner spacing is concentric: logo and right-hand buttons sit 10px from every edge, in both the flush and pill states, so their rounded ends nest inside the bar's curve.
+- Top bar logo sits in a 36px round hit area matching the buttons, with a hover state.
+
 ## [1.4.1] - 2026-11-04
 
 ### Fixed
