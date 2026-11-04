@@ -91,8 +91,14 @@ export function watchActiveSection(
   onScrollState?: (scrolled: boolean) => void,
 ) {
   if (typeof window === "undefined") return () => {};
+  let isScrolled = false;
   const onScroll = () => {
-    onScrollState?.(window.scrollY > 16);
+    const y = window.scrollY;
+    const nextScrolled = isScrolled ? y > 8 : y > 24;
+    if (nextScrolled !== isScrolled) {
+      isScrolled = nextScrolled;
+      onScrollState?.(isScrolled);
+    }
     if (performance.now() < scrollLockUntil) return;
     onActive(detectActiveSection(ids));
   };

@@ -80,7 +80,7 @@
   });
 </script>
 
-<div class="relative w-full h-[380px] sm:h-[480px] lg:h-[560px] rounded-fc-2xl bg-fc-component overflow-hidden shadow-inner">
+<div class="relative w-full h-[380px] sm:h-[480px] lg:h-[560px] rounded-fc-3xl bg-fc-component overflow-hidden shadow-sm border border-fc-border/40">
   <div bind:this={host} class="absolute inset-0" aria-hidden="true"></div>
 
   <div class="absolute top-0 left-0 right-0 flex flex-wrap items-center justify-between gap-2 p-4 pointer-events-none">

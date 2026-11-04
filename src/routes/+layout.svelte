@@ -36,6 +36,7 @@
 
   const isProjectsPage = $derived(page.url.pathname.startsWith("/projects"));
   const isHomePage = $derived(page.url.pathname === "/");
+  const isContactPage = $derived(page.url.pathname === "/contact");
 
   if (browser) {
     const saved = localStorage.getItem("facile-theme");
@@ -119,39 +120,35 @@
   ];
 </script>
 
-<div class="relative min-h-dvh w-full bg-fc-surface p-2 sm:p-3 xl:p-4 text-fc-fg flex flex-col">
+<div class="relative min-h-dvh w-full bg-fc-surface text-fc-fg flex flex-col transition-all duration-500 ease-out {scrolled ? 'p-0' : 'p-2 sm:p-3 xl:p-4'}">
   <EntranceLoader />
 
   <div class="fixed top-0 inset-x-0 z-30 flex justify-center pointer-events-none px-2 sm:px-4">
-    <div class="pointer-events-auto relative flex items-start justify-center transition-all duration-500 ease-fc">
-      <header
-        class="relative flex h-14 items-center justify-between gap-2 sm:gap-4 transition-all duration-500 ease-fc
-          {scrolled
-          ? 'mt-3 w-full max-w-5xl rounded-fc-pill bg-fc-surface/85 px-4 sm:px-6 backdrop-blur-xl shadow-lg'
-          : 'mt-0 w-[calc(100vw-3.5rem)] sm:w-auto sm:min-w-[700px] lg:min-w-[880px] max-w-5xl rounded-t-none rounded-b-[24px] sm:rounded-b-3xl bg-fc-surface px-4 sm:px-6 md:px-8 shadow-none'}"
+    <div class="pointer-events-auto relative flex items-start justify-center w-full max-w-5xl">
+      <div
+        class="hidden sm:block absolute right-full top-3 xl:top-4 pointer-events-none transition-opacity duration-200 ease-out {scrolled ? 'opacity-0' : 'opacity-100'}"
+        aria-hidden="true"
       >
-        <svg
-          viewBox="0 0 19 19"
-          class="absolute right-full top-0 shrink-0 text-fc-surface fill-current transition-all duration-300 ease-fc
-            {scrolled
-            ? 'opacity-0 scale-50 pointer-events-none'
-            : 'opacity-100 scale-100 mt-2 sm:mt-3 xl:mt-4 mr-[-1px]'}"
-          width="24"
-          height="24"
-          aria-hidden="true"
-        >
+        <svg viewBox="0 0 19 19" class="h-4 w-4 sm:h-5 sm:w-5 text-fc-surface fill-current block -mr-[0.5px]">
           <path
             d="M19 19L18.9944 18.5324C18.9369 16.1967 18.4488 13.89 17.5537 11.7289C16.5988 9.42375 15.1993 7.32929 13.435 5.56501C11.6707 3.80074 9.57625 2.40118 7.27112 1.44634C4.96593 0.491499 2.49512 1.09045e-07 0 0H19V19Z"
             fill="currentColor"
           />
         </svg>
+      </div>
 
+      <header
+        class="relative flex h-14 w-full items-center justify-between gap-2 sm:gap-4 transition-all duration-300 ease-out
+          {scrolled
+          ? 'mt-2.5 sm:mt-3 rounded-fc-pill bg-fc-surface/85 px-4 sm:px-6 backdrop-blur-xl shadow-lg border border-fc-border/40'
+          : 'mt-0 rounded-t-none rounded-b-2xl sm:rounded-b-3xl bg-fc-surface px-4 sm:px-6 md:px-8 shadow-none border border-transparent'}"
+      >
         <a
           href="/"
-          class="inline-flex items-center rounded-fc-pill p-1 text-fc-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fc-ring shrink-0"
+          class="inline-flex items-center rounded-fc-pill p-1 text-[#CAE6D8] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fc-ring shrink-0"
           aria-label="Accueil"
         >
-          <svg viewBox="0 0 23 25" class="h-6 w-auto text-fc-fg fill-current">
+          <svg viewBox="0 0 23 25" class="h-6 w-auto text-[#CAE6D8] fill-current">
             <path d="M2.30534 0.255093L2.49734 0.319092C2.08134 1.88709 2.97734 4.06309 4.48134 4.06309C7.61734 4.06309 10.1453 -0.000907898 14.6253 0.0310917C18.1453 0.0310917 18.9133 3.16709 18.9133 4.67109V6.94309H14.0493L14.0173 4.99109C14.0173 2.75109 12.8333 2.23909 11.4893 2.23909C7.00934 2.23909 5.31334 8.57509 2.91334 8.57509C1.56934 8.57509 1.21734 6.71909 1.21734 5.27909C1.21734 3.13509 1.76134 1.15109 2.30534 0.255093ZM5.69734 11.6791L8.73734 4.95909H12.9293C11.7133 7.29509 10.6893 9.56709 9.76134 11.6791H10.1133C13.8573 11.6791 16.8333 12.6071 16.8333 17.5031L12.0333 17.4391C12.0653 12.9591 11.9373 12.1911 10.1453 12.1911H9.50534C6.46534 19.0071 4.28934 24.0311 0.00134376 24.0311L0.0333438 18.7831V11.6791H5.69734ZM0.289344 14.7831V18.7831C1.95334 18.6871 3.42534 16.7671 4.35334 14.6551L5.44134 12.2231C1.31334 12.3831 0.289344 12.8951 0.289344 14.7831ZM19.9478 24.0951C18.5398 24.0951 17.5158 23.1031 17.5158 21.7271C17.5158 20.3831 18.5398 19.3591 19.9478 19.3591C21.3558 19.3591 22.3798 20.3831 22.3798 21.7271C22.3798 23.1031 21.3558 24.0951 19.9478 24.0951Z" />
           </svg>
         </a>
@@ -216,23 +213,19 @@
             <Icon icon={MENU_ICON} size={18} />
           </IconButton>
         </div>
+      </header>
 
-        <svg
-          viewBox="0 0 19 19"
-          class="absolute left-full top-0 shrink-0 scale-x-[-1] text-fc-surface fill-current transition-all duration-300 ease-fc
-            {scrolled
-            ? 'opacity-0 scale-50 pointer-events-none'
-            : 'opacity-100 scale-100 mt-2 sm:mt-3 xl:mt-4 ml-[-1px]'}"
-          width="24"
-          height="24"
-          aria-hidden="true"
-        >
+      <div
+        class="hidden sm:block absolute left-full top-3 xl:top-4 pointer-events-none transition-opacity duration-200 ease-out {scrolled ? 'opacity-0' : 'opacity-100'}"
+        aria-hidden="true"
+      >
+        <svg viewBox="0 0 19 19" class="h-4 w-4 sm:h-5 sm:w-5 scale-x-[-1] text-fc-surface fill-current block -ml-[0.5px]">
           <path
             d="M19 19L18.9944 18.5324C18.9369 16.1967 18.4488 13.89 17.5537 11.7289C16.5988 9.42375 15.1993 7.32929 13.435 5.56501C11.6707 3.80074 9.57625 2.40118 7.27112 1.44634C4.96593 0.491499 2.49512 1.09045e-07 0 0H19V19Z"
             fill="currentColor"
           />
         </svg>
-      </header>
+      </div>
     </div>
   </div>
 
@@ -251,8 +244,8 @@
       >
         <div class="flex flex-col gap-6">
           <div class="flex items-center justify-between">
-            <a href="/" onclick={() => closeSidebar()} class="inline-flex items-center text-fc-fg" aria-label="Accueil">
-              <svg viewBox="0 0 23 25" class="h-6 w-auto text-fc-fg fill-current">
+            <a href="/" onclick={() => closeSidebar()} class="inline-flex items-center text-[#CAE6D8]" aria-label="Accueil">
+              <svg viewBox="0 0 23 25" class="h-6 w-auto text-[#CAE6D8] fill-current">
                 <path d="M2.30534 0.255093L2.49734 0.319092C2.08134 1.88709 2.97734 4.06309 4.48134 4.06309C7.61734 4.06309 10.1453 -0.000907898 14.6253 0.0310917C18.1453 0.0310917 18.9133 3.16709 18.9133 4.67109V6.94309H14.0493L14.0173 4.99109C14.0173 2.75109 12.8333 2.23909 11.4893 2.23909C7.00934 2.23909 5.31334 8.57509 2.91334 8.57509C1.56934 8.57509 1.21734 6.71909 1.21734 5.27909C1.21734 3.13509 1.76134 1.15109 2.30534 0.255093ZM5.69734 11.6791L8.73734 4.95909H12.9293C11.7133 7.29509 10.6893 9.56709 9.76134 11.6791H10.1133C13.8573 11.6791 16.8333 12.6071 16.8333 17.5031L12.0333 17.4391C12.0653 12.9591 11.9373 12.1911 10.1453 12.1911H9.50534C6.46534 19.0071 4.28934 24.0311 0.00134376 24.0311L0.0333438 18.7831V11.6791H5.69734ZM0.289344 14.7831V18.7831C1.95334 18.6871 3.42534 16.7671 4.35334 14.6551L5.44134 12.2231C1.31334 12.3831 0.289344 12.8951 0.289344 14.7831ZM19.9478 24.0951C18.5398 24.0951 17.5158 23.1031 17.5158 21.7271C17.5158 20.3831 18.5398 19.3591 19.9478 19.3591C21.3558 19.3591 22.3798 20.3831 22.3798 21.7271C22.3798 23.1031 21.3558 24.0951 19.9478 24.0951Z" />
               </svg>
             </a>
@@ -302,17 +295,33 @@
     </div>
   {/if}
 
-  <div class="relative flex min-h-[calc(100dvh-1rem)] sm:min-h-[calc(100dvh-1.5rem)] xl:min-h-[calc(100dvh-2rem)] w-full flex-1 flex-col rounded-[28px] sm:rounded-[36px] overflow-hidden bg-fc-page">
-    <div class="h-14 shrink-0 pointer-events-none" aria-hidden="true"></div>
-    <main class="flex-1"><Page width="xl" class="pt-2 sm:pt-4">{@render children()}</Page></main>
+  <div
+    class="relative flex min-h-0 w-full flex-1 flex-col overflow-hidden bg-fc-page transition-all duration-500 ease-out
+      {scrolled ? 'rounded-none' : 'rounded-[28px] sm:rounded-[36px]'}"
+  >
+    <div class="pointer-events-none fixed inset-0 overflow-hidden z-0" aria-hidden="true">
+      <div class="ambient-blob-1 absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-[#CAE6D8]/10 dark:bg-[#CAE6D8]/5 blur-[120px]"></div>
+      <div class="ambient-blob-2 absolute top-1/3 -right-40 w-[550px] h-[550px] rounded-full bg-[#CAE6D8]/8 dark:bg-[#CAE6D8]/4 blur-[140px]"></div>
+      <div class="ambient-blob-3 absolute -bottom-40 left-1/4 w-[700px] h-[700px] rounded-full bg-[#CAE6D8]/10 dark:bg-[#CAE6D8]/5 blur-[130px]"></div>
+      <div class="absolute inset-0 backdrop-blur-[60px]"></div>
+    </div>
 
-    <footer class="mx-auto w-full max-w-fc-xl px-4 pb-12 pt-8 sm:px-6 md:px-10">
+    <div class="h-14 shrink-0 pointer-events-none" aria-hidden="true"></div>
+    <main class="relative z-10 flex-1">
+      {#if isHomePage || isContactPage}
+        {@render children()}
+      {:else}
+        <Page width="xl" class="pt-2 sm:pt-4">{@render children()}</Page>
+      {/if}
+    </main>
+
+    <footer class="relative z-10 mx-auto w-full max-w-fc-xl px-4 pb-12 pt-8 sm:px-6 md:px-10">
       <div
-        class="flex flex-col items-center justify-between gap-6 rounded-fc-2xl bg-fc-component px-6 py-8
+        class="flex flex-col items-center justify-between gap-6 rounded-3xl md:rounded-full bg-fc-component px-6 sm:px-10 py-6 md:py-4
           text-fc-xs text-fc-fg-muted sm:flex-row shadow-sm"
       >
         <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 text-center sm:text-left">
-          <svg viewBox="0 0 23 25" class="h-6 w-auto text-fc-fg fill-current">
+          <svg viewBox="0 0 23 25" class="h-6 w-auto text-[#CAE6D8] fill-current">
             <path d="M2.30534 0.255093L2.49734 0.319092C2.08134 1.88709 2.97734 4.06309 4.48134 4.06309C7.61734 4.06309 10.1453 -0.000907898 14.6253 0.0310917C18.1453 0.0310917 18.9133 3.16709 18.9133 4.67109V6.94309H14.0493L14.0173 4.99109C14.0173 2.75109 12.8333 2.23909 11.4893 2.23909C7.00934 2.23909 5.31334 8.57509 2.91334 8.57509C1.56934 8.57509 1.21734 6.71909 1.21734 5.27909C1.21734 3.13509 1.76134 1.15109 2.30534 0.255093ZM5.69734 11.6791L8.73734 4.95909H12.9293C11.7133 7.29509 10.6893 9.56709 9.76134 11.6791H10.1133C13.8573 11.6791 16.8333 12.6071 16.8333 17.5031L12.0333 17.4391C12.0653 12.9591 11.9373 12.1911 10.1453 12.1911H9.50534C6.46534 19.0071 4.28934 24.0311 0.00134376 24.0311L0.0333438 18.7831V11.6791H5.69734ZM0.289344 14.7831V18.7831C1.95334 18.6871 3.42534 16.7671 4.35334 14.6551L5.44134 12.2231C1.31334 12.3831 0.289344 12.8951 0.289344 14.7831ZM19.9478 24.0951C18.5398 24.0951 17.5158 23.1031 17.5158 21.7271C17.5158 20.3831 18.5398 19.3591 19.9478 19.3591C21.3558 19.3591 22.3798 20.3831 22.3798 21.7271C22.3798 23.1031 21.3558 24.0951 19.9478 24.0951Z" />
           </svg>
           <div>
@@ -336,3 +345,52 @@
 
   <ContactModal bind:open={contactOpen} />
 </div>
+
+<style>
+  @keyframes ambient-float-1 {
+    0%, 100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(60px, 80px) scale(1.08);
+    }
+  }
+
+  @keyframes ambient-float-2 {
+    0%, 100% {
+      transform: translate(0, 0) scale(1.05);
+    }
+    50% {
+      transform: translate(-70px, -50px) scale(0.95);
+    }
+  }
+
+  @keyframes ambient-float-3 {
+    0%, 100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(50px, -60px) scale(1.06);
+    }
+  }
+
+  .ambient-blob-1 {
+    animation: ambient-float-1 22s ease-in-out infinite;
+  }
+
+  .ambient-blob-2 {
+    animation: ambient-float-2 26s ease-in-out infinite;
+  }
+
+  .ambient-blob-3 {
+    animation: ambient-float-3 30s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ambient-blob-1,
+    .ambient-blob-2,
+    .ambient-blob-3 {
+      animation: none !important;
+    }
+  }
+</style>

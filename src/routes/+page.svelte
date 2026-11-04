@@ -3,10 +3,11 @@
   import { onMount } from "svelte";
   import { gsap } from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
-  import { Button, Icon, icons } from "@facile/muse";
+  import { Button, Icon, icons, prefersReducedMotion } from "@facile/muse";
   import PcbViewer from "$lib/components/PcbViewer.svelte";
   import InteractiveBlob from "$lib/components/InteractiveBlob.svelte";
   import StudioGraph from "$lib/components/StudioGraph.svelte";
+  import TechBadge from "$lib/components/TechBadge.svelte";
   import {
     CATEGORIES,
     CLIENT_PROJECTS,
@@ -19,6 +20,7 @@
   let selectedCategory = $state<string>("all");
   let horizontalSection = $state<HTMLElement | null>(null);
   let horizontalTrack = $state<HTMLElement | null>(null);
+  let heroAnimated = $state(false);
 
   const filteredTools = $derived(
     selectedCategory === "all"
@@ -26,8 +28,38 @@
       : SUITE_TOOLS.filter((t) => t.category === selectedCategory)
   );
 
+  function triggerHeroAnimation() {
+    if (heroAnimated || !browser) return;
+    heroAnimated = true;
+
+    if (prefersReducedMotion()) {
+      gsap.set("[data-hero-item]", { opacity: 1, y: 0 });
+      return;
+    }
+
+    gsap.fromTo(
+      "[data-hero-item]",
+      { opacity: 0, y: 32 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.85,
+        stagger: 0.12,
+        ease: "power3.out",
+        clearProps: "transform,opacity",
+      }
+    );
+  }
+
   onMount(() => {
     if (!browser) return;
+
+    if ((window as any).__curtainComplete) {
+      triggerHeroAnimation();
+    } else {
+      window.addEventListener("curtain-complete", triggerHeroAnimation, { once: true });
+      setTimeout(triggerHeroAnimation, 2200);
+    }
 
     gsap.registerPlugin(ScrollTrigger);
 
@@ -37,8 +69,8 @@
       if (!horizontalSection || !horizontalTrack) return;
 
       const getScrollAmount = () => {
-        if (!horizontalTrack) return 0;
-        return horizontalTrack.scrollWidth - window.innerWidth;
+        if (!horizontalTrack || !horizontalSection) return 0;
+        return horizontalTrack.scrollWidth - horizontalSection.clientWidth;
       };
 
       const tween = gsap.to(horizontalTrack, {
@@ -46,9 +78,10 @@
         ease: "none",
         scrollTrigger: {
           trigger: horizontalSection,
-          start: "top 12%",
+          start: "top 72px",
           end: () => `+=${getScrollAmount()}`,
           pin: true,
+          anticipatePin: 1,
           scrub: 1,
           invalidateOnRefresh: true,
         },
@@ -75,25 +108,24 @@
 
 <section
   id="hero"
-  use:scrollReveal={{ delay: 0.05, stagger: 0.08 }}
-  class="relative flex flex-col justify-between min-h-[calc(100dvh-5.5rem)] sm:min-h-[calc(100dvh-6.5rem)] xl:min-h-[calc(100dvh-7rem)] -mx-4 sm:-mx-6 md:-mx-10 px-4 sm:px-6 md:px-10 pt-6 sm:pt-8 pb-20 sm:pb-28 overflow-hidden"
+  class="relative flex flex-col justify-between min-h-[calc(100dvh-5.5rem)] sm:min-h-[calc(100dvh-6.5rem)] xl:min-h-[calc(100dvh-7rem)] w-full max-w-fc-xl mx-auto px-4 sm:px-6 md:px-10 pt-6 sm:pt-8 pb-20 sm:pb-28 overflow-hidden"
 >
-  <div data-reveal-item class="relative z-10 flex flex-col gap-6 max-w-4xl">
-    <h1 class="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-fc-fg leading-[1.08]">
+  <div class="relative z-10 flex flex-col gap-6 max-w-4xl">
+    <h1 data-hero-item class="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-fc-fg leading-[1.08]">
       On simplifie,<br />
       <span class="text-fc-fg-muted">vous créez.</span>
     </h1>
 
-    <div class="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4 text-fc-sm text-fc-fg-muted font-mono">
-      <span class="text-fc-accent font-bold">[fasil]</span>
+    <div data-hero-item class="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4 text-fc-sm text-fc-fg-muted font-mono">
+      <span class="text-[#CAE6D8] font-bold">[fasil]</span>
       <span>Qui se fait sans effort, qui ne présente aucune difficulté. Simple, aisé.</span>
     </div>
 
-    <p class="text-fc-md sm:text-fc-lg text-fc-fg-muted max-w-3xl leading-relaxed">
+    <p data-hero-item class="text-fc-md sm:text-fc-lg text-fc-fg-muted max-w-3xl leading-relaxed">
       Studio de design et d'ingénierie web. Qualité française, savoir-faire sur mesure et souveraineté technique. On conçoit, développe et déploie des sites vitrines d'exception, des applications réactives et des identités visuelles remarquables. Zéro usine à gaz, des performances brutes et un soin obsessionnel du détail.
     </p>
 
-    <div class="flex flex-wrap items-center gap-4 pt-2">
+    <div data-hero-item class="flex flex-wrap items-center gap-4 pt-2">
       <Button
         variant="primary"
         size="lg"
@@ -124,7 +156,7 @@
     </div>
   </div>
 
-  <div data-reveal-item class="absolute bottom-0 left-0 w-full overflow-hidden select-none pointer-events-none">
+  <div data-hero-item class="absolute bottom-0 left-0 w-full overflow-hidden select-none pointer-events-none">
     <svg viewBox="-10 0 1510 435" preserveAspectRatio="xMinYMax meet" fill="none" class="w-full h-auto text-fc-fg fill-current transition-colors duration-300">
       <path d="M33.1193 3.91218L36.4625 5.02899C29.2188 32.3912 44.8207 70.3632 71.0097 70.3632C125.616 70.3632 169.636 -0.555124 247.646 0.00328039C308.939 0.00328039 322.312 54.7276 322.312 80.973V120.62H237.616L237.059 86.5571C237.059 47.4683 216.442 38.5337 193.039 38.5337C115.029 38.5337 85.4972 149.099 43.7063 149.099C20.3034 149.099 14.1741 116.711 14.1741 91.5828C14.1741 54.1692 23.6467 19.5477 33.1193 3.91218ZM92.1837 203.265L145.119 85.9987H218.114C196.94 126.763 179.109 166.41 162.95 203.265H169.079C234.273 203.265 286.094 219.459 286.094 304.896L202.512 303.779C203.069 225.602 200.84 212.2 169.636 212.2H158.492C105.557 331.141 67.6664 418.812 -7 418.812L-6.44279 327.232V203.265H92.1837ZM-1.98509 257.431V327.232C26.9899 325.557 52.6217 292.052 68.7808 255.197L87.7261 212.758C15.8457 215.55 -1.98509 224.485 -1.98509 257.431Z" fill="currentColor"/>
       <path d="M302.996 416.02L408.402 80.973H490.358L595.764 416.02H538.186L442.531 115.408H455.068L360.574 416.02H302.996ZM361.735 343.426V291.075H537.257V343.426H361.735Z" fill="currentColor"/>
@@ -137,7 +169,7 @@
   </div>
 </section>
 
-<section id="services" use:scrollReveal={{ delay: 0.05 }} class="flex flex-col gap-10 py-16">
+<section id="services" use:scrollReveal={{ delay: 0.05 }} class="flex flex-col gap-10 py-16 w-full max-w-fc-xl mx-auto px-4 sm:px-6 md:px-10">
   <div class="flex flex-col gap-3">
     <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">Prestations studio</span>
     <h2 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">
@@ -197,8 +229,8 @@
   </div>
 </section>
 
-<section id="projets" class="relative py-12 lg:py-0">
-  <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 lg:mb-0 lg:px-2">
+<section id="projets" class="relative py-12 lg:py-0 w-full overflow-hidden">
+  <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 lg:mb-10 max-w-fc-xl mx-auto px-4 sm:px-6 md:px-10">
     <div class="flex flex-col gap-3">
       <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">Réalisations récentes</span>
       <h2 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">
@@ -219,36 +251,35 @@
     </Button>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:hidden mt-8">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:hidden mt-8 max-w-fc-xl mx-auto px-4 sm:px-6">
     {#each CLIENT_PROJECTS as project}
       <a
         href={`/projects/${project.slug}`}
-        class="group flex flex-col overflow-hidden rounded-fc-2xl bg-fc-component transition-all duration-300 hover:-translate-y-1 shadow-sm"
+        class="group relative flex flex-col justify-end aspect-[16/10] overflow-hidden rounded-fc-2xl p-6 transition-all duration-300 hover:-translate-y-1 shadow-md border border-white/10"
       >
-        <div class="relative aspect-video w-full overflow-hidden bg-fc-surface">
-          <img
-            src={project.cover}
-            alt={project.name}
-            class="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-            loading="lazy"
-          />
-        </div>
-        <div class="flex flex-col gap-3 p-6">
+        <img
+          src={project.cover}
+          alt={project.name}
+          class="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-105"
+          loading="lazy"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-transparent pointer-events-none"></div>
+        <div class="relative z-10 flex flex-col gap-2.5 text-white">
           <div class="flex items-center justify-between">
-            <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">{project.category}</span>
-            <span class="text-[11px] font-mono text-fc-fg-muted">{project.year}</span>
+            <span class="rounded-fc-pill bg-black/60 backdrop-blur-md border border-white/15 px-3 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-white">
+              {project.category}
+            </span>
+            <span class="text-[11px] font-mono text-zinc-300">{project.year}</span>
           </div>
-          <h3 class="text-fc-xl font-bold text-fc-fg group-hover:text-fc-accent transition-colors">
+          <h3 class="text-xl font-bold text-white group-hover:text-fc-accent transition-colors">
             {project.name}
           </h3>
-          <p class="text-fc-sm text-fc-fg-muted line-clamp-2">
+          <p class="text-xs text-zinc-300 line-clamp-2 leading-relaxed">
             {project.description}
           </p>
-          <div class="flex flex-wrap gap-1.5 pt-2">
-            {#each project.stack as tech}
-              <span class="rounded-fc-md bg-fc-surface px-2 py-0.5 text-[11px] font-medium text-fc-fg-muted">
-                {tech}
-              </span>
+          <div class="flex flex-wrap gap-1.5 pt-1">
+            {#each project.stack.slice(0, 3) as tech}
+              <TechBadge {tech} class="bg-black/60 backdrop-blur-md border border-white/15 text-white" />
             {/each}
           </div>
         </div>
@@ -258,84 +289,84 @@
 
   <div
     bind:this={horizontalSection}
-    class="hidden lg:block relative -mx-4 sm:-mx-6 md:-mx-10 overflow-hidden"
+    class="hidden lg:block relative w-full overflow-hidden"
   >
     <div
       bind:this={horizontalTrack}
-      class="flex items-center gap-8 px-10 py-10 w-fit h-[82vh] min-h-[580px]"
+      class="flex items-center gap-8 pl-8 md:pl-12 lg:pl-16 pr-20 lg:pr-32 py-6 w-fit"
     >
-      {#each CLIENT_PROJECTS as project, index}
-        <div
-          class="project-slide w-[78vw] max-w-4xl h-[72vh] min-h-[500px] shrink-0 rounded-fc-3xl bg-fc-component p-8 xl:p-10 shadow-md flex flex-col justify-between"
+      {#each CLIENT_PROJECTS as project}
+        <article
+          class="project-slide group relative w-[76vw] max-w-[1100px] h-[66vh] min-h-[460px] max-h-[620px] shrink-0 rounded-fc-3xl overflow-hidden bg-fc-surface border border-white/10 shadow-2xl flex flex-col justify-between p-8 xl:p-12 transition-all duration-300"
         >
-          <div class="grid grid-cols-12 gap-8 h-full items-center">
-            <div class="col-span-7 h-full flex flex-col justify-between">
-              <div class="flex flex-col gap-4">
-                <div class="flex items-center gap-3">
-                  <span class="rounded-fc-pill bg-fc-surface px-3 py-1 text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">
-                    {project.category}
-                  </span>
-                  <span class="text-fc-xs font-mono text-fc-fg-muted">
-                    0{index + 1} / 0{CLIENT_PROJECTS.length} · {project.year}
-                  </span>
-                </div>
-                <h3 class="text-3xl xl:text-4xl font-black tracking-tight text-fc-fg">
-                  {project.name}
-                </h3>
-                <p class="text-fc-sm xl:text-fc-base text-fc-fg-muted leading-relaxed line-clamp-3">
-                  {project.description}
-                </p>
-                <div class="flex flex-wrap gap-2 pt-2">
-                  {#each project.stack as tech}
-                    <span class="rounded-fc-md bg-fc-surface px-2.5 py-1 text-fc-xs font-medium text-fc-fg-muted">
-                      {tech}
-                    </span>
-                  {/each}
-                </div>
-              </div>
+          <div class="absolute inset-0 z-0 overflow-hidden bg-fc-surface">
+            <img
+              src={project.cover}
+              alt={project.name}
+              class="size-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-black/30 pointer-events-none"></div>
+            <div class="absolute inset-0 bg-black/10 backdrop-blur-[0.5px] pointer-events-none"></div>
+          </div>
 
-              <div class="flex items-center gap-4 pt-6">
-                <Button
-                  variant="primary"
-                  size="md"
-                  href={`/projects/${project.slug}`}
-                  class="rounded-fc-pill font-semibold px-6 shadow-sm"
-                  icon={icons.arrow}
-                >
-                  Voir l'étude de cas
-                </Button>
-                {#if project.link}
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noreferrer"
-                    class="inline-flex items-center gap-2 rounded-fc-pill bg-fc-surface px-5 py-2.5 text-fc-xs font-semibold text-fc-fg transition-colors hover:bg-fc-surface-hover"
-                  >
-                    <span>Site en ligne</span>
-                    <Icon icon={icons.arrow} size={14} />
-                  </a>
-                {/if}
+          <div class="relative z-10 flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+              <span class="rounded-fc-pill bg-black/60 backdrop-blur-md border border-white/15 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-white">
+                {project.category}
+              </span>
+              <span class="rounded-fc-pill bg-black/40 backdrop-blur-md px-3 py-1 text-xs font-mono text-zinc-300">
+                {project.year}
+              </span>
+            </div>
+            {#if project.link}
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noreferrer"
+                class="inline-flex items-center gap-1.5 rounded-fc-pill bg-black/60 backdrop-blur-md border border-white/15 px-4 py-1.5 text-xs font-semibold text-white transition-all hover:bg-white hover:text-black"
+              >
+                <span>Site en ligne</span>
+                <Icon icon={icons.arrow} size={14} />
+              </a>
+            {/if}
+          </div>
+
+          <div class="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-6 pt-12">
+            <div class="flex flex-col gap-3 max-w-2xl">
+              <h3 class="text-3xl xl:text-5xl font-black tracking-tight text-white drop-shadow-md">
+                {project.name}
+              </h3>
+              <p class="text-sm xl:text-base text-zinc-200 line-clamp-2 leading-relaxed drop-shadow-sm max-w-xl">
+                {project.description}
+              </p>
+              <div class="flex flex-wrap gap-2 pt-1">
+                {#each project.stack as tech}
+                  <TechBadge {tech} class="bg-black/60 backdrop-blur-md border border-white/15 text-white" />
+                {/each}
               </div>
             </div>
 
-            <div class="col-span-5 h-full relative rounded-fc-2xl overflow-hidden bg-fc-surface shadow-xs">
-              <img
-                src={project.cover}
-                alt={project.name}
-                class="size-full object-cover transition-transform duration-700 hover:scale-105"
-                loading="lazy"
-              />
+            <div class="flex items-center gap-3 shrink-0">
+              <Button
+                variant="primary"
+                size="md"
+                href={`/projects/${project.slug}`}
+                class="rounded-fc-pill font-semibold px-6 shadow-xl bg-white text-black hover:bg-zinc-200"
+                icon={icons.arrow}
+              >
+                Voir l'étude de cas
+              </Button>
             </div>
           </div>
-        </div>
+        </article>
       {/each}
     </div>
   </div>
 </section>
 
-<section id="ecosystem" use:scrollReveal={{ delay: 0.05 }} class="flex flex-col gap-8 py-16">
+<section id="ecosystem" use:scrollReveal={{ delay: 0.05 }} class="flex flex-col gap-8 py-16 w-full max-w-fc-xl mx-auto px-4 sm:px-6 md:px-10">
   <div class="flex flex-col gap-3 text-center items-center">
-    <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">Architecture studio</span>
     <h2 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">
       Un écosystème connecté, zéro friction
     </h2>
@@ -347,10 +378,9 @@
   <StudioGraph />
 </section>
 
-<section id="suite" use:scrollReveal={{ delay: 0.05 }} class="flex flex-col gap-10 py-16">
+<section id="suite" use:scrollReveal={{ delay: 0.05 }} class="flex flex-col gap-10 py-16 w-full max-w-fc-xl mx-auto px-4 sm:px-6 md:px-10">
   <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
     <div class="flex flex-col gap-3">
-      <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">Boîte à outils studio</span>
       <h2 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">
         La Suite Facile
       </h2>
@@ -456,11 +486,10 @@
   </div>
 </section>
 
-<section id="bulle" use:scrollReveal={{ delay: 0.05 }} class="flex flex-col gap-8 py-16">
+<section id="bulle" use:scrollReveal={{ delay: 0.05 }} class="flex flex-col gap-8 py-16 w-full max-w-fc-xl mx-auto px-4 sm:px-6 md:px-10">
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center rounded-fc-3xl bg-fc-component p-6 sm:p-10 shadow-sm">
     <div class="flex flex-col gap-6">
       <div class="flex flex-col gap-2">
-        <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">Intelligence connectée</span>
         <h2 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">
           Bulle, l'agent connecté à tous vos outils
         </h2>
@@ -477,7 +506,15 @@
       </div>
 
       <div class="flex items-center gap-3 pt-2">
-        <Button variant="primary" size="md" href="https://bulle.facile.studio" target="_blank" rel="noreferrer" class="rounded-fc-pill font-semibold px-5" icon={icons.bolt}>
+        <Button
+          variant="primary"
+          size="md"
+          href="https://bulle.facile.studio"
+          target="_blank"
+          rel="noreferrer"
+          class="rounded-fc-pill font-semibold px-5"
+          icon="solar:smile-circle-bold-duotone"
+        >
           Tester Bulle
         </Button>
         <Button variant="ghost" size="md" href="https://github.com/FacileStudio/Bulle" target="_blank" rel="noreferrer" class="rounded-fc-pill bg-fc-surface text-fc-fg hover:bg-fc-component" icon={GITHUB_ICON}>
@@ -492,15 +529,14 @@
   </div>
 </section>
 
-<section id="hardware" use:scrollReveal={{ delay: 0.05 }} class="flex flex-col gap-10 py-16">
+<section id="hardware" use:scrollReveal={{ delay: 0.05 }} class="flex flex-col gap-10 py-16 w-full max-w-fc-xl mx-auto px-4 sm:px-6 md:px-10">
   <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
     <div class="flex flex-col gap-3">
-      <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">Atelier R&D & Hardware</span>
       <h2 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">
         Pastille · Balise vocale ouverte 38 mm
       </h2>
       <p class="text-fc-md text-fc-fg-muted max-w-2xl">
-        Quand le web rencontre l'électronique embarquée. Pastille est un charm matériel ouvert basé sur ESP32-S3 avec écran circulaire IPS et firmware en Rust Embassy.
+        En complément du logiciel et du web, Facile Studio dispose de son propre atelier de R&D et hardware dédié aux projets modernes et aux objets connectés sur mesure. Pastille en est la vitrine ouverte : un charm matériel de 38 mm propulsé par ESP32-S3, avec écran circulaire IPS et firmware en Rust Embassy.
       </p>
     </div>
     <div class="flex flex-wrap gap-2">
@@ -513,12 +549,10 @@
     </div>
   </div>
 
-  <div class="rounded-fc-3xl bg-fc-component p-3 sm:p-6 shadow-sm">
-    <PcbViewer />
-  </div>
+  <PcbViewer />
 </section>
 
-<section id="contact" use:scrollReveal={{ delay: 0.05 }} class="flex flex-col gap-8 py-20">
+<section id="contact" use:scrollReveal={{ delay: 0.05 }} class="flex flex-col gap-8 py-20 w-full max-w-fc-xl mx-auto px-4 sm:px-6 md:px-10">
   <div class="flex flex-col items-center text-center gap-6 rounded-fc-3xl bg-fc-component p-8 sm:p-14 shadow-sm">
     <h2 class="text-3xl sm:text-5xl font-black tracking-tight text-fc-fg max-w-2xl leading-tight text-balance">
       Prêt à concevoir un site web ou une application qui compte&nbsp;?
@@ -552,3 +586,15 @@
     </div>
   </div>
 </section>
+
+<style>
+  :global([data-hero-item]) {
+    opacity: 0;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :global([data-hero-item]) {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+</style>

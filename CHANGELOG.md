@@ -2,6 +2,33 @@
 
 All notable changes to Facile Studio Vitrine will be documented in this file.
 
+## [1.0.4] - 2026-11-04
+
+### Added
+- Full-page multi-step inquiry form for `/contact` with interactive project type, budget, timeline, and vision steps.
+- Staggered entrance animation for hero text triggered on curtain reveal completion.
+- White monochrome technology logo icons on all stack badges (SvelteKit, Tailwind CSS, TypeScript, Go, etc.).
+- Widescreen horizontal portfolio cards preserving natural screenshot aspect ratio.
+- Subtle ambient background gradient animation with `#CAE6D8` green behind a blurred backdrop.
+
+### Changed
+- Portfolio section expanded to full width with seamless GSAP horizontal scrolling without clipping.
+- Top navigation updated to morph smoothly between screen-border docked state and floating pill without artifacts.
+- Screen frame borders smoothly transition and disappear when scrolling.
+- Brand green `#CAE6D8` applied to `[fasil]` wordmark, top nav logo, curtain logo, and footer logo.
+- Pastille section updated to detail Facile's R&D atelier and custom hardware engineering.
+- Interactive 3D viewer adjusted to edge-to-edge card layout without extra padding.
+- Ecosystem graph center simplified to a single seamless node disc.
+- Footer styled as a rounded pill with completely rounded full ends.
+- Bulle button icon updated to authentic smile duotone logo.
+
+### Removed
+- "05/06" numeric counters in portfolio cards.
+- "Architecture studio" text over the ecosystem section.
+- "Boîte à outils studio" text over the Suite section.
+- "Intelligence connectée" text over the Bulle section.
+- "Atelier R&D & Hardware" text over the Pastille section.
+
 ## [1.0.3] - 2026-11-04
 
 ### Added

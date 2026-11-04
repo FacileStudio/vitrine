@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Button, Card, Icon, icons } from "@facile/muse";
+  import TechBadge from "$lib/components/TechBadge.svelte";
   import { CLIENT_PROJECTS } from "$lib/data";
 
   const categories = ["Tous", "Vitrines", "Applications", "Branding", "3D"] as const;
@@ -139,9 +140,7 @@
         <div class="flex items-center justify-between gap-3 p-6 pt-0">
           <div class="flex flex-wrap items-center gap-1.5">
             {#each project.stack.slice(0, 4) as tech (tech)}
-              <span class="rounded-fc-pill bg-fc-surface px-2.5 py-1 text-[11px] font-mono text-fc-fg-muted">
-                {tech}
-              </span>
+              <TechBadge {tech} class="bg-fc-surface text-fc-fg-muted" />
             {/each}
           </div>
 

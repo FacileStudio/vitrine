@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Button, Card, Icon, icons } from "@facile/muse";
+  import TechBadge from "$lib/components/TechBadge.svelte";
   import type { PageProps } from "./$types";
 
   let { data }: PageProps = $props();
@@ -192,9 +193,7 @@
       </h3>
       <div class="flex flex-wrap gap-2">
         {#each project.stack as tech (tech)}
-          <span class="rounded-fc-pill bg-fc-surface px-4 py-2 text-fc-xs font-mono font-medium text-fc-fg">
-            {tech}
-          </span>
+          <TechBadge {tech} class="bg-fc-surface px-3.5 py-1.5 text-fc-xs font-mono font-medium text-fc-fg" />
         {/each}
       </div>
       <p class="text-fc-xs text-fc-fg-muted leading-relaxed pt-2">
