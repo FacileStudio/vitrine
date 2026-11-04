@@ -10,6 +10,7 @@
   let budget = $state("5k - 15k\u00A0€");
   let timeline = $state("Dans les 1 à 3 mois");
   let message = $state("");
+  let tags = $state<string[]>([]);
   let name = $state("");
   let email = $state("");
   let phone = $state("");
@@ -21,43 +22,43 @@
       title: "Site vitrine d'exception",
       category: "Vitrines & Direction artistique",
       icon: "solar:panorama-bold-duotone",
-      description: "Conception sur mesure, animations soignées à 60fps, SEO et image de marque mémorable.",
+      description: "Design sur mesure, animations à 60 FPS, SEO et une identité qu'on retient.",
     },
     {
       id: "Application web & SaaS",
       title: "Application web & SaaS",
       category: "Ingénierie & Produit",
       icon: "solar:code-square-bold-duotone",
-      description: "Plateforme métier réactive, APIs ultra-rapides, bases de données résilientes et logique complexe.",
+      description: "Outil métier, APIs rapides, base de données fiable et logique sur mesure.",
     },
     {
       id: "Direction artistique & Branding",
       title: "Direction artistique & Branding",
       category: "Design & Identité",
       icon: "solar:pallete-2-bold-duotone",
-      description: "Logotype, univers typographique, charte de marque complète, design system et maquettes 3D.",
+      description: "Logotype, typographie, charte graphique, design system et maquettes 3D.",
     },
     {
       id: "Infra & Hébergement souverain",
       title: "Infra & Hébergement souverain",
       category: "DevOps & Cloud",
       icon: "solar:cloud-bold-duotone",
-      description: "Serveurs dédiés en France, conteneurisation Docker, Nginx, haute disponibilité et indépendance.",
+      description: "Serveurs dédiés en Europe, Docker, Nginx et haute disponibilité.",
     },
     {
       id: "R&D, Matériel & Autre",
       title: "R&D, Matériel & Autre",
       category: "Hardware & R&D",
       icon: "solar:cpu-bolt-bold-duotone",
-      description: "IoT embarqué, firmware Rust Embassy, microVMs autonomes ou projet expérimental sur mesure.",
+      description: "Objets connectés, firmware Rust Embassy, microVMs ou projet expérimental.",
     },
   ];
 
   const BUDGETS = [
-    { label: "< 5k\u00A0€", note: "Cadrage initial ou vitrine condensée" },
-    { label: "5k - 15k\u00A0€", note: "Site vitrine sur mesure ou MVP applicatif complet" },
-    { label: "15k - 30k\u00A0€", note: "Plateforme applicative intégrée, branding et design system" },
-    { label: "> 30k\u00A0€", note: "Grand projet applicatif, R&D ou écosystème global" },
+    { label: "< 5k\u00A0€", note: "Cadrage ou petite vitrine" },
+    { label: "5k - 15k\u00A0€", note: "Vitrine sur mesure ou première version d'une application" },
+    { label: "15k - 30k\u00A0€", note: "Application complète, branding et design system" },
+    { label: "> 30k\u00A0€", note: "Grande application, R&D ou écosystème complet" },
   ];
 
   const TIMELINES = [
@@ -69,18 +70,14 @@
 
   const QUICK_TAGS = [
     "Refonte d'un site existant",
-    "Création de zéro",
-    "Performance & vitesse brute",
-    "Design & animations haut de gamme",
-    "Souveraineté & hébergement français",
+    "Nouveau site",
+    "Performance",
+    "Design & animations",
+    "Hébergement souverain",
   ];
 
   function toggleQuickTag(tag: string) {
-    if (message.includes(tag)) {
-      message = message.replace(tag, "").trim();
-    } else {
-      message = message ? `${message} · ${tag}` : tag;
-    }
+    tags = tags.includes(tag) ? tags.filter((t) => t !== tag) : [...tags, tag];
   }
 
   function nextStep() {
@@ -122,7 +119,8 @@
       `Téléphone : ${phone || "Non renseigné"}\n\n` +
       `Type de projet : ${projectType}\n` +
       `Budget estimé : ${budget}\n` +
-      `Calendrier visé : ${timeline}\n\n` +
+      `Calendrier visé : ${timeline}\n` +
+      `Points clés : ${tags.join(", ") || "Aucun"}\n\n` +
       `Description du besoin :\n${message || "À préciser lors de notre premier échange."}\n\n` +
       `---\nEnvoyé depuis facile.studio/contact`
     );
@@ -140,10 +138,10 @@
 </script>
 
 <svelte:head>
-  <title>Démarrer un projet — Facile Studio</title>
+  <title>Démarrer un projet · Facile Studio</title>
   <meta
     name="description"
-    content="Parlez-nous de votre vision. Conception sur mesure, ingénierie d'excellence, souveraineté technique et accompagnement d'experts."
+    content="Parlez-nous de votre projet. Design sur mesure, code solide et hébergement souverain."
   />
 </svelte:head>
 
@@ -218,7 +216,7 @@
     {/if}
   </header>
 
-  <main class="flex-1 flex flex-col justify-center py-4 sm:py-8">
+  <div class="flex-1 flex flex-col justify-center py-4 sm:py-8">
     {#if submitted}
       <div
         in:fade={{ duration: 300 }}
@@ -230,10 +228,10 @@
 
         <div class="flex flex-col gap-3">
           <h1 class="text-3xl sm:text-4xl font-black tracking-tight text-fc-fg">
-            Demande préparée avec succès
+            Votre demande est prête
           </h1>
           <p class="text-fc-sm sm:text-fc-base text-fc-fg-muted leading-relaxed">
-            Votre messagerie s'est ouverte avec tous les éléments du dossier. Nous nous engageons à étudier votre besoin et vous apporter une réponse personnalisée sous 24h ouvrées.
+            Votre messagerie s'est ouverte avec le récapitulatif. Envoyez le mail, on vous répond sous 24h ouvrées.
           </p>
         </div>
 
@@ -292,7 +290,7 @@
               Quel type de projet souhaitez-vous concevoir ?
             </h1>
             <p class="text-fc-sm sm:text-fc-base text-fc-fg-muted">
-              Sélectionnez la nature principale de votre besoin pour cadrer notre accompagnement.
+              Choisissez votre besoin principal.
             </p>
           </div>
 
@@ -301,10 +299,11 @@
               <button
                 type="button"
                 onclick={() => (projectType = item.id)}
-                class="flex flex-col justify-between gap-4 rounded-fc-2xl p-5 sm:p-6 text-left transition-all cursor-pointer border
+                aria-pressed={projectType === item.id}
+                class="flex flex-col justify-between gap-4 rounded-fc-2xl p-5 sm:p-6 text-left transition-all cursor-pointer
                   {projectType === item.id
-                    ? 'bg-fc-component border-fc-accent ring-2 ring-fc-accent/20 shadow-md'
-                    : 'bg-fc-component border-transparent hover:border-fc-border hover:bg-fc-surface'}"
+                    ? 'bg-fc-accent/15 shadow-md'
+                    : 'bg-fc-component hover:bg-fc-surface'}"
               >
                 <div class="flex flex-col gap-3">
                   <div class="flex items-center justify-between">
@@ -337,10 +336,10 @@
           <div class="flex flex-col gap-2">
             <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">Étape 2 sur 4</span>
             <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">
-              Enveloppe budgétaire & calendrier visé
+              Budget et calendrier
             </h1>
             <p class="text-fc-sm sm:text-fc-base text-fc-fg-muted">
-              Des repères transparents pour calibrer les ressources techniques et l'ambition de réalisation.
+              Ces repères nous aident à dimensionner le projet.
             </p>
           </div>
 
@@ -351,10 +350,11 @@
                 <button
                   type="button"
                   onclick={() => (budget = b.label)}
-                  class="flex flex-col justify-between gap-3 rounded-fc-2xl p-5 text-left transition-all cursor-pointer border
+                  aria-pressed={budget === b.label}
+                  class="flex flex-col justify-between gap-3 rounded-fc-2xl p-5 text-left transition-all cursor-pointer
                     {budget === b.label
-                      ? 'bg-fc-component border-fc-accent ring-2 ring-fc-accent/20 shadow-md'
-                      : 'bg-fc-component border-transparent hover:border-fc-border hover:bg-fc-surface'}"
+                      ? 'bg-fc-accent/15 shadow-md'
+                      : 'bg-fc-component hover:bg-fc-surface'}"
                 >
                   <div class="flex items-center justify-between">
                     <span class="text-fc-lg font-bold text-fc-fg">{b.label}</span>
@@ -379,10 +379,11 @@
                 <button
                   type="button"
                   onclick={() => (timeline = t)}
-                  class="rounded-fc-pill px-4 py-3 text-center text-fc-xs font-medium transition-all cursor-pointer border
+                  aria-pressed={timeline === t}
+                  class="rounded-fc-pill px-4 py-3 text-center text-fc-xs font-medium transition-all cursor-pointer
                     {timeline === t
-                      ? 'bg-fc-accent text-fc-accent-fg shadow-xs border-transparent'
-                      : 'bg-fc-component text-fc-fg-muted hover:text-fc-fg hover:bg-fc-surface border-transparent'}"
+                      ? 'bg-fc-accent text-fc-accent-fg shadow-xs'
+                      : 'bg-fc-component text-fc-fg-muted hover:text-fc-fg hover:bg-fc-surface'}"
                 >
                   {t}
                 </button>
@@ -398,10 +399,10 @@
           <div class="flex flex-col gap-2">
             <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">Étape 3 sur 4</span>
             <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">
-              Partagez votre vision et vos ambitions
+              Parlez-nous de votre projet
             </h1>
             <p class="text-fc-sm sm:text-fc-base text-fc-fg-muted">
-              En quelques mots ou paragraphes, décrivez votre activité, vos attentes ou vos contraintes spécifiques.
+              Quelques mots suffisent. Votre activité, vos attentes, vos contraintes.
             </p>
           </div>
 
@@ -412,8 +413,9 @@
                 <button
                   type="button"
                   onclick={() => toggleQuickTag(tag)}
+                  aria-pressed={tags.includes(tag)}
                   class="rounded-fc-pill px-3 py-1 text-[11px] font-medium transition-colors cursor-pointer
-                    {message.includes(tag)
+                    {tags.includes(tag)
                       ? 'bg-fc-accent text-fc-accent-fg'
                       : 'bg-fc-component text-fc-fg-muted hover:bg-fc-surface hover:text-fc-fg'}"
                 >
@@ -424,14 +426,14 @@
 
             <div class="flex flex-col gap-2">
               <label for="contact-vision" class="text-fc-xs font-medium text-fc-fg-muted">
-                Détails de votre besoin (optionnel mais conseillé)
+                Détails (optionnel, mais utile)
               </label>
               <textarea
                 id="contact-vision"
                 bind:value={message}
                 rows="6"
-                placeholder="Parlez-nous de votre public cible, des inspirations visuelles que vous aimez, des fonctionnalités indispensables ou des technologies souhaitées..."
-                class="w-full rounded-fc-2xl bg-fc-component p-5 text-fc-sm text-fc-fg outline-none focus:ring-2 focus:ring-fc-accent resize-none shadow-sm placeholder:text-fc-fg-muted/60"
+                placeholder="Votre public, les sites qui vous inspirent, les fonctionnalités indispensables..."
+                class="w-full rounded-fc-2xl bg-fc-component p-5 text-fc-sm text-fc-fg outline-none transition-colors focus:bg-fc-surface resize-none shadow-sm placeholder:text-fc-fg-muted/60"
               ></textarea>
             </div>
           </div>
@@ -448,49 +450,49 @@
               Comment pouvons-nous vous recontacter ?
             </h1>
             <p class="text-fc-sm sm:text-fc-base text-fc-fg-muted">
-              Nous étudions votre projet et revenons vers vous avec un premier diagnostic sous 24h ouvrées.
+              On étudie votre projet et on vous répond sous 24h ouvrées.
             </p>
           </div>
 
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             <div class="lg:col-span-7 flex flex-col gap-4">
               <div class="flex flex-col gap-1.5">
-                <label for="contact-name" class="text-fc-xs font-medium text-fc-fg-muted">Votre nom complet ou entité *</label>
+                <label for="contact-name" class="text-fc-xs font-medium text-fc-fg-muted">Nom ou entreprise *</label>
                 <input
                   id="contact-name"
                   type="text"
                   bind:value={name}
                   required
-                  placeholder="Ex. Alexandre Dumas — Studio Dumas"
-                  class="h-12 rounded-fc-xl bg-fc-component px-4 text-fc-sm text-fc-fg outline-none focus:ring-2 focus:ring-fc-accent shadow-xs"
+                  placeholder="Alexandre Dumas, Studio Dumas"
+                  class="h-12 rounded-fc-xl bg-fc-component px-4 text-fc-sm text-fc-fg outline-none transition-colors focus:bg-fc-surface shadow-xs"
                 />
               </div>
 
               <div class="flex flex-col gap-1.5">
-                <label for="contact-email" class="text-fc-xs font-medium text-fc-fg-muted">Votre adresse email professionnelle *</label>
+                <label for="contact-email" class="text-fc-xs font-medium text-fc-fg-muted">Email *</label>
                 <input
                   id="contact-email"
                   type="email"
                   bind:value={email}
                   required
                   placeholder="alexandre@domaine.fr"
-                  class="h-12 rounded-fc-xl bg-fc-component px-4 text-fc-sm text-fc-fg outline-none focus:ring-2 focus:ring-fc-accent shadow-xs"
+                  class="h-12 rounded-fc-xl bg-fc-component px-4 text-fc-sm text-fc-fg outline-none transition-colors focus:bg-fc-surface shadow-xs"
                 />
               </div>
 
               <div class="flex flex-col gap-1.5">
-                <label for="contact-phone" class="text-fc-xs font-medium text-fc-fg-muted">Téléphone direct (optionnel)</label>
+                <label for="contact-phone" class="text-fc-xs font-medium text-fc-fg-muted">Téléphone (optionnel)</label>
                 <input
                   id="contact-phone"
                   type="tel"
                   bind:value={phone}
                   placeholder="06 12 34 56 78"
-                  class="h-12 rounded-fc-xl bg-fc-component px-4 text-fc-sm text-fc-fg outline-none focus:ring-2 focus:ring-fc-accent shadow-xs"
+                  class="h-12 rounded-fc-xl bg-fc-component px-4 text-fc-sm text-fc-fg outline-none transition-colors focus:bg-fc-surface shadow-xs"
                 />
               </div>
             </div>
 
-            <div class="lg:col-span-5 rounded-fc-2xl bg-fc-component p-6 flex flex-col gap-4 shadow-sm border border-fc-border/40">
+            <div class="lg:col-span-5 rounded-fc-2xl bg-fc-component p-6 flex flex-col gap-4 shadow-sm">
               <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">Synthèse de votre projet</span>
 
               <div class="flex flex-col gap-3 text-fc-xs">
@@ -506,15 +508,21 @@
                   <span class="text-fc-fg-muted block">Calendrier</span>
                   <span class="font-semibold text-fc-fg">{timeline}</span>
                 </div>
+                {#if tags.length > 0}
+                  <div>
+                    <span class="text-fc-fg-muted block">Points clés</span>
+                    <span class="font-semibold text-fc-fg">{tags.join(", ")}</span>
+                  </div>
+                {/if}
                 {#if message}
                   <div>
-                    <span class="text-fc-fg-muted block">Vision & notes</span>
+                    <span class="text-fc-fg-muted block">Vos notes</span>
                     <span class="text-fc-fg-muted line-clamp-3 italic">« {message} »</span>
                   </div>
                 {/if}
               </div>
 
-              <div class="pt-2 border-t border-fc-border/40 flex flex-col gap-2 text-[11px] text-fc-fg-muted">
+              <div class="pt-2 flex flex-col gap-2 text-[11px] text-fc-fg-muted">
                 <span class="flex items-center gap-2">
                   <span class="size-1.5 rounded-fc-full bg-fc-accent"></span>
                   <span>Réponse sous 24h ouvrées</span>
@@ -529,10 +537,10 @@
         </form>
       {/if}
     {/if}
-  </main>
+  </div>
 
   {#if !submitted}
-    <footer class="flex items-center justify-between gap-4 pt-6 border-t border-fc-border/40">
+    <footer class="flex items-center justify-between gap-4 pt-6">
       <div>
         {#if step > 1}
           <Button

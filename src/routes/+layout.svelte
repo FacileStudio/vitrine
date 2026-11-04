@@ -17,18 +17,16 @@
   import { NAV_LINKS } from "$lib/data";
   import { MENU_ICON, SUITE_ICONS } from "$lib/icons";
   import { moveNavPill, scrollToSection, watchActiveSection } from "$lib/motion";
-  import ContactModal from "$lib/components/ContactModal.svelte";
   import EntranceLoader from "$lib/components/EntranceLoader.svelte";
 
   let { children }: { children: Snippet } = $props();
   registerIcons(SUITE_ICONS);
-  provideLocale("en");
+  provideLocale("fr");
 
   let theme = $state<"light" | "dark">("dark");
   let activeSection = $state<string>("");
   let scrolled = $state(false);
   let mobileOpen = $state(false);
-  let contactOpen = $state(false);
   let navPill: HTMLSpanElement | null = $state(null);
   let navEls: Record<string, HTMLAnchorElement> = $state({});
   let scrimEl: HTMLDivElement | null = $state(null);
@@ -37,18 +35,29 @@
   const isProjectsPage = $derived(page.url.pathname.startsWith("/projects"));
   const isHomePage = $derived(page.url.pathname === "/");
   const isContactPage = $derived(page.url.pathname === "/contact");
+  const canonicalUrl = $derived(`https://facile.studio${page.url.pathname}`);
 
   if (browser) {
-    const saved = localStorage.getItem("facile-theme");
-    if (saved === "light" || saved === "dark") theme = saved;
-    else document.documentElement.classList.add("dark");
+    const saved = readTheme();
+    if (saved) theme = saved;
+  }
+
+  function readTheme(): "light" | "dark" | null {
+    try {
+      const saved = localStorage.getItem("facile-theme");
+      return saved === "light" || saved === "dark" ? saved : null;
+    } catch {
+      return null;
+    }
   }
 
   $effect(() => {
     if (!browser) return;
     document.documentElement.classList.toggle("dark", theme === "dark");
     document.documentElement.classList.toggle("light", theme === "light");
-    localStorage.setItem("facile-theme", theme);
+    try {
+      localStorage.setItem("facile-theme", theme);
+    } catch {}
   });
 
   $effect(() => {
@@ -96,10 +105,6 @@
     });
   }
 
-  function triggerContact() {
-    contactOpen = true;
-  }
-
   onMount(() => {
     const targetKey = isProjectsPage ? "portfolio" : activeSection;
     moveNavPill(navPill, navEls[targetKey], false);
@@ -120,8 +125,19 @@
   ];
 </script>
 
+<svelte:head>
+  <link rel="canonical" href={canonicalUrl} />
+  <meta property="og:url" content={canonicalUrl} />
+</svelte:head>
+
 <div class="relative min-h-dvh w-full bg-fc-surface text-fc-fg flex flex-col transition-all duration-500 ease-out {scrolled ? 'p-0' : 'p-2 sm:p-3 xl:p-4'}">
   <EntranceLoader />
+
+  <div
+    class="screen-frame pointer-events-none fixed z-20 transition-all duration-500 ease-out
+      {scrolled ? 'inset-0 rounded-none opacity-0' : 'inset-2 sm:inset-3 xl:inset-4 rounded-[28px] sm:rounded-[36px] opacity-100'}"
+    aria-hidden="true"
+  ></div>
 
   <div class="fixed top-0 inset-x-0 z-30 flex justify-center pointer-events-none px-2 sm:px-4">
     <div class="pointer-events-auto relative flex items-start justify-center w-full max-w-5xl">
@@ -140,15 +156,15 @@
       <header
         class="relative flex h-14 w-full items-center justify-between gap-2 sm:gap-4 transition-all duration-300 ease-out
           {scrolled
-          ? 'mt-2.5 sm:mt-3 rounded-fc-pill bg-fc-surface/85 px-4 sm:px-6 backdrop-blur-xl shadow-lg border border-fc-border/40'
-          : 'mt-0 rounded-t-none rounded-b-2xl sm:rounded-b-3xl bg-fc-surface px-4 sm:px-6 md:px-8 shadow-none border border-transparent'}"
+          ? 'mt-2.5 sm:mt-3 rounded-fc-pill bg-fc-surface/85 px-4 sm:px-6 backdrop-blur-xl shadow-lg'
+          : 'mt-0 rounded-t-none rounded-b-2xl sm:rounded-b-3xl bg-fc-surface px-4 sm:px-6 md:px-8 shadow-none'}"
       >
         <a
           href="/"
-          class="inline-flex items-center rounded-fc-pill p-1 text-[#CAE6D8] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fc-ring shrink-0"
+          class="inline-flex items-center rounded-fc-pill p-1 text-fc-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fc-ring shrink-0"
           aria-label="Accueil"
         >
-          <svg viewBox="0 0 23 25" class="h-6 w-auto text-[#CAE6D8] fill-current">
+          <svg viewBox="0 0 23 25" class="h-6 w-auto text-fc-fg fill-current">
             <path d="M2.30534 0.255093L2.49734 0.319092C2.08134 1.88709 2.97734 4.06309 4.48134 4.06309C7.61734 4.06309 10.1453 -0.000907898 14.6253 0.0310917C18.1453 0.0310917 18.9133 3.16709 18.9133 4.67109V6.94309H14.0493L14.0173 4.99109C14.0173 2.75109 12.8333 2.23909 11.4893 2.23909C7.00934 2.23909 5.31334 8.57509 2.91334 8.57509C1.56934 8.57509 1.21734 6.71909 1.21734 5.27909C1.21734 3.13509 1.76134 1.15109 2.30534 0.255093ZM5.69734 11.6791L8.73734 4.95909H12.9293C11.7133 7.29509 10.6893 9.56709 9.76134 11.6791H10.1133C13.8573 11.6791 16.8333 12.6071 16.8333 17.5031L12.0333 17.4391C12.0653 12.9591 11.9373 12.1911 10.1453 12.1911H9.50534C6.46534 19.0071 4.28934 24.0311 0.00134376 24.0311L0.0333438 18.7831V11.6791H5.69734ZM0.289344 14.7831V18.7831C1.95334 18.6871 3.42534 16.7671 4.35334 14.6551L5.44134 12.2231C1.31334 12.3831 0.289344 12.8951 0.289344 14.7831ZM19.9478 24.0951C18.5398 24.0951 17.5158 23.1031 17.5158 21.7271C17.5158 20.3831 18.5398 19.3591 19.9478 19.3591C21.3558 19.3591 22.3798 20.3831 22.3798 21.7271C22.3798 23.1031 21.3558 24.0951 19.9478 24.0951Z" />
           </svg>
         </a>
@@ -166,10 +182,10 @@
               href="/#{item.id}"
               aria-current={active ? "location" : undefined}
               onclick={(e) => selectSection(item.id, e)}
-              class="relative z-10 inline-flex h-8 items-center whitespace-nowrap rounded-fc-pill px-2.5 lg:px-3 text-fc-xs
+              class="relative z-10 inline-flex h-8 items-center whitespace-nowrap rounded-fc-pill px-2.5 lg:px-3 text-fc-xs gap-1.5
                 font-medium transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2
                 focus-visible:outline-fc-ring {active ? 'text-fc-accent-fg' : 'text-fc-fg-muted hover:text-fc-fg'}"
-              >{item.label}</a
+              ><Icon icon={item.icon} size={14} />{item.label}</a
             >
           {/each}
           <a
@@ -178,8 +194,9 @@
             aria-current={isProjectsPage ? "page" : undefined}
             class="relative z-10 inline-flex h-8 items-center whitespace-nowrap rounded-fc-pill px-2.5 lg:px-3 text-fc-xs
               font-medium transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2
-              focus-visible:outline-fc-ring {isProjectsPage ? 'text-fc-accent-fg' : 'text-fc-fg-muted hover:text-fc-fg'}"
+              focus-visible:outline-fc-ring gap-1.5 {isProjectsPage ? 'text-fc-accent-fg' : 'text-fc-fg-muted hover:text-fc-fg'}"
           >
+            <Icon icon="solar:monitor-bold-duotone" size={14} />
             Portfolio
           </a>
         </nav>
@@ -244,8 +261,8 @@
       >
         <div class="flex flex-col gap-6">
           <div class="flex items-center justify-between">
-            <a href="/" onclick={() => closeSidebar()} class="inline-flex items-center text-[#CAE6D8]" aria-label="Accueil">
-              <svg viewBox="0 0 23 25" class="h-6 w-auto text-[#CAE6D8] fill-current">
+            <a href="/" onclick={() => closeSidebar()} class="inline-flex items-center text-fc-fg" aria-label="Accueil">
+              <svg viewBox="0 0 23 25" class="h-6 w-auto text-fc-fg fill-current">
                 <path d="M2.30534 0.255093L2.49734 0.319092C2.08134 1.88709 2.97734 4.06309 4.48134 4.06309C7.61734 4.06309 10.1453 -0.000907898 14.6253 0.0310917C18.1453 0.0310917 18.9133 3.16709 18.9133 4.67109V6.94309H14.0493L14.0173 4.99109C14.0173 2.75109 12.8333 2.23909 11.4893 2.23909C7.00934 2.23909 5.31334 8.57509 2.91334 8.57509C1.56934 8.57509 1.21734 6.71909 1.21734 5.27909C1.21734 3.13509 1.76134 1.15109 2.30534 0.255093ZM5.69734 11.6791L8.73734 4.95909H12.9293C11.7133 7.29509 10.6893 9.56709 9.76134 11.6791H10.1133C13.8573 11.6791 16.8333 12.6071 16.8333 17.5031L12.0333 17.4391C12.0653 12.9591 11.9373 12.1911 10.1453 12.1911H9.50534C6.46534 19.0071 4.28934 24.0311 0.00134376 24.0311L0.0333438 18.7831V11.6791H5.69734ZM0.289344 14.7831V18.7831C1.95334 18.6871 3.42534 16.7671 4.35334 14.6551L5.44134 12.2231C1.31334 12.3831 0.289344 12.8951 0.289344 14.7831ZM19.9478 24.0951C18.5398 24.0951 17.5158 23.1031 17.5158 21.7271C17.5158 20.3831 18.5398 19.3591 19.9478 19.3591C21.3558 19.3591 22.3798 20.3831 22.3798 21.7271C22.3798 23.1031 21.3558 24.0951 19.9478 24.0951Z" />
               </svg>
             </a>
@@ -267,16 +284,17 @@
                   e.preventDefault();
                   closeSidebar(() => selectSection(item.id));
                 }}
-                class="inline-flex h-10 items-center rounded-fc-pill px-4 text-fc-sm font-medium transition-colors
+                class="inline-flex h-10 items-center gap-2.5 rounded-fc-pill px-4 text-fc-sm font-medium transition-colors
                   {active ? 'bg-fc-accent text-fc-accent-fg' : 'text-fc-fg-muted hover:bg-fc-surface hover:text-fc-fg'}"
-                >{item.label}</a
+                ><Icon icon={item.icon} size={16} />{item.label}</a
               >
             {/each}
             <a
               href="/projects"
               onclick={() => closeSidebar()}
-              class="inline-flex h-10 items-center rounded-fc-pill px-4 text-fc-sm font-medium {isProjectsPage ? 'bg-fc-accent text-fc-accent-fg' : 'text-fc-fg-muted hover:bg-fc-surface hover:text-fc-fg'}"
+              class="inline-flex h-10 items-center gap-2.5 rounded-fc-pill px-4 text-fc-sm font-medium {isProjectsPage ? 'bg-fc-accent text-fc-accent-fg' : 'text-fc-fg-muted hover:bg-fc-surface hover:text-fc-fg'}"
             >
+              <Icon icon="solar:monitor-bold-duotone" size={16} />
               Portfolio complet
             </a>
           </nav>
@@ -299,11 +317,15 @@
     class="relative flex min-h-0 w-full flex-1 flex-col overflow-hidden bg-fc-page transition-all duration-500 ease-out
       {scrolled ? 'rounded-none' : 'rounded-[28px] sm:rounded-[36px]'}"
   >
-    <div class="pointer-events-none fixed inset-0 overflow-hidden z-0" aria-hidden="true">
-      <div class="ambient-blob-1 absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-[#CAE6D8]/10 dark:bg-[#CAE6D8]/5 blur-[120px]"></div>
-      <div class="ambient-blob-2 absolute top-1/3 -right-40 w-[550px] h-[550px] rounded-full bg-[#CAE6D8]/8 dark:bg-[#CAE6D8]/4 blur-[140px]"></div>
-      <div class="ambient-blob-3 absolute -bottom-40 left-1/4 w-[700px] h-[700px] rounded-full bg-[#CAE6D8]/10 dark:bg-[#CAE6D8]/5 blur-[130px]"></div>
-      <div class="absolute inset-0 backdrop-blur-[60px]"></div>
+    <div
+      class="ambient pointer-events-none fixed z-0 overflow-hidden transition-all duration-500 ease-out
+        {scrolled ? 'inset-0 rounded-none' : 'inset-2 sm:inset-3 xl:inset-4 rounded-[28px] sm:rounded-[36px]'}"
+      aria-hidden="true"
+    >
+      <div class="ambient-blob ambient-blob-1 -top-80 -left-80 size-[1000px]"></div>
+      <div class="ambient-blob ambient-blob-2 top-1/4 -right-96 size-[950px]"></div>
+      <div class="ambient-blob ambient-blob-3 -bottom-96 left-1/4 size-[1100px]"></div>
+      <div class="ambient-grain absolute inset-0"></div>
     </div>
 
     <div class="h-14 shrink-0 pointer-events-none" aria-hidden="true"></div>
@@ -321,17 +343,17 @@
           text-fc-xs text-fc-fg-muted sm:flex-row shadow-sm"
       >
         <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 text-center sm:text-left">
-          <svg viewBox="0 0 23 25" class="h-6 w-auto text-[#CAE6D8] fill-current">
+          <svg viewBox="0 0 23 25" class="h-6 w-auto text-fc-fg fill-current">
             <path d="M2.30534 0.255093L2.49734 0.319092C2.08134 1.88709 2.97734 4.06309 4.48134 4.06309C7.61734 4.06309 10.1453 -0.000907898 14.6253 0.0310917C18.1453 0.0310917 18.9133 3.16709 18.9133 4.67109V6.94309H14.0493L14.0173 4.99109C14.0173 2.75109 12.8333 2.23909 11.4893 2.23909C7.00934 2.23909 5.31334 8.57509 2.91334 8.57509C1.56934 8.57509 1.21734 6.71909 1.21734 5.27909C1.21734 3.13509 1.76134 1.15109 2.30534 0.255093ZM5.69734 11.6791L8.73734 4.95909H12.9293C11.7133 7.29509 10.6893 9.56709 9.76134 11.6791H10.1133C13.8573 11.6791 16.8333 12.6071 16.8333 17.5031L12.0333 17.4391C12.0653 12.9591 11.9373 12.1911 10.1453 12.1911H9.50534C6.46534 19.0071 4.28934 24.0311 0.00134376 24.0311L0.0333438 18.7831V11.6791H5.69734ZM0.289344 14.7831V18.7831C1.95334 18.6871 3.42534 16.7671 4.35334 14.6551L5.44134 12.2231C1.31334 12.3831 0.289344 12.8951 0.289344 14.7831ZM19.9478 24.0951C18.5398 24.0951 17.5158 23.1031 17.5158 21.7271C17.5158 20.3831 18.5398 19.3591 19.9478 19.3591C21.3558 19.3591 22.3798 20.3831 22.3798 21.7271C22.3798 23.1031 21.3558 24.0951 19.9478 24.0951Z" />
           </svg>
           <div>
             <span class="font-bold text-fc-fg">Facile Studio</span>
             <span class="mx-2">·</span>
-            <span>Lyon · Strasbourg · Qualité française · Remote</span>
+            <span>Lyon · Strasbourg · À distance</span>
             <span class="mx-2">·</span>
-            <a href="tel:+33768888818" class="font-medium text-fc-fg hover:underline">07 68 88 88 18</a>
+            <a href="tel:+33768888818" class="font-medium text-fc-fg hover:text-fc-accent transition-colors">07 68 88 88 18</a>
             <span class="mx-2">·</span>
-            <a href="mailto:contact@facile.studio" class="font-medium text-fc-fg hover:underline">contact@facile.studio</a>
+            <a href="mailto:contact@facile.studio" class="font-medium text-fc-fg hover:text-fc-accent transition-colors">contact@facile.studio</a>
           </div>
         </div>
         <div class="flex flex-wrap items-center justify-center gap-4">
@@ -343,35 +365,58 @@
     </footer>
   </div>
 
-  <ContactModal bind:open={contactOpen} />
 </div>
 
 <style>
   @keyframes ambient-float-1 {
     0%, 100% {
-      transform: translate(0, 0) scale(1);
+      transform: translate3d(0, 0, 0) scale(1);
     }
     50% {
-      transform: translate(60px, 80px) scale(1.08);
+      transform: translate3d(60px, 80px, 0) scale(1.08);
     }
   }
 
   @keyframes ambient-float-2 {
     0%, 100% {
-      transform: translate(0, 0) scale(1.05);
+      transform: translate3d(0, 0, 0) scale(1.05);
     }
     50% {
-      transform: translate(-70px, -50px) scale(0.95);
+      transform: translate3d(-70px, -50px, 0) scale(0.95);
     }
   }
 
   @keyframes ambient-float-3 {
     0%, 100% {
-      transform: translate(0, 0) scale(1);
+      transform: translate3d(0, 0, 0) scale(1);
     }
     50% {
-      transform: translate(50px, -60px) scale(1.06);
+      transform: translate3d(50px, -60px, 0) scale(1.06);
     }
+  }
+
+  .screen-frame {
+    box-shadow: 0 0 0 100vmax var(--color-fc-surface);
+  }
+
+  .ambient {
+    --glow: rgb(202 230 216 / 0.16);
+  }
+
+  :global(.dark) .ambient {
+    --glow: rgb(202 230 216 / 0.08);
+  }
+
+  .ambient-blob {
+    position: absolute;
+    border-radius: 9999px;
+    background: radial-gradient(closest-side, var(--glow), rgb(202 230 216 / 0) 100%);
+    will-change: transform;
+  }
+
+  .ambient-grain {
+    opacity: 0.06;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
   .ambient-blob-1 {

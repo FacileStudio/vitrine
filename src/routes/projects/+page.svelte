@@ -16,10 +16,10 @@
 </script>
 
 <svelte:head>
-  <title>Projets & Réalisations — Facile Studio</title>
+  <title>Projets · Facile Studio</title>
   <meta
     name="description"
-    content="Études de cas détaillées : vitrines d'exception, applications métier ultra-réactives, direction artistique et expériences 3D interactives."
+    content="Études de cas du studio. Sites vitrines, applications métier, direction artistique et expériences 3D."
   />
 </svelte:head>
 
@@ -39,13 +39,13 @@
 
     <div class="flex flex-col gap-3 max-w-3xl">
       <div class="inline-flex items-center gap-2 rounded-fc-pill bg-fc-surface px-3 py-1 text-fc-xs font-mono text-fc-fg-muted w-fit">
-        Portfolio d'ingénierie & design
+        Portfolio
       </div>
       <h1 class="text-fc-3xl sm:text-5xl font-black tracking-tight text-fc-fg leading-tight">
         Études de cas & réalisations
       </h1>
       <p class="text-fc-md sm:text-fc-lg text-fc-fg-muted leading-relaxed">
-        Chaque projet est conçu sur mesure : code propriétaire sans dépendances captives, temps de réponse sous les 50 millisecondes et direction artistique soignée.
+        Chaque projet est fait sur mesure, sans dépendance captive, avec des APIs qui répondent en moins de 50 ms.
       </p>
     </div>
 
@@ -159,7 +159,7 @@
         Vous avez un projet d'application ou de vitrine ?
       </h3>
       <p class="text-fc-sm text-fc-fg-muted leading-relaxed">
-        Nous concevons, développons et hébergeons vos outils avec une exigence technique totale et zéro intermédiaire captif.
+        On conçoit, développe et héberge vos outils, sans intermédiaire.
       </p>
     </div>
     <Button

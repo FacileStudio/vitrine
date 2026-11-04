@@ -2,6 +2,35 @@
 
 All notable changes to Facile Studio Vitrine will be documented in this file.
 
+## [1.1.0] - 2026-11-04
+
+### Added
+- Icons on every top nav and mobile drawer link.
+- Suite grid shows the first 9 tools, with a button to show the rest.
+- Per-page canonical URL and `og:url`, plus `theme-color` and `color-scheme` meta tags.
+- 180x180 apple-touch-icon and a 16/32/48 px favicon.ico with a white mark on a dark tile.
+
+### Changed
+- Facile logo is white (dark theme) or black (light theme) in the nav, drawer, footer and curtain, instead of green.
+- Screen frame now wraps all four edges at the top of the page and folds away as the nav becomes a pill.
+- Portfolio section pins at full viewport height on desktop, and the cards fill it.
+- Ambient background uses dithered radial gradients instead of blurred divs, which removes banding and tile artifacts.
+- Rewrote the short descriptions across the site, the suite and the contact form in plainer French.
+- Muse locale set to French; PcbViewer labels translated.
+- Contact form selections use fills instead of borders and rings, and quick tags no longer edit the message text.
+- Prerender entries and sitemap read project slugs from `data.ts`.
+
+### Fixed
+- Hero text disappearing after its entrance animation.
+- Hero text staying hidden when JavaScript fails to load.
+- All pages declaring the home page as their canonical URL.
+- Duplicate meta description on every page.
+- JSON-LD `founders` renamed to the schema.org `founder` property.
+
+### Removed
+- Every border on the site.
+- Unused `ContactModal` component.
+
 ## [1.0.4] - 2026-11-04
 
 ### Added

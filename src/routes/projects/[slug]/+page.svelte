@@ -8,7 +8,7 @@
 </script>
 
 <svelte:head>
-  <title>{project.name} — Étude de cas — Facile Studio</title>
+  <title>{project.name} · Étude de cas · Facile Studio</title>
   <meta name="description" content="{project.name} par Facile Studio : {project.tagline}" />
 </svelte:head>
 
@@ -111,7 +111,7 @@
   <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 pt-4">
     <div class="flex flex-col gap-4 rounded-fc-3xl bg-fc-component p-8 shadow-sm">
       <div class="inline-flex items-center gap-2 rounded-fc-pill bg-fc-surface px-3 py-1 text-fc-xs font-mono text-fc-accent w-fit">
-        Le problème posé
+        Le problème
       </div>
       <h2 class="text-fc-2xl font-bold tracking-tight text-fc-fg">
         {project.challenge.title}
@@ -123,7 +123,7 @@
 
     <div class="flex flex-col gap-4 rounded-fc-3xl bg-fc-component p-8 shadow-sm">
       <div class="inline-flex items-center gap-2 rounded-fc-pill bg-fc-surface px-3 py-1 text-fc-xs font-mono text-fc-success w-fit">
-        La solution déployée
+        La solution
       </div>
       <h2 class="text-fc-2xl font-bold tracking-tight text-fc-fg">
         {project.approach.title}
@@ -137,13 +137,13 @@
   <section class="flex flex-col gap-6 pt-4">
     <div class="flex flex-col gap-2">
       <div class="inline-flex items-center gap-2 rounded-fc-pill bg-fc-surface px-3 py-1 text-fc-xs font-mono text-fc-fg-muted w-fit">
-        Captures & détails d'interface
+        Captures
       </div>
       <h2 class="text-fc-2xl sm:text-fc-3xl font-bold tracking-tight text-fc-fg">
-        Galerie de réalisation
+        Galerie
       </h2>
       <p class="text-fc-sm text-fc-fg-muted">
-        Captures d'écran réelles issues des livrables de production et maquettes de précision.
+        Captures des livrables en production et maquettes.
       </p>
     </div>
 
@@ -197,7 +197,7 @@
         {/each}
       </div>
       <p class="text-fc-xs text-fc-fg-muted leading-relaxed pt-2">
-        Architecture modulaire déployée sans dépendances propriétaires fermées. Code pérenne, léger et auditable.
+        Aucune dépendance propriétaire fermée. Le code reste léger et auditable.
       </p>
     </div>
   </section>
@@ -208,7 +208,7 @@
         Lancer un projet similaire
       </h3>
       <p class="text-fc-sm text-fc-fg-muted leading-relaxed">
-        Vous avez des objectifs comparables pour votre application ou votre vitrine ? Nous étudions votre besoin sous 48 heures.
+        Des objectifs proches pour votre application ou votre vitrine ? On étudie votre besoin sous 48 heures.
       </p>
     </div>
     <div class="flex flex-wrap items-center gap-3 shrink-0">

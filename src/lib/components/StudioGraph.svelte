@@ -126,9 +126,9 @@
         class="node-group cursor-pointer"
         style="--delay:{150 + n.i * 30}ms"
         role="img"
-        aria-label="{n.name} — {n.cat}"
+        aria-label="{n.name} · {n.cat}"
       >
-        <title>{n.name} — {n.cat}</title>
+        <title>{n.name} · {n.cat}</title>
         <circle
           cx={n.x}
           cy={n.y}

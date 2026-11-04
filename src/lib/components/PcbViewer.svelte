@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { Button, Spinner, icons } from "@facile/muse";
+  import { Button, Icon, icons } from "@facile/muse";
   import { mountPcbScene, type Preset, type SceneControl } from "$lib/pcb-scene";
 
   type ModelMode = "pcb" | "case";
@@ -80,7 +80,7 @@
   });
 </script>
 
-<div class="relative w-full h-[380px] sm:h-[480px] lg:h-[560px] rounded-fc-3xl bg-fc-component overflow-hidden shadow-sm border border-fc-border/40">
+<div class="relative w-full h-[380px] sm:h-[480px] lg:h-[560px] rounded-fc-3xl bg-fc-component overflow-hidden shadow-sm">
   <div bind:this={host} class="absolute inset-0" aria-hidden="true"></div>
 
   <div class="absolute top-0 left-0 right-0 flex flex-wrap items-center justify-between gap-2 p-4 pointer-events-none">
@@ -96,7 +96,7 @@
         onclick={() => chooseMode("pcb")}
         icon={icons.bolt}
       >
-        3D PCB
+        Circuit 3D
       </Button>
       <Button
         size="sm"
@@ -106,7 +106,7 @@
         onclick={() => chooseMode("case")}
         icon={icons.shield}
       >
-        Enclosure
+        Boîtier
       </Button>
     </div>
 
@@ -146,13 +146,13 @@
       class="absolute inset-0 flex flex-col items-center justify-center gap-3
         bg-fc-component/80 pointer-events-none"
     >
-      <Spinner />
-      <span class="text-fc-xs font-mono uppercase text-fc-fg-muted">Loading 3D geometry</span>
+      <Icon icon={icons.refresh} size={24} class="animate-spin text-fc-fg-muted" />
+      <span class="text-fc-xs font-mono uppercase text-fc-fg-muted">Chargement du modèle 3D</span>
     </div>
   {:else if status === "error"}
     <div class="absolute inset-0 flex flex-col items-center justify-center gap-2 p-6 text-center">
-      <span class="text-fc-sm font-semibold text-fc-fg">3D preview unavailable</span>
-      <span class="text-fc-xs text-fc-fg-muted">WebGL could not initialize in this browser.</span>
+      <span class="text-fc-sm font-semibold text-fc-fg">Aperçu 3D indisponible</span>
+      <span class="text-fc-xs text-fc-fg-muted">Le modèle n'a pas pu se charger dans ce navigateur.</span>
     </div>
   {:else}
     <div class="absolute bottom-0 left-0 right-0 flex items-center justify-between p-4 pointer-events-none">
@@ -160,13 +160,13 @@
         class="rounded-fc-pill bg-fc-surface/85 backdrop-blur px-3 py-1
           text-fc-xs font-mono text-fc-fg-muted"
       >
-        Drag to orbit · Scroll to zoom
+        Glisser pour tourner · Molette pour zoomer
       </span>
       <span
         class="hidden sm:inline-flex rounded-fc-pill bg-fc-surface/85
           backdrop-blur px-3 py-1 text-fc-xs font-mono text-fc-success"
       >
-        Pastille Hardware · Fusible ERC/DRC Clean
+        Pastille · ERC/DRC Fusible validés
       </span>
     </div>
   {/if}

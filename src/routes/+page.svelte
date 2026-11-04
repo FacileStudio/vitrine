@@ -18,6 +18,7 @@
   import { scrollReveal } from "$lib/motion";
 
   let selectedCategory = $state<string>("all");
+  let projectsSection = $state<HTMLElement | null>(null);
   let horizontalSection = $state<HTMLElement | null>(null);
   let horizontalTrack = $state<HTMLElement | null>(null);
   let heroAnimated = $state(false);
@@ -27,6 +28,10 @@
       ? SUITE_TOOLS
       : SUITE_TOOLS.filter((t) => t.category === selectedCategory)
   );
+  const TOOLS_PREVIEW = 9;
+  let showAllTools = $state(false);
+  const visibleTools = $derived(showAllTools ? filteredTools : filteredTools.slice(0, TOOLS_PREVIEW));
+  const hiddenToolCount = $derived(filteredTools.length - TOOLS_PREVIEW);
 
   function triggerHeroAnimation() {
     if (heroAnimated || !browser) return;
@@ -46,7 +51,7 @@
         duration: 0.85,
         stagger: 0.12,
         ease: "power3.out",
-        clearProps: "transform,opacity",
+        clearProps: "transform",
       }
     );
   }
@@ -54,11 +59,14 @@
   onMount(() => {
     if (!browser) return;
 
+    if (!prefersReducedMotion()) gsap.set("[data-hero-item]", { opacity: 0 });
+
+    let fallback: ReturnType<typeof setTimeout> | undefined;
     if ((window as any).__curtainComplete) {
       triggerHeroAnimation();
     } else {
       window.addEventListener("curtain-complete", triggerHeroAnimation, { once: true });
-      setTimeout(triggerHeroAnimation, 2200);
+      fallback = setTimeout(triggerHeroAnimation, 2200);
     }
 
     gsap.registerPlugin(ScrollTrigger);
@@ -66,7 +74,7 @@
     const mm = gsap.matchMedia();
 
     mm.add("(min-width: 1024px)", () => {
-      if (!horizontalSection || !horizontalTrack) return;
+      if (!projectsSection || !horizontalSection || !horizontalTrack) return;
 
       const getScrollAmount = () => {
         if (!horizontalTrack || !horizontalSection) return 0;
@@ -77,8 +85,8 @@
         x: () => -getScrollAmount(),
         ease: "none",
         scrollTrigger: {
-          trigger: horizontalSection,
-          start: "top 72px",
+          trigger: projectsSection,
+          start: "top top",
           end: () => `+=${getScrollAmount()}`,
           pin: true,
           anticipatePin: 1,
@@ -93,16 +101,18 @@
     });
 
     return () => {
+      clearTimeout(fallback);
+      window.removeEventListener("curtain-complete", triggerHeroAnimation);
       mm.revert();
     };
   });
 </script>
 
 <svelte:head>
-  <title>Facile Studio — Studio de design & ingénierie web</title>
+  <title>Facile Studio · Design et ingénierie web</title>
   <meta
     name="description"
-    content="Studio de design et d'ingénierie web. Sites vitrines d'exception, applications sur mesure, direction artistique et logiciels souverains."
+    content="Studio de design et d'ingénierie web. Sites vitrines, applications sur mesure, direction artistique et hébergement souverain."
   />
 </svelte:head>
 
@@ -122,7 +132,7 @@
     </div>
 
     <p data-hero-item class="text-fc-md sm:text-fc-lg text-fc-fg-muted max-w-3xl leading-relaxed">
-      Studio de design et d'ingénierie web. Qualité française, savoir-faire sur mesure et souveraineté technique. On conçoit, développe et déploie des sites vitrines d'exception, des applications réactives et des identités visuelles remarquables. Zéro usine à gaz, des performances brutes et un soin obsessionnel du détail.
+      Studio de design et d'ingénierie web. On conçoit, développe et héberge des sites vitrines, des applications et des identités visuelles. Du code léger, des pages rapides, et beaucoup d'attention aux détails.
     </p>
 
     <div data-hero-item class="flex flex-wrap items-center gap-4 pt-2">
@@ -176,7 +186,7 @@
       Ce que l'on construit pour vous
     </h2>
     <p class="text-fc-md text-fc-fg-muted max-w-2xl">
-      Chaque projet bénéficie d'une conception sur mesure sans intermédiaire. Vous travaillez en direct avec les designers et développeurs qui codent votre solution.
+      Vous travaillez directement avec les designers et développeurs qui font votre projet. Pas d'intermédiaire.
     </p>
   </div>
 
@@ -214,8 +224,8 @@
 
   <div class="flex flex-col sm:flex-row items-center justify-between gap-4 rounded-fc-3xl bg-fc-surface p-6 sm:p-8 shadow-sm">
     <div class="flex flex-col gap-1 text-center sm:text-left">
-      <span class="text-fc-md font-bold text-fc-fg">Un besoin particulier ou un projet spécifique ?</span>
-      <span class="text-fc-xs text-fc-fg-muted">Nous cadrons votre cahier des charges et vous envoyons une proposition sous 48h.</span>
+      <span class="text-fc-md font-bold text-fc-fg">Un besoin qui sort de ces cases ?</span>
+      <span class="text-fc-xs text-fc-fg-muted">Envoyez-nous votre cahier des charges, on vous répond avec une proposition sous 48h.</span>
     </div>
     <Button
       variant="primary"
@@ -229,15 +239,19 @@
   </div>
 </section>
 
-<section id="projets" class="relative py-12 lg:py-0 w-full overflow-hidden">
-  <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 lg:mb-10 max-w-fc-xl mx-auto px-4 sm:px-6 md:px-10">
+<section
+  id="projets"
+  bind:this={projectsSection}
+  class="relative py-12 lg:py-0 lg:pt-24 lg:pb-8 lg:h-dvh lg:flex lg:flex-col w-full overflow-hidden"
+>
+  <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 lg:mb-6 lg:shrink-0 w-full max-w-fc-xl mx-auto px-4 sm:px-6 md:px-10">
     <div class="flex flex-col gap-3">
       <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">Réalisations récentes</span>
       <h2 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">
-        Des projets taillés pour performer
+        Quelques projets récents
       </h2>
       <p class="text-fc-md text-fc-fg-muted max-w-2xl">
-        Découvrez une sélection de réalisations conçues et livrées par le studio.
+        Des sites et des applications conçus et livrés par le studio.
       </p>
     </div>
     <Button
@@ -255,7 +269,7 @@
     {#each CLIENT_PROJECTS as project}
       <a
         href={`/projects/${project.slug}`}
-        class="group relative flex flex-col justify-end aspect-[16/10] overflow-hidden rounded-fc-2xl p-6 transition-all duration-300 hover:-translate-y-1 shadow-md border border-white/10"
+        class="group relative flex flex-col justify-end aspect-[16/10] overflow-hidden rounded-fc-2xl p-6 transition-all duration-300 hover:-translate-y-1 shadow-md"
       >
         <img
           src={project.cover}
@@ -266,7 +280,7 @@
         <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-transparent pointer-events-none"></div>
         <div class="relative z-10 flex flex-col gap-2.5 text-white">
           <div class="flex items-center justify-between">
-            <span class="rounded-fc-pill bg-black/60 backdrop-blur-md border border-white/15 px-3 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-white">
+            <span class="rounded-fc-pill bg-black/60 backdrop-blur-md px-3 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-white">
               {project.category}
             </span>
             <span class="text-[11px] font-mono text-zinc-300">{project.year}</span>
@@ -279,7 +293,7 @@
           </p>
           <div class="flex flex-wrap gap-1.5 pt-1">
             {#each project.stack.slice(0, 3) as tech}
-              <TechBadge {tech} class="bg-black/60 backdrop-blur-md border border-white/15 text-white" />
+              <TechBadge {tech} class="bg-black/60 backdrop-blur-md text-white" />
             {/each}
           </div>
         </div>
@@ -289,15 +303,15 @@
 
   <div
     bind:this={horizontalSection}
-    class="hidden lg:block relative w-full overflow-hidden"
+    class="hidden lg:block relative w-full flex-1 min-h-0 overflow-hidden"
   >
     <div
       bind:this={horizontalTrack}
-      class="flex items-center gap-8 pl-8 md:pl-12 lg:pl-16 pr-20 lg:pr-32 py-6 w-fit"
+      class="flex h-full items-stretch gap-8 pl-8 md:pl-12 lg:pl-16 pr-20 lg:pr-32 w-fit"
     >
       {#each CLIENT_PROJECTS as project}
         <article
-          class="project-slide group relative w-[76vw] max-w-[1100px] h-[66vh] min-h-[460px] max-h-[620px] shrink-0 rounded-fc-3xl overflow-hidden bg-fc-surface border border-white/10 shadow-2xl flex flex-col justify-between p-8 xl:p-12 transition-all duration-300"
+          class="project-slide group relative w-[76vw] max-w-[1100px] h-full shrink-0 rounded-fc-3xl overflow-hidden bg-fc-surface shadow-2xl flex flex-col justify-between p-8 xl:p-12 transition-all duration-300"
         >
           <div class="absolute inset-0 z-0 overflow-hidden bg-fc-surface">
             <img
@@ -312,7 +326,7 @@
 
           <div class="relative z-10 flex items-center justify-between gap-4">
             <div class="flex items-center gap-3">
-              <span class="rounded-fc-pill bg-black/60 backdrop-blur-md border border-white/15 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-white">
+              <span class="rounded-fc-pill bg-black/60 backdrop-blur-md px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-white">
                 {project.category}
               </span>
               <span class="rounded-fc-pill bg-black/40 backdrop-blur-md px-3 py-1 text-xs font-mono text-zinc-300">
@@ -324,7 +338,7 @@
                 href={project.link}
                 target="_blank"
                 rel="noreferrer"
-                class="inline-flex items-center gap-1.5 rounded-fc-pill bg-black/60 backdrop-blur-md border border-white/15 px-4 py-1.5 text-xs font-semibold text-white transition-all hover:bg-white hover:text-black"
+                class="inline-flex items-center gap-1.5 rounded-fc-pill bg-black/60 backdrop-blur-md px-4 py-1.5 text-xs font-semibold text-white transition-all hover:bg-white hover:text-black"
               >
                 <span>Site en ligne</span>
                 <Icon icon={icons.arrow} size={14} />
@@ -342,7 +356,7 @@
               </p>
               <div class="flex flex-wrap gap-2 pt-1">
                 {#each project.stack as tech}
-                  <TechBadge {tech} class="bg-black/60 backdrop-blur-md border border-white/15 text-white" />
+                  <TechBadge {tech} class="bg-black/60 backdrop-blur-md text-white" />
                 {/each}
               </div>
             </div>
@@ -368,10 +382,10 @@
 <section id="ecosystem" use:scrollReveal={{ delay: 0.05 }} class="flex flex-col gap-8 py-16 w-full max-w-fc-xl mx-auto px-4 sm:px-6 md:px-10">
   <div class="flex flex-col gap-3 text-center items-center">
     <h2 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">
-      Un écosystème connecté, zéro friction
+      Des outils qui se parlent
     </h2>
     <p class="text-fc-md text-fc-fg-muted max-w-2xl">
-      Nos projets clients et nos outils internes communiquent via des APIs ouvertes et un bus d'événements centralisé. Une architecture fluide et résiliente.
+      Nos projets clients et nos outils internes échangent par des APIs ouvertes et un bus d'événements commun.
     </p>
   </div>
 
@@ -385,7 +399,7 @@
         La Suite Facile
       </h2>
       <p class="text-fc-md text-fc-fg-muted max-w-2xl">
-        21 outils libres et souverains développés par le studio pour nos besoins quotidiens et ceux de nos clients. Un seul compte Facile pour y accéder.
+        21 outils libres que le studio a construits pour son propre usage et celui de ses clients. Un seul compte Facile pour tous.
       </p>
     </div>
     <div class="flex flex-wrap gap-2">
@@ -419,6 +433,7 @@
       <button
         type="button"
         onclick={() => (selectedCategory = cat.id)}
+        aria-pressed={selectedCategory === cat.id}
         class="rounded-fc-pill px-3.5 py-1.5 text-fc-xs font-medium transition-colors
           {selectedCategory === cat.id
           ? 'bg-fc-accent text-fc-accent-fg'
@@ -429,8 +444,8 @@
     {/each}
   </div>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-    {#each filteredTools as tool (tool.id)}
+  <div id="suite-tools" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    {#each visibleTools as tool (tool.id)}
       <div class="flex flex-col justify-between gap-4 rounded-fc-2xl bg-fc-component p-5 transition-transform duration-200 hover:-translate-y-0.5 shadow-sm">
         <div class="flex flex-col gap-3">
           <div class="flex items-center justify-between">
@@ -484,6 +499,22 @@
       </div>
     {/each}
   </div>
+
+  {#if hiddenToolCount > 0}
+    <div class="flex justify-center">
+      <Button
+        variant="ghost"
+        size="md"
+        onclick={() => (showAllTools = !showAllTools)}
+        aria-expanded={showAllTools}
+        aria-controls="suite-tools"
+        class="rounded-fc-pill bg-fc-component hover:bg-fc-surface text-fc-fg px-6"
+        icon={showAllTools ? icons.chevronUp : icons.chevronDown}
+      >
+        {showAllTools ? "Voir moins" : `Voir les ${hiddenToolCount} autres outils`}
+      </Button>
+    </div>
+  {/if}
 </section>
 
 <section id="bulle" use:scrollReveal={{ delay: 0.05 }} class="flex flex-col gap-8 py-16 w-full max-w-fc-xl mx-auto px-4 sm:px-6 md:px-10">
@@ -494,7 +525,7 @@
           Bulle, l'agent connecté à tous vos outils
         </h2>
         <p class="text-fc-md text-fc-fg-muted leading-relaxed">
-          Bulle dispose de son propre ordinateur sous microVM Linux et s'interface nativement avec tout votre écosystème Facile. Il lit et rédige vos emails dans Courrier, organise vos tâches dans Opus, planifie vos rendez-vous dans Agenda, gère vos fichiers dans Nuage et déploie vos projets sans intermédiaire.
+          Bulle a son propre ordinateur, une microVM Linux, et se branche sur tous vos outils Facile. Il lit et rédige vos emails dans Courrier, range vos tâches dans Opus, cale vos rendez-vous dans Agenda, gère vos fichiers dans Nuage et déploie vos projets.
         </p>
       </div>
 
@@ -536,7 +567,7 @@
         Pastille · Balise vocale ouverte 38 mm
       </h2>
       <p class="text-fc-md text-fc-fg-muted max-w-2xl">
-        En complément du logiciel et du web, Facile Studio dispose de son propre atelier de R&D et hardware dédié aux projets modernes et aux objets connectés sur mesure. Pastille en est la vitrine ouverte : un charm matériel de 38 mm propulsé par ESP32-S3, avec écran circulaire IPS et firmware en Rust Embassy.
+        Le studio a aussi un atelier de R&D matériel pour les objets connectés sur mesure. Pastille est notre démonstration ouverte. Un charm de 38 mm avec un ESP32-S3, un écran rond IPS et un firmware en Rust Embassy.
       </p>
     </div>
     <div class="flex flex-wrap gap-2">
@@ -555,10 +586,10 @@
 <section id="contact" use:scrollReveal={{ delay: 0.05 }} class="flex flex-col gap-8 py-20 w-full max-w-fc-xl mx-auto px-4 sm:px-6 md:px-10">
   <div class="flex flex-col items-center text-center gap-6 rounded-fc-3xl bg-fc-component p-8 sm:p-14 shadow-sm">
     <h2 class="text-3xl sm:text-5xl font-black tracking-tight text-fc-fg max-w-2xl leading-tight text-balance">
-      Prêt à concevoir un site web ou une application qui compte&nbsp;?
+      Un site ou une application en tête&nbsp;?
     </h2>
     <p class="text-fc-md text-fc-fg-muted max-w-xl leading-relaxed">
-      Discutons de votre vision, de vos contraintes et de votre calendrier. Nous intervenons sur des vitrines haut de gamme, des apps métier et des infrastructures pérennes.
+      Parlez-nous de votre projet, de vos contraintes et de vos délais. On fait des sites vitrines, des applications métier et de l'hébergement.
     </p>
 
     <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
@@ -587,14 +618,3 @@
   </div>
 </section>
 
-<style>
-  :global([data-hero-item]) {
-    opacity: 0;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    :global([data-hero-item]) {
-      opacity: 1 !important;
-      transform: none !important;
-    }
-  }
-</style>

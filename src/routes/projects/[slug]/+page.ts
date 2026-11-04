@@ -4,16 +4,7 @@ import type { EntryGenerator, PageLoad } from "./$types";
 
 export const prerender = true;
 
-export const entries: EntryGenerator = () => {
-  return [
-    { slug: "marcel" },
-    { slug: "laura-herve" },
-    { slug: "projet-zero" },
-    { slug: "bulle" },
-    { slug: "evelyne-crea" },
-    { slug: "retro-festival" },
-  ];
-};
+export const entries: EntryGenerator = () => CLIENT_PROJECTS.map(({ slug }) => ({ slug }));
 
 export const load: PageLoad = ({ params }) => {
   const project = CLIENT_PROJECTS.find((p) => p.slug === params.slug);
