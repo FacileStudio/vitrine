@@ -2,6 +2,16 @@
 
 All notable changes to Facile Studio Vitrine will be documented in this file.
 
+## [1.3.0] - 2026-11-04
+
+### Changed
+- Ecosystem graph lays its 21 tools on an ellipse that fills the card, with bigger app icons and a smaller center logo.
+- Ecosystem graph switches to a portrait layout under 640px, so icons stay readable on phones.
+- Portfolio horizontal scroll holds briefly at entry and exit and uses a tighter scrub, so the cards settle before the page scrolls on.
+
+### Fixed
+- Jump when entering or leaving the pinned portfolio section. The outer frame padding no longer shifts the page on first scroll, so ScrollTrigger's pin positions stay correct.
+
 ## [1.2.2] - 2026-11-04
 
 ### Fixed

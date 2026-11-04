@@ -131,7 +131,7 @@
   <meta property="og:url" content={canonicalUrl} />
 </svelte:head>
 
-<div class="relative min-h-dvh w-full bg-fc-surface text-fc-fg flex flex-col transition-all duration-500 ease-out {flush ? 'p-0' : 'p-2 sm:p-3 xl:p-4'}">
+<div class="relative min-h-dvh w-full bg-fc-surface text-fc-fg flex flex-col">
   <EntranceLoader />
 
   {#if !isContactPage}
@@ -317,8 +317,7 @@
   {/if}
 
   <div
-    class="relative flex min-h-0 w-full flex-1 flex-col overflow-hidden bg-fc-page transition-all duration-500 ease-out
-      {flush ? 'rounded-none' : 'rounded-[28px] sm:rounded-[36px]'}"
+    class="relative flex min-h-0 w-full flex-1 flex-col overflow-hidden bg-fc-page"
   >
     <div
       class="ambient pointer-events-none fixed z-0 overflow-hidden transition-all duration-500 ease-out

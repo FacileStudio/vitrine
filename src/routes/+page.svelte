@@ -81,19 +81,22 @@
         return horizontalTrack.scrollWidth - horizontalSection.clientWidth;
       };
 
-      const tween = gsap.to(horizontalTrack, {
-        x: () => -getScrollAmount(),
-        ease: "none",
-        scrollTrigger: {
-          trigger: projectsSection,
-          start: "top top",
-          end: () => `+=${getScrollAmount()}`,
-          pin: true,
-          anticipatePin: 1,
-          scrub: 1,
-          invalidateOnRefresh: true,
-        },
-      });
+      const HOLD = 0.08;
+      const tween = gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: projectsSection,
+            start: "top top",
+            end: () => `+=${getScrollAmount() * (1 + HOLD * 2)}`,
+            pin: true,
+            anticipatePin: 1,
+            scrub: 0.4,
+            invalidateOnRefresh: true,
+          },
+        })
+        .to({}, { duration: HOLD })
+        .to(horizontalTrack, { x: () => -getScrollAmount(), ease: "none", duration: 1 })
+        .to({}, { duration: HOLD });
 
       return () => {
         tween.kill();
