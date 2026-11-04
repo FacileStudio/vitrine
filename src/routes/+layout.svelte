@@ -35,6 +35,7 @@
   const isProjectsPage = $derived(page.url.pathname.startsWith("/projects"));
   const isHomePage = $derived(page.url.pathname === "/");
   const isContactPage = $derived(page.url.pathname === "/contact");
+  const flush = $derived(scrolled || isContactPage);
   const canonicalUrl = $derived(`https://facile.studio${page.url.pathname}`);
 
   if (browser) {
@@ -130,12 +131,13 @@
   <meta property="og:url" content={canonicalUrl} />
 </svelte:head>
 
-<div class="relative min-h-dvh w-full bg-fc-surface text-fc-fg flex flex-col transition-all duration-500 ease-out {scrolled ? 'p-0' : 'p-2 sm:p-3 xl:p-4'}">
+<div class="relative min-h-dvh w-full bg-fc-surface text-fc-fg flex flex-col transition-all duration-500 ease-out {flush ? 'p-0' : 'p-2 sm:p-3 xl:p-4'}">
   <EntranceLoader />
 
+  {#if !isContactPage}
   <div
     class="screen-frame pointer-events-none fixed z-20 transition-all duration-500 ease-out
-      {scrolled ? 'inset-0 rounded-none' : 'inset-2 sm:inset-3 xl:inset-4 rounded-[28px] sm:rounded-[36px]'}"
+      {flush ? 'inset-0 rounded-none' : 'inset-2 sm:inset-3 xl:inset-4 rounded-[28px] sm:rounded-[36px]'}"
     aria-hidden="true"
   ></div>
 
@@ -245,6 +247,7 @@
       </div>
     </div>
   </div>
+  {/if}
 
   {#if mobileOpen}
     <div class="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal="true" aria-label="Navigation">
@@ -315,11 +318,11 @@
 
   <div
     class="relative flex min-h-0 w-full flex-1 flex-col overflow-hidden bg-fc-page transition-all duration-500 ease-out
-      {scrolled ? 'rounded-none' : 'rounded-[28px] sm:rounded-[36px]'}"
+      {flush ? 'rounded-none' : 'rounded-[28px] sm:rounded-[36px]'}"
   >
     <div
       class="ambient pointer-events-none fixed z-0 overflow-hidden transition-all duration-500 ease-out
-        {scrolled ? 'inset-0 rounded-none' : 'inset-2 sm:inset-3 xl:inset-4 rounded-[28px] sm:rounded-[36px]'}"
+        {flush ? 'inset-0 rounded-none' : 'inset-2 sm:inset-3 xl:inset-4 rounded-[28px] sm:rounded-[36px]'}"
       aria-hidden="true"
     >
       <div class="ambient-blob ambient-blob-1 -top-80 -left-80 size-[1000px]"></div>
@@ -328,7 +331,9 @@
       <div class="ambient-grain absolute inset-0"></div>
     </div>
 
-    <div class="h-14 shrink-0 pointer-events-none" aria-hidden="true"></div>
+    {#if !isContactPage}
+      <div class="h-14 shrink-0 pointer-events-none" aria-hidden="true"></div>
+    {/if}
     <main class="relative z-10 flex-1">
       {#if isHomePage || isContactPage}
         {@render children()}
@@ -337,6 +342,7 @@
       {/if}
     </main>
 
+    {#if !isContactPage}
     <footer class="relative z-10 mx-auto w-full max-w-fc-xl px-4 pb-12 pt-8 sm:px-6 md:px-10">
       <div
         class="flex flex-col items-center justify-between gap-6 rounded-3xl md:rounded-full bg-fc-component px-6 sm:px-10 py-6 md:py-4
@@ -363,6 +369,7 @@
         </div>
       </div>
     </footer>
+    {/if}
   </div>
 
 </div>

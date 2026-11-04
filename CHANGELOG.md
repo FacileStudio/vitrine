@@ -2,6 +2,18 @@
 
 All notable changes to Facile Studio Vitrine will be documented in this file.
 
+## [1.2.0] - 2026-11-04
+
+### Changed
+- `/contact` is fullscreen, without the top bar, screen frame or footer, and keeps the back button top left.
+- `/contact` shows step dots in place of the "Étape 01 / 04" counter.
+- `/contact` progress bar has a stop per step, with "1 Projet" style labels centered under each stop.
+- Hero text is centered between the top bar and the FACILE wordmark at every screen height.
+- Pastille section title is now "Pastille, l'assistant vocal qui tient dans la paume".
+
+### Removed
+- "Réalisations récentes" label above the portfolio title.
+
 ## [1.1.1] - 2026-11-04
 
 ### Fixed

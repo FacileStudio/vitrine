@@ -118,9 +118,9 @@
 
 <section
   id="hero"
-  class="relative flex flex-col justify-between min-h-[calc(100dvh-5.5rem)] sm:min-h-[calc(100dvh-6.5rem)] xl:min-h-[calc(100dvh-7rem)] w-full max-w-fc-xl mx-auto px-4 sm:px-6 md:px-10 pt-6 sm:pt-8 pb-20 sm:pb-28 overflow-hidden"
+  class="relative flex flex-col min-h-[calc(100dvh-5.5rem)] sm:min-h-[calc(100dvh-6.5rem)] xl:min-h-[calc(100dvh-7rem)] w-full max-w-fc-xl mx-auto px-4 sm:px-6 md:px-10 pt-6 sm:pt-8 overflow-hidden"
 >
-  <div class="relative z-10 flex flex-col gap-6 max-w-4xl">
+  <div class="relative z-10 flex flex-1 flex-col justify-center gap-6 max-w-4xl py-6">
     <h1 data-hero-item class="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-fc-fg leading-[1.08]">
       On simplifie,<br />
       <span class="text-fc-fg-muted">vous créez.</span>
@@ -166,7 +166,7 @@
     </div>
   </div>
 
-  <div data-hero-item class="absolute bottom-0 left-0 w-full overflow-hidden select-none pointer-events-none">
+  <div data-hero-item class="relative shrink-0 -mx-4 sm:-mx-6 md:-mx-10 mt-4 overflow-hidden select-none pointer-events-none">
     <svg viewBox="-10 0 1510 435" preserveAspectRatio="xMinYMax meet" fill="none" class="w-full h-auto text-fc-fg fill-current transition-colors duration-300">
       <path d="M33.1193 3.91218L36.4625 5.02899C29.2188 32.3912 44.8207 70.3632 71.0097 70.3632C125.616 70.3632 169.636 -0.555124 247.646 0.00328039C308.939 0.00328039 322.312 54.7276 322.312 80.973V120.62H237.616L237.059 86.5571C237.059 47.4683 216.442 38.5337 193.039 38.5337C115.029 38.5337 85.4972 149.099 43.7063 149.099C20.3034 149.099 14.1741 116.711 14.1741 91.5828C14.1741 54.1692 23.6467 19.5477 33.1193 3.91218ZM92.1837 203.265L145.119 85.9987H218.114C196.94 126.763 179.109 166.41 162.95 203.265H169.079C234.273 203.265 286.094 219.459 286.094 304.896L202.512 303.779C203.069 225.602 200.84 212.2 169.636 212.2H158.492C105.557 331.141 67.6664 418.812 -7 418.812L-6.44279 327.232V203.265H92.1837ZM-1.98509 257.431V327.232C26.9899 325.557 52.6217 292.052 68.7808 255.197L87.7261 212.758C15.8457 215.55 -1.98509 224.485 -1.98509 257.431Z" fill="currentColor"/>
       <path d="M302.996 416.02L408.402 80.973H490.358L595.764 416.02H538.186L442.531 115.408H455.068L360.574 416.02H302.996ZM361.735 343.426V291.075H537.257V343.426H361.735Z" fill="currentColor"/>
@@ -246,7 +246,6 @@
 >
   <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 lg:mb-6 lg:shrink-0 w-full max-w-fc-xl mx-auto px-4 sm:px-6 md:px-10">
     <div class="flex flex-col gap-3">
-      <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">Réalisations récentes</span>
       <h2 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">
         Quelques projets récents
       </h2>
@@ -564,7 +563,7 @@
   <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
     <div class="flex flex-col gap-3">
       <h2 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">
-        Pastille · Balise vocale ouverte 38 mm
+        Pastille, l'assistant vocal qui tient dans la paume
       </h2>
       <p class="text-fc-md text-fc-fg-muted max-w-2xl">
         Le studio a aussi un atelier de R&D matériel pour les objets connectés sur mesure. Pastille est notre démonstration ouverte. Un charm de 38 mm avec un ESP32-S3, un écran rond IPS et un firmware en Rust Embassy.

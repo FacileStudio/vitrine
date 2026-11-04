@@ -80,8 +80,10 @@
     tags = tags.includes(tag) ? tags.filter((t) => t !== tag) : [...tags, tag];
   }
 
+  const STEPS = ["Projet", "Budget", "Vision", "Contact"];
+
   function nextStep() {
-    if (step < 4) {
+    if (step < STEPS.length) {
       direction = "next";
       step += 1;
     }
@@ -145,73 +147,74 @@
   />
 </svelte:head>
 
-<div class="w-full max-w-5xl mx-auto px-4 sm:px-6 md:px-10 py-6 sm:py-10 flex flex-col min-h-[calc(100dvh-6.5rem)] justify-between gap-8">
-  <header class="flex flex-col gap-4">
-    <div class="flex items-center justify-between gap-4">
+<div class="w-full max-w-5xl mx-auto px-4 sm:px-6 md:px-10 py-6 sm:py-10 flex flex-col min-h-dvh justify-between gap-8">
+  <header class="flex flex-col gap-6">
+    <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-4">
       <a
         href="/"
-        class="inline-flex items-center gap-2 rounded-fc-pill bg-fc-surface hover:bg-fc-surface-hover px-4 py-2 text-xs font-semibold text-fc-fg transition-colors shrink-0 shadow-xs"
+        class="inline-flex items-center gap-2 justify-self-start rounded-fc-pill bg-fc-surface hover:bg-fc-surface-hover px-4 py-2 text-xs font-semibold text-fc-fg transition-colors shrink-0 shadow-xs"
       >
         <Icon icon={icons.chevronLeft} size={14} />
         <span>Retour à l'accueil</span>
       </a>
 
       {#if !submitted}
-        <div class="flex items-center gap-2 text-fc-xs font-mono text-fc-fg-muted">
-          <span class="font-semibold text-fc-fg">Étape 0{step}</span>
-          <span>/</span>
-          <span>04</span>
+        <div class="flex items-center gap-1.5" role="img" aria-label="Étape {step} sur {STEPS.length}">
+          {#each STEPS as _, i (i)}
+            <span
+              class="h-2 rounded-fc-full transition-all duration-300 {i + 1 === step
+                ? 'w-6 bg-fc-fg'
+                : i + 1 < step
+                  ? 'w-2 bg-fc-fg-muted'
+                  : 'w-2 bg-fc-surface'}"
+            ></span>
+          {/each}
         </div>
+      {:else}
+        <span></span>
       {/if}
 
-      <div class="hidden sm:flex items-center gap-3">
-        <a
-          href="tel:+33768888818"
-          class="inline-flex items-center gap-1.5 text-fc-xs text-fc-fg-muted hover:text-fc-fg font-medium transition-colors"
-        >
-          <span>07 68 88 88 18</span>
-        </a>
-      </div>
+      <a
+        href="tel:+33768888818"
+        class="hidden sm:inline-flex justify-self-end items-center gap-1.5 text-fc-xs text-fc-fg-muted hover:text-fc-fg font-medium transition-colors"
+      >
+        07 68 88 88 18
+      </a>
     </div>
 
     {#if !submitted}
-      <div class="flex flex-col gap-2 pt-2">
-        <div class="h-1.5 w-full bg-fc-surface rounded-fc-full overflow-hidden">
+      <div class="relative">
+        <div class="absolute left-[12.5%] right-[12.5%] top-2 h-1 -translate-y-1/2 rounded-fc-full bg-fc-surface overflow-hidden">
           <div
-            class="h-full bg-fc-accent transition-all duration-500 ease-out rounded-fc-full"
-            style="width: {(step / 4) * 100}%"
+            class="h-full rounded-fc-full bg-fc-accent transition-all duration-500 ease-out"
+            style="width: {((step - 1) / (STEPS.length - 1)) * 100}%"
           ></div>
         </div>
-        <div class="grid grid-cols-4 gap-2 text-[11px] font-medium text-fc-fg-muted">
-          <button
-            type="button"
-            onclick={() => goToStep(1)}
-            class="text-left transition-colors {step === 1 ? 'text-fc-fg font-bold' : ''}"
-          >
-            1. Projet
-          </button>
-          <button
-            type="button"
-            onclick={() => goToStep(2)}
-            class="text-left transition-colors {step === 2 ? 'text-fc-fg font-bold' : ''}"
-          >
-            2. Budget
-          </button>
-          <button
-            type="button"
-            onclick={() => goToStep(3)}
-            class="text-left transition-colors {step === 3 ? 'text-fc-fg font-bold' : ''}"
-          >
-            3. Vision
-          </button>
-          <button
-            type="button"
-            onclick={() => goToStep(4)}
-            class="text-left transition-colors {step === 4 ? 'text-fc-fg font-bold' : ''}"
-          >
-            4. Contact
-          </button>
-        </div>
+        <ol class="relative grid grid-cols-4">
+          {#each STEPS as label, i (label)}
+            {@const n = i + 1}
+            <li class="flex justify-center">
+              <button
+                type="button"
+                onclick={() => goToStep(n)}
+                aria-current={step === n ? "step" : undefined}
+                class="flex flex-col items-center gap-2 text-[11px] font-medium transition-colors
+                  {step === n ? 'text-fc-fg' : 'text-fc-fg-muted hover:text-fc-fg'}"
+              >
+                <span class="flex h-4 items-center justify-center">
+                  <span
+                    class="rounded-fc-full transition-all duration-300 {step === n
+                      ? 'size-4 bg-fc-accent'
+                      : n < step
+                        ? 'size-3 bg-fc-accent'
+                        : 'size-3 bg-fc-surface'}"
+                  ></span>
+                </span>
+                <span>{n} {label}</span>
+              </button>
+            </li>
+          {/each}
+        </ol>
       </div>
     {/if}
   </header>
