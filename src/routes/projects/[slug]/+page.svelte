@@ -108,7 +108,7 @@
   {/if}
 
   <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 pt-4">
-    <div class="flex flex-col gap-4 rounded-fc-3xl bg-fc-component p-8 shadow-sm border border-fc-border/40">
+    <div class="flex flex-col gap-4 rounded-fc-3xl bg-fc-component p-8 shadow-sm">
       <div class="inline-flex items-center gap-2 rounded-fc-pill bg-fc-surface px-3 py-1 text-fc-xs font-mono text-fc-accent w-fit">
         Le problème posé
       </div>
@@ -120,7 +120,7 @@
       </p>
     </div>
 
-    <div class="flex flex-col gap-4 rounded-fc-3xl bg-fc-component p-8 shadow-sm border border-fc-border/40">
+    <div class="flex flex-col gap-4 rounded-fc-3xl bg-fc-component p-8 shadow-sm">
       <div class="inline-flex items-center gap-2 rounded-fc-pill bg-fc-surface px-3 py-1 text-fc-xs font-mono text-fc-success w-fit">
         La solution déployée
       </div>
@@ -149,7 +149,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       {#each project.gallery as image, index (image.src)}
         {@const isFull = image.featured || (index === 0 && project.gallery.length % 2 === 1)}
-        <figure class="flex flex-col gap-3 rounded-fc-2xl bg-fc-component p-4 shadow-sm border border-fc-border/30 {isFull ? 'md:col-span-2' : ''}">
+        <figure class="flex flex-col gap-3 rounded-fc-2xl bg-fc-component p-4 shadow-sm {isFull ? 'md:col-span-2' : ''}">
           <div class="relative overflow-hidden rounded-fc-xl bg-fc-surface {isFull ? 'aspect-video md:aspect-[21/9]' : 'aspect-video'}">
             <img
               src={image.src}
@@ -170,7 +170,7 @@
   </section>
 
   <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 pt-4">
-    <div class="flex flex-col gap-5 rounded-fc-3xl bg-fc-component p-8 shadow-sm border border-fc-border/40">
+    <div class="flex flex-col gap-5 rounded-fc-3xl bg-fc-component p-8 shadow-sm">
       <h3 class="text-fc-lg font-bold tracking-tight text-fc-fg">
         Livrables du projet
       </h3>
@@ -186,7 +186,7 @@
       </ul>
     </div>
 
-    <div class="flex flex-col gap-5 rounded-fc-3xl bg-fc-component p-8 shadow-sm border border-fc-border/40">
+    <div class="flex flex-col gap-5 rounded-fc-3xl bg-fc-component p-8 shadow-sm">
       <h3 class="text-fc-lg font-bold tracking-tight text-fc-fg">
         Technologies & composants
       </h3>
@@ -203,7 +203,7 @@
     </div>
   </section>
 
-  <section class="flex flex-col sm:flex-row items-center justify-between gap-6 rounded-fc-3xl bg-fc-component p-8 sm:p-10 mt-4 shadow-sm border border-fc-border/40">
+  <section class="flex flex-col sm:flex-row items-center justify-between gap-6 rounded-fc-3xl bg-fc-component p-8 sm:p-10 mt-4 shadow-sm">
     <div class="flex flex-col gap-2 max-w-xl text-center sm:text-left">
       <h3 class="text-fc-xl sm:text-fc-2xl font-bold tracking-tight text-fc-fg">
         Lancer un projet similaire

@@ -2,6 +2,7 @@
   import "../app.css";
   import { onMount, type Snippet } from "svelte";
   import { browser } from "$app/environment";
+  import { page } from "$app/state";
   import { gsap } from "gsap";
   import {
     Button,
@@ -24,7 +25,7 @@
   provideLocale("en");
 
   let theme = $state<"light" | "dark">("dark");
-  let activeSection = $state<string>(NAV_LINKS[0].id);
+  let activeSection = $state<string>("");
   let scrolled = $state(false);
   let mobileOpen = $state(false);
   let contactOpen = $state(false);
@@ -32,6 +33,9 @@
   let navEls: Record<string, HTMLAnchorElement> = $state({});
   let scrimEl: HTMLDivElement | null = $state(null);
   let drawerEl: HTMLElement | null = $state(null);
+
+  const isProjectsPage = $derived(page.url.pathname.startsWith("/projects"));
+  const isHomePage = $derived(page.url.pathname === "/");
 
   if (browser) {
     const saved = localStorage.getItem("facile-theme");
@@ -45,7 +49,11 @@
     document.documentElement.classList.toggle("light", theme === "light");
     localStorage.setItem("facile-theme", theme);
   });
-  $effect(() => moveNavPill(navPill, navEls[activeSection], true));
+
+  $effect(() => {
+    const targetKey = isProjectsPage ? "portfolio" : activeSection;
+    moveNavPill(navPill, navEls[targetKey], true);
+  });
 
   function toggleTheme() {
     theme = theme === "dark" ? "light" : "dark";
@@ -92,7 +100,8 @@
   }
 
   onMount(() => {
-    moveNavPill(navPill, navEls[activeSection], false);
+    const targetKey = isProjectsPage ? "portfolio" : activeSection;
+    moveNavPill(navPill, navEls[targetKey], false);
     return watchActiveSection(
       NAV_LINKS.map((s) => s.id),
       (id) => (activeSection = id),
@@ -110,87 +119,125 @@
   ];
 </script>
 
-<div class="flex min-h-dvh w-full flex-col bg-fc-page text-fc-fg">
+<div class="relative min-h-dvh w-full bg-fc-surface p-2 sm:p-3 xl:p-4 text-fc-fg flex flex-col">
   <EntranceLoader />
 
-  <div class="sticky top-0 z-30 flex w-full justify-center pointer-events-none px-3 sm:px-6">
-    <header
-      class="pointer-events-auto flex h-14 w-full items-center justify-between gap-3 transition-all duration-500 ease-fc
-        {scrolled
-        ? 'mt-3 max-w-5xl rounded-fc-pill bg-fc-surface/85 px-4 sm:px-6 backdrop-blur-xl shadow-lg border border-fc-fg/10'
-        : 'mt-0 max-w-fc-xl rounded-none bg-transparent px-4 sm:px-6 md:px-10 border border-transparent'}"
-    >
-      <a
-        href="/"
-        class="inline-flex items-center rounded-fc-pill p-1 text-fc-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fc-ring"
-        aria-label="Accueil"
+  <div class="fixed top-0 inset-x-0 z-30 flex justify-center pointer-events-none px-2 sm:px-4">
+    <div class="pointer-events-auto relative flex items-start justify-center transition-all duration-500 ease-fc">
+      <header
+        class="relative flex h-14 items-center justify-between gap-2 sm:gap-4 transition-all duration-500 ease-fc
+          {scrolled
+          ? 'mt-3 w-full max-w-5xl rounded-fc-pill bg-fc-surface/85 px-4 sm:px-6 backdrop-blur-xl shadow-lg'
+          : 'mt-0 w-[calc(100vw-3.5rem)] sm:w-auto sm:min-w-[700px] lg:min-w-[880px] max-w-5xl rounded-t-none rounded-b-[24px] sm:rounded-b-3xl bg-fc-surface px-4 sm:px-6 md:px-8 shadow-none'}"
       >
-        <svg viewBox="0 0 23 25" class="h-6 w-auto text-fc-fg fill-current">
-          <path d="M2.30534 0.255093L2.49734 0.319092C2.08134 1.88709 2.97734 4.06309 4.48134 4.06309C7.61734 4.06309 10.1453 -0.000907898 14.6253 0.0310917C18.1453 0.0310917 18.9133 3.16709 18.9133 4.67109V6.94309H14.0493L14.0173 4.99109C14.0173 2.75109 12.8333 2.23909 11.4893 2.23909C7.00934 2.23909 5.31334 8.57509 2.91334 8.57509C1.56934 8.57509 1.21734 6.71909 1.21734 5.27909C1.21734 3.13509 1.76134 1.15109 2.30534 0.255093ZM5.69734 11.6791L8.73734 4.95909H12.9293C11.7133 7.29509 10.6893 9.56709 9.76134 11.6791H10.1133C13.8573 11.6791 16.8333 12.6071 16.8333 17.5031L12.0333 17.4391C12.0653 12.9591 11.9373 12.1911 10.1453 12.1911H9.50534C6.46534 19.0071 4.28934 24.0311 0.00134376 24.0311L0.0333438 18.7831V11.6791H5.69734ZM0.289344 14.7831V18.7831C1.95334 18.6871 3.42534 16.7671 4.35334 14.6551L5.44134 12.2231C1.31334 12.3831 0.289344 12.8951 0.289344 14.7831ZM19.9478 24.0951C18.5398 24.0951 17.5158 23.1031 17.5158 21.7271C17.5158 20.3831 18.5398 19.3591 19.9478 19.3591C21.3558 19.3591 22.3798 20.3831 22.3798 21.7271C22.3798 23.1031 21.3558 24.0951 19.9478 24.0951Z" />
-        </svg>
-      </a>
-
-      <nav aria-label="Primary" class="relative hidden md:flex items-center gap-0.5 p-1">
-        <span
-          bind:this={navPill}
+        <svg
+          viewBox="0 0 19 19"
+          class="absolute right-full top-0 shrink-0 text-fc-surface fill-current transition-all duration-300 ease-fc
+            {scrolled
+            ? 'opacity-0 scale-50 pointer-events-none'
+            : 'opacity-100 scale-100 mt-2 sm:mt-3 xl:mt-4 mr-[-1px]'}"
+          width="24"
+          height="24"
           aria-hidden="true"
-          class="pointer-events-none absolute inset-y-1 left-0 rounded-fc-pill bg-fc-accent opacity-0"
-        ></span>
-        {#each NAV_LINKS as item (item.id)}
-          {@const active = activeSection === item.id}
-          <a
-            bind:this={navEls[item.id]}
-            href="#{item.id}"
-            aria-current={active ? "location" : undefined}
-            onclick={(e) => selectSection(item.id, e)}
-            class="relative z-10 inline-flex h-8 items-center whitespace-nowrap rounded-fc-pill px-3 text-fc-xs
-              font-medium transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2
-              focus-visible:outline-fc-ring {active ? 'text-fc-accent-fg' : 'text-fc-fg-muted hover:text-fc-fg'}"
-            >{item.label}</a
-          >
-        {/each}
-        <a
-          href="/projects"
-          class="relative z-10 inline-flex h-8 items-center whitespace-nowrap rounded-fc-pill px-3 text-fc-xs
-            font-medium text-fc-fg-muted hover:text-fc-fg transition-colors duration-200"
         >
-          Portfolio
-        </a>
-      </nav>
+          <path
+            d="M19 19L18.9944 18.5324C18.9369 16.1967 18.4488 13.89 17.5537 11.7289C16.5988 9.42375 15.1993 7.32929 13.435 5.56501C11.6707 3.80074 9.57625 2.40118 7.27112 1.44634C4.96593 0.491499 2.49512 1.09045e-07 0 0H19V19Z"
+            fill="currentColor"
+          />
+        </svg>
 
-      <div class="flex items-center gap-2">
-        <IconButton
-          variant="ghost"
-          class="size-9 bg-fc-surface/70 text-fc-fg hover:bg-fc-surface"
-          aria-label={theme === "dark" ? "Passer au thème clair" : "Passer au thème sombre"}
-          onclick={toggleTheme}
+        <a
+          href="/"
+          class="inline-flex items-center rounded-fc-pill p-1 text-fc-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fc-ring shrink-0"
+          aria-label="Accueil"
         >
-          <Icon icon={theme === "dark" ? icons.sun : icons.moon} size={16} />
-        </IconButton>
-        <Button
-          variant="primary"
-          size="md"
-          class="inline-flex h-9 px-4 rounded-fc-pill font-semibold shadow-sm"
-          onclick={triggerContact}
-          icon={icons.arrow}
+          <svg viewBox="0 0 23 25" class="h-6 w-auto text-fc-fg fill-current">
+            <path d="M2.30534 0.255093L2.49734 0.319092C2.08134 1.88709 2.97734 4.06309 4.48134 4.06309C7.61734 4.06309 10.1453 -0.000907898 14.6253 0.0310917C18.1453 0.0310917 18.9133 3.16709 18.9133 4.67109V6.94309H14.0493L14.0173 4.99109C14.0173 2.75109 12.8333 2.23909 11.4893 2.23909C7.00934 2.23909 5.31334 8.57509 2.91334 8.57509C1.56934 8.57509 1.21734 6.71909 1.21734 5.27909C1.21734 3.13509 1.76134 1.15109 2.30534 0.255093ZM5.69734 11.6791L8.73734 4.95909H12.9293C11.7133 7.29509 10.6893 9.56709 9.76134 11.6791H10.1133C13.8573 11.6791 16.8333 12.6071 16.8333 17.5031L12.0333 17.4391C12.0653 12.9591 11.9373 12.1911 10.1453 12.1911H9.50534C6.46534 19.0071 4.28934 24.0311 0.00134376 24.0311L0.0333438 18.7831V11.6791H5.69734ZM0.289344 14.7831V18.7831C1.95334 18.6871 3.42534 16.7671 4.35334 14.6551L5.44134 12.2231C1.31334 12.3831 0.289344 12.8951 0.289344 14.7831ZM19.9478 24.0951C18.5398 24.0951 17.5158 23.1031 17.5158 21.7271C17.5158 20.3831 18.5398 19.3591 19.9478 19.3591C21.3558 19.3591 22.3798 20.3831 22.3798 21.7271C22.3798 23.1031 21.3558 24.0951 19.9478 24.0951Z" />
+          </svg>
+        </a>
+
+        <nav aria-label="Primary" class="relative hidden lg:flex items-center gap-0.5 p-1">
+          <span
+            bind:this={navPill}
+            aria-hidden="true"
+            class="pointer-events-none absolute inset-y-1 left-0 rounded-fc-pill bg-fc-accent opacity-0"
+          ></span>
+          {#each NAV_LINKS as item (item.id)}
+            {@const active = isHomePage && activeSection === item.id}
+            <a
+              bind:this={navEls[item.id]}
+              href="/#{item.id}"
+              aria-current={active ? "location" : undefined}
+              onclick={(e) => selectSection(item.id, e)}
+              class="relative z-10 inline-flex h-8 items-center whitespace-nowrap rounded-fc-pill px-2.5 lg:px-3 text-fc-xs
+                font-medium transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2
+                focus-visible:outline-fc-ring {active ? 'text-fc-accent-fg' : 'text-fc-fg-muted hover:text-fc-fg'}"
+              >{item.label}</a
+            >
+          {/each}
+          <a
+            bind:this={navEls["portfolio"]}
+            href="/projects"
+            aria-current={isProjectsPage ? "page" : undefined}
+            class="relative z-10 inline-flex h-8 items-center whitespace-nowrap rounded-fc-pill px-2.5 lg:px-3 text-fc-xs
+              font-medium transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2
+              focus-visible:outline-fc-ring {isProjectsPage ? 'text-fc-accent-fg' : 'text-fc-fg-muted hover:text-fc-fg'}"
+          >
+            Portfolio
+          </a>
+        </nav>
+
+        <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          <IconButton
+            variant="ghost"
+            class="size-9 bg-fc-surface/70 text-fc-fg hover:bg-fc-surface"
+            aria-label={theme === "dark" ? "Passer au thème clair" : "Passer au thème sombre"}
+            onclick={toggleTheme}
+          >
+            <Icon icon={theme === "dark" ? icons.sun : icons.moon} size={16} />
+          </IconButton>
+          <Button
+            variant="primary"
+            size="md"
+            class="inline-flex h-9 px-3 sm:px-4 rounded-fc-pill font-semibold shadow-sm text-fc-xs sm:text-fc-sm"
+            onclick={triggerContact}
+            icon={icons.arrow}
+          >
+            <span class="hidden sm:inline">Démarrer un projet</span>
+            <span class="sm:hidden">Projet</span>
+          </Button>
+          <IconButton
+            variant="ghost"
+            class="size-9 bg-fc-surface/70 text-fc-fg hover:bg-fc-surface lg:hidden"
+            aria-label="Ouvrir le menu"
+            aria-expanded={mobileOpen}
+            onclick={openSidebar}
+          >
+            <Icon icon={MENU_ICON} size={18} />
+          </IconButton>
+        </div>
+
+        <svg
+          viewBox="0 0 19 19"
+          class="absolute left-full top-0 shrink-0 scale-x-[-1] text-fc-surface fill-current transition-all duration-300 ease-fc
+            {scrolled
+            ? 'opacity-0 scale-50 pointer-events-none'
+            : 'opacity-100 scale-100 mt-2 sm:mt-3 xl:mt-4 ml-[-1px]'}"
+          width="24"
+          height="24"
+          aria-hidden="true"
         >
-          Démarrer un projet
-        </Button>
-        <IconButton
-          variant="ghost"
-          class="size-9 bg-fc-surface/70 text-fc-fg hover:bg-fc-surface md:hidden"
-          aria-label="Ouvrir le menu"
-          aria-expanded={mobileOpen}
-          onclick={openSidebar}
-        >
-          <Icon icon={MENU_ICON} size={18} />
-        </IconButton>
-      </div>
-    </header>
+          <path
+            d="M19 19L18.9944 18.5324C18.9369 16.1967 18.4488 13.89 17.5537 11.7289C16.5988 9.42375 15.1993 7.32929 13.435 5.56501C11.6707 3.80074 9.57625 2.40118 7.27112 1.44634C4.96593 0.491499 2.49512 1.09045e-07 0 0H19V19Z"
+            fill="currentColor"
+          />
+        </svg>
+      </header>
+    </div>
   </div>
 
   {#if mobileOpen}
-    <div class="fixed inset-0 z-50 md:hidden" role="dialog" aria-modal="true" aria-label="Navigation">
+    <div class="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal="true" aria-label="Navigation">
       <div
         bind:this={scrimEl}
         role="presentation"
@@ -220,9 +267,9 @@
           </div>
           <nav aria-label="Mobile" class="flex flex-col gap-1.5">
             {#each NAV_LINKS as item (item.id)}
-              {@const active = activeSection === item.id}
+              {@const active = isHomePage && activeSection === item.id}
               <a
-                href="#{item.id}"
+                href="/#{item.id}"
                 onclick={(e) => {
                   e.preventDefault();
                   closeSidebar(() => selectSection(item.id));
@@ -235,7 +282,7 @@
             <a
               href="/projects"
               onclick={() => closeSidebar()}
-              class="inline-flex h-10 items-center rounded-fc-pill px-4 text-fc-sm font-medium text-fc-fg-muted hover:bg-fc-surface hover:text-fc-fg"
+              class="inline-flex h-10 items-center rounded-fc-pill px-4 text-fc-sm font-medium {isProjectsPage ? 'bg-fc-accent text-fc-accent-fg' : 'text-fc-fg-muted hover:bg-fc-surface hover:text-fc-fg'}"
             >
               Portfolio complet
             </a>
@@ -254,34 +301,37 @@
     </div>
   {/if}
 
-  <main class="flex-1"><Page width="xl" class="pt-2 sm:pt-4">{@render children()}</Page></main>
+  <div class="relative flex min-h-[calc(100dvh-1rem)] sm:min-h-[calc(100dvh-1.5rem)] xl:min-h-[calc(100dvh-2rem)] w-full flex-1 flex-col rounded-[28px] sm:rounded-[36px] overflow-hidden bg-fc-page">
+    <div class="h-14 shrink-0 pointer-events-none" aria-hidden="true"></div>
+    <main class="flex-1"><Page width="xl" class="pt-2 sm:pt-4">{@render children()}</Page></main>
 
-  <ContactModal bind:open={contactOpen} />
-
-  <footer class="mx-auto w-full max-w-fc-xl px-4 pb-12 pt-8 sm:px-6 md:px-10">
-    <div
-      class="flex flex-col items-center justify-between gap-6 rounded-fc-2xl bg-fc-component px-6 py-8
-        text-fc-xs text-fc-fg-muted sm:flex-row shadow-sm"
-    >
-      <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 text-center sm:text-left">
-        <svg viewBox="0 0 23 25" class="h-6 w-auto text-fc-fg fill-current">
-          <path d="M2.30534 0.255093L2.49734 0.319092C2.08134 1.88709 2.97734 4.06309 4.48134 4.06309C7.61734 4.06309 10.1453 -0.000907898 14.6253 0.0310917C18.1453 0.0310917 18.9133 3.16709 18.9133 4.67109V6.94309H14.0493L14.0173 4.99109C14.0173 2.75109 12.8333 2.23909 11.4893 2.23909C7.00934 2.23909 5.31334 8.57509 2.91334 8.57509C1.56934 8.57509 1.21734 6.71909 1.21734 5.27909C1.21734 3.13509 1.76134 1.15109 2.30534 0.255093ZM5.69734 11.6791L8.73734 4.95909H12.9293C11.7133 7.29509 10.6893 9.56709 9.76134 11.6791H10.1133C13.8573 11.6791 16.8333 12.6071 16.8333 17.5031L12.0333 17.4391C12.0653 12.9591 11.9373 12.1911 10.1453 12.1911H9.50534C6.46534 19.0071 4.28934 24.0311 0.00134376 24.0311L0.0333438 18.7831V11.6791H5.69734ZM0.289344 14.7831V18.7831C1.95334 18.6871 3.42534 16.7671 4.35334 14.6551L5.44134 12.2231C1.31334 12.3831 0.289344 12.8951 0.289344 14.7831ZM19.9478 24.0951C18.5398 24.0951 17.5158 23.1031 17.5158 21.7271C17.5158 20.3831 18.5398 19.3591 19.9478 19.3591C21.3558 19.3591 22.3798 20.3831 22.3798 21.7271C22.3798 23.1031 21.3558 24.0951 19.9478 24.0951Z" />
-        </svg>
-        <div>
-          <span class="font-bold text-fc-fg">Facile Studio</span>
-          <span class="mx-2">·</span>
-          <span>Lyon · Strasbourg · Qualité française · Remote</span>
-          <span class="mx-2">·</span>
-          <a href="tel:+33768888818" class="font-medium text-fc-fg hover:underline">07 68 88 88 18</a>
-          <span class="mx-2">·</span>
-          <a href="mailto:contact@facile.studio" class="font-medium text-fc-fg hover:underline">contact@facile.studio</a>
+    <footer class="mx-auto w-full max-w-fc-xl px-4 pb-12 pt-8 sm:px-6 md:px-10">
+      <div
+        class="flex flex-col items-center justify-between gap-6 rounded-fc-2xl bg-fc-component px-6 py-8
+          text-fc-xs text-fc-fg-muted sm:flex-row shadow-sm"
+      >
+        <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 text-center sm:text-left">
+          <svg viewBox="0 0 23 25" class="h-6 w-auto text-fc-fg fill-current">
+            <path d="M2.30534 0.255093L2.49734 0.319092C2.08134 1.88709 2.97734 4.06309 4.48134 4.06309C7.61734 4.06309 10.1453 -0.000907898 14.6253 0.0310917C18.1453 0.0310917 18.9133 3.16709 18.9133 4.67109V6.94309H14.0493L14.0173 4.99109C14.0173 2.75109 12.8333 2.23909 11.4893 2.23909C7.00934 2.23909 5.31334 8.57509 2.91334 8.57509C1.56934 8.57509 1.21734 6.71909 1.21734 5.27909C1.21734 3.13509 1.76134 1.15109 2.30534 0.255093ZM5.69734 11.6791L8.73734 4.95909H12.9293C11.7133 7.29509 10.6893 9.56709 9.76134 11.6791H10.1133C13.8573 11.6791 16.8333 12.6071 16.8333 17.5031L12.0333 17.4391C12.0653 12.9591 11.9373 12.1911 10.1453 12.1911H9.50534C6.46534 19.0071 4.28934 24.0311 0.00134376 24.0311L0.0333438 18.7831V11.6791H5.69734ZM0.289344 14.7831V18.7831C1.95334 18.6871 3.42534 16.7671 4.35334 14.6551L5.44134 12.2231C1.31334 12.3831 0.289344 12.8951 0.289344 14.7831ZM19.9478 24.0951C18.5398 24.0951 17.5158 23.1031 17.5158 21.7271C17.5158 20.3831 18.5398 19.3591 19.9478 19.3591C21.3558 19.3591 22.3798 20.3831 22.3798 21.7271C22.3798 23.1031 21.3558 24.0951 19.9478 24.0951Z" />
+          </svg>
+          <div>
+            <span class="font-bold text-fc-fg">Facile Studio</span>
+            <span class="mx-2">·</span>
+            <span>Lyon · Strasbourg · Qualité française · Remote</span>
+            <span class="mx-2">·</span>
+            <a href="tel:+33768888818" class="font-medium text-fc-fg hover:underline">07 68 88 88 18</a>
+            <span class="mx-2">·</span>
+            <a href="mailto:contact@facile.studio" class="font-medium text-fc-fg hover:underline">contact@facile.studio</a>
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          {#each FOOTER_LINKS as link (link.label)}
+            <a href={link.href} class="hover:text-fc-fg transition-colors">{link.label}</a>
+          {/each}
         </div>
       </div>
-      <div class="flex flex-wrap items-center justify-center gap-4">
-        {#each FOOTER_LINKS as link (link.label)}
-          <a href={link.href} class="hover:text-fc-fg transition-colors">{link.label}</a>
-        {/each}
-      </div>
-    </div>
-  </footer>
+    </footer>
+  </div>
+
+  <ContactModal bind:open={contactOpen} />
 </div>

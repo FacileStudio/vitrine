@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Button, Card, Icon, icons } from "@facile/muse";
+  import { Button, Icon, icons } from "@facile/muse";
   import PcbViewer from "$lib/components/PcbViewer.svelte";
   import InteractiveBlob from "$lib/components/InteractiveBlob.svelte";
   import StudioGraph from "$lib/components/StudioGraph.svelte";
@@ -38,14 +38,9 @@
 <section
   id="hero"
   use:scrollReveal={{ delay: 0.05, stagger: 0.08 }}
-  class="relative flex flex-col justify-between min-h-[calc(100dvh-5.5rem)] rounded-[32px] sm:rounded-[40px] border border-fc-fg/10 bg-fc-component/40 p-6 sm:p-10 md:p-12 overflow-hidden shadow-sm"
+  class="relative flex flex-col justify-between min-h-[calc(100dvh-2.5rem)] -mx-4 sm:-mx-6 md:-mx-10 px-4 sm:px-6 md:px-10 pt-10 sm:pt-14 pb-28 sm:pb-36 overflow-hidden"
 >
-  <div data-reveal-item class="flex flex-col gap-6 max-w-4xl">
-    <div class="inline-flex items-center gap-2 rounded-fc-pill bg-fc-surface px-3.5 py-1 text-fc-xs font-mono text-fc-fg-muted w-fit">
-      <span class="flex size-2 rounded-fc-full bg-fc-accent"></span>
-      Qualité française · Studio d'ingénierie & design
-    </div>
-
+  <div data-reveal-item class="relative z-10 flex flex-col gap-6 max-w-4xl">
     <h1 class="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-fc-fg leading-[1.08]">
       Une équipe de passionnés<br />
       <span class="text-fc-fg-muted">qui sait ce qu'elle fait.</span>
@@ -60,12 +55,11 @@
       Studio de design et d'ingénierie web. Qualité française, savoir-faire sur mesure et souveraineté technique. On conçoit, développe et déploie des sites vitrines d'exception, des applications réactives et des identités visuelles remarquables. Zéro usine à gaz, des performances brutes et un soin obsessionnel du détail.
     </p>
 
-    <!-- Primary CTAs -->
     <div class="flex flex-wrap items-center gap-4 pt-2">
       <Button
         variant="primary"
         size="lg"
-        class="rounded-fc-pill font-semibold px-6 shadow-md"
+        class="h-11 rounded-fc-pill font-semibold px-6 shadow-md"
         onclick={openContactModal}
         icon={icons.arrow}
       >
@@ -75,13 +69,13 @@
         variant="ghost"
         size="lg"
         href="#projets"
-        class="rounded-fc-pill font-medium px-6 bg-fc-surface hover:bg-fc-surface-hover text-fc-fg"
+        class="h-11 rounded-fc-pill font-medium px-6 bg-fc-surface hover:bg-fc-surface-hover text-fc-fg"
       >
         Voir nos réalisations
       </Button>
       <a
         href="tel:+33768888818"
-        class="inline-flex items-center gap-2 rounded-fc-pill bg-fc-surface px-4 py-2 text-fc-xs font-semibold text-fc-fg transition-colors hover:bg-fc-surface-hover"
+        class="inline-flex h-11 items-center justify-center gap-2 rounded-fc-pill bg-fc-surface px-5 text-fc-sm font-semibold text-fc-fg transition-colors hover:bg-fc-surface-hover shrink-0"
       >
         <svg class="size-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
@@ -91,8 +85,7 @@
     </div>
   </div>
 
-  <!-- Massive full-width monochrome FACILE wordmark anchored at bottom -->
-  <div data-reveal-item class="w-full overflow-hidden select-none pt-10">
+  <div data-reveal-item class="absolute bottom-0 left-0 w-full overflow-hidden select-none pointer-events-none">
     <svg viewBox="0 0 1488 409" fill="none" class="w-full h-auto text-fc-fg fill-current transition-colors duration-300">
       <path d="M33.1193 3.91218L36.4625 5.02899C29.2188 32.3912 44.8207 70.3632 71.0097 70.3632C125.616 70.3632 169.636 -0.555124 247.646 0.00328039C308.939 0.00328039 322.312 54.7276 322.312 80.973V120.62H237.616L237.059 86.5571C237.059 47.4683 216.442 38.5337 193.039 38.5337C115.029 38.5337 85.4972 149.099 43.7063 149.099C20.3034 149.099 14.1741 116.711 14.1741 91.5828C14.1741 54.1692 23.6467 19.5477 33.1193 3.91218ZM92.1837 203.265L145.119 85.9987H218.114C196.94 126.763 179.109 166.41 162.95 203.265H169.079C234.273 203.265 286.094 219.459 286.094 304.896L202.512 303.779C203.069 225.602 200.84 212.2 169.636 212.2H158.492C105.557 331.141 67.6664 418.812 -7 418.812L-6.44279 327.232V203.265H92.1837ZM-1.98509 257.431V327.232C26.9899 325.557 52.6217 292.052 68.7808 255.197L87.7261 212.758C15.8457 215.55 -1.98509 224.485 -1.98509 257.431Z" fill="currentColor"/>
       <path d="M302.996 416.02L408.402 80.973H490.358L595.764 416.02H538.186L442.531 115.408H455.068L360.574 416.02H302.996ZM361.735 343.426V291.075H537.257V343.426H361.735Z" fill="currentColor"/>
@@ -119,7 +112,7 @@
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     {#each STUDIO_SERVICES as service}
-      <div class="flex flex-col justify-between gap-6 rounded-fc-2xl bg-fc-component p-6 sm:p-8 transition-transform duration-300 hover:-translate-y-1 shadow-sm border border-fc-border/40">
+      <div class="flex flex-col justify-between gap-6 rounded-fc-2xl bg-fc-component p-6 sm:p-8 transition-transform duration-300 hover:-translate-y-1 shadow-sm">
         <div class="flex flex-col gap-4">
           <div class="flex items-center gap-3">
             <span class="flex size-10 items-center justify-center rounded-fc-lg bg-fc-surface text-fc-accent">
@@ -149,7 +142,7 @@
     {/each}
   </div>
 
-  <div class="flex flex-col sm:flex-row items-center justify-between gap-4 rounded-fc-3xl bg-fc-surface p-6 sm:p-8 shadow-sm border border-fc-border/40">
+  <div class="flex flex-col sm:flex-row items-center justify-between gap-4 rounded-fc-3xl bg-fc-surface p-6 sm:p-8 shadow-sm">
     <div class="flex flex-col gap-1 text-center sm:text-left">
       <span class="text-fc-md font-bold text-fc-fg">Un besoin particulier ou un projet spécifique ?</span>
       <span class="text-fc-xs text-fc-fg-muted">Nous cadrons votre cahier des charges et vous envoyons une proposition sous 48h.</span>
@@ -181,7 +174,7 @@
     {#each CLIENT_PROJECTS as project}
       <a
         href={`/projects/${project.slug}`}
-        class="group flex flex-col overflow-hidden rounded-fc-2xl bg-fc-component transition-all duration-300 hover:-translate-y-1 shadow-sm border border-fc-border/40"
+        class="group flex flex-col overflow-hidden rounded-fc-2xl bg-fc-component transition-all duration-300 hover:-translate-y-1 shadow-sm"
       >
         <div class="relative aspect-video w-full overflow-hidden bg-fc-surface">
           <img
@@ -227,7 +220,7 @@
     </p>
   </div>
 
-  <div class="rounded-fc-3xl bg-fc-component p-2 sm:p-4 shadow-sm border border-fc-border/40">
+  <div class="rounded-fc-3xl bg-fc-component p-2 sm:p-4 shadow-sm">
     <StudioGraph />
   </div>
 </section>
@@ -288,7 +281,7 @@
   <!-- Tools grid -->
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
     {#each filteredTools as tool (tool.id)}
-      <div class="flex flex-col justify-between gap-4 rounded-fc-2xl bg-fc-component p-5 transition-transform duration-200 hover:-translate-y-0.5 shadow-sm border border-fc-border/40">
+      <div class="flex flex-col justify-between gap-4 rounded-fc-2xl bg-fc-component p-5 transition-transform duration-200 hover:-translate-y-0.5 shadow-sm">
         <div class="flex flex-col gap-3">
           <div class="flex items-center justify-between">
             <span class="flex size-10 items-center justify-center rounded-fc-lg bg-fc-surface text-fc-accent">
@@ -345,7 +338,7 @@
 
 <!-- Bulle AI Agent Section -->
 <section id="bulle" use:scrollReveal={{ delay: 0.05 }} class="flex flex-col gap-8 py-16">
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center rounded-fc-3xl bg-fc-component p-6 sm:p-10 shadow-sm border border-fc-border/40">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center rounded-fc-3xl bg-fc-component p-6 sm:p-10 shadow-sm">
     <div class="flex flex-col gap-6">
       <div class="flex flex-col gap-2">
         <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">Intelligence embarquée</span>
@@ -402,14 +395,14 @@
   </div>
 
   <!-- 3D Interactive Turntable Viewer -->
-  <div class="rounded-fc-3xl bg-fc-component p-3 sm:p-6 shadow-sm border border-fc-border/40">
+  <div class="rounded-fc-3xl bg-fc-component p-3 sm:p-6 shadow-sm">
     <PcbViewer />
   </div>
 </section>
 
 <!-- Closing Studio Contact & Call to Action -->
 <section id="contact" use:scrollReveal={{ delay: 0.05 }} class="flex flex-col gap-8 py-20">
-  <div class="flex flex-col items-center text-center gap-6 rounded-fc-3xl bg-fc-component p-8 sm:p-14 shadow-sm border border-fc-border/40">
+  <div class="flex flex-col items-center text-center gap-6 rounded-fc-3xl bg-fc-component p-8 sm:p-14 shadow-sm">
     <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">Lançons votre projet</span>
     <h2 class="text-3xl sm:text-5xl font-black tracking-tight text-fc-fg max-w-2xl leading-tight">
       Prêt à concevoir un site web ou une application qui compte ?

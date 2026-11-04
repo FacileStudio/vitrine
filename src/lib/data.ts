@@ -713,14 +713,12 @@ export const CATEGORIES = [
 ] as const;
 
 export const NAV_LINKS = [
-  { id: "hero", label: "Studio" },
   { id: "services", label: "Prestations" },
-  { id: "projets", label: "Réalisations" },
-  { id: "ecosystem", label: "Architecture" },
-  { id: "suite", label: "La Suite" },
+  { id: "projets", label: "Projets" },
+  { id: "ecosystem", label: "Écosystème" },
+  { id: "suite", label: "Suite" },
   { id: "bulle", label: "Bulle" },
-  { id: "hardware", label: "Atelier R&D" },
-  { id: "contact", label: "Contact" },
+  { id: "hardware", label: "Pastille" },
 ] as const;
 
 export const STUDIO_METRICS = [

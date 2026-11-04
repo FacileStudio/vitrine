@@ -154,7 +154,7 @@
     {/each}
   </div>
 
-  <div class="flex flex-col sm:flex-row items-center justify-between gap-6 rounded-fc-3xl bg-fc-component p-8 sm:p-10 shadow-sm border border-fc-border/40">
+  <div class="flex flex-col sm:flex-row items-center justify-between gap-6 rounded-fc-3xl bg-fc-component p-8 sm:p-10 shadow-sm">
     <div class="flex flex-col gap-2 max-w-xl text-center sm:text-left">
       <h3 class="text-fc-xl sm:text-fc-2xl font-bold tracking-tight text-fc-fg">
         Vous avez un projet d'application ou de vitrine ?

@@ -2,6 +2,20 @@
 
 All notable changes to Facile Studio Vitrine will be documented in this file.
 
+## [1.0.2] - 2026-11-04
+
+### Changed
+- Hero layout updated to full viewport height with edge-to-edge FACILE wordmark anchored at bottom.
+- Top navigation updated to hanging tab with concave Exclude corners at page top, smoothly morphing into floating pill on scroll.
+- Hero action buttons and phone link normalized to uniform h-11 height.
+- Entrance loader simplified to single curtain reveal with centered Facile logo mark.
+- Studio interconnectivity graph updated with animated hub Facile logo and SVG icon discs for all 20 Suite apps.
+
+### Removed
+- All border outlines across hero, cards, containers, sections, and navigation.
+- Top badge tag in hero section.
+- Counter and percentage text from entrance loader.
+
 ## [1.0.1] - 2026-11-04
 
 ### Added

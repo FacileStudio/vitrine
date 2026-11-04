@@ -45,7 +45,10 @@ export function moveNavPill(
   target: HTMLElement | undefined,
   animate = true,
 ) {
-  if (!pill || !target) return;
+  if (!pill || !target) {
+    if (pill) gsap.set(pill, { autoAlpha: 0 });
+    return;
+  }
   const to = { x: target.offsetLeft, width: target.offsetWidth, autoAlpha: 1 };
   if (!animate || prefersReducedMotion()) {
     gsap.set(pill, to);
@@ -72,7 +75,7 @@ function detectActiveSection(ids: string[]): string {
   const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
   const progress = Math.min(1, Math.max(0, window.scrollY / maxScroll));
   const triggerLine = window.innerHeight * (0.24 + progress * 0.56);
-  let current = ids[0] ?? "";
+  let current = "";
   for (const id of ids) {
     const el = document.getElementById(id);
     if (el && el.getBoundingClientRect().top <= triggerLine) {
