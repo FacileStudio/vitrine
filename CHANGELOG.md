@@ -2,6 +2,12 @@
 
 All notable changes to Facile Studio Vitrine will be documented in this file.
 
+## [1.4.1] - 2026-11-04
+
+### Fixed
+- Pastille buttons (Site officiel Pastille, Schémas KiCad) stay side by side instead of stacking under the longer title.
+- Suite buttons (Créer un compte Facile, GitHub) get the same fix.
+
 ## [1.4.0] - 2026-11-04
 
 ### Added

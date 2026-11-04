@@ -403,7 +403,7 @@
         21 outils libres que le studio a construits pour son propre usage et celui de ses clients. Un seul compte Facile pour tous.
       </p>
     </div>
-    <div class="flex flex-wrap gap-2">
+    <div class="flex flex-wrap sm:flex-nowrap sm:shrink-0 gap-2">
       <Button
         variant="ghost"
         size="md"
@@ -571,7 +571,7 @@
         Le studio a aussi un atelier de R&D matériel pour les objets connectés sur mesure. Pastille est notre démonstration ouverte. Un charm de 38 mm avec un ESP32-S3, un écran rond IPS et un firmware en Rust Embassy.
       </p>
     </div>
-    <div class="flex flex-wrap gap-2">
+    <div class="flex flex-wrap sm:flex-nowrap sm:shrink-0 gap-2">
       <Button variant="ghost" size="md" href="https://pastille.facile.studio" target="_blank" rel="noreferrer" class="rounded-fc-pill bg-fc-component hover:bg-fc-surface text-fc-fg" icon={icons.globe}>
         Site officiel Pastille
       </Button>
