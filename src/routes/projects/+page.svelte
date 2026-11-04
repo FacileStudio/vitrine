@@ -78,10 +78,10 @@
     {#each filteredProjects as project (project.slug)}
       <Card
         href="/projects/{project.slug}"
-        class="group flex flex-col justify-between overflow-hidden p-0 bg-fc-component hover:bg-fc-surface transition-all duration-300"
+        class="group flex flex-col justify-between overflow-hidden p-0 bg-fc-component hover:bg-fc-surface transition-all duration-300 rounded-fc-2xl shadow-sm"
       >
         <div class="flex flex-col">
-          <div class="relative aspect-video w-full overflow-hidden bg-fc-surface">
+          <div class="relative aspect-video w-full overflow-hidden bg-fc-surface rounded-t-fc-2xl">
             <img
               src={project.cover}
               alt={project.name}
@@ -154,7 +154,7 @@
     {/each}
   </div>
 
-  <div class="flex flex-col sm:flex-row items-center justify-between gap-6 rounded-fc-lg bg-fc-component p-8 sm:p-10">
+  <div class="flex flex-col sm:flex-row items-center justify-between gap-6 rounded-fc-3xl bg-fc-component p-8 sm:p-10 shadow-sm border border-fc-border/40">
     <div class="flex flex-col gap-2 max-w-xl text-center sm:text-left">
       <h3 class="text-fc-xl sm:text-fc-2xl font-bold tracking-tight text-fc-fg">
         Vous avez un projet d'application ou de vitrine ?

@@ -2,3 +2,10 @@
 @import '@facile/blob/motion.css';
 @import '@facile/blob/gaze.css';
 @source '../node_modules/@facile/muse/src';
+
+@theme {
+  --radius-fc-xl: 1rem;
+  --radius-fc-2xl: 1.25rem;
+  --radius-fc-3xl: 1.75rem;
+}
+

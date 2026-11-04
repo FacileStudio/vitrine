@@ -199,7 +199,22 @@ export const CLIENT_PROJECTS: ClientProject[] = [
         featured: true,
       },
       {
-        src: "/images/projects/Laura.png",
+        src: "/images/projects/LauraHerve_desktop.webp",
+        alt: "Mise en page grand écran et photographie d'espaces",
+        caption: "Vue grand écran : respiration des espaces et équilibre des blancs",
+      },
+      {
+        src: "/images/projects/LauraHerve_mobile.webp",
+        alt: "Version mobile responsive du portfolio Laura Hervé",
+        caption: "Version mobile : fluidité tactile et navigation sans friction",
+      },
+      {
+        src: "/images/projects/LauraHerve_facade.webp",
+        alt: "Façade et volumes architecturaux",
+        caption: "Photographie haute définition : jeux d'ombres et volumes bruts",
+      },
+      {
+        src: "/images/projects/Laura.webp",
         alt: "Détail de portfolio et vue projet scénographique",
         caption: "Vue projet : alternance de grands formats et de détails de matières",
       },
@@ -247,6 +262,21 @@ export const CLIENT_PROJECTS: ClientProject[] = [
         alt: "Vue interactive de révélation des données environnementales",
         caption: "Module interactif : exploration des flux et leviers d'action",
       },
+      {
+        src: "/images/projects/Brain.h.webp",
+        alt: "Visualisation nodale et graphe d'interconnexions",
+        caption: "Graphe d'impact : maillage des initiatives écologiques locales",
+      },
+      {
+        src: "/images/projects/bubbles.webp",
+        alt: "Simulation particulaire des flux carbone",
+        caption: "Simulation physique légère WebGL animée en temps réel",
+      },
+      {
+        src: "/images/projects/zap.webp",
+        alt: "Indicateurs d'énergie et conversion temps réel",
+        caption: "Tableau d'actions à fort effet de levier",
+      },
     ],
   },
   {
@@ -285,6 +315,21 @@ export const CLIENT_PROJECTS: ClientProject[] = [
         alt: "Interface de supervision des parcs photovoltaïques Solaïs",
         caption: "Console de supervision : métriques des onduleurs et alertes en direct",
         featured: true,
+      },
+      {
+        src: "/images/projects/HottakeShow.webp",
+        alt: "Télémétrie en temps réel et séries temporelles de production",
+        caption: "Courbes de puissance instantanée agrégées par tranche de 5 minutes",
+      },
+      {
+        src: "/images/projects/Hottake.webp",
+        alt: "Module de diagnostic d'anomalie d'onduleur",
+        caption: "Rapport d'incident automatique avec seuil de tolérance paramétrable",
+      },
+      {
+        src: "/images/projects/AREA.webp",
+        alt: "Cartographie géographique des installations solaires",
+        caption: "Vue géoréférencée de l'ensemble du parc d'autoconsommation",
       },
     ],
   },
@@ -325,6 +370,31 @@ export const CLIENT_PROJECTS: ClientProject[] = [
         caption: "Vitrine de l'atelier : sélection des pièces et narration de l'artisanat",
         featured: true,
       },
+      {
+        src: "/images/projects/Pavements.webp",
+        alt: "Série Pavements céramiques et textures minérales",
+        caption: "Série Pavements : travail sculptural minéral et textures d'émaux",
+      },
+      {
+        src: "/images/projects/Green.webp",
+        alt: "Série Green céramiques végétales et contrastes chromatiques",
+        caption: "Série Green : exploration chromatique organique et formes végétales",
+      },
+      {
+        src: "/images/projects/EvelyneCrea_harmonie.webp",
+        alt: "Série Harmonie céramiques émaillées",
+        caption: "Série Harmonie : équilibre des matières et cuisson haute température",
+      },
+      {
+        src: "/images/projects/EvelyneCrea_temple.webp",
+        alt: "Série Temple céramiques monumentales",
+        caption: "Série Temple : architecture de pièces uniques et volumes bruts",
+      },
+      {
+        src: "/images/projects/EvelyneCrea_escaliers.webp",
+        alt: "Série Escaliers géométrie et ombres portées",
+        caption: "Série Escaliers : lignes et jeux d'ombres géométriques",
+      },
     ],
   },
   {
@@ -363,6 +433,26 @@ export const CLIENT_PROJECTS: ClientProject[] = [
         alt: "Affiche et vitrine web de l'événement Rétro Festival",
         caption: "Plateforme du festival : univers visuel 80s et programmation interactive",
         featured: true,
+      },
+      {
+        src: "/images/projects/painting.webp",
+        alt: "Créations visuelles et univers graphique rétro-gaming",
+        caption: "Affiches et illustrations sérigraphiées créées pour l'événement",
+      },
+      {
+        src: "/images/projects/Black&White.webp",
+        alt: "Déclinaisons typographiques et fanzines",
+        caption: "Déclinaisons monochromes et signalétique physique des stands",
+      },
+      {
+        src: "/images/projects/Mont-k.webp",
+        alt: "Scénographie et tournois d'arcade",
+        caption: "Scénographie visuelle des tournois rétro et bornes d'époque",
+      },
+      {
+        src: "/images/projects/Gian.webp",
+        alt: "Pixel art et récompenses compétitives",
+        caption: "Badges pixel art exclusifs remis aux finalistes",
       },
     ],
   },
