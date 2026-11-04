@@ -224,7 +224,7 @@
       <Button
         variant="primary"
         size="lg"
-        href="/#manifesto"
+        href="/#contact"
         class="rounded-fc-pill px-6"
       >
         Nous contacter

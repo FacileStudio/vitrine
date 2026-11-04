@@ -166,7 +166,7 @@
     <Button
       variant="primary"
       size="lg"
-      href="/#manifesto"
+      href="/#contact"
       class="rounded-fc-pill px-6 shrink-0"
     >
       Échanger sur votre projet
