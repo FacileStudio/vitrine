@@ -1,6 +1,6 @@
 <script lang="ts">
   import { browser } from "$app/environment";
-  import { onMount } from "svelte";
+  import { onMount, tick } from "svelte";
   import { gsap } from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
   import { Button, Icon, icons, prefersReducedMotion } from "@facile/muse";
@@ -30,6 +30,66 @@
   );
   const TOOLS_PREVIEW = 9;
   let showAllTools = $state(false);
+  let toolsGrid = $state<HTMLElement | null>(null);
+  let toolsAnimating = false;
+
+  async function toggleTools() {
+    const grid = toolsGrid;
+    if (!grid || prefersReducedMotion()) {
+      showAllTools = !showAllTools;
+      return;
+    }
+    if (toolsAnimating) return;
+    toolsAnimating = true;
+    const from = grid.offsetHeight;
+
+    if (!showAllTools) {
+      showAllTools = true;
+      await tick();
+      const added = Array.from(grid.children).slice(TOOLS_PREVIEW);
+      gsap.fromTo(
+        grid,
+        { height: from, overflow: "hidden" },
+        {
+          height: grid.scrollHeight,
+          duration: 0.6,
+          ease: "power3.inOut",
+          clearProps: "height,overflow",
+          onComplete: () => (toolsAnimating = false),
+        },
+      );
+      gsap.fromTo(
+        added,
+        { opacity: 0, y: 16 },
+        { opacity: 1, y: 0, duration: 0.45, delay: 0.12, stagger: 0.03, ease: "power2.out", clearProps: "opacity,transform" },
+      );
+      return;
+    }
+
+    const items = Array.from(grid.children) as HTMLElement[];
+    const last = items[TOOLS_PREVIEW - 1];
+    const to = last.getBoundingClientRect().bottom - grid.getBoundingClientRect().top;
+    const gridTop = grid.getBoundingClientRect().top;
+    if (gridTop < 0) {
+      window.scrollTo({ top: window.scrollY + gridTop - 120, behavior: "smooth" });
+    }
+    gsap.to(items.slice(TOOLS_PREVIEW), { opacity: 0, y: 8, duration: 0.25, ease: "power2.in" });
+    gsap.fromTo(
+      grid,
+      { height: from, overflow: "hidden" },
+      {
+        height: to,
+        duration: 0.5,
+        ease: "power3.inOut",
+        onComplete: async () => {
+          showAllTools = false;
+          await tick();
+          gsap.set(grid, { clearProps: "height,overflow" });
+          toolsAnimating = false;
+        },
+      },
+    );
+  }
   const visibleTools = $derived(showAllTools ? filteredTools : filteredTools.slice(0, TOOLS_PREVIEW));
   const hiddenToolCount = $derived(filteredTools.length - TOOLS_PREVIEW);
 
@@ -445,7 +505,7 @@
     {/each}
   </div>
 
-  <div id="suite-tools" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+  <div id="suite-tools" bind:this={toolsGrid} class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
     {#each visibleTools as tool (tool.id)}
       <div class="flex flex-col justify-between gap-4 rounded-fc-2xl bg-fc-component p-5 transition-transform duration-200 hover:-translate-y-0.5 shadow-sm">
         <div class="flex flex-col gap-3">
@@ -506,7 +566,7 @@
       <Button
         variant="ghost"
         size="md"
-        onclick={() => (showAllTools = !showAllTools)}
+        onclick={toggleTools}
         aria-expanded={showAllTools}
         aria-controls="suite-tools"
         class="rounded-fc-pill bg-fc-component hover:bg-fc-surface text-fc-fg px-6"

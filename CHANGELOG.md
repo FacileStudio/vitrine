@@ -2,6 +2,12 @@
 
 All notable changes to Facile Studio Vitrine will be documented in this file.
 
+## [1.4.3] - 2026-11-04
+
+### Changed
+- Suite "Voir les N autres outils" and "Voir moins" animate the grid height. New cards fade in on expand; extra cards fade out before they are removed on collapse.
+- Collapsing from below the grid scrolls back to it.
+
 ## [1.4.2] - 2026-11-04
 
 ### Fixed
