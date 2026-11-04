@@ -3,6 +3,7 @@
   import { onMount, type Snippet } from "svelte";
   import { browser } from "$app/environment";
   import { page } from "$app/state";
+  import { onNavigate } from "$app/navigation";
   import { gsap } from "gsap";
   import {
     Button,
@@ -64,6 +65,17 @@
   $effect(() => {
     const targetKey = isProjectsPage ? "portfolio" : activeSection;
     moveNavPill(navPill, navEls[targetKey], true);
+  });
+
+  onNavigate((navigation) => {
+    if (!document.startViewTransition || prefersReducedMotion()) return;
+    if (navigation.from?.url.pathname === navigation.to?.url.pathname) return;
+    return new Promise((resolve) => {
+      document.startViewTransition(async () => {
+        resolve();
+        await navigation.complete;
+      });
+    });
   });
 
   function toggleTheme() {
@@ -398,6 +410,28 @@
     }
     50% {
       transform: translate3d(50px, -60px, 0) scale(1.06);
+    }
+  }
+
+  :global(::view-transition-old(root)) {
+    animation: page-out 280ms cubic-bezier(0.4, 0, 1, 1) both;
+  }
+
+  :global(::view-transition-new(root)) {
+    animation: page-in 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes page-out {
+    to {
+      opacity: 0;
+      transform: scale(0.985);
+    }
+  }
+
+  @keyframes page-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
     }
   }
 

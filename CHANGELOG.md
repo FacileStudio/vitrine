@@ -2,6 +2,19 @@
 
 All notable changes to Facile Studio Vitrine will be documented in this file.
 
+## [1.4.0] - 2026-11-04
+
+### Added
+- Page transition between pages, using the View Transitions API through SvelteKit `onNavigate`: the old page fades and shrinks slightly, the new one fades up. Browsers without the API and reduced-motion users navigate instantly.
+
+### Changed
+- `/contact` progress bar moved to the bottom, between Précédent and Continuer on desktop and above them on mobile.
+- `/contact` has more room under the header row and around the step content, and the progress labels are larger.
+- "Retour à l'accueil" no longer wraps on mobile.
+
+### Removed
+- "Étape N sur 4" label above each `/contact` step title.
+
 ## [1.3.0] - 2026-11-04
 
 ### Changed

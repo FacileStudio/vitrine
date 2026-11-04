@@ -147,12 +147,12 @@
   />
 </svelte:head>
 
-<div class="w-full max-w-5xl mx-auto px-4 sm:px-6 md:px-10 py-6 sm:py-10 flex flex-col min-h-dvh justify-between gap-8">
-  <header class="flex flex-col gap-6">
+<div class="w-full max-w-5xl mx-auto px-4 sm:px-6 md:px-10 pt-8 pb-6 sm:pt-12 sm:pb-10 flex flex-col min-h-dvh justify-between gap-8">
+  <header>
     <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-4">
       <a
         href="/"
-        class="inline-flex items-center gap-2 justify-self-start rounded-fc-pill bg-fc-surface hover:bg-fc-surface-hover px-4 py-2 text-xs font-semibold text-fc-fg transition-colors shrink-0 shadow-xs"
+        class="inline-flex items-center gap-2 justify-self-start whitespace-nowrap rounded-fc-pill bg-fc-surface hover:bg-fc-surface-hover px-4 py-2 text-xs font-semibold text-fc-fg transition-colors shrink-0 shadow-xs"
       >
         <Icon icon={icons.chevronLeft} size={14} />
         <span>Retour à l'accueil</span>
@@ -181,45 +181,9 @@
         07 68 88 88 18
       </a>
     </div>
-
-    {#if !submitted}
-      <div class="relative">
-        <div class="absolute left-[12.5%] right-[12.5%] top-2 h-1 -translate-y-1/2 rounded-fc-full bg-fc-surface overflow-hidden">
-          <div
-            class="h-full rounded-fc-full bg-fc-accent transition-all duration-500 ease-out"
-            style="width: {((step - 1) / (STEPS.length - 1)) * 100}%"
-          ></div>
-        </div>
-        <ol class="relative grid grid-cols-4">
-          {#each STEPS as label, i (label)}
-            {@const n = i + 1}
-            <li class="flex justify-center">
-              <button
-                type="button"
-                onclick={() => goToStep(n)}
-                aria-current={step === n ? "step" : undefined}
-                class="flex flex-col items-center gap-2 text-[11px] font-medium transition-colors
-                  {step === n ? 'text-fc-fg' : 'text-fc-fg-muted hover:text-fc-fg'}"
-              >
-                <span class="flex h-4 items-center justify-center">
-                  <span
-                    class="rounded-fc-full transition-all duration-300 {step === n
-                      ? 'size-4 bg-fc-accent'
-                      : n < step
-                        ? 'size-3 bg-fc-accent'
-                        : 'size-3 bg-fc-surface'}"
-                  ></span>
-                </span>
-                <span>{n} {label}</span>
-              </button>
-            </li>
-          {/each}
-        </ol>
-      </div>
-    {/if}
   </header>
 
-  <div class="flex-1 flex flex-col justify-center py-4 sm:py-8">
+  <div class="flex-1 flex flex-col justify-center py-8 sm:py-10">
     {#if submitted}
       <div
         in:fade={{ duration: 300 }}
@@ -288,7 +252,6 @@
           class="flex flex-col gap-8"
         >
           <div class="flex flex-col gap-2">
-            <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">Étape 1 sur 4</span>
             <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">
               Quel type de projet souhaitez-vous concevoir ?
             </h1>
@@ -337,7 +300,6 @@
           class="flex flex-col gap-8"
         >
           <div class="flex flex-col gap-2">
-            <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">Étape 2 sur 4</span>
             <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">
               Budget et calendrier
             </h1>
@@ -400,7 +362,6 @@
           class="flex flex-col gap-8 max-w-3xl"
         >
           <div class="flex flex-col gap-2">
-            <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">Étape 3 sur 4</span>
             <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">
               Parlez-nous de votre projet
             </h1>
@@ -448,7 +409,6 @@
           class="flex flex-col gap-8"
         >
           <div class="flex flex-col gap-2">
-            <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">Étape 4 sur 4</span>
             <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">
               Comment pouvons-nous vous recontacter ?
             </h1>
@@ -543,8 +503,42 @@
   </div>
 
   {#if !submitted}
-    <footer class="flex items-center justify-between gap-4 pt-6">
-      <div>
+    <footer class="grid grid-cols-2 sm:grid-cols-[minmax(9rem,auto)_1fr_minmax(9rem,auto)] items-center gap-x-8 gap-y-6 pt-6">
+        <div class="relative col-span-2 sm:col-span-1 sm:col-start-2 sm:row-start-1">
+          <div class="absolute left-[12.5%] right-[12.5%] top-2 h-1 -translate-y-1/2 rounded-fc-full bg-fc-surface overflow-hidden">
+            <div
+              class="h-full rounded-fc-full bg-fc-accent transition-all duration-500 ease-out"
+              style="width: {((step - 1) / (STEPS.length - 1)) * 100}%"
+            ></div>
+          </div>
+          <ol class="relative grid grid-cols-4">
+            {#each STEPS as label, i (label)}
+              {@const n = i + 1}
+              <li class="flex justify-center">
+                <button
+                  type="button"
+                  onclick={() => goToStep(n)}
+                  aria-current={step === n ? "step" : undefined}
+                  class="flex flex-col items-center gap-3 text-fc-xs font-medium transition-colors
+                    {step === n ? 'text-fc-fg' : 'text-fc-fg-muted hover:text-fc-fg'}"
+                >
+                  <span class="flex h-4 items-center justify-center">
+                    <span
+                      class="rounded-fc-full transition-all duration-300 {step === n
+                        ? 'size-4 bg-fc-accent'
+                        : n < step
+                          ? 'size-3 bg-fc-accent'
+                          : 'size-3 bg-fc-surface'}"
+                    ></span>
+                  </span>
+                  <span>{n} {label}</span>
+                </button>
+              </li>
+            {/each}
+          </ol>
+        </div>
+
+      <div class="justify-self-start sm:col-start-1 sm:row-start-1">
         {#if step > 1}
           <Button
             variant="ghost"
@@ -558,7 +552,7 @@
         {/if}
       </div>
 
-      <div class="flex items-center gap-3">
+      <div class="justify-self-end sm:col-start-3 sm:row-start-1">
         {#if step < 4}
           <Button
             variant="primary"
