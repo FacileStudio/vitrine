@@ -6,20 +6,10 @@ services:
     container_name: facile-vitrine
     ports:
       - "3012:3012"
-    environment:
-      SMTP_HOST: "${SMTP_HOST:-smtp.example.com}"
-      SMTP_PORT: "${SMTP_PORT:-587}"
-      SMTP_USER: "${SMTP_USER:-user@example.com}"
-      SMTP_PASS: "${SMTP_PASS:-your_smtp_password}"
-      SMTP_FROM: "${SMTP_FROM:-contact@facile.studio}"
-      CONTACT_TO: "${CONTACT_TO:-contact@facile.studio}"
-      NODE_ENV: "production"
-      HOSTNAME: "0.0.0.0"
-      PORT: "3012"
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.vitrine.rule=Host(`localhost`) || Host(`127.0.0.1`)"
+      - "traefik.http.routers.vitrine.rule=Host(`facile.studio`) || Host(`localhost`) || Host(`127.0.0.1`)"
       - "traefik.http.routers.vitrine.entrypoints=web"
       - "traefik.http.services.vitrine.loadbalancer.server.port=3012"
       - "traefik.docker.network=dokploy-network"

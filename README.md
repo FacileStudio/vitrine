@@ -1,58 +1,36 @@
-# Facile. Studio
+# Facile. Studio Vitrine
 
-Showcase website for **Facile. Studio** — a creative studio portfolio built with Next.js 16, featuring smooth GSAP animations, internationalization (EN, FR, ES, DE), and a contact form with SMTP email delivery.
+Official showcase website for **Facile. Studio** — sovereign software, open hardware, and autonomous AI agents. Built with Svelte 5, `@facile/muse`, and `@facile/blob`.
 
-<br>
-<br>
+## Features
 
-## **V2 COMING SOON**
-<br>
-<br>
+- **Muse Design System**: Token-first UI using `@facile/muse` components and Tailwind CSS v4.
+- **Pastille 3D PCB Viewer**: Interactive Three.js glTF PCB and enclosure orbit viewer with ISO, Top, and Side camera presets.
+- **Bulle Dynamic Companion**: Deterministic Blob avatar with pointer gaze tracking and state switching.
+- **Full Suite Showcase**: 20 integrated tools with canonical Solar bold-duotone iconography and direct links.
+- **Static & Fast**: SvelteKit static prerendering served by Nginx with gzip compression and immutable asset caching.
 
 ## Tech Stack
 
-- **Framework**: Next.js 16 (App Router, Turbopack)
-- **Styling**: Tailwind CSS 4
-- **Animations**: GSAP + Motion
-- **i18n**: next-intl (EN, FR, ES, DE)
-- **UI**: Radix UI primitives
-- **Email**: Nodemailer (SMTP)
-- **Deployment**: Docker (standalone output)
+- **Framework**: SvelteKit 2 + Svelte 5 (Runes)
+- **UI & Design Tokens**: `@facile/muse` v0.10.0 + Tailwind CSS 4
+- **3D Graphics**: Three.js + OrbitControls + GLTFLoader
+- **Avatars**: `@facile/blob` v0.1.1
+- **Animations**: GSAP
+- **Deployment**: Docker + Nginx (port 3012) on Dokploy
 
-## Getting Started
+## Development
 
 ```bash
-cp .env.example .env
 bun install
-bun dev
+bun run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3012](http://localhost:3012).
 
-## Environment Variables
-
-See [`.env.example`](.env.example) for required variables:
-
-- `SMTP_HOST` / `SMTP_PORT` / `SMTP_USER` / `SMTP_PASS` — SMTP config for the contact form
-- `SMTP_FROM` / `CONTACT_TO` — optional sender and recipient overrides for the contact form
-
-## Docker
+## Production Build
 
 ```bash
-docker build -t vitrine-facile .
-docker run -p 3000:3000 --env-file .env vitrine-facile
-```
-
-Environment variables are read at runtime — no build args needed.
-
-## Project Structure
-
-```
-app/
-├── [locale]/          # i18n routes (en, fr, es, de)
-│   ├── page.tsx       # Home / landing
-│   ├── studio/        # About the studio
-│   └── projects/      # Projects showcase
-├── api/contact/       # Contact form API (SMTP email)
-└── page.tsx           # Root redirect
+bun run check
+bun run build
 ```

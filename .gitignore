@@ -20,7 +20,8 @@
 .vscode
 .next
 
-# production
+# sveltekit
+/.svelte-kit
 /build
 
 # misc

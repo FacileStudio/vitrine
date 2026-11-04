@@ -1,37 +1,12 @@
-FROM oven/bun:1.3 AS deps
+FROM oven/bun:1 AS build
 WORKDIR /app
-COPY package.json bun.lock ./
-RUN bun install --frozen-lockfile --prod
-
-FROM oven/bun:1.3 AS builder
-WORKDIR /app
-COPY package.json bun.lock ./
-RUN bun install --frozen-lockfile
+COPY package.json bun.lock* ./
+RUN bun install --frozen-lockfile || bun install
 COPY . .
-ARG NEXT_PUBLIC_JOURNAL_URL=https://journal.facile.studio/api
-ARG NEXT_PUBLIC_JOURNAL_KEY=journal_pub_vitrine_AZqPViokahMRdy3f-OD7gKSu0-ADutpK165z_Cq3tYk
-ENV NEXT_PUBLIC_JOURNAL_URL=$NEXT_PUBLIC_JOURNAL_URL
-ENV NEXT_PUBLIC_JOURNAL_KEY=$NEXT_PUBLIC_JOURNAL_KEY
 RUN bun run build
 
-FROM node:20-alpine
-WORKDIR /app
-
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-
-COPY --from=deps /app/node_modules ./node_modules
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
-COPY --from=builder /app/public ./public
-
-RUN chown -R nextjs:nodejs .
-USER nextjs
-
+FROM nginx:1.27-alpine
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /app/build /usr/share/nginx/html
 EXPOSE 3012
-
-ENV NODE_ENV=production
-ENV HOSTNAME=0.0.0.0
-ENV PORT=3012
-
-CMD ["node", "server.js"]
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 CMD wget -qO- http://127.0.0.1:3012/ >/dev/null || exit 1
