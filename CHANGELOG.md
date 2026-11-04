@@ -2,6 +2,11 @@
 
 All notable changes to Facile Studio Vitrine will be documented in this file.
 
+## [1.1.1] - 2026-11-04
+
+### Fixed
+- Screen frame no longer fades out on scroll, which let the black page show through it. It now only shrinks to the screen edge.
+
 ## [1.1.0] - 2026-11-04
 
 ### Added

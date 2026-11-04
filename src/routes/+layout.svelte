@@ -135,7 +135,7 @@
 
   <div
     class="screen-frame pointer-events-none fixed z-20 transition-all duration-500 ease-out
-      {scrolled ? 'inset-0 rounded-none opacity-0' : 'inset-2 sm:inset-3 xl:inset-4 rounded-[28px] sm:rounded-[36px] opacity-100'}"
+      {scrolled ? 'inset-0 rounded-none' : 'inset-2 sm:inset-3 xl:inset-4 rounded-[28px] sm:rounded-[36px]'}"
     aria-hidden="true"
   ></div>
 
