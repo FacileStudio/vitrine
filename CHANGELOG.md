@@ -2,6 +2,29 @@
 
 All notable changes to Facile Studio Vitrine will be documented in this file.
 
+## [1.0.3] - 2026-11-04
+
+### Added
+- Dedicated fullscreen `/contact` page with interactive inquiry form, budget selection, and direct contact shortcuts.
+- Desktop pinned horizontal scroll for client projects via GSAP ScrollTrigger.
+- Bulle project case study with landing screenshot in client projects replacing Solaïs.
+- Boîte package and artifact manager in Facile Suite tools.
+- Official Facile responsive light/dark `F.` logo favicon (SVG and multi-resolution ICO).
+- Icons on all buttons across the entire website.
+
+### Changed
+- Hero slogan updated to "On simplifie, vous créez."
+- Hero wordmark viewBox and aspect ratio adjusted to prevent bottom clipping.
+- Studio interconnectivity graph enlarged with 50% larger node icons, white Facile center logo, and single seamless card container.
+- Facile Suite tool icons aligned to authentic app icons (Opus, Plume, Casier, Capsule, Glouton, Registre, Prisme).
+- Facile Suite cards reordered to prioritize daily communication and productivity tools (Prisme, Courrier, Agenda, Echo, Nuage, Opus).
+- Bulle section expanded with complete tool interconnectivity details.
+
+### Removed
+- "Lançons votre projet" badge from bottom contact section.
+- "Lyon · Strasbourg · Remote · Devis sous 48h" line from bottom contact section.
+- Outer container around ecosystem graph to eliminate double border.
+
 ## [1.0.2] - 2026-11-04
 
 ### Changed

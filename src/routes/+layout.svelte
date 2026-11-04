@@ -199,8 +199,8 @@
           <Button
             variant="primary"
             size="md"
+            href="/contact"
             class="inline-flex h-9 px-3 sm:px-4 rounded-fc-pill font-semibold shadow-sm text-fc-xs sm:text-fc-sm"
-            onclick={triggerContact}
             icon={icons.arrow}
           >
             <span class="hidden sm:inline">Démarrer un projet</span>
@@ -291,8 +291,9 @@
         <Button
           variant="primary"
           size="md"
+          href="/contact"
           class="w-full rounded-fc-pill font-semibold"
-          onclick={() => closeSidebar(triggerContact)}
+          onclick={() => closeSidebar()}
           icon={icons.arrow}
         >
           Démarrer un projet

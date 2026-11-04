@@ -166,8 +166,9 @@
     <Button
       variant="primary"
       size="lg"
-      href="/#contact"
+      href="/contact"
       class="rounded-fc-pill px-6 shrink-0"
+      icon={icons.arrow}
     >
       Échanger sur votre projet
     </Button>

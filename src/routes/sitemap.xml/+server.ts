@@ -5,10 +5,11 @@ const SITE_URL = "https://facile.studio";
 const PAGES = [
   { path: "", priority: "1.0", changefreq: "weekly" },
   { path: "projects", priority: "0.8", changefreq: "weekly" },
+  { path: "contact", priority: "0.8", changefreq: "monthly" },
   { path: "projects/marcel", priority: "0.7", changefreq: "monthly" },
   { path: "projects/laura-herve", priority: "0.7", changefreq: "monthly" },
   { path: "projects/projet-zero", priority: "0.7", changefreq: "monthly" },
-  { path: "projects/solais-intra", priority: "0.7", changefreq: "monthly" },
+  { path: "projects/bulle", priority: "0.7", changefreq: "monthly" },
   { path: "projects/evelyne-crea", priority: "0.7", changefreq: "monthly" },
   { path: "projects/retro-festival", priority: "0.7", changefreq: "monthly" },
 ];

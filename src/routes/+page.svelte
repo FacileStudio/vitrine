@@ -1,4 +1,8 @@
 <script lang="ts">
+  import { browser } from "$app/environment";
+  import { onMount } from "svelte";
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
   import { Button, Icon, icons } from "@facile/muse";
   import PcbViewer from "$lib/components/PcbViewer.svelte";
   import InteractiveBlob from "$lib/components/InteractiveBlob.svelte";
@@ -13,7 +17,8 @@
   import { scrollReveal } from "$lib/motion";
 
   let selectedCategory = $state<string>("all");
-  let activeBlobName = $state<string>("Bulle");
+  let horizontalSection = $state<HTMLElement | null>(null);
+  let horizontalTrack = $state<HTMLElement | null>(null);
 
   const filteredTools = $derived(
     selectedCategory === "all"
@@ -21,9 +26,43 @@
       : SUITE_TOOLS.filter((t) => t.category === selectedCategory)
   );
 
-  function openContactModal() {
-    window.dispatchEvent(new CustomEvent("facile:open-contact"));
-  }
+  onMount(() => {
+    if (!browser) return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const mm = gsap.matchMedia();
+
+    mm.add("(min-width: 1024px)", () => {
+      if (!horizontalSection || !horizontalTrack) return;
+
+      const getScrollAmount = () => {
+        if (!horizontalTrack) return 0;
+        return horizontalTrack.scrollWidth - window.innerWidth;
+      };
+
+      const tween = gsap.to(horizontalTrack, {
+        x: () => -getScrollAmount(),
+        ease: "none",
+        scrollTrigger: {
+          trigger: horizontalSection,
+          start: "top 12%",
+          end: () => `+=${getScrollAmount()}`,
+          pin: true,
+          scrub: 1,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      return () => {
+        tween.kill();
+      };
+    });
+
+    return () => {
+      mm.revert();
+    };
+  });
 </script>
 
 <svelte:head>
@@ -34,16 +73,15 @@
   />
 </svelte:head>
 
-<!-- Top Wordmark & Hero Section -->
 <section
   id="hero"
   use:scrollReveal={{ delay: 0.05, stagger: 0.08 }}
-  class="relative flex flex-col justify-between min-h-[calc(100dvh-2.5rem)] -mx-4 sm:-mx-6 md:-mx-10 px-4 sm:px-6 md:px-10 pt-10 sm:pt-14 pb-28 sm:pb-36 overflow-hidden"
+  class="relative flex flex-col justify-between min-h-[calc(100dvh-5.5rem)] sm:min-h-[calc(100dvh-6.5rem)] xl:min-h-[calc(100dvh-7rem)] -mx-4 sm:-mx-6 md:-mx-10 px-4 sm:px-6 md:px-10 pt-6 sm:pt-8 pb-20 sm:pb-28 overflow-hidden"
 >
   <div data-reveal-item class="relative z-10 flex flex-col gap-6 max-w-4xl">
     <h1 class="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-fc-fg leading-[1.08]">
-      Une équipe de passionnés<br />
-      <span class="text-fc-fg-muted">qui sait ce qu'elle fait.</span>
+      On simplifie,<br />
+      <span class="text-fc-fg-muted">vous créez.</span>
     </h1>
 
     <div class="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4 text-fc-sm text-fc-fg-muted font-mono">
@@ -59,8 +97,8 @@
       <Button
         variant="primary"
         size="lg"
+        href="/contact"
         class="h-11 rounded-fc-pill font-semibold px-6 shadow-md"
-        onclick={openContactModal}
         icon={icons.arrow}
       >
         Démarrer un projet
@@ -70,6 +108,7 @@
         size="lg"
         href="#projets"
         class="h-11 rounded-fc-pill font-medium px-6 bg-fc-surface hover:bg-fc-surface-hover text-fc-fg"
+        icon={icons.eye}
       >
         Voir nos réalisations
       </Button>
@@ -86,7 +125,7 @@
   </div>
 
   <div data-reveal-item class="absolute bottom-0 left-0 w-full overflow-hidden select-none pointer-events-none">
-    <svg viewBox="0 0 1488 409" fill="none" class="w-full h-auto text-fc-fg fill-current transition-colors duration-300">
+    <svg viewBox="-10 0 1510 435" preserveAspectRatio="xMinYMax meet" fill="none" class="w-full h-auto text-fc-fg fill-current transition-colors duration-300">
       <path d="M33.1193 3.91218L36.4625 5.02899C29.2188 32.3912 44.8207 70.3632 71.0097 70.3632C125.616 70.3632 169.636 -0.555124 247.646 0.00328039C308.939 0.00328039 322.312 54.7276 322.312 80.973V120.62H237.616L237.059 86.5571C237.059 47.4683 216.442 38.5337 193.039 38.5337C115.029 38.5337 85.4972 149.099 43.7063 149.099C20.3034 149.099 14.1741 116.711 14.1741 91.5828C14.1741 54.1692 23.6467 19.5477 33.1193 3.91218ZM92.1837 203.265L145.119 85.9987H218.114C196.94 126.763 179.109 166.41 162.95 203.265H169.079C234.273 203.265 286.094 219.459 286.094 304.896L202.512 303.779C203.069 225.602 200.84 212.2 169.636 212.2H158.492C105.557 331.141 67.6664 418.812 -7 418.812L-6.44279 327.232V203.265H92.1837ZM-1.98509 257.431V327.232C26.9899 325.557 52.6217 292.052 68.7808 255.197L87.7261 212.758C15.8457 215.55 -1.98509 224.485 -1.98509 257.431Z" fill="currentColor"/>
       <path d="M302.996 416.02L408.402 80.973H490.358L595.764 416.02H538.186L442.531 115.408H455.068L360.574 416.02H302.996ZM361.735 343.426V291.075H537.257V343.426H361.735Z" fill="currentColor"/>
       <path d="M751.49 423C718.057 423 689.422 415.71 665.586 401.129C641.75 386.393 623.408 365.918 610.561 339.704C597.869 313.489 591.523 283.087 591.523 248.496C591.523 213.906 597.869 183.504 610.561 157.289C623.408 131.075 641.75 110.677 665.586 96.0966C689.422 81.3607 718.057 73.9928 751.49 73.9928C790.03 73.9928 822.147 83.6875 847.841 103.077C873.535 122.311 891.567 148.293 901.937 181.022L845.519 196.611C839.018 174.74 827.952 157.677 812.319 145.423C796.686 133.014 776.409 126.809 751.49 126.809C729.046 126.809 710.318 131.85 695.304 141.933C680.445 152.015 669.224 166.208 661.639 184.512C654.21 202.66 650.418 223.988 650.263 248.496C650.263 273.005 653.978 294.41 661.407 312.714C668.991 330.862 680.29 344.978 695.304 355.06C710.318 365.142 729.046 370.184 751.49 370.184C776.409 370.184 796.686 363.979 812.319 351.57C827.952 339.161 839.018 322.098 845.519 300.382L901.937 315.971C891.567 348.7 873.535 374.759 847.841 394.149C822.147 413.383 790.03 423 751.49 423Z" fill="currentColor"/>
@@ -98,7 +137,6 @@
   </div>
 </section>
 
-<!-- Services / Ce qu'on vend Section -->
 <section id="services" use:scrollReveal={{ delay: 0.05 }} class="flex flex-col gap-10 py-16">
   <div class="flex flex-col gap-3">
     <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">Prestations studio</span>
@@ -147,15 +185,20 @@
       <span class="text-fc-md font-bold text-fc-fg">Un besoin particulier ou un projet spécifique ?</span>
       <span class="text-fc-xs text-fc-fg-muted">Nous cadrons votre cahier des charges et vous envoyons une proposition sous 48h.</span>
     </div>
-    <Button variant="primary" size="md" class="rounded-fc-pill font-semibold px-6 shrink-0" onclick={openContactModal}>
+    <Button
+      variant="primary"
+      size="md"
+      class="rounded-fc-pill font-semibold px-6 shrink-0"
+      href="/contact"
+      icon={icons.arrow}
+    >
       Demander un devis
     </Button>
   </div>
 </section>
 
-<!-- Portfolio / Réalisations Clients Section -->
-<section id="projets" use:scrollReveal={{ delay: 0.05 }} class="flex flex-col gap-10 py-16">
-  <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+<section id="projets" class="relative py-12 lg:py-0">
+  <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 lg:mb-0 lg:px-2">
     <div class="flex flex-col gap-3">
       <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">Réalisations récentes</span>
       <h2 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">
@@ -165,12 +208,18 @@
         Découvrez une sélection de réalisations conçues et livrées par le studio.
       </p>
     </div>
-    <Button variant="ghost" size="md" href="/projects" class="rounded-fc-pill bg-fc-component text-fc-fg hover:bg-fc-surface shrink-0">
+    <Button
+      variant="ghost"
+      size="md"
+      href="/projects"
+      class="rounded-fc-pill bg-fc-component text-fc-fg hover:bg-fc-surface shrink-0"
+      icon={icons.arrow}
+    >
       Voir tout le portfolio
     </Button>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:hidden mt-8">
     {#each CLIENT_PROJECTS as project}
       <a
         href={`/projects/${project.slug}`}
@@ -206,9 +255,84 @@
       </a>
     {/each}
   </div>
+
+  <div
+    bind:this={horizontalSection}
+    class="hidden lg:block relative -mx-4 sm:-mx-6 md:-mx-10 overflow-hidden"
+  >
+    <div
+      bind:this={horizontalTrack}
+      class="flex items-center gap-8 px-10 py-10 w-fit h-[82vh] min-h-[580px]"
+    >
+      {#each CLIENT_PROJECTS as project, index}
+        <div
+          class="project-slide w-[78vw] max-w-4xl h-[72vh] min-h-[500px] shrink-0 rounded-fc-3xl bg-fc-component p-8 xl:p-10 shadow-md flex flex-col justify-between"
+        >
+          <div class="grid grid-cols-12 gap-8 h-full items-center">
+            <div class="col-span-7 h-full flex flex-col justify-between">
+              <div class="flex flex-col gap-4">
+                <div class="flex items-center gap-3">
+                  <span class="rounded-fc-pill bg-fc-surface px-3 py-1 text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">
+                    {project.category}
+                  </span>
+                  <span class="text-fc-xs font-mono text-fc-fg-muted">
+                    0{index + 1} / 0{CLIENT_PROJECTS.length} · {project.year}
+                  </span>
+                </div>
+                <h3 class="text-3xl xl:text-4xl font-black tracking-tight text-fc-fg">
+                  {project.name}
+                </h3>
+                <p class="text-fc-sm xl:text-fc-base text-fc-fg-muted leading-relaxed line-clamp-3">
+                  {project.description}
+                </p>
+                <div class="flex flex-wrap gap-2 pt-2">
+                  {#each project.stack as tech}
+                    <span class="rounded-fc-md bg-fc-surface px-2.5 py-1 text-fc-xs font-medium text-fc-fg-muted">
+                      {tech}
+                    </span>
+                  {/each}
+                </div>
+              </div>
+
+              <div class="flex items-center gap-4 pt-6">
+                <Button
+                  variant="primary"
+                  size="md"
+                  href={`/projects/${project.slug}`}
+                  class="rounded-fc-pill font-semibold px-6 shadow-sm"
+                  icon={icons.arrow}
+                >
+                  Voir l'étude de cas
+                </Button>
+                {#if project.link}
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    class="inline-flex items-center gap-2 rounded-fc-pill bg-fc-surface px-5 py-2.5 text-fc-xs font-semibold text-fc-fg transition-colors hover:bg-fc-surface-hover"
+                  >
+                    <span>Site en ligne</span>
+                    <Icon icon={icons.arrow} size={14} />
+                  </a>
+                {/if}
+              </div>
+            </div>
+
+            <div class="col-span-5 h-full relative rounded-fc-2xl overflow-hidden bg-fc-surface shadow-xs">
+              <img
+                src={project.cover}
+                alt={project.name}
+                class="size-full object-cover transition-transform duration-700 hover:scale-105"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      {/each}
+    </div>
+  </div>
 </section>
 
-<!-- Studio Interconnectivity Graph Section -->
 <section id="ecosystem" use:scrollReveal={{ delay: 0.05 }} class="flex flex-col gap-8 py-16">
   <div class="flex flex-col gap-3 text-center items-center">
     <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">Architecture studio</span>
@@ -220,12 +344,9 @@
     </p>
   </div>
 
-  <div class="rounded-fc-3xl bg-fc-component p-2 sm:p-4 shadow-sm">
-    <StudioGraph />
-  </div>
+  <StudioGraph />
 </section>
 
-<!-- La Suite Facile (20 Internal Tools) Section -->
 <section id="suite" use:scrollReveal={{ delay: 0.05 }} class="flex flex-col gap-10 py-16">
   <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
     <div class="flex flex-col gap-3">
@@ -234,7 +355,7 @@
         La Suite Facile
       </h2>
       <p class="text-fc-md text-fc-fg-muted max-w-2xl">
-        20 outils libres et souverains développés par le studio pour nos besoins quotidiens et ceux de nos clients. Un seul compte Facile pour y accéder.
+        21 outils libres et souverains développés par le studio pour nos besoins quotidiens et ceux de nos clients. Un seul compte Facile pour y accéder.
       </p>
     </div>
     <div class="flex flex-wrap gap-2">
@@ -245,6 +366,7 @@
         target="_blank"
         rel="noreferrer"
         class="rounded-fc-pill bg-fc-component hover:bg-fc-surface text-fc-fg"
+        icon={icons.userCircle}
       >
         Créer un compte Facile
       </Button>
@@ -262,7 +384,6 @@
     </div>
   </div>
 
-  <!-- Filter chips -->
   <div class="flex flex-wrap items-center gap-2">
     {#each CATEGORIES as cat}
       <button
@@ -278,7 +399,6 @@
     {/each}
   </div>
 
-  <!-- Tools grid -->
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
     {#each filteredTools as tool (tool.id)}
       <div class="flex flex-col justify-between gap-4 rounded-fc-2xl bg-fc-component p-5 transition-transform duration-200 hover:-translate-y-0.5 shadow-sm">
@@ -336,28 +456,28 @@
   </div>
 </section>
 
-<!-- Bulle AI Agent Section -->
 <section id="bulle" use:scrollReveal={{ delay: 0.05 }} class="flex flex-col gap-8 py-16">
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center rounded-fc-3xl bg-fc-component p-6 sm:p-10 shadow-sm">
     <div class="flex flex-col gap-6">
       <div class="flex flex-col gap-2">
-        <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">Intelligence embarquée</span>
+        <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">Intelligence connectée</span>
         <h2 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">
-          Bulle, votre compagnon de code
+          Bulle, l'agent connecté à tous vos outils
         </h2>
         <p class="text-fc-md text-fc-fg-muted leading-relaxed">
-          Un agent IA complet qui dispose de son propre système d'exploitation dans une microVM isolée. Connecté à Matrix, capable de modifier du code, d'exécuter des pipelines et d'interagir en langage naturel.
+          Bulle dispose de son propre ordinateur sous microVM Linux et s'interface nativement avec tout votre écosystème Facile. Il lit et rédige vos emails dans Courrier, organise vos tâches dans Opus, planifie vos rendez-vous dans Agenda, gère vos fichiers dans Nuage et déploie vos projets sans intermédiaire.
         </p>
       </div>
 
       <div class="flex flex-wrap gap-2">
-        <span class="rounded-fc-md bg-fc-surface px-3 py-1 text-fc-xs font-mono text-fc-fg">MicroVM Linux isolée</span>
-        <span class="rounded-fc-md bg-fc-surface px-3 py-1 text-fc-xs font-mono text-fc-fg">Protocole Matrix E2EE</span>
-        <span class="rounded-fc-md bg-fc-surface px-3 py-1 text-fc-xs font-mono text-fc-fg">Interface OpenUI</span>
+        <span class="rounded-fc-md bg-fc-surface px-3 py-1 text-fc-xs font-mono text-fc-fg">MicroVM Linux souveraine</span>
+        <span class="rounded-fc-md bg-fc-surface px-3 py-1 text-fc-xs font-mono text-fc-fg">Courrier · Opus · Agenda · Nuage</span>
+        <span class="rounded-fc-md bg-fc-surface px-3 py-1 text-fc-xs font-mono text-fc-fg">Matrix E2EE & Prisme</span>
+        <span class="rounded-fc-md bg-fc-surface px-3 py-1 text-fc-xs font-mono text-fc-fg">Outils MCP natifs</span>
       </div>
 
       <div class="flex items-center gap-3 pt-2">
-        <Button variant="primary" size="md" href="https://bulle.facile.studio" target="_blank" rel="noreferrer" class="rounded-fc-pill font-semibold px-5">
+        <Button variant="primary" size="md" href="https://bulle.facile.studio" target="_blank" rel="noreferrer" class="rounded-fc-pill font-semibold px-5" icon={icons.bolt}>
           Tester Bulle
         </Button>
         <Button variant="ghost" size="md" href="https://github.com/FacileStudio/Bulle" target="_blank" rel="noreferrer" class="rounded-fc-pill bg-fc-surface text-fc-fg hover:bg-fc-component" icon={GITHUB_ICON}>
@@ -372,7 +492,6 @@
   </div>
 </section>
 
-<!-- Hardware & Atelier R&D: Pastille PCB Section (Lower down) -->
 <section id="hardware" use:scrollReveal={{ delay: 0.05 }} class="flex flex-col gap-10 py-16">
   <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
     <div class="flex flex-col gap-3">
@@ -385,7 +504,7 @@
       </p>
     </div>
     <div class="flex flex-wrap gap-2">
-      <Button variant="ghost" size="md" href="https://pastille.facile.studio" target="_blank" rel="noreferrer" class="rounded-fc-pill bg-fc-component hover:bg-fc-surface text-fc-fg">
+      <Button variant="ghost" size="md" href="https://pastille.facile.studio" target="_blank" rel="noreferrer" class="rounded-fc-pill bg-fc-component hover:bg-fc-surface text-fc-fg" icon={icons.globe}>
         Site officiel Pastille
       </Button>
       <Button variant="ghost" size="md" href="https://github.com/FacileStudio/Pastille" target="_blank" rel="noreferrer" class="rounded-fc-pill bg-fc-component hover:bg-fc-surface text-fc-fg" icon={GITHUB_ICON}>
@@ -394,25 +513,22 @@
     </div>
   </div>
 
-  <!-- 3D Interactive Turntable Viewer -->
   <div class="rounded-fc-3xl bg-fc-component p-3 sm:p-6 shadow-sm">
     <PcbViewer />
   </div>
 </section>
 
-<!-- Closing Studio Contact & Call to Action -->
 <section id="contact" use:scrollReveal={{ delay: 0.05 }} class="flex flex-col gap-8 py-20">
   <div class="flex flex-col items-center text-center gap-6 rounded-fc-3xl bg-fc-component p-8 sm:p-14 shadow-sm">
-    <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">Lançons votre projet</span>
-    <h2 class="text-3xl sm:text-5xl font-black tracking-tight text-fc-fg max-w-2xl leading-tight">
-      Prêt à concevoir un site web ou une application qui compte ?
+    <h2 class="text-3xl sm:text-5xl font-black tracking-tight text-fc-fg max-w-2xl leading-tight text-balance">
+      Prêt à concevoir un site web ou une application qui compte&nbsp;?
     </h2>
     <p class="text-fc-md text-fc-fg-muted max-w-xl leading-relaxed">
       Discutons de votre vision, de vos contraintes et de votre calendrier. Nous intervenons sur des vitrines haut de gamme, des apps métier et des infrastructures pérennes.
     </p>
 
     <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
-      <Button variant="primary" size="lg" class="rounded-fc-pill font-semibold px-8 shadow-md" onclick={openContactModal}>
+      <Button variant="primary" size="lg" href="/contact" class="rounded-fc-pill font-semibold px-8 shadow-md" icon={icons.arrow}>
         Démarrer un projet
       </Button>
       <a
@@ -433,12 +549,6 @@
         </svg>
         <span>contact@facile.studio</span>
       </a>
-    </div>
-
-    <div class="flex items-center gap-6 pt-4 text-fc-xs text-fc-fg-muted font-mono">
-      <span>Lyon · Strasbourg · Remote</span>
-      <span>·</span>
-      <span>Devis sous 48h</span>
     </div>
   </div>
 </section>

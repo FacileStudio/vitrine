@@ -9,7 +9,7 @@ export const entries: EntryGenerator = () => {
     { slug: "marcel" },
     { slug: "laura-herve" },
     { slug: "projet-zero" },
-    { slug: "solais-intra" },
+    { slug: "bulle" },
     { slug: "evelyne-crea" },
     { slug: "retro-festival" },
   ];

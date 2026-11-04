@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { Button, Spinner } from "@facile/muse";
+  import { Button, Spinner, icons } from "@facile/muse";
   import { mountPcbScene, type Preset, type SceneControl } from "$lib/pcb-scene";
 
   type ModelMode = "pcb" | "case";
@@ -94,6 +94,7 @@
         class={mode === "pcb" ? "" : "text-fc-fg hover:bg-fc-component"}
         aria-pressed={mode === "pcb"}
         onclick={() => chooseMode("pcb")}
+        icon={icons.bolt}
       >
         3D PCB
       </Button>
@@ -103,6 +104,7 @@
         class={mode === "case" ? "" : "text-fc-fg hover:bg-fc-component"}
         aria-pressed={mode === "case"}
         onclick={() => chooseMode("case")}
+        icon={icons.shield}
       >
         Enclosure
       </Button>
@@ -120,6 +122,7 @@
             class={preset === option ? "uppercase" : "uppercase text-fc-fg hover:bg-fc-component"}
             aria-pressed={preset === option}
             onclick={() => choosePreset(option)}
+            icon={option === "iso" ? icons.layers : option === "top" ? icons.eye : icons.monitor}
           >
             {option}
           </Button>
@@ -130,6 +133,7 @@
           class={rotating ? "uppercase" : "uppercase text-fc-fg hover:bg-fc-component"}
           aria-pressed={rotating}
           onclick={toggleRotate}
+          icon={icons.refresh}
         >
           Auto
         </Button>

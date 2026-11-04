@@ -7,8 +7,8 @@
 
   let name = $state("");
   let email = $state("");
-  let projectType = $state("Site vitrine");
-  let budget = $state("5k - 15k€");
+  let projectType = $state("Site vitrine d'exception");
+  let budget = $state("5k - 15k\u00A0€");
   let message = $state("");
   let submitted = $state(false);
 
@@ -20,7 +20,7 @@
     "Autre projet",
   ];
 
-  const BUDGETS = ["< 5 000 €", "5 000 - 15 000 €", "15 000 - 30 000 €", "> 30 000 €"];
+  const BUDGETS = ["< 5k\u00A0€", "5k - 15k\u00A0€", "15k - 30k\u00A0€", "> 30k\u00A0€"];
 
   onMount(() => {
     function handleOpen() {
@@ -115,7 +115,7 @@
           <p class="mt-2 text-fc-xs text-fc-fg-muted">
             Si votre client mail ne s'est pas ouvert automatiquement, écrivez directement à <strong>contact@facile.studio</strong>.
           </p>
-          <Button variant="primary" size="md" class="mt-4 rounded-fc-pill" onclick={close}>Fermer</Button>
+          <Button variant="primary" size="md" class="mt-4 rounded-fc-pill" onclick={close} icon={icons.close}>Fermer</Button>
         </div>
       {:else}
         <form onsubmit={handleSubmit} class="flex flex-col gap-4">
@@ -164,7 +164,7 @@
                 <button
                   type="button"
                   onclick={() => (budget = b)}
-                  class="rounded-fc-md py-2 px-2 text-center text-[11px] font-medium transition-colors
+                  class="whitespace-nowrap rounded-fc-pill py-2 px-2 text-center text-[11px] font-medium transition-colors
                     {budget === b ? 'bg-fc-accent text-fc-accent-fg' : 'bg-fc-surface text-fc-fg-muted hover:text-fc-fg'}"
                 >
                   {b}
@@ -184,7 +184,7 @@
             ></textarea>
           </div>
 
-          <Button type="submit" variant="primary" size="lg" class="mt-2 w-full rounded-fc-pill font-semibold">
+          <Button type="submit" variant="primary" size="lg" class="mt-2 w-full rounded-fc-pill font-semibold" icon={icons.arrow}>
             Envoyer ma demande de projet
           </Button>
         </form>

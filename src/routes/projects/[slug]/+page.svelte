@@ -218,14 +218,16 @@
         size="lg"
         href="/projects"
         class="rounded-fc-pill bg-fc-surface text-fc-fg hover:bg-fc-page px-5"
+        icon={icons.chevronLeft}
       >
         Autres projets
       </Button>
       <Button
         variant="primary"
         size="lg"
-        href="/#contact"
+        href="/contact"
         class="rounded-fc-pill px-6"
+        icon={icons.arrow}
       >
         Nous contacter
       </Button>
