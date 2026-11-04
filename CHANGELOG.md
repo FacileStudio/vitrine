@@ -2,6 +2,13 @@
 
 All notable changes to Facile Studio Vitrine will be documented in this file.
 
+## [1.4.4] - 2026-11-04
+
+### Fixed
+- Footer uses the same concentric spacing as the top bar. On wide screens it is a 56px pill with the logo and the last link 10px from every edge.
+- Footer logo sits in a 36px round link to the home page; footer links are 36px pills with a hover fill.
+- Below 1280px the footer stays a stacked rounded card instead of a pill that wraps.
+
 ## [1.4.3] - 2026-11-04
 
 ### Changed
