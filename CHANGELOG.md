@@ -2,6 +2,12 @@
 
 All notable changes to Facile Studio Vitrine will be documented in this file.
 
+## [1.4.5] - 2026-11-05
+
+### Fixed
+- Old `/<lang>/studio` URLs from the previous website (`/fr/studio`, `/en/studio`) return a 301 to the home page, so search results and bookmarks no longer land on a 404.
+- Pastille 3D viewer caption reads "Pastille · ERC/DRC validés" instead of linking out to Fusible.
+
 ## [1.4.4] - 2026-11-04
 
 ### Fixed
