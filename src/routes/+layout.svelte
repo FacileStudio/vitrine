@@ -133,6 +133,7 @@
     { label: "Bulle", href: "https://bulle.facile.studio" },
     { label: "Pastille", href: "https://pastille.facile.studio" },
     { label: "La Suite", href: "https://suite.facile.studio" },
+    { label: "Place", href: "https://place.facile.studio" },
     { label: "Compte Facile", href: "https://sso.facile.studio" },
     { label: "GitHub", href: "https://github.com/FacileStudio" },
   ];
