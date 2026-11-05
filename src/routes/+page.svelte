@@ -14,7 +14,7 @@
     STUDIO_SERVICES,
     SUITE_TOOLS,
   } from "$lib/data";
-  import { GITHUB_ICON } from "$lib/icons";
+  import { GITHUB_ICON, DISCORD_ICON } from "$lib/icons";
   import { scrollReveal } from "$lib/motion";
 
   let selectedCategory = $state<string>("all");
@@ -485,6 +485,17 @@
         icon={GITHUB_ICON}
       >
         GitHub
+      </Button>
+      <Button
+        variant="ghost"
+        size="md"
+        href="https://discord.gg/ftkWURp9PT"
+        target="_blank"
+        rel="noreferrer"
+        class="rounded-fc-pill bg-fc-component hover:bg-fc-surface text-fc-fg"
+        icon={DISCORD_ICON}
+      >
+        Rejoindre le Discord
       </Button>
     </div>
   </div>

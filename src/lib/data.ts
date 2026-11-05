@@ -712,6 +712,18 @@ export const SUITE_TOOLS: ToolItem[] = [
     githubUrl: "https://github.com/FacileStudio/boite",
     tag: "Packages · OCI",
   },
+  {
+    id: "place",
+    name: "Place",
+    tagline: "Le forum de la communauté Facile",
+    description: "La communauté Facile réunie sur un forum web relié à Discord. Posez vos questions, suivez les annonces, échangez avec l'équipe.",
+    icon: "mdi:forum",
+    category: "productivity",
+    categoryLabel: "Productivité",
+    url: "https://place.facile.studio",
+    tag: "Forum · Discord",
+    badge: "Nouveau",
+  },
 ];
 
 export const CATEGORIES = [
