@@ -3,6 +3,7 @@ export type Preset = "iso" | "top" | "side";
 export interface SceneControl {
   applyPreset: (preset: Preset) => void;
   setRotating: (value: boolean) => void;
+  setInteractive: (value: boolean) => void;
   loadUrl: (url: string) => Promise<void>;
   dispose: () => void;
 }
@@ -47,6 +48,7 @@ function createViewport(
   OrbitControls: typeof import("three/examples/jsm/controls/OrbitControls.js").OrbitControls,
   host: HTMLDivElement,
   onUserInteract: () => void,
+  interactive: boolean,
 ) {
   const width = host.clientWidth || 800;
   const height = host.clientHeight || 520;
@@ -62,7 +64,7 @@ function createViewport(
   renderer.domElement.style.display = "block";
   renderer.domElement.style.width = "100%";
   renderer.domElement.style.height = "100%";
-  renderer.domElement.style.cursor = "grab";
+  renderer.domElement.style.cursor = interactive ? "grab" : "default";
   host.appendChild(renderer.domElement);
 
   const camera = new THREE.PerspectiveCamera(32, width / height, 0.1, 5000);
@@ -72,6 +74,8 @@ function createViewport(
   controls.rotateSpeed = 0.8;
   controls.zoomSpeed = 0.7;
   controls.enablePan = false;
+  controls.enableRotate = interactive;
+  controls.enableZoom = interactive;
   controls.autoRotateSpeed = 1.4;
   controls.minPolarAngle = 0.02;
   controls.maxPolarAngle = Math.PI - 0.02;
@@ -87,6 +91,7 @@ export async function mountPcbScene(
   initialUrl: string,
   initialRotate: boolean,
   onUserInteract: () => void,
+  interactive = true,
 ): Promise<SceneControl> {
   const [THREE, { OrbitControls }, { GLTFLoader }] = await Promise.all([
     import("three"),
@@ -99,6 +104,7 @@ export async function mountPcbScene(
     OrbitControls,
     host,
     onUserInteract,
+    interactive,
   );
   const scene = new THREE.Scene();
   addLights(THREE, scene);
@@ -195,6 +201,11 @@ export async function mountPcbScene(
     applyPreset,
     setRotating: (val: boolean) => {
       controls.autoRotate = val;
+    },
+    setInteractive: (val: boolean) => {
+      controls.enableRotate = val;
+      controls.enableZoom = val;
+      renderer.domElement.style.cursor = val ? "grab" : "default";
     },
     loadUrl,
     dispose: () => {

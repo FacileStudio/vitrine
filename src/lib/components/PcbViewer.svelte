@@ -17,7 +17,9 @@
   let preset = $state<Preset>("iso");
   let mode = $state<ModelMode>("pcb");
   let rotating = $state(true);
-  let viewer: SceneControl | null = null;
+  let locked = $state(false);
+  let viewer = $state<SceneControl | null>(null);
+  let reducedMotion = false;
   let loadSeq = 0;
 
   function choosePreset(next: Preset) {
@@ -43,22 +45,43 @@
   }
 
   function toggleRotate() {
+    if (locked) return;
     rotating = !rotating;
     viewer?.setRotating(rotating);
   }
 
+  $effect(() => {
+    if (!viewer) return;
+    viewer.setInteractive(!locked);
+    viewer.setRotating(locked ? !reducedMotion : rotating);
+  });
+
   onMount(() => {
+    const narrow = window.matchMedia("(max-width: 639px)");
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    reducedMotion = reduced;
+    locked = narrow.matches;
     rotating = !reduced;
     let disposed = false;
+
+    function syncLayout(event: MediaQueryListEvent) {
+      locked = event.matches;
+    }
+    narrow.addEventListener("change", syncLayout);
 
     async function boot() {
       if (disposed || status !== "idle") return;
       status = "loading";
       try {
-        const ctrl = await mountPcbScene(host, MODELS[mode], rotating, () => {
-          rotating = false;
-        });
+        const ctrl = await mountPcbScene(
+          host,
+          MODELS[mode],
+          rotating,
+          () => {
+            rotating = false;
+          },
+          !locked,
+        );
         if (disposed) {
           ctrl.dispose();
           return;
@@ -73,6 +96,7 @@
     boot();
 
     return () => {
+      narrow.removeEventListener("change", syncLayout);
       disposed = true;
       viewer?.dispose();
       viewer = null;
@@ -110,7 +134,7 @@
       </Button>
     </div>
 
-    {#if status === "ready"}
+    {#if status === "ready" && !locked}
       <div
         class="flex flex-wrap items-center gap-1 rounded-fc-pill bg-fc-surface/90 p-1
           backdrop-blur pointer-events-auto"
@@ -157,13 +181,13 @@
   {:else}
     <div class="absolute bottom-0 left-0 right-0 flex items-center justify-between p-4 pointer-events-none">
       <span
-        class="rounded-fc-pill bg-fc-surface/85 backdrop-blur px-3 py-1
+        class="hidden sm:inline-flex rounded-fc-pill bg-fc-surface/85 backdrop-blur px-3 py-1
           text-fc-xs font-mono text-fc-fg-muted"
       >
         Glisser pour tourner · Molette pour zoomer
       </span>
       <span
-        class="hidden sm:inline-flex rounded-fc-pill bg-fc-surface/85
+        class="ml-auto inline-flex rounded-fc-pill bg-fc-surface/85
           backdrop-blur px-3 py-1 text-fc-xs font-mono text-fc-success"
       >
         Pastille · ERC/DRC validés

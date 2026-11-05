@@ -2,6 +2,12 @@
 
 All notable changes to Facile Studio Vitrine will be documented in this file.
 
+## [1.4.6] - 2026-11-05
+
+### Changed
+- Pastille 3D viewer is non-interactive under 640px: the camera auto-rotates and drag, pinch and zoom are disabled.
+- Preset controls (ISO, TOP, SIDE, Auto) and the drag hint are hidden on mobile; the ERC/DRC caption stays visible.
+
 ## [1.4.5] - 2026-11-05
 
 ### Fixed
