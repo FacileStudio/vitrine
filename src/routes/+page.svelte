@@ -4,6 +4,7 @@
   import { gsap } from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
   import { Button, Icon, icons, prefersReducedMotion } from "@facile/muse";
+  import Community from "$lib/components/Community.svelte";
   import PcbViewer from "$lib/components/PcbViewer.svelte";
   import InteractiveBlob from "$lib/components/InteractiveBlob.svelte";
   import StudioGraph from "$lib/components/StudioGraph.svelte";
@@ -654,6 +655,8 @@
 
   <PcbViewer />
 </section>
+
+<Community />
 
 <section id="contact" use:scrollReveal={{ delay: 0.05 }} class="flex flex-col gap-8 py-20 w-full max-w-fc-xl mx-auto px-4 sm:px-6 md:px-10">
   <div class="flex flex-col items-center text-center gap-6 rounded-fc-3xl bg-fc-component p-8 sm:p-14 shadow-sm">

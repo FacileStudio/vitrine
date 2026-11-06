@@ -2,6 +2,14 @@
 
 All notable changes to Facile Studio Vitrine will be documented in this file.
 
+## [1.5.0] - 2026-11-06
+
+### Added
+- "Une communauté qui échange" section on the home page: the latest Place announcements and discussions, loaded live from `place.facile.studio`, with buttons to join Place and the Discord.
+- The section hides itself when Place is unreachable, or when there is no announcement and no discussion from the last 30 days.
+- "Rejoindre le Discord" button in the hero.
+- Place card in the suite grid and a footer link to Place.
+
 ## [1.4.6] - 2026-11-05
 
 ### Changed
