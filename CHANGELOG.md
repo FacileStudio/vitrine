@@ -4,6 +4,8 @@ All notable changes to Facile Studio Vitrine will be documented in this file.
 
 ## [Unreleased]
 
+## [1.5.3] - 2026-11-07
+
 ### Changed
 - `@facile/muse` v0.14.4 to v0.16.1. Nothing on the site changes: it uses no deprecated button variant.
 
