@@ -4,6 +4,9 @@ All notable changes to Facile Studio Vitrine will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+- `@facile/muse` v0.14.2 to v0.14.4: a locale re-render fix and the DonutChart full-ring fix. Nothing on the site changes.
+
 ## [1.5.1] - 2026-11-07
 
 ### Changed
