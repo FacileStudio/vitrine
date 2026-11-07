@@ -2,7 +2,6 @@ import type { IconData } from "@facile/muse";
 
 export const GITHUB_ICON = "mdi:github";
 export const DISCORD_ICON = "simple-icons:discord";
-export const MENU_ICON = "solar:hamburger-menu-linear";
 
 export const SUITE_ICONS: Record<string, IconData> = {
   "mdi:github": {

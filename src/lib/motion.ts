@@ -40,23 +40,6 @@ export function scrollReveal(
   };
 }
 
-export function moveNavPill(
-  pill: HTMLElement | null,
-  target: HTMLElement | undefined,
-  animate = true,
-) {
-  if (!pill || !target) {
-    if (pill) gsap.set(pill, { autoAlpha: 0 });
-    return;
-  }
-  const to = { x: target.offsetLeft, width: target.offsetWidth, autoAlpha: 1 };
-  if (!animate || prefersReducedMotion()) {
-    gsap.set(pill, to);
-    return;
-  }
-  gsap.to(pill, { ...to, duration: 0.32, ease: "power3.inOut", overwrite: "auto" });
-}
-
 export function scrollToSection(id: string, event?: MouseEvent) {
   if (typeof window === "undefined") return;
   const target = document.getElementById(id);
@@ -94,7 +77,7 @@ export function watchActiveSection(
   let isScrolled = false;
   const onScroll = () => {
     const y = window.scrollY;
-    const nextScrolled = isScrolled ? y > 8 : y > 24;
+    const nextScrolled = isScrolled ? y > 4 : y > 16;
     if (nextScrolled !== isScrolled) {
       isScrolled = nextScrolled;
       onScrollState?.(isScrolled);
