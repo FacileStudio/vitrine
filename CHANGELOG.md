@@ -4,6 +4,8 @@ All notable changes to Facile Studio Vitrine will be documented in this file.
 
 ## [Unreleased]
 
+## [1.5.1] - 2026-11-07
+
 ### Changed
 - The top bar and the footer are muse's `LandingHeader` and `LandingFooter` (muse v0.14.2): concentric spacing, a smooth shrink into a floating pill on scroll, and a native drawer under 1024 px. The tab shape, corner curves, screen frame and ambient blobs stay.
 - The footer groups its links in Studio, Produits and Contact columns. The phone, email and locations sit under Contact.
