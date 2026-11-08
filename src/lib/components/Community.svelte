@@ -13,6 +13,7 @@
   type Topic = {
     slug: string;
     title: string;
+    origin?: string;
     messages: number;
     last_activity: string;
     excerpt: string;
@@ -50,10 +51,12 @@
   onMount(async () => {
     const [news, list] = await Promise.all([
       get<{ announcements: Announcement[] }>("/announcements"),
-      get<{ topics: Topic[] }>("/topics")
+      get<{ topics: Topic[] }>("/topics?origin=local")
     ]);
     announcements = (news?.announcements ?? []).slice(0, 2);
-    topics = (list?.topics ?? []).slice(0, 4);
+    topics = (list?.topics ?? [])
+      .filter((t) => !t.origin || t.origin === "web" || t.origin === "discord")
+      .slice(0, 4);
   });
 </script>
 
