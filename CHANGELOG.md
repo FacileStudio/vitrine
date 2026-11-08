@@ -4,6 +4,11 @@ All notable changes to Facile Studio Vitrine will be documented in this file.
 
 ## [Unreleased]
 
+## [1.5.4] - 2026-11-08
+
+### Fixed
+- Community section topics: displays native Place and Facile Discord forum discussions while excluding external feeds.
+
 ## [1.5.3] - 2026-11-07
 
 ### Changed

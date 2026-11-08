@@ -53,10 +53,10 @@
       .filter(
         (t) =>
           t.origin === "web" ||
+          t.origin === "discord" ||
           (!t.origin &&
             !t.author_handle?.startsWith("bsky~") &&
-            !t.author_handle?.startsWith("ap~") &&
-            !t.slug?.startsWith("discord-"))
+            !t.author_handle?.startsWith("ap~"))
       )
       .slice(0, 4);
   });
