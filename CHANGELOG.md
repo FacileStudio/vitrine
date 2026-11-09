@@ -4,6 +4,11 @@ All notable changes to Facile Studio Vitrine will be documented in this file.
 
 ## [Unreleased]
 
+## [1.5.5] - 2026-11-09
+
+### Changed
+- Curate Place community section topics: manually feature selected Tandem and Pastille discussions.
+
 ## [1.5.4] - 2026-11-08
 
 ### Fixed

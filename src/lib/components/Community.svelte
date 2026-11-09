@@ -7,6 +7,10 @@
   const placeOrigin = "https://place.facile.studio";
   const discordInvite = "https://discord.gg/ftkWURp9PT";
   const fetchTimeoutMs = 6000;
+  const featuredTopicSlugs = [
+    "tandem-programmable-wireless-split-keyboard-1d3c24",
+    "discord-1567945649960521778"
+  ];
 
   type Announcement = { id: number; title: string; body: string; created_at: string };
   type Topic = {
@@ -44,21 +48,14 @@
   }
 
   onMount(async () => {
-    const [news, list] = await Promise.all([
+    const [news, ...topicResults] = await Promise.all([
       get<{ announcements: Announcement[] }>("/announcements"),
-      get<{ topics: Topic[] }>("/topics?origin=local")
+      ...featuredTopicSlugs.map((slug) => get<{ topic: Topic }>(`/topics/${slug}`))
     ]);
     announcements = (news?.announcements ?? []).slice(0, 2);
-    topics = (list?.topics ?? [])
-      .filter(
-        (t) =>
-          t.origin === "web" ||
-          t.origin === "discord" ||
-          (!t.origin &&
-            !t.author_handle?.startsWith("bsky~") &&
-            !t.author_handle?.startsWith("ap~"))
-      )
-      .slice(0, 4);
+    topics = topicResults
+      .map((result) => result?.topic)
+      .filter((t): t is Topic => Boolean(t));
   });
 </script>
 
