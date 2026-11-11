@@ -4,6 +4,19 @@ All notable changes to Facile Studio Vitrine will be documented in this file.
 
 ## [Unreleased]
 
+## [1.7.0] - 2026-11-11
+
+### Added
+- Place in the ecosystem graph, so the graph shows all 25 suite tools.
+
+### Changed
+- New catalog icons for Prisme, Feuilles, Docs, Toile and Place.
+- The tool counts in the hero stats and the suite section come from the suite list instead of a hard-coded number.
+- Favicons, touch icons, manifest and link preview come from muse v0.19.0's brand generator. The link preview title and description are the English catalog values; the page copy stays French.
+
+### Removed
+- `icon.png`, `images/og.webp` and the unused inline icon bodies.
+
 ## [1.6.0] - 2026-11-11
 
 ### Added
