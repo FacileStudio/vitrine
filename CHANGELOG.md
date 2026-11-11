@@ -4,6 +4,14 @@ All notable changes to Facile Studio Vitrine will be documented in this file.
 
 ## [Unreleased]
 
+## [1.6.0] - 2026-11-11
+
+### Added
+- Feuilles, Docs and Toile in the suite list and the ecosystem graph. The site now counts 24 tools.
+
+### Changed
+- The ecosystem graph is a true circle on every screen size, capped in width on desktop.
+
 ## [1.5.5] - 2026-11-09
 
 ### Changed
