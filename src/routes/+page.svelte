@@ -173,11 +173,12 @@
 </script>
 
 <svelte:head>
-  <title>Facile Studio · Design et ingénierie web</title>
-  <meta
-    name="description"
-    content="Studio de design et d'ingénierie web. Sites vitrines, applications sur mesure, direction artistique et hébergement souverain."
-  />
+  <title>Facile Studio · Web design and engineering studio</title>
+  <meta name="description" content="Showcase sites, custom web apps, art direction and sovereign hosting, from the studio behind the Facile Suite." />
+  <meta property="og:title" content="Facile Studio · Web design and engineering studio" />
+  <meta property="og:description" content="Showcase sites, custom web apps, art direction and sovereign hosting, from the studio behind the Facile Suite." />
+  <meta name="twitter:title" content="Facile Studio · Web design and engineering studio" />
+  <meta name="twitter:description" content="Showcase sites, custom web apps, art direction and sovereign hosting, from the studio behind the Facile Suite." />
 </svelte:head>
 
 <section
