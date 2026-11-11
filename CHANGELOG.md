@@ -4,6 +4,12 @@ All notable changes to Facile Studio Vitrine will be documented in this file.
 
 ## [Unreleased]
 
+## [1.7.1] - 2026-11-11
+
+### Fixed
+- `twitter:site` and `twitter:creator` (`@facilestudio`) are back in the head. v1.7.0 dropped them with the old head block.
+- Assets regenerated with muse v0.19.2's brand generator (no change to the files).
+
 ## [1.7.0] - 2026-11-11
 
 ### Added
