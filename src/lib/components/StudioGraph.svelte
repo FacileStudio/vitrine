@@ -9,13 +9,12 @@
 
   const geo = $derived(
     compact
-      ? { w: 720, h: 960, rx: 290, ry: 400, node: 44, icon: 2.2, hub: 2.2, hubR: 56 }
-      : { w: 1080, h: 720, rx: 420, ry: 280, node: 32, icon: 1.6, hub: 1.5, hubR: 40 }
+      ? { s: 720, r: 300, node: 26, icon: 1.7, hub: 2.0, hubR: 50 }
+      : { s: 960, r: 400, node: 30, icon: 1.5, hub: 1.5, hubR: 40 }
   );
-  const CX = $derived(geo.w / 2);
-  const CY = $derived(geo.h / 2);
-  const RX = $derived(geo.rx);
-  const RY = $derived(geo.ry);
+  const CX = $derived(geo.s / 2);
+  const CY = $derived(geo.s / 2);
+  const R = $derived(geo.r);
   const NODE_R = $derived(geo.node);
   const ICON_SCALE = $derived(geo.icon);
 
@@ -33,6 +32,9 @@
     { name: "Nuage", cat: "Stockage", icon: "solar:cloud-bold-duotone" },
     { name: "Courrier", cat: "Email", icon: "solar:letter-opened-bold-duotone" },
     { name: "Agenda", cat: "Planning", icon: "solar:calendar-add-bold-duotone" },
+    { name: "Feuilles", cat: "Tableurs", icon: "solar:clipboard-list-bold-duotone" },
+    { name: "Docs", cat: "Documents", icon: "solar:document-text-bold-duotone" },
+    { name: "Toile", cat: "Tableau blanc", icon: "solar:pallete-2-bold-duotone" },
     { name: "Echo", cat: "Visio", icon: "solar:videocamera-record-bold-duotone" },
     { name: "Capsule", cat: "Chiffrement", icon: "solar:pill-bold-duotone" },
     { name: "Scribe", cat: "Audio", icon: "solar:microphone-2-bold-duotone" },
@@ -45,8 +47,8 @@
 
   const nodes = $derived(suiteList.map((item, i) => {
     const a = -Math.PI / 2 + (Math.PI * 2 / suiteList.length) * i;
-    const x = Math.round(CX + RX * Math.cos(a));
-    const y = Math.round(CY + RY * Math.sin(a));
+    const x = Math.round(CX + R * Math.cos(a));
+    const y = Math.round(CY + R * Math.sin(a));
     const iconData = SUITE_ICONS[item.icon];
 
     return { ...item, a, x, y, i, iconData };
@@ -86,9 +88,9 @@
   class:active
 >
   <svg
-    viewBox="0 0 {geo.w} {geo.h}"
+    viewBox="0 0 {geo.s} {geo.s}"
     xmlns="http://www.w3.org/2000/svg"
-    class="mx-auto h-auto w-full"
+    class="mx-auto h-auto w-full max-w-3xl"
     role="img"
     aria-label="Architecture et écosystème connectés de la Suite Facile"
   >
@@ -104,9 +106,9 @@
       </linearGradient>
     </defs>
 
-    <ellipse cx={CX} cy={CY} rx={RX / 3} ry={RY / 3} fill="none" stroke="currentColor" stroke-opacity="0.08" stroke-width="1" stroke-dasharray="4 6" />
-    <ellipse cx={CX} cy={CY} rx={(RX * 2) / 3} ry={(RY * 2) / 3} fill="none" stroke="currentColor" stroke-opacity="0.06" stroke-width="1" stroke-dasharray="3 8" />
-    <ellipse cx={CX} cy={CY} rx={RX} ry={RY} fill="none" stroke="currentColor" stroke-opacity="0.05" stroke-width="1" />
+    <circle cx={CX} cy={CY} r={R / 3} fill="none" stroke="currentColor" stroke-opacity="0.08" stroke-width="1" stroke-dasharray="4 6" />
+    <circle cx={CX} cy={CY} r={(R * 2) / 3} fill="none" stroke="currentColor" stroke-opacity="0.06" stroke-width="1" stroke-dasharray="3 8" />
+    <circle cx={CX} cy={CY} r={R} fill="none" stroke="currentColor" stroke-opacity="0.05" stroke-width="1" />
 
     {#each nodes as n}
       <line
