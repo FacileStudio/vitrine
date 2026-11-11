@@ -462,7 +462,7 @@
         La Suite Facile
       </h2>
       <p class="text-fc-md text-fc-fg-muted max-w-2xl">
-        24 outils libres que le studio a construits pour son propre usage et celui de ses clients. Un seul compte Facile pour tous.
+        {SUITE_TOOLS.length} outils libres que le studio a construits pour son propre usage et celui de ses clients. Un seul compte Facile pour tous.
       </p>
     </div>
     <div class="flex flex-wrap sm:flex-nowrap sm:shrink-0 gap-2">

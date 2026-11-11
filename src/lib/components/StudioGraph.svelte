@@ -32,17 +32,18 @@
     { name: "Nuage", cat: "Stockage", icon: "solar:cloud-bold-duotone" },
     { name: "Courrier", cat: "Email", icon: "solar:letter-opened-bold-duotone" },
     { name: "Agenda", cat: "Planning", icon: "solar:calendar-add-bold-duotone" },
-    { name: "Feuilles", cat: "Tableurs", icon: "solar:clipboard-list-bold-duotone" },
-    { name: "Docs", cat: "Documents", icon: "solar:document-text-bold-duotone" },
-    { name: "Toile", cat: "Tableau blanc", icon: "solar:pallete-2-bold-duotone" },
+    { name: "Feuilles", cat: "Tableurs", icon: "solar:table-minimalistic-bold-duotone" },
+    { name: "Docs", cat: "Documents", icon: "solar:documents-bold-duotone" },
+    { name: "Toile", cat: "Tableau blanc", icon: "solar:tablet-bold-duotone" },
     { name: "Echo", cat: "Visio", icon: "solar:videocamera-record-bold-duotone" },
     { name: "Capsule", cat: "Chiffrement", icon: "solar:pill-bold-duotone" },
     { name: "Scribe", cat: "Audio", icon: "solar:microphone-2-bold-duotone" },
     { name: "Journal", cat: "Logs", icon: "solar:notebook-bold-duotone" },
-    { name: "Prisme", cat: "Chat Matrix", icon: "solar:chat-round-dots-bold-duotone" },
+    { name: "Prisme", cat: "Chat Matrix", icon: "solar:chat-round-bold-duotone" },
     { name: "Sonde", cat: "Statut", icon: "solar:radar-bold-duotone" },
     { name: "Registre", cat: "Auth SSO", icon: "solar:key-square-bold-duotone" },
     { name: "Boîte", cat: "Packages", icon: "solar:box-minimalistic-bold-duotone" },
+    { name: "Place", cat: "Communauté", icon: "solar:cup-hot-bold-duotone" },
   ];
 
   const nodes = $derived(suiteList.map((item, i) => {
