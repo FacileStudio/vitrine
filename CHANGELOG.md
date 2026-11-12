@@ -4,6 +4,11 @@ All notable changes to Facile Studio Vitrine will be documented in this file.
 
 ## [Unreleased]
 
+## [1.7.2] - 2026-11-12
+
+### Fixed
+- Smooth scroll for in-page anchor links such as the "Voir nos réalisations" hero button.
+
 ## [1.7.1] - 2026-11-11
 
 ### Fixed
