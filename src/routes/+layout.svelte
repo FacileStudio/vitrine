@@ -11,7 +11,7 @@
     provideLocale,
     registerIcons,
   } from "@facile/muse";
-  import { NAV_LINKS } from "$lib/data";
+  import { ACCOUNT_URL, NAV_LINKS, SUITE_SECTIONS } from "$lib/data";
   import { SUITE_ICONS } from "$lib/icons";
   import { scrollToSection, watchActiveSection } from "$lib/motion";
   import BrandMark from "$lib/components/BrandMark.svelte";
@@ -30,6 +30,7 @@
   const isContactPage = $derived(page.url.pathname === "/contact");
   const flush = $derived(scrolled || isContactPage);
   const canonicalUrl = $derived(`https://facile.studio${page.url.pathname}`);
+  const suiteInView = $derived(isHomePage && SUITE_SECTIONS.includes(activeSection));
 
   const links = $derived([
     ...NAV_LINKS.map((item) => ({
@@ -45,7 +46,7 @@
       title: "Studio",
       links: [
         { label: "Projets", href: "/projects" },
-        { label: "Compte Facile", href: "https://sso.facile.studio" },
+        { label: "Compte Facile", href: ACCOUNT_URL },
         { label: "GitHub", href: "https://github.com/FacileStudio" },
       ],
     },
@@ -135,7 +136,7 @@
           : 'vitrine-bar-top max-w-5xl rounded-b-2xl bg-fc-surface backdrop-blur-none sm:rounded-b-3xl'}"
       >
         {#snippet brand()}<BrandMark />{/snippet}
-        {#snippet actions()}<SiteActions />{/snippet}
+        {#snippet actions()}<SiteActions suite={suiteInView} />{/snippet}
       </LandingHeader>
     </div>
   {/if}

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { Button, icons } from "@facile/muse";
-  import { DISCORD_ICON } from "$lib/icons";
+  import { Button } from "@facile/muse";
+  import { DISCORD_ICON, GITHUB_ICON } from "$lib/icons";
   import { scrollReveal } from "$lib/motion";
 
   const placeOrigin = "https://place.facile.studio";
@@ -125,6 +125,17 @@
       icon={DISCORD_ICON}
     >
       Rejoindre le Discord
+    </Button>
+    <Button
+      variant="ghost"
+      size="md"
+      href="https://github.com/FacileStudio"
+      target="_blank"
+      rel="noreferrer"
+      class="rounded-fc-pill bg-fc-component hover:bg-fc-surface text-fc-fg"
+      icon={GITHUB_ICON}
+    >
+      GitHub
     </Button>
   </div>
 </section>

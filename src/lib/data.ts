@@ -777,11 +777,15 @@ export const CATEGORIES = [
 export const NAV_LINKS = [
   { id: "services", label: "Prestations", icon: "solar:ruler-cross-pen-bold-duotone" },
   { id: "projets", label: "Projets", icon: "solar:panorama-bold-duotone" },
-  { id: "ecosystem", label: "Écosystème", icon: "solar:structure-bold-duotone" },
   { id: "suite", label: "Suite", icon: "solar:widget-2-bold-duotone" },
+  { id: "ecosystem", label: "Écosystème", icon: "solar:structure-bold-duotone" },
   { id: "bulle", label: "Bulle", icon: "solar:smile-circle-bold-duotone" },
   { id: "hardware", label: "Pastille", icon: "solar:circle-dot-bold-duotone" },
 ] as const;
+
+export const SUITE_SECTIONS: readonly string[] = ["suite", "ecosystem", "bulle"];
+
+export const ACCOUNT_URL = "https://sso.facile.studio/spaces";
 
 export const STUDIO_METRICS = [
   { value: "100%", label: "Code propriétaire ou open source", sub: "Aucun CMS tiers" },

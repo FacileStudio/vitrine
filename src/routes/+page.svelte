@@ -3,19 +3,20 @@
   import { onMount, tick } from "svelte";
   import { gsap } from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
-  import { Button, Icon, icons, prefersReducedMotion } from "@facile/muse";
+  import { Button, Icon, SignInWithFacile, icons, prefersReducedMotion } from "@facile/muse";
   import Community from "$lib/components/Community.svelte";
   import PcbViewer from "$lib/components/PcbViewer.svelte";
   import InteractiveBlob from "$lib/components/InteractiveBlob.svelte";
   import StudioGraph from "$lib/components/StudioGraph.svelte";
   import TechBadge from "$lib/components/TechBadge.svelte";
   import {
+    ACCOUNT_URL,
     CATEGORIES,
     CLIENT_PROJECTS,
     STUDIO_SERVICES,
     SUITE_TOOLS,
   } from "$lib/data";
-  import { GITHUB_ICON, DISCORD_ICON } from "$lib/icons";
+  import { GITHUB_ICON } from "$lib/icons";
   import { scrollReveal } from "$lib/motion";
 
   let selectedCategory = $state<string>("all");
@@ -442,63 +443,20 @@
   </div>
 </section>
 
-<section id="ecosystem" use:scrollReveal={{ delay: 0.05 }} class="flex flex-col gap-8 py-16 w-full max-w-fc-xl mx-auto px-4 sm:px-6 md:px-10">
-  <div class="flex flex-col gap-3 text-center items-center">
-    <h2 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">
-      Des outils qui se parlent
-    </h2>
-    <p class="text-fc-md text-fc-fg-muted max-w-2xl">
-      Nos projets clients et nos outils internes échangent par des APIs ouvertes et un bus d'événements commun.
-    </p>
-  </div>
-
-  <StudioGraph />
-</section>
-
 <section id="suite" use:scrollReveal={{ delay: 0.05 }} class="flex flex-col gap-10 py-16 w-full max-w-fc-xl mx-auto px-4 sm:px-6 md:px-10">
   <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
     <div class="flex flex-col gap-3">
+      <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">Gratuit pour vous aussi</span>
       <h2 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">
         La Suite Facile
       </h2>
       <p class="text-fc-md text-fc-fg-muted max-w-2xl">
-        {SUITE_TOOLS.length} outils libres que le studio a construits pour son propre usage et celui de ses clients. Un seul compte Facile pour tous.
+        Les {SUITE_TOOLS.length} outils libres qu'on a construits pour livrer vos projets. Projets, factures, fichiers, emails, agenda : un seul compte Facile les ouvre tous.
       </p>
     </div>
-    <div class="flex flex-wrap sm:flex-nowrap sm:shrink-0 gap-2">
-      <Button
-        variant="ghost"
-        size="md"
-        href="https://sso.facile.studio"
-        target="_blank"
-        rel="noreferrer"
-        class="rounded-fc-pill bg-fc-component hover:bg-fc-surface text-fc-fg"
-        icon={icons.userCircle}
-      >
-        Créer un compte Facile
-      </Button>
-      <Button
-        variant="ghost"
-        size="md"
-        href="https://github.com/FacileStudio"
-        target="_blank"
-        rel="noreferrer"
-        class="rounded-fc-pill bg-fc-component hover:bg-fc-surface text-fc-fg"
-        icon={GITHUB_ICON}
-      >
-        GitHub
-      </Button>
-      <Button
-        variant="ghost"
-        size="md"
-        href="https://discord.gg/ftkWURp9PT"
-        target="_blank"
-        rel="noreferrer"
-        class="rounded-fc-pill bg-fc-component hover:bg-fc-surface text-fc-fg"
-        icon={DISCORD_ICON}
-      >
-        Rejoindre le Discord
-      </Button>
+    <div class="flex flex-col items-start sm:items-end gap-2 sm:shrink-0">
+      <SignInWithFacile href={ACCOUNT_URL} size="lg" />
+      <span class="text-fc-xs text-fc-fg-muted">Gratuit, et ça prend une minute.</span>
     </div>
   </div>
 
@@ -591,10 +549,24 @@
   {/if}
 </section>
 
+<section id="ecosystem" use:scrollReveal={{ delay: 0.05 }} class="flex flex-col gap-8 py-16 w-full max-w-fc-xl mx-auto px-4 sm:px-6 md:px-10">
+  <div class="flex flex-col gap-3 text-center items-center">
+    <h2 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">
+      Des outils qui se parlent
+    </h2>
+    <p class="text-fc-md text-fc-fg-muted max-w-2xl">
+      Les outils de la Suite et les projets qu'on livre échangent par des APIs ouvertes et un bus d'événements commun.
+    </p>
+  </div>
+
+  <StudioGraph />
+</section>
+
 <section id="bulle" use:scrollReveal={{ delay: 0.05 }} class="flex flex-col gap-8 py-16 w-full max-w-fc-xl mx-auto px-4 sm:px-6 md:px-10">
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center rounded-fc-3xl bg-fc-component p-6 sm:p-10 shadow-sm">
     <div class="flex flex-col gap-6">
       <div class="flex flex-col gap-2">
+        <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">Inclus dans la Suite</span>
         <h2 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">
           Bulle, l'agent connecté à tous vos outils
         </h2>
@@ -691,6 +663,14 @@
         <span>contact@facile.studio</span>
       </a>
     </div>
+  </div>
+
+  <div class="flex flex-col sm:flex-row items-center justify-between gap-4 rounded-fc-3xl bg-fc-surface p-6 sm:p-8 shadow-sm">
+    <div class="flex flex-col gap-1 text-center sm:text-left">
+      <span class="text-fc-md font-bold text-fc-fg">Pas de projet pour l'instant ?</span>
+      <span class="text-fc-xs text-fc-fg-muted">Essayez les outils du studio. Votre compte Facile est gratuit et ouvre toute la Suite.</span>
+    </div>
+    <SignInWithFacile href={ACCOUNT_URL} size="md" />
   </div>
 </section>
 
