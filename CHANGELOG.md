@@ -4,6 +4,18 @@ All notable changes to Facile Studio Vitrine will be documented in this file.
 
 ## [Unreleased]
 
+## [1.8.0] - 2026-11-12
+
+### Added
+- The suite section leads with muse's `SignInWithFacile` button, pointing at the free signup (`sso.facile.studio/spaces`), with a "Gratuit pour vous aussi" eyebrow.
+- The navbar call to action follows the section in view: "Démarrer un projet" on the studio sections, `SignInWithFacile` on Suite, Écosystème and Bulle.
+- A second door under the final contact card: "Pas de projet pour l'instant ?" with the Facile sign-in button.
+
+### Changed
+- The suite section now comes before the ecosystem graph, in the page and in the navbar.
+- Bulle is labelled as part of the Suite.
+- GitHub moved from the suite header to the community section, next to Discord. The footer "Compte Facile" link points at the signup page.
+
 ## [1.7.2] - 2026-11-12
 
 ### Fixed
