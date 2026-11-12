@@ -80,16 +80,24 @@
   });
 
   function onclick(event: MouseEvent) {
-    const anchor = (event.target as Element | null)?.closest<HTMLAnchorElement>('a[href^="/#"]');
-    const id = anchor?.getAttribute("href")?.slice(2);
-    if (!id || !NAV_LINKS.some((item) => item.id === id)) return;
-    activeSection = id;
-    if (window.location.pathname !== "/") {
+    const anchor = (event.target as Element | null)?.closest<HTMLAnchorElement>(
+      'a[href^="#"], a[href^="/#"]',
+    );
+    const href = anchor?.getAttribute("href");
+    if (!href) return;
+    const id = href.replace(/^\/?#/, "");
+    if (!id) return;
+    const isNavSection = NAV_LINKS.some((item) => item.id === id);
+    if (!isNavSection && !document.getElementById(id)) return;
+    if (isNavSection) activeSection = id;
+    if (href.startsWith("/#") && window.location.pathname !== "/") {
       event.preventDefault();
       window.location.href = `/#${id}`;
       return;
     }
-    scrollToSection(id, event);
+    if (window.location.pathname === "/" || document.getElementById(id)) {
+      scrollToSection(id, event);
+    }
   }
 
   onMount(() =>
