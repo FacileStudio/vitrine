@@ -19,7 +19,13 @@ export interface DitherModelProps {
     idle?: number;
     float?: boolean;
     offset?: { x: number; y: number; z: number };
+    glow?: string;
+    glowIntensity?: number;
+    glowSpread?: number;
 }
+
+const headAt = new THREE.Vector3();
+const headScale = new THREE.Vector3();
 
 export function DitherModel({
     file,
@@ -34,10 +40,15 @@ export function DitherModel({
     idle = 0,
     float = true,
     offset,
+    glow,
+    glowIntensity = 10,
+    glowSpread = 1.1,
 }: DitherModelProps) {
     const { scene } = useGLTF(file, false, true, trackBytes);
     const canvas = useThree((state) => state.gl.domElement);
+    const world = useThree((state) => state.scene);
     const shift = useRef<THREE.Group>(null);
+    const head = useRef<THREE.Group>(null);
     const group = useRef<THREE.Group>(null);
     const cursor = useRef<{ x: number; y: number } | null>(null);
     const pointer = useRef({ x: 0, y: 0 });
@@ -111,9 +122,38 @@ export function DitherModel({
         });
     }, [model]);
 
+    const radius = useMemo(() => new THREE.Box3().setFromObject(model).getBoundingSphere(new THREE.Sphere()).radius, [model]);
+
+    const light = useRef<THREE.SpotLight | null>(null);
+
+    useEffect(() => {
+        if (!glow) return;
+
+        const spot = new THREE.SpotLight(glow, glowIntensity, 0, 0.2, 1, 0);
+
+        world.add(spot, spot.target);
+        light.current = spot;
+
+        return () => {
+            world.remove(spot, spot.target);
+            spot.dispose();
+            light.current = null;
+        };
+    }, [glow, glowIntensity, world]);
+
     useFrame((state) => {
         if (offset && shift.current)
             shift.current.position.set(offset.x, offset.y, offset.z);
+
+        const spot = light.current;
+
+        if (spot && head.current) {
+            head.current.getWorldPosition(headAt);
+            head.current.getWorldScale(headScale);
+            spot.target.position.copy(headAt);
+            spot.target.updateMatrixWorld();
+            spot.angle = Math.min(Math.PI / 2, Math.atan((radius * headScale.x * glowSpread) / Math.max(0.001, headAt.length())));
+        }
 
         if (!group.current || (!parallax && !idle)) return;
 
@@ -138,7 +178,7 @@ export function DitherModel({
     });
 
     const centered = (
-        <Center scale={scale} position={position} rotation={rotation}>
+        <Center ref={head} scale={scale} position={position} rotation={rotation}>
             <primitive object={model} />
         </Center>
     );

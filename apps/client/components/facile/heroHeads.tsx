@@ -151,6 +151,7 @@ export default function HeroHeads({ open, team, swift = false }: { open: boolean
         idle: 0.12,
         float: false,
         offset: offsets[i],
+        glow: head.highlight,
     })) : []), [heads, narrow, w, h, offsets]);
 
     return (
@@ -164,6 +165,7 @@ export default function HeroHeads({ open, team, swift = false }: { open: boolean
                     gridSize={sharp ? 2 : 9}
                     active={heads.some((_, i) => !parked[i])}
                     intensity={0.8}
+                    highlight="#FFD9B0"
                     bloom
                     bloomIntensity={0.5}
                     ambient={1}
