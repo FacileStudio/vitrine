@@ -17,7 +17,7 @@ import { InstagramIcon } from '../ui/instagram';
 import { DribbbleIcon } from '../ui/dribbble';
 
 // TODO(gian): replace with the real studio contact details
-const CONTACT = {
+export const CONTACT = {
     email: 'contact@facile.studio',
     phone: '+33 7 68 88 88 18',
     socials: [

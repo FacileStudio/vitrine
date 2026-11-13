@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { useScroll } from "@/hooks/use-scroll";
 import TextReveal from "@/components/facile/textReveal";
 import Emphasis from "@/components/facile/emphasis";
-import { ContactLinks, NavLinks } from "@/components/facile/navLinks";
+import { CONTACT, ContactLinks, NavLinks } from "@/components/facile/navLinks";
 import FooterHeads from "@/components/facile/footerHeads";
 
 export default function Footer() {
@@ -29,9 +29,17 @@ export default function Footer() {
             <FooterHeads open={animate} active={show} />
 
             <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8 relative z-10">
-                <TextReveal as="h2" open={show} className="max-w-[16ch] text-background">
-                    <Emphasis text={t("footer.buildTogether")} />
-                </TextReveal>
+                <div className="flex flex-col items-start gap-8">
+                    <TextReveal as="h2" open={show} className="max-w-[16ch] text-background">
+                        <Emphasis text={t("footer.buildTogether")} />
+                    </TextReveal>
+
+                    <TextReveal open={show} delay={0.3} cropClassName="w-fit">
+                        <a href={`mailto:${CONTACT.email}`} className="button button-dark inline-block">
+                            <p>{t("footer.contactUs")}</p>
+                        </a>
+                    </TextReveal>
+                </div>
 
                 {/* NavLinks goes row and shows sublinks from md, the footer holds both back to lg */}
                 <NavLinks open={show} delay={0.1} dropdown className="md:flex-col lg:flex-row md:[&_ul]:hidden lg:[&_ul]:flex md:[&_.chevron]:hidden lg:[&_.chevron]:block" />
