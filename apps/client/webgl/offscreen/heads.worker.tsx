@@ -19,7 +19,7 @@ export type HeadModel = {
     glow?: string;
 };
 
-export type HeadsData = { models: HeadModel[]; away: V[]; on: boolean[]; swift: boolean; grid: number };
+export type HeadsData = { models: HeadModel[]; away: V[]; on: boolean[]; swift: boolean; grid: number; fine: number };
 
 export type HeadsMessage =
     | { type: "models"; models: HeadModel[]; away: V[] }
@@ -122,7 +122,7 @@ function Flights() {
     return null;
 }
 
-function HeadsScene({ nativeDpr }: { nativeDpr: number }) {
+function HeadsScene({ nativeDpr, fine }: { nativeDpr: number; fine: number }) {
     const list = useSyncExternalStore(subscribe, () => models);
 
     return (
@@ -154,7 +154,7 @@ function HeadsScene({ nativeDpr }: { nativeDpr: number }) {
             <Flights />
             <PostProcessing
                 nativeDpr={nativeDpr}
-                gridSize={2}
+                gridSize={fine}
                 gridTarget={grid}
                 pixelSizeRatio={10}
                 rotation={Math.PI / 4}
@@ -173,7 +173,7 @@ serve<HeadsData, HeadsMessage>(
         place(data.models, data.away);
         fly(data.on, data.swift);
 
-        return <HeadsScene nativeDpr={nativeDpr} />;
+        return <HeadsScene nativeDpr={nativeDpr} fine={data.fine} />;
     },
     (message) => {
         if (message.type === "models")

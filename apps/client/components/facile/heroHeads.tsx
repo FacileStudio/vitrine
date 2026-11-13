@@ -21,6 +21,8 @@ const CORNERS = [
     { turn: 60, dx: 1, dy: 1, yaw: -0.9, pitch: 0.2, bleed: { x: 15, y: 40 }, zoom: 0.7, shift: { x: 0, y: 8 }, mobile: { turn: 20, bleed: { x: 25, y: 20 } } },
 ];
 
+const GRID = { coarse: 5, sharp: 1.75 };
+
 const OUT = 0.6;
 const ROOM = 1.5;
 const LIFT = 0.8;
@@ -160,7 +162,7 @@ function MainHeads({ heads, on, swift, sharp, narrow, w, h }: Shared) {
             file={models[0].file}
             models={models}
             className="absolute inset-0"
-            gridSize={sharp ? 2 : 9}
+            gridSize={sharp ? GRID.sharp : GRID.coarse}
             active={heads.some((_, i) => !parked[i])}
             boot="soon"
             intensity={0.8}
@@ -184,8 +186,8 @@ function WorkerHeads({ heads, on, swift, sharp, narrow, w, h, onFail }: Shared &
         glow: head.highlight,
     })), [heads, narrow, w, h]);
     const aways = useMemo(() => heads.map((_, i) => away(i, narrow, w, h)), [heads, narrow, w, h]);
-    const grid = sharp ? 2 : 9;
-    const data: HeadsData = { models, away: aways, on, swift, grid };
+    const grid = sharp ? GRID.sharp : GRID.coarse;
+    const data: HeadsData = { models, away: aways, on, swift, grid, fine: GRID.sharp };
 
     const ready = useCallback(() => settle.current?.(), []);
     const fail = useCallback(() => {
