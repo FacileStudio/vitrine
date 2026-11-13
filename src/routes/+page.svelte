@@ -290,7 +290,7 @@
 
   <div class="flex flex-col sm:flex-row items-center justify-between gap-4 rounded-fc-3xl bg-fc-surface p-6 sm:p-8 shadow-sm">
     <div class="flex flex-col gap-1 text-center sm:text-left">
-      <span class="text-fc-md font-bold text-fc-fg">Un besoin qui sort de ces cases ?</span>
+      <span class="text-fc-md font-bold text-fc-fg">Un besoin qui sort de ces cases&nbsp;?</span>
       <span class="text-fc-xs text-fc-fg-muted">Envoyez-nous votre cahier des charges, on vous répond avec une proposition sous 48h.</span>
     </div>
     <Button
@@ -667,7 +667,7 @@
 
   <div class="flex flex-col sm:flex-row items-center justify-between gap-4 rounded-fc-3xl bg-fc-surface p-6 sm:p-8 shadow-sm">
     <div class="flex flex-col gap-1 text-center sm:text-left">
-      <span class="text-fc-md font-bold text-fc-fg">Pas de projet pour l'instant ?</span>
+      <span class="text-fc-md font-bold text-fc-fg">Pas de projet pour l'instant&nbsp;?</span>
       <span class="text-fc-xs text-fc-fg-muted">Essayez les outils du studio. Votre compte Facile est gratuit et ouvre toute la Suite.</span>
     </div>
     <SignInWithFacile href={ACCOUNT_URL} size="md" />

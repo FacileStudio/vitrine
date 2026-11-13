@@ -96,7 +96,7 @@
   {#if project.stats && project.stats.length > 0}
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
       {#each project.stats as stat (stat.label)}
-        <Card class="flex flex-col justify-between gap-2 p-6 bg-fc-component rounded-fc-2xl shadow-sm">
+        <Card class="flex flex-col justify-between gap-2 p-6 bg-fc-component rounded-[var(--radius-fc-2xl)] shadow-sm">
           <span class="text-fc-xs font-mono uppercase tracking-wider text-fc-fg-muted">
             {stat.label}
           </span>
@@ -208,7 +208,7 @@
         Lancer un projet similaire
       </h3>
       <p class="text-fc-sm text-fc-fg-muted leading-relaxed">
-        Des objectifs proches pour votre application ou votre vitrine ? On étudie votre besoin sous 48 heures.
+        Des objectifs proches pour votre application ou votre vitrine&nbsp;? On étudie votre besoin sous 48 heures.
       </p>
     </div>
     <div class="flex flex-wrap items-center gap-3 shrink-0">

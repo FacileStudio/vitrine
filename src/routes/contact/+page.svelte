@@ -253,7 +253,7 @@
         >
           <div class="flex flex-col gap-2">
             <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">
-              Quel type de projet souhaitez-vous concevoir ?
+              Quel type de projet souhaitez-vous concevoir&nbsp;?
             </h1>
             <p class="text-fc-sm sm:text-fc-base text-fc-fg-muted">
               Choisissez votre besoin principal.
@@ -410,7 +410,7 @@
         >
           <div class="flex flex-col gap-2">
             <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">
-              Comment pouvons-nous vous recontacter ?
+              Comment pouvons-nous vous recontacter&nbsp;?
             </h1>
             <p class="text-fc-sm sm:text-fc-base text-fc-fg-muted">
               On étudie votre projet et on vous répond sous 24h ouvrées.
