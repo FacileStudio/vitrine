@@ -2,7 +2,7 @@
 
 import "./silence-three-deprecations";
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
-import { Canvas, useThree } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import { PerformanceMonitor } from "@react-three/drei";
 import * as THREE from "three";
 import { CanvasBoundary } from "./canvasBoundary";
@@ -10,27 +10,14 @@ import { EnvironmentWrapper } from "./environment";
 import { DitherModel, type DitherModelProps } from "./DitherModel";
 import { PostProcessing } from "./PostProcessing";
 import { registerScene } from "./sceneReady";
+import { Ready } from "./ready";
+import { canvasDpr } from "./offscreen/useWorkerCanvas";
+import { queueBoot, type Boot } from "./boot";
 
-// device pixels one canvas may draw; a 1512px hero head at dpr 2 is 9.1M
-const PIXEL_BUDGET = 4_000_000;
-// a gpu that cannot hold the frame rate may go below 1
-const MIN_DPR = 0.75;
+const BOOT_MARGIN = "150% 0px";
 
 // three dropped webgl1, so without webgl2 the canvas can only throw
 const webgl2 = typeof window !== "undefined" && typeof window.WebGL2RenderingContext !== "undefined";
-
-// compiling here keeps the shader stall inside the loader instead of the first reveal frame
-function Ready({ done }: { done: () => void }) {
-    const gl = useThree((s) => s.gl);
-    const scene = useThree((s) => s.scene);
-    const camera = useThree((s) => s.camera);
-
-    useEffect(() => {
-        gl.compileAsync(scene, camera).catch(() => undefined).finally(done);
-    }, [gl, scene, camera, done]);
-
-    return null;
-}
 
 export interface DitherViewProps extends DitherModelProps {
     className?: string;
@@ -52,6 +39,8 @@ export interface DitherViewProps extends DitherModelProps {
     lite?: boolean;
     // an observer counts ancestor overflow as off-screen, so a canvas in a reveal crop never paints
     active?: boolean;
+    boot?: Boot;
+    gridTarget?: { current: number };
 }
 
 export function DitherView({
@@ -74,6 +63,8 @@ export function DitherView({
     models,
     lite = false,
     active: activeOverride,
+    boot = "idle",
+    gridTarget,
     ...model
 }: DitherViewProps) {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -84,13 +75,48 @@ export function DitherView({
     const [area, setArea] = useState(0);
     const [quality, setQuality] = useState(1);
     const [failed, setFailed] = useState(!webgl2);
+    const [booted, setBooted] = useState(boot === "now");
+    const ticket = useRef<{ done: () => void } | null>(null);
 
     useEffect(() => {
         release.current = registerScene();
         return () => release.current?.();
     }, []);
 
-    const done = useCallback(() => release.current?.(), []);
+    useEffect(() => {
+        const el = containerRef.current;
+        let slot: ReturnType<typeof queueBoot> | null = null;
+        let near: IntersectionObserver | null = null;
+
+        const start = () => {
+            slot = queueBoot(boot, () => setBooted(true));
+            ticket.current = slot;
+        };
+
+        if (boot === "idle" && el && typeof IntersectionObserver !== "undefined") {
+            near = new IntersectionObserver(([entry]) => {
+                if (!entry.isIntersecting)
+                    return;
+
+                near?.disconnect();
+                start();
+            }, { rootMargin: BOOT_MARGIN });
+            near.observe(el);
+        } else {
+            start();
+        }
+
+        return () => {
+            near?.disconnect();
+            slot?.cancel();
+            ticket.current = null;
+        };
+    }, [boot]);
+
+    const done = useCallback(() => {
+        release.current?.();
+        ticket.current?.done();
+    }, []);
 
     useEffect(() => {
         const el = containerRef.current;
@@ -106,8 +132,8 @@ export function DitherView({
 
     useEffect(() => {
         if (failed)
-            release.current?.();
-    }, [failed]);
+            done();
+    }, [failed, done]);
 
     useEffect(() => {
         const el = containerRef.current;
@@ -122,10 +148,9 @@ export function DitherView({
 
     const items: DitherModelProps[] = models ?? [model];
     const nativeDpr = lite ? 1 : Math.min(window.devicePixelRatio || 1, 2);
-    // the largest ratio whose canvas fits the pixel budget (area is css px², so the ratio is a square root), scaled down by the frame-rate monitor
-    const dpr = Math.round(Math.max(MIN_DPR, Math.min(nativeDpr, Math.sqrt(PIXEL_BUDGET / Math.max(1, area))) * quality) * 100) / 100;
+    const dpr = canvasDpr(nativeDpr, area, quality);
 
-    if (failed)
+    if (failed || !booted)
         return <div ref={containerRef} className={className} />;
 
     return (
@@ -177,6 +202,7 @@ export function DitherView({
                     <PostProcessing
                         nativeDpr={nativeDpr}
                         gridSize={gridSize}
+                        gridTarget={gridTarget}
                         pixelSizeRatio={pixelSizeRatio}
                         grayscaleOnly={grayscaleOnly}
                         rotation={(ditherAngle * Math.PI) / 180}

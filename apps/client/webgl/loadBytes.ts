@@ -51,18 +51,6 @@ export function trackBytes(loader: Loader) {
     };
 }
 
-// a model registers only once its canvas mounts, so without a sized placeholder the bar would fill on the images alone
-export async function expectFile(url: string) {
-    if (files.has(url))
-        return;
-
-    const file = register(url);
-    const res = await fetch(url, { method: "HEAD" }).catch(() => null);
-
-    if (!file.loaded)
-        file.total = Number(res?.headers.get("content-length")) || 0;
-}
-
 const viaImage = (url: string) => new Promise<void>((resolve) => {
     const img = new Image();
 

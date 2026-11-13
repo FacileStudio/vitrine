@@ -8,6 +8,7 @@ const CATCH_UP = 1;
 const MIN_RATE = 0.06;
 const MAX_RATE = 0.25;
 const RATE_EASE = 0.25;
+const BYTES_SHARE = 0.9;
 
 export function useLoadFill<K extends string>(tracks: Record<K, Keyframe[]>, onDone: () => void) {
     const [percent, setPercent] = useState(0);
@@ -45,7 +46,7 @@ export function useLoadFill<K extends string>(tracks: Record<K, Keyframe[]>, onD
             const shown = (Number(lead.currentTime ?? 0) / FILL_MS) * 100;
 
             // a file joining the queue grows the byte total, so only the high-water mark counts
-            goal.current = loaded ? 100 : Math.max(goal.current, bytesProgress());
+            goal.current = loaded ? 100 : Math.max(goal.current, bytesProgress() * BYTES_SHARE);
 
             const gap = goal.current - shown;
             // the rate that closes the gap in CATCH_UP seconds, held between the floor and the cap

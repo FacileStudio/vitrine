@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react"
 import { gsap } from "gsap"
 import { EASE } from "@/lib/animations"
 import { useAfter } from "@/hooks/use-after"
@@ -8,16 +8,16 @@ import { useNarrow } from "@/hooks/use-narrow"
 import { useLoadFill } from "@/hooks/use-load-fill"
 import { useTrackPage } from "@/hooks/use-track-page"
 import { idleFor } from "@/webgl/loadBytes"
-import { DitherView } from "@/webgl/lazy"
+import { LoaderLogo } from "@/webgl/lazy"
+import { holdBoot } from "@/webgl/boot"
+import { GRID, MODEL_SCALE } from "@/webgl/offscreen/logoScene"
 import TextReveal from "./textReveal"
 import LoaderFrame from "./loaderFrame"
 import Stripes from "./stripes"
 import LoadList from "./loadList"
 
 const STALL_MS = 10000
-const GRID = { from: 16, to: 1.2, doneAt: 75 }
-
-const MODEL_SCALE = { from: 7, to: 17 }
+const REVEAL_MS = 2600
 const glide = gsap.parseEase(EASE.glide)
 
 const TRACKS = {
@@ -31,8 +31,23 @@ const Loader = ({ setCharged }: { setCharged: (charged: boolean) => void }) => {
     const list = useRef<HTMLDivElement>(null)
     const shown = useAfter(true, 150)
     const narrow = useNarrow()
+    const hold = useRef<(() => void) | null>(null)
+    const reveal = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+    useLayoutEffect(() => {
+        const release = holdBoot()
+
+        hold.current = release
+        return () => {
+            if (reveal.current)
+                clearTimeout(reveal.current)
+            release()
+        }
+    }, [])
 
     const finish = useCallback(() => {
+        if (!reveal.current)
+            reveal.current = setTimeout(() => hold.current?.(), REVEAL_MS)
         setOpen(true)
         setCharged(true)
     }, [setCharged])
@@ -83,23 +98,11 @@ const Loader = ({ setCharged }: { setCharged: (charged: boolean) => void }) => {
             <div ref={logo} className="absolute inset-0 z-50">
                 <div className="absolute inset-0">
                     <div ref={bind("lift")} className="size-full" style={{ transform: "translateY(-20px)" }}>
-                        <DitherView
-                            file="/models/F.glb"
+                        <LoaderLogo
                             className="size-full opacity-75"
-                            // phones render at pixel ratio 1 with no shadows, or iOS Safari runs out of memory
                             lite={narrow}
-                            // grid shrinks linearly from GRID.from at 0% to GRID.to at GRID.doneAt%, then holds
-                            gridSize={GRID.from - (GRID.from - GRID.to) * Math.min(1, percent / GRID.doneAt)}
-                            gridTween={0.3}
-                            position={[0, -0.5, 0]}
-                            cameraPosition={[0, 0, 4]}
-                            rotation={[0, 0.35, 0]}
-                            parallax={0.7}
-                            parallaxSpeed={0.05}
-                            float={false}
-                            // model scale eased from MODEL_SCALE.from to MODEL_SCALE.to across the load
+                            grid={GRID.from - (GRID.from - GRID.to) * Math.min(1, percent / GRID.doneAt)}
                             scale={MODEL_SCALE.from + (MODEL_SCALE.to - MODEL_SCALE.from) * glide(percent / 100)}
-                            fov={50}
                         />
                     </div>
                 </div>

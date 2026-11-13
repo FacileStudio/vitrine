@@ -1,10 +1,9 @@
 import { useEffect } from "react";
 import { useMembers } from "@/components/facile/contentProvider";
-import { expectFile, trackFetch, trackPromise } from "@/webgl/loadBytes";
+import { trackFetch, trackPromise } from "@/webgl/loadBytes";
 
-const MODELS = ["/models/manifesto.glb"];
-// the menu model loads only when the menu opens, so it is warmed into the cache instead of awaited as a parse
-const WARM = ["/models/F.glb"];
+// these canvases mount after the loader, so their models are warmed into the http cache instead of awaited as a parse
+const WARM = ["/models/F.glb", "/models/manifesto.glb"];
 
 function mediaUrls() {
     const urls = new Set<string>();
@@ -27,8 +26,7 @@ export function useTrackPage() {
         // phones render no scene models, so expecting them would hold the loader until the stall timeout
         const phone = window.matchMedia("(max-width: 767px)").matches;
 
-        [...(phone ? [] : MODELS), ...members.flatMap((m) => (m.model ? [m.model] : []))].forEach(expectFile);
-        [...(phone ? [] : WARM), ...mediaUrls()].forEach(trackFetch);
+        [...(phone ? [] : WARM), ...members.flatMap((m) => (m.model ? [m.model] : [])), ...mediaUrls()].forEach(trackFetch);
         trackPromise("fonts", document.fonts.ready);
     }, [members]);
 }

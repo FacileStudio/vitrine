@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
 import * as THREE from "three";
 import { DitherView } from "@/webgl/lazy";
@@ -8,6 +8,9 @@ import { useAfter } from "@/hooks/use-after";
 import { useNarrow } from "@/hooks/use-narrow";
 import { useMembers } from "@/components/facile/contentProvider";
 import { headScale } from "@/lib/content/studio";
+import { trackPromise } from "@/webgl/loadBytes";
+import { offscreen, useWorkerCanvas } from "@/webgl/offscreen/useWorkerCanvas";
+import type { HeadModel, HeadsData, HeadsMessage } from "@/webgl/offscreen/heads.worker";
 import { EASE } from "@/lib/animations";
 
 // dx/dy point out of the screen; turn (degrees, clockwise) lays the head on its side (top heads: crown toward the centre, bottom heads: torso toward the centre), so yaw (radians) looks up or down at the copy; bleed is the % of its box the head is pushed off-screen inside its canvas; zoom scales one head against the others; mobile overrides turn and bleed under 768px
@@ -75,9 +78,9 @@ function layout(i: number, narrow: boolean, w: number, h: number, slug: string) 
     };
 }
 
-const away = (i: number, narrow: boolean): Offset => {
-    const d = side(narrow, window.innerWidth, window.innerHeight) * OUT;
-    const v = toWorld(CORNERS[i].dx * d, CORNERS[i].dy * d, window.innerHeight);
+const away = (i: number, narrow: boolean, w: number, h: number): Offset => {
+    const d = side(narrow, w, h) * OUT;
+    const v = toWorld(CORNERS[i].dx * d, CORNERS[i].dy * d, h);
 
     return { x: v.x, y: v.y, z: v.z };
 };
@@ -97,23 +100,21 @@ function useViewport() {
     return view;
 }
 
-// team narrows open to those member slugs; swift drops the landing pause and stagger, for heads that swap mid-scroll
-export default function HeroHeads({ open, team, swift = false }: { open: boolean; team?: string[]; swift?: boolean }) {
-    const sharp = useAfter(open, 1200);
-    const members = useMembers();
-    const heads = useMemo(() => members.slice(0, CORNERS.length), [members]);
-    const narrow = useNarrow();
-    const { w, h } = useViewport();
+const createHeads = () => new Worker(new URL("../../webgl/offscreen/heads.worker.tsx", import.meta.url), { type: "module" });
+
+type Head = ReturnType<typeof useMembers>[number];
+
+type Shared = { heads: Head[]; on: boolean[]; swift: boolean; sharp: boolean; narrow: boolean; w: number; h: number };
+
+function MainHeads({ heads, on, swift, sharp, narrow, w, h }: Shared) {
     const wasOn = useRef<boolean[]>([]);
     const [parked, setParked] = useState<boolean[]>([]);
     const offsets = useMemo<Offset[]>(() => heads.map(() => ({ x: 0, y: 0, z: 0 })), [heads]);
 
     useLayoutEffect(() => {
-        offsets.forEach((o, i) => gsap.set(o, away(i, narrow)));
+        offsets.forEach((o, i) => gsap.set(o, away(i, narrow, window.innerWidth, window.innerHeight)));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [offsets]);
-
-    const on = heads.map((head) => open && (!team || team.includes(head.slug)));
 
     // only the heads whose state changed fly, so a head kept between two teams never moves or restarts
     useEffect(() => {
@@ -124,7 +125,7 @@ export default function HeroHeads({ open, team, swift = false }: { open: boolean
 
         moving.forEach((i, k) => {
             gsap.to(offsets[i], {
-                ...(on[i] ? { x: 0, y: 0, z: 0 } : away(i, narrow)),
+                ...(on[i] ? { x: 0, y: 0, z: 0 } : away(i, narrow, window.innerWidth, window.innerHeight)),
                 delay: swift ? 0 : on[i] ? 0.2 + k * 0.12 : k * 0.05,
                 duration: on[i] ? (swift ? 1.1 : 1.6) : (swift ? 1 : 0.9),
                 ease: on[i] ? EASE.out : swift ? EASE.glide : EASE.in,
@@ -154,23 +155,87 @@ export default function HeroHeads({ open, team, swift = false }: { open: boolean
         glow: head.highlight,
     })) : []), [heads, narrow, w, h, offsets]);
 
+    return models.length > 0 ? (
+        <DitherView
+            file={models[0].file}
+            models={models}
+            className="absolute inset-0"
+            gridSize={sharp ? 2 : 9}
+            active={heads.some((_, i) => !parked[i])}
+            boot="soon"
+            intensity={0.8}
+            highlight="#FFD9B0"
+            bloom
+            bloomIntensity={0.5}
+            ambient={1}
+        />
+    ) : null;
+}
+
+function WorkerHeads({ heads, on, swift, sharp, narrow, w, h, onFail }: Shared & { onFail: () => void }) {
+    const box = useRef<HTMLDivElement>(null);
+    const settle = useRef<(() => void) | null>(null);
+
+    const models = useMemo<HeadModel[]>(() => heads.map((head, i) => ({
+        file: head.model!,
+        ...layout(i, narrow, w, h, head.slug),
+        roughness: head.roughness,
+        hairColor: head.hair ?? undefined,
+        glow: head.highlight,
+    })), [heads, narrow, w, h]);
+    const aways = useMemo(() => heads.map((_, i) => away(i, narrow, w, h)), [heads, narrow, w, h]);
+    const grid = sharp ? 2 : 9;
+    const data: HeadsData = { models, away: aways, on, swift, grid };
+
+    const ready = useCallback(() => settle.current?.(), []);
+    const fail = useCallback(() => {
+        settle.current?.();
+        onFail();
+    }, [onFail]);
+
+    useEffect(() => {
+        trackPromise("hero heads", new Promise<void>((resolve) => {
+            settle.current = resolve;
+        }));
+    }, []);
+
+    const worker = useWorkerCanvas(box, { create: createHeads, data, lite: narrow, stage: "soon", onReady: ready, onFail: fail });
+    const send = (message: HeadsMessage) => worker.current?.postMessage(message);
+
+    useEffect(() => {
+        send({ type: "models", models, away: aways });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [models, aways]);
+
+    useEffect(() => {
+        send({ type: "fly", on, swift });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [on.join(), swift]);
+
+    useEffect(() => {
+        send({ type: "grid", value: grid });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [grid]);
+
+    return <div ref={box} className="absolute inset-0" />;
+}
+
+// team narrows open to those member slugs; swift drops the landing pause and stagger, for heads that swap mid-scroll
+export default function HeroHeads({ open, team, swift = false }: { open: boolean; team?: string[]; swift?: boolean }) {
+    const sharp = useAfter(open, 1200);
+    const members = useMembers();
+    const heads = useMemo(() => members.slice(0, CORNERS.length), [members]);
+    const narrow = useNarrow();
+    const { w, h } = useViewport();
+    const [failed, setFailed] = useState(!offscreen);
+    const [fail] = useState(() => () => setFailed(true));
+    const on = heads.map((head) => open && (!team || team.includes(head.slug)));
+    const shared = { heads, on, swift, sharp, narrow, w, h };
+
     return (
         // z-60 sits above the next section's layers, so the heads fly out over it instead of being covered; the hero copy is z-70
         <div className="pointer-events-none fixed inset-0 z-[60] overflow-hidden" aria-hidden="true">
-            {models.length > 0 && (
-                <DitherView
-                    file={models[0].file}
-                    models={models}
-                    className="absolute inset-0"
-                    gridSize={sharp ? 2 : 9}
-                    active={heads.some((_, i) => !parked[i])}
-                    intensity={0.8}
-                    highlight="#FFD9B0"
-                    bloom
-                    bloomIntensity={0.5}
-                    ambient={1}
-                />
-            )}
+            {h > 0 && heads.length > 0 && (failed ? <MainHeads {...shared} /> : <WorkerHeads {...shared} onFail={fail} />)}
         </div>
     );
 }
