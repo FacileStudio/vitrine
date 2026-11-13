@@ -2,6 +2,10 @@
   import { onMount } from "svelte";
   import { Button, Icon, icons } from "@facile/muse";
   import { mountPcbScene, type Preset, type SceneControl } from "$lib/pcb-scene";
+  import { useI18n } from "$lib/i18n";
+
+  const i18n = useI18n();
+  const t = $derived(i18n.t);
 
   type ModelMode = "pcb" | "case";
 
@@ -120,7 +124,7 @@
         onclick={() => chooseMode("pcb")}
         icon={icons.bolt}
       >
-        Circuit 3D
+        {t.pcb.circuit}
       </Button>
       <Button
         size="sm"
@@ -130,7 +134,7 @@
         onclick={() => chooseMode("case")}
         icon={icons.shield}
       >
-        Boîtier
+        {t.pcb.case}
       </Button>
     </div>
 
@@ -159,7 +163,7 @@
           onclick={toggleRotate}
           icon={icons.refresh}
         >
-          Auto
+          {t.pcb.auto}
         </Button>
       </div>
     {/if}
@@ -171,12 +175,12 @@
         bg-fc-component/80 pointer-events-none"
     >
       <Icon icon={icons.refresh} size={24} class="animate-spin text-fc-fg-muted" />
-      <span class="text-fc-xs font-mono uppercase text-fc-fg-muted">Chargement du modèle 3D</span>
+      <span class="text-fc-xs font-mono uppercase text-fc-fg-muted">{t.pcb.loading}</span>
     </div>
   {:else if status === "error"}
     <div class="absolute inset-0 flex flex-col items-center justify-center gap-2 p-6 text-center">
-      <span class="text-fc-sm font-semibold text-fc-fg">Aperçu 3D indisponible</span>
-      <span class="text-fc-xs text-fc-fg-muted">Le modèle n'a pas pu se charger dans ce navigateur.</span>
+      <span class="text-fc-sm font-semibold text-fc-fg">{t.pcb.unavailable}</span>
+      <span class="text-fc-xs text-fc-fg-muted">{t.pcb.unavailableText}</span>
     </div>
   {:else}
     <div class="absolute bottom-0 left-0 right-0 flex items-center justify-between p-4 pointer-events-none">
@@ -184,13 +188,13 @@
         class="hidden sm:inline-flex rounded-fc-pill bg-fc-surface/85 backdrop-blur px-3 py-1
           text-fc-xs font-mono text-fc-fg-muted"
       >
-        Glisser pour tourner · Molette pour zoomer
+        {t.pcb.hint}
       </span>
       <span
         class="ml-auto inline-flex rounded-fc-pill bg-fc-surface/85
           backdrop-blur px-3 py-1 text-fc-xs font-mono text-fc-success"
       >
-        Pastille · ERC/DRC validés
+        {t.pcb.validated}
       </span>
     </div>
   {/if}

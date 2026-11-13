@@ -12,6 +12,7 @@
     registerIcons,
   } from "@facile/muse";
   import { ACCOUNT_URL, NAV_LINKS, SUITE_SECTIONS } from "$lib/data";
+  import { LOCALES, OG_LOCALES, localizeHref, provideI18n, stripLocale, toLocale, type Locale } from "$lib/i18n";
   import { SUITE_ICONS } from "$lib/icons";
   import { scrollToSection, watchActiveSection } from "$lib/motion";
   import BrandMark from "$lib/components/BrandMark.svelte";
@@ -20,54 +21,62 @@
 
   let { children }: { children: Snippet } = $props();
   registerIcons(SUITE_ICONS);
-  provideLocale("fr");
+
+  const locale = $derived(toLocale(page.params.lang));
+  const i18n = provideI18n(() => locale);
+  const museI18n = provideLocale(() => locale);
+  const t = $derived(i18n.t);
+
+  $effect(() => museI18n.set(locale));
 
   let activeSection = $state<string>("");
   let scrolled = $state(false);
 
-  const isProjectsPage = $derived(page.url.pathname.startsWith("/projects"));
-  const isHomePage = $derived(page.url.pathname === "/");
-  const isContactPage = $derived(page.url.pathname === "/contact");
+  const path = $derived(stripLocale(page.url.pathname));
+  const isProjectsPage = $derived(path.startsWith("/projects"));
+  const isHomePage = $derived(path === "/");
+  const isContactPage = $derived(path === "/contact");
   const flush = $derived(scrolled || isContactPage);
-  const canonicalUrl = $derived(`https://facile.studio${page.url.pathname}`);
+  const pageUrl = (target: Locale) => `https://facile.studio${localizeHref(path, target)}`;
+  const canonicalUrl = $derived(pageUrl(locale));
   const suiteInView = $derived(isHomePage && SUITE_SECTIONS.includes(activeSection));
 
   const links = $derived([
     ...NAV_LINKS.map((item) => ({
-      href: `/#${item.id}`,
-      label: item.label,
+      href: i18n.href(`/#${item.id}`),
+      label: t.nav[item.id],
       active: isHomePage && activeSection === item.id,
     })),
-    { href: "/projects", label: "Portfolio", active: isProjectsPage },
+    { href: i18n.href("/projects"), label: t.nav.portfolio, active: isProjectsPage },
   ]);
 
-  const FOOTER_COLUMNS = [
+  const footerColumns = $derived([
     {
-      title: "Studio",
+      title: t.footer.studio,
       links: [
-        { label: "Projets", href: "/projects" },
-        { label: "Compte Facile", href: ACCOUNT_URL },
+        { label: t.footer.projects, href: i18n.href("/projects") },
+        { label: t.footer.account, href: ACCOUNT_URL },
         { label: "GitHub", href: "https://github.com/FacileStudio" },
       ],
     },
     {
-      title: "Produits",
+      title: t.footer.products,
       links: [
         { label: "Bulle", href: "https://bulle.facile.studio" },
         { label: "Pastille", href: "https://pastille.facile.studio" },
-        { label: "La Suite", href: "https://suite.facile.studio" },
+        { label: t.footer.suite, href: "https://suite.facile.studio" },
         { label: "Place", href: "https://place.facile.studio" },
       ],
     },
     {
-      title: "Contact",
+      title: t.footer.contact,
       links: [
-        { label: "07 68 88 88 18", href: "tel:+33768888818" },
+        { label: t.common.phone, href: "tel:+33768888818" },
         { label: "contact@facile.studio", href: "mailto:contact@facile.studio" },
-        { label: "Lyon · Strasbourg · À distance", href: "/contact" },
+        { label: t.footer.location, href: i18n.href("/contact") },
       ],
     },
-  ];
+  ]);
 
   onNavigate((navigation) => {
     if (!document.startViewTransition || prefersReducedMotion()) return;
@@ -81,24 +90,21 @@
   });
 
   function onclick(event: MouseEvent) {
-    const anchor = (event.target as Element | null)?.closest<HTMLAnchorElement>(
-      'a[href^="#"], a[href^="/#"]',
-    );
-    const href = anchor?.getAttribute("href");
-    if (!href) return;
-    const id = href.replace(/^\/?#/, "");
+    const anchor = (event.target as Element | null)?.closest<HTMLAnchorElement>('a[href*="#"]');
+    if (!anchor) return;
+    const url = new URL(anchor.href);
+    if (url.origin !== window.location.origin) return;
+    const id = decodeURIComponent(url.hash.slice(1));
     if (!id) return;
     const isNavSection = NAV_LINKS.some((item) => item.id === id);
     if (!isNavSection && !document.getElementById(id)) return;
     if (isNavSection) activeSection = id;
-    if (href.startsWith("/#") && window.location.pathname !== "/") {
+    if (url.pathname !== window.location.pathname) {
       event.preventDefault();
-      window.location.href = `/#${id}`;
+      window.location.href = `${url.pathname}${url.hash}`;
       return;
     }
-    if (window.location.pathname === "/" || document.getElementById(id)) {
-      scrollToSection(id, event);
-    }
+    scrollToSection(id, event);
   }
 
   onMount(() =>
@@ -112,7 +118,13 @@
 
 <svelte:head>
   <link rel="canonical" href={canonicalUrl} />
+  {#each LOCALES as target (target)}
+    <link rel="alternate" hreflang={target} href={pageUrl(target)} />
+  {/each}
+  <link rel="alternate" hreflang="x-default" href={pageUrl("fr")} />
   <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:locale" content={OG_LOCALES[locale]} />
+  <meta property="og:image:alt" content={t.meta.ogImageAlt} />
 </svelte:head>
 
 <svelte:document {onclick} />
@@ -129,7 +141,7 @@
 
     <div class="contents [&>div:first-child]:-mb-14">
       <LandingHeader
-        homeHref="/"
+        homeHref={i18n.href("/")}
         {links}
         class="vitrine-bar relative {scrolled
           ? 'shadow-lg'
@@ -169,8 +181,8 @@
     {#if !isContactPage}
       <LandingFooter
         appName="Facile Studio"
-        homeHref="/"
-        columns={FOOTER_COLUMNS}
+        homeHref={i18n.href("/")}
+        columns={footerColumns}
         legal={{ hideLocaleSwitch: true }}
         class="relative z-10 pb-12"
       >

@@ -1,60 +1,61 @@
 <script lang="ts">
   import { Button, Card, Icon, icons } from "@facile/muse";
   import TechBadge from "$lib/components/TechBadge.svelte";
-  import { CLIENT_PROJECTS } from "$lib/data";
+  import { CLIENT_PROJECTS, PROJECT_CATEGORIES, localizeProject } from "$lib/data";
+  import { useI18n } from "$lib/i18n";
 
-  const categories = ["Tous", "Vitrines", "Applications", "Branding", "3D"] as const;
-  type Category = (typeof categories)[number];
+  type Category = (typeof PROJECT_CATEGORIES)[number];
 
-  let selectedCategory = $state<Category>("Tous");
+  const i18n = useI18n();
+  const t = $derived(i18n.t);
 
+  let selectedCategory = $state<Category>("all");
+
+  const projects = $derived(CLIENT_PROJECTS.map((project) => localizeProject(project, t)));
   const filteredProjects = $derived(
-    selectedCategory === "Tous"
-      ? CLIENT_PROJECTS
-      : CLIENT_PROJECTS.filter((p) => p.categories.includes(selectedCategory))
+    selectedCategory === "all"
+      ? projects
+      : projects.filter((p) => p.categories.some((c) => c === selectedCategory))
   );
 </script>
 
 <svelte:head>
-  <title>Projets · Facile Studio</title>
-  <meta
-    name="description"
-    content="Études de cas du studio. Sites vitrines, applications métier, direction artistique et expériences 3D."
-  />
+  <title>{t.projectsPage.meta.title}</title>
+  <meta name="description" content={t.projectsPage.meta.description} />
 </svelte:head>
 
 <div class="flex flex-col gap-10 py-6 md:py-12">
   <div class="flex flex-col gap-6">
     <div class="flex items-center gap-2 text-fc-xs text-fc-fg-muted">
       <a
-        href="/"
+        href={i18n.href("/")}
         class="inline-flex items-center gap-1.5 rounded-fc-pill px-2.5 py-1 transition-colors hover:bg-fc-surface hover:text-fc-fg"
       >
         <Icon icon={icons.home} size={14} />
-        <span>Accueil</span>
+        <span>{t.common.home}</span>
       </a>
       <span>/</span>
-      <span class="text-fc-fg font-medium">Projets</span>
+      <span class="text-fc-fg font-medium">{t.common.projects}</span>
     </div>
 
     <div class="flex flex-col gap-3 max-w-3xl">
       <div class="inline-flex items-center gap-2 rounded-fc-pill bg-fc-surface px-3 py-1 text-fc-xs font-mono text-fc-fg-muted w-fit">
-        Portfolio
+        {t.projectsPage.eyebrow}
       </div>
       <h1 class="text-fc-3xl sm:text-5xl font-black tracking-tight text-fc-fg leading-tight">
-        Études de cas & réalisations
+        {t.projectsPage.title}
       </h1>
       <p class="text-fc-md sm:text-fc-lg text-fc-fg-muted leading-relaxed">
-        Chaque projet est fait sur mesure, sans dépendance captive, avec des APIs qui répondent en moins de 50 ms.
+        {t.projectsPage.intro}
       </p>
     </div>
 
     <div class="flex flex-wrap items-center gap-2 pt-2">
-      {#each categories as category (category)}
+      {#each PROJECT_CATEGORIES as category (category)}
         {@const active = selectedCategory === category}
-        {@const count = category === "Tous"
+        {@const count = category === "all"
           ? CLIENT_PROJECTS.length
-          : CLIENT_PROJECTS.filter((p) => p.categories.includes(category)).length}
+          : CLIENT_PROJECTS.filter((p) => p.categories.some((c) => c === category)).length}
         <button
           type="button"
           onclick={() => (selectedCategory = category)}
@@ -63,7 +64,7 @@
               ? 'bg-fc-accent text-fc-accent-fg shadow-sm'
               : 'bg-fc-component text-fc-fg-muted hover:bg-fc-surface hover:text-fc-fg'}"
         >
-          <span>{category}</span>
+          <span>{t.projectCategories[category]}</span>
           <span
             class="inline-flex size-5 items-center justify-center rounded-fc-full text-[10px] font-mono
               {active ? 'bg-fc-accent-fg/20 text-fc-accent-fg' : 'bg-fc-surface text-fc-fg-muted'}"
@@ -78,7 +79,7 @@
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     {#each filteredProjects as project (project.slug)}
       <Card
-        href="/projects/{project.slug}"
+        href={i18n.href(`/projects/${project.slug}`)}
         class="group flex flex-col justify-between overflow-hidden p-0 bg-fc-component hover:bg-fc-surface transition-all duration-300 rounded-[var(--radius-fc-2xl)] shadow-sm"
       >
         <div class="flex flex-col">
@@ -101,7 +102,7 @@
             <div class="absolute bottom-4 left-4 right-4 flex flex-wrap gap-1.5">
               {#each project.categories as cat (cat)}
                 <span class="rounded-fc-pill bg-fc-component/90 px-2.5 py-0.5 text-[11px] font-medium text-fc-fg backdrop-blur-md">
-                  {cat}
+                  {t.projectCategories[cat]}
                 </span>
               {/each}
             </div>
@@ -123,7 +124,7 @@
 
             <div class="flex flex-col gap-2 pt-2">
               <span class="text-fc-xs font-mono uppercase tracking-wider text-fc-fg-muted">
-                Livrables clés
+                {t.projectsPage.keyDeliverables}
               </span>
               <ul class="flex flex-col gap-1 text-fc-xs text-fc-fg-muted">
                 {#each project.deliverables.slice(0, 3) as deliverable (deliverable)}
@@ -145,7 +146,7 @@
           </div>
 
           <div class="inline-flex items-center gap-1 text-fc-xs font-semibold text-fc-fg group-hover:text-fc-accent transition-colors shrink-0">
-            <span>Étude de cas</span>
+            <span>{t.projectsPage.caseStudy}</span>
             <Icon icon={icons.arrow} size={16} class="transition-transform group-hover:translate-x-1" />
           </div>
         </div>
@@ -156,20 +157,20 @@
   <div class="flex flex-col sm:flex-row items-center justify-between gap-6 rounded-fc-3xl bg-fc-component p-8 sm:p-10 shadow-sm">
     <div class="flex flex-col gap-2 max-w-xl text-center sm:text-left">
       <h3 class="text-fc-xl sm:text-fc-2xl font-bold tracking-tight text-fc-fg">
-        Vous avez un projet d'application ou de vitrine&nbsp;?
+        {t.projectsPage.ctaTitle}
       </h3>
       <p class="text-fc-sm text-fc-fg-muted leading-relaxed">
-        On conçoit, développe et héberge vos outils, sans intermédiaire.
+        {t.projectsPage.ctaText}
       </p>
     </div>
     <Button
       variant="primary"
       size="lg"
-      href="/contact"
+      href={i18n.href("/contact")}
       class="rounded-fc-pill px-6 shrink-0"
       icon={icons.arrow}
     >
-      Échanger sur votre projet
+      {t.projectsPage.ctaButton}
     </Button>
   </div>
 </div>

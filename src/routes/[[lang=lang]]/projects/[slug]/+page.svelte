@@ -1,15 +1,19 @@
 <script lang="ts">
   import { Button, Card, Icon, icons } from "@facile/muse";
   import TechBadge from "$lib/components/TechBadge.svelte";
+  import { localizeProject } from "$lib/data";
+  import { format, useI18n } from "$lib/i18n";
   import type { PageProps } from "./$types";
 
   let { data }: PageProps = $props();
-  const project = $derived(data.project);
+  const i18n = useI18n();
+  const t = $derived(i18n.t);
+  const project = $derived(localizeProject(data.project, t));
 </script>
 
 <svelte:head>
-  <title>{project.name} · Étude de cas · Facile Studio</title>
-  <meta name="description" content="{project.name} par Facile Studio : {project.tagline}" />
+  <title>{format(t.projectPage.metaTitle, { name: project.name })}</title>
+  <meta name="description" content={format(t.projectPage.metaDescription, { name: project.name, tagline: project.tagline })} />
 </svelte:head>
 
 <article class="flex flex-col gap-12 py-6 md:py-12">
@@ -17,18 +21,18 @@
     <div class="flex flex-wrap items-center justify-between gap-4">
       <div class="flex items-center gap-2 text-fc-xs text-fc-fg-muted">
         <a
-          href="/"
+          href={i18n.href("/")}
           class="inline-flex items-center gap-1.5 rounded-fc-pill px-2.5 py-1 transition-colors hover:bg-fc-surface hover:text-fc-fg"
         >
           <Icon icon={icons.home} size={14} />
-          <span>Accueil</span>
+          <span>{t.common.home}</span>
         </a>
         <span>/</span>
         <a
-          href="/projects"
+          href={i18n.href("/projects")}
           class="inline-flex items-center gap-1.5 rounded-fc-pill px-2.5 py-1 transition-colors hover:bg-fc-surface hover:text-fc-fg"
         >
-          <span>Projets</span>
+          <span>{t.common.projects}</span>
         </a>
         <span>/</span>
         <span class="text-fc-fg font-medium truncate max-w-[160px] sm:max-w-none">{project.name}</span>
@@ -38,11 +42,11 @@
         <Button
           variant="ghost"
           size="sm"
-          href="/projects"
+          href={i18n.href("/projects")}
           class="rounded-fc-pill bg-fc-surface text-fc-fg hover:bg-fc-component px-3.5"
           icon={icons.chevronLeft}
         >
-          Retour aux projets
+          {t.projectPage.back}
         </Button>
         {#if project.link}
           <Button
@@ -54,7 +58,7 @@
             class="rounded-fc-pill px-4"
             icon={icons.globe}
           >
-            Voir le site
+            {t.projectPage.visit}
           </Button>
         {/if}
       </div>
@@ -70,7 +74,7 @@
         </span>
         {#each project.categories as category (category)}
           <span class="rounded-fc-pill bg-fc-component px-3 py-1 text-fc-xs font-medium text-fc-fg-muted">
-            {category}
+            {t.projectCategories[category]}
           </span>
         {/each}
       </div>
@@ -88,7 +92,7 @@
   <div class="relative w-full overflow-hidden rounded-fc-3xl bg-fc-surface aspect-video md:aspect-[21/9] shadow-sm">
     <img
       src={project.cover}
-      alt="Aperçu principal du projet {project.name}"
+      alt={format(t.projectPage.coverAlt, { name: project.name })}
       class="h-full w-full object-cover"
     />
   </div>
@@ -111,7 +115,7 @@
   <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 pt-4">
     <div class="flex flex-col gap-4 rounded-fc-3xl bg-fc-component p-8 shadow-sm">
       <div class="inline-flex items-center gap-2 rounded-fc-pill bg-fc-surface px-3 py-1 text-fc-xs font-mono text-fc-accent w-fit">
-        Le problème
+        {t.projectPage.problem}
       </div>
       <h2 class="text-fc-2xl font-bold tracking-tight text-fc-fg">
         {project.challenge.title}
@@ -123,7 +127,7 @@
 
     <div class="flex flex-col gap-4 rounded-fc-3xl bg-fc-component p-8 shadow-sm">
       <div class="inline-flex items-center gap-2 rounded-fc-pill bg-fc-surface px-3 py-1 text-fc-xs font-mono text-fc-success w-fit">
-        La solution
+        {t.projectPage.solution}
       </div>
       <h2 class="text-fc-2xl font-bold tracking-tight text-fc-fg">
         {project.approach.title}
@@ -137,13 +141,13 @@
   <section class="flex flex-col gap-6 pt-4">
     <div class="flex flex-col gap-2">
       <div class="inline-flex items-center gap-2 rounded-fc-pill bg-fc-surface px-3 py-1 text-fc-xs font-mono text-fc-fg-muted w-fit">
-        Captures
+        {t.projectPage.galleryEyebrow}
       </div>
       <h2 class="text-fc-2xl sm:text-fc-3xl font-bold tracking-tight text-fc-fg">
-        Galerie
+        {t.projectPage.galleryTitle}
       </h2>
       <p class="text-fc-sm text-fc-fg-muted">
-        Captures des livrables en production et maquettes.
+        {t.projectPage.galleryIntro}
       </p>
     </div>
 
@@ -173,7 +177,7 @@
   <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 pt-4">
     <div class="flex flex-col gap-5 rounded-fc-3xl bg-fc-component p-8 shadow-sm">
       <h3 class="text-fc-lg font-bold tracking-tight text-fc-fg">
-        Livrables du projet
+        {t.projectPage.deliverables}
       </h3>
       <ul class="flex flex-col gap-3 text-fc-sm text-fc-fg-muted">
         {#each project.deliverables as deliverable (deliverable)}
@@ -189,7 +193,7 @@
 
     <div class="flex flex-col gap-5 rounded-fc-3xl bg-fc-component p-8 shadow-sm">
       <h3 class="text-fc-lg font-bold tracking-tight text-fc-fg">
-        Technologies & composants
+        {t.projectPage.stack}
       </h3>
       <div class="flex flex-wrap gap-2">
         {#each project.stack as tech (tech)}
@@ -197,7 +201,7 @@
         {/each}
       </div>
       <p class="text-fc-xs text-fc-fg-muted leading-relaxed pt-2">
-        Aucune dépendance propriétaire fermée. Le code reste léger et auditable.
+        {t.projectPage.stackNote}
       </p>
     </div>
   </section>
@@ -205,30 +209,30 @@
   <section class="flex flex-col sm:flex-row items-center justify-between gap-6 rounded-fc-3xl bg-fc-component p-8 sm:p-10 mt-4 shadow-sm">
     <div class="flex flex-col gap-2 max-w-xl text-center sm:text-left">
       <h3 class="text-fc-xl sm:text-fc-2xl font-bold tracking-tight text-fc-fg">
-        Lancer un projet similaire
+        {t.projectPage.ctaTitle}
       </h3>
       <p class="text-fc-sm text-fc-fg-muted leading-relaxed">
-        Des objectifs proches pour votre application ou votre vitrine&nbsp;? On étudie votre besoin sous 48 heures.
+        {t.projectPage.ctaText}
       </p>
     </div>
     <div class="flex flex-wrap items-center gap-3 shrink-0">
       <Button
         variant="ghost"
         size="lg"
-        href="/projects"
+        href={i18n.href("/projects")}
         class="rounded-fc-pill bg-fc-surface text-fc-fg hover:bg-fc-page px-5"
         icon={icons.chevronLeft}
       >
-        Autres projets
+        {t.projectPage.others}
       </Button>
       <Button
         variant="primary"
         size="lg"
-        href="/contact"
+        href={i18n.href("/contact")}
         class="rounded-fc-pill px-6"
         icon={icons.arrow}
       >
-        Nous contacter
+        {t.projectPage.contact}
       </Button>
     </div>
   </section>

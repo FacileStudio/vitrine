@@ -1,6 +1,10 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import { useI18n } from "$lib/i18n";
   import { SUITE_ICONS } from "$lib/icons";
+
+  const i18n = useI18n();
+  const t = $derived(i18n.t);
 
   let container: HTMLElement | null = $state(null);
   let active = $state(false);
@@ -19,32 +23,32 @@
   const ICON_SCALE = $derived(geo.icon);
 
   const suiteList = [
-    { name: "Bulle", cat: "Agent IA", icon: "solar:smile-circle-bold-duotone" },
-    { name: "Pastille", cat: "Hardware & IoT", icon: "solar:circle-dot-bold-duotone" },
-    { name: "Fusible", cat: "Électronique", icon: "solar:cpu-bolt-bold-duotone" },
-    { name: "Sablier", cat: "Temps", icon: "solar:hourglass-bold-duotone" },
-    { name: "Opus", cat: "Projets", icon: "solar:slider-vertical-minimalistic-bold-duotone" },
-    { name: "Vision", cat: "Analytique", icon: "solar:panorama-bold-duotone" },
-    { name: "Glouton", cat: "Prospection", icon: "solar:magnet-wave-bold-duotone" },
-    { name: "Ardoise", cat: "Facturation", icon: "solar:bill-list-bold-duotone" },
-    { name: "Plume", cat: "Signature", icon: "solar:pen-new-square-bold-duotone" },
-    { name: "Casier", cat: "Secrets", icon: "solar:key-minimalistic-square-bold-duotone" },
-    { name: "Nuage", cat: "Stockage", icon: "solar:cloud-bold-duotone" },
-    { name: "Courrier", cat: "Email", icon: "solar:letter-opened-bold-duotone" },
-    { name: "Agenda", cat: "Planning", icon: "solar:calendar-add-bold-duotone" },
-    { name: "Feuilles", cat: "Tableurs", icon: "solar:table-minimalistic-bold-duotone" },
-    { name: "Docs", cat: "Documents", icon: "solar:documents-bold-duotone" },
-    { name: "Toile", cat: "Tableau blanc", icon: "solar:tablet-bold-duotone" },
-    { name: "Echo", cat: "Visio", icon: "solar:videocamera-record-bold-duotone" },
-    { name: "Capsule", cat: "Chiffrement", icon: "solar:pill-bold-duotone" },
-    { name: "Scribe", cat: "Audio", icon: "solar:microphone-2-bold-duotone" },
-    { name: "Journal", cat: "Logs", icon: "solar:notebook-bold-duotone" },
-    { name: "Prisme", cat: "Chat Matrix", icon: "solar:chat-round-bold-duotone" },
-    { name: "Sonde", cat: "Statut", icon: "solar:radar-bold-duotone" },
-    { name: "Registre", cat: "Auth SSO", icon: "solar:key-square-bold-duotone" },
-    { name: "Boîte", cat: "Packages", icon: "solar:box-minimalistic-bold-duotone" },
-    { name: "Place", cat: "Communauté", icon: "solar:cup-hot-bold-duotone" },
-  ];
+    { id: "bulle", name: "Bulle", icon: "solar:smile-circle-bold-duotone" },
+    { id: "pastille", name: "Pastille", icon: "solar:circle-dot-bold-duotone" },
+    { id: "fusible", name: "Fusible", icon: "solar:cpu-bolt-bold-duotone" },
+    { id: "sablier", name: "Sablier", icon: "solar:hourglass-bold-duotone" },
+    { id: "opus", name: "Opus", icon: "solar:slider-vertical-minimalistic-bold-duotone" },
+    { id: "vision", name: "Vision", icon: "solar:panorama-bold-duotone" },
+    { id: "glouton", name: "Glouton", icon: "solar:magnet-wave-bold-duotone" },
+    { id: "ardoise", name: "Ardoise", icon: "solar:bill-list-bold-duotone" },
+    { id: "plume", name: "Plume", icon: "solar:pen-new-square-bold-duotone" },
+    { id: "casier", name: "Casier", icon: "solar:key-minimalistic-square-bold-duotone" },
+    { id: "nuage", name: "Nuage", icon: "solar:cloud-bold-duotone" },
+    { id: "courrier", name: "Courrier", icon: "solar:letter-opened-bold-duotone" },
+    { id: "agenda", name: "Agenda", icon: "solar:calendar-add-bold-duotone" },
+    { id: "feuilles", name: "Feuilles", icon: "solar:table-minimalistic-bold-duotone" },
+    { id: "docs", name: "Docs", icon: "solar:documents-bold-duotone" },
+    { id: "toile", name: "Toile", icon: "solar:tablet-bold-duotone" },
+    { id: "echo", name: "Echo", icon: "solar:videocamera-record-bold-duotone" },
+    { id: "capsule", name: "Capsule", icon: "solar:pill-bold-duotone" },
+    { id: "scribe", name: "Scribe", icon: "solar:microphone-2-bold-duotone" },
+    { id: "journal", name: "Journal", icon: "solar:notebook-bold-duotone" },
+    { id: "prisme", name: "Prisme", icon: "solar:chat-round-bold-duotone" },
+    { id: "sonde", name: "Sonde", icon: "solar:radar-bold-duotone" },
+    { id: "registre", name: "Registre", icon: "solar:key-square-bold-duotone" },
+    { id: "boite", name: "Boîte", icon: "solar:box-minimalistic-bold-duotone" },
+    { id: "place", name: "Place", icon: "solar:cup-hot-bold-duotone" },
+  ] as const;
 
   const nodes = $derived(suiteList.map((item, i) => {
     const a = -Math.PI / 2 + (Math.PI * 2 / suiteList.length) * i;
@@ -52,7 +56,7 @@
     const y = Math.round(CY + R * Math.sin(a));
     const iconData = SUITE_ICONS[item.icon];
 
-    return { ...item, a, x, y, i, iconData };
+    return { ...item, cat: t.graph.categories[item.id], a, x, y, i, iconData };
   }));
 
   onMount(() => {
@@ -93,7 +97,7 @@
     xmlns="http://www.w3.org/2000/svg"
     class="mx-auto h-auto w-full max-w-3xl"
     role="img"
-    aria-label="Architecture et écosystème connectés de la Suite Facile"
+    aria-label={t.graph.label}
   >
     <defs>
       <radialGradient id="hub-glow" cx="50%" cy="50%" r="50%">

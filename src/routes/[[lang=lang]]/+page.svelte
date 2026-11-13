@@ -11,13 +11,21 @@
   import TechBadge from "$lib/components/TechBadge.svelte";
   import {
     ACCOUNT_URL,
-    CATEGORIES,
     CLIENT_PROJECTS,
-    STUDIO_SERVICES,
-    SUITE_TOOLS,
+    SUITE_CATEGORIES,
+    localizeProject,
+    localizeServices,
+    localizeTools,
   } from "$lib/data";
+  import { format, useI18n } from "$lib/i18n";
   import { GITHUB_ICON } from "$lib/icons";
   import { scrollReveal } from "$lib/motion";
+
+  const i18n = useI18n();
+  const t = $derived(i18n.t);
+  const services = $derived(localizeServices(t));
+  const projects = $derived(CLIENT_PROJECTS.map((project) => localizeProject(project, t)));
+  const tools = $derived(localizeTools(t));
 
   let selectedCategory = $state<string>("all");
   let projectsSection = $state<HTMLElement | null>(null);
@@ -27,8 +35,8 @@
 
   const filteredTools = $derived(
     selectedCategory === "all"
-      ? SUITE_TOOLS
-      : SUITE_TOOLS.filter((t) => t.category === selectedCategory)
+      ? tools
+      : tools.filter((tool) => tool.category === selectedCategory)
   );
   const TOOLS_PREVIEW = 9;
   let showAllTools = $state(false);
@@ -174,12 +182,12 @@
 </script>
 
 <svelte:head>
-  <title>Facile Studio · Web design and engineering studio</title>
-  <meta name="description" content="Showcase sites, custom web apps, art direction and sovereign hosting, from the studio behind the Facile Suite." />
-  <meta property="og:title" content="Facile Studio · Web design and engineering studio" />
-  <meta property="og:description" content="Showcase sites, custom web apps, art direction and sovereign hosting, from the studio behind the Facile Suite." />
-  <meta name="twitter:title" content="Facile Studio · Web design and engineering studio" />
-  <meta name="twitter:description" content="Showcase sites, custom web apps, art direction and sovereign hosting, from the studio behind the Facile Suite." />
+  <title>{t.home.meta.title}</title>
+  <meta name="description" content={t.home.meta.description} />
+  <meta property="og:title" content={t.home.meta.title} />
+  <meta property="og:description" content={t.home.meta.description} />
+  <meta name="twitter:title" content={t.home.meta.title} />
+  <meta name="twitter:description" content={t.home.meta.description} />
 </svelte:head>
 
 <section
@@ -188,28 +196,28 @@
 >
   <div class="relative z-10 flex flex-1 flex-col justify-center gap-6 max-w-4xl py-6">
     <h1 data-hero-item class="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-fc-fg leading-[1.08]">
-      On simplifie,<br />
-      <span class="text-fc-fg-muted">vous créez.</span>
+      {t.home.hero.titleLine1}<br />
+      <span class="text-fc-fg-muted">{t.home.hero.titleLine2}</span>
     </h1>
 
     <div data-hero-item class="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4 text-fc-sm text-fc-fg-muted font-mono">
       <span class="text-[#CAE6D8] font-bold">[fasil]</span>
-      <span>Qui se fait sans effort, qui ne présente aucune difficulté. Simple, aisé.</span>
+      <span>{t.home.hero.definition}</span>
     </div>
 
     <p data-hero-item class="text-fc-md sm:text-fc-lg text-fc-fg-muted max-w-3xl leading-relaxed">
-      Studio de design et d'ingénierie web. On conçoit, développe et héberge des sites vitrines, des applications et des identités visuelles. Du code léger, des pages rapides, et beaucoup d'attention aux détails.
+      {t.home.hero.intro}
     </p>
 
     <div data-hero-item class="flex flex-wrap items-center gap-4 pt-2">
       <Button
         variant="primary"
         size="lg"
-        href="/contact"
+        href={i18n.href("/contact")}
         class="h-11 rounded-fc-pill font-semibold px-6 shadow-md"
         icon={icons.arrow}
       >
-        Démarrer un projet
+        {t.common.startProject}
       </Button>
       <Button
         variant="ghost"
@@ -218,7 +226,7 @@
         class="h-11 rounded-fc-pill font-medium px-6 bg-fc-surface hover:bg-fc-surface-hover text-fc-fg"
         icon={icons.eye}
       >
-        Voir nos réalisations
+        {t.home.hero.seeWork}
       </Button>
       <a
         href="tel:+33768888818"
@@ -227,7 +235,7 @@
         <svg class="size-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
         </svg>
-        <span>07 68 88 88 18</span>
+        <span>{t.common.phone}</span>
       </a>
     </div>
   </div>
@@ -247,17 +255,17 @@
 
 <section id="services" use:scrollReveal={{ delay: 0.05 }} class="flex flex-col gap-10 py-16 w-full max-w-fc-xl mx-auto px-4 sm:px-6 md:px-10">
   <div class="flex flex-col gap-3">
-    <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">Prestations studio</span>
+    <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">{t.home.services.eyebrow}</span>
     <h2 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">
-      Ce que l'on construit pour vous
+      {t.home.services.title}
     </h2>
     <p class="text-fc-md text-fc-fg-muted max-w-2xl">
-      Vous travaillez directement avec les designers et développeurs qui font votre projet. Pas d'intermédiaire.
+      {t.home.services.intro}
     </p>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    {#each STUDIO_SERVICES as service}
+    {#each services as service}
       <div class="flex flex-col justify-between gap-6 rounded-fc-2xl bg-fc-component p-6 sm:p-8 transition-transform duration-300 hover:-translate-y-1 shadow-sm">
         <div class="flex flex-col gap-4">
           <div class="flex items-center gap-3">
@@ -275,7 +283,7 @@
         </div>
 
         <div class="flex flex-col gap-3 pt-2">
-          <span class="text-[11px] font-semibold uppercase tracking-wider text-fc-fg-muted">Livrables inclus</span>
+          <span class="text-[11px] font-semibold uppercase tracking-wider text-fc-fg-muted">{t.home.services.deliverables}</span>
           <div class="flex flex-wrap gap-2">
             {#each service.deliverables as d}
               <span class="rounded-fc-md bg-fc-surface px-2.5 py-1 text-[11px] font-medium text-fc-fg">
@@ -290,17 +298,17 @@
 
   <div class="flex flex-col sm:flex-row items-center justify-between gap-4 rounded-fc-3xl bg-fc-surface p-6 sm:p-8 shadow-sm">
     <div class="flex flex-col gap-1 text-center sm:text-left">
-      <span class="text-fc-md font-bold text-fc-fg">Un besoin qui sort de ces cases&nbsp;?</span>
-      <span class="text-fc-xs text-fc-fg-muted">Envoyez-nous votre cahier des charges, on vous répond avec une proposition sous 48h.</span>
+      <span class="text-fc-md font-bold text-fc-fg">{t.home.services.customTitle}</span>
+      <span class="text-fc-xs text-fc-fg-muted">{t.home.services.customText}</span>
     </div>
     <Button
       variant="primary"
       size="md"
       class="rounded-fc-pill font-semibold px-6 shrink-0"
-      href="/contact"
+      href={i18n.href("/contact")}
       icon={icons.arrow}
     >
-      Demander un devis
+      {t.home.services.quote}
     </Button>
   </div>
 </section>
@@ -313,27 +321,27 @@
   <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 lg:mb-6 lg:shrink-0 w-full max-w-fc-xl mx-auto px-4 sm:px-6 md:px-10">
     <div class="flex flex-col gap-3">
       <h2 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">
-        Quelques projets récents
+        {t.home.projects.title}
       </h2>
       <p class="text-fc-md text-fc-fg-muted max-w-2xl">
-        Des sites et des applications conçus et livrés par le studio.
+        {t.home.projects.intro}
       </p>
     </div>
     <Button
       variant="ghost"
       size="md"
-      href="/projects"
+      href={i18n.href("/projects")}
       class="rounded-fc-pill bg-fc-component text-fc-fg hover:bg-fc-surface shrink-0"
       icon={icons.arrow}
     >
-      Voir tout le portfolio
+      {t.home.projects.viewAll}
     </Button>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:hidden mt-8 max-w-fc-xl mx-auto px-4 sm:px-6">
-    {#each CLIENT_PROJECTS as project}
+    {#each projects as project}
       <a
-        href={`/projects/${project.slug}`}
+        href={i18n.href(`/projects/${project.slug}`)}
         class="project-card group relative flex flex-col justify-end aspect-[16/10] rounded-fc-2xl bg-black p-6 transition-transform duration-300 hover:-translate-y-1 shadow-md"
       >
         <img
@@ -346,7 +354,7 @@
         <div class="relative z-10 flex flex-col gap-2.5 text-white">
           <div class="flex items-center justify-between">
             <span class="rounded-fc-pill bg-black/60 backdrop-blur-md px-3 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-white">
-              {project.category}
+              {t.projectCategories[project.categories[0]]}
             </span>
             <span class="text-[11px] font-mono text-zinc-300">{project.year}</span>
           </div>
@@ -374,7 +382,7 @@
       bind:this={horizontalTrack}
       class="flex h-full items-stretch gap-8 pl-8 md:pl-12 lg:pl-16 pr-20 lg:pr-32 w-fit"
     >
-      {#each CLIENT_PROJECTS as project}
+      {#each projects as project}
         <article
           class="project-slide group relative w-[76vw] max-w-[1100px] h-full shrink-0 rounded-fc-3xl bg-black shadow-2xl flex flex-col justify-between p-8 xl:p-12"
         >
@@ -391,7 +399,7 @@
           <div class="relative z-10 flex items-center justify-between gap-4">
             <div class="flex items-center gap-3">
               <span class="rounded-fc-pill bg-black/60 backdrop-blur-md px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-white">
-                {project.category}
+                {t.projectCategories[project.categories[0]]}
               </span>
               <span class="rounded-fc-pill bg-black/40 backdrop-blur-md px-3 py-1 text-xs font-mono text-zinc-300">
                 {project.year}
@@ -404,7 +412,7 @@
                 rel="noreferrer"
                 class="inline-flex items-center gap-1.5 rounded-fc-pill bg-black/60 backdrop-blur-md px-4 py-1.5 text-xs font-semibold text-white transition-all hover:bg-white hover:text-black"
               >
-                <span>Site en ligne</span>
+                <span>{t.home.projects.live}</span>
                 <Icon icon={icons.arrow} size={14} />
               </a>
             {/if}
@@ -429,11 +437,11 @@
               <Button
                 variant="primary"
                 size="md"
-                href={`/projects/${project.slug}`}
+                href={i18n.href(`/projects/${project.slug}`)}
                 class="rounded-fc-pill font-semibold px-6 shadow-xl bg-white text-black hover:bg-zinc-200"
                 icon={icons.arrow}
               >
-                Voir l'étude de cas
+                {t.home.projects.caseStudy}
               </Button>
             </div>
           </div>
@@ -446,32 +454,32 @@
 <section id="suite" use:scrollReveal={{ delay: 0.05 }} class="flex flex-col gap-10 py-16 w-full max-w-fc-xl mx-auto px-4 sm:px-6 md:px-10">
   <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
     <div class="flex flex-col gap-3">
-      <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">Gratuit pour vous aussi</span>
+      <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">{t.home.suite.eyebrow}</span>
       <h2 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">
-        La Suite Facile
+        {t.home.suite.title}
       </h2>
       <p class="text-fc-md text-fc-fg-muted max-w-2xl">
-        Les {SUITE_TOOLS.length} outils libres qu'on a construits pour livrer vos projets. Projets, factures, fichiers, emails, agenda : un seul compte Facile les ouvre tous.
+        {format(t.home.suite.intro, { count: tools.length })}
       </p>
     </div>
     <div class="flex flex-col items-start sm:items-end gap-2 sm:shrink-0">
       <SignInWithFacile href={ACCOUNT_URL} size="lg" />
-      <span class="text-fc-xs text-fc-fg-muted">Gratuit, et ça prend une minute.</span>
+      <span class="text-fc-xs text-fc-fg-muted">{t.home.suite.signupNote}</span>
     </div>
   </div>
 
   <div class="flex flex-wrap items-center gap-2">
-    {#each CATEGORIES as cat}
+    {#each SUITE_CATEGORIES as cat}
       <button
         type="button"
-        onclick={() => (selectedCategory = cat.id)}
-        aria-pressed={selectedCategory === cat.id}
+        onclick={() => (selectedCategory = cat)}
+        aria-pressed={selectedCategory === cat}
         class="rounded-fc-pill px-3.5 py-1.5 text-fc-xs font-medium transition-colors
-          {selectedCategory === cat.id
+          {selectedCategory === cat
           ? 'bg-fc-accent text-fc-accent-fg'
           : 'bg-fc-component text-fc-fg-muted hover:bg-fc-surface hover:text-fc-fg'}"
       >
-        {cat.label}
+        {t.suiteCategories[cat]}
       </button>
     {/each}
   </div>
@@ -485,9 +493,9 @@
               <Icon icon={tool.icon} size={22} />
             </span>
             <div class="flex items-center gap-2">
-              {#if tool.badge}
+              {#if tool.isNew}
                 <span class="rounded-fc-pill bg-fc-accent/15 px-2 py-0.5 text-[10px] font-bold text-fc-accent">
-                  {tool.badge}
+                  {t.common.newBadge}
                 </span>
               {/if}
               <span class="text-[11px] font-mono text-fc-fg-muted">{tool.tag}</span>
@@ -510,7 +518,7 @@
               rel="noreferrer"
               class="inline-flex items-center gap-1.5 rounded-fc-pill bg-fc-surface px-3 py-1 text-[11px] font-semibold text-fc-fg transition-colors hover:bg-fc-surface-hover"
             >
-              <span>Accéder</span>
+              <span>{t.home.suite.open}</span>
               <svg class="size-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
@@ -522,7 +530,7 @@
               target="_blank"
               rel="noreferrer"
               class="inline-flex size-7 items-center justify-center rounded-fc-pill bg-fc-surface text-fc-fg-muted transition-colors hover:text-fc-fg"
-              aria-label="Dépôt GitHub"
+              aria-label={t.home.suite.repo}
             >
               <Icon icon={GITHUB_ICON} size={14} />
             </a>
@@ -543,7 +551,7 @@
         class="rounded-fc-pill bg-fc-component hover:bg-fc-surface text-fc-fg px-6"
         icon={showAllTools ? icons.chevronUp : icons.chevronDown}
       >
-        {showAllTools ? "Voir moins" : `Voir les ${hiddenToolCount} autres outils`}
+        {showAllTools ? t.home.suite.showLess : format(t.home.suite.showMore, { count: hiddenToolCount })}
       </Button>
     </div>
   {/if}
@@ -552,10 +560,10 @@
 <section id="ecosystem" use:scrollReveal={{ delay: 0.05 }} class="flex flex-col gap-8 py-16 w-full max-w-fc-xl mx-auto px-4 sm:px-6 md:px-10">
   <div class="flex flex-col gap-3 text-center items-center">
     <h2 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">
-      Des outils qui se parlent
+      {t.home.ecosystem.title}
     </h2>
     <p class="text-fc-md text-fc-fg-muted max-w-2xl">
-      Les outils de la Suite et les projets qu'on livre échangent par des APIs ouvertes et un bus d'événements commun.
+      {t.home.ecosystem.intro}
     </p>
   </div>
 
@@ -566,20 +574,19 @@
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center rounded-fc-3xl bg-fc-component p-6 sm:p-10 shadow-sm">
     <div class="flex flex-col gap-6">
       <div class="flex flex-col gap-2">
-        <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">Inclus dans la Suite</span>
+        <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">{t.home.bulle.eyebrow}</span>
         <h2 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">
-          Bulle, l'agent connecté à tous vos outils
+          {t.home.bulle.title}
         </h2>
         <p class="text-fc-md text-fc-fg-muted leading-relaxed">
-          Bulle a son propre ordinateur, une microVM Linux, et se branche sur tous vos outils Facile. Il lit et rédige vos emails dans Courrier, range vos tâches dans Opus, cale vos rendez-vous dans Agenda, gère vos fichiers dans Nuage et déploie vos projets.
+          {t.home.bulle.intro}
         </p>
       </div>
 
       <div class="flex flex-wrap gap-2">
-        <span class="rounded-fc-md bg-fc-surface px-3 py-1 text-fc-xs font-mono text-fc-fg">MicroVM Linux souveraine</span>
-        <span class="rounded-fc-md bg-fc-surface px-3 py-1 text-fc-xs font-mono text-fc-fg">Courrier · Opus · Agenda · Nuage</span>
-        <span class="rounded-fc-md bg-fc-surface px-3 py-1 text-fc-xs font-mono text-fc-fg">Matrix E2EE & Prisme</span>
-        <span class="rounded-fc-md bg-fc-surface px-3 py-1 text-fc-xs font-mono text-fc-fg">Outils MCP natifs</span>
+        {#each t.home.bulle.chips as chip (chip)}
+          <span class="rounded-fc-md bg-fc-surface px-3 py-1 text-fc-xs font-mono text-fc-fg">{chip}</span>
+        {/each}
       </div>
 
       <div class="flex items-center gap-3 pt-2">
@@ -592,10 +599,10 @@
           class="rounded-fc-pill font-semibold px-5"
           icon="solar:smile-circle-bold-duotone"
         >
-          Tester Bulle
+          {t.home.bulle.try}
         </Button>
         <Button variant="ghost" size="md" href="https://github.com/FacileStudio/Bulle" target="_blank" rel="noreferrer" class="rounded-fc-pill bg-fc-surface text-fc-fg hover:bg-fc-component" icon={GITHUB_ICON}>
-          Code source
+          {t.home.bulle.source}
         </Button>
       </div>
     </div>
@@ -610,18 +617,18 @@
   <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
     <div class="flex flex-col gap-3">
       <h2 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">
-        Pastille, l'assistant vocal qui tient dans la paume
+        {t.home.hardware.title}
       </h2>
       <p class="text-fc-md text-fc-fg-muted max-w-2xl">
-        Le studio a aussi un atelier de R&D matériel pour les objets connectés sur mesure. Pastille est notre démonstration ouverte. Un charm de 38 mm avec un ESP32-S3, un écran rond IPS et un firmware en Rust Embassy.
+        {t.home.hardware.intro}
       </p>
     </div>
     <div class="flex flex-wrap sm:flex-nowrap sm:shrink-0 gap-2">
       <Button variant="ghost" size="md" href="https://pastille.facile.studio" target="_blank" rel="noreferrer" class="rounded-fc-pill bg-fc-component hover:bg-fc-surface text-fc-fg" icon={icons.globe}>
-        Site officiel Pastille
+        {t.home.hardware.site}
       </Button>
       <Button variant="ghost" size="md" href="https://github.com/FacileStudio/Pastille" target="_blank" rel="noreferrer" class="rounded-fc-pill bg-fc-component hover:bg-fc-surface text-fc-fg" icon={GITHUB_ICON}>
-        Schémas KiCad
+        {t.home.hardware.schematics}
       </Button>
     </div>
   </div>
@@ -634,15 +641,15 @@
 <section id="contact" use:scrollReveal={{ delay: 0.05 }} class="flex flex-col gap-8 py-20 w-full max-w-fc-xl mx-auto px-4 sm:px-6 md:px-10">
   <div class="flex flex-col items-center text-center gap-6 rounded-fc-3xl bg-fc-component p-8 sm:p-14 shadow-sm">
     <h2 class="text-3xl sm:text-5xl font-black tracking-tight text-fc-fg max-w-2xl leading-tight text-balance">
-      Un site ou une application en tête&nbsp;?
+      {t.home.contact.title}
     </h2>
     <p class="text-fc-md text-fc-fg-muted max-w-xl leading-relaxed">
-      Parlez-nous de votre projet, de vos contraintes et de vos délais. On fait des sites vitrines, des applications métier et de l'hébergement.
+      {t.home.contact.intro}
     </p>
 
     <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
-      <Button variant="primary" size="lg" href="/contact" class="rounded-fc-pill font-semibold px-8 shadow-md" icon={icons.arrow}>
-        Démarrer un projet
+      <Button variant="primary" size="lg" href={i18n.href("/contact")} class="rounded-fc-pill font-semibold px-8 shadow-md" icon={icons.arrow}>
+        {t.common.startProject}
       </Button>
       <a
         href="tel:+33768888818"
@@ -651,10 +658,10 @@
         <svg class="size-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
         </svg>
-        <span>07 68 88 88 18</span>
+        <span>{t.common.phone}</span>
       </a>
       <a
-        href="mailto:contact@facile.studio?subject=%5BProjet%5D%20Nouveau%20projet%20avec%20Facile%20Studio"
+        href="mailto:contact@facile.studio?subject={encodeURIComponent(t.home.contact.mailSubject)}"
         class="inline-flex items-center gap-2 rounded-fc-pill bg-fc-surface px-6 py-3 text-fc-sm font-semibold text-fc-fg transition-colors hover:bg-fc-surface-hover"
       >
         <svg class="size-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -667,8 +674,8 @@
 
   <div class="flex flex-col sm:flex-row items-center justify-between gap-4 rounded-fc-3xl bg-fc-surface p-6 sm:p-8 shadow-sm">
     <div class="flex flex-col gap-1 text-center sm:text-left">
-      <span class="text-fc-md font-bold text-fc-fg">Pas de projet pour l'instant&nbsp;?</span>
-      <span class="text-fc-xs text-fc-fg-muted">Essayez les outils du studio. Votre compte Facile est gratuit et ouvre toute la Suite.</span>
+      <span class="text-fc-md font-bold text-fc-fg">{t.home.contact.noProjectTitle}</span>
+      <span class="text-fc-xs text-fc-fg-muted">{t.home.contact.noProjectText}</span>
     </div>
     <SignInWithFacile href={ACCOUNT_URL} size="md" />
   </div>

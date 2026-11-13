@@ -2,7 +2,11 @@
   import { onMount } from "svelte";
   import { Button } from "@facile/muse";
   import { DISCORD_ICON, GITHUB_ICON } from "$lib/icons";
+  import { INTL_LOCALES, format, useI18n } from "$lib/i18n";
   import { scrollReveal } from "$lib/motion";
+
+  const i18n = useI18n();
+  const t = $derived(i18n.t);
 
   const placeOrigin = "https://place.facile.studio";
   const discordInvite = "https://discord.gg/ftkWURp9PT";
@@ -41,10 +45,10 @@
 
   function ago(iso: string): string {
     const days = Math.floor((Date.now() - new Date(iso).getTime()) / 86_400_000);
-    if (days < 1) return "aujourd'hui";
-    if (days === 1) return "hier";
-    if (days < 30) return `il y a ${days} jours`;
-    return new Date(iso).toLocaleDateString("fr-FR", { day: "numeric", month: "long" });
+    if (days < 1) return t.community.today;
+    if (days === 1) return t.community.yesterday;
+    if (days < 30) return format(t.community.daysAgo, { count: days });
+    return new Date(iso).toLocaleDateString(INTL_LOCALES[i18n.locale], { day: "numeric", month: "long" });
   }
 
   onMount(async () => {
@@ -57,6 +61,12 @@
       .map((result) => result?.topic)
       .filter((t): t is Topic => Boolean(t));
   });
+
+  function replies(messages: number): string {
+    const count = messages - 1;
+    if (count < 1) return t.community.newTopic;
+    return format(count > 1 ? t.community.replyMany : t.community.replyOne, { count });
+  }
 </script>
 
 <section
@@ -65,15 +75,15 @@
   class="flex flex-col gap-8 py-16 w-full max-w-fc-xl mx-auto px-4 sm:px-6 md:px-10"
 >
   <div class="flex flex-col gap-2">
-    <h2 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">Une communauté qui échange</h2>
+    <h2 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">{t.community.title}</h2>
     <p class="text-fc-md text-fc-fg-muted leading-relaxed max-w-2xl">
-      Les discussions de Place, en direct. Posez vos questions, suivez les annonces, échangez avec l'équipe.
+      {t.community.intro}
     </p>
   </div>
 
   {#each announcements as news (news.id)}
     <article class="flex flex-col gap-2 rounded-fc-2xl bg-fc-component p-5 sm:p-6">
-      <span class="text-fc-xs font-mono text-fc-fg-muted">Annonce · {ago(news.created_at)}</span>
+      <span class="text-fc-xs font-mono text-fc-fg-muted">{t.community.announcement} · {ago(news.created_at)}</span>
       <h3 class="text-fc-lg font-bold text-fc-fg">{news.title}</h3>
       <p class="text-fc-md text-fc-fg-muted leading-relaxed whitespace-pre-line line-clamp-4">{news.body}</p>
     </article>
@@ -94,7 +104,7 @@
               <p class="line-clamp-2 text-fc-sm text-fc-fg-muted">{topic.excerpt}</p>
             {/if}
             <span class="text-fc-xs text-fc-fg-muted">
-              {topic.messages - 1 > 0 ? `${topic.messages - 1} réponse${topic.messages - 1 > 1 ? "s" : ""}` : "Nouvelle discussion"} · {ago(topic.last_activity)}
+              {replies(topic.messages)} · {ago(topic.last_activity)}
             </span>
           </div>
           {#if topic.cover && topic.cover.kind === "image"}
@@ -113,7 +123,7 @@
 
   <div class="flex flex-wrap items-center gap-3">
     <Button variant="primary" size="md" href={placeOrigin} target="_blank" rel="noreferrer" class="rounded-fc-pill font-semibold px-5">
-      Rejoindre la communauté
+      {t.community.join}
     </Button>
     <Button
       variant="ghost"
@@ -124,7 +134,7 @@
       class="rounded-fc-pill bg-fc-component hover:bg-fc-surface text-fc-fg"
       icon={DISCORD_ICON}
     >
-      Rejoindre le Discord
+      {t.community.discord}
     </Button>
     <Button
       variant="ghost"

@@ -2,85 +2,51 @@
   import { browser } from "$app/environment";
   import { fly, fade } from "svelte/transition";
   import { Button, Icon, icons } from "@facile/muse";
+  import { format, useI18n } from "$lib/i18n";
+
+  const i18n = useI18n();
+  const t = $derived(i18n.t);
+
+  const PROJECT_TYPES = [
+    { id: "showcase", icon: "solar:panorama-bold-duotone" },
+    { id: "app", icon: "solar:code-square-bold-duotone" },
+    { id: "branding", icon: "solar:pallete-2-bold-duotone" },
+    { id: "infra", icon: "solar:cloud-bold-duotone" },
+    { id: "rnd", icon: "solar:cpu-bolt-bold-duotone" },
+  ] as const;
+
+  const BUDGETS = ["xs", "s", "m", "l"] as const;
+  const TIMELINES = ["asap", "soon", "later", "flexible"] as const;
+  const QUICK_TAGS = ["redesign", "newSite", "performance", "design", "hosting"] as const;
+
+  type ProjectType = (typeof PROJECT_TYPES)[number]["id"];
+  type Budget = (typeof BUDGETS)[number];
+  type Timeline = (typeof TIMELINES)[number];
+  type QuickTag = (typeof QUICK_TAGS)[number];
 
   let step = $state(1);
   let direction = $state<"next" | "prev">("next");
 
-  let projectType = $state("Site vitrine d'exception");
-  let budget = $state("5k - 15k\u00A0€");
-  let timeline = $state("Dans les 1 à 3 mois");
+  let projectType = $state<ProjectType>("showcase");
+  let budget = $state<Budget>("s");
+  let timeline = $state<Timeline>("soon");
   let message = $state("");
-  let tags = $state<string[]>([]);
+  let tags = $state<QuickTag[]>([]);
   let name = $state("");
   let email = $state("");
   let phone = $state("");
   let submitted = $state(false);
 
-  const PROJECT_TYPES = [
-    {
-      id: "Site vitrine d'exception",
-      title: "Site vitrine d'exception",
-      category: "Vitrines & Direction artistique",
-      icon: "solar:panorama-bold-duotone",
-      description: "Design sur mesure, animations à 60 FPS, SEO et une identité qu'on retient.",
-    },
-    {
-      id: "Application web & SaaS",
-      title: "Application web & SaaS",
-      category: "Ingénierie & Produit",
-      icon: "solar:code-square-bold-duotone",
-      description: "Outil métier, APIs rapides, base de données fiable et logique sur mesure.",
-    },
-    {
-      id: "Direction artistique & Branding",
-      title: "Direction artistique & Branding",
-      category: "Design & Identité",
-      icon: "solar:pallete-2-bold-duotone",
-      description: "Logotype, typographie, charte graphique, design system et maquettes 3D.",
-    },
-    {
-      id: "Infra & Hébergement souverain",
-      title: "Infra & Hébergement souverain",
-      category: "DevOps & Cloud",
-      icon: "solar:cloud-bold-duotone",
-      description: "Serveurs dédiés en Europe, Docker, Nginx et haute disponibilité.",
-    },
-    {
-      id: "R&D, Matériel & Autre",
-      title: "R&D, Matériel & Autre",
-      category: "Hardware & R&D",
-      icon: "solar:cpu-bolt-bold-duotone",
-      description: "Objets connectés, firmware Rust Embassy, microVMs ou projet expérimental.",
-    },
-  ];
+  const projectTypeLabel = $derived(t.contact.types[projectType].title);
+  const budgetLabel = $derived(t.contact.budgets[budget].label);
+  const timelineLabel = $derived(t.contact.timelines[timeline]);
+  const tagLabels = $derived(tags.map((tag) => t.contact.tags[tag]).join(", "));
 
-  const BUDGETS = [
-    { label: "< 5k\u00A0€", note: "Cadrage ou petite vitrine" },
-    { label: "5k - 15k\u00A0€", note: "Vitrine sur mesure ou première version d'une application" },
-    { label: "15k - 30k\u00A0€", note: "Application complète, branding et design system" },
-    { label: "> 30k\u00A0€", note: "Grande application, R&D ou écosystème complet" },
-  ];
-
-  const TIMELINES = [
-    "Dès que possible (< 1 mois)",
-    "Dans les 1 à 3 mois",
-    "D'ici 3 à 6 mois",
-    "Pas de contrainte de date",
-  ];
-
-  const QUICK_TAGS = [
-    "Refonte d'un site existant",
-    "Nouveau site",
-    "Performance",
-    "Design & animations",
-    "Hébergement souverain",
-  ];
-
-  function toggleQuickTag(tag: string) {
+  function toggleQuickTag(tag: QuickTag) {
     tags = tags.includes(tag) ? tags.filter((t) => t !== tag) : [...tags, tag];
   }
 
-  const STEPS = ["Projet", "Budget", "Vision", "Contact"];
+  const STEPS = $derived(t.contact.steps);
 
   function nextStep() {
     if (step < STEPS.length) {
@@ -113,18 +79,19 @@
     e?.preventDefault();
     if (!name.trim() || !email.trim()) return;
 
-    const subject = encodeURIComponent(`[Projet] ${projectType} - ${name}`);
+    const mail = t.contact.mail;
+    const subject = encodeURIComponent(format(mail.subject, { type: projectTypeLabel, name }));
     const body = encodeURIComponent(
-      `Bonjour Facile Studio,\n\n` +
-      `Nom / Entreprise : ${name}\n` +
-      `Email : ${email}\n` +
-      `Téléphone : ${phone || "Non renseigné"}\n\n` +
-      `Type de projet : ${projectType}\n` +
-      `Budget estimé : ${budget}\n` +
-      `Calendrier visé : ${timeline}\n` +
-      `Points clés : ${tags.join(", ") || "Aucun"}\n\n` +
-      `Description du besoin :\n${message || "À préciser lors de notre premier échange."}\n\n` +
-      `---\nEnvoyé depuis facile.studio/contact`
+      `${mail.greeting}\n\n` +
+      `${mail.name} ${name}\n` +
+      `${mail.email} ${email}\n` +
+      `${mail.phone} ${phone || mail.notProvided}\n\n` +
+      `${mail.type} ${projectTypeLabel}\n` +
+      `${mail.budget} ${budgetLabel}\n` +
+      `${mail.timeline} ${timelineLabel}\n` +
+      `${mail.keyPoints} ${tagLabels || mail.none}\n\n` +
+      `${mail.description}\n${message || mail.toBeDefined}\n\n` +
+      `---\n${mail.sentFrom}`
     );
 
     submitted = true;
@@ -140,26 +107,23 @@
 </script>
 
 <svelte:head>
-  <title>Démarrer un projet · Facile Studio</title>
-  <meta
-    name="description"
-    content="Parlez-nous de votre projet. Design sur mesure, code solide et hébergement souverain."
-  />
+  <title>{t.contact.meta.title}</title>
+  <meta name="description" content={t.contact.meta.description} />
 </svelte:head>
 
 <div class="w-full max-w-5xl mx-auto px-4 sm:px-6 md:px-10 pt-8 pb-6 sm:pt-12 sm:pb-10 flex flex-col min-h-dvh justify-between gap-8">
   <header>
     <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-4">
       <a
-        href="/"
+        href={i18n.href("/")}
         class="inline-flex items-center gap-2 justify-self-start whitespace-nowrap rounded-fc-pill bg-fc-surface hover:bg-fc-surface-hover px-4 py-2 text-xs font-semibold text-fc-fg transition-colors shrink-0 shadow-xs"
       >
         <Icon icon={icons.chevronLeft} size={14} />
-        <span>Retour à l'accueil</span>
+        <span>{t.common.backHome}</span>
       </a>
 
       {#if !submitted}
-        <div class="flex items-center gap-1.5" role="img" aria-label="Étape {step} sur {STEPS.length}">
+        <div class="flex items-center gap-1.5" role="img" aria-label={format(t.contact.progress, { step, total: STEPS.length })}>
           {#each STEPS as _, i (i)}
             <span
               class="h-2 rounded-fc-full transition-all duration-300 {i + 1 === step
@@ -178,7 +142,7 @@
         href="tel:+33768888818"
         class="hidden sm:inline-flex justify-self-end items-center gap-1.5 text-fc-xs text-fc-fg-muted hover:text-fc-fg font-medium transition-colors"
       >
-        07 68 88 88 18
+        {t.common.phone}
       </a>
     </div>
   </header>
@@ -195,30 +159,30 @@
 
         <div class="flex flex-col gap-3">
           <h1 class="text-3xl sm:text-4xl font-black tracking-tight text-fc-fg">
-            Votre demande est prête
+            {t.contact.done.title}
           </h1>
           <p class="text-fc-sm sm:text-fc-base text-fc-fg-muted leading-relaxed">
-            Votre messagerie s'est ouverte avec le récapitulatif. Envoyez le mail, on vous répond sous 24h ouvrées.
+            {t.contact.done.text}
           </p>
         </div>
 
         <div class="w-full rounded-fc-2xl bg-fc-component p-6 text-left flex flex-col gap-3 text-fc-xs shadow-sm">
-          <span class="font-semibold uppercase tracking-wider text-fc-accent">Récapitulatif de votre demande</span>
+          <span class="font-semibold uppercase tracking-wider text-fc-accent">{t.contact.done.summary}</span>
           <div class="grid grid-cols-2 gap-3 text-fc-fg">
             <div>
-              <span class="text-fc-fg-muted block">Type :</span>
-              <strong class="font-medium">{projectType}</strong>
+              <span class="text-fc-fg-muted block">{t.contact.done.type}</span>
+              <strong class="font-medium">{projectTypeLabel}</strong>
             </div>
             <div>
-              <span class="text-fc-fg-muted block">Budget indicatif :</span>
-              <strong class="font-medium">{budget}</strong>
+              <span class="text-fc-fg-muted block">{t.contact.done.budget}</span>
+              <strong class="font-medium">{budgetLabel}</strong>
             </div>
             <div>
-              <span class="text-fc-fg-muted block">Calendrier :</span>
-              <strong class="font-medium">{timeline}</strong>
+              <span class="text-fc-fg-muted block">{t.contact.done.timeline}</span>
+              <strong class="font-medium">{timelineLabel}</strong>
             </div>
             <div>
-              <span class="text-fc-fg-muted block">Contact :</span>
+              <span class="text-fc-fg-muted block">{t.contact.done.contact}</span>
               <strong class="font-medium">{name} ({email})</strong>
             </div>
           </div>
@@ -228,11 +192,11 @@
           <Button
             variant="primary"
             size="lg"
-            href="/"
+            href={i18n.href("/")}
             class="rounded-fc-pill font-semibold px-8 shadow-sm"
             icon={icons.home}
           >
-            Retour à l'accueil
+            {t.common.backHome}
           </Button>
           <Button
             variant="ghost"
@@ -241,7 +205,7 @@
             class="rounded-fc-pill bg-fc-surface text-fc-fg hover:bg-fc-surface-hover px-6"
             icon={icons.refresh}
           >
-            Modifier ma demande
+            {t.contact.done.edit}
           </Button>
         </div>
       </div>
@@ -253,10 +217,10 @@
         >
           <div class="flex flex-col gap-2">
             <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">
-              Quel type de projet souhaitez-vous concevoir&nbsp;?
+              {t.contact.typeStep.title}
             </h1>
             <p class="text-fc-sm sm:text-fc-base text-fc-fg-muted">
-              Choisissez votre besoin principal.
+              {t.contact.typeStep.intro}
             </p>
           </div>
 
@@ -283,11 +247,11 @@
                     {/if}
                   </div>
                   <div>
-                    <h3 class="text-fc-base font-bold text-fc-fg">{item.title}</h3>
-                    <p class="text-[11px] font-mono text-fc-fg-muted">{item.category}</p>
+                    <h3 class="text-fc-base font-bold text-fc-fg">{t.contact.types[item.id].title}</h3>
+                    <p class="text-[11px] font-mono text-fc-fg-muted">{t.contact.types[item.id].category}</p>
                   </div>
                   <p class="text-fc-xs text-fc-fg-muted leading-relaxed">
-                    {item.description}
+                    {t.contact.types[item.id].description}
                   </p>
                 </div>
               </button>
@@ -301,36 +265,36 @@
         >
           <div class="flex flex-col gap-2">
             <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">
-              Budget et calendrier
+              {t.contact.budgetStep.title}
             </h1>
             <p class="text-fc-sm sm:text-fc-base text-fc-fg-muted">
-              Ces repères nous aident à dimensionner le projet.
+              {t.contact.budgetStep.intro}
             </p>
           </div>
 
           <div class="flex flex-col gap-4">
-            <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-fg-muted">Budget prévisionnel</span>
+            <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-fg-muted">{t.contact.budgetStep.budgetLabel}</span>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
               {#each BUDGETS as b}
                 <button
                   type="button"
-                  onclick={() => (budget = b.label)}
-                  aria-pressed={budget === b.label}
+                  onclick={() => (budget = b)}
+                  aria-pressed={budget === b}
                   class="flex flex-col justify-between gap-3 rounded-fc-2xl p-5 text-left transition-all cursor-pointer
-                    {budget === b.label
+                    {budget === b
                       ? 'bg-fc-accent/15 shadow-md'
                       : 'bg-fc-component hover:bg-fc-surface'}"
                 >
                   <div class="flex items-center justify-between">
-                    <span class="text-fc-lg font-bold text-fc-fg">{b.label}</span>
-                    {#if budget === b.label}
+                    <span class="text-fc-lg font-bold text-fc-fg">{t.contact.budgets[b].label}</span>
+                    {#if budget === b}
                       <span class="flex size-5 items-center justify-center rounded-fc-full bg-fc-accent text-fc-accent-fg">
                         <Icon icon={icons.check} size={12} />
                       </span>
                     {/if}
                   </div>
                   <p class="text-fc-xs text-fc-fg-muted leading-relaxed">
-                    {b.note}
+                    {t.contact.budgets[b].note}
                   </p>
                 </button>
               {/each}
@@ -338,19 +302,19 @@
           </div>
 
           <div class="flex flex-col gap-4 pt-2">
-            <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-fg-muted">Délai ou calendrier souhaité</span>
+            <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-fg-muted">{t.contact.budgetStep.timelineLabel}</span>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
-              {#each TIMELINES as t}
+              {#each TIMELINES as option}
                 <button
                   type="button"
-                  onclick={() => (timeline = t)}
-                  aria-pressed={timeline === t}
+                  onclick={() => (timeline = option)}
+                  aria-pressed={timeline === option}
                   class="rounded-fc-pill px-4 py-3 text-center text-fc-xs font-medium transition-all cursor-pointer
-                    {timeline === t
+                    {timeline === option
                       ? 'bg-fc-accent text-fc-accent-fg shadow-xs'
                       : 'bg-fc-component text-fc-fg-muted hover:text-fc-fg hover:bg-fc-surface'}"
                 >
-                  {t}
+                  {t.contact.timelines[option]}
                 </button>
               {/each}
             </div>
@@ -363,16 +327,16 @@
         >
           <div class="flex flex-col gap-2">
             <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">
-              Parlez-nous de votre projet
+              {t.contact.visionStep.title}
             </h1>
             <p class="text-fc-sm sm:text-fc-base text-fc-fg-muted">
-              Quelques mots suffisent. Votre activité, vos attentes, vos contraintes.
+              {t.contact.visionStep.intro}
             </p>
           </div>
 
           <div class="flex flex-col gap-4">
             <div class="flex flex-wrap items-center gap-2">
-              <span class="text-[11px] font-semibold uppercase tracking-wider text-fc-fg-muted mr-1">Raccourcis :</span>
+              <span class="text-[11px] font-semibold uppercase tracking-wider text-fc-fg-muted mr-1">{t.contact.visionStep.shortcuts}</span>
               {#each QUICK_TAGS as tag}
                 <button
                   type="button"
@@ -383,20 +347,20 @@
                       ? 'bg-fc-accent text-fc-accent-fg'
                       : 'bg-fc-component text-fc-fg-muted hover:bg-fc-surface hover:text-fc-fg'}"
                 >
-                  + {tag}
+                  + {t.contact.tags[tag]}
                 </button>
               {/each}
             </div>
 
             <div class="flex flex-col gap-2">
               <label for="contact-vision" class="text-fc-xs font-medium text-fc-fg-muted">
-                Détails (optionnel, mais utile)
+                {t.contact.visionStep.detailsLabel}
               </label>
               <textarea
                 id="contact-vision"
                 bind:value={message}
                 rows="6"
-                placeholder="Votre public, les sites qui vous inspirent, les fonctionnalités indispensables..."
+                placeholder={t.contact.visionStep.placeholder}
                 class="w-full rounded-fc-2xl bg-fc-component p-5 text-fc-sm text-fc-fg outline-none transition-colors focus:bg-fc-surface resize-none shadow-sm placeholder:text-fc-fg-muted/60"
               ></textarea>
             </div>
@@ -410,77 +374,77 @@
         >
           <div class="flex flex-col gap-2">
             <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-fc-fg">
-              Comment pouvons-nous vous recontacter&nbsp;?
+              {t.contact.contactStep.title}
             </h1>
             <p class="text-fc-sm sm:text-fc-base text-fc-fg-muted">
-              On étudie votre projet et on vous répond sous 24h ouvrées.
+              {t.contact.contactStep.intro}
             </p>
           </div>
 
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             <div class="lg:col-span-7 flex flex-col gap-4">
               <div class="flex flex-col gap-1.5">
-                <label for="contact-name" class="text-fc-xs font-medium text-fc-fg-muted">Nom ou entreprise *</label>
+                <label for="contact-name" class="text-fc-xs font-medium text-fc-fg-muted">{t.contact.contactStep.name}</label>
                 <input
                   id="contact-name"
                   type="text"
                   bind:value={name}
                   required
-                  placeholder="Alexandre Dumas, Studio Dumas"
+                  placeholder={t.contact.contactStep.namePlaceholder}
                   class="h-12 rounded-fc-xl bg-fc-component px-4 text-fc-sm text-fc-fg outline-none transition-colors focus:bg-fc-surface shadow-xs"
                 />
               </div>
 
               <div class="flex flex-col gap-1.5">
-                <label for="contact-email" class="text-fc-xs font-medium text-fc-fg-muted">Email *</label>
+                <label for="contact-email" class="text-fc-xs font-medium text-fc-fg-muted">{t.contact.contactStep.email}</label>
                 <input
                   id="contact-email"
                   type="email"
                   bind:value={email}
                   required
-                  placeholder="alexandre@domaine.fr"
+                  placeholder={t.contact.contactStep.emailPlaceholder}
                   class="h-12 rounded-fc-xl bg-fc-component px-4 text-fc-sm text-fc-fg outline-none transition-colors focus:bg-fc-surface shadow-xs"
                 />
               </div>
 
               <div class="flex flex-col gap-1.5">
-                <label for="contact-phone" class="text-fc-xs font-medium text-fc-fg-muted">Téléphone (optionnel)</label>
+                <label for="contact-phone" class="text-fc-xs font-medium text-fc-fg-muted">{t.contact.contactStep.phone}</label>
                 <input
                   id="contact-phone"
                   type="tel"
                   bind:value={phone}
-                  placeholder="06 12 34 56 78"
+                  placeholder={t.contact.contactStep.phonePlaceholder}
                   class="h-12 rounded-fc-xl bg-fc-component px-4 text-fc-sm text-fc-fg outline-none transition-colors focus:bg-fc-surface shadow-xs"
                 />
               </div>
             </div>
 
             <div class="lg:col-span-5 rounded-fc-2xl bg-fc-component p-6 flex flex-col gap-4 shadow-sm">
-              <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">Synthèse de votre projet</span>
+              <span class="text-fc-xs font-semibold uppercase tracking-wider text-fc-accent">{t.contact.contactStep.summary}</span>
 
               <div class="flex flex-col gap-3 text-fc-xs">
                 <div>
-                  <span class="text-fc-fg-muted block">Nature du projet</span>
-                  <span class="font-semibold text-fc-fg">{projectType}</span>
+                  <span class="text-fc-fg-muted block">{t.contact.contactStep.nature}</span>
+                  <span class="font-semibold text-fc-fg">{projectTypeLabel}</span>
                 </div>
                 <div>
-                  <span class="text-fc-fg-muted block">Budget indicatif</span>
-                  <span class="font-semibold text-fc-fg">{budget}</span>
+                  <span class="text-fc-fg-muted block">{t.contact.contactStep.budget}</span>
+                  <span class="font-semibold text-fc-fg">{budgetLabel}</span>
                 </div>
                 <div>
-                  <span class="text-fc-fg-muted block">Calendrier</span>
-                  <span class="font-semibold text-fc-fg">{timeline}</span>
+                  <span class="text-fc-fg-muted block">{t.contact.contactStep.timeline}</span>
+                  <span class="font-semibold text-fc-fg">{timelineLabel}</span>
                 </div>
                 {#if tags.length > 0}
                   <div>
-                    <span class="text-fc-fg-muted block">Points clés</span>
-                    <span class="font-semibold text-fc-fg">{tags.join(", ")}</span>
+                    <span class="text-fc-fg-muted block">{t.contact.contactStep.keyPoints}</span>
+                    <span class="font-semibold text-fc-fg">{tagLabels}</span>
                   </div>
                 {/if}
                 {#if message}
                   <div>
-                    <span class="text-fc-fg-muted block">Vos notes</span>
-                    <span class="text-fc-fg-muted line-clamp-3 italic">« {message} »</span>
+                    <span class="text-fc-fg-muted block">{t.contact.contactStep.notes}</span>
+                    <span class="text-fc-fg-muted line-clamp-3 italic">{format(t.contact.contactStep.quote, { message })}</span>
                   </div>
                 {/if}
               </div>
@@ -488,11 +452,11 @@
               <div class="pt-2 flex flex-col gap-2 text-[11px] text-fc-fg-muted">
                 <span class="flex items-center gap-2">
                   <span class="size-1.5 rounded-fc-full bg-fc-accent"></span>
-                  <span>Réponse sous 24h ouvrées</span>
+                  <span>{t.contact.contactStep.reply}</span>
                 </span>
                 <span class="flex items-center gap-2">
                   <span class="size-1.5 rounded-fc-full bg-fc-accent"></span>
-                  <span>Devis transparent et sans engagement</span>
+                  <span>{t.contact.contactStep.transparent}</span>
                 </span>
               </div>
             </div>
@@ -547,7 +511,7 @@
             class="rounded-fc-pill px-6 bg-fc-component hover:bg-fc-surface text-fc-fg"
             icon={icons.chevronLeft}
           >
-            Précédent
+            {t.contact.prev}
           </Button>
         {/if}
       </div>
@@ -562,7 +526,7 @@
             class="rounded-fc-pill font-semibold px-8 shadow-sm"
             icon={icons.arrow}
           >
-            Continuer
+            {t.contact.next}
           </Button>
         {:else}
           <Button
@@ -574,7 +538,7 @@
             class="rounded-fc-pill font-semibold px-8 shadow-md"
             icon={icons.arrow}
           >
-            Transmettre mon projet
+            {t.contact.submit}
           </Button>
         {/if}
       </div>
