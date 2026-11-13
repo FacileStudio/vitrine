@@ -1,9 +1,7 @@
 <script lang="ts">
-  import { goto } from "$app/navigation";
-  import { page } from "$app/state";
-  import { Button, Icon, IconButton, LocaleSwitch, SignInWithFacile, icons } from "@facile/muse";
+  import { Button, Icon, IconButton, SignInWithFacile, icons } from "@facile/muse";
   import { ACCOUNT_URL } from "$lib/data";
-  import { localizeHref, stripLocale, toLocale, useI18n } from "$lib/i18n";
+  import { useI18n } from "$lib/i18n";
   import { theme, toggleTheme } from "$lib/theme.svelte";
 
   let { suite = false }: { suite?: boolean } = $props();
@@ -12,17 +10,8 @@
   const t = $derived(i18n.t);
 
   const ROUND = "size-(--fc-ctl) rounded-fc-inner border-0 bg-fc-surface/70 text-fc-fg hover:bg-fc-surface";
-
-  function switchLocale(next: string) {
-    goto(`${localizeHref(stripLocale(page.url.pathname), toLocale(next))}${page.url.hash}`);
-  }
 </script>
 
-<LocaleSwitch
-  value={i18n.locale}
-  onChange={switchLocale}
-  class="h-(--fc-ctl) rounded-fc-inner bg-fc-surface/70 px-3 text-fc-sm hover:bg-fc-surface"
-/>
 <IconButton
   variant="ghost"
   class={ROUND}

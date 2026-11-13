@@ -2,7 +2,7 @@
   import "../app.css";
   import { onMount, type Snippet } from "svelte";
   import { page } from "$app/state";
-  import { onNavigate } from "$app/navigation";
+  import { goto, onNavigate } from "$app/navigation";
   import {
     LandingFooter,
     LandingHeader,
@@ -39,6 +39,7 @@
   const flush = $derived(scrolled || isContactPage);
   const pageUrl = (target: Locale) => `https://facile.studio${localizeHref(path, target)}`;
   const canonicalUrl = $derived(pageUrl(locale));
+  const switchLocale = (next: string) => goto(`${localizeHref(path, toLocale(next))}${page.url.hash}`);
   const suiteInView = $derived(isHomePage && SUITE_SECTIONS.includes(activeSection));
 
   const links = $derived([
@@ -183,7 +184,7 @@
         appName="Facile Studio"
         homeHref={i18n.href("/")}
         columns={footerColumns}
-        legal={{ hideLocaleSwitch: true }}
+        legal={{ onLocaleChange: switchLocale }}
         class="relative z-10 pb-12"
       >
         {#snippet brand()}<BrandMark /><span>Facile Studio</span>{/snippet}
