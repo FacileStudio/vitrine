@@ -4,6 +4,13 @@ All notable changes to Facile Studio Vitrine will be documented in this file.
 
 ## [Unreleased]
 
+## [1.8.1] - 2026-11-13
+
+### Fixed
+- Portfolio cards are rounded at 20px like their cover image, so no background shows at the corners. muse's `twMerge` kept the Card's base `rounded-fc-md` over `rounded-fc-2xl`.
+- A non-breaking space keeps every "?" on the same line as the word before it.
+- SvelteKit, Svelte, TypeScript, Go and Stripe badges use their real Simple Icons marks.
+
 ## [1.8.0] - 2026-11-12
 
 ### Added
