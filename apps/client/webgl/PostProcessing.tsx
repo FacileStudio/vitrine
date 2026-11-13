@@ -13,6 +13,9 @@ const FRAME_SLACK = 0.002;
 // the dither reads one scene texel near each cell centre, so a few texels per cell look the same as full resolution
 const TEXELS_PER_CELL = 3;
 
+const GRID_EASE = 0.35;
+const GRID_SPEED = 12;
+
 // the scene and bloom only feed the per-cell sample, so they render at a fraction of css size while the pattern keeps device pixels
 function fit(composer: EffectComposer, width: number, height: number, cellCss: number) {
     const scale = Math.min(1, TEXELS_PER_CELL / cellCss);
@@ -34,6 +37,7 @@ export interface PostProcessingProps {
     bloom?: boolean;
     bloomIntensity?: number;
     gridTween?: number;
+    gridTarget?: { current: number };
 }
 
 export function PostProcessing({
@@ -45,10 +49,12 @@ export function PostProcessing({
     bloom = true,
     bloomIntensity = 0.5,
     gridTween = 0.8,
+    gridTarget,
 }: PostProcessingProps) {
     const composerRef = useRef<EffectComposer | null>(null);
     const ditherRef = useRef<DitheringEffect | null>(null);
     const gridValue = useRef(gridSize);
+    const gridLive = useRef(false);
     const [scene, setScene] = useState<THREE.Scene | null>(null);
     const [camera, setCamera] = useState<THREE.Camera | null>(null);
     const sinceRender = useRef(Infinity);
@@ -113,6 +119,9 @@ export function PostProcessing({
 
     // the scene buffer is sized for the finest grid of the tween, then follows the target once it lands
     useEffect(() => {
+        if (gridTarget)
+            return;
+
         const proxy = { v: gridValue.current };
 
         setCellGrid(Math.min(gridValue.current, gridSize));
@@ -130,13 +139,27 @@ export function PostProcessing({
         return () => {
             tween.kill();
         };
-    }, [gridSize, gridTween]);
+    }, [gridSize, gridTween, gridTarget]);
 
     useFrame(({ gl, scene: currentScene, camera: currentCamera }, delta) => {
         if (!composerRef.current) {
             composerRef.current = new EffectComposer(gl);
             fit(composerRef.current, size.width, size.height, cellCss);
         }
+        if (gridTarget) {
+            if (!gridLive.current) {
+                gridLive.current = true;
+                gridValue.current = gridTarget.current;
+            }
+
+            const gap = gridTarget.current - gridValue.current;
+            const eased = gap * (1 - Math.exp(-delta / GRID_EASE));
+            const cap = GRID_SPEED * delta;
+
+            gridValue.current += Math.max(-cap, Math.min(cap, eased));
+            ditherRef.current?.setGridSize(gridValue.current);
+        }
+
         if (scene !== currentScene) setScene(currentScene);
         if (camera !== currentCamera) setCamera(currentCamera);
 

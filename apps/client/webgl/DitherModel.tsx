@@ -22,7 +22,11 @@ export interface DitherModelProps {
     glow?: string;
     glowIntensity?: number;
     glowSpread?: number;
+    follow?: { x: number; y: number };
+    scaleTarget?: { current: number };
 }
+
+const SCALE_EASE = 0.3;
 
 const headAt = new THREE.Vector3();
 const headScale = new THREE.Vector3();
@@ -43,6 +47,8 @@ export function DitherModel({
     glow,
     glowIntensity = 10,
     glowSpread = 1.1,
+    follow,
+    scaleTarget,
 }: DitherModelProps) {
     const { scene } = useGLTF(file, false, true, trackBytes);
     const canvas = useThree((state) => state.gl.domElement);
@@ -56,7 +62,7 @@ export function DitherModel({
     const [seed] = useState(() => Math.random() * 100);
 
     useEffect(() => {
-        if (!parallax) return;
+        if (!parallax || follow) return;
         const onMove = (e: PointerEvent) => {
             cursor.current = { x: e.clientX, y: e.clientY };
             moved.current = true;
@@ -72,7 +78,7 @@ export function DitherModel({
             window.removeEventListener("pointermove", onMove);
             window.removeEventListener("scroll", onScroll);
         };
-    }, [parallax]);
+    }, [parallax, follow]);
 
     const model = useMemo(() => {
         const cloned = scene.clone(true);
@@ -141,9 +147,15 @@ export function DitherModel({
         };
     }, [glow, glowIntensity, world]);
 
-    useFrame((state) => {
+    useFrame((state, delta) => {
         if (offset && shift.current)
             shift.current.position.set(offset.x, offset.y, offset.z);
+
+        if (scaleTarget && head.current) {
+            const now = head.current.scale.x;
+
+            head.current.scale.setScalar(now + (scaleTarget.current - now) * (1 - Math.exp(-delta / SCALE_EASE)));
+        }
 
         const spot = light.current;
 
@@ -166,7 +178,7 @@ export function DitherModel({
             pointer.current.y = -(cursor.current.y - (rect.top + rect.height / 2)) / (window.innerHeight / 2);
         }
 
-        const { x, y } = pointer.current;
+        const { x, y } = follow ?? pointer.current;
         const t = state.clock.elapsedTime + seed;
         const driftX = Math.sin(t * 0.23) * 0.6 + Math.sin(t * 0.13 + 2.1) * 0.4;
         const driftY = Math.sin(t * 0.31 + 1.3) * 0.6 + Math.sin(t * 0.17 + 0.7) * 0.4;
