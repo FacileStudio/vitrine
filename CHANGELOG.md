@@ -4,6 +4,11 @@ All notable changes to Facile Studio Vitrine will be documented in this file.
 
 ## [Unreleased]
 
+## [1.9.1] - 2026-11-13
+
+### Changed
+- The language switch moved from the navbar to the footer, next to the legal links, like the Suite site.
+
 ## [1.9.0] - 2026-11-13
 
 ### Added
