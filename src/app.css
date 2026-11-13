@@ -3,9 +3,77 @@
 @import '@facile/blob/gaze.css';
 @source '../node_modules/@facile/muse/src';
 
+@font-face {
+  font-family: 'Goga';
+  src: url('/fonts/goga/GogaTest-Regular-BF6646d5d84f69b.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Goga';
+  src: url('/fonts/goga/GogaTest-Medium-BF6646d5d84754e.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Goga';
+  src: url('/fonts/goga/GogaTest-Bold-BF6646d5d83c978.woff2') format('woff2');
+  font-weight: 600 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Magnetik';
+  src: url('/fonts/magnetik/Magnetik-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Magnetik';
+  src: url('/fonts/magnetik/Magnetik-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Magnetik';
+  src: url('/fonts/magnetik/Magnetik-Bold.woff2') format('woff2');
+  font-weight: 600 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BB Manual Mono';
+  src: url('/fonts/bb-manual-mono/BBManualMonoProText-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BB Manual Mono';
+  src: url('/fonts/bb-manual-mono/BBManualMonoProText-Medium.woff2') format('woff2');
+  font-weight: 500 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   --radius-fc-xl: 1rem;
   --radius-fc-2xl: 1.25rem;
   --radius-fc-3xl: 1.75rem;
+  --font-fc-title: 'Goga', 'Magnetik', 'Helvetica Neue', Arial, sans-serif;
+  --font-fc-body: 'BB Manual Mono', ui-monospace, monospace;
+  --font-sans: 'BB Manual Mono', ui-monospace, monospace;
+  --font-fc-mono: 'BB Manual Mono', ui-monospace, monospace;
+  --font-mono: 'BB Manual Mono', ui-monospace, monospace;
 }
-
