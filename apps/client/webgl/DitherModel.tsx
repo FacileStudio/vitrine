@@ -18,6 +18,7 @@ export interface DitherModelProps {
     parallaxSpeed?: number;
     idle?: number;
     float?: boolean;
+    offset?: { x: number; y: number; z: number };
 }
 
 export function DitherModel({
@@ -32,9 +33,11 @@ export function DitherModel({
     parallaxSpeed = 0.025,
     idle = 0,
     float = true,
+    offset,
 }: DitherModelProps) {
     const { scene } = useGLTF(file, false, true, trackBytes);
     const canvas = useThree((state) => state.gl.domElement);
+    const shift = useRef<THREE.Group>(null);
     const group = useRef<THREE.Group>(null);
     const cursor = useRef<{ x: number; y: number } | null>(null);
     const pointer = useRef({ x: 0, y: 0 });
@@ -109,6 +112,9 @@ export function DitherModel({
     }, [model]);
 
     useFrame((state) => {
+        if (offset && shift.current)
+            shift.current.position.set(offset.x, offset.y, offset.z);
+
         if (!group.current || (!parallax && !idle)) return;
 
         // reading the canvas rect can force a layout, so it only happens after the pointer or the page moved
@@ -138,14 +144,16 @@ export function DitherModel({
     );
 
     return (
-        <group ref={group}>
-            {float ? (
-                <Float floatIntensity={2} rotationIntensity={1} speed={2}>
-                    {centered}
-                </Float>
-            ) : (
-                centered
-            )}
+        <group ref={shift}>
+            <group ref={group}>
+                {float ? (
+                    <Float floatIntensity={2} rotationIntensity={1} speed={2}>
+                        {centered}
+                    </Float>
+                ) : (
+                    centered
+                )}
+            </group>
         </group>
     );
 }
