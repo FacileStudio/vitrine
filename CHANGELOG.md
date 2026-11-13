@@ -4,6 +4,11 @@ All notable changes to Facile Studio Vitrine will be documented in this file.
 
 ## [Unreleased]
 
+## [1.10.0] - 2026-11-13
+
+### Changed
+- Headings use Goga and body text uses BB Manual Mono, the fonts from the redesign. Magnetik fills the characters Goga lacks.
+
 ## [1.9.1] - 2026-11-13
 
 ### Changed
