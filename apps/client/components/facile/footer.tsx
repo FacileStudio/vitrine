@@ -34,7 +34,7 @@ export default function Footer() {
                 </TextReveal>
 
                 {/* NavLinks goes row and shows sublinks from md, the footer holds both back to lg */}
-                <NavLinks open={show} delay={0.1} className="md:flex-col lg:flex-row md:[&_ul]:hidden lg:[&_ul]:flex" />
+                <NavLinks open={show} delay={0.1} dropdown className="md:flex-col lg:flex-row md:[&_ul]:hidden lg:[&_ul]:flex md:[&_.chevron]:hidden lg:[&_.chevron]:block" />
             </div>
 
             <div className="relative z-20 w-full flex items-end justify-between lg:flex-row lg:items-center gap-6">

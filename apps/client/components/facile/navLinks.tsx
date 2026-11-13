@@ -1,7 +1,8 @@
 'use client'
 
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { Icon } from '@iconify/react';
 import TextReveal from '@/components/facile/textReveal';
 import type { Project } from '@/lib/content/projects';
 import { useMembers, useProjects } from '@/components/facile/contentProvider';
@@ -83,13 +84,16 @@ export function NavLinks({
     open,
     delay = 0,
     onSamePage,
+    dropdown = false,
     className,
 }: {
     open: boolean;
     delay?: number;
     onSamePage?: () => void;
+    dropdown?: boolean;
     className?: string;
 }) {
+    const [hovered, setHovered] = useState<string | null>(null);
     const t = useTranslations('common.nav');
     const go = useTransitionGo();
     const members = useMembers();
@@ -107,7 +111,14 @@ export function NavLinks({
     return (
         <nav className={cn('flex flex-col md:flex-row mr-12 gap-4 md:gap-x-10 lg:gap-x-16', className)}>
             {links.map((link, i) => (
-                <div key={link.href} className="flex w-auto flex-col items-start">
+                <div
+                    key={link.href}
+                    className={cn('flex w-auto flex-col items-start', dropdown && 'relative')}
+                    onMouseEnter={dropdown ? () => setHovered(link.href) : undefined}
+                    onMouseLeave={dropdown ? () => setHovered(null) : undefined}
+                    onFocus={dropdown ? () => setHovered(link.href) : undefined}
+                    onBlur={dropdown ? () => setHovered(null) : undefined}
+                >
                     <TextReveal
                         open={open}
                         duration={0.6}
@@ -116,16 +127,23 @@ export function NavLinks({
                         <Anchor href={link.href} go={handle} className="subtitle flex items-center gap-[0.3em] text-background transition-colors">
                             {link.icon && <AppMark icon={link.icon} fileClassName="h-[0.9em] w-[0.9em] object-contain" />}
                             {t(link.key)}
+                            {dropdown && link.secondary && link.secondary.length > 0 && (
+                                <Icon
+                                    icon="iconoir:nav-arrow-down"
+                                    aria-hidden
+                                    className={cn('chevron hidden md:block size-[0.7em] shrink-0 transition-transform duration-300', hovered === link.href && 'rotate-180')}
+                                />
+                            )}
                         </Anchor>
                     </TextReveal>
                     {link.secondary && link.secondary.length > 0 && (
-                        <ul className="mt-4 hidden md:flex flex-col items-start gap-fc">
+                        <ul className={cn('hidden md:flex flex-col items-start gap-fc', dropdown ? 'absolute left-0 top-full pt-4' : 'mt-4', dropdown && hovered !== link.href && 'pointer-events-none')}>
                             {link.secondary.map((sub, j) => (
                                 <li key={sub.href}>
                                     <TextReveal
-                                        open={open}
-                                        duration={0.5}
-                                        delay={open ? delay + SUB_AFTER + (subBase[i] + j) * 0.035 : 0}
+                                        open={open && (!dropdown || hovered === link.href)}
+                                        duration={dropdown ? 0.35 : 0.5}
+                                        delay={dropdown ? (hovered === link.href ? j * 0.035 : 0) : open ? delay + SUB_AFTER + (subBase[i] + j) * 0.035 : 0}
                                     >
                                         <Anchor href={sub.href} go={handle} className="block text-background/45 transition-colors hover:text-background/90">
                                             <p>{label(sub)}</p>
