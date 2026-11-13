@@ -4,6 +4,17 @@ All notable changes to Facile Studio Vitrine will be documented in this file.
 
 ## [Unreleased]
 
+## [1.9.0] - 2026-11-13
+
+### Added
+- The site is available in English, German and Spanish at `/en`, `/de` and `/es`. French stays at `/`.
+- A language switch in the navbar and the mobile drawer keeps the current page and section.
+- Every page carries hreflang alternates, a per-locale canonical and `og:locale`. The sitemap lists all four languages.
+
+### Changed
+- All copy lives in `src/lib/i18n/{fr,en,de,es}.ts`. French is the source and the type check fails when a translation misses a key.
+- The German and Spanish copy are machine-quality drafts and need a native review.
+
 ## [1.8.2] - 2026-11-13
 
 ### Fixed
