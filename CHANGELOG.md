@@ -4,6 +4,11 @@ All notable changes to Facile Studio Vitrine will be documented in this file.
 
 ## [Unreleased]
 
+## [1.8.2] - 2026-11-13
+
+### Fixed
+- Every tech badge uses its official Simple Icons mark: PostgreSQL, WebAssembly, Three.js, GSAP, Tailwind CSS, Docker, Figma and Matrix were hand-drawn. GLSL Shaders shows the OpenGL mark.
+
 ## [1.8.1] - 2026-11-13
 
 ### Fixed
