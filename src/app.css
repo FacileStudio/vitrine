@@ -72,8 +72,8 @@
   --radius-fc-2xl: 1.25rem;
   --radius-fc-3xl: 1.75rem;
   --font-fc-title: 'Goga', 'Magnetik', 'Helvetica Neue', Arial, sans-serif;
-  --font-fc-body: 'BB Manual Mono', ui-monospace, monospace;
-  --font-sans: 'BB Manual Mono', ui-monospace, monospace;
+  --font-fc-body: 'Magnetik', 'Helvetica Neue', Arial, sans-serif;
+  --font-sans: 'Magnetik', 'Helvetica Neue', Arial, sans-serif;
   --font-fc-mono: 'BB Manual Mono', ui-monospace, monospace;
   --font-mono: 'BB Manual Mono', ui-monospace, monospace;
 }
