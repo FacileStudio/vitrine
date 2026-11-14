@@ -354,6 +354,14 @@ export const SUITE_TOOLS: ToolItem[] = [
     url: "https://place.facile.studio",
     isNew: true,
   },
+  {
+    id: "gare",
+    name: "Gare",
+    icon: "solar:tram-bold-duotone",
+    category: "infra",
+    url: "https://garev2.facile.studio",
+    githubUrl: "https://github.com/FacileStudio/gare",
+  },
 ];
 
 export const SUITE_CATEGORIES = ["all", "agent", "hardware", "business", "productivity", "infra"] as const;
