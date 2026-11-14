@@ -37,7 +37,7 @@ export const en: Messages = {
   home: {
     meta: {
       title: "Facile Studio · Web design and engineering studio",
-      description: "Showcase sites, custom web apps, art direction and sovereign hosting, from the studio behind the Facile Suite.",
+      description: "Showcase sites, custom web apps, art direction and hosting, from the studio behind the Facile Suite.",
     },
     hero: {
       titleLine1: "We simplify,",
@@ -81,7 +81,7 @@ export const en: Messages = {
       title: "Bulle, the agent connected to all your tools",
       intro: "Bulle has its own computer, a Linux microVM, and plugs into all your Facile tools. It reads and writes your email in Courrier, files your tasks in Opus, books your meetings in Agenda, manages your files in Nuage and deploys your projects.",
       chips: [
-        "Sovereign Linux microVM",
+        "Its own Linux microVM",
         "Courrier · Opus · Agenda · Nuage",
         "Matrix E2EE & Prisme",
         "Native MCP tools",
@@ -91,7 +91,7 @@ export const en: Messages = {
     },
     hardware: {
       title: "Pastille, the voice assistant that fits in your palm",
-      intro: "The studio also runs a hardware R&D workshop for custom connected devices. Pastille is our open demo: a 38 mm charm with an ESP32-S3, a round IPS display and firmware written in Rust with Embassy.",
+      intro: "The studio also runs a hardware R&D workshop for custom connected devices. Pastille is our open demo: a 42 mm charm with an ESP32-S3, a round IPS display and firmware written in Rust with Embassy.",
       site: "Official Pastille site",
       schematics: "KiCad schematics",
     },
@@ -207,7 +207,7 @@ export const en: Messages = {
   contact: {
     meta: {
       title: "Start a project · Facile Studio",
-      description: "Tell us about your project. Custom design, solid code and sovereign hosting.",
+      description: "Tell us about your project. Custom design, solid code and hosting.",
     },
     progress: "Step {step} of {total}",
     steps: [
@@ -247,7 +247,7 @@ export const en: Messages = {
         description: "Logotype, typography, brand guidelines, design system and 3D mockups.",
       },
       infra: {
-        title: "Infra & Sovereign hosting",
+        title: "Infra & Hosting",
         category: "DevOps & Cloud",
         description: "Dedicated servers in Europe, Docker, Nginx and high availability.",
       },
@@ -299,7 +299,7 @@ export const en: Messages = {
       newSite: "New site",
       performance: "Performance",
       design: "Design & animations",
-      hosting: "Sovereign hosting",
+      hosting: "Hosting",
     },
     contactStep: {
       title: "How can we get back to you?",
@@ -375,12 +375,12 @@ export const en: Messages = {
       ],
     },
     devops: {
-      title: "Infra & sovereign hosting",
+      title: "Infra & hosting",
       tagline: "Your servers, your data, no lock-in.",
       description: "Dedicated Hetzner servers, Docker containers, automatic SSL certificates through Traefik, encrypted backups and monitoring.",
       deliverables: [
         "Zero-downtime continuous deployment",
-        "Sovereign European hosting",
+        "Hosting managed by the studio",
         "24/7 monitoring & alerts",
         "Automated backups",
       ],

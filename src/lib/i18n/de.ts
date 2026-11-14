@@ -37,7 +37,7 @@ export const de: Messages = {
   home: {
     meta: {
       title: "Facile Studio · Studio für Webdesign und Engineering",
-      description: "Websites, maßgeschneiderte Web-Apps, Art Direction und souveränes Hosting vom Studio hinter der Facile Suite.",
+      description: "Websites, maßgeschneiderte Web-Apps, Art Direction und Hosting vom Studio hinter der Facile Suite.",
     },
     hero: {
       titleLine1: "Wir vereinfachen,",
@@ -81,7 +81,7 @@ export const de: Messages = {
       title: "Bulle, der Agent für all Ihre Tools",
       intro: "Bulle hat einen eigenen Computer, eine Linux-MicroVM, und ist mit allen Ihren Facile-Tools verbunden. Er liest und schreibt Ihre E-Mails in Courrier, ordnet Ihre Aufgaben in Opus, plant Ihre Termine in Agenda, verwaltet Ihre Dateien in Nuage und deployt Ihre Projekte.",
       chips: [
-        "Souveräne Linux-MicroVM",
+        "Eigene Linux-MicroVM",
         "Courrier · Opus · Agenda · Nuage",
         "Matrix E2EE & Prisme",
         "Native MCP-Tools",
@@ -91,7 +91,7 @@ export const de: Messages = {
     },
     hardware: {
       title: "Pastille, der Sprachassistent für die Handfläche",
-      intro: "Das Studio hat auch eine Hardware-Werkstatt für Forschung und Entwicklung maßgeschneiderter vernetzter Geräte. Pastille ist unsere offene Demo. Ein 38-mm-Anhänger mit ESP32-S3, rundem IPS-Display und Firmware in Rust Embassy.",
+      intro: "Das Studio hat auch eine Hardware-Werkstatt für Forschung und Entwicklung maßgeschneiderter vernetzter Geräte. Pastille ist unsere offene Demo. Ein 42-mm-Anhänger mit ESP32-S3, rundem IPS-Display und Firmware in Rust Embassy.",
       site: "Offizielle Pastille-Website",
       schematics: "KiCad-Schaltpläne",
     },
@@ -207,7 +207,7 @@ export const de: Messages = {
   contact: {
     meta: {
       title: "Projekt starten · Facile Studio",
-      description: "Erzählen Sie uns von Ihrem Projekt. Maßgeschneidertes Design, solider Code und souveränes Hosting.",
+      description: "Erzählen Sie uns von Ihrem Projekt. Maßgeschneidertes Design, solider Code und Hosting.",
     },
     progress: "Schritt {step} von {total}",
     steps: [
@@ -247,7 +247,7 @@ export const de: Messages = {
         description: "Logo, Typografie, Styleguide, Design-System und 3D-Mockups.",
       },
       infra: {
-        title: "Infra & souveränes Hosting",
+        title: "Infra & Hosting",
         category: "DevOps & Cloud",
         description: "Dedizierte Server in Europa, Docker, Nginx und Hochverfügbarkeit.",
       },
@@ -299,7 +299,7 @@ export const de: Messages = {
       newSite: "Neue Website",
       performance: "Performance",
       design: "Design & Animationen",
-      hosting: "Souveränes Hosting",
+      hosting: "Hosting",
     },
     contactStep: {
       title: "Wie können wir Sie erreichen?",
@@ -375,12 +375,12 @@ export const de: Messages = {
       ],
     },
     devops: {
-      title: "Infra & souveränes Hosting",
+      title: "Infra & Hosting",
       tagline: "Ihre Server, Ihre Daten, ohne Lock-in.",
       description: "Dedizierte Hetzner-Server, Docker-Container, automatische SSL-Zertifikate über Traefik, verschlüsselte Backups und Monitoring.",
       deliverables: [
         "Continuous Deployment ohne Ausfall",
-        "Souveränes Hosting in Europa",
+        "Vom Studio betriebenes Hosting",
         "Monitoring & Alarme rund um die Uhr",
         "Automatisierte Backups",
       ],

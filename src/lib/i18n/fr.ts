@@ -35,7 +35,7 @@ export const fr = {
   home: {
     meta: {
       title: "Facile Studio · Studio de design et d'ingénierie web",
-      description: "Sites vitrines, applications web sur mesure, direction artistique et hébergement souverain, par le studio derrière la Suite Facile.",
+      description: "Sites vitrines, applications web sur mesure, direction artistique et hébergement, par le studio derrière la Suite Facile.",
     },
     hero: {
       titleLine1: "On simplifie,",
@@ -79,7 +79,7 @@ export const fr = {
       title: "Bulle, l'agent connecté à tous vos outils",
       intro: "Bulle a son propre ordinateur, une microVM Linux, et se branche sur tous vos outils Facile. Il lit et rédige vos emails dans Courrier, range vos tâches dans Opus, cale vos rendez-vous dans Agenda, gère vos fichiers dans Nuage et déploie vos projets.",
       chips: [
-        "MicroVM Linux souveraine",
+        "Sa propre microVM Linux",
         "Courrier · Opus · Agenda · Nuage",
         "Matrix E2EE & Prisme",
         "Outils MCP natifs",
@@ -89,7 +89,7 @@ export const fr = {
     },
     hardware: {
       title: "Pastille, l'assistant vocal qui tient dans la paume",
-      intro: "Le studio a aussi un atelier de R&D matériel pour les objets connectés sur mesure. Pastille est notre démonstration ouverte. Un charm de 38 mm avec un ESP32-S3, un écran rond IPS et un firmware en Rust Embassy.",
+      intro: "Le studio a aussi un atelier de R&D matériel pour les objets connectés sur mesure. Pastille est notre démonstration ouverte. Un charm de 42 mm avec un ESP32-S3, un écran rond IPS et un firmware en Rust Embassy.",
       site: "Site officiel Pastille",
       schematics: "Schémas KiCad",
     },
@@ -205,7 +205,7 @@ export const fr = {
   contact: {
     meta: {
       title: "Démarrer un projet · Facile Studio",
-      description: "Parlez-nous de votre projet. Design sur mesure, code solide et hébergement souverain.",
+      description: "Parlez-nous de votre projet. Design sur mesure, code solide et hébergement.",
     },
     progress: "Étape {step} sur {total}",
     steps: [
@@ -245,7 +245,7 @@ export const fr = {
         description: "Logotype, typographie, charte graphique, design system et maquettes 3D.",
       },
       infra: {
-        title: "Infra & Hébergement souverain",
+        title: "Infra & Hébergement",
         category: "DevOps & Cloud",
         description: "Serveurs dédiés en Europe, Docker, Nginx et haute disponibilité.",
       },
@@ -297,7 +297,7 @@ export const fr = {
       newSite: "Nouveau site",
       performance: "Performance",
       design: "Design & animations",
-      hosting: "Hébergement souverain",
+      hosting: "Hébergement",
     },
     contactStep: {
       title: "Comment pouvons-nous vous recontacter\u00A0?",
@@ -373,12 +373,12 @@ export const fr = {
       ],
     },
     devops: {
-      title: "Infra & hébergement souverain",
+      title: "Infra & hébergement",
       tagline: "Vos serveurs, vos données, sans dépendance captive.",
       description: "Serveurs dédiés Hetzner, conteneurs Docker, certificats SSL automatiques via Traefik, sauvegardes chiffrées et monitoring.",
       deliverables: [
         "Déploiement continu sans coupure",
-        "Hébergement européen souverain",
+        "Hébergement géré par le studio",
         "Monitoring & alertes 24/7",
         "Sauvegardes automatisées",
       ],

@@ -37,7 +37,7 @@ export const es: Messages = {
   home: {
     meta: {
       title: "Facile Studio · Estudio de diseño e ingeniería web",
-      description: "Webs de presentación, aplicaciones web a medida, dirección de arte y alojamiento soberano, del estudio que está detrás de la Suite Facile.",
+      description: "Webs de presentación, aplicaciones web a medida, dirección de arte y alojamiento, del estudio que está detrás de la Suite Facile.",
     },
     hero: {
       titleLine1: "Nosotros simplificamos,",
@@ -81,7 +81,7 @@ export const es: Messages = {
       title: "Bulle, el agente conectado a todas tus herramientas",
       intro: "Bulle tiene su propio ordenador, una microVM Linux, y se conecta a todas tus herramientas Facile. Lee y redacta tus correos en Courrier, ordena tus tareas en Opus, encaja tus citas en Agenda, gestiona tus archivos en Nuage y despliega tus proyectos.",
       chips: [
-        "MicroVM Linux soberana",
+        "Su propia microVM Linux",
         "Courrier · Opus · Agenda · Nuage",
         "Matrix E2EE y Prisme",
         "Herramientas MCP nativas",
@@ -91,7 +91,7 @@ export const es: Messages = {
     },
     hardware: {
       title: "Pastille, el asistente de voz que cabe en la palma de la mano",
-      intro: "El estudio también tiene un taller de I+D de hardware para objetos conectados a medida. Pastille es nuestra demostración abierta. Un colgante de 38 mm con un ESP32-S3, una pantalla redonda IPS y un firmware en Rust Embassy.",
+      intro: "El estudio también tiene un taller de I+D de hardware para objetos conectados a medida. Pastille es nuestra demostración abierta. Un colgante de 42 mm con un ESP32-S3, una pantalla redonda IPS y un firmware en Rust Embassy.",
       site: "Web oficial de Pastille",
       schematics: "Esquemas KiCad",
     },
@@ -207,7 +207,7 @@ export const es: Messages = {
   contact: {
     meta: {
       title: "Empezar un proyecto · Facile Studio",
-      description: "Cuéntanos tu proyecto. Diseño a medida, código sólido y alojamiento soberano.",
+      description: "Cuéntanos tu proyecto. Diseño a medida, código sólido y alojamiento.",
     },
     progress: "Paso {step} de {total}",
     steps: [
@@ -247,7 +247,7 @@ export const es: Messages = {
         description: "Logotipo, tipografía, manual de marca, design system y maquetas 3D.",
       },
       infra: {
-        title: "Infra y alojamiento soberano",
+        title: "Infra y alojamiento",
         category: "DevOps y cloud",
         description: "Servidores dedicados en Europa, Docker, Nginx y alta disponibilidad.",
       },
@@ -299,7 +299,7 @@ export const es: Messages = {
       newSite: "Web nueva",
       performance: "Rendimiento",
       design: "Diseño y animaciones",
-      hosting: "Alojamiento soberano",
+      hosting: "Alojamiento",
     },
     contactStep: {
       title: "¿Cómo podemos ponernos en contacto contigo?",
@@ -375,12 +375,12 @@ export const es: Messages = {
       ],
     },
     devops: {
-      title: "Infra y alojamiento soberano",
+      title: "Infra y alojamiento",
       tagline: "Tus servidores, tus datos, sin dependencias cautivas.",
       description: "Servidores dedicados Hetzner, contenedores Docker, certificados SSL automáticos con Traefik, copias de seguridad cifradas y monitorización.",
       deliverables: [
         "Despliegue continuo sin cortes",
-        "Alojamiento europeo soberano",
+        "Alojamiento gestionado por el estudio",
         "Monitorización y alertas 24/7",
         "Copias de seguridad automáticas",
       ],
