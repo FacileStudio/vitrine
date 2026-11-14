@@ -4,6 +4,19 @@ All notable changes to Facile Studio Vitrine will be documented in this file.
 
 ## [Unreleased]
 
+## [1.10.1] - 2026-11-14
+
+### Added
+- Gare joins the Suite grid under Infrastructure, as on the Suite site.
+
+### Changed
+- Each Suite grid card shows the same line as the Suite site and the same description as the app's own page, in all four languages.
+- The Suite section says "Gratuit pour commencer", and the one-account sentence covers only the apps listed there.
+
+### Fixed
+- Grid cards no longer claim an S3-compatible API for Nuage, multi-region probes for Sonde, built-in Stripe for Ardoise, a package registry for Boîte or a 38 mm size for Pastille.
+- Titles and body text use Magnetik; the Goga and BB Manual Mono files are gone, and semibold maps to Magnetik Medium.
+
 ## [1.10.0] - 2026-11-13
 
 ### Changed
