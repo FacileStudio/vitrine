@@ -4,6 +4,12 @@ All notable changes to Facile Studio Vitrine will be documented in this file.
 
 ## [Unreleased]
 
+## [1.10.2] - 2026-11-14
+
+### Fixed
+- The Pastille section gives its real size, 42 mm, instead of 38 mm, in all four languages.
+- The services and Bulle sections, the page descriptions and the contact tags no longer call the hosting or Bulle's microVM sovereign. The hosting deliverable now reads "Hébergement géré par le studio".
+
 ## [1.10.1] - 2026-11-14
 
 ### Added
