@@ -4,6 +4,13 @@ All notable changes to Facile Studio Vitrine will be documented in this file.
 
 ## [Unreleased]
 
+## [1.10.3] - 2026-11-16
+
+### Fixed
+- The unprefixed pages follow the visitor's browser language: an English, German or Spanish browser is sent to `/en`, `/de` or `/es`, and any other language to `/en`. French browsers and crawlers still get the French page.
+- The language switcher remembers the choice in the `fc_locale` cookie, which wins over the browser language on the next visit.
+- `hreflang="x-default"` points to the English page.
+
 ## [1.10.2] - 2026-11-14
 
 ### Fixed
