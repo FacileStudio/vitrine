@@ -12,7 +12,16 @@
     registerIcons,
   } from "@facile/muse";
   import { ACCOUNT_URL, NAV_LINKS, SUITE_SECTIONS } from "$lib/data";
-  import { LOCALES, OG_LOCALES, localizeHref, provideI18n, stripLocale, toLocale, type Locale } from "$lib/i18n";
+  import {
+    LOCALES,
+    OG_LOCALES,
+    localizeHref,
+    provideI18n,
+    rememberLocale,
+    stripLocale,
+    toLocale,
+    type Locale,
+  } from "$lib/i18n";
   import { SUITE_ICONS } from "$lib/icons";
   import { scrollToSection, watchActiveSection } from "$lib/motion";
   import BrandMark from "$lib/components/BrandMark.svelte";
@@ -39,7 +48,10 @@
   const flush = $derived(scrolled || isContactPage);
   const pageUrl = (target: Locale) => `https://facile.studio${localizeHref(path, target)}`;
   const canonicalUrl = $derived(pageUrl(locale));
-  const switchLocale = (next: string) => goto(`${localizeHref(path, toLocale(next))}${page.url.hash}`);
+  const switchLocale = (next: string) => {
+    rememberLocale(toLocale(next));
+    return goto(`${localizeHref(path, toLocale(next))}${page.url.hash}`);
+  };
   const suiteInView = $derived(isHomePage && SUITE_SECTIONS.includes(activeSection));
 
   const links = $derived([
@@ -122,7 +134,7 @@
   {#each LOCALES as target (target)}
     <link rel="alternate" hreflang={target} href={pageUrl(target)} />
   {/each}
-  <link rel="alternate" hreflang="x-default" href={pageUrl("fr")} />
+  <link rel="alternate" hreflang="x-default" href={pageUrl("en")} />
   <meta property="og:url" content={canonicalUrl} />
   <meta property="og:locale" content={OG_LOCALES[locale]} />
   <meta property="og:image:alt" content={t.meta.ogImageAlt} />
