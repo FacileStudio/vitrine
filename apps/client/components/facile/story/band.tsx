@@ -8,6 +8,9 @@ import DitherBackdrop from "@/components/facile/ditherBackdrop";
 import Track from "./track";
 import type { Chapter } from "./types";
 
+// extra scroll, in screen heights, the band stays parked on its first block so the intro is read before the track moves
+const LEAD = 1;
+
 // extra scroll, in screen heights, the band stays parked on its last block before it lets go
 const HOLD = 2;
 
@@ -46,15 +49,15 @@ export default function Band({ sections, id, glass = false }: BandProps) {
     }, [sections]);
 
     usePinProgress(sectionRef, (progress, visible) => {
-        // pixels scrolled into the pin, of which only the first `travel` move the track; the rest is the hold
-        const scrolled = progress * (travel + window.innerHeight * HOLD);
+        // pixels scrolled past the lead-in, of which only the first `travel` move the track; the rest is the hold
+        const scrolled = progress * (travel + window.innerHeight * (LEAD + HOLD)) - window.innerHeight * LEAD;
 
         // halfway through the hold the dither fades out, so it is gone before the page lets go
         setLeaving(scrolled > travel + window.innerHeight * HOLD / 2);
 
         // whole pixels: the glass cells make the track its own layer, and a fractional offset resamples every glyph soft
         if (visible)
-            gsap.set(trackRef.current, { x: -Math.round(Math.min(travel, scrolled)) });
+            gsap.set(trackRef.current, { x: -Math.round(Math.min(travel, Math.max(0, scrolled))) });
     });
 
     return (
@@ -62,7 +65,7 @@ export default function Band({ sections, id, glass = false }: BandProps) {
             ref={sectionRef}
             id={id}
             data-glass={glass || undefined}
-            style={{ height: `calc(${100 + HOLD * 100}vh + ${travel}px)` }}
+            style={{ height: `calc(${100 + (LEAD + HOLD) * 100}vh + ${travel}px)` }}
             className="relative w-full text-background"
         >
             <div
