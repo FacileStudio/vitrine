@@ -30,7 +30,7 @@ export default function Tiles({ block }: BlockProps) {
                                 <Line as="h2" className="subtitle text-current">{t.label}</Line>
 
                                 {t.text ? (
-                                    <Line as="p" className="subtext text-current">
+                                    <Line as="p" className="subtext text-current max-md:hidden">
                                         {t.text}
                                     </Line>
                                 ) : null}

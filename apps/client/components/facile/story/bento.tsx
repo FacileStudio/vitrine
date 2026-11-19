@@ -1,15 +1,15 @@
 import type { CSSProperties, ReactNode } from "react";
 import { isVideoFile } from "@/lib/utils";
 
-// --band stays in the class list: an inline style would beat the phone breakpoint
+// --band and --cell stay in the class list: an inline style would beat the phone breakpoint
 const BENTO_VARS = {
     "--gap": "var(--fc-gap)",
     "--row": "calc((var(--band) - 2 * var(--gap)) / 3)",
-    "--cell": "calc(var(--row) * 5 / 4)",
 } as CSSProperties;
 
+// on phones a cell is half the screen inside the track gutters, (screen - 3rem - gap) / 2, and the band is that width * 13/10 plus 2 gaps
 const LAYOUT = {
-    band: "grid [--band:75vh] md:[--band:80vh] h-[var(--band)] w-max grid-flow-col grid-rows-3 gap-[var(--gap)] [grid-auto-columns:var(--cell)]",
+    band: "grid [--band:calc((100vw_-_3rem_-_var(--gap))_*_13_/_10_+_2_*_var(--gap))] [--cell:calc((100vw_-_3rem_-_var(--gap))_/_2)] md:[--band:80vh] md:[--cell:calc(var(--row)_*_5_/_4)] h-[var(--band)] w-max grid-flow-col grid-rows-3 gap-[var(--gap)] [grid-auto-columns:var(--cell)]",
     stack: "flex w-full flex-col gap-[var(--gap)] [&>[data-block]]:h-auto [&>[data-block]]:aspect-[calc(var(--cols)*5/12)] [&>[data-block][data-tall]]:aspect-[calc(var(--cols)*5/16)]",
 };
 

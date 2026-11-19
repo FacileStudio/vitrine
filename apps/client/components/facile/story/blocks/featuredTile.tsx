@@ -45,7 +45,7 @@ export default function FeaturedTile({ tile }: { tile: Tile }) {
                 ) : null}
 
                 {tile.description ? (
-                    <SplitLines as="p" text={tile.description} className="max-w-[50ch] text-current opacity-70" />
+                    <SplitLines as="p" text={tile.description} className="max-w-[50ch] text-current opacity-70 max-md:hidden" />
                 ) : null}
             </div>
         </div>

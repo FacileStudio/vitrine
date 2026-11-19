@@ -24,7 +24,7 @@ export default function Intro({ block }: BlockProps) {
     return (
         <Block cols={block.cols}>
             <Cell col="1 / -1" row="1 / -1">
-                <div className="flex h-full w-full flex-col justify-between gap-[3vh] p-[5vh]">
+                <div className="flex h-full w-full flex-col justify-between gap-[3vh] p-[5vh] max-md:px-2">
                     <div className="flex flex-col gap-6">
                         {block.icon ? (
                             <Line>
