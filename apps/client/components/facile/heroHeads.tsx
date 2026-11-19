@@ -7,7 +7,7 @@ import { DitherView } from "@/webgl/lazy";
 import { useAfter } from "@/hooks/use-after";
 import { useNarrow } from "@/hooks/use-narrow";
 import { useMembers } from "@/components/facile/contentProvider";
-import { headScale } from "@/lib/content/studio";
+import { HEAD_SCALE } from "@/lib/content/studio";
 import { trackPromise } from "@/webgl/loadBytes";
 import { offscreen, useWorkerCanvas } from "@/webgl/offscreen/useWorkerCanvas";
 import type { HeadModel, HeadsData, HeadsMessage } from "@/webgl/offscreen/heads.worker";
@@ -55,7 +55,7 @@ const placement = (i: number, narrow: boolean) => {
     return new THREE.Vector3(Math.cos(a) * sx + Math.sin(a) * sy, UP.y * up, UP.z * up);
 };
 
-function layout(i: number, narrow: boolean, w: number, h: number, slug: string) {
+function layout(i: number, narrow: boolean, w: number, h: number) {
     const { turn } = narrow ? CORNERS[i].mobile : CORNERS[i];
     const { dx, dy, pitch, yaw, zoom, shift } = CORNERS[i];
     const s = side(narrow, w, h);
@@ -76,7 +76,7 @@ function layout(i: number, narrow: boolean, w: number, h: number, slug: string) 
     return {
         position: position.toArray() as [number, number, number],
         rotation: [rotation.x, rotation.y, rotation.z] as [number, number, number],
-        scale: (headScale(slug) * 3 * zoom * s) / h,
+        scale: (HEAD_SCALE * 3 * zoom * s) / h,
     };
 }
 
@@ -145,7 +145,7 @@ function MainHeads({ heads, on, swift, sharp, narrow, w, h }: Shared) {
 
     const models = useMemo(() => (h ? heads.map((head, i) => ({
         file: head.model!,
-        ...layout(i, narrow, w, h, head.slug),
+        ...layout(i, narrow, w, h),
         roughness: head.roughness,
         metalness: 0.6,
         hairColor: head.hair ?? undefined,
@@ -180,7 +180,7 @@ function WorkerHeads({ heads, on, swift, sharp, narrow, w, h, onFail }: Shared &
 
     const models = useMemo<HeadModel[]>(() => heads.map((head, i) => ({
         file: head.model!,
-        ...layout(i, narrow, w, h, head.slug),
+        ...layout(i, narrow, w, h),
         roughness: head.roughness,
         hairColor: head.hair ?? undefined,
         glow: head.highlight,

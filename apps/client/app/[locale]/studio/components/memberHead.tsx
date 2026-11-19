@@ -2,7 +2,7 @@
 
 import DitherReveal from "@/components/facile/ditherReveal";
 import { useAfter } from "@/hooks/use-after";
-import { headScale, type Member } from "@/lib/content/studio";
+import { HEAD_SCALE, type Member } from "@/lib/content/studio";
 
 export default function MemberHead({ member, narrow }: { member: Member; narrow: boolean }) {
     const sharp = useAfter(true, 1200);
@@ -20,7 +20,7 @@ export default function MemberHead({ member, narrow }: { member: Member; narrow:
                 intensity: 0.85,
                 ambient: 2.1,
                 ambientColor: "#ffd6a8",
-                scale: headScale(member.slug) * (narrow ? 2 : 3),
+                scale: HEAD_SCALE * (narrow ? 2 : 3),
                 position: narrow ? [0, 0.6, 0] : [0, -0.7, 0],
                 roughness: member.roughness,
                 // below 1 so the ambient light reaches the diffuse term and lifts the shadows

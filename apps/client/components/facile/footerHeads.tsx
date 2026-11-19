@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { DitherView } from "@/webgl/lazy";
 import { useAfter } from "@/hooks/use-after";
 import { useMembers } from "@/components/facile/contentProvider";
-import { headScale } from "@/lib/content/studio";
+import { HEAD_SCALE } from "@/lib/content/studio";
 
 const ANGLES = [220, 200, 160, 140];
 const LAUNCH = 0.9;
@@ -65,7 +65,7 @@ export default function FooterHeads({ open, active }: { open: boolean; active: b
                         gridSize={sharp ? 1 : 9}
                         position={[0, -1, 0]}
                         rotation={[0, 0, 0]}
-                        scale={headScale(head.slug) * 1.7}
+                        scale={HEAD_SCALE * 1.7}
                         roughness={head.roughness}
                         highlight={head.highlight}
                         hairColor={head.hair ?? undefined}
