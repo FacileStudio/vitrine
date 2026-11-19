@@ -17,6 +17,9 @@ const Head = memo(DitherReveal);
 
 const HEAD_STEP = 0.5;
 
+// hair past the skull lifts the centred head, so these heads drop back to eye level
+const DROP: Record<string, string> = { camille: "mt-4", fanga: "mt-8" };
+
 const HEAD_PROPS = (members: AuthoredMember[], idle: number, gridSize: number) => members.map((member, i) => ({
     model: member.model,
     highlight: member.highlight,
@@ -75,7 +78,7 @@ export default function MemberTiles({
                 >
                     <Head
                         {...heads[i]}
-                        className={`absolute inset-0 h-full transition-all duration-200 ${coarse || !dimmed ? "opacity-100 brightness-100" : "opacity-33 brightness-50 hover:opacity-100 hover:brightness-100"}`}
+                        className={`absolute inset-0 h-full ${DROP[member.slug] ?? ""} transition-all duration-200 ${coarse || !dimmed ? "opacity-100 brightness-100" : "opacity-33 brightness-50 hover:opacity-100 hover:brightness-100"}`}
                     />
 
                     <div className="pointer-events-none absolute inset-x-0 top-[66%] z-50 flex flex-col items-center gap-fc text-center text-background">
