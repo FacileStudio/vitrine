@@ -30,7 +30,7 @@ export default function MemberAside({
                             <>
                                 <TextReveal open={shown} cropClassName="relative z-10" delay={0.18}>
                                     <ArrowLink
-                                        href="/suite"
+                                        href="/#suite"
                                         className="lead subtitle group pointer-events-auto flex items-center gap-2 transition-colors hover:text-background"
                                     >
                                         {tPanel("suite")}

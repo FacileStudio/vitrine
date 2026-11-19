@@ -31,30 +31,6 @@ function chunk(apps: SuiteApp[]): StoryBlock[] {
     return [...units, ...sixes(small)];
 }
 
-export function appStory(app: SuiteApp, apps: SuiteApp[], t: StoryCopy): Chapter[] {
-    const sections: StorySection[] = app.story?.length ? app.story : [
-        {
-            blocks: [{
-                type: "intro",
-                eyebrow: app.tagline,
-                title: app.name,
-                text: app.description,
-                link: app.link,
-                linkLabel: t("open"),
-            }],
-        },
-        {
-            title: t("rest"),
-            blocks: chunk(apps.filter((a) => a.slug !== app.slug).slice(0, 6)),
-        },
-        {
-            blocks: [{ type: "end", eyebrow: t("appEnd", { name: app.name }), title: t("oneLogin"), link: app.link, linkLabel: t("open") }],
-        },
-    ];
-
-    return buildStory(sections);
-}
-
 export function suiteStory(apps: SuiteApp[], t: StoryCopy): Chapter[] {
     return buildStory([
         {

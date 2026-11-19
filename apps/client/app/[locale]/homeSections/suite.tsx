@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import Band from "@/components/facile/story/band";
 import { useLocalized } from "@/lib/i18n/localize";
 import { authoredApps } from "@/lib/content/suite";
-import { suiteStory } from "../suite/lib/story";
+import { suiteStory } from "./suiteStory";
 
 export default function Suite() {
     const t = useTranslations("suite.story");

@@ -69,7 +69,7 @@ export default function MemberPanel({
                                         <li>
                                             <TextReveal open={entered} delay={0.22}>
                                                 <ArrowLink
-                                                    href="/suite"
+                                                    href="/#suite"
                                                     className="subtitle group flex items-center gap-2 text-foreground/80 transition-colors hover:text-foreground"
                                                 >
                                                     {t("suite")}

@@ -61,11 +61,9 @@ All user-facing routes live under `app/[locale]/`. Locale handling:
 | `/[locale]` | `app/[locale]/page.tsx` → `home.tsx` | Home (the big scroll experience) |
 | `/[locale]/projects` | `projects/page.tsx` → `portfolio.tsx` | Project list |
 | `/[locale]/projects/[slug]` | `projects/[slug]/page.tsx` → `projectStory.tsx` | Case study story (horizontal band) |
-| `/[locale]/suite` | `suite/page.tsx` → `suite.tsx` | Product suite |
 | `/[locale]/studio` | `studio/page.tsx` → `studio.tsx` | Team wall — non-scrollable, 4 full-height head columns (DitherReveal), click → member page |
 | `/[locale]/studio/[slug]` | `studio/[slug]/page.tsx` → `member.tsx` | Individual member page (data from the backend, `studio.list`) |
 | `/[locale]/process` | `process/page.tsx` → `process.tsx` | Process page — landing-style pinned sections, one per step (data from the backend, `process.list`) |
-| `/[locale]/us` | `us/page.tsx` | Redirects to `/[locale]/studio` |
 | `/[locale]/[...rest]` | `[...rest]/page.tsx` | Throws `notFound()` so unknown paths answer 404 |
 
 SEO helpers live in `lib/seo/` (`metadata.ts`, `jsonld.ts`, `viewport.ts`). `app/robots.ts` and `app/sitemap.ts` exist.
@@ -73,8 +71,7 @@ SEO helpers live in `lib/seo/` (`metadata.ts`, `jsonld.ts`, `viewport.ts`). `app
 ### Data (content that is not translated copy)
 - **Projects, suite apps, team members and process steps all come from the backend** through tRPC, fetched once per request in `app/shell.tsx` and read by client components from `components/facile/contentProvider.tsx` (`useProjects()`, `useProcess()`, `useMembers()`).
 - `lib/content/*.ts` — the typed accessors (`fetchProjects`, `fetchMembers`, `fetchProcess`, `findProject`, `projectsIn`, …).
-- `app/[locale]/projects/projects.json` and `app/[locale]/suite/suite.json` are **authored sources the backoffice reads**, not what the site renders. Editing them does not change the live site; the database does.
-- `app/[locale]/suite/architecture.json` backs the suite architecture modal.
+- `app/[locale]/projects/projects.json` and `lib/content/suite.json` are **authored sources the backoffice reads**, not what the site renders. Editing them does not change the live site; the database does.
 
 ---
 
@@ -224,7 +221,7 @@ Content and 3D models come from the backend and `public/models/`. The client nee
       (email `contact@facile.studio`, phone, Dribbble handle) is marked `TODO(gian)`.
       Replace with real channels.
 - [ ] **Suite link is inconsistent** — the menu points Suite at the external
-      `https://suite.facile.studio`, while member pages link the internal `/suite` route.
+      `https://suite.facile.studio`, while member pages link the home `#suite` band.
       Decide which one is canonical.
 - [ ] **`projects.json` is a second source of truth** — the backoffice reads it to offer
       project options, the site reads the database. Either seed the database from it and

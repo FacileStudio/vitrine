@@ -1,6 +1,6 @@
 import type { StorySection } from "@/components/facile/story/types";
 import type { Localized, Resolved } from "@/lib/i18n/localize";
-import apps from "@/app/[locale]/suite/suite.json";
+import apps from "./suite.json";
 
 interface AuthoredApp {
     slug: string;

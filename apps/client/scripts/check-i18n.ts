@@ -9,8 +9,7 @@ const MESSAGES = join(ROOT, "locales");
 
 const DATA_FILES = [
     "app/[locale]/projects/projects.json",
-    "app/[locale]/suite/suite.json",
-    "app/[locale]/suite/architecture.json",
+    "lib/content/suite.json",
 ];
 
 const COPY_FIELDS = new Set([
