@@ -7,12 +7,14 @@ import TextReveal from "@/components/facile/textReveal";
 import Emphasis from "@/components/facile/emphasis";
 import { CONTACT, ContactLinks, NavLinks } from "@/components/facile/navLinks";
 import FooterHeads from "@/components/facile/footerHeads";
+import Link from "@/components/facile/transitionLink";
 
 export default function Footer() {
     const sectionRef = useRef<HTMLElement>(null);
     const [show, setShow] = useState(false);
     const [animate, setAnimate] = useState(false);
     const t = useTranslations("common");
+    const legal = useTranslations("legal.links");
 
     useScroll(() => {
         const el = sectionRef.current;
@@ -48,12 +50,21 @@ export default function Footer() {
             <div className="relative z-20 w-full flex items-end justify-between lg:flex-row lg:items-center gap-6">
                 <ContactLinks open={show} delay={0.6} className="flex flex-col md:flex-row items-start gap-x-8 gap-y-2" />
 
-                <TextReveal as="p" open={show} delay={0.8} className="text-background/40">
-                    <span className="flex items-center gap-3 whitespace-nowrap">
-                        {t("footer.madeBy")}
-                        <img src="/Facile.svg" alt="Facile." className="h-[24px] mb-3 w-auto invert opacity-40" />
-                    </span>
-                </TextReveal>
+                <div className="flex flex-col items-end gap-2 md:flex-row md:items-center md:gap-8">
+                    <TextReveal open={show} delay={0.7}>
+                        <span className="flex gap-6 text-background/40">
+                            <Link href="/legal" className="hover:text-background"><p>{legal("notice")}</p></Link>
+                            <Link href="/privacy" className="hover:text-background"><p>{legal("privacy")}</p></Link>
+                        </span>
+                    </TextReveal>
+
+                    <TextReveal as="p" open={show} delay={0.8} className="text-background/40">
+                        <span className="flex items-center gap-3 whitespace-nowrap">
+                            {t("footer.madeBy")}
+                            <img src="/Facile.svg" alt="Facile." className="h-[24px] mb-3 w-auto invert opacity-40" />
+                        </span>
+                    </TextReveal>
+                </div>
             </div>
         </section>
     );

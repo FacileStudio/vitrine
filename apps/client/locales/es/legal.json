@@ -1,0 +1,88 @@
+{
+  "updated": "Última actualización: {date}",
+  "links": {
+    "notice": "Aviso legal",
+    "privacy": "Privacidad"
+  },
+  "fields": {
+    "company": "Empresa",
+    "legalForm": "Forma jurídica",
+    "siret": "SIRET",
+    "address": "Dirección",
+    "email": "Correo",
+    "phone": "Teléfono",
+    "name": "Nombre"
+  },
+  "notice": {
+    "meta": {
+      "title": "Aviso legal",
+      "description": "Quién edita y aloja el sitio web de Facile Studio."
+    },
+    "publisher": {
+      "title": "Editor",
+      "text": "Este sitio web lo edita:"
+    },
+    "director": {
+      "title": "Director de la publicación"
+    },
+    "host": {
+      "title": "Alojamiento",
+      "text": "Este sitio web está alojado por:"
+    },
+    "ip": {
+      "title": "Propiedad intelectual",
+      "text": "Los textos, imágenes, modelos 3D, el código y los elementos de marca de este sitio pertenecen a {company} o a los clientes que nos permitieron mostrar su trabajo. Queda prohibida su copia o reutilización sin permiso por escrito."
+    },
+    "data": {
+      "title": "Datos personales",
+      "text": "Nuestra política de privacidad explica cómo tratamos tus datos.",
+      "link": "Leer la política de privacidad"
+    }
+  },
+  "privacy": {
+    "meta": {
+      "title": "Política de privacidad",
+      "description": "Qué datos recoge el sitio web de Facile Studio, por qué, durante cuánto tiempo y cómo ejercer tus derechos."
+    },
+    "controller": {
+      "title": "Responsable del tratamiento",
+      "text": "{company} decide cómo y para qué se usan tus datos. Para cualquier pregunta, escribe a {email}."
+    },
+    "audience": {
+      "title": "Medición de visitas",
+      "text": "Para contar las visitas, tu navegador guarda un identificador aleatorio en su almacenamiento local. Nuestro propio servidor lo recibe en cada carga de página y solo lo usa para contar las visitas y los visitantes únicos por día. No está vinculado a tu nombre, tu dirección IP ni tu actividad en otros sitios."
+    },
+    "contact": {
+      "title": "Cuando nos escribes",
+      "text": "Si nos escribes o nos llamas, guardamos tu nombre, tus datos de contacto y tu mensaje para responderte y, si trabajamos juntos, para llevar el proyecto."
+    },
+    "none": {
+      "title": "Lo que no hacemos",
+      "text": "Sin publicidad, sin rastreadores de redes sociales y sin herramientas de analítica de terceros. Nunca vendemos ni alquilamos tus datos."
+    },
+    "bases": {
+      "title": "Bases legales",
+      "text": "La medición de visitas se basa en nuestro interés legítimo en saber cómo se usa el sitio (RGPD art. 6.1.f). Las respuestas a tus mensajes se basan en las medidas precontractuales que solicitas (art. 6.1.b) o en nuestro interés legítimo."
+    },
+    "retention": {
+      "title": "Plazo de conservación",
+      "text": "El identificador de visita caduca a los 13 meses y los registros de visitas se borran a los 25 meses. Los mensajes se guardan 3 años después de nuestro último intercambio, más tiempo solo cuando la ley contable lo exige para los clientes."
+    },
+    "recipients": {
+      "title": "Quién puede verlos",
+      "text": "Solo el equipo de Facile Studio y el proveedor de alojamiento indicado en el aviso legal."
+    },
+    "rights": {
+      "title": "Tus derechos",
+      "text": "Puedes acceder a tus datos, rectificarlos o borrarlos, oponerte a su uso o limitarlo, y pedir una copia. Escribe a {email} y te responderemos en el plazo de un mes. Si crees que no hemos cumplido, puedes presentar una reclamación ante la CNIL (cnil.fr)."
+    },
+    "optOut": {
+      "title": "Desactivar la medición de visitas",
+      "text": "Puedes rechazar la medición de visitas en cualquier momento. La elección se guarda solo en este navegador.",
+      "on": "La medición de visitas está activa en este navegador.",
+      "off": "La medición de visitas está desactivada en este navegador.",
+      "disable": "Desactivar",
+      "enable": "Volver a activar"
+    }
+  }
+}

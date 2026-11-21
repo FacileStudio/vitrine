@@ -1,0 +1,88 @@
+{
+  "updated": "Last updated {date}",
+  "links": {
+    "notice": "Legal notice",
+    "privacy": "Privacy"
+  },
+  "fields": {
+    "company": "Company",
+    "legalForm": "Legal form",
+    "siret": "SIRET",
+    "address": "Address",
+    "email": "Email",
+    "phone": "Phone",
+    "name": "Name"
+  },
+  "notice": {
+    "meta": {
+      "title": "Legal notice",
+      "description": "Who publishes and hosts the Facile Studio website."
+    },
+    "publisher": {
+      "title": "Publisher",
+      "text": "This website is published by:"
+    },
+    "director": {
+      "title": "Publication director"
+    },
+    "host": {
+      "title": "Host",
+      "text": "This website is hosted by:"
+    },
+    "ip": {
+      "title": "Intellectual property",
+      "text": "The texts, visuals, 3D models, code and brand elements on this site belong to {company} or to the clients who allowed us to show their work. Copying or reusing them without written permission is forbidden."
+    },
+    "data": {
+      "title": "Personal data",
+      "text": "How we handle your data is explained in our privacy policy.",
+      "link": "Read the privacy policy"
+    }
+  },
+  "privacy": {
+    "meta": {
+      "title": "Privacy policy",
+      "description": "What data the Facile Studio website collects, why, for how long, and how to exercise your rights."
+    },
+    "controller": {
+      "title": "Who is responsible",
+      "text": "{company} decides how and why your data is used. For any question about it, write to {email}."
+    },
+    "audience": {
+      "title": "Visit counting",
+      "text": "To count visits, your browser keeps a random identifier in its local storage. Our own server receives it on each page load and uses it only to count visits and unique visitors per day. It is not linked to your name, your IP address or your activity on other sites."
+    },
+    "contact": {
+      "title": "When you write to us",
+      "text": "If you email or call us, we keep your name, contact details and message to answer you and, if we work together, to run the project."
+    },
+    "none": {
+      "title": "What we do not do",
+      "text": "No advertising, no social media trackers and no third-party analytics. We never sell or rent your data."
+    },
+    "bases": {
+      "title": "Legal bases",
+      "text": "Visit counting relies on our legitimate interest in knowing how the site is used (GDPR art. 6.1.f). Answering your messages relies on the steps you ask for before a contract (art. 6.1.b) or on our legitimate interest."
+    },
+    "retention": {
+      "title": "How long we keep it",
+      "text": "The visit identifier expires after 13 months, and visit records are deleted after 25 months. Messages are kept for 3 years after our last exchange, longer only when accounting law requires it for clients."
+    },
+    "recipients": {
+      "title": "Who can see it",
+      "text": "Only the Facile Studio team and the hosting provider named in the legal notice."
+    },
+    "rights": {
+      "title": "Your rights",
+      "text": "You can access, correct or delete your data, object to or restrict its use, and ask for a copy of it. Write to {email} and we will answer within one month. If you think we have failed, you can file a complaint with the CNIL (cnil.fr)."
+    },
+    "optOut": {
+      "title": "Turn off visit counting",
+      "text": "You can refuse visit counting at any time. The choice is saved in this browser only.",
+      "on": "Visit counting is on for this browser.",
+      "off": "Visit counting is off for this browser.",
+      "disable": "Turn off",
+      "enable": "Turn back on"
+    }
+  }
+}

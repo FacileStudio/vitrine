@@ -1,0 +1,88 @@
+{
+  "updated": "Dernière mise à jour le {date}",
+  "links": {
+    "notice": "Mentions légales",
+    "privacy": "Confidentialité"
+  },
+  "fields": {
+    "company": "Société",
+    "legalForm": "Forme juridique",
+    "siret": "SIRET",
+    "address": "Adresse",
+    "email": "E-mail",
+    "phone": "Téléphone",
+    "name": "Nom"
+  },
+  "notice": {
+    "meta": {
+      "title": "Mentions légales",
+      "description": "Qui édite et héberge le site de Facile Studio."
+    },
+    "publisher": {
+      "title": "Éditeur",
+      "text": "Ce site est édité par :"
+    },
+    "director": {
+      "title": "Directeur de la publication"
+    },
+    "host": {
+      "title": "Hébergeur",
+      "text": "Ce site est hébergé par :"
+    },
+    "ip": {
+      "title": "Propriété intellectuelle",
+      "text": "Les textes, visuels, modèles 3D, le code et les éléments de marque de ce site appartiennent à {company} ou aux clients qui nous ont autorisés à montrer leur travail. Toute copie ou réutilisation sans accord écrit est interdite."
+    },
+    "data": {
+      "title": "Données personnelles",
+      "text": "Notre politique de confidentialité explique comment nous traitons vos données.",
+      "link": "Lire la politique de confidentialité"
+    }
+  },
+  "privacy": {
+    "meta": {
+      "title": "Politique de confidentialité",
+      "description": "Les données que collecte le site de Facile Studio, pourquoi, combien de temps, et comment exercer vos droits."
+    },
+    "controller": {
+      "title": "Responsable du traitement",
+      "text": "{company} décide de l'usage de vos données et de sa finalité. Pour toute question à ce sujet, écrivez à {email}."
+    },
+    "audience": {
+      "title": "Mesure d'audience",
+      "text": "Pour compter les visites, votre navigateur garde un identifiant aléatoire dans son stockage local. Notre propre serveur le reçoit à chaque chargement de page et ne s'en sert que pour compter les visites et les visiteurs uniques par jour. Il n'est lié ni à votre nom, ni à votre adresse IP, ni à votre activité sur d'autres sites."
+    },
+    "contact": {
+      "title": "Quand vous nous écrivez",
+      "text": "Si vous nous écrivez ou nous appelez, nous gardons votre nom, vos coordonnées et votre message pour vous répondre et, si nous travaillons ensemble, pour mener le projet."
+    },
+    "none": {
+      "title": "Ce que nous ne faisons pas",
+      "text": "Pas de publicité, pas de traceurs de réseaux sociaux, pas d'outil d'analyse tiers. Nous ne vendons ni ne louons jamais vos données."
+    },
+    "bases": {
+      "title": "Bases légales",
+      "text": "La mesure d'audience repose sur notre intérêt légitime à savoir comment le site est utilisé (RGPD art. 6.1.f). Les réponses à vos messages reposent sur les mesures précontractuelles que vous demandez (art. 6.1.b) ou sur notre intérêt légitime."
+    },
+    "retention": {
+      "title": "Durée de conservation",
+      "text": "L'identifiant de visite expire au bout de 13 mois, et les données de visite sont supprimées au bout de 25 mois. Les messages sont gardés 3 ans après notre dernier échange, plus longtemps seulement quand la loi comptable l'impose pour nos clients."
+    },
+    "recipients": {
+      "title": "Qui peut les voir",
+      "text": "Uniquement l'équipe de Facile Studio et l'hébergeur indiqué dans les mentions légales."
+    },
+    "rights": {
+      "title": "Vos droits",
+      "text": "Vous pouvez accéder à vos données, les rectifier ou les effacer, vous opposer à leur usage ou le limiter, et en demander une copie. Écrivez à {email}, nous répondons sous un mois. Si vous estimez que nous avons manqué à nos obligations, vous pouvez saisir la CNIL (cnil.fr)."
+    },
+    "optOut": {
+      "title": "Refuser la mesure d'audience",
+      "text": "Vous pouvez refuser la mesure d'audience à tout moment. Ce choix est enregistré dans ce navigateur uniquement.",
+      "on": "La mesure d'audience est active dans ce navigateur.",
+      "off": "La mesure d'audience est désactivée dans ce navigateur.",
+      "disable": "Désactiver",
+      "enable": "Réactiver"
+    }
+  }
+}

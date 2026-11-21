@@ -1,0 +1,88 @@
+{
+  "updated": "Zuletzt aktualisiert am {date}",
+  "links": {
+    "notice": "Impressum",
+    "privacy": "Datenschutz"
+  },
+  "fields": {
+    "company": "Unternehmen",
+    "legalForm": "Rechtsform",
+    "siret": "SIRET",
+    "address": "Adresse",
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "name": "Name"
+  },
+  "notice": {
+    "meta": {
+      "title": "Impressum",
+      "description": "Wer die Website von Facile Studio herausgibt und hostet."
+    },
+    "publisher": {
+      "title": "Herausgeber",
+      "text": "Diese Website wird herausgegeben von:"
+    },
+    "director": {
+      "title": "Verantwortlich für den Inhalt"
+    },
+    "host": {
+      "title": "Hosting",
+      "text": "Diese Website wird gehostet von:"
+    },
+    "ip": {
+      "title": "Urheberrecht",
+      "text": "Texte, Bilder, 3D-Modelle, Code und Markenelemente dieser Website gehören {company} oder den Kunden, die uns erlaubt haben, ihre Arbeit zu zeigen. Kopieren oder Weiterverwenden ohne schriftliche Erlaubnis ist untersagt."
+    },
+    "data": {
+      "title": "Personenbezogene Daten",
+      "text": "Wie wir mit Ihren Daten umgehen, erklärt unsere Datenschutzerklärung.",
+      "link": "Datenschutzerklärung lesen"
+    }
+  },
+  "privacy": {
+    "meta": {
+      "title": "Datenschutzerklärung",
+      "description": "Welche Daten die Website von Facile Studio erhebt, warum, wie lange, und wie Sie Ihre Rechte ausüben."
+    },
+    "controller": {
+      "title": "Verantwortlicher",
+      "text": "{company} entscheidet, wie und wozu Ihre Daten verwendet werden. Bei Fragen dazu schreiben Sie an {email}."
+    },
+    "audience": {
+      "title": "Besucherzählung",
+      "text": "Um Besuche zu zählen, speichert Ihr Browser eine zufällige Kennung in seinem lokalen Speicher. Unser eigener Server erhält sie bei jedem Seitenaufruf und nutzt sie nur, um Besuche und eindeutige Besucher pro Tag zu zählen. Sie ist weder mit Ihrem Namen noch mit Ihrer IP-Adresse oder Ihrer Aktivität auf anderen Websites verknüpft."
+    },
+    "contact": {
+      "title": "Wenn Sie uns schreiben",
+      "text": "Wenn Sie uns schreiben oder anrufen, speichern wir Ihren Namen, Ihre Kontaktdaten und Ihre Nachricht, um Ihnen zu antworten und, falls wir zusammenarbeiten, das Projekt durchzuführen."
+    },
+    "none": {
+      "title": "Was wir nicht tun",
+      "text": "Keine Werbung, keine Social-Media-Tracker und keine Analysetools von Drittanbietern. Wir verkaufen oder vermieten Ihre Daten nie."
+    },
+    "bases": {
+      "title": "Rechtsgrundlagen",
+      "text": "Die Besucherzählung beruht auf unserem berechtigten Interesse, zu wissen, wie die Website genutzt wird (DSGVO Art. 6 Abs. 1 lit. f). Antworten auf Ihre Nachrichten beruhen auf vorvertraglichen Maßnahmen, die Sie anfragen (Art. 6 Abs. 1 lit. b), oder auf unserem berechtigten Interesse."
+    },
+    "retention": {
+      "title": "Speicherdauer",
+      "text": "Die Besuchskennung läuft nach 13 Monaten ab, Besuchsdaten werden nach 25 Monaten gelöscht. Nachrichten werden 3 Jahre nach unserem letzten Austausch aufbewahrt, länger nur, wenn das Buchhaltungsrecht es für Kunden verlangt."
+    },
+    "recipients": {
+      "title": "Wer sie sehen kann",
+      "text": "Nur das Team von Facile Studio und der im Impressum genannte Hosting-Anbieter."
+    },
+    "rights": {
+      "title": "Ihre Rechte",
+      "text": "Sie können Ihre Daten einsehen, berichtigen oder löschen lassen, der Nutzung widersprechen oder sie einschränken und eine Kopie verlangen. Schreiben Sie an {email}, wir antworten innerhalb eines Monats. Wenn Sie meinen, dass wir unsere Pflichten verletzt haben, können Sie sich bei der CNIL (cnil.fr) beschweren."
+    },
+    "optOut": {
+      "title": "Besucherzählung deaktivieren",
+      "text": "Sie können die Besucherzählung jederzeit ablehnen. Die Wahl wird nur in diesem Browser gespeichert.",
+      "on": "Die Besucherzählung ist in diesem Browser aktiv.",
+      "off": "Die Besucherzählung ist in diesem Browser deaktiviert.",
+      "disable": "Deaktivieren",
+      "enable": "Wieder aktivieren"
+    }
+  }
+}
