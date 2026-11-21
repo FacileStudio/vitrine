@@ -137,6 +137,8 @@ export function DitherModel({
 
         const spot = new THREE.SpotLight(glow, glowIntensity, 0, 0.2, 1, 0);
 
+        // three parks a new spot at (0, 1, 0), but the cone below is sized from the origin
+        spot.position.set(0, 0, 0);
         world.add(spot, spot.target);
         light.current = spot;
 
