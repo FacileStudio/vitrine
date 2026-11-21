@@ -11,7 +11,7 @@ export default function MethodPage() {
     const steps = useLocalized(useMethod());
 
     const slides = [
-        { key: "intro", title: t("meta.title"), text: t("scroll") },
+        { key: "intro", title: t("meta.title"), text: t("scroll", { count: steps.length }) },
         ...steps.map((s) => ({
             key: s.slug,
             anchor: s.slug,
