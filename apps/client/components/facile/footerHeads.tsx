@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { DitherView } from "@/webgl/lazy";
 import { useAfter } from "@/hooks/use-after";
@@ -24,10 +24,16 @@ function launched() {
     };
 }
 
-export default function FooterHeads({ open, active }: { open: boolean; active: boolean }) {
+export default function FooterHeads({ open, active, near }: { open: boolean; active: boolean; near: boolean }) {
     const refs = useRef<(HTMLDivElement | null)[]>([]);
-    const sharp = useAfter(open, GRID_DELAY);
     const heads = useMembers();
+    const [ready, setReady] = useState<ReadonlySet<string>>(() => new Set());
+    // a head still loading when the tween runs would pop in place, so the launch waits for all of them
+    const go = open && heads.every((head) => ready.has(head.slug));
+    const sharp = useAfter(go, GRID_DELAY);
+
+    const markReady = (slug: string) =>
+        setReady((done) => (done.has(slug) ? done : new Set(done).add(slug)));
 
     useLayoutEffect(() => {
         gsap.set(refs.current, launched());
@@ -37,18 +43,18 @@ export default function FooterHeads({ open, active }: { open: boolean; active: b
         const heads = refs.current;
 
         gsap.to(heads, {
-            ...(open ? { x: 0, y: 0 } : launched()),
+            ...(go ? { x: 0, y: 0 } : launched()),
             delay: 0.6,
-            duration: open ? 1.5 : 1,
-            stagger: open ? 0.15 : 0.1,
-            ease: open ? "power3.out" : "power3.in",
+            duration: go ? 1.5 : 1,
+            stagger: go ? 0.15 : 0.1,
+            ease: go ? "power3.out" : "power3.in",
             overwrite: true,
         });
 
         return () => {
             gsap.killTweensOf(heads);
         };
-    }, [open]);
+    }, [go]);
 
     return (
         // phones line the heads up in the gap between the links and the contact block, so none sits on a link
@@ -63,6 +69,8 @@ export default function FooterHeads({ open, active }: { open: boolean; active: b
                         file={head.model!}
                         className="absolute inset-0 h-full w-full"
                         active={active}
+                        // parked heads sit outside the footer's overflow clip, so the boot observer never sees them
+                        boot={near ? "soon" : "idle"}
                         gridSize={sharp ? 1 : 9}
                         position={[0, -1, 0]}
                         rotation={[0, 0, 0]}
@@ -75,6 +83,7 @@ export default function FooterHeads({ open, active }: { open: boolean; active: b
                         idle={0.12}
                         ambient={0}
                         float={false}
+                        onReady={() => markReady(head.slug)}
                     />
                 </div>
             ))}

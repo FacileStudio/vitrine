@@ -13,6 +13,7 @@ export default function Footer() {
     const sectionRef = useRef<HTMLElement>(null);
     const [show, setShow] = useState(false);
     const [animate, setAnimate] = useState(false);
+    const [near, setNear] = useState(false);
     const t = useTranslations("common");
     const legal = useTranslations("legal.links");
 
@@ -24,11 +25,14 @@ export default function Footer() {
         setShow(inView);
 
         setAnimate(rect.top <= window.innerHeight * 0.7);
+
+        if (rect.top < window.innerHeight * 2.5)
+            setNear(true);
     });
 
     return (
         <section ref={sectionRef} id="contact" className="relative w-full h-screen overflow-hidden flex flex-col bg-foreground justify-between py-12 pt-28 px-6 md:px-12 lg:px-20">
-            <FooterHeads open={animate} active={show} />
+            <FooterHeads open={animate} active={show} near={near} />
 
             <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8 relative z-10">
                 <div className="flex flex-col items-start gap-8">

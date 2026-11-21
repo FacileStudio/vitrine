@@ -16,6 +16,9 @@ import { queueBoot, type Boot } from "./boot";
 
 const BOOT_MARGIN = "150% 0px";
 
+// the grid tween runs outside Suspense, so a model that lands after it would pop in already sharp
+const LOADING_GRID = 14;
+
 // three dropped webgl1, so without webgl2 the canvas can only throw
 const webgl2 = typeof window !== "undefined" && typeof window.WebGL2RenderingContext !== "undefined";
 
@@ -41,6 +44,7 @@ export interface DitherViewProps extends DitherModelProps {
     active?: boolean;
     boot?: Boot;
     gridTarget?: { current: number };
+    onReady?: () => void;
 }
 
 export function DitherView({
@@ -65,6 +69,7 @@ export function DitherView({
     active: activeOverride,
     boot = "idle",
     gridTarget,
+    onReady,
     ...model
 }: DitherViewProps) {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -77,6 +82,7 @@ export function DitherView({
     const [failed, setFailed] = useState(!webgl2);
     const [booted, setBooted] = useState(boot === "now");
     const ticket = useRef<{ done: () => void } | null>(null);
+    const [ready, setReady] = useState(false);
 
     useEffect(() => {
         release.current = registerScene();
@@ -117,6 +123,17 @@ export function DitherView({
         release.current?.();
         ticket.current?.done();
     }, []);
+
+    // Ready recompiles whenever its callback changes, so it stays stable and onReady fires from state
+    const loaded = useCallback(() => {
+        done();
+        setReady(true);
+    }, [done]);
+
+    useEffect(() => {
+        if (ready || failed)
+            onReady?.();
+    }, [ready, failed, onReady]);
 
     useEffect(() => {
         const el = containerRef.current;
@@ -161,6 +178,8 @@ export function DitherView({
                     className=""
                     // r3f puts pointer-events: auto inline on its wrapper, which let a giant hero canvas swallow the footer links
                     style={{ pointerEvents: "none" }}
+                    // the default measure runs through a scroll debounce that lenis resets every frame, so no canvas mounted mid-scroll
+                    resize={{ scroll: false, debounce: 0 }}
                     dpr={dpr}
                     // shadows only exist in the 64px environment bake; pcf's linear depth compare makes firefox warn once per canvas
                     shadows={lite ? false : { type: THREE.BasicShadowMap }}
@@ -196,12 +215,12 @@ export function DitherView({
                             </group>
                         ))}
                         <EnvironmentWrapper intensity={intensity} highlight={highlight} />
-                        <Ready done={done} />
+                        <Ready done={loaded} />
                     </Suspense>
                     <PerformanceMonitor factor={1} flipflops={3} onChange={({ factor }) => setQuality(0.5 + factor / 2)} />
                     <PostProcessing
                         nativeDpr={nativeDpr}
-                        gridSize={gridSize}
+                        gridSize={ready || failed ? gridSize : Math.max(gridSize, LOADING_GRID)}
                         gridTarget={gridTarget}
                         pixelSizeRatio={pixelSizeRatio}
                         grayscaleOnly={grayscaleOnly}
