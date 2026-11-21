@@ -2,6 +2,9 @@ import type { PrismaClient } from '@repo/database';
 
 const DAY_WINDOW = 14;
 
+// the CNIL audience-measurement exemption caps per-visitor records at 25 months
+const RETENTION_MONTHS = 25;
+
 const startOfDay = (date = new Date()) =>
   new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
 
@@ -45,6 +48,14 @@ export const statisticsService = {
     });
 
     return { visitorKey };
+  },
+
+  pruneVisitors: async (db: PrismaClient) => {
+    const cutoff = new Date();
+
+    cutoff.setUTCMonth(cutoff.getUTCMonth() - RETENTION_MONTHS);
+    await db.siteDailyVisitor.deleteMany({ where: { date: { lt: cutoff } } });
+    await db.siteVisitor.deleteMany({ where: { lastSeenAt: { lt: cutoff } } });
   },
 
   getOverview: async (db: PrismaClient) => {

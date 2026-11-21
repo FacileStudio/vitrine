@@ -31,3 +31,4 @@ export type RouterInputs = inferRouterInputs<AppRouter>;
 export { createContext, type Context, type CreateContextOptions } from './context';
 export { publicProcedure, protectedProcedure, adminProcedure } from './trpc';
 export { globalCacheFactory } from './cache';
+export { default as statisticsService } from './modules/statistics/service';

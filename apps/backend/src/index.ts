@@ -1,7 +1,8 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { trpcServer } from '@hono/trpc-server';
-import { appRouter, createContext } from '@repo/trpc';
+import { appRouter, createContext, statisticsService } from '@repo/trpc';
+import { prisma } from '@repo/database';
 import { AuthManager } from '@repo/auth';
 import { createStorage } from '@repo/storage';
 import { serverEnvSchema } from '@repo/env';
@@ -82,6 +83,15 @@ setInterval(() => {
     .pruneExpiredSessions()
     .catch((err) => logger.error({ err }, 'Failed to prune expired sessions'));
 }, SESSION_PRUNE_INTERVAL_MS);
+
+const VISITOR_PRUNE_INTERVAL_MS = 24 * 60 * 60 * 1000;
+const pruneVisitors = () =>
+  statisticsService
+    .pruneVisitors(prisma)
+    .catch((err) => logger.error({ err }, 'Failed to prune old visitors'));
+
+pruneVisitors();
+setInterval(pruneVisitors, VISITOR_PRUNE_INTERVAL_MS);
 
 app.get('/', (c) => c.json({ message: 'tRPC Backend' }));
 
