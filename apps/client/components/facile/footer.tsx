@@ -25,7 +25,7 @@ export default function Footer() {
     });
 
     return (
-        <section ref={sectionRef} id="contact" className="relative w-full h-screen overflow-hidden flex flex-col bg-foreground justify-between py-12 pt-28 px-12 lg:px-20">
+        <section ref={sectionRef} id="contact" className="relative w-full h-screen overflow-hidden flex flex-col bg-foreground justify-between py-12 pt-28 px-6 md:px-12 lg:px-20">
             <FooterHeads open={animate} active={show} />
 
             <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8 relative z-10">
@@ -49,7 +49,7 @@ export default function Footer() {
                 <ContactLinks open={show} delay={0.6} className="flex flex-col md:flex-row items-start gap-x-8 gap-y-2" />
 
                 <TextReveal as="p" open={show} delay={0.8} className="text-background/40">
-                    <span className="flex items-center gap-3">
+                    <span className="flex items-center gap-3 whitespace-nowrap">
                         {t("footer.madeBy")}
                         <img src="/Facile.svg" alt="Facile." className="h-[24px] mb-3 w-auto invert opacity-40" />
                     </span>

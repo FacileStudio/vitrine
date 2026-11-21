@@ -51,12 +51,13 @@ export default function FooterHeads({ open, active }: { open: boolean; active: b
     }, [open]);
 
     return (
-        <div className="absolute bottom-0 left-0 mb-60 h-1/2 w-screen pointer-events-none grid grid-cols-2 grid-rows-2 place-content-center place-items-center lg:flex lg:items-end lg:justify-center">
+        // phones line the heads up in the gap between the links and the contact block, so none sits on a link
+        <div className="absolute bottom-0 left-0 mb-40 h-[20vh] w-screen pointer-events-none grid grid-cols-4 place-content-center place-items-center md:mb-60 md:h-1/2 md:grid-cols-2 md:grid-rows-2 lg:flex lg:items-end lg:justify-center">
             {heads.map((head, i) => (
                 <div
                     key={head.slug}
                     ref={(el) => { refs.current[i] = el; }}
-                    className="relative h-[30vh] w-full md:h-[50vh] md:w-[22vw] shrink-0"
+                    className="relative h-[20vh] w-full md:h-[50vh] md:w-[22vw] shrink-0"
                 >
                     <DitherView
                         file={head.model!}

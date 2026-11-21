@@ -129,10 +129,10 @@ const Menu = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: React
                 open={menuOpen}
                 delay={OPEN_AT.link}
                 onSamePage={() => setMenuOpen(false)}
-                className="absolute -translate-y-1/2 top-1/3 right-0 pr-20 z-50 justify-end [&_.subtitle]:font-magnetik!"
+                className="absolute -translate-y-1/2 top-1/3 left-6 mr-0 z-50 md:left-auto md:right-0 md:mr-12 md:pr-20 md:justify-end [&_.subtitle]:font-magnetik!"
             />
 
-            <ContactLinks open={menuOpen} delay={OPEN_AT.contact} className="absolute bottom-12 right-20 z-50 hidden md:flex" />
+            <ContactLinks open={menuOpen} delay={OPEN_AT.contact} className="absolute bottom-12 left-6 z-50 flex-col items-start gap-3 md:left-auto md:right-20 md:flex-row md:items-center md:gap-12" />
         </div>
     );
 }
