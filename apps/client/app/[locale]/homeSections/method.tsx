@@ -10,6 +10,7 @@ import { useMethod } from "@/components/facile/contentProvider";
 import Heading from "../method/components/heading";
 import MethodCard from "../method/components/methodCard";
 import MethodSide from "./methodSide";
+import MethodMirror from "./methodMirror";
 
 // six tiles fill a 4-column grid in three rows: one big, one wide pair, three singles, one wide close
 const SPANS = [
@@ -20,6 +21,9 @@ const SPANS = [
     "",
     "md:col-span-2 lg:col-span-3",
 ];
+
+// "sides": two mirrored views at the screen edges; "mirror": the manifesto backdrop flipped left to right
+const BACKDROP: "sides" | "mirror" = "mirror";
 
 export default function Method() {
     const t = useTranslations("method");
@@ -36,8 +40,14 @@ export default function Method() {
             {/* the views stay on screen while the cards scroll past, behind the glass so its blur picks them up */}
             <div className="pointer-events-none absolute inset-0" aria-hidden="true">
                 <div className="sticky top-0 h-screen w-full">
-                    <MethodSide open={open} />
-                    <MethodSide open={open} mirrored />
+                    {BACKDROP === "sides" ? (
+                        <>
+                            <MethodSide open={open} />
+                            <MethodSide open={open} mirrored />
+                        </>
+                    ) : (
+                        <MethodMirror open={open} />
+                    )}
                 </div>
             </div>
 
