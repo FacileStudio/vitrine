@@ -5,6 +5,7 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { Center, Float, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import { trackBytes } from "./loadBytes";
+import { bitmapTextures } from "./bitmapTextures";
 
 export interface DitherModelProps {
     file: string;
@@ -28,6 +29,11 @@ export interface DitherModelProps {
 
 const SCALE_EASE = 0.3;
 
+const extendLoader: Parameters<typeof useGLTF>[3] = (loader) => {
+    trackBytes(loader);
+    bitmapTextures(loader);
+};
+
 const headAt = new THREE.Vector3();
 const headScale = new THREE.Vector3();
 
@@ -50,7 +56,7 @@ export function DitherModel({
     follow,
     scaleTarget,
 }: DitherModelProps) {
-    const { scene } = useGLTF(file, false, true, trackBytes);
+    const { scene } = useGLTF(file, false, true, extendLoader);
     const canvas = useThree((state) => state.gl.domElement);
     const world = useThree((state) => state.scene);
     const shift = useRef<THREE.Group>(null);
@@ -63,19 +69,29 @@ export function DitherModel({
 
     useEffect(() => {
         if (!parallax || follow) return;
-        const onMove = (e: PointerEvent) => {
+        const onMove = (e: { clientX: number; clientY: number }) => {
             cursor.current = { x: e.clientX, y: e.clientY };
             moved.current = true;
+        };
+        const onTouch = (e: TouchEvent) => {
+            const t = e.touches[0];
+
+            if (t)
+                onMove(t);
         };
         const onScroll = () => {
             moved.current = true;
         };
 
         window.addEventListener("pointermove", onMove, { passive: true });
+        window.addEventListener("pointerdown", onMove, { passive: true });
+        window.addEventListener("touchmove", onTouch, { passive: true });
         window.addEventListener("scroll", onScroll, { passive: true });
 
         return () => {
             window.removeEventListener("pointermove", onMove);
+            window.removeEventListener("pointerdown", onMove);
+            window.removeEventListener("touchmove", onTouch);
             window.removeEventListener("scroll", onScroll);
         };
     }, [parallax, follow]);

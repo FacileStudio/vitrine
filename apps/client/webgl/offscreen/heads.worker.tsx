@@ -17,9 +17,10 @@ export type HeadModel = {
     roughness?: number;
     hairColor?: string;
     glow?: string;
+    glowIntensity?: number;
 };
 
-export type HeadsData = { models: HeadModel[]; away: V[]; on: boolean[]; swift: boolean; grid: number; fine: number };
+export type HeadsData = { models: HeadModel[]; away: V[]; on: boolean[]; swift: boolean; grid: number; fine: number; ratio: number; sway: { parallax: number; speed: number } };
 
 export type HeadsMessage =
     | { type: "models"; models: HeadModel[]; away: V[] }
@@ -122,7 +123,7 @@ function Flights() {
     return null;
 }
 
-function HeadsScene({ nativeDpr, fine }: { nativeDpr: number; fine: number }) {
+function HeadsScene({ nativeDpr, fine, ratio, sway }: { nativeDpr: number; fine: number; ratio: number; sway: HeadsData["sway"] }) {
     const list = useSyncExternalStore(subscribe, () => models);
 
     return (
@@ -138,12 +139,13 @@ function HeadsScene({ nativeDpr, fine }: { nativeDpr: number; fine: number }) {
                             roughness={m.roughness}
                             metalness={0.6}
                             hairColor={m.hairColor}
-                            parallax={0.2}
-                            parallaxSpeed={0.02}
+                            parallax={sway.parallax}
+                            parallaxSpeed={sway.speed}
                             idle={0.12}
                             float={false}
                             offset={offsets[i]}
                             glow={m.glow}
+                            glowIntensity={m.glowIntensity}
                             follow={follow}
                         />
                     </group>
@@ -156,7 +158,7 @@ function HeadsScene({ nativeDpr, fine }: { nativeDpr: number; fine: number }) {
                 nativeDpr={nativeDpr}
                 gridSize={fine}
                 gridTarget={grid}
-                pixelSizeRatio={10}
+                pixelSizeRatio={ratio}
                 rotation={Math.PI / 4}
                 bloom
                 bloomIntensity={0.5}
@@ -173,7 +175,7 @@ serve<HeadsData, HeadsMessage>(
         place(data.models, data.away);
         fly(data.on, data.swift);
 
-        return <HeadsScene nativeDpr={nativeDpr} fine={data.fine} />;
+        return <HeadsScene nativeDpr={nativeDpr} fine={data.fine} ratio={data.ratio} sway={data.sway} />;
     },
     (message) => {
         if (message.type === "models")

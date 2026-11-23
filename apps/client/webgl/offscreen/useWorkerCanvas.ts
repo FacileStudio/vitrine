@@ -70,11 +70,20 @@ export function useWorkerCanvas<T>(box: RefObject<HTMLDivElement | null>, { crea
         canvas.style.height = "100%";
         el.appendChild(canvas);
 
-        const onMove = (e: PointerEvent) => send({
+        // x and y run from -1 to 1 across the viewport, centred on its middle
+        const aim = (cx: number, cy: number) => send({
             type: "pointer",
-            x: (e.clientX - window.innerWidth / 2) / (window.innerWidth / 2),
-            y: -(e.clientY - window.innerHeight / 2) / (window.innerHeight / 2),
+            x: (cx - window.innerWidth / 2) / (window.innerWidth / 2),
+            y: -(cy - window.innerHeight / 2) / (window.innerHeight / 2),
         });
+        const onMove = (e: PointerEvent) => aim(e.clientX, e.clientY);
+        // a swipe that turns into a scroll cancels pointer events, but touchmove keeps firing
+        const onTouch = (e: TouchEvent) => {
+            const t = e.touches[0];
+
+            if (t)
+                aim(t.clientX, t.clientY);
+        };
         const ro = new ResizeObserver(() => send({ type: "size", ...measure() }));
 
         const start = () => {
@@ -100,6 +109,8 @@ export function useWorkerCanvas<T>(box: RefObject<HTMLDivElement | null>, { crea
             send({ type: "init", canvas: target, ...measure(), nativeDpr, lite, data: latest.current.data }, [target]);
             ro.observe(el);
             window.addEventListener("pointermove", onMove, { passive: true });
+            window.addEventListener("pointerdown", onMove, { passive: true });
+            window.addEventListener("touchmove", onTouch, { passive: true });
         };
 
         slot = queueBoot(stage, start);
@@ -108,6 +119,8 @@ export function useWorkerCanvas<T>(box: RefObject<HTMLDivElement | null>, { crea
             slot?.cancel();
             ro.disconnect();
             window.removeEventListener("pointermove", onMove);
+            window.removeEventListener("pointerdown", onMove);
+            window.removeEventListener("touchmove", onTouch);
             worker.current?.terminate();
             worker.current = null;
             canvas.remove();

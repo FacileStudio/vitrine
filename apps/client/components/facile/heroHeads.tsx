@@ -15,13 +15,24 @@ import { EASE } from "@/lib/animations";
 
 // dx/dy point out of the screen; turn (degrees, clockwise) lays the head on its side (top heads: crown toward the centre, bottom heads: torso toward the centre), so yaw (radians) looks up or down at the copy; bleed is the % of its box the head is pushed off-screen inside its canvas; zoom scales one head against the others; mobile overrides turn and bleed under 768px
 const CORNERS = [
-    { turn: 60, dx: -1, dy: -1, yaw: 0.9, pitch: -0.2, bleed: { x: 55, y: 35 }, zoom: 0.6, shift: { x: 0, y: 8 }, mobile: { turn: 20, bleed: { x: 60, y: 20 } } },
-    { turn: -60, dx: 1, dy: -1, yaw: -0.9, pitch: -0.2, bleed: { x: 40, y: 20 }, zoom: 0.7, shift: { x: 10, y: -5 }, mobile: { turn: -20, bleed: { x: 30, y: 10 } } },
-    { turn: -60, dx: -1, dy: 1, yaw: 0.9, pitch: 0.2, bleed: { x: 20, y: 50 }, zoom: 0.7, shift: { x: 8, y: 0 }, mobile: { turn: -20, bleed: { x: 60, y: 30 } } },
-    { turn: 60, dx: 1, dy: 1, yaw: -0.9, pitch: 0.2, bleed: { x: 15, y: 40 }, zoom: 0.7, shift: { x: 0, y: 8 }, mobile: { turn: 20, bleed: { x: 25, y: 20 } } },
+    { turn: 60, dx: -1, dy: -1, yaw: 0.9, pitch: -0.2, bleed: { x: 55, y: 35 }, zoom: 0.8, shift: { x: 0, y: 8 }, mobile: { turn: 30, bleed: { x: 65, y: 10 } } }, //fanga
+    { turn: -60, dx: 1, dy: -1, yaw: -0.9, pitch: -0.2, bleed: { x: 40, y: 20 }, zoom: 0.8, shift: { x: 10, y: -5 }, mobile: { turn: -30, bleed: { x: 45, y: 0 } } }, //noah
+    { turn: -60, dx: -1, dy: 1, yaw: 0.9, pitch: 0.2, bleed: { x: 20, y: 50 }, zoom: 0.8, shift: { x: 8, y: 0 }, mobile: { turn: -30, bleed: { x: 50, y: 40 } } }, //mazz
+    { turn: 60, dx: 1, dy: 1, yaw: -0.9, pitch: 0.2, bleed: { x: 15, y: 40 }, zoom: 0.8, shift: { x: 0, y: 8 }, mobile: { turn: 30, bleed: { x: 35, y: 35 } } }, //camille
 ];
 
-const GRID = { coarse: 5, sharp: 1.75 };
+// a cell is grid × ratio canvas px and the shader floors grid at one canvas px, so phones (dpr ≤ 1) can only shrink cells through ratio
+const GRIDS = { wide: { coarse: 5, sharp: 1.25, ratio: 10 }, narrow: { coarse: 3, sharp: 1.25, ratio: 5 } };
+
+const gridFor = (narrow: boolean) => (narrow ? GRIDS.narrow : GRIDS.wide);
+
+// a finger only lands now and then, so phones turn further toward it and get there faster than a mouse cursor
+const SWAYS = { wide: { parallax: 0.2, speed: 0.02 }, narrow: { parallax: 0.4, speed: 0.08 } };
+
+const swayFor = (narrow: boolean) => (narrow ? SWAYS.narrow : SWAYS.wide);
+
+// the hero heads sit close to the camera, so the default glow of 10 washes them out
+const GLOW = 2.5;
 
 const OUT = 0.6;
 const ROOM = 1.5;
@@ -149,12 +160,13 @@ function MainHeads({ heads, on, swift, sharp, narrow, w, h }: Shared) {
         roughness: head.roughness,
         metalness: 0.6,
         hairColor: head.hair ?? undefined,
-        parallax: 0.2,
-        parallaxSpeed: 0.02,
+        parallax: swayFor(narrow).parallax,
+        parallaxSpeed: swayFor(narrow).speed,
         idle: 0.12,
         float: false,
         offset: offsets[i],
         glow: head.highlight,
+        glowIntensity: GLOW,
     })) : []), [heads, narrow, w, h, offsets]);
 
     return models.length > 0 ? (
@@ -162,7 +174,8 @@ function MainHeads({ heads, on, swift, sharp, narrow, w, h }: Shared) {
             file={models[0].file}
             models={models}
             className="absolute inset-0"
-            gridSize={sharp ? GRID.sharp : GRID.coarse}
+            gridSize={sharp ? gridFor(narrow).sharp : gridFor(narrow).coarse}
+            pixelSizeRatio={gridFor(narrow).ratio}
             active={heads.some((_, i) => !parked[i])}
             boot="soon"
             intensity={0.8}
@@ -184,10 +197,12 @@ function WorkerHeads({ heads, on, swift, sharp, narrow, w, h, onFail }: Shared &
         roughness: head.roughness,
         hairColor: head.hair ?? undefined,
         glow: head.highlight,
+        glowIntensity: GLOW,
     })), [heads, narrow, w, h]);
     const aways = useMemo(() => heads.map((_, i) => away(i, narrow, w, h)), [heads, narrow, w, h]);
-    const grid = sharp ? GRID.sharp : GRID.coarse;
-    const data: HeadsData = { models, away: aways, on, swift, grid, fine: GRID.sharp };
+    const { sharp: fine, coarse, ratio } = gridFor(narrow);
+    const grid = sharp ? fine : coarse;
+    const data: HeadsData = { models, away: aways, on, swift, grid, fine, ratio, sway: swayFor(narrow) };
 
     const ready = useCallback(() => settle.current?.(), []);
     const fail = useCallback(() => {
