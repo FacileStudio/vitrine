@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactNode } from "react";
+import type { CSSProperties, HTMLAttributes, ReactNode, Ref } from "react";
 import { isVideoFile } from "@/lib/utils";
 
 // --band and --cell stay in the class list: an inline style would beat the phone breakpoint
@@ -44,16 +44,18 @@ export function Block({ cols, tall = false, className = "", children }: SpanProp
     );
 }
 
-type CellProps = {
+type CellProps = Omit<HTMLAttributes<HTMLDivElement>, "style"> & {
+    ref?: Ref<HTMLDivElement>;
     col?: string;
     row?: string;
     className?: string;
     children: ReactNode;
 };
 
-export function Cell({ col, row, className = "", children }: CellProps) {
+export function Cell({ col, row, className = "", children, ...rest }: CellProps) {
     return (
         <div
+            {...rest}
             style={{ gridColumn: col, gridRow: row }}
             className={`min-h-0 min-w-0 overflow-hidden rounded-fc ${className}`}
         >

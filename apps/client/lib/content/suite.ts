@@ -9,6 +9,8 @@ interface AuthoredApp {
     description: Localized;
     icon: string;
     link?: string;
+    // the two gradient stops of the app's icon
+    tint?: string[];
     story?: StorySection[];
 }
 

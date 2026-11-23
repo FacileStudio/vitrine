@@ -7,8 +7,8 @@ type StoryCopy = ReturnType<typeof useTranslations<"suite.story">>;
 const FEATURED = new Set(["vision", "opus", "glouton", "nuage", "journal", "plume"]);
 
 const tile = (a: SuiteApp): Tile => FEATURED.has(a.slug)
-    ? { label: a.name, text: a.tagline, icon: a.icon, featured: true, description: a.description, link: a.link }
-    : { label: a.name, text: a.tagline, icon: a.icon };
+    ? { label: a.name, text: a.tagline, icon: a.icon, featured: true, description: a.description, link: a.link, tint: a.tint }
+    : { label: a.name, text: a.tagline, icon: a.icon, link: a.link, tint: a.tint };
 
 const sixes = (apps: SuiteApp[]): StoryBlock[] =>
     apps.reduce<SuiteApp[][]>((rows, a, i) => {

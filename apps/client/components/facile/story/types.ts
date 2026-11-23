@@ -46,6 +46,7 @@ export interface Tile {
     featured?: boolean;
     description?: string;
     link?: string;
+    tint?: string[];
 }
 
 export interface StoryBlock {

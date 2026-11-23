@@ -29,10 +29,11 @@ export default function FeaturedTile({ tile }: { tile: Tile }) {
 
                 {tile.link ? (
                     <Line>
-                        <a href={tile.link} target="_blank" rel="noreferrer" className="button button-dark tagText flex items-center gap-2 font-medium">
+                        {/* the whole tile links to the app, so the host is a label: a link inside a link is invalid */}
+                        <span className="button button-dark tagText flex items-center gap-2 font-medium">
                             {new URL(tile.link).host}
                             <ChipIcon icon="iconoir:arrow-up-right" />
-                        </a>
+                        </span>
                     </Line>
                 ) : null}
             </div>

@@ -15,7 +15,11 @@
             "de": "Ein Klick zum Starten, ein Klick zum Stoppen. Aufschlüsselung nach Projekt und geteilte Sessions."
         },
         "icon": "/icons/Sablier.svg",
-        "link": "https://sablier.facile.studio"
+        "link": "https://sablier.facile.studio",
+        "tint": [
+            "#D9E963",
+            "#A8D97D"
+        ]
     },
     {
         "slug": "opus",
@@ -33,7 +37,11 @@
             "de": "Kanban, Aufgabenbeziehungen, Sofortsuche: das Minimum, das am meisten bewirkt."
         },
         "icon": "/icons/Opus.svg",
-        "link": "https://opus.facile.studio"
+        "link": "https://opus.facile.studio",
+        "tint": [
+            "#4F4AAB",
+            "#A39EE5"
+        ]
     },
     {
         "slug": "vision",
@@ -51,7 +59,11 @@
             "de": "Ein Skript, null Cookies, Echtzeitdaten."
         },
         "icon": "/icons/Vision.svg",
-        "link": "https://vision.facile.studio"
+        "link": "https://vision.facile.studio",
+        "tint": [
+            "#A4D8CE",
+            "#6B7CD9"
+        ]
     },
     {
         "slug": "glouton",
@@ -69,7 +81,11 @@
             "de": "Glouton durchsucht das Web, erkennt Tech-Stacks und bewertet Leads."
         },
         "icon": "/icons/Glouton.svg",
-        "link": "https://glouton.facile.studio"
+        "link": "https://glouton.facile.studio",
+        "tint": [
+            "#C45864",
+            "#D997AB"
+        ]
     },
     {
         "slug": "ardoise",
@@ -87,7 +103,11 @@
             "de": "Stripe integriert, automatische E-Mails, Belege zum Herunterladen."
         },
         "icon": "/icons/Ardoise.svg",
-        "link": "https://ardoise.facile.studio"
+        "link": "https://ardoise.facile.studio",
+        "tint": [
+            "#AFE98B",
+            "#5A995E"
+        ]
     },
     {
         "slug": "plume",
@@ -105,7 +125,11 @@
             "de": "PDF hochladen, Felder platzieren, Link senden."
         },
         "icon": "/icons/Plume.svg",
-        "link": "https://plume.facile.studio"
+        "link": "https://plume.facile.studio",
+        "tint": [
+            "#C85766",
+            "#D8937A"
+        ]
     },
     {
         "slug": "casier",
@@ -123,7 +147,11 @@
             "de": "AES-256-GCM-verschlüsselt, versioniert, vollständiges Audit-Log."
         },
         "icon": "/icons/Casier.svg",
-        "link": "https://casier.facile.studio"
+        "link": "https://casier.facile.studio",
+        "tint": [
+            "#C25DAC",
+            "#EE9294"
+        ]
     },
     {
         "slug": "antenne",
@@ -141,7 +169,11 @@
             "de": "Bündeln Sie die Alerts Ihrer gesamten Infrastruktur und senden Sie sie an Discord, Matrix oder per E-Mail."
         },
         "icon": "/icons/Antenne.svg",
-        "link": "https://antenne.facile.studio"
+        "link": "https://antenne.facile.studio",
+        "tint": [
+            "#DD7042",
+            "#FED974"
+        ]
     },
     {
         "slug": "nuage",
@@ -159,7 +191,11 @@
             "de": "Uploads, Ordner, Suche: ein internes Laufwerk, per API mit all Ihren Tools verbunden."
         },
         "icon": "/icons/Nuage.svg",
-        "link": "https://nuage.facile.studio"
+        "link": "https://nuage.facile.studio",
+        "tint": [
+            "#2E7F91",
+            "#82FFF9"
+        ]
     },
     {
         "slug": "courrier",
@@ -177,7 +213,11 @@
             "de": "Natives IMAP und SMTP, mehrere Konten, aufgeräumte Oberfläche."
         },
         "icon": "/icons/Courier.svg",
-        "link": "https://courrier.facile.studio"
+        "link": "https://courrier.facile.studio",
+        "tint": [
+            "#58AEAE",
+            "#89FFBA"
+        ]
     },
     {
         "slug": "agenda",
@@ -195,7 +235,11 @@
             "de": "Termine, Deadlines, Verfügbarkeiten, ganz ohne Google Calendar. Natives CalDAV."
         },
         "icon": "/icons/Calendar.svg",
-        "link": "https://agenda.facile.studio"
+        "link": "https://agenda.facile.studio",
+        "tint": [
+            "#527BBA",
+            "#6A9CE6"
+        ]
     },
     {
         "slug": "echo",
@@ -213,7 +257,11 @@
             "de": "Raum erstellen, Link teilen, fertig. Basiert auf Jitsi."
         },
         "icon": "/icons/Echo.svg",
-        "link": "https://echo.facile.studio"
+        "link": "https://echo.facile.studio",
+        "tint": [
+            "#7C5CC5",
+            "#F097FF"
+        ]
     },
     {
         "slug": "capsule",
@@ -231,7 +279,11 @@
             "de": "Ende-zu-Ende-Verschlüsselung im Browser, Zero-Knowledge auf dem Server."
         },
         "icon": "/icons/Capsule.svg",
-        "link": "https://capsule.facile.studio"
+        "link": "https://capsule.facile.studio",
+        "tint": [
+            "#B45E98",
+            "#FFB2D1"
+        ]
     },
     {
         "slug": "scribe",
@@ -249,7 +301,11 @@
             "de": "Audio aufnehmen, Transkript in Echtzeit und strukturierte Notizen erhalten."
         },
         "icon": "/icons/Scribe.svg",
-        "link": "https://scribe.facile.studio"
+        "link": "https://scribe.facile.studio",
+        "tint": [
+            "#F2E660",
+            "#CBFF6B"
+        ]
     },
     {
         "slug": "journal",
@@ -267,6 +323,10 @@
             "de": "Suchen, filtern, Alerts anlegen. Ein SDK pro Sprache, ein Docker-Collector."
         },
         "icon": "/icons/Journal.svg",
-        "link": "https://journal.facile.studio"
+        "link": "https://journal.facile.studio",
+        "tint": [
+            "#F69475",
+            "#FDBC94"
+        ]
     }
 ]

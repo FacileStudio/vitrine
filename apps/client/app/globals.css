@@ -104,6 +104,8 @@
     --foreground: #111111;
     --accent: #24E27A;
     --accent-ink: #0A7F42;
+    /* the accent pushed cooler and darker: hsl(158 62% 30%) against the accent's hsl(147 76% 51%) */
+    --accent-muted: #1D7C59;
     --fc-gap: 4px;
     --fc-radius: 0.375rem;
     --glass: rgb(33 33 33 / 0.2);
@@ -117,6 +119,7 @@
     --color-foreground: var(--foreground);
     --color-accent: var(--accent);
     --color-accent-ink: var(--accent-ink);
+    --color-accent-muted: var(--accent-muted);
     --font-goga: "Goga", Helvetica, "Helvetica Neue", Arial, sans-serif;
     --font-bb-mono: "BB Manual Mono", ui-monospace, monospace;
     --font-magnetik: "Magnetik", Helvetica, "Helvetica Neue", Arial, sans-serif;
@@ -134,7 +137,7 @@ body {
     font-family: var(--font-bb-mono);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, .title {
     font-family: var(--font-goga);
     font-weight: 500;
     text-transform: none;
@@ -203,7 +206,7 @@ p {
 }
 
 @media (48rem <= width < 64rem) {
-    h1, h2, h3, h4, h5, h6 {
+    h1, h2, h3, h4, h5, h6, .title {
         font-size: clamp(2.2rem, 6.25vh, 5rem);
     }
 
