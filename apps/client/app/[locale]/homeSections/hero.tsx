@@ -3,10 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { useTranslations } from "next-intl";
-import Link from "@/components/facile/transitionLink";
-import Arrow from "@/components/facile/arrow";
 import TextReveal from "@/components/facile/textReveal";
 import HeroHeads from "@/components/facile/heroHeads";
+import ProjectPeek from "@/components/facile/projectPeek";
 import { usePinProgress } from "@/hooks/use-pin-progress";
 
 export default function Hero({ charged }: { charged: boolean }) {
@@ -66,10 +65,7 @@ export default function Hero({ charged }: { charged: boolean }) {
                     </h1>
 
                     <TextReveal open={copyShown} leaving={copyGone} delay={at(1.2, copyGone)} cropClassName="hidden md:block w-fit">
-                        <Link href="/projects" className={`button button-dark group flex w-fit items-center gap-[1vh] ${copyGone ? "" : "pointer-events-auto"}`}>
-                            <p>{t("seeProjects")}</p>
-                            <Arrow />
-                        </Link>
+                        <ProjectPeek className={copyGone ? "" : "pointer-events-auto"} />
                     </TextReveal>
                 </div>
             </div>

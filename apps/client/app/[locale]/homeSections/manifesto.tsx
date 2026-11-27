@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import Link from "@/components/facile/transitionLink";
 import Stripes from "@/components/facile/stripes";
 import TextReveal from "@/components/facile/textReveal";
+import ProjectPeek from "@/components/facile/projectPeek";
 import Emphasis from "@/components/facile/emphasis";
 import { usePinProgress } from "@/hooks/use-pin-progress";
 import { useNarrow } from "@/hooks/use-narrow";
@@ -148,9 +149,7 @@ export default function Manifesto() {
 
                     <div ref={ctaRef} className="absolute left-1/2 mt-10 -translate-x-1/2">
                         <TextReveal open={showText && !trusted} leaving={leaving || trusted} duration={trusted ? 0.35 : 0.7} delay={trusted ? 0.08 : 0.5} cropClassName="w-fit">
-                            <Link href="/projects" className="button pointer-events-auto inline-block">
-                                <p>{t("seeProjects")}</p>
-                            </Link>
+                            <ProjectPeek className="pointer-events-auto" />
                         </TextReveal>
                     </div>
 
