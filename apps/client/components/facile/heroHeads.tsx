@@ -34,6 +34,9 @@ const swayFor = (narrow: boolean) => (narrow ? SWAYS.narrow : SWAYS.wide);
 // the hero heads sit close to the camera, so the default glow of 10 washes them out
 const GLOW = 2.5;
 
+// past ratio `from` (w/h), each extra unit of aspect pushes the heads `per` of their box further up or down, since a short wide screen squeezes them toward the centre
+const SPREAD = { from: 1.6, per: 0.25 };
+
 const OUT = 0.6;
 const ROOM = 1.5;
 const LIFT = 0.8;
@@ -77,7 +80,8 @@ function layout(i: number, narrow: boolean, w: number, h: number) {
     const ox = local.dot(RIGHT) * k;
     const oy = -local.dot(UP) * k;
     const x = dx * (w / 2 - s / 2) + (shift.x / 100) * s + ox * Math.cos(a) - oy * Math.sin(a);
-    const y = dy * (h / 2 - s / 2) + (shift.y / 100) * s + ox * Math.sin(a) + oy * Math.cos(a);
+    const spread = narrow ? 0 : dy * s * SPREAD.per * Math.max(0, w / h - SPREAD.from);
+    const y = dy * (h / 2 - s / 2) + spread + (shift.y / 100) * s + ox * Math.sin(a) + oy * Math.cos(a);
     const position = toWorld(x, y, h).sub(new THREE.Vector3(0, LIFT, 0));
 
     const roll = new THREE.Quaternion().setFromAxisAngle(TOWARD, -a);
