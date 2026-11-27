@@ -91,7 +91,7 @@ export default function DitherBackdrop({
                     className="absolute inset-0 h-full w-full opacity-20"
                     file={MODEL}
                     parallax={0.5}
-                    gridSize={on ? 3 : 14}
+                    gridSize={on ? 2 : 14}
                     lite={narrow}
                     scale={4}
                     models={[
