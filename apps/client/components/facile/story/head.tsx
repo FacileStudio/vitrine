@@ -6,7 +6,10 @@ import type { Person } from "./types";
 
 const Head = memo(DitherReveal);
 
-const PersonHead = memo(function PersonHead({ person, className = "", gridSize = 0.43, scaleMultiplier = 2.5, active }: {
+// the shader never draws a cell under one canvas pixel, so a head this small only gets finer through a lower ratio (default 10)
+const RATIO = 3;
+
+const PersonHead = memo(function PersonHead({ person, className = "", gridSize = 1, scaleMultiplier = 2.5, active }: {
     person: Person;
     className?: string;
     gridSize?: number;
@@ -16,7 +19,8 @@ const PersonHead = memo(function PersonHead({ person, className = "", gridSize =
     const dither = useMemo(() => ({
         active,
         lite: true,
-        gridSize: gridSize,
+        gridSize,
+        pixelSizeRatio: RATIO,
         intensity: 1.0,
         parallax: 0.6,
         parallaxSpeed: 0.05,
