@@ -1,10 +1,11 @@
 'use client'
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import Link from "@/components/facile/transitionLink";
 import TextReveal from "@/components/facile/textReveal";
 import { useInView } from "@/hooks/use-in-view";
+import { useScroll } from "@/hooks/use-scroll";
 import { useLocalized } from "@/lib/i18n/localize";
 import { useMethod } from "@/components/facile/contentProvider";
 import Heading from "../method/components/heading";
@@ -30,6 +31,10 @@ export default function Method() {
     const steps = useLocalized(useMethod());
     const ref = useRef<HTMLElement>(null);
     const open = useInView(ref, 0.6);
+    const [arrived, setArrived] = useState(false);
+
+    // like the shelf and story backdrops, the views only arrive once the section reaches the top of the screen
+    useScroll(() => setArrived((ref.current?.getBoundingClientRect().top ?? 1) <= 0));
 
     return (
         <section
@@ -39,14 +44,14 @@ export default function Method() {
         >
             {/* the views stay on screen while the cards scroll past, behind the glass so its blur picks them up */}
             <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-                <div className="sticky top-0 h-screen w-full">
+                <div className={`sticky top-0 h-screen w-full transition-opacity duration-800 ease-[cubic-bezier(0.7,0,0.3,1)] ${arrived ? "opacity-100" : "opacity-0"}`}>
                     {BACKDROP === "sides" ? (
                         <>
-                            <MethodSide open={open} />
-                            <MethodSide open={open} mirrored />
+                            <MethodSide open={arrived} />
+                            <MethodSide open={arrived} mirrored />
                         </>
                     ) : (
-                        <MethodMirror open={open} />
+                        <MethodMirror open={arrived} />
                     )}
                 </div>
             </div>
